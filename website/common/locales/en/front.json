@@ -116,6 +116,7 @@
   "missingPassword": "Missing password.",
   "missingNewPassword": "Missing new password.",
   "invalidEmailDomain": "You cannot register with emails with the following domains: <%= domains %>",
+  "emailBlockedRegistration": "This E-Mail is blocked from registration. If you think this is a mistake, please contact us at admin@habitica.com.",
   "wrongPassword": "Password is incorrect. If you forgot your password, click \"Forgot Password.\"",
   "incorrectDeletePhrase": "Please type <%= magicWord %> in all capital letters to delete your account.",
   "incorrectResetPhrase": "Please type <%= magicWord %> in all capital letters to reset your account.",

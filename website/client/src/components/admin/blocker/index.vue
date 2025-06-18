@@ -5,15 +5,33 @@
       <button
         class="btn btn-primary float-right"
         @click="showCreateForm = true">Create</button></h1>
-      <table class="table">
+      <table class="table table-bordered">
         <thead>
           <tr>
-            <th>Created at</th>
-            <th>Type</th>
-            <th>Area</th>
+            <th>Type <span class="info-icon" id="type_tooltip">?</span>
+              <b-tooltip
+          target="type_tooltip">
+          <b>IP-Address</b> - Block access for a specific IP-Address
+          <br />
+          <br />
+          <b>Client</b> - Block access for a client based on the "x-client" header.
+          <br />
+          <br />
+          <b>E-Mail</b> - Blocks e-mails from being used for signup.
+        </b-tooltip></th>
+            <th>Area <span class="info-icon" id="area_tooltip">?</span>
+              <b-tooltip
+          target="area_tooltip">
+          <b>Full</b> - Block access to the entire site.
+          <br />
+          <br />
+          <b>Payments</b> - Block access to any payment related functionality.
+        </b-tooltip></th>
             <th>Value</th>
             <th>Reason</th>
-            <th></th>
+            <th>Source</th>
+            <th>Created at</th>
+            <th class="btncol"></th>
           </tr>
         </thead>
         <tbody>
@@ -35,11 +53,12 @@
               @cancel="editedBlockerId = null"
             />
             <template v-else>
-              <td>{{ blocker.createdAt }}</td>
               <td>{{ getTypeName(blocker.type) }}</td>
               <td>{{ getAreaName(blocker.area) }}</td>
               <td>{{ blocker.value }}</td>
-              <td>{{ blocker.reason }}</td>
+              <td>{{ blocker.reason || "--" }}</td>
+              <td>{{ blocker.blockSource }}</td>
+              <td>{{ blocker.createdAt }}</td>
               <td>
                 <button
                   class="btn btn-primary mr-2"
@@ -71,25 +90,46 @@
 </template>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/colors.scss';
+
   .blocker-content {
     flex: 0 0 100%;
     max-width: 1200px;
   }
 
-  .action-column {
-    width: 120px;
-  }
-
   .btn {
     padding: 0.4rem 0.75rem;
+  }
+
+  .btncol {
+    width: 123px;
+  }
+
+  td {
+    font-size: 1rem;
+  }
+
+  .info-icon {
+    font-size: 0.8rem;
+    color: $purple-400;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    background-color: $gray-500;
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.2rem;
+  }
+
+  .info-icon:hover {
+    background-color: $purple-400;
+    color: white;
   }
 </style>
 
 <script>
 import { mapState } from '@/libs/store';
 
-import editIcon from '@/assets/svg/edit.svg';
-import deleteIcon from '@/assets/svg/delete.svg';
+import editIcon from '@/assets/svg/edit.svg?raw';
+import deleteIcon from '@/assets/svg/delete.svg?raw';
 import BlockerForm from './blocker_form.vue';
 
 export default {
