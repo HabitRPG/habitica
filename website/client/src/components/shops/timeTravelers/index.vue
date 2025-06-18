@@ -268,7 +268,9 @@ export default {
       const now = new Date();
       const { plan } = this.user.purchased;
       return plan && plan.customerId
-      && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
+      && (!plan.dateTerminated
+      || moment(plan.dateTerminated).isAfter(now)
+      || this.user.purchased.plan.consecutive.trinkets > 0);
     },
 
     shop () {
