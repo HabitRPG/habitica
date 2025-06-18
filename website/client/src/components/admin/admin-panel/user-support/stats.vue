@@ -189,7 +189,7 @@ import markdownDirective from '@/directives/markdown';
 import saveHero from '../mixins/saveHero';
 
 import { mapState } from '@/libs/store';
-import { userStateMixin } from '../../../mixins/userState';
+import { userStateMixin } from '../../../../mixins/userState';
 
 import StatsRow from './stats-row';
 

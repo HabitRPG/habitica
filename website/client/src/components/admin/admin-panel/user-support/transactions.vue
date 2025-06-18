@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import PurchaseHistoryTable from '../../ui/purchaseHistoryTable.vue';
-import { userStateMixin } from '../../../mixins/userState';
+import PurchaseHistoryTable from '../../../ui/purchaseHistoryTable.vue';
+import { userStateMixin } from '../../../../mixins/userState';
 
 export default {
   components: {

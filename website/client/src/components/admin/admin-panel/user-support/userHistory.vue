@@ -180,7 +180,7 @@
 
 <script>
 import moment from 'moment';
-import { userStateMixin } from '../../../mixins/userState';
+import { userStateMixin } from '../../../../mixins/userState';
 
 export default {
   filters: {

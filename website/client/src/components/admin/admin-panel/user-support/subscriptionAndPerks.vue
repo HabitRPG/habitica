@@ -421,7 +421,7 @@ import isUUID from 'validator/es/lib/isUUID';
 import moment from 'moment';
 import { getPlanContext } from '@/../../common/script/cron';
 import saveHero from '../mixins/saveHero';
-import subscriptionBlocks from '../../../../../common/script/content/subscriptionBlocks';
+import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 import LoadingSpinner from '@/components/ui/loadingSpinner';
 
 export default {

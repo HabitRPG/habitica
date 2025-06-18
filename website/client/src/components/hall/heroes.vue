@@ -286,7 +286,7 @@
                       :to="{ name: 'adminPanelUser',
                              params: { userIdentifier: hero._id } }"
                     >
-                      admin panel
+                      {{ $t("adminPanel") }}
                     </router-link>
                   </span>
                 </td>

@@ -1,7 +1,7 @@
 <template>
   <div class="row standard-page col-12 d-flex justify-content-center">
     <div class="admin-panel-content">
-      <h1>Admin Panel</h1>
+      <h1>{{ $t("adminPanel") }}</h1>
       <form
         class="form-inline"
         @submit.prevent="searchUsers(userIdentifier)"
@@ -72,7 +72,7 @@ export default {
   },
   mounted () {
     this.$store.dispatch('common:setTitle', {
-      section: 'Admin Panel',
+      section: this.$t('adminPanel'),
     });
   },
   methods: {
