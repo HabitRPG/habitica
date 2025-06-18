@@ -990,7 +990,14 @@ export default {
     }, 500),
     proceed (accountType) {
       if (accountType === 'local') {
-        this.username = this.email.split('@')[0].replace(/[^a-zA-Z0-9\-_]/g, '');
+        const usernameToCheck = this.email.split('@')[0].replace(/[^a-zA-Z0-9\-_]/g, '');
+        this.$store.dispatch('auth:verifyUsername', {
+          username: usernameToCheck,
+        }).then(res => {
+          if (!res.issues) {
+            this.username = usernameToCheck;
+          }
+        });
       }
       this.showTerms = accountType;
     },
