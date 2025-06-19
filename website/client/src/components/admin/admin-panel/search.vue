@@ -55,7 +55,7 @@
 <script>
 import VueRouter from 'vue-router';
 import { mapState } from '@/libs/store';
-import LoadingSpinner from '../ui/loadingSpinner';
+import LoadingSpinner from '../../ui/loadingSpinner';
 
 const { isNavigationFailure, NavigationFailureType } = VueRouter;
 
