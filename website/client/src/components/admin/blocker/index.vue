@@ -1,32 +1,49 @@
 <template>
   <div class="row standard-page col-12 d-flex justify-content-center">
     <div class="blocker-content">
-      <h1>Blockers
-      <button
-        class="btn btn-primary float-right"
-        @click="showCreateForm = true">Create</button></h1>
+      <h1>
+        Blockers
+        <button
+          class="btn btn-primary float-right"
+          @click="showCreateForm = true"
+        >
+          Create
+        </button>
+      </h1>
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>Type <span class="info-icon" id="type_tooltip">?</span>
+            <th>
+              Type <span
+                id="type_tooltip"
+                class="info-icon"
+              >?</span>
               <b-tooltip
-          target="type_tooltip">
-          <b>IP-Address</b> - Block access for a specific IP-Address
-          <br />
-          <br />
-          <b>Client</b> - Block access for a client based on the "x-client" header.
-          <br />
-          <br />
-          <b>E-Mail</b> - Blocks e-mails from being used for signup.
-        </b-tooltip></th>
-            <th>Area <span class="info-icon" id="area_tooltip">?</span>
+                target="type_tooltip"
+              >
+                <b>IP-Address</b> - Block access for a specific IP-Address
+                <br>
+                <br>
+                <b>Client</b> - Block access for a client based on the "x-client" header.
+                <br>
+                <br>
+                <b>E-Mail</b> - Blocks e-mails from being used for signup.
+              </b-tooltip>
+            </th>
+            <th>
+              Area <span
+                id="area_tooltip"
+                class="info-icon"
+              >?</span>
               <b-tooltip
-          target="area_tooltip">
-          <b>Full</b> - Block access to the entire site.
-          <br />
-          <br />
-          <b>Payments</b> - Block access to any payment related functionality.
-        </b-tooltip></th>
+                target="area_tooltip"
+              >
+                <b>Full</b> - Block access to the entire site.
+                <br>
+                <br>
+                <b>Payments</b> - Block access to any payment related functionality.
+              </b-tooltip>
+            </th>
             <th>Value</th>
             <th>Reason</th>
             <th>Source</th>
@@ -45,7 +62,8 @@
           </tr>
           <tr
             v-for="blocker in blockers"
-            :key="blocker._id">
+            :key="blocker._id"
+          >
             <BlockerForm
               v-if="blocker._id === editedBlockerId"
               :blocker="blocker"
@@ -64,7 +82,7 @@
                   class="btn btn-primary mr-2"
                   @click="editBlocker(blocker._id)"
                 >
-                <span
+                  <span
                     v-once
                     class="svg-icon icon-16"
                     v-html="icons.editIcon"
@@ -74,7 +92,7 @@
                   class="btn btn-danger"
                   @click="deleteBlocker(blocker._id)"
                 >
-                <span
+                  <span
                     v-once
                     class="svg-icon icon-16"
                     v-html="icons.deleteIcon"

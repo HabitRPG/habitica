@@ -7,10 +7,15 @@
     </div>
     <div class="row">
       <div class="col-12 mb-5 mb-md-0">
-        <img :src="makeUrl('features_taskboard.png')" class="img-fluid">
+        <img
+          :src="makeUrl('features_taskboard.png')"
+          class="img-fluid"
+        >
         <h2>{{ $t('marketing1Lead1Title') }}</h2>
         <div class="row justify-content-md-center">
-          <p class="col col-lg-8 col-xl-6 margin-auto description">{{ $t('marketing1Lead1') }}</p>
+          <p class="col col-lg-8 col-xl-6 margin-auto description">
+            {{ $t('marketing1Lead1') }}
+          </p>
         </div>
       </div>
     </div>
@@ -18,12 +23,16 @@
       <div class="col-md-6 mb-5 mb-md-0">
         <img :src="makeUrl('features_gear.png')">
         <h2>{{ $t('marketing1Lead2Title') }}</h2>
-        <p class="description">{{ $t('marketing1Lead2') }}</p>
+        <p class="description">
+          {{ $t('marketing1Lead2') }}
+        </p>
       </div>
       <div class="col-md-6 mb-5 mb-md-0">
         <img :src="makeUrl('features_items.png')">
         <h2>{{ $t('marketing1Lead3Title') }}</h2>
-        <p class="description">{{ $t('marketing1Lead3') }}</p>
+        <p class="description">
+          {{ $t('marketing1Lead3') }}
+        </p>
       </div>
     </div>
     <hr>
@@ -35,19 +44,26 @@
     <div class="row mb-5">
       <div class="col-12">
         <h2>{{ $t('marketing2Lead1Title') }}</h2>
-        <p class="description">{{ $t('marketing2Lead1') }}</p>
+        <p class="description">
+          {{ $t('marketing2Lead1') }}
+        </p>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6 mb-5 mb-md-0">
         <img :src="makeUrl('features_monsters.png')">
         <h2>{{ $t('marketing2Lead2Title') }}</h2>
-        <p class="description" v-markdown="$t('marketing2Lead2')"></p>
+        <p
+          v-markdown="$t('marketing2Lead2')"
+          class="description"
+        ></p>
       </div>
       <div class="col-md-6 mb-5 mb-md-0">
         <img :src="makeUrl('features_challenges.png')">
         <h2>{{ $t('marketing2Lead3Title') }}</h2>
-        <p class="description">{{ $t('marketing2Lead3') }}</p>
+        <p class="description">
+          {{ $t('marketing2Lead3') }}
+        </p>
       </div>
     </div>
     <hr>
@@ -60,12 +76,18 @@
       <div class="col-md-6 mb-5 mb-md-0">
         <img :src="makeUrl('features_mobile.png')">
         <h2>{{ $t('marketing3Lead1Title') }}</h2>
-        <p class="description" v-markdown="$t('marketing3Lead1')"></p>
+        <p
+          v-markdown="$t('marketing3Lead1')"
+          class="description"
+        ></p>
       </div>
       <div class="col-md-6 mb-5 mb-md-0">
         <img :src="makeUrl('features_opensource.png')">
         <h2>{{ $t('marketing3Lead2Title') }}</h2>
-        <p class="description" v-markdown="$t('marketing3Lead2')"></p>
+        <p
+          v-markdown="$t('marketing3Lead2')"
+          class="description"
+        ></p>
       </div>
     </div>
     <hr>
@@ -80,7 +102,9 @@
           <img src="@/assets/images/marketing/education.png">
           <div class="media-body">
             <h2>{{ $t('marketing4Lead1Title') }}</h2>
-            <p class="description">{{ $t('marketing4Lead1') }}</p>
+            <p class="description">
+              {{ $t('marketing4Lead1') }}
+            </p>
           </div>
         </div>
       </div>
@@ -89,7 +113,9 @@
           <img src="@/assets/images/marketing/wellness.png">
           <div class="media-body">
             <h2>{{ $t('marketing4Lead2Title') }}</h2>
-            <p class="description">{{ $t('marketing4Lead2') }}</p>
+            <p class="description">
+              {{ $t('marketing4Lead2') }}
+            </p>
           </div>
         </div>
       </div>

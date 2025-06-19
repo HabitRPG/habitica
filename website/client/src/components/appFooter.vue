@@ -276,9 +276,9 @@
       </div>
 
       <div
-        class="time-travel"
         v-if="TIME_TRAVEL_ENABLED && user?.permissions?.fullAccess"
         :key="lastTimeJump"
+        class="time-travel"
       >
         <a
           class="btn btn-secondary mr-1"
@@ -299,7 +299,7 @@
             @click="resetTime()"
           >
             Reset
-        </a>
+          </a>
         </div>
         <a
           class="btn btn-secondary mr-1"

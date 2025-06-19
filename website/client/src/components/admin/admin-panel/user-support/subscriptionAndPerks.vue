@@ -6,49 +6,71 @@
     }, msg: 'Subscription Perks' })"
   >
     <div class="card mt-2">
-      <div class="card-header"
-          @click="expand = !expand">
+      <div
+        class="card-header"
+        @click="expand = !expand"
+      >
         <h3
           class="mb-0 mt-0"
           :class="{ 'open': expand }"
         >
           Subscription, Monthly Perks
-        <b v-if="hasUnsavedChanges && !expand" class="text-warning float-right">
-          Unsaved changes
-        </b>
+          <b
+            v-if="hasUnsavedChanges && !expand"
+            class="text-warning float-right"
+          >
+            Unsaved changes
+          </b>
         </h3>
       </div>
       <div
         v-if="expand"
         class="card-body"
       >
-      <div
+        <div
           class="form-group row"
         >
           <label class="col-sm-3 col-form-label">
             Payment method:
           </label>
           <div class="col-sm-9">
-            <input v-model="hero.purchased.plan.paymentMethod"
+            <input
+              v-if="!isRegularPaymentMethod"
+              v-model="hero.purchased.plan.paymentMethod"
               class="form-control"
               type="text"
-              v-if="!isRegularPaymentMethod"
             >
-              <select
+            <select
               v-else
-                v-model="hero.purchased.plan.paymentMethod"
-                class="form-control"
-                type="text"
-              >
-                <option value="groupPlan">Group Plan</option>
-                <option value="Stripe">Stripe</option>
-                <option value="Apple">Apple</option>
-                <option value="Google">Google</option>
-                <option value="Amazon Payments">Amazon</option>
-                <option value="PayPal">PayPal</option>
-                <option value="Gift">Gift</option>
-                <option value="">Clear out</option>
-              </select>
+              v-model="hero.purchased.plan.paymentMethod"
+              class="form-control"
+              type="text"
+            >
+              <option value="groupPlan">
+                Group Plan
+              </option>
+              <option value="Stripe">
+                Stripe
+              </option>
+              <option value="Apple">
+                Apple
+              </option>
+              <option value="Google">
+                Google
+              </option>
+              <option value="Amazon Payments">
+                Amazon
+              </option>
+              <option value="PayPal">
+                PayPal
+              </option>
+              <option value="Gift">
+                Gift
+              </option>
+              <option value="">
+                Clear out
+              </option>
+            </select>
           </div>
         </div>
         <div
@@ -58,25 +80,40 @@
             Payment schedule:
           </label>
           <div class="col-sm-9">
-            <input v-model="hero.purchased.plan.planId"
+            <input
+              v-if="!isRegularPlanId"
+              v-model="hero.purchased.plan.planId"
               class="form-control"
               type="text"
-              v-if="!isRegularPlanId"
             >
-              <select
+            <select
               v-else
-                v-model="hero.purchased.plan.planId"
-                class="form-control"
-                type="text"
-              >
-                <option value="basic_earned">Monthly recurring</option>
-                <option value="basic_3mo">3 Months recurring</option>
-                <option value="basic_6mo">6 Months recurring</option>
-                <option value="basic_12mo">12 Months recurring</option>
-                <option value="group_monthly">Group Plan (legacy)</option>
-                <option value="group_plan_auto">Group Plan (auto)</option>
-                <option value="">Clear out</option>
-              </select>
+              v-model="hero.purchased.plan.planId"
+              class="form-control"
+              type="text"
+            >
+              <option value="basic_earned">
+                Monthly recurring
+              </option>
+              <option value="basic_3mo">
+                3 Months recurring
+              </option>
+              <option value="basic_6mo">
+                6 Months recurring
+              </option>
+              <option value="basic_12mo">
+                12 Months recurring
+              </option>
+              <option value="group_monthly">
+                Group Plan (legacy)
+              </option>
+              <option value="group_plan_auto">
+                Group Plan (auto)
+              </option>
+              <option value="">
+                Clear out
+              </option>
+            </select>
           </div>
         </div>
         <div
@@ -86,43 +123,50 @@
             Customer ID:
           </label>
           <div class="col-sm-9">
-              <input
-                v-model="hero.purchased.plan.customerId"
-                class="form-control"
-                type="text"
-              >
+            <input
+              v-model="hero.purchased.plan.customerId"
+              class="form-control"
+              type="text"
+            >
           </div>
         </div>
-        <div class="form-group row"
-          v-if="hero.purchased.plan.planId === 'group_plan_auto'">
+        <div
+          v-if="hero.purchased.plan.planId === 'group_plan_auto'"
+          class="form-group row"
+        >
           <label class="col-sm-3 col-form-label">
             Group Plan Memberships:
           </label>
           <div class="col-sm-9 col-form-label">
             <loading-spinner
-                v-if="!groupPlans"
-                dark-color=true
-              />
+              v-if="!groupPlans"
+              dark-color="true"
+            />
             <b
-            v-else-if="groupPlans.length === 0"
-            class="text-danger col-form-label"
+              v-else-if="groupPlans.length === 0"
+              class="text-danger col-form-label"
             >User is not part of an active group plan!</b>
             <div
-            v-else
               v-for="group in groupPlans"
+              v-else
               :key="group._id"
-              class="card mb-2">
+              class="card mb-2"
+            >
               <div class="card-body">
-                <h6 class="card-title">{{  group.name }}
+                <h6 class="card-title">
+                  {{ group.name }}
                   <small class="float-right">{{ group._id }}</small>
                 </h6>
                 <p class="card-text">
                   <strong>Leader: </strong>
-                <a
-                v-if="group.leader !== hero._id"
-                @click="switchUser(group.leader)"
-                >{{ group.leader }}</a>
-                <strong v-else class="text-success">This user</strong>
+                  <a
+                    v-if="group.leader !== hero._id"
+                    @click="switchUser(group.leader)"
+                  >{{ group.leader }}</a>
+                  <strong
+                    v-else
+                    class="text-success"
+                  >This user</strong>
                 </p>
                 <p class="card-text">
                   <strong>Members: </strong> {{ group.memberCount }}
@@ -190,16 +234,21 @@
                 <strong class="input-group-text">
                   {{ dateFormat(hero.purchased.plan.dateTerminated) }}
                 </strong>
-                <a class="btn btn-danger"
-              href="#"
+                <a
+                  v-if="!hero.purchased.plan.dateTerminated && hero.purchased.plan.planId"
                   v-b-modal.sub_termination_modal
-                  v-if="!hero.purchased.plan.dateTerminated && hero.purchased.plan.planId">
+                  class="btn btn-danger"
+                  href="#"
+                >
                   Terminate
-              </a>
+                </a>
               </div>
             </div>
-            <small v-if="!hero.purchased.plan.dateTerminated
-              && hero.purchased.plan.planId" class="text-success">
+            <small
+              v-if="!hero.purchased.plan.dateTerminated
+                && hero.purchased.plan.planId"
+              class="text-success"
+            >
               The subscription does not have a termination date and is active.
             </small>
           </div>
@@ -235,11 +284,13 @@
                 step="any"
               >
               <div class="input-group-append">
-                <a class="btn btn-warning"
+                <a
+                  v-if="hero.purchased.plan.dateTerminated && hero.purchased.plan.extraMonths > 0"
+                  class="btn btn-warning"
                   @click="applyExtraMonths"
-                  v-if="hero.purchased.plan.dateTerminated && hero.purchased.plan.extraMonths > 0">
+                >
                   Apply Credit
-              </a>
+                </a>
               </div>
             </div>
             <small class="text-secondary">
@@ -339,19 +390,24 @@
             </span>
           </div>
         </div>
-        <div class="form-group row"
-              v-if="!isConvertingToGroupPlan && hero.purchased.plan.planId !== 'group_plan_auto'">
+        <div
+          v-if="!isConvertingToGroupPlan && hero.purchased.plan.planId !== 'group_plan_auto'"
+          class="form-group row"
+        >
           <div class="offset-sm-3 col-sm-9">
             <button
               type="button"
               class="btn btn-secondary btn-sm"
-              @click="beginGroupPlanConvert">
+              @click="beginGroupPlanConvert"
+            >
               Begin converting to group plan subscription
             </button>
           </div>
         </div>
-        <div class="form-group row"
-          v-if="isConvertingToGroupPlan">
+        <div
+          v-if="isConvertingToGroupPlan"
+          class="form-group row"
+        >
           <label class="col-sm-3 col-form-label">
             Group Plan group ID:
           </label>
@@ -374,25 +430,40 @@
           class="btn btn-primary mt-1"
           @click="saveClicked"
         >
-        <b v-if="hasUnsavedChanges" class="text-warning float-right">
+        <b
+          v-if="hasUnsavedChanges"
+          class="text-warning float-right"
+        >
           Unsaved changes
         </b>
       </div>
     </div>
-    <b-modal id="sub_termination_modal" title="Set Termination Date">
+    <b-modal
+      id="sub_termination_modal"
+      title="Set Termination Date"
+    >
       <p>
         You can set the sub benefit termination date to today or to the last
         day of the current billing cycle. Any extra subscription credit will
         then be processed and automatically added onto the selected date.
       </p>
       <template #modal-footer>
-        <div class="mt-3 btn btn-secondary" @click="$bvModal.hide('sub_termination_modal')">
+        <div
+          class="mt-3 btn btn-secondary"
+          @click="$bvModal.hide('sub_termination_modal')"
+        >
           Close
         </div>
-        <div class="mt-3 btn btn-danger" @click="terminateSubscription()">
+        <div
+          class="mt-3 btn btn-danger"
+          @click="terminateSubscription()"
+        >
           Set to Today
         </div>
-        <div class="mt-3 btn btn-danger" @click="terminateSubscription(todayWithRemainingCycle)">
+        <div
+          class="mt-3 btn btn-danger"
+          @click="terminateSubscription(todayWithRemainingCycle)"
+        >
           Set to {{ todayWithRemainingCycle.utc().format('MM/DD/YYYY') }}
         </div>
       </template>
@@ -420,15 +491,15 @@
 import isUUID from 'validator/es/lib/isUUID';
 import moment from 'moment';
 import { getPlanContext } from '@/../../common/script/cron';
-import saveHero from '../mixins/saveHero';
 import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
+import saveHero from '../mixins/saveHero';
 import LoadingSpinner from '@/components/ui/loadingSpinner';
 
 export default {
-  mixins: [saveHero],
   components: {
     LoadingSpinner,
   },
+  mixins: [saveHero],
   props: {
     hero: {
       type: Object,
