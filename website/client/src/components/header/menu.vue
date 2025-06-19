@@ -329,9 +329,9 @@
             </div>
           </li>
           <li
+            v-if="user.permissions.fullAccess ||
+              user.permissions.userSupport"
             class="topbar-item droppable"
-                v-if="user.permissions.fullAccess ||
-                  user.permissions.userSupport"
             :class="{
               'active': $route.path.startsWith('/admin')}"
           >

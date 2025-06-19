@@ -16,9 +16,9 @@
           :hero="hero"
           :reset-counter="resetCounter"
           :has-unsaved-changes="hasUnsavedChanges([hero.flags, unModifiedHero.flags],
-                                                 [hero.auth, unModifiedHero.auth],
-                                                 [hero.balance, unModifiedHero.balance],
-                                                 [hero.secret, unModifiedHero.secret])"
+                                                  [hero.auth, unModifiedHero.auth],
+                                                  [hero.balance, unModifiedHero.balance],
+                                                  [hero.secret, unModifiedHero.secret])"
         />
 
         <subscription-and-perks
@@ -88,7 +88,7 @@
 
         <contributor-details
           :hero="hero"
-          :hasUnsavedChanges="hasUnsavedChanges(
+          :has-unsaved-changes="hasUnsavedChanges(
             [hero.contributor, unModifiedHero.contributor],
             [hero.permissions, unModifiedHero.permissions],
             [hero.secret, unModifiedHero.secret],

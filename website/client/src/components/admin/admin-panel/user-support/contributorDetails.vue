@@ -124,7 +124,10 @@
           value="Save"
           class="btn btn-primary mt-1"
         >
-        <b v-if="hasUnsavedChanges" class="text-warning float-right">
+        <b
+          v-if="hasUnsavedChanges"
+          class="text-warning float-right"
+        >
           Unsaved changes
         </b>
       </div>
