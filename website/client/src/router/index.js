@@ -231,9 +231,8 @@ const router = new VueRouter({
             ],
           },
         },
-      ]
+      ],
     },
-
 
     // Only used to handle some redirects
     // See router.beforeEach
