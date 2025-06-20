@@ -664,7 +664,7 @@ export const MONTHLY_SCHEDULE = {
   },
 };
 
-export const GALA_SWITCHOVER_DAY = 21;
+export const GALA_SWITCHOVER_DAY = 1;
 export const GALA_KEYS = [
   'winter',
   'spring',
