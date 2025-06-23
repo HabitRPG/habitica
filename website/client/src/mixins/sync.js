@@ -12,6 +12,7 @@ export default {
         this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
       ]);
       this.$root.$emit(EVENTS.RESYNC_COMPLETED);
+      this.$root.$emit('habitica:party-updated');
     },
   },
 };

@@ -165,6 +165,7 @@ export default {
           msg = this.$t('youCastParty', {
             spell: spellText,
           });
+          this.$root.$emit('habitica:party-updated');
           break;
         default:
           msg = this.$t('youCast', {
