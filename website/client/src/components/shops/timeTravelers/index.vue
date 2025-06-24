@@ -41,7 +41,7 @@
     <div class="standard-page">
       <div class="featuredItems">
         <div
-        v-if="isSubscribed"
+        v-if="isSubscribed || (hasTrinket && !isSubscribed)"
           class="background"
           :style="{'background-image': imageURLs.background}"
         >
@@ -83,7 +83,7 @@
             </div>
             </div>
             <div
-              v-if="!isSubscribed"
+              v-if="!isSubscribed && !hasTrinket"
               class="shop-message featured-label with-border closed">
               <span
                 class="rectangle">
@@ -269,8 +269,11 @@ export default {
       const { plan } = this.user.purchased;
       return plan && plan.customerId
       && (!plan.dateTerminated
-      || moment(plan.dateTerminated).isAfter(now)
-      || this.user.purchased.plan.consecutive.trinkets > 0);
+      || moment(plan.dateTerminated).isAfter(now));
+    },
+
+    hasTrinket () {
+      return this.user.purchased.plan.consecutive.trinkets > 0;
     },
 
     shop () {
