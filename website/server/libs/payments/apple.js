@@ -22,9 +22,10 @@ api.constants = {
   RESPONSE_NO_ITEM_PURCHASED: 'NO_ITEM_PURCHASED',
 };
 
-async function safeBuySkuItem(opts) {
+// eslint-disable no-await-in-loop
+async function safeBuySkuItem (opts) {
   const maxRetries = 3;
-  for (let i = 1; i <= maxRetries; i++) {
+  for (let i = 1; i <= maxRetries; i += 1) {
     try {
       await payments.buySkuItem(opts);
       return;
@@ -35,7 +36,7 @@ async function safeBuySkuItem(opts) {
   }
 }
 
-api.verifyPurchase = async function verifyPurchase(options) {
+api.verifyPurchase = async function verifyPurchase (options) {
   const {
     gift, user, receipt, headers,
   } = options;
@@ -67,7 +68,6 @@ api.verifyPurchase = async function verifyPurchase(options) {
     }).exec();
 
     if (!existingReceipt) {
-
       await safeBuySkuItem({
         user,
         gift,
@@ -82,12 +82,12 @@ api.verifyPurchase = async function verifyPurchase(options) {
         // This should always be the buying user even for a gift.
         userId: user._id,
       });
-      
     }
   }
 
   return appleRes;
 };
+// eslint-enable no-await-in-loop
 
 api.subscribe = async function subscribe(user, receipt, headers, nextPaymentProcessing) {
   await iap.setup();
