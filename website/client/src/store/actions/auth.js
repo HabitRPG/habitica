@@ -65,7 +65,7 @@ export async function verifyDisplayName (store, params) {
 }
 
 export async function checkEmail (store, params) {
-  const url = 'api/v4/user/auth/check-email';
+  const url = '/api/v4/user/auth/check-email';
   const result = await axios.post(url, {
     email: params.email,
   });

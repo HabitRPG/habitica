@@ -87,7 +87,7 @@ api.registerLocal = {
 };
 
 /**
- * @api {put} /api/v3/user/auth/check-email Check if email is used
+ * @api {put} /api/v4/user/auth/check-email Check if email is used
  * @apiDescription Check if the email is already used by another user
  * @apiName CheckEmail
  * @apiGroup User
@@ -113,9 +113,11 @@ api.checkEmail = {
       'auth.local.email': req.body.email.toLowerCase(),
     }).select({ _id: 1 }).lean().exec();
 
-    if (emailAlreadyInUse) throw new NotAuthorized(res.t('emailTaken'));
+    if (emailAlreadyInUse) {
+      return res.respond(200, { valid: false, email: req.body.email });
+    }
 
-    return res.respond(200, { email: req.body.email });
+    return res.respond(200, { valid: true, email: req.body.email });
   },
 };
 

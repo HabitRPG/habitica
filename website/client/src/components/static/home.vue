@@ -861,6 +861,7 @@ import debounce from 'lodash/debounce';
 import isEmail from 'validator/es/lib/isEmail';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import { buildAppleAuthUrl } from '../../libs/auth';
+import notifications from '@/mixins/notifications';
 import sanitizeRedirect from '@/mixins/sanitizeRedirect';
 import PrivacyBanner from '@/components/header/banners/privacy';
 import googlePlay from '@/assets/images/home/google-play-badge.svg?raw';
@@ -886,7 +887,7 @@ export default {
   components: {
     PrivacyBanner,
   },
-  mixins: [sanitizeRedirect],
+  mixins: [notifications, sanitizeRedirect],
   data () {
     return {
       icons: Object.freeze({
@@ -988,8 +989,15 @@ export default {
         }
       });
     }, 500),
-    proceed (accountType) {
+    async proceed (accountType) {
       if (accountType === 'local') {
+        const emailCheck = await this.$store.dispatch('auth:checkEmail', {
+          email: this.email,
+        });
+        if (!emailCheck.valid) {
+          this.error(this.$t('cannotFulfillReq'));
+          throw new Error(this.$t('cannotFulfillReq'));
+        }
         const usernameToCheck = this.email.split('@')[0].replace(/[^a-zA-Z0-9\-_]/g, '');
         this.$store.dispatch('auth:verifyUsername', {
           username: usernameToCheck,
