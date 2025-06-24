@@ -1,3 +1,6 @@
+import {
+  describe, expect, test, beforeEach,
+} from 'vitest';
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import ChallengeDetailComponent from '@/components/challenges/challengeDetail.vue';
 import Store from '@/libs/store';
@@ -56,7 +59,7 @@ describe('Challenge Detail', () => {
     });
   });
 
-  it('removes a destroyed task from task list', () => {
+  test('removes a destroyed task from task list', () => {
     const taskToRemove = { _id: '1', type: 'habit' };
     wrapper.vm.taskDestroyed(taskToRemove);
     expect(wrapper.vm.tasksByType[taskToRemove.type].length).to.eq(0);

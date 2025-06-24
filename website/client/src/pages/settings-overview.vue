@@ -49,10 +49,12 @@
       class="col-12 d-flex"
       :class="{'justify-content-center': applyNarrowView || maxWidthView}"
     >
-      <div :class="{
-        'settings-content': applyNarrowView,
-        'full-width-content': !applyNarrowView && !maxWidthView,
-      }">
+      <div
+        :class="{
+          'settings-content': applyNarrowView,
+          'full-width-content': !applyNarrowView && !maxWidthView,
+        }"
+      >
         <router-view />
       </div>
     </div>
@@ -60,7 +62,7 @@
 </template>
 
 <style scoped lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   strong {
     font-size: 1rem;
@@ -176,7 +178,7 @@
 import find from 'lodash/find';
 import { mapState } from '@/libs/store';
 import SecondaryMenu from '@/components/secondaryMenu';
-import gifts from '@/assets/svg/gifts-vertical.svg';
+import gifts from '@/assets/svg/gifts-vertical.svg?raw';
 import { userStateMixin } from '@/mixins/userState';
 
 export default {

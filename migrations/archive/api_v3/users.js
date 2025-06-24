@@ -32,7 +32,7 @@ let moment = require('moment');
 consoleStamp(console);
 
 // Initialize configuration
-require('../../website/server/libs/api-v3/setupNconf')();
+require('../../website/server/libs/api-v3/setupNconf').default();
 
 let MONGODB_OLD = nconf.get('MONGODB_OLD');
 let MONGODB_NEW = nconf.get('MONGODB_NEW');

@@ -168,7 +168,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .form {
     margin: 0 auto;
@@ -227,8 +227,8 @@ import debounce from 'lodash/debounce';
 import isEmail from 'validator/es/lib/isEmail';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import { setUpAxios, buildAppleAuthUrl } from '@/libs/auth';
-import googleIcon from '@/assets/svg/google.svg';
-import appleIcon from '@/assets/svg/apple_black.svg';
+import googleIcon from '@/assets/svg/google.svg?raw';
+import appleIcon from '@/assets/svg/apple_black.svg?raw';
 
 export default {
   name: 'AuthForm',
@@ -290,7 +290,7 @@ export default {
   },
   mounted () {
     hello.init({
-      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
+      google: import.meta.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });
   },
   methods: {

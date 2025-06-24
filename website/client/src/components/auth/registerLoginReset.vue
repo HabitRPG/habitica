@@ -355,7 +355,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   @media only screen  and (min-height: 1080px) {
     .bottom-wrap-register {
@@ -491,7 +491,7 @@
 
   #top-background {
     .seamless_stars_varied_opacity_repeat {
-      background-image: url('~@/assets/images/auth/seamless_stars_varied_opacity.png');
+      background-image: url('@/assets/images/auth/seamless_stars_varied_opacity.png');
       background-repeat: repeat-x;
       position: absolute;
       height: 500px;
@@ -510,7 +510,7 @@
     position: relative;
 
     .seamless_mountains_demo_repeat {
-      background-image: url('~@/assets/images/auth/seamless_mountains_demo.png');
+      background-image: url('@/assets/images/auth/seamless_mountains_demo.png');
       background-repeat: repeat-x;
       width: 100%;
       height: 300px;
@@ -520,7 +520,7 @@
     }
 
     .midground_foreground_extended2 {
-      background-image: url('~@/assets/images/auth/midground_foreground_extended2.png');
+      background-image: url('@/assets/images/auth/midground_foreground_extended2.png');
       position: relative;
       width: 1500px;
       max-width: 100%;
@@ -611,11 +611,11 @@ import isEmail from 'validator/es/lib/isEmail';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import { buildAppleAuthUrl } from '../../libs/auth';
 import sanitizeRedirect from '@/mixins/sanitizeRedirect';
-import exclamation from '@/assets/svg/exclamation.svg';
-import gryphon from '@/assets/svg/gryphon.svg';
-import habiticaIcon from '@/assets/svg/logo-horizontal.svg';
-import googleIcon from '@/assets/svg/google.svg';
-import appleIcon from '@/assets/svg/apple_black.svg';
+import exclamation from '@/assets/svg/exclamation.svg?raw';
+import gryphon from '@/assets/svg/gryphon.svg?raw';
+import habiticaIcon from '@/assets/svg/logo-horizontal.svg?raw';
+import googleIcon from '@/assets/svg/google.svg?raw';
+import appleIcon from '@/assets/svg/apple_black.svg?raw';
 
 export default {
   mixins: [sanitizeRedirect],
@@ -732,7 +732,7 @@ export default {
       }
     }
     hello.init({
-      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
+      google: import.meta.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });
   },
   methods: {

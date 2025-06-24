@@ -1,9 +1,8 @@
 import moment from 'moment';
 import filter from 'lodash/filter';
-import { pickBy } from 'lodash';
-import nconf from 'nconf';
+import pickBy from 'lodash/pickBy';
 
-const SWITCHOVER_TIME = nconf.get('CONTENT_SWITCHOVER_TIME_OFFSET') || 0;
+const SWITCHOVER_TIME = process.env.CONTENT_SWITCHOVER_TIME_OFFSET || 0;
 
 const releaseDateEndPart = `T${String(SWITCHOVER_TIME).padStart(2, '0')}:00-0000`;
 

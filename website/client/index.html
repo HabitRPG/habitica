@@ -12,6 +12,7 @@
     <link rel="shortcut icon" sizes="192x192" href="/static/icons/favicon_192x192.png">
     <link rel="mask-icon" href="/static/icons/favicon.ico">
     <meta property="og:image" content="/static/emails/images/meta-image.png" />
+    <script type="module" src="/src/main.js"></script>
   </head>
   <body>
     <div id="loading-screen">
@@ -28,10 +29,9 @@
     </div>
 
     <div id="app"></div>
-    <!-- built files will be auto injected -->
 
     <script type="text/javascript" src="//cloudfront.loggly.com/js/loggly.tracker-latest.min.js" async></script>
     <!-- Translations -->
-    <script type='text/javascript' src='/api/v4/i18n/browser-script'></script>
+    <script type='text/javascript' src='/api/v4/i18n/browser-script' vite-ignore></script>
   </body>
 </html>

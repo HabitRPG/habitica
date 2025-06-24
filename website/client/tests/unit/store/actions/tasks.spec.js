@@ -1,5 +1,11 @@
+import {
+  describe, expect, test, beforeEach, afterEach,
+} from 'vitest';
 import axios from 'axios';
+import sinon from 'sinon';
 import generateStore from '@/store';
+
+const sandbox = sinon.createSandbox();
 
 describe('tasks actions', () => {
   let store;
@@ -13,7 +19,7 @@ describe('tasks actions', () => {
       if (axios.get && axios.get.restore) axios.get.restore();
     });
 
-    it.skip('fetches user tasks', async () => {
+    test.skip('fetches user tasks', async () => {
       expect(store.state.tasks.loadingStatus).to.equal('NOT_LOADED');
       const tasks = [{ _id: 1 }];
       sandbox.stub(axios, 'get').withArgs('/api/v4/tasks/user').returns(Promise.resolve({ data: { data: tasks } }));
@@ -24,7 +30,7 @@ describe('tasks actions', () => {
       expect(store.state.tasks.loadingStatus).to.equal('LOADED');
     });
 
-    it('does not reload tasks by default', async () => {
+    test('does not reload tasks by default', async () => {
       const originalTask = [{ _id: 1 }];
       store.state.tasks = {
         loadingStatus: 'LOADED',
@@ -40,7 +46,7 @@ describe('tasks actions', () => {
       expect(store.state.tasks.loadingStatus).to.equal('LOADED');
     });
 
-    it.skip('can reload tasks if forceLoad is true', async () => {
+    test.skip('can reload tasks if forceLoad is true', async () => {
       store.state.tasks = {
         loadingStatus: 'LOADED',
         data: [{ _id: 1 }],

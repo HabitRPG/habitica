@@ -265,8 +265,9 @@
     <hatchedPetDialog :hide-text="true" />
     <ItemPopover
       :dragged-item="currentDraggingFood"
-      popoverTextKey="clickOnPetToFeed"
-      translationKey="foodName" />
+      popover-text-key="clickOnPetToFeed"
+      translation-key="foodName"
+    />
     <mount-raised-modal />
     <welcome-modal />
     <hatching-modal :hatchable-pet.sync="hatchablePet" />
@@ -285,8 +286,8 @@
 </style>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/mixins.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/mixins.scss';
 
   .inventory-item-container {
     padding: 20px;
@@ -381,7 +382,7 @@ import DragDropDirective from '@/directives/dragdrop.directive';
 
 import { createAnimal } from '@/libs/createAnimal';
 
-import svgInformation from '@/assets/svg/information.svg';
+import svgInformation from '@/assets/svg/information.svg?raw';
 
 import notifications from '@/mixins/notifications';
 import openedItemRowsMixin from '@/mixins/openedItemRows';

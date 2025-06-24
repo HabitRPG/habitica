@@ -94,7 +94,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .member-details {
     white-space: nowrap;
@@ -193,10 +193,10 @@ import { mapState } from '@/libs/store';
 import StatsBar from './ui/statsbar';
 import userLink from './userLink';
 
-import buffIcon from '@/assets/svg/buff.svg';
-import healthIcon from '@/assets/svg/health.svg';
-import experienceIcon from '@/assets/svg/experience.svg';
-import manaIcon from '@/assets/svg/mana.svg';
+import buffIcon from '@/assets/svg/buff.svg?raw';
+import healthIcon from '@/assets/svg/health.svg?raw';
+import experienceIcon from '@/assets/svg/experience.svg?raw';
+import manaIcon from '@/assets/svg/mana.svg?raw';
 
 export default {
   components: {

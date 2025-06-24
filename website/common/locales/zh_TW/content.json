@@ -372,5 +372,15 @@
     "hatchingPotionOnyx": "縞瑪瑙",
     "hatchingPotionPorcelain": "瓷器",
     "hatchingPotionVirtualPet": "電子寵物",
-    "hatchingPotionPinkMarble": "粉色大理石"
+    "hatchingPotionPinkMarble": "粉色大理石",
+    "questEggRaccoonText": "浣熊",
+    "questEggRaccoonMountText": "浣熊",
+    "questEggGiraffeText": "長頸鹿",
+    "questEggGiraffeMountText": "長頸鹿",
+    "questEggGiraffeAdjective": "一個高聳的",
+    "questEggChameleonText": "變色龍",
+    "questEggChameleonMountText": "變色龍",
+    "questEggChameleonAdjective": "一個混亂的",
+    "questEggCrabText": "螃蟹",
+    "questEggCrabMountText": "螃蟹"
 }

@@ -87,7 +87,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
   #task-summary {
     overflow-y: hidden;
 
@@ -116,7 +116,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .assigned-member {
     border: 1px solid $gray-400;
@@ -182,7 +182,7 @@ import pickBy from 'lodash/pickBy';
 import checklist from './modal-controls/checklist';
 import { mapGetters, mapState } from '@/libs/store';
 
-import closeIcon from '@/assets/svg/close.svg';
+import closeIcon from '@/assets/svg/close.svg?raw';
 
 export default {
   components: {

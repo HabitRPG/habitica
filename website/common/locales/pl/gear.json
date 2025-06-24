@@ -5,7 +5,7 @@
     "groupBy": "Pogrupuj według <%= type %>",
     "classBonus": "(Ten przedmiot pasuje do Twojej klasy, więc otrzymuje dodatkowy mnożnik 1.5 do statystyk)",
     "classArmor": "Zbroja Klasowa",
-    "featuredset": "Opisany Zestaw <%= name %>",
+    "featuredset": "Opisany Zestaw: <%= name %>",
     "mysterySets": "Tajemnicze zestawy",
     "gearNotOwned": "Nie posiadasz tego przedmiotu.",
     "noGearItemsOfType": "Nie posiadasz żadnego z nich.",
@@ -1770,5 +1770,7 @@
     "eyewearArmoireRoseColoredGlassesText": "Różowe Okulary",
     "eyewearArmoireTragedyMaskText": "Tragiczna Maska",
     "eyewearArmoireComedyMaskText": "Komediowa Maska",
-    "eyewearArmoireJewelersEyeLoupeText": "Lupa Jubilerska"
+    "eyewearArmoireJewelersEyeLoupeText": "Lupa Jubilerska",
+    "moreArmoireGearAvailable": "Do tego czasu, zostało do znalezienia <%= armoireCount %> części wyposażenia w Zaczarowanej Skrzyni!",
+    "gearItemsCompleted": "Jesteś w posiadaniu całego ekwipunku klasy <%= class %>! Nowy ekwipunek jest wydawany podczas Gal sezonowych."
 }

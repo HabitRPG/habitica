@@ -57,7 +57,7 @@ import {
   UNEQUIP_PET_MOUNT,
 } from '@/../../common/script/ops/unequip';
 
-import unequipIcon from '@/assets/svg/unequip.svg';
+import unequipIcon from '@/assets/svg/unequip.svg?raw';
 
 export default {
   name: 'UnequipDropdown',
@@ -104,7 +104,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .select-list {
   ::v-deep {

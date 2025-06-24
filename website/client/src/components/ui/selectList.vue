@@ -51,7 +51,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .select-list ::v-deep {
   .dropdown-toggle {
@@ -87,7 +87,7 @@
 </style>
 
 <script>
-import svgCheck from '@/assets/svg/check.svg';
+import svgCheck from '@/assets/svg/check.svg?raw';
 
 export default {
   props: {

@@ -3329,5 +3329,17 @@
     "weaponSpecialSummer2025RogueText": "Tintenfisch Tentakel",
     "weaponSpecialSummer2025RogueNotes": "Dieser Tentakel wird deine Ziele eng umklammern, so dass du den Schwung nicht verlierst, wenn du deine Aufgaben erledigst. Erhöht Stärke um <%= str %>. Limitierte Ausgabe Sommerausrüstung 2025.",
     "weaponSpecialSummer2025HealerText": "Ruderschnecken Flügelpaddel",
-    "weaponSpecialSummer2025HealerNotes": "Beschreibe rudernd einen Doppelkreis, während du dich vorwärts bewegst, und bei deinen Aufgaben tolle Fortschritte machst. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe Sommerausrüstung 2025."
+    "weaponSpecialSummer2025HealerNotes": "Beschreibe rudernd einen Doppelkreis, während du dich vorwärts bewegst, und bei deinen Aufgaben tolle Fortschritte machst. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe Sommerausrüstung 2025.",
+    "weaponArmoireBeekeepersSmokerNotes": "Benutze dies, um deine Bienen zu beruhigen, damit du den Honig besser holen kannst. Die Bienen wird es nicht stören. Ehrlich, wir alle könnten von Zeit zu Zeit ein paar extra Minuten Ruhe gebrauchen. Erhöht Intelligenz um <%= int %>. Verzauberter Schrank: Imker Set (Gegenstand 3 von 4)",
+    "weaponArmoireBeekeepersSmokerText": "Smoker",
+    "armorSpecialSummer2025WarriorText": "Kammmuschel Rüstung",
+    "armorSpecialSummer2025WarriorNotes": "Diese Rüstung macht dich nicht nur robust, sondern auch schnell. Kampf oder Flucht - es ist deine Wahl! Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe Sommerausrüstung 2025.",
+    "armorSpecialSummer2025RogueNotes": "Dieser Anzug ändert nicht nur nach Lust und Laune seine Farbe, sondern kann auch eine Tintenwolke ausstoßen. Ablenken oder Tarnen - du hast die Wahl! Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe Sommerausrüstung 2025.",
+    "armorSpecialSummer2025RogueText": "Tintenfisch Anzug",
+    "armorSpecialSummer2025HealerText": "Ruderschnecken Anzug",
+    "armorSpecialSummer2025HealerNotes": "Dieser Anzug macht dich nicht nur anmutig, sondern auch stromlinienförmig. Treibe oder schwimme - du hast die Wahl! Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe Sommerausrüstung 2025.",
+    "armorSpecialSummer2025MageText": "Zwerglippfisch Anzug",
+    "armorSpecialSummer2025MageNotes": "Dieser Anzug hat nicht nur atemberaubende Farben, sondern ermöglicht dir auch, anmutig durch's Wasser zu gleiten. Schwimmen oder Tanzen - du hast die Wahl! Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe Sommerausrüstung 2025.",
+    "armorArmoireBeekeepersSuitText": "Imkeranzug",
+    "armorArmoireBeekeepersSuitNotes": "Schütze dich, während du nach deinen fleißigen Hummeln schaust. Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Imker Set (Gegenstand 2 von 4)"
 }

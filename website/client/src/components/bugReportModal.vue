@@ -118,7 +118,7 @@
 </style>
 
 <style scoped lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 h2 {
   color: $white;

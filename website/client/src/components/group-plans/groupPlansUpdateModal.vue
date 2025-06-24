@@ -28,9 +28,9 @@
       ></div>
       <img
         class="task-columns"
-        src="~@/assets/images/group-plans/task-columns.png"
-        srcset="~@/assets/images/group-plans/task-columns@2x.png 2x,
-          ~@/assets/images/group-plans/task-columns@3x.png 3x"
+        src="@/assets/images/group-plans/task-columns.png"
+        srcset="@/assets/images/group-plans/task-columns@2x.png 2x,
+          @/assets/images/group-plans/task-columns@3x.png 3x"
       >
     </div>
     <div
@@ -96,7 +96,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
   #group-plans-update {
     .modal-content {
       border-top-left-radius: 10px;
@@ -125,7 +125,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
   h2 {
     color: $white;
     line-height: 28px;
@@ -183,8 +183,8 @@
 </style>
 
 <script>
-import closeIcon from '@/assets/svg/close.svg';
-import sparkles from '@/assets/svg/sparkles-left.svg';
+import closeIcon from '@/assets/svg/close.svg?raw';
+import sparkles from '@/assets/svg/sparkles-left.svg?raw';
 
 export default {
   data () {

@@ -29,12 +29,14 @@
     </div>
     <snackbars />
     <router-view v-if="!isUserLoggedIn || isStaticPage" />
-    <user-main v-else />
+    <div v-else>
+      <user-main />
+    </div>
   </div>
 </template>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   #loading-screen-inapp {
     #melior {
@@ -90,7 +92,7 @@
 </style>
 
 <style lang='scss'>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .modal-backdrop {
     opacity: .9 !important;
@@ -108,16 +110,15 @@ import axios from 'axios';
 
 import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
-import userMain from '@/pages/user-main';
 import snackbars from '@/components/snackbars/notifications';
 
-const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
+const COMMUNITY_MANAGER_EMAIL = import.meta.env.EMAILS_COMMUNITY_MANAGER_EMAIL;
 
 export default {
   name: 'App',
   components: {
     snackbars,
-    userMain,
+    userMain: () => import('@/pages/user-main'),
   },
   data () {
     return {
@@ -268,9 +269,11 @@ export default {
     const loadingScreen = document.getElementById('loading-screen');
     if (loadingScreen) document.body.removeChild(loadingScreen);
 
-    if (this.isStaticPage || !this.isUserLoggedIn) {
-      this.hideLoadingScreen();
-    }
+    this.$router.onReady(() => {
+      if (this.isStaticPage || !this.isUserLoggedIn) {
+        this.hideLoadingScreen();
+      }
+    });
   },
   methods: {
     hideLoadingScreen () {
@@ -301,4 +304,3 @@ export default {
 </script>
 
 <style src="@/assets/scss/index.scss" lang="scss"></style>
-<style src="@/assets/scss/sprites.scss" lang="scss"></style>

@@ -91,10 +91,18 @@
     "viewProgressOf": "Zobacz postęp",
     "viewProgress": "Widok Postępu",
     "selectMember": "Wybierz Członka",
-    "confirmKeepChallengeTasks": "Czy chcesz zachować zadania z wyzwania?",
+    "confirmKeepChallengeTasks": "Czy chcesz zachować zadania z Wyzwania?",
     "selectParticipant": "Wybierz Uczestnika",
     "yourReward": "Twoja Nagroda",
     "filters": "Filtry",
     "wonChallengeDesc": "<%= challengeName %> wybrał cię jako zwycięzca! Twoja wygrana została zapisana w Osiągnięciach.",
-    "removeTasks": "Usuń Zadania"
+    "removeTasks": "Usuń Zadania",
+    "messageChallengeFlagOfficial": "Oficjalne Wyzwania nie mogą zostać zgłoszone.",
+    "flaggedAndHidden": "Wyzwanie oznaczone i ukryte",
+    "resetFlagCount": "Zresetuj Licznik Oznaczeń",
+    "whyReportingChallenge": "Dlaczego zgłaszasz to Wyzwanie?",
+    "whyReportingChallengePlaceholder": "Powód zgłoszenia",
+    "messageChallengeFlagAlreadyReported": "To Wyzwanie zostało już przez Ciebie zgłoszone.",
+    "flaggedNotHidden": "Wyzwanie oznaczone raz, nieukryte",
+    "cannotClose": "To Wyzwanie nie może zostać zamknięte, ponieważ jeden lub więcej graczy zgłosiło je jako niewłaściwe. Pracownicy wkrótce skontaktują się z Tobą, aby przekazać dalsze instrukcje. Jeśli nie nastąpi to w przeciągu 48 godzin, prosimy o wysłanie maila na adres admin@habitica.com z prośbą o pomoc."
 }

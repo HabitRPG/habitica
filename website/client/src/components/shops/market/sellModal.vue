@@ -98,8 +98,8 @@
   </b-modal>
 </template>
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/mixins.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/mixins.scss';
 
   #sell-modal {
     @include centeredModal();
@@ -322,11 +322,11 @@
   </style>
 
 <script>
-import svgClose from '@/assets/svg/close.svg';
-import svgGold from '@/assets/svg/gold.svg';
-import svgGem from '@/assets/svg/gem.svg';
-import svgPositive from '@/assets/svg/positive.svg';
-import svgNegative from '@/assets/svg/negative.svg';
+import svgClose from '@/assets/svg/close.svg?raw';
+import svgGold from '@/assets/svg/gold.svg?raw';
+import svgGem from '@/assets/svg/gem.svg?raw';
+import svgPositive from '@/assets/svg/positive.svg?raw';
+import svgNegative from '@/assets/svg/negative.svg?raw';
 
 import BalanceInfo from '../balanceInfo.vue';
 import Item from '@/components/inventory/item';

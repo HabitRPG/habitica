@@ -21,7 +21,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .currency-value {
     font-size: 0.75rem;
@@ -40,9 +40,9 @@
 </style>
 
 <script>
-import svgGem from '@/assets/svg/gem.svg';
-import svgGold from '@/assets/svg/gold.svg';
-import svgHourglasses from '@/assets/svg/hourglass.svg';
+import svgGem from '@/assets/svg/gem.svg?raw';
+import svgGold from '@/assets/svg/gold.svg?raw';
+import svgHourglasses from '@/assets/svg/hourglass.svg?raw';
 
 import currencyMixin from './_currencyMixin';
 

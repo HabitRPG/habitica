@@ -2901,5 +2901,9 @@
     "armorSpecialWinter2024WarriorNotes": "Alla fin fine il cioccolato, la menta e la glassa sono materiali più resistenti di quanto si pensi. Aumenta la Costituzione di <%= con %>. Equipaggiamento in edizione limitata, Inverno 2023-2024.",
     "armorSpecialWinter2024HealerText": "Armatura Ghiacciata",
     "armorSpecialWinter2024RogueText": "Vesti del Gufo delle Nevi",
-    "armorSpecialWinter2024WarriorText": "Armatura di Peppermint Bark"
+    "armorSpecialWinter2024WarriorText": "Armatura di Peppermint Bark",
+    "weaponSpecialWinter2025WarriorText": "Ascia dell'Alce Guerriero",
+    "weaponSpecialWinter2025WarriorNotes": "Una possente ascia per un possente alce! Sarai inarrestabile! Aumenta la Forza di <%= str %>.Edizione Limitata Equipaggiamento Inverno 2024-2025.",
+    "weaponSpecialWinter2025RogueText": "Esplosione di Fiocchi di Neve",
+    "weaponSpecialWinter2025HealerText": "Bacchetta Stellare"
 }

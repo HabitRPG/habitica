@@ -52,60 +52,64 @@
   </div>
 </template>
 
-  <style lang='scss' scoped>
-    @import '~@/assets/scss/colors.scss';
+<style lang='scss' scoped>
+  @import '@/assets/scss/colors.scss';
 
-    #app {
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
+  #app {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  .casting-spell {
+    cursor: crosshair;
+  }
+
+  .container-fluid {
+    flex: 1 0 auto;
+
+    &.groups-background {
+      background-color: white;
+      background-image: url('../assets/images/group-plans-static/top.svg?raw');
+      background-repeat: no-repeat;
     }
+  }
 
-    .casting-spell {
-      cursor: crosshair;
-    }
+  .no-margin {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
 
-    .container-fluid {
-      flex: 1 0 auto;
+  .notification {
+    border-radius: 1000px;
+    background-color: $green-10;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+    padding: .5em 1em;
+    color: $white;
+    margin-top: .5em;
+    margin-bottom: .5em;
+  }
+</style>
 
-      &.groups-background {
-        background-color: white;
-        background-image: url('../assets/images/group-plans-static/top.svg');
-        background-repeat: no-repeat;
-      }
-    }
+<style lang='scss'>
+  @import '@/assets/scss/sprites.scss';
 
-    .no-margin {
-      margin-left: 0;
-      margin-right: 0;
-      padding-left: 0;
-      padding-right: 0;
-    }
+  @import '@/assets/scss/colors.scss';
+  @import '~/intro.js/minified/introjs.min.css';
+  @import '~/axios-progress-bar/dist/nprogress.css';
 
-    .notification {
-      border-radius: 1000px;
-      background-color: $green-10;
-      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-      padding: .5em 1em;
-      color: $white;
-      margin-top: .5em;
-      margin-bottom: .5em;
-    }
-  </style>
+  .modal-backdrop {
+    opacity: .9 !important;
+    background-color: $purple-100 !important;
+  }
 
-  <style lang='scss'>
-    @import '~@/assets/scss/colors.scss';
-
-    .modal-backdrop {
-      opacity: .9 !important;
-      background-color: $purple-100 !important;
-    }
-
-    /* Push progress bar above modals */
-    #nprogress .bar {
-      z-index: 1600 !important; /* Must stay above nav bar */
-    }
-  </style>
+  /* Push progress bar above modals */
+  #nprogress .bar {
+    z-index: 1600 !important; /* Must stay above nav bar */
+  }
+</style>
 
 <script>
 import axios from 'axios';
@@ -140,10 +144,10 @@ import {
   removeLocalSetting,
 } from '@/libs/userlocalManager';
 
-const bugReportModal = () => import(/* webpackChunkName: "bug-report-modal" */'@/components/bugReportModal');
-const bugReportSuccessModal = () => import(/* webpackChunkName: "bug-report-success-modal" */'@/components/bugReportSuccessModal');
+const bugReportModal = () => import('@/components/bugReportModal');
+const bugReportSuccessModal = () => import('@/components/bugReportSuccessModal');
 
-  const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
+const COMMUNITY_MANAGER_EMAIL = import.meta.env.EMAILS_COMMUNITY_MANAGER_EMAIL;
 
 export default {
   name: 'App',
@@ -389,6 +393,3 @@ export default {
   },
 };
 </script>
-
-  <style src="intro.js/minified/introjs.min.css"></style>
-  <style src="axios-progress-bar/dist/nprogress.css"></style>

@@ -8,7 +8,7 @@
 </template>
 
 <style scoped lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .pm-disabled-caption {
   padding-top: 1.5em;

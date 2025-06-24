@@ -41,7 +41,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .announce-text {
     color: $purple-50;
@@ -56,7 +56,7 @@
       rgba(255,190,93,1) 25%,
       rgba(255,190,93,1) 75%,
       rgba(255,190,93,0) 100%),
-      url('~@/assets/images/glitter.png');
+      url('@/assets/images/glitter.png');
     cursor: pointer;
   }
 
@@ -86,8 +86,8 @@ import find from 'lodash/find';
 import { mapState } from '@/libs/store';
 import BaseBanner from './base';
 
-import giftsBirthday from '@/assets/svg/gifts-birthday.svg';
-import tenBirthday from '@/assets/svg/10th-birthday-linear.svg';
+import giftsBirthday from '@/assets/svg/gifts-birthday.svg?raw';
+import tenBirthday from '@/assets/svg/10th-birthday-linear.svg?raw';
 
 export default {
   components: {

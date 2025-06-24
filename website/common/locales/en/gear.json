@@ -1734,6 +1734,8 @@
   "armorArmoireGildedKnightsPlateNotes": "In this armor, you are nearly invincible. Your enemies will surely hear you roar! Increases Perception by <%= per %>. Enchanted Armoire: Gilded Knight Set (Item 2 of 3)",
   "armorArmoireBeekeepersSuitText": "Beekeeping Suit",
   "armorArmoireBeekeepersSuitNotes": "Keep yourself safe as you look after your busy bumbles. Increases Constitution by <%= con %>. Enchanted Armoire: Beekeeper Set (Item 2 of 4)",
+  "armorArmoireFlyFishingWadersText": "Fly Fishing Waders",
+  "armorArmoireFlyFishingWadersNotes": "Stay perfectly warm and dry when you wade into a stream, pond, lake, or river. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Fly Fishing Set (Item 2 of 3)",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2449,6 +2451,8 @@
   "headMystery202503Notes": "This verdant hairdo perfectly suits a brave warrior and defender of the planet. Confers no benefit. March 2025 Subscriber Item.",
   "headMystery202504Text": "Elusive Yeti Cowl",
   "headMystery202504Notes": "Wear this mysterious visage to dwell undetected among the world’s most obscure cyptids. Confers no benefit. April 2025 Subscriber Item.",
+  "headMystery202507Text": "Spunky Skater Cap",
+  "headMystery202507Notes": "Backwards hats are still cool, right? Confers no benefit. July 2025 Subscriber Item.",
 
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
@@ -2667,6 +2671,8 @@
   "headArmoireGildedKnightsHelmNotes": "Shine as bright as the sun through the darkness of any battle. Increases Constitution by <%= con %>. Enchanted Armoire: Gilded Knight Set (Item 1 of 3)",
   "headArmoireBeekeepersHatText": "Beekeeping Helmet and Veil",
   "headArmoireBeekeepersHatNotes": "Keep your face safe as you tend to your buzzing buddies. Increases Perception by <%= per %>. Enchanted Armoire: Beekeeper Set (Item 1 of 4)",
+  "headArmoireFlyFishingHatText": "Fly Fishing Hat",
+  "headArmoireFlyFishingHatNotes": "With a wide brim and spot to hold a spare lure, don’t go fly fishing without this beauty. Increases Strength and Perception by <%= attrs %> each. Enchanted Armoire: Fly Fishing Set (Item 1 of 3)",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -3174,6 +3180,8 @@
   "shieldArmoireSpringPetalUchiwaNotes": "This handheld fan featuring a beautiful petal pattern creates a small breeze just for you as the weather warms. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Spring Petal Set (Item 2 of 2).",
   "shieldArmoireBeekeepersHiveText": "Beehive",
   "shieldArmoireBeekeepersHiveNotes": "Beehives serve as both homes and worksites. You might need to talk to your bees about a good work-life balance. Increases Strength by <%= str %>. Enchanted Armoire: Beekeeper Set (Item 4 of 4)",
+  "shieldArmoireFlyFishingRodText": "Fly Fishing Rod",
+  "shieldArmoireFlyFishingRodNotes": "Put a lure on this long and flexible rod and fish will mistake it for an insect every single time. Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Fly Fishing Set (Item 3 of 3)",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
@@ -3260,6 +3268,8 @@
   "backMystery202505Notes": "Earn your stripes swooping and soaring on these aerodynamic wings. Confers no benefit. May 2025 Subscriber Item.",
   "backMystery202506Text": "Solar Shine Aureole",
   "backMystery202506Notes": "Bring a warm glow with you as you go about your daily tasks. Confers no benefit. June 2025 Subscriber Item.",
+  "backMystery202507Text": "Spunky Skateboard",
+  "backMystery202507Notes": "Your steed for the sidewalks and halfpipes. Confers no benefit. July 2025 Subscriber Item.",
 
   "backSpecialWonderconRedText": "Mighty Cape",
   "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Confers no benefit. Special Edition Convention Item.",

@@ -268,7 +268,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .svg-icon {
     height: 25px;
@@ -644,10 +644,10 @@ import { mapState } from '@/libs/store';
 import sidebarSection from '../sidebarSection';
 import Sprite from '../ui/sprite';
 
-import questIcon from '@/assets/svg/quest.svg';
-import swordIcon from '@/assets/svg/sword.svg';
-import rageIcon from '@/assets/svg/rage.svg';
-import healthNoPaddingIcon from '@/assets/svg/health_no_padding.svg';
+import questIcon from '@/assets/svg/quest.svg?raw';
+import swordIcon from '@/assets/svg/sword.svg?raw';
+import rageIcon from '@/assets/svg/rage.svg?raw';
+import healthNoPaddingIcon from '@/assets/svg/health_no_padding.svg?raw';
 import questActionsMixin from '@/components/groups/questActions.mixin';
 
 export default {

@@ -56,7 +56,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .toggle-switch-outer {
     display: flex;
@@ -156,7 +156,7 @@
 </style>
 
 <script>
-import svgInformation from '@/assets/svg/information.svg';
+import svgInformation from '@/assets/svg/information.svg?raw';
 
 export default {
   model: {

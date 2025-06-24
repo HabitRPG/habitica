@@ -24,7 +24,7 @@
 </style>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .array-select.disabled {
     .btn-secondary:disabled, .btn-secondary.disabled, .dropdown >

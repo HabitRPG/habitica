@@ -284,7 +284,7 @@
 </style>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .apply-options {
     padding: 1em;
@@ -378,10 +378,10 @@ import isEmpty from 'lodash/isEmpty';
 import removeMemberModal from '@/components/members/removeMemberModal';
 import loadingGryphon from '@/components/ui/loadingGryphon';
 import MemberDetails from '../memberDetails';
-import blockIcon from '@/assets/svg/block.svg';
-import messageIcon from '@/assets/members/message.svg';
-import starIcon from '@/assets/members/star.svg';
-import dots from '@/assets/svg/dots.svg';
+import blockIcon from '@/assets/svg/block.svg?raw';
+import messageIcon from '@/assets/members/message.svg?raw';
+import starIcon from '@/assets/members/star.svg?raw';
+import dots from '@/assets/svg/dots.svg?raw';
 import SelectList from '@/components/ui/selectList';
 import { PAGES } from '@/libs/consts';
 import { userStateMixin } from '../../mixins/userState';

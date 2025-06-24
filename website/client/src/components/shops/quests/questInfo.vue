@@ -26,8 +26,8 @@
         <dd>{{ quest.boss.hp }}</dd>
       </div>
       <div
-        class="table-row"
         v-if="quest.purchaseType !== 'bundles'"
+        class="table-row"
       >
         <dt>{{ $t('difficulty') + ':' }}</dt>
         <dd>
@@ -49,7 +49,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .row {
   display: table;
@@ -112,7 +112,7 @@ dt {
 </style>
 
 <style lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .questPopover {
   dt {
@@ -141,9 +141,9 @@ dt {
 <script>
 import moment from 'moment';
 
-import svgStar from '@/assets/svg/difficulty-star.svg';
-import svgStarHalf from '@/assets/svg/difficulty-star-half.svg';
-import svgStarEmpty from '@/assets/svg/difficulty-star-empty.svg';
+import svgStar from '@/assets/svg/difficulty-star.svg?raw';
+import svgStarHalf from '@/assets/svg/difficulty-star-half.svg?raw';
+import svgStarEmpty from '@/assets/svg/difficulty-star-empty.svg?raw';
 
 export default {
   props: {

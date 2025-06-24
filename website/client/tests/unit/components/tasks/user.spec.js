@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest';
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import User from '@/components/tasks/user.vue';
 import Store from '@/libs/store';
@@ -21,7 +22,7 @@ describe('Tasks User', () => {
   }
 
   describe('Computed Properties', () => {
-    it('should render a challenge tag under challenge header in tag filter popup when the challenge is active', () => {
+    test('should render a challenge tag under challenge header in tag filter popup when the challenge is active', () => {
       const activeChallengeTag = {
         id: '1',
         name: 'Challenge1',
@@ -35,7 +36,7 @@ describe('Tasks User', () => {
       expect(computedTagsByType.challenges.tags[0].name).to.equal(activeChallengeTag.name);
     });
 
-    it('should render a challenge tag under normal tag header in tag filter popup when the challenge is no longer active', () => {
+    test('should render a challenge tag under normal tag header in tag filter popup when the challenge is no longer active', () => {
       const inactiveChallengeTag = {
         id: '1',
         name: 'Challenge1',

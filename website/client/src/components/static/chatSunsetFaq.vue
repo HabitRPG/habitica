@@ -159,7 +159,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/faq.scss';
+  @import '@/assets/scss/faq.scss';
 </style>
 
 <script>

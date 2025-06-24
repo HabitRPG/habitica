@@ -180,5 +180,7 @@
     "emailUsernamePlaceholder": "z.B., habitrabbit oder gryphon@beispiel.com",
     "footerProduct": "Produkt",
     "incorrectResetPhrase": "Bitte tippe <%= magicWord %> in Großbuchstaben um deinen Account zurückzusetzen.",
-    "translateHabitica": "Habitica übersetzen"
+    "translateHabitica": "Habitica übersetzen",
+    "marketing3Lead1Title": "Android & iOS Apps",
+    "marketing4Lead3Button": "Starte noch heute"
 }

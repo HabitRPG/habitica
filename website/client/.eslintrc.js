@@ -3,6 +3,7 @@ module.exports = {
   root: true,
   env: {
     node: true,
+    es2021: true,
   },
   extends: [
     'habitrpg/lib/vue',
@@ -38,8 +39,5 @@ module.exports = {
     'vue/component-tags-order': ['warn', {
       order: ['template', 'style', 'script'],
     }],
-  },
-  parserOptions: {
-    parser: 'babel-eslint',
   },
 };

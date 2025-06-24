@@ -2991,7 +2991,7 @@
     "shieldSpecialFall2023HealerText": "Roca Musgosa",
     "weaponArmoireHattersShearsText": "Tijeras Afiladas",
     "weaponArmoireHattersShearsNotes": "Dale un buen corte al agobio y las complicaciones. También puedes usar estas tijeras para cortar tela por supuesto. Aumenta la Fuerza en <%= str %>. Armario Encantado: Conjunto de Sombrerero (Artículo 3 de 4).",
-    "armorArmoireSoftWhiteSuitNotes": "El blanco es el color de la paz. Ya sea que estés a punto de meterte en la cama o de pisar un hermoso y terrorífico manto de nieve recién caída, tendrás la mente despejada y lista. Aumenta la Constitución en <% con %> y la Percepción en <%= per %>. Armario Encantado: Conjunto Ropa de Casa Blanca (Artículo 2 de 3).",
+    "armorArmoireSoftWhiteSuitNotes": "El blanco es el color de la paz. Ya sea que estés a punto de meterte en la cama o de pisar un hermoso y terrorífico manto de nieve recién caída, tendrás la mente despejada y lista. Aumenta la Constitución en <%= con %> y la Percepción en <%= per %>. Armario Encantado: Conjunto Ropa de Casa Blanca (Artículo 2 de 3).",
     "weaponMystery202403Text": "Espadón Esmeralda Afortunada",
     "weaponMystery202403Notes": "¡Empuñar el espadón más grande es una buena manera de crear tu propia buena suerte! No otorga ningún beneficio. Artículo de Suscriptor Marzo 2024.",
     "armorArmoireSoftWhiteSuitText": "Ropa Mullidita Blanca",

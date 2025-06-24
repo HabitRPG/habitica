@@ -2001,6 +2001,11 @@
   width: 141px;
   height: 147px;
 }
+.background_sirens_lair {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_sirens_lair.png');
+  width: 141px;
+  height: 147px;
+}
 .background_slimy_swamp {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_slimy_swamp.png');
   width: 141px;
@@ -29685,6 +29690,11 @@
   width: 114px;
   height: 90px;
 }
+.broad_armor_armoire_flyFishingWaders {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_flyFishingWaders.png');
+  width: 114px;
+  height: 90px;
+}
 .broad_armor_armoire_funnyFoolCostume {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/broad_armor_armoire_funnyFoolCostume.png');
   width: 114px;
@@ -30300,6 +30310,11 @@
   width: 114px;
   height: 90px;
 }
+.head_armoire_flyFishingHat {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_flyFishingHat.png');
+  width: 114px;
+  height: 90px;
+}
 .head_armoire_frostedHelm {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_armoire_frostedHelm.png');
   width: 114px;
@@ -30762,6 +30777,11 @@
 }
 .shield_armoire_flutteryFan {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_armoire_flutteryFan.png');
+  width: 114px;
+  height: 90px;
+}
+.shield_armoire_flyFishingRod {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_armoire_flyFishingRod.png');
   width: 114px;
   height: 90px;
 }
@@ -31242,6 +31262,11 @@
 }
 .slim_armor_armoire_flutteryFrock {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_flutteryFrock.png');
+  width: 114px;
+  height: 90px;
+}
+.slim_armor_armoire_flyFishingWaders {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_flyFishingWaders.png');
   width: 114px;
   height: 90px;
 }
@@ -35597,6 +35622,16 @@
 }
 .shield_mystery_202506 {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/shield_mystery_202506.png');
+  width: 114px;
+  height: 90px;
+}
+.back_mystery_202507 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/back_mystery_202507.png');
+  width: 117px;
+  height: 120px;
+}
+.head_mystery_202507 {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/head_mystery_202507.png');
   width: 114px;
   height: 90px;
 }

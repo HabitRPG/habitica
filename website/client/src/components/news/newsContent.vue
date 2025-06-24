@@ -33,7 +33,7 @@
 </template>
 
 <style lang='scss'>
-@import '~@/assets/scss/static.scss';
+@import '@/assets/scss/static.scss';
 #bailey {
   .markdown-img-link {
     display: flex;
@@ -48,7 +48,7 @@
 </style>
 
 <style lang='scss' scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 h1 {
   color: $purple-200;

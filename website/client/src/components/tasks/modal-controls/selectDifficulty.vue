@@ -34,7 +34,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .difficulty-item {
     display: flex;
@@ -83,7 +83,7 @@
 </style>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .difficulty-select {
 
@@ -134,10 +134,10 @@
 </style>
 
 <script>
-import difficultyNormalIcon from '@/assets/svg/difficulty-normal.svg';
-import difficultyTrivialIcon from '@/assets/svg/difficulty-trivial.svg';
-import difficultyMediumIcon from '@/assets/svg/difficulty-medium.svg';
-import difficultyHardIcon from '@/assets/svg/difficulty-hard.svg';
+import difficultyNormalIcon from '@/assets/svg/difficulty-normal.svg?raw';
+import difficultyTrivialIcon from '@/assets/svg/difficulty-trivial.svg?raw';
+import difficultyMediumIcon from '@/assets/svg/difficulty-medium.svg?raw';
+import difficultyHardIcon from '@/assets/svg/difficulty-hard.svg?raw';
 import selectList from '@/components/ui/selectList';
 
 export default {

@@ -125,7 +125,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .item-wrapper {
     z-index: 10;
@@ -271,12 +271,12 @@
 import { v4 as uuid } from 'uuid';
 
 import moment from 'moment';
-import svgGem from '@/assets/svg/gem.svg';
-import svgGold from '@/assets/svg/gold.svg';
-import svgHourglasses from '@/assets/svg/hourglass.svg';
-import svgLock from '@/assets/svg/lock.svg';
-import svgCheck from '@/assets/svg/check.svg';
-import svgClock from '@/assets/svg/clock.svg';
+import svgGem from '@/assets/svg/gem.svg?raw';
+import svgGold from '@/assets/svg/gold.svg?raw';
+import svgHourglasses from '@/assets/svg/hourglass.svg?raw';
+import svgLock from '@/assets/svg/lock.svg?raw';
+import svgCheck from '@/assets/svg/check.svg?raw';
+import svgClock from '@/assets/svg/clock.svg?raw';
 
 import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
 
