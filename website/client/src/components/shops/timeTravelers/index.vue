@@ -41,7 +41,7 @@
     <div class="standard-page">
       <div class="featuredItems">
         <div
-        v-if="isSubscribed || (hasTrinket && !isSubscribed)"
+          v-if="isSubscribed || (hasTrinket && !isSubscribed)"
           class="background"
           :style="{'background-image': imageURLs.background}"
         >
@@ -49,13 +49,13 @@
             class="npc"
             :style="{'background-image': imageURLs.npc}"
           >
-            <div
-              class="featured-label">
+            <div class="featured-label">
               <span class="rectangle"></span>
               <span
                 v-once
                 class="text"
-              >{{ $t('timeTravelers') }}
+              >
+                {{ $t('timeTravelers') }}
               </span>
               <span class="rectangle"></span>
             </div>
