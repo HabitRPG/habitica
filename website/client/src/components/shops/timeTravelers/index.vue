@@ -85,13 +85,12 @@
             <div
               v-if="!isSubscribed && !hasTrinket"
               class="shop-message featured-label with-border closed">
-              <span
-                class="rectangle">
-              </span>
+              <span class="rectangle"></span>
               <span
                 v-once
                 class="text"
-                >{{ $t('timeTravelersPopoverNoSubMobile') }}
+              >
+                {{ $t('timeTravelersPopoverNoSubMobile') }}
               </span>
               <span class="rectangle"></span>
             </div>
@@ -263,23 +262,18 @@ export default {
       userItems: 'user.data.items',
       currentEventList: 'worldState.data.currentEventList',
     }),
-
     isSubscribed () {
       const now = new Date();
       const { plan } = this.user.purchased;
       return plan && plan.customerId
-      && (!plan.dateTerminated
-      || moment(plan.dateTerminated).isAfter(now));
+        && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
     },
-
     hasTrinket () {
       return this.user.purchased.plan.consecutive.trinkets > 0;
     },
-
     shop () {
       return shops.getTimeTravelersShop(this.user);
     },
-
     categories () {
       const apiCategories = this.shop.categories;
 
