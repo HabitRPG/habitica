@@ -61,26 +61,27 @@
             </div>
           </div>
         </div>
-        <div
-          class="content"
-          >
+        <div class="content">
           <div
-          class="background"
-          :style="{'background-image': imageURLs.background}"
+            class="background"
+            :style="{'background-image': imageURLs.background}"
           >
             <div
-            class="npc"
-            :style="{'background-image': imageURLs.npc}"
-          >
-            <div
-              class="featured-label">
-              <span class="rectangle"></span>
-              <span
-                v-once
-                class="text"
-              >{{ $t('timeTravelers') }}</span>
-              <span class="rectangle"></span>
-            </div>
+              class="npc"
+              :style="{'background-image': imageURLs.npc}"
+            >
+              <div
+                class="featured-label"
+              >
+                <span class="rectangle"></span>
+                <span
+                  v-once
+                  class="text"
+                >
+                  {{ $t('timeTravelers') }}
+                </span>
+                <span class="rectangle"></span>
+              </div>
             </div>
             <div
               v-if="!isSubscribed && !hasTrinket"
