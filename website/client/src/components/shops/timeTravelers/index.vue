@@ -84,7 +84,8 @@
             </div>
             <div
               v-if="!isSubscribed && !hasTrinket"
-              class="shop-message featured-label with-border closed">
+              class="shop-message featured-label with-border closed"
+            >
               <span class="rectangle"></span>
               <span
                 v-once
