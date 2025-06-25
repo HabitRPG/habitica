@@ -70,9 +70,7 @@
               class="npc"
               :style="{'background-image': imageURLs.npc}"
             >
-              <div
-                class="featured-label"
-              >
+              <div class="featured-label">
                 <span class="rectangle"></span>
                 <span
                   v-once
