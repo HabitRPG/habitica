@@ -15,6 +15,38 @@
       :task="editingTask"
       @cancel="cancelTaskModal()"
     />
+<!-- Added by GarryGs -->
+<!-- Start -->
+    <b-modal
+      id="rewards-modal"
+      v-model="showRewardsModal"
+      title="Rewards Shop"
+      size="lg"
+      hide-footer
+    >
+      <div class="reward-items">
+        <shopItem
+          v-for="reward in inAppRewards"
+          :key="reward.key"
+          :item="reward"
+          :show-popover="true"
+          :popover-position="'left'"
+          @click="openBuyDialog(reward)"
+        >
+          <template #itemBadge="ctx">
+            <span
+              class="badge-top"
+              @click.prevent.stop="togglePinned(ctx.item)"
+              @keypress.enter.prevent.stop="togglePinned(ctx.item)"
+            >
+              <pin-badge :pinned="ctx.item.pinned" />
+            </span>
+          </template>
+        </shopItem>
+      </div>
+    </b-modal>
+<!-- End -->
+  
     <div class="col-12">
       <div class="row tasks-navigation">
         <div class="col-12 col-md-4 offset-md-4">
@@ -208,6 +240,55 @@
             </div>
           </div>
         </div>
+
+<!-- Added by GarryGs -->
+<!-- Start -->
+      <div class="rewards-section">
+        <div
+          id="open-shop-btn"
+          class="btn btn-primary create-btn d-flex align-items-center"
+          @click.stop.prevent="showRewardsModal = true"
+        >
+          <div class="ml-1 mr-1">Rewards</div>
+        </div>
+      </div>
+
+      <div v-if="openRewardsBtn" class="modal-dialog modal-sm">
+        <!-- Rewards content -->
+        <template>
+            <b-modal
+                id="rewards-modal"
+                v-model="showRewardsModal"
+                title="Rewards Shop"
+                size="lg"
+                hide-footer
+                >
+                <div class="reward-items">
+                    <shopItem
+                    v-for="reward in inAppRewards"
+                    :key="reward.key"
+                    :item="reward"
+                    :show-popover="true"
+                    :popover-position="'left'"
+                    @click="openBuyDialog(reward)"
+                    >
+                    <template slot="itemBadge" slot-scope="ctx">
+                        <span
+                        class="badge-top"
+                        @click.prevent.stop="togglePinned(ctx.item)"
+                        @keypress.enter.prevent.stop="togglePinned(ctx.item)"
+                        >
+                        <pin-badge :pinned="ctx.item.pinned" />
+                        </span>
+                    </template>
+                    </shopItem>
+                </div>
+            </b-modal>
+        </template>
+        <!-- Rewards content -->
+      </div>
+<!-- End -->
+
       </div>
       <div class="row tasks-columns">
         <task-column
@@ -394,6 +475,11 @@ import TaskSummary from './taskSummary';
 import spells from './spells';
 import markdown from '@/directives/markdown';
 
+import inAppRewards from '@/../../common/script/libs/inAppRewards';
+import shopItem from '../shops/shopItem';
+import BuyQuestModal from '@/components/shops/quests/buyQuestModal.vue';
+import PinBadge from '@/components/ui/pinBadge';
+
 import positiveIcon from '@/assets/svg/positive.svg?raw';
 import filterIcon from '@/assets/svg/filter.svg?raw';
 import deleteIcon from '@/assets/svg/delete.svg?raw';
@@ -414,6 +500,7 @@ export default {
     spells,
     brokenTaskModal,
     draggable,
+    shopItem,
   },
   directives: {
     markdown,
@@ -425,6 +512,8 @@ export default {
       searchTextThrottled: null,
       isFilterPanelOpen: false,
       openCreateBtn: false,
+      openRewardsBtn: false,
+      showRewardsModal: false,
       icons: Object.freeze({
         positive: positiveIcon,
         filter: filterIcon,
@@ -477,6 +566,25 @@ export default {
       });
 
       return tagsByType;
+    },
+
+    inAppRewards () {
+      let watchRefresh = this.forceRefresh; // eslint-disable-line
+      const rewards = inAppRewards(this.user);
+
+      return rewards;
+    },
+    hasRewardsList () {
+      return this.isUser === true && this.type === 'reward' && this.activeFilter.label !== 'custom';
+    },
+    initialColumnDescription () {
+      // Show the column description in the middle only
+      // if there are no elements (tasks or in app items)
+      if (this.hasRewardsList) {
+        if (this.inAppRewards && this.inAppRewards.length >= 0) return false;
+      }
+
+      return this.taskList.length === 0;
     },
   },
   watch: {
@@ -612,6 +720,50 @@ export default {
     openBuyDialog (item) {
       this.$root.$emit('buyModal::showItem', item);
     },
+
+// Added by GarryGs
+// Start
+    openBuyDialog (rewardItem) {
+      if (rewardItem.locked) return;
+
+      // Buy armoire and health potions immediately
+      const itemsToPurchaseImmediately = ['potion', 'armoire'];
+      if (itemsToPurchaseImmediately.indexOf(rewardItem.key) !== -1) {
+        this.makeGenericPurchase(rewardItem);
+        this.$emit('buyPressed', rewardItem);
+        return;
+      }
+
+      if (rewardItem.purchaseType === 'quests') {
+        this.selectedItemToBuy = rewardItem;
+        this.$root.$emit('bv::show::modal', 'buy-quest-modal');
+        return;
+      }
+
+      if (rewardItem.purchaseType !== 'gear' || !rewardItem.locked) {
+        this.$emit('openBuyDialog', rewardItem);
+      }
+    },
+    resetItemToBuy ($event) {
+      if (!$event) {
+        this.selectedItemToBuy = null;
+      }
+    },
+    togglePinned (item) {
+      if (!item.pinType) {
+        this.error(this.$t('errorTemporaryItem'));
+        return;
+      }
+
+      try {
+        if (!this.$store.dispatch('user:togglePinnedItem', { type: item.pinType, path: item.path })) {
+          this.text(this.$t('unpinnedItem', { item: item.text }));
+        }
+      } catch (e) {
+        this.error(e.message);
+      }
+    },
+// End
   },
 };
 </script>
