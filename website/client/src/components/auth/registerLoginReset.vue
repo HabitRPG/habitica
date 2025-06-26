@@ -3,8 +3,16 @@
     <div id="top-background">
       <div class="seamless_stars_varied_opacity_repeat"></div>
     </div>
+    <register-username
+      v-if="registrationMethod"
+      :default-username="username"
+      :email="email"
+      :password="password"
+      :password-confirm="passwordConfirm"
+      :registration-method="registrationMethod"
+    />
     <form
-      v-if="!forgotPassword && !resetPasswordSetNewOne"
+      v-else-if="!forgotPassword && !resetPasswordSetNewOne"
       id="login-form"
       @submit.prevent.stop="handleSubmit"
     >
@@ -20,7 +28,7 @@
         <div class="col-12 col-md-12">
           <div
             class="btn btn-secondary social-button"
-            @click="socialAuth('google')"
+            @click="proceed('google')"
           >
             <div
               class="svg-icon social-icon"
@@ -40,7 +48,7 @@
         <div class="col-12 col-md-12">
           <div
             class="btn btn-secondary social-button"
-            @click="socialAuth('apple')"
+            @click="proceed('apple')"
           >
             <div
               class="svg-icon social-icon"
@@ -149,7 +157,7 @@
           v-if="registering"
           type="submit"
           class="btn btn-info"
-          :disabled="signupFormInvalid"
+          :disabled="signupFormInvalid || !email || !password || !passwordConfirm"
         >
           {{ $t('continue') }}
         </button>
@@ -575,10 +583,10 @@
 <script>
 import axios from 'axios';
 import hello from 'hellojs';
-import debounce from 'lodash/debounce';
 import isEmail from 'validator/es/lib/isEmail';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
-import { buildAppleAuthUrl } from '../../libs/auth';
+import RegisterUsername from './registerUsername';
+import notifications from '@/mixins/notifications';
 import sanitizeRedirect from '@/mixins/sanitizeRedirect';
 import exclamation from '@/assets/svg/exclamation.svg?raw';
 import gryphon from '@/assets/svg/gryphon.svg?raw';
@@ -587,18 +595,22 @@ import googleIcon from '@/assets/svg/google.svg?raw';
 import appleIcon from '@/assets/svg/apple_black.svg?raw';
 
 export default {
-  mixins: [sanitizeRedirect],
+  components: {
+    RegisterUsername,
+  },
+  mixins: [notifications, sanitizeRedirect],
   data () {
     const data = {
-      username: '',
       email: '',
+      forgotPassword: false,
       password: '',
       passwordConfirm: '',
-      forgotPassword: false,
+      registrationMethod: null,
       resetPasswordSetNewOneData: {
         hasError: null,
         code: null,
       },
+      username: '',
       usernameIssues: [],
     };
 
@@ -633,14 +645,6 @@ export default {
       if (this.email.length < 1) return false;
       return !this.emailValid;
     },
-    usernameValid () {
-      if (this.username.length < 1) return false;
-      return this.usernameIssues.length === 0;
-    },
-    usernameInvalid () {
-      if (this.username.length < 1) return false;
-      return !this.usernameValid;
-    },
     passwordValid () {
       if (this.password.length <= 0) return false;
       return this.password.length >= MINIMUM_PASSWORD_LENGTH;
@@ -658,8 +662,7 @@ export default {
       return !this.passwordConfirmValid;
     },
     signupFormInvalid () {
-      return this.usernameInvalid
-        || this.emailInvalid
+      return this.emailInvalid
         || this.passwordInvalid
         || this.passwordConfirmInvalid;
     },
@@ -689,9 +692,6 @@ export default {
       },
       immediate: true,
     },
-    username () {
-      this.validateUsername(this.username);
-    },
   },
   mounted () {
     this.forgotPassword = this.$route.path.startsWith('/forgot-password');
@@ -705,61 +705,17 @@ export default {
     });
   },
   methods: {
-    // eslint-disable-next-line func-names
-    validateUsername: debounce(function (username) {
-      if (username.length <= 3 || !this.registering) {
-        return;
-      }
-      this.$store.dispatch('auth:verifyUsername', {
-        username: this.username,
-      }).then(res => {
-        if (res.issues !== undefined) {
-          this.usernameIssues = res.issues;
-        } else {
-          this.usernameIssues = [];
+    async proceed (accountType) {
+      if (accountType === 'local') {
+        const emailCheck = await this.$store.dispatch('auth:checkEmail', {
+          email: this.email,
+        });
+        if (!emailCheck.valid) {
+          this.error(this.$t('cannotFulfillReq'));
+          throw new Error(this.$t('cannotFulfillReq'));
         }
-      });
-    }, 500),
-    async register () {
-      // @TODO do not use alert
-      if (!this.email) {
-        window.alert(this.$t('missingEmail')); // eslint-disable-line no-alert
-        return;
       }
-
-      if (this.password !== this.passwordConfirm) {
-        window.alert(this.$t('passwordConfirmationMatch')); // eslint-disable-line no-alert
-        return;
-      }
-
-      // @TODO: implement language and invite accepting
-      // var url = ApiUrl.get() + "/api/v4/user/auth/local/register";
-      // if (location.search && location.search.indexOf('Invite=') !== -1)
-      // { // matches groupInvite and partyInvite
-      //   url += location.search;
-      // }
-      //
-      // if($rootScope.selectedLanguage) {
-      //   var toAppend = url.indexOf('?') !== -1 ? '&' : '?';
-      //   url = url + toAppend + 'lang=' + $rootScope.selectedLanguage.code;
-      // }
-
-      await this.$store.dispatch('auth:register', {
-        username: this.username,
-        email: this.email,
-        password: this.password,
-        passwordConfirm: this.passwordConfirm,
-      });
-
-      const redirectTo = this.sanitizeRedirect(this.$route.query.redirectTo);
-
-      // @TODO do not reload entire page
-      // problem is that app.vue created hook should be called again
-      // after user is logged in / just signed up
-      // ALSO it's the only way to make sure language data
-      // is reloaded and correct for the logged in user
-      // Same situation in login and socialAuth functions
-      window.location.href = redirectTo;
+      this.registrationMethod = accountType;
     },
     async login () {
       await this.$store.dispatch('auth:login', {
@@ -771,31 +727,6 @@ export default {
       const redirectTo = this.sanitizeRedirect(this.$route.query.redirectTo);
 
       window.location.href = redirectTo;
-    },
-    // @TODO: Abstract hello in to action or lib
-    async socialAuth (network) {
-      if (network === 'apple') {
-        window.location.href = buildAppleAuthUrl();
-      } else {
-        try {
-          await hello(network).logout();
-        } catch (e) {} // eslint-disable-line
-
-        const redirectUrl = `${window.location.protocol}//${window.location.host}`;
-        const auth = await hello(network).login({
-          scope: 'email',
-          // explicitly pass the redirect url or it might redirect to /home
-          redirect_uri: redirectUrl, // eslint-disable-line camelcase
-        });
-
-        await this.$store.dispatch('auth:socialAuth', {
-          auth,
-        });
-
-        const redirectTo = this.sanitizeRedirect(this.$route.query.redirectTo);
-
-        window.location.href = redirectTo;
-      }
     },
     setTitle () {
       if (this.resetPasswordSetNewOne) {
@@ -811,7 +742,7 @@ export default {
     },
     handleSubmit () {
       if (this.registering) {
-        this.register();
+        this.proceed('local');
         return;
       }
 

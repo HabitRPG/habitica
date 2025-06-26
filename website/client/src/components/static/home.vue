@@ -12,60 +12,14 @@
       class="privacy-banner"
     />
     <div class="purple-1">
-      <div
-        v-if="showTerms"
-        id="privacy-tos"
-        class="w-25 mx-auto text-center"
-      >
-        <img
-          src="@/assets/images/home/signup-quill@2x.png"
-          width="120px"
-        >
-        <h1 class="mt-0 mb-4">{{ $t('whatToCallYou') }}</h1>
-        <form
-          class="form"
-          @submit.prevent.stop="register()"
-        >
-          <input
-            id="usernameInput"
-            v-model="username"
-            class="form-control input-with-error mb-3"
-            type="text"
-            :placeholder="$t('username')"
-            :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
-          >
-          <!-- eslint-disable vue/require-v-for-key -->
-          <div
-            v-for="issue in usernameIssues"
-            class="input-error"
-          >
-            <!-- eslint-enable vue/require-v-for-key -->
-            {{ issue }}
-          </div>
-          <div class="custom-control custom-checkbox">
-            <input
-              id="privacyTOS"
-              v-model="privacyAccepted"
-              class="custom-control-input"
-              type="checkbox"
-            >
-            <label
-              v-once
-              class="custom-control-label"
-              for="privacyTOS"
-              v-html="$t('acceptPrivacyTOS')"
-            ></label>
-          </div>
-          <p>{{ $t('usernameLimitations')}} </p>
-          <button
-            class="btn btn-info sign-up mb-5"
-            :disabled="!username || usernameInvalid || !privacyAccepted"
-            type="submit"
-          >
-            {{ $t('getStarted') }}
-          </button>
-        </form>
-      </div>
+      <register-username
+        v-if="registrationMethod"
+        :default-username="username"
+        :email="email"
+        :password="password"
+        :password-confirm="passwordConfirm"
+        :registration-method="registrationMethod"
+      />
       <div v-else>
         <div
           id="intro-signup"
@@ -394,14 +348,6 @@
     }
     .privacy-banner p {
       font-size: 14px;
-    }
-  }
-
-  #privacy-tos {
-    a {
-      color: $white;
-      font-weight: bold;
-      text-decoration: underline;
     }
   }
 </style>
@@ -857,13 +803,11 @@
 
 <script>
 import hello from 'hellojs';
-import debounce from 'lodash/debounce';
 import isEmail from 'validator/es/lib/isEmail';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
-import { buildAppleAuthUrl } from '../../libs/auth';
 import notifications from '@/mixins/notifications';
-import sanitizeRedirect from '@/mixins/sanitizeRedirect';
 import PrivacyBanner from '@/components/header/banners/privacy';
+import RegisterUsername from '../auth/registerUsername';
 import googlePlay from '@/assets/images/home/google-play-badge.svg?raw';
 import iosAppStore from '@/assets/images/home/ios-app-store.svg?raw';
 import iphones from '@/assets/images/home/iphones.svg?raw';
@@ -886,8 +830,9 @@ import thenewyorktimes from '@/assets/images/home/the-new-york-times.svg?raw';
 export default {
   components: {
     PrivacyBanner,
+    RegisterUsername,
   },
-  mixins: [notifications, sanitizeRedirect],
+  mixins: [notifications],
   data () {
     return {
       icons: Object.freeze({
@@ -910,14 +855,12 @@ export default {
         makeuseof,
         thenewyorktimes,
       }),
+      email: '',
       userCountInMillions: 4,
       username: '',
       password: '',
       passwordConfirm: '',
-      email: '',
-      usernameIssues: [],
-      showTerms: null,
-      privacyAccepted: false,
+      registrationMethod: null,
     };
   },
   computed: {
@@ -928,14 +871,6 @@ export default {
     emailInvalid () {
       if (this.email.length < 1) return false;
       return !isEmail(this.email);
-    },
-    usernameValid () {
-      if (this.username.length < 1) return false;
-      return this.usernameIssues.length === 0;
-    },
-    usernameInvalid () {
-      if (this.username.length < 1) return false;
-      return !this.usernameValid;
     },
     passwordValid () {
       if (this.password.length <= 0) return false;
@@ -959,11 +894,6 @@ export default {
         || this.passwordConfirmInvalid;
     },
   },
-  watch: {
-    username () {
-      this.validateUsername(this.username);
-    },
-  },
   mounted () {
     hello.init({
       google: import.meta.env.GOOGLE_CLIENT_ID, // eslint-disable-line
@@ -973,22 +903,6 @@ export default {
     });
   },
   methods: {
-    // eslint-disable-next-line func-names
-    validateUsername: debounce(function (username) {
-      if (username.length < 1) {
-        return;
-      }
-
-      this.$store.dispatch('auth:verifyUsername', {
-        username: this.username,
-      }).then(res => {
-        if (res.issues !== undefined) {
-          this.usernameIssues = res.issues;
-        } else {
-          this.usernameIssues = [];
-        }
-      });
-    }, 500),
     async proceed (accountType) {
       if (accountType === 'local') {
         const emailCheck = await this.$store.dispatch('auth:checkEmail', {
@@ -998,69 +912,11 @@ export default {
           this.error(this.$t('cannotFulfillReq'));
           throw new Error(this.$t('cannotFulfillReq'));
         }
-        const usernameToCheck = this.email.split('@')[0].replace(/[^a-zA-Z0-9\-_]/g, '');
-        this.$store.dispatch('auth:verifyUsername', {
-          username: usernameToCheck,
-        }).then(res => {
-          if (!res.issues) {
-            this.username = usernameToCheck;
-          }
-        });
       }
-      this.showTerms = accountType;
-    },
-    // @TODO this is totally duplicate from the registerLogin component
-    async register () {
-      if (this.showTerms === 'local') {
-        let groupInvite = '';
-        if (this.$route.query && this.$route.query.p) {
-          groupInvite = this.$route.query.p;
-        }
-  
-        if (this.$route.query && this.$route.query.groupInvite) {
-          groupInvite = this.$route.query.groupInvite;
-        }
-  
-        await this.$store.dispatch('auth:register', {
-          username: this.username,
-          email: this.email,
-          password: this.password,
-          passwordConfirm: this.passwordConfirm,
-          groupInvite,
-        });
-  
-        const redirect = this.sanitizeRedirect(this.$route.query.redirectTo);
-  
-        window.location.href = redirect;
-      } else {
-        socialAuth(this.showTerms);
-      }
+      this.registrationMethod = accountType;
     },
     playButtonClick () {
       this.$router.push('/register');
-    },
-    // @TODO: Abstract hello in to action or lib
-    async socialAuth (network) {
-      if (network === 'apple') {
-        window.location.href = buildAppleAuthUrl();
-      } else {
-        try {
-          await hello(network).logout();
-        } catch (e) {} // eslint-disable-line
-
-        const redirectUrl = `${window.location.protocol}//${window.location.host}`;
-        const auth = await hello(network).login({
-          scope: 'email',
-          // explicitly pass the redirect url or it might redirect to /home
-          redirect_uri: redirectUrl, // eslint-disable-line camelcase
-        });
-
-        await this.$store.dispatch('auth:socialAuth', {
-          auth,
-        });
-
-        window.location.href = '/';
-      }
     },
   },
 };
