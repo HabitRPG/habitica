@@ -75,18 +75,14 @@ export async function checkEmail (store, params) {
 
 export async function socialAuth (store, params) {
   const url = '/api/v4/user/auth/social';
-  let result;
-  try {
-    result = await axios.post(url, {
-      allowRegister: params.allowRegister,
-      username: params.username,
-      network: params.auth.network,
-      authResponse: params.auth.authResponse,
-    });
-  } catch (err) {
-    if (params.allowRegister || err.response.status !== 404) {
-      throw new Error(err);
-    }
+  const result = await axios.post(url, {
+    allowRegister: params.allowRegister,
+    username: params.username,
+    network: params.auth.network,
+    authResponse: params.auth.authResponse,
+  });
+
+  if (!result.data) {
     return null;
   }
 
