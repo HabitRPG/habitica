@@ -91,12 +91,12 @@
 
 <script>
 import debounce from 'lodash/debounce';
-import { buildAppleAuthUrl } from '../../libs/auth';
 import sanitizeRedirect from '@/mixins/sanitizeRedirect';
 
 export default {
   mixins: [sanitizeRedirect],
   props: {
+    authData: Object,
     email: String,
     password: String,
     passwordConfirm: String,
@@ -125,6 +125,9 @@ export default {
     },
   },
   mounted () {
+    if (!this.email) {
+      return;
+    }
     const usernameToCheck = this.email.split('@')[0].replace(/[^a-zA-Z0-9\-_]/g, '');
     this.$store.dispatch('auth:verifyUsername', {
       username: usernameToCheck,
@@ -159,27 +162,9 @@ export default {
   
         window.location.href = redirect;
       } else {
-        socialAuth(this.registrationMethod);
-      }
-    },
-    // @TODO: Abstract hello in to action or lib
-    async socialAuth (network) {
-      if (network === 'apple') {
-        window.location.href = buildAppleAuthUrl();
-      } else {
-        try {
-          await hello(network).logout();
-        } catch (e) {} // eslint-disable-line
-
-        const redirectUrl = `${window.location.protocol}//${window.location.host}`;
-        const auth = await hello(network).login({
-          scope: 'email',
-          // explicitly pass the redirect url or it might redirect to /home
-          redirect_uri: redirectUrl, // eslint-disable-line camelcase
-        });
-
         await this.$store.dispatch('auth:socialAuth', {
-          auth,
+          auth: this.authData,
+          username: this.username,
         });
 
         window.location.href = '/';

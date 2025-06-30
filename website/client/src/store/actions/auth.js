@@ -75,14 +75,25 @@ export async function checkEmail (store, params) {
 
 export async function socialAuth (store, params) {
   const url = '/api/v4/user/auth/social';
-  const result = await axios.post(url, {
-    network: params.auth.network,
-    authResponse: params.auth.authResponse,
-  });
+  let result;
+  try {
+    result = await axios.post(url, {
+      allowRegister: params.allowRegister,
+      username: params.username,
+      network: params.auth.network,
+      authResponse: params.auth.authResponse,
+    });
+  } catch (err) {
+    if (params.allowRegister || err.response.status !== 404) {
+      throw new Error(err);
+    }
+    return null;
+  }
 
   const user = result.data.data;
 
   saveLocalDataAuth(store, user.id, user.apiToken);
+  return user.id;
 }
 
 export async function appleAuth (store, params) {
@@ -97,6 +108,7 @@ export async function appleAuth (store, params) {
   const user = result.data.data;
 
   saveLocalDataAuth(store, user.id, user.apiToken);
+  return user.id;
 }
 
 export function logout (store, options = {}) {

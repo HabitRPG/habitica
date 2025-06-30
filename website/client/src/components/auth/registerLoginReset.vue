@@ -5,6 +5,7 @@
     </div>
     <register-username
       v-if="registrationMethod"
+      :auth-data="authData"
       :default-username="username"
       :email="email"
       :password="password"
@@ -582,12 +583,12 @@
 
 <script>
 import axios from 'axios';
-import hello from 'hellojs';
 import isEmail from 'validator/es/lib/isEmail';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import RegisterUsername from './registerUsername';
 import notifications from '@/mixins/notifications';
 import sanitizeRedirect from '@/mixins/sanitizeRedirect';
+import socialLogin from '@/mixins/socialLogin';
 import exclamation from '@/assets/svg/exclamation.svg?raw';
 import gryphon from '@/assets/svg/gryphon.svg?raw';
 import habiticaIcon from '@/assets/svg/logo-horizontal.svg?raw';
@@ -598,9 +599,10 @@ export default {
   components: {
     RegisterUsername,
   },
-  mixins: [notifications, sanitizeRedirect],
+  mixins: [notifications, sanitizeRedirect, socialLogin],
   data () {
     const data = {
+      authData: {},
       email: '',
       forgotPassword: false,
       password: '',
@@ -700,23 +702,8 @@ export default {
         this.username = this.$route.query.email;
       }
     }
-    hello.init({
-      google: import.meta.env.GOOGLE_CLIENT_ID, // eslint-disable-line
-    });
   },
   methods: {
-    async proceed (accountType) {
-      if (accountType === 'local') {
-        const emailCheck = await this.$store.dispatch('auth:checkEmail', {
-          email: this.email,
-        });
-        if (!emailCheck.valid) {
-          this.error(this.$t('cannotFulfillReq'));
-          throw new Error(this.$t('cannotFulfillReq'));
-        }
-      }
-      this.registrationMethod = accountType;
-    },
     async login () {
       await this.$store.dispatch('auth:login', {
         username: this.username,

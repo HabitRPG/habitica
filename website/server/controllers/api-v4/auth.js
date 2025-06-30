@@ -95,6 +95,7 @@ api.registerLocal = {
  * @apiParam (Body) {String} email The checked email address.
  *
  * @apiSuccess {String} data.email The checked email address
+ * @apiSuccess {Boolean} data.valid True if available, false if in use
  */
 api.checkEmail = {
   method: 'POST',

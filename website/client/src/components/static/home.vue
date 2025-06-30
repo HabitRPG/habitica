@@ -14,6 +14,7 @@
     <div class="purple-1">
       <register-username
         v-if="registrationMethod"
+        :auth-data="authData"
         :default-username="username"
         :email="email"
         :password="password"
@@ -802,10 +803,10 @@
 </style>
 
 <script>
-import hello from 'hellojs';
 import isEmail from 'validator/es/lib/isEmail';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import notifications from '@/mixins/notifications';
+import socialLogin from '@/mixins/socialLogin';
 import PrivacyBanner from '@/components/header/banners/privacy';
 import RegisterUsername from '../auth/registerUsername';
 import googlePlay from '@/assets/images/home/google-play-badge.svg?raw';
@@ -832,7 +833,7 @@ export default {
     PrivacyBanner,
     RegisterUsername,
   },
-  mixins: [notifications],
+  mixins: [notifications, socialLogin],
   data () {
     return {
       icons: Object.freeze({
@@ -855,6 +856,7 @@ export default {
         makeuseof,
         thenewyorktimes,
       }),
+      authData: {},
       email: '',
       userCountInMillions: 4,
       username: '',
@@ -895,26 +897,11 @@ export default {
     },
   },
   mounted () {
-    hello.init({
-      google: import.meta.env.GOOGLE_CLIENT_ID, // eslint-disable-line
-    });
     this.$store.dispatch('common:setTitle', {
       fullTitle: 'Habitica - Gamify Your Life',
     });
   },
   methods: {
-    async proceed (accountType) {
-      if (accountType === 'local') {
-        const emailCheck = await this.$store.dispatch('auth:checkEmail', {
-          email: this.email,
-        });
-        if (!emailCheck.valid) {
-          this.error(this.$t('cannotFulfillReq'));
-          throw new Error(this.$t('cannotFulfillReq'));
-        }
-      }
-      this.registrationMethod = accountType;
-    },
     playButtonClick () {
       this.$router.push('/register');
     },

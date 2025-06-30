@@ -41,7 +41,7 @@ export async function socialEmailToLocal (user) {
 
 export async function loginSocial (req, res) { // eslint-disable-line import/prefer-default-export
   let existingUser = res.locals.user;
-  const { network, allowRegister = true } = req.body;
+  const { network, allowRegister = true, username = generateUsername() } = req.body;
 
   const isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS
     .find(supportedNetwork => supportedNetwork.key === network);
@@ -95,8 +95,6 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     };
     user = existingUser;
   } else {
-    const generatedUsername = generateUsername();
-
     user = {
       auth: {
         [network]: {
@@ -104,8 +102,8 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
           emails: profile.emails,
         },
         local: {
-          username: generatedUsername,
-          lowerCaseUsername: generatedUsername,
+          username,
+          lowerCaseUsername: username.toLowerCase(),
           email,
         },
       },
