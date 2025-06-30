@@ -30,9 +30,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Vue Structure
 
-Currently pages and components are mixed in `/src/components` this is not a good way to find the files easy.
+Currently, pages and components are mixed together in `/src/components`, which makes it difficult to find files easily.
 
-Thats why each changed / upcoming page / component should be put in either `/src/components` or in the `/src/pages` directory.
+That's why each changed / upcoming page / component should be put in either `/src/components` or in the `/src/pages` directory.
 
 Inside Pages, each page can have a subfolder which contains sub-components only needed for that page - otherwise it has to be added to the normal components folder.
 
