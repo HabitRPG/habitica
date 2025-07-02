@@ -1,9 +1,6 @@
 import {
   authWithHeaders,
 } from '../../middlewares/auth';
-import {
-  NotAuthorized,
-} from '../../libs/errors';
 import * as authLib from '../../libs/auth';
 import { model as User } from '../../models/user';
 import { verifyUsername } from '../../libs/user/validation';

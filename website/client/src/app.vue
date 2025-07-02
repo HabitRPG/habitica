@@ -214,7 +214,8 @@ export default {
         const configExists = Boolean(error.response) && Boolean(error.response.config);
         if (configExists
           && (error.response.config.method === 'get' && error.response.config.url.indexOf('/api/v4/members/') !== -1)
-          || (error.response.config.method === 'post' && error.response.config.url.indexOf('/api/v4/user/auth/social') !== -1)
+          || (error.response.config.method === 'post' && error.response.config.url.indexOf('/api/v4/user/auth/social') !== -1
+            || error.response.config.url.indexOf('/api/v4/user/auth/apple') !== -1)
         ) {
           // @TODO: We resolve the promise because we need our caching to cache this user as tried
           // Chat paging should help this, but maybe we can also find another solution..

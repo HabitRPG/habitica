@@ -60,6 +60,8 @@
   @import '@/assets/scss/colors.scss';
 
   #privacy-tos {
+    position: relative;
+    z-index: 100;
     a {
       color: $white;
       font-weight: bold;

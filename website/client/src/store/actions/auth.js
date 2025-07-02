@@ -96,8 +96,10 @@ export async function appleAuth (store, params) {
   const url = '/api/v4/user/auth/apple';
   const result = await axios.get(url, {
     params: {
+      allowRegister: params.allowRegister,
       code: params.code,
       name: params.name,
+      username: params.username,
     },
   });
 
