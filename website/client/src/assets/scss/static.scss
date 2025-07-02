@@ -14,7 +14,7 @@
     color: $purple-200;
   }
 
-  li, p {
+  li, p:not(.purple-600) {
     font-size: 16px;
   }
 

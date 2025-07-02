@@ -28,6 +28,7 @@ export default {
         if (authResponse) {
           window.location.href = '/';
         } else {
+          this.email = window.sessionStorage.getItem('social-email');
           this.registrationMethod = accountType;
         }
       }

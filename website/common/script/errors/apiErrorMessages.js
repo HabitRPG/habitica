@@ -42,4 +42,6 @@ export default {
   invalidTaskIdentifier: 'A task is identified by its UUID or alias.',
   invalidTaskScorings: 'This API route expects a body in the form of [{id, direction}].',
   summaryLengthExceedsMax: 'Summary length is too high.',
+
+  socialFlowUserNotFound: 'User not found, but social auth OK with email:',
 };

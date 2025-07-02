@@ -11,6 +11,7 @@ import { appleProfile } from './apple';
 import { model as User } from '../../models/user';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../email';
+import { apiError } from '../apiError';
 
 function _passportProfile (network, accessToken) {
   return new Promise((resolve, reject) => {
@@ -75,13 +76,16 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     return loginRes(user, req, res);
   }
 
-  if (!allowRegister) {
-    throw new NotFound(res.t('userNotFound'));
-  }
-
   let email;
   if (profile.emails && profile.emails[0] && profile.emails[0].value) {
     email = profile.emails[0].value.toLowerCase();
+  }
+
+  if (!allowRegister) {
+    if (email) {
+      throw new NotFound(`${apiError('socialFlowUserNotFound')} ${email}`);
+    }
+    throw new NotFound(res.t('userNotFound'));
   }
 
   if (!existingUser && email) {

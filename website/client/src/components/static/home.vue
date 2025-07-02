@@ -12,15 +12,20 @@
       class="privacy-banner"
     />
     <div class="purple-1">
-      <register-username
+      <div
+        class="seamless_stars_varied_opacity_repeat"
         v-if="registrationMethod"
-        :auth-data="authData"
-        :default-username="username"
-        :email="email"
-        :password="password"
-        :password-confirm="passwordConfirm"
-        :registration-method="registrationMethod"
-      />
+      >
+        <register-username
+          class="position-relative"
+          :auth-data="authData"
+          :default-username="username"
+          :email="email"
+          :password="password"
+          :password-confirm="passwordConfirm"
+          :registration-method="registrationMethod"
+        />
+      </div>
       <div v-else>
         <div
           id="intro-signup"
@@ -431,7 +436,7 @@
       bottom: 24px;
       border-radius: 8px;
       background-color: $white;
-      z-index: 1;
+      z-index: 5;
       box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
       width: calc(66vw + 96px);
 
@@ -441,6 +446,13 @@
       @media only screen and (min-width: 992px) {
         margin: auto 14.5%;
       }
+    }
+
+    .seamless_stars_varied_opacity_repeat {
+      background-image: url('@/assets/images/auth/seamless_stars_varied_opacity.png');
+      background-repeat: repeat-x;
+      height: 500px;
+      width: 100%;
     }
   }
 

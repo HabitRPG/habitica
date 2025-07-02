@@ -1,15 +1,16 @@
 <template>
   <div
     id="privacy-tos"
-    class="w-25 mx-auto text-center"
+    class="w-25 d-flex flex-column mx-auto pt-5"
   >
     <img
+      class="mx-auto"
       src="@/assets/images/home/signup-quill@2x.png"
       width="120px"
     >
-    <h1 class="mt-0 mb-4 white">{{ $t('whatToCallYou') }}</h1>
+    <h1 class="mt-0 mb-4 white mx-auto">{{ $t('whatToCallYou') }}</h1>
     <form
-      class="form"
+      class="form mx-auto"
       @submit.prevent.stop="register()"
     >
       <input
@@ -30,7 +31,7 @@
         <!-- eslint-enable vue/require-v-for-key -->
         {{ issue }}
       </div>
-      <p class="white">{{ $t('usernameLimitations')}} </p>
+      <p class="purple-600">{{ $t('usernameLimitations')}} </p>
       <div class="custom-control custom-checkbox">
         <input
           id="privacyTOS"
@@ -46,7 +47,7 @@
         ></label>
       </div>
       <button
-        class="btn btn-info sign-up mb-5"
+        class="btn btn-info d-block sign-up mx-auto"
         :disabled="!username || usernameInvalid || !privacyAccepted"
         type="submit"
       >
@@ -61,7 +62,7 @@
 
   #privacy-tos {
     position: relative;
-    z-index: 100;
+    z-index: 2;
     a {
       color: $white;
       font-weight: bold;
@@ -72,6 +73,10 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/colors.scss';
+
+  p.purple-600 {
+    line-height: 1.714;
+  }
 
   .input-error {
     font-size: 90%;
