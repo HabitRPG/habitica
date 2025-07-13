@@ -81,7 +81,8 @@ export function authWithHeaders (options = {}) {
       .exec()
       .then(user => {
         if (!user || apiToken !== user.apiToken) {
-          throw new NotAuthorized(res.t('invalidCredentials'));
+          
+          throw new InvalidCredentialsError(res.t('invalidCredentials'));
         }
 
         if (user.auth.blocked) {
