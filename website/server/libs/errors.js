@@ -121,7 +121,7 @@ export class InternalServerError extends CustomError {
 /**
  * @apiDefine InvalidCredentials
  * @apiError InvalidCredentials The user’s credentials are no longer valid.
- * 
+ *
  * @apiNote
  *   The 'invalid_credentials' error code is language-agnostic:
  *   clients should use this code (regardless of locale or translated message)
@@ -141,4 +141,3 @@ export class InvalidCredentialsError extends NotAuthorized {
     this.code = 'invalid_credentials';
   }
 }
-

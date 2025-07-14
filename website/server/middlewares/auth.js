@@ -2,6 +2,7 @@ import moment from 'moment';
 import nconf from 'nconf';
 import url from 'url';
 import {
+  InvalidCredentialsError,
   NotAuthorized,
 } from '../libs/errors';
 import {
@@ -81,7 +82,6 @@ export function authWithHeaders (options = {}) {
       .exec()
       .then(user => {
         if (!user || apiToken !== user.apiToken) {
-          
           throw new InvalidCredentialsError(res.t('invalidCredentials'));
         }
 
