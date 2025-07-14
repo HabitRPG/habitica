@@ -62,7 +62,7 @@ describe('auth middleware', () => {
     });
 
     it('errors with InvalidCredentialsError and code when token is wrong', done => {
-      const authWithHeaders = authWithHeadersFactory({});
+      const authWithHeaders = authWithHeadersFactory({ userFieldsToExclude: [] });
 
       req.headers['x-api-user'] = user._id;
       req.headers['x-api-key'] = 'totally-wrong-token';
