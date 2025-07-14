@@ -60,5 +60,20 @@ describe('auth middleware', () => {
         return done();
       });
     });
+
+    it('errors with InvalidCredentialsError and code when token is wrong', done => {
+      const authWithHeaders = authWithHeadersFactory({});
+
+      req.headers['x-api-user'] = user._id;
+      req.headers['x-api-key'] = 'totally-wrong-token';
+
+      authWithHeaders(req, res, err => {
+        expect(err).to.exist;
+        expect(err.name).to.equal('InvalidCredentialsError');
+        expect(err.code).to.equal('invalid_credentials');
+        expect(err.message).to.equal(res.t('invalidCredentials'));
+        return done();
+      });
+    });
   });
 });
