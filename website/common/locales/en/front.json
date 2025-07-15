@@ -109,6 +109,7 @@
   "tweet": "Tweet",
   "checkOutMobileApps": "Check out our mobile apps!",
   "missingAuthHeaders": "Missing authentication headers.",
+  "missingClientHeader": "Missing x-client headers.",
   "missingUsernameEmail": "Missing username or email.",
   "missingEmail": "Missing email.",
   "missingUsername": "Missing username.",

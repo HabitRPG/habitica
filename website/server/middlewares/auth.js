@@ -4,6 +4,7 @@ import url from 'url';
 import {
   InvalidCredentialsError,
   NotAuthorized,
+  BadRequest,
 } from '../libs/errors';
 import {
   model as User,
@@ -11,6 +12,8 @@ import {
 import gcpStackdriverTracer from '../libs/gcpTraceAgent';
 import common from '../../common';
 import { getLanguageFromUser } from '../libs/language';
+
+const ENFORCE_CLIENT_HEADER = nconf.get('ENFORCE_CLIENT_HEADER') === 'true';
 
 const OFFICIAL_PLATFORMS = ['habitica-web', 'habitica-ios', 'habitica-android'];
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
@@ -62,6 +65,10 @@ export function authWithHeaders (options = {}) {
     const apiToken = req.header('x-api-key');
     const client = req.header('x-client');
     const optional = options.optional || false;
+
+    if (ENFORCE_CLIENT_HEADER && !client) {
+      return next(new BadRequest(res.t('missingClientHeader')));
+    }
 
     if (!userId || !apiToken) {
       if (optional) return next();
