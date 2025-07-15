@@ -168,6 +168,7 @@ export default {
         });
 
         this.passwordUpdates = {};
+        window.location.reload();
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
           text: this.$t('passwordSuccess'),
