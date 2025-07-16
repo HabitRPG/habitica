@@ -815,10 +815,8 @@
 </style>
 
 <script>
-import isEmail from 'validator/es/lib/isEmail';
-import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import notifications from '@/mixins/notifications';
-import socialLogin from '@/mixins/socialLogin';
+import accountCreation from '@/mixins/accountCreation';
 import PrivacyBanner from '@/components/header/banners/privacy';
 import RegisterUsername from '../auth/registerUsername';
 import googlePlay from '@/assets/images/home/google-play-badge.svg?raw';
@@ -845,7 +843,7 @@ export default {
     PrivacyBanner,
     RegisterUsername,
   },
-  mixins: [notifications, socialLogin],
+  mixins: [accountCreation, notifications],
   data () {
     return {
       icons: Object.freeze({
@@ -876,37 +874,6 @@ export default {
       passwordConfirm: '',
       registrationMethod: null,
     };
-  },
-  computed: {
-    emailValid () {
-      if (this.email.length < 1) return false;
-      return isEmail(this.email);
-    },
-    emailInvalid () {
-      if (this.email.length < 1) return false;
-      return !isEmail(this.email);
-    },
-    passwordValid () {
-      if (this.password.length <= 0) return false;
-      return this.password.length >= MINIMUM_PASSWORD_LENGTH;
-    },
-    passwordInvalid () {
-      if (this.password.length <= 0) return false;
-      return this.password.length < MINIMUM_PASSWORD_LENGTH;
-    },
-    passwordConfirmValid () {
-      if (this.passwordConfirm.length <= 3) return false;
-      return this.passwordConfirm === this.password;
-    },
-    passwordConfirmInvalid () {
-      if (this.passwordConfirm.length <= 3) return false;
-      return this.passwordConfirm !== this.password;
-    },
-    signupFormInvalid () {
-      return this.emailInvalid
-        || this.passwordInvalid
-        || this.passwordConfirmInvalid;
-    },
   },
   mounted () {
     this.$store.dispatch('common:setTitle', {

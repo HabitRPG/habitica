@@ -583,12 +583,10 @@
 
 <script>
 import axios from 'axios';
-import isEmail from 'validator/es/lib/isEmail';
-import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import RegisterUsername from './registerUsername';
 import notifications from '@/mixins/notifications';
 import sanitizeRedirect from '@/mixins/sanitizeRedirect';
-import socialLogin from '@/mixins/socialLogin';
+import accountCreation from '@/mixins/accountCreation';
 import exclamation from '@/assets/svg/exclamation.svg?raw';
 import gryphon from '@/assets/svg/gryphon.svg?raw';
 import habiticaIcon from '@/assets/svg/logo-horizontal.svg?raw';
@@ -599,7 +597,7 @@ export default {
   components: {
     RegisterUsername,
   },
-  mixins: [notifications, sanitizeRedirect, socialLogin],
+  mixins: [accountCreation, notifications, sanitizeRedirect],
   data () {
     const data = {
       authData: {},
@@ -638,35 +636,6 @@ export default {
         return true;
       }
       return false;
-    },
-    emailValid () {
-      if (this.email.length < 1) return false;
-      return isEmail(this.email);
-    },
-    emailInvalid () {
-      if (this.email.length < 1) return false;
-      return !this.emailValid;
-    },
-    passwordValid () {
-      if (this.password.length <= 0) return false;
-      return this.password.length >= MINIMUM_PASSWORD_LENGTH;
-    },
-    passwordInvalid () {
-      if (this.password.length <= 0) return false;
-      return this.password.length < MINIMUM_PASSWORD_LENGTH;
-    },
-    passwordConfirmValid () {
-      if (this.passwordConfirm.length <= 3) return false;
-      return this.passwordConfirm === this.password;
-    },
-    passwordConfirmInvalid () {
-      if (this.passwordConfirm.length <= 3) return false;
-      return !this.passwordConfirmValid;
-    },
-    signupFormInvalid () {
-      return this.emailInvalid
-        || this.passwordInvalid
-        || this.passwordConfirmInvalid;
     },
   },
   watch: {
