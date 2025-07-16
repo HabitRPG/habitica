@@ -168,10 +168,8 @@ export default {
         });
 
         this.passwordUpdates = {};
-        
         // Store a flag to show success message after reload
         sessionStorage.setItem('passwordChangeSuccess', 'true');
-        
         window.location.reload();
       });
     },
