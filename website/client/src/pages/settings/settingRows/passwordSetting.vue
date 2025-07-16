@@ -168,13 +168,11 @@ export default {
         });
 
         this.passwordUpdates = {};
+        
+        // Store a flag to show success message after reload
+        sessionStorage.setItem('passwordChangeSuccess', 'true');
+        
         window.location.reload();
-        this.$store.dispatch('snackbars:add', {
-          title: 'Habitica',
-          text: this.$t('passwordSuccess'),
-          type: 'success',
-          timeout: true,
-        });
       });
     },
 

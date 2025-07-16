@@ -269,6 +269,17 @@ export default {
     const loadingScreen = document.getElementById('loading-screen');
     if (loadingScreen) document.body.removeChild(loadingScreen);
 
+    // Check if we need to show password change success message
+    if (sessionStorage.getItem('passwordChangeSuccess') === 'true') {
+      sessionStorage.removeItem('passwordChangeSuccess');
+      this.$store.dispatch('snackbars:add', {
+        title: 'Habitica',
+        text: this.$t('passwordSuccess'),
+        type: 'success',
+        timeout: true,
+      });
+    }
+
     this.$router.onReady(() => {
       if (this.isStaticPage || !this.isUserLoggedIn) {
         this.hideLoadingScreen();
