@@ -19,6 +19,7 @@ describe('POST /user/auth/check-email', () => {
       email,
     });
     expect(response.email).to.eql(email);
+    expect(response.valid).to.be.true;
   });
 
   it('rejects if email is not provided', async () => {
@@ -33,24 +34,33 @@ describe('POST /user/auth/check-email', () => {
   it('rejects if email is already taken', async () => {
     const user = await generateUser();
 
-    await expect(api.post(ENDPOINT, {
+    const response = await api.post(ENDPOINT, {
       email: user.auth.local.email,
-    })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
-      message: t('emailTaken'),
+    });
+    expect(response).to.eql({
+      valid: false,
+      email: user.auth.local.email,
+      error: t('emailTaken'),
     });
   });
 
   it('rejects if casing is different', async () => {
     const user = await generateUser();
 
-    await expect(api.post(ENDPOINT, {
+    const response = await api.post(ENDPOINT, {
       email: user.auth.local.email.toUpperCase(),
-    })).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
-      message: t('emailTaken'),
     });
+    expect(response).to.eql({
+      valid: false,
+      email: user.auth.local.email.toUpperCase(),
+      error: t('emailTaken'),
+    });
+  });
+
+  it('rejects if email uses restricted domain', async () => {
+    const response = await api.post(ENDPOINT, {
+      email: 'fake@habitica.com',
+    });
+    expect(response.valid).to.be.false;
   });
 });

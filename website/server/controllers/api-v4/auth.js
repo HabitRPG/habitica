@@ -4,6 +4,10 @@ import {
 import * as authLib from '../../libs/auth';
 import { model as User } from '../../models/user';
 import { verifyUsername } from '../../libs/user/validation';
+import {
+  RESTRICTED_EMAIL_DOMAINS,
+  isRestrictedEmailDomain
+} from '../../libs/auth/utils';
 
 const api = {};
 
@@ -107,12 +111,21 @@ api.checkEmail = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
+    const lowercaseEmail = req.body.email.toLowerCase();
+    if (isRestrictedEmailDomain(lowercaseEmail)) {
+      res.respond(200, {
+        valid: false,
+        email: req.body.email,
+        error: res.t('invalidEmailDomain', { domains: RESTRICTED_EMAIL_DOMAINS.join(', ') }),
+      });
+    }
+
     const emailAlreadyInUse = await User.findOne({
-      'auth.local.email': req.body.email.toLowerCase(),
+      'auth.local.email': lowercaseEmail,
     }).select({ _id: 1 }).lean().exec();
 
     if (emailAlreadyInUse) {
-      return res.respond(200, { valid: false, email: req.body.email });
+      return res.respond(200, { valid: false, email: req.body.email, error: res.t('emailTaken') });
     }
 
     return res.respond(200, { valid: true, email: req.body.email });

@@ -4,14 +4,16 @@ import shared from '../../../common';
 import { // eslint-disable-line import/no-cycle
   getDefaultOwnedGear,
 } from '../../libs/items/utils';
+import {
+  RESTRICTED_EMAIL_DOMAINS,
+  isRestrictedEmailDomain,
+} from '../../libs/auth/utils';
 import { schema as PushDeviceSchema } from '../pushDevice';
 import { schema as SubscriptionPlanSchema } from '../subscriptionPlan';
 import { schema as TagSchema } from '../tag';
 import { schema as UserNotificationSchema } from '../userNotification';
 import { schema as WebhookSchema } from '../webhook';
 import { model as Blocker } from '../blocker';
-
-const RESTRICTED_EMAIL_DOMAINS = Object.freeze(['habitica.com', 'habitrpg.com']);
 
 const BLOCKED_EMAILS = [];
 
@@ -60,9 +62,7 @@ export const UserSchema = new Schema({
           message: shared.i18n.t('invalidEmail'),
         }, {
           validator (email) {
-            const lowercaseEmail = email.toLowerCase();
-
-            return RESTRICTED_EMAIL_DOMAINS.every(domain => !lowercaseEmail.endsWith(`@${domain}`));
+            return !isRestrictedEmailDomain(email);
           },
           message: shared.i18n.t('invalidEmailDomain', { domains: RESTRICTED_EMAIL_DOMAINS.join(', ') }),
         }, {
