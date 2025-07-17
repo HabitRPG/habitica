@@ -168,14 +168,20 @@ export default {
         const redirect = this.sanitizeRedirect(this.$route.query.redirectTo);
   
         window.location.href = redirect;
+      } else if (this.registrationMethod === 'apple') {
+        await this.$store.dispatch('auth:appleAuth', {
+          auth: this.authData,
+          code: window.sessionStorage.getItem('apple-code'),
+          name: window.sessionStorage.getItem('apple-name'),
+          username: this.username,
+        });
       } else {
         await this.$store.dispatch('auth:socialAuth', {
           auth: this.authData,
           username: this.username,
         });
-
-        window.location.href = '/';
       }
+      window.location.href = '/';
     },
     // eslint-disable-next-line func-names
     validateUsername: debounce(function (username) {

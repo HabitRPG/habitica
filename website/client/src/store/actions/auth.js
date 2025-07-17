@@ -103,6 +103,10 @@ export async function appleAuth (store, params) {
     },
   });
 
+  if (!result.data) {
+    return null;
+  }
+
   const user = result.data.data;
 
   saveLocalDataAuth(store, user.id, user.apiToken);

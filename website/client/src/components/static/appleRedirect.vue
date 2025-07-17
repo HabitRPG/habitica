@@ -16,7 +16,7 @@
 
 .static-view p {
   padding-top: 100px;
-  font-size: 2em
+  font-size: 2em;
 }
 </style>
 
@@ -29,10 +29,18 @@ export default {
     const reqParams = { code: urlParams.get('code') };
     if (urlParams.has('name')) {
       reqParams.name = urlParams.get('name');
+      window.sessionStorage.setItem('apple-name', reqParams.name);
     }
-    await this.$store.dispatch('auth:appleAuth', reqParams);
-
-    window.location.href = '/';
+    if (window.sessionStorage.getItem('allow-register') === 'false') {
+      reqParams.allowRegister = false;
+      window.sessionStorage.clear('allow-register');
+    }
+    const authId = await this.$store.dispatch('auth:appleAuth', reqParams);
+    if (authId) {
+      window.location.href = '/';
+    }
+    window.sessionStorage.setItem('apple-code', reqParams.code);
+    window.location.href = '/register';
   },
 };
 </script>

@@ -54,13 +54,16 @@ export default {
           throw new Error(this.$t('cannotFulfillReq'));
         }
         this.registrationMethod = 'local';
+      } else if (accountType === 'apple') {
+        window.sessionStorage.setItem('allow-register', 'false');
+        window.location.href = buildAppleAuthUrl();
       } else {
         this.authData = await this.socialAuth(accountType);
-        const authResponse = await this.$store.dispatch('auth:socialAuth', {
+        const authId = await this.$store.dispatch('auth:socialAuth', {
           auth: this.authData,
           allowRegister: false,
         });
-        if (authResponse) {
+        if (authId) {
           window.location.href = '/';
         } else {
           this.email = window.sessionStorage.getItem('social-email');
@@ -69,21 +72,17 @@ export default {
       }
     },
     async socialAuth (network) {
-      if (network === 'apple') {
-        window.location.href = buildAppleAuthUrl();
-      } else {
-        try {
-          await hello(network).logout();
-        } catch (e) {} // eslint-disable-line
-  
-        const redirectUrl = `${window.location.protocol}//${window.location.host}`;
-        const auth = await hello(network).login({
-          scope: 'email',
-          // explicitly pass the redirect url or it might redirect to /home
-          redirect_uri: redirectUrl, // eslint-disable-line camelcase
-        });
-        return auth;
-      }
+      try {
+        await hello(network).logout();
+      } catch (e) {} // eslint-disable-line
+
+      const redirectUrl = `${window.location.protocol}//${window.location.host}`;
+      const auth = await hello(network).login({
+        scope: 'email',
+        // explicitly pass the redirect url or it might redirect to /home
+        redirect_uri: redirectUrl, // eslint-disable-line camelcase
+      });
+      return auth;
     },
   },
 }
