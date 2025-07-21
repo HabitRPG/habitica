@@ -2677,7 +2677,7 @@
   "headArmoireBeekeepersHatNotes": "Keep your face safe as you tend to your buzzing buddies. Increases Perception by <%= per %>. Enchanted Armoire: Beekeeper Set (Item 1 of 4)",
   "headArmoireFlyFishingHatText": "Fly Fishing Hat",
   "headArmoireFlyFishingHatNotes": "With a wide brim and spot to hold a spare lure, don’t go fly fishing without this beauty. Increases Strength and Perception by <%= attrs %> each. Enchanted Armoire: Fly Fishing Set (Item 1 of 3)",
-  "headArmoireRedNewsieHatText": "Red Newsboy Cap",
+  "headArmoireRedNewsieHatText": "Red Newsie Cap",
   "headArmoireRedNewsieHatNotes": "Extra! Extra! Read all about it: this cap is comfortable, fashionable, and practical. Increases Perception and Intelligence by <%= attrs %> each. Enchanted Armoire: Red Waistcoat Set (Item 1 of 2)",
 
   "offhand": "off-hand item",
