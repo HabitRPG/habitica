@@ -113,7 +113,7 @@ api.checkEmail = {
 
     const lowercaseEmail = req.body.email.toLowerCase();
     if (isRestrictedEmailDomain(lowercaseEmail)) {
-      res.respond(200, {
+      return res.respond(200, {
         valid: false,
         email: req.body.email,
         error: res.t('invalidEmailDomain', { domains: RESTRICTED_EMAIL_DOMAINS.join(', ') }),
