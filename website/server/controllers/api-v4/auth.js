@@ -116,7 +116,7 @@ api.checkEmail = {
       return res.respond(200, {
         valid: false,
         email: req.body.email,
-        error: res.t('invalidEmailDomain', { domains: RESTRICTED_EMAIL_DOMAINS.join(', ') }),
+        error: res.t('cannotFulfillReq'),
       });
     }
 
