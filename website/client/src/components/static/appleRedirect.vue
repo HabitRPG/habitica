@@ -26,20 +26,16 @@ export default {
   async mounted () {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const reqParams = { code: urlParams.get('code') };
+    const reqParams = { code: urlParams.get('code'), allowRegister: false };
     if (urlParams.has('name')) {
       reqParams.name = urlParams.get('name');
       window.sessionStorage.setItem('apple-name', reqParams.name);
     }
-    if (window.sessionStorage.getItem('allow-register') === 'false') {
-      reqParams.allowRegister = false;
-      window.sessionStorage.clear('allow-register');
-    }
-    const authId = await this.$store.dispatch('auth:appleAuth', reqParams);
-    if (authId) {
+    const response = await this.$store.dispatch('auth:appleAuth', reqParams);
+    if (response.id) {
       window.location.href = '/';
     }
-    window.sessionStorage.setItem('apple-code', reqParams.code);
+    window.sessionStorage.setItem('apple-token', response.idToken);
     window.location.href = '/register';
   },
 };

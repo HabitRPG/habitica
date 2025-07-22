@@ -159,6 +159,9 @@ api.redirectApple = {
   async handler (req, res) {
     if (req.body.id_token) {
       req.body.network = 'apple';
+      if (!req.body.allowRegister) {
+        req.body.allowRegister = false;
+      }
       return loginSocial(req, res);
     }
     let url = `/static/apple-redirect?code=${req.body.code}`;
@@ -182,6 +185,8 @@ api.loginApple = {
   url: '/user/auth/apple',
   async handler (req, res) {
     req.body.network = 'apple';
+    req.body.allowRegister = req.query.allowRegister === 'true';
+    req.body.username = req.query.username;
     return loginSocial(req, res);
   },
 };

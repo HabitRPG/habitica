@@ -98,6 +98,7 @@ export async function appleAuth (store, params) {
     params: {
       allowRegister: params.allowRegister,
       code: params.code,
+      id_token: params.idToken,
       name: params.name,
       username: params.username,
     },
@@ -107,10 +108,14 @@ export async function appleAuth (store, params) {
     return null;
   }
 
+  if (result.data.message && result.data.id_token) {
+    return { idToken: result.data.id_token };
+  }
+
   const user = result.data.data;
 
   saveLocalDataAuth(store, user.id, user.apiToken);
-  return user.id;
+  return { id: user.id };
 }
 
 export function logout (store, options = {}) {

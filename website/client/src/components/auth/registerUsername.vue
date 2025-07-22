@@ -177,6 +177,7 @@ export default {
           code: window.sessionStorage.getItem('apple-code'),
           name: window.sessionStorage.getItem('apple-name'),
           username: this.username,
+          allowRegister: true,
         });
       } else {
         await this.$store.dispatch('auth:socialAuth', {
