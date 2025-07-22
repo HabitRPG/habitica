@@ -99,6 +99,9 @@
             class="task-clickable-area pt-1 pl-75 pb-0"
             :class="{ 'cursor-auto': !teamManagerAccess }"
             tabindex="0"
+            <!--Changed-->
+            role="button"
+            aria-label="Edit task"
             @click="edit($event, task)"
             @keypress.enter="edit($event, task)"
           >
@@ -130,6 +133,14 @@
                     tabindex="0"
                     @keypress.enter="edit($event, task)"
                   >
+                  
+                  <div
+                  class="svg-icon edit-icon"
+                  role="img"
+                  aria-label="Edit icon"
+                  v-html="icons.edit"
+                  ></div>
+
                     <span class="dropdown-icon-item">
                       <span
                         class="svg-icon inline edit-icon"
@@ -202,6 +213,8 @@
                 class="collapse-checklist mb-2 d-flex align-items-center expand-toggle"
                 :class="{open: !task.collapseChecklist}"
                 tabindex="0"
+                role="button"
+                :aria-label="task.collapseChecklist ? 'Expand checklist' : 'Collapse checklist'"
                 @click="collapseChecklist(task)"
                 @keypress.enter="collapseChecklist(task)"
               >
