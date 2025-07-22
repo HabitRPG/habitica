@@ -28,8 +28,8 @@
 
   &:disabled, &.disabled {
     cursor: default;
-    color: $gray-50;
-    opacity: 0.75;
+    color: $gray-200;
+    opacity: 1;
     box-shadow: none;
     background-color: $gray-700;
     border: 2px solid transparent;
@@ -242,12 +242,14 @@
 }
 
 .btn-info {
-  background: $blue-50;
+  background-color: $blue-100;
+  color: $black;
+  font-weight: 700;
   border: 2px solid transparent;
-  box-shadow: 0 1px 3px 0 rgba($black, 0.16), 0 1px 3px 0 rgba($black, 0.24);
+  box-shadow: 0 1px 3px 0 rgba($black, 0.16), 0 1px 2px 0 rgba($black, 0.24);
 
   &:disabled {
-    background: $blue-50;
+    background-color: $white;
     box-shadow: none;
   }
 
@@ -255,16 +257,17 @@
     border: 2px solid transparent;
     box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
-
+  
   &:focus {
     background: $blue-100;
     border: 2px solid $purple-400;
     box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
+    color: $black;
   }
-
+  
   &:hover:not(:disabled):not(.disabled) {
-    background-color: $blue-100;
-    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
+    background-color: $blue-50;
+    color: $black;
   }
 
   &:active:not(:disabled):not(.disabled), &.active:not(:disabled):not(.disabled) {

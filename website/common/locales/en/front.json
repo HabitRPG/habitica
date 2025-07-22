@@ -142,6 +142,7 @@
   "memberIdRequired": "\"member\" must be a valid UUID.",
   "heroIdRequired": "\"heroId\" must be a valid UUID.",
   "cannotFulfillReq": "Please enter a valid email address. Email admin@habitica.com if this error persists.",
+  "enterValidEmail": "Please enter a valid email address.",
   "modelNotFound": "This model does not exist.",
   "signUpWithSocial": "Continue with <%= social %>",
   "loginWithSocial": "Log in with <%= social %>",
@@ -185,5 +186,5 @@
   "learnMore": "Learn More",
   "translateHabitica": "Translate Habitica",
   "whatToCallYou": "What should we call you?",
-  "acceptPrivacyTOS": "You agree to our <a href='/static/terms' target='_blank'>Terms of Service</a> and have read our <a href='/static/privacy' target='_blank'>Privacy Policy</a>."
+  "acceptPrivacyTOS": "You agree to our <a href='/static/terms' target='_blank'>Terms of Service</a> and have read our <a href='/static/privacy' target='_blank'>Privacy Policy</a>"
 }

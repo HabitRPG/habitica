@@ -51,19 +51,32 @@
               >
                 <input
                   v-model="email"
-                  class="form-control"
+                  class="form-control input-with-error dark"
                   type="email"
+                  @blur="validateEmail"
                   :placeholder="$t('email')"
-                  :class="{'input-invalid': emailInvalid, 'input-valid': emailValid}"
+                  :class="{
+                    'mb-3': !emailError,
+                    'input-valid': emailValid,
+                    'input-invalid mb-2': emailError,
+                  }"
                 >
+                <div
+                  v-if="emailError"
+                  class="input-error"
+                >
+                  {{ emailError }}
+                </div>
                 <input
                   v-model="password"
-                  class="form-control input-with-error"
+                  class="form-control input-with-error dark"
                   type="password"
+                  @blur="validatePassword"
                   :placeholder="$t('password')"
                   :class="{
+                    'mb-3': !passwordInvalid,
                     'input-valid': passwordValid,
-                    'input-invalid': passwordInvalid,
+                    'input-invalid mb-2': passwordInvalid,
                   }"
                 >
                 <div
@@ -74,11 +87,13 @@
                 </div>
                 <input
                   v-model="passwordConfirm"
-                  class="form-control input-with-error"
+                  class="form-control input-with-error dark"
                   type="password"
+                  @blur="validatePasswordConfirm"
                   :placeholder="$t('confirmPassword')"
                   :class="{
-                    'input-invalid': passwordConfirmInvalid,
+                    'mb-3': !passwordConfirmInvalid,
+                    'input-invalid mb-2': passwordConfirmInvalid,
                     'input-valid': passwordConfirmValid}"
                 >
                 <div
@@ -88,8 +103,9 @@
                   {{ $t('passwordConfirmationMatch') }}
                 </div>
                 <button
-                  class="btn btn-block btn-info sign-up"
-                  :disabled="signupFormInvalid || !email || !password || !passwordConfirm"
+                  id="continue-button"
+                  class="btn btn-block btn-info"
+                  :disabled="!(emailValid && passwordValid && passwordConfirmValid)"
                   type="submit"
                 >
                   {{ $t('continue') }}
@@ -426,7 +442,7 @@
       color: $header-dark-background;
     }
 
-    h1, h2, h3, h4, h5, h6, button, .strike > span, input {
+    h1, h2, h3, h4, h5, h6, .strike > span {
       font-family: 'Varela Round', sans-serif;
       font-weight: normal;
     }
@@ -465,6 +481,10 @@
       }
     }
 
+    input {
+      height: 32px;
+    }
+
     h1 {
       font-size: 56px;
       line-height: 1.14;
@@ -486,6 +506,7 @@
       transition: .5s;
 
       span {
+        font-weight: 700;
         transition: none;
       }
     }
@@ -548,64 +569,6 @@
     .form {
       padding-top: 1em;
       padding-bottom: 1em;
-    }
-
-    input {
-      margin-bottom: 1em;
-      border-radius: 2px;
-      background-color: $purple-100;
-      border-color: $purple-100;
-      color: $purple-400;
-      border: solid 2px transparent;
-      transition-timing-function: ease;
-      transition: border .5s, color .5s;
-    }
-
-    .input-invalid.input-with-error {
-      margin-bottom: 0.5em;
-    }
-
-    .input-valid {
-      color: $white;
-    }
-
-    input:focus {
-      border: solid 2px $purple-400;
-      color: #fff;
-      background-color: $purple-50;
-    }
-
-    input:hover {
-      background-color: $purple-50;
-    }
-
-    .sign-up {
-      border: 2px solid transparent;
-      box-shadow: 0 1px 3px 0 rgba($black, 0.16), 0 1px 3px 0 rgba($black, 0.24);
-      padding-top: 11px;
-      padding-bottom: 11px;
-
-      &:focus, &:active {
-        background-color: $blue-50;
-        border: 2px solid $purple-400;
-        box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
-      }
-    }
-
-    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-      color: $purple-400;
-    }
-    ::-moz-placeholder { /* Firefox 19+ */
-      color: $purple-400;
-    }
-    :-ms-input-placeholder { /* IE 10+ */
-      color: $purple-400;
-    }
-    :-moz-placeholder { /* Firefox 18- */
-      color: $purple-400;
-    }
-    ::placeholder { //  Standard browsers
-      color: $purple-400;
     }
   }
 
@@ -807,9 +770,6 @@
   }
 
   .input-error {
-    color: $white;
-    font-size: 90%;
-    width: 100%;
     margin-bottom: 1em;
   }
 </style>

@@ -79,7 +79,7 @@
         <input
           id="usernameInput"
           v-model="username"
-          class="form-control"
+          class="form-control dark"
           type="text"
           :placeholder="$t('emailOrUsername')"
         >
@@ -95,11 +95,21 @@
         <input
           id="emailInput"
           v-model="email"
-          class="form-control"
+          class="form-control dark"
           type="email"
+          @blur="validateEmail"
           :placeholder="$t('emailPlaceholder')"
-          :class="{'input-invalid': emailInvalid, 'input-valid': emailValid}"
+          :class="{
+            'input-invalid input-with-error': emailError,
+            'input-valid': emailValid,
+          }"
         >
+        <div
+          v-if="emailError"
+          class="input-error"
+        >
+          {{ emailError }}
+        </div>
       </div>
       <div class="form-group">
         <label
@@ -115,8 +125,9 @@
         <input
           id="passwordInput"
           v-model="password"
-          class="form-control"
+          class="form-control dark"
           type="password"
+          @blur="validatePassword"
           :placeholder="$t(registering ? 'passwordPlaceholder' : 'password')"
           :class="{
             'input-invalid input-with-error': registering && passwordInvalid,
@@ -141,8 +152,9 @@
         <input
           id="confirmPasswordInput"
           v-model="passwordConfirm"
-          class="form-control input-with-error"
+          class="form-control dark input-with-error"
           type="password"
+          @blur="validatePasswordConfirm"
           :placeholder="$t('confirmPasswordPlaceholder')"
           :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
         >
@@ -155,10 +167,11 @@
       </div>
       <div class="text-center">
         <button
+          id="continue-button"
           v-if="registering"
           type="submit"
           class="btn btn-info"
-          :disabled="signupFormInvalid || !email || !password || !passwordConfirm"
+          :disabled="!(emailValid && passwordValid && passwordConfirmValid)"
         >
           {{ $t('continue') }}
         </button>
@@ -372,19 +385,19 @@
   }
 
   ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: $purple-400;
+    color: $purple-500;
   }
   ::-moz-placeholder { /* Firefox 19+ */
-    color: $purple-400;
+    color: $purple-500;
   }
   :-ms-input-placeholder { /* IE 10+ */
-    color: $purple-400;
+    color: $purple-500;
   }
   :-moz-placeholder { /* Firefox 18- */
-    color: $purple-400;
+    color: $purple-500;
   }
   ::placeholder { //  Standard browsers
-    color: $purple-400;
+    color: $purple-500;
   }
 
   #login-form, #forgot-form, #reset-password-set-new-one-form {
@@ -421,15 +434,6 @@
     label {
       color: $white;
       font-weight: bold;
-    }
-
-    input {
-      margin-bottom: 2em;
-      border-radius: 2px;
-      background-color: #432874;
-      border-color: transparent;
-      height: 50px;
-      color: $white;
     }
 
     .input-with-error.input-invalid {
@@ -517,12 +521,6 @@
 
   .forgot-password {
     color: #bda8ff !important;
-  }
-
-  .input-error {
-    color: #fff;
-    font-size: 90%;
-    width: 100%;
   }
 
   .warning-banner {

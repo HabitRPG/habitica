@@ -1,14 +1,14 @@
 <template>
   <div
     id="privacy-tos"
-    class="w-25 d-flex flex-column mx-auto pt-5"
+    class="d-flex flex-column mx-auto pt-5"
   >
     <img
       class="mx-auto"
       src="@/assets/images/home/signup-quill@2x.png"
       width="120px"
     >
-    <h1 class="mt-0 mb-4 white mx-auto">{{ $t('whatToCallYou') }}</h1>
+    <h1 class="mt-0 mb-3 white mx-auto">{{ $t('whatToCallYou') }}</h1>
     <form
       class="form mx-auto"
       @submit.prevent.stop="register()"
@@ -16,11 +16,13 @@
       <input
         id="usernameInput"
         v-model="username"
-        class="form-control mb-3"
+        class="form-control dark"
         type="text"
         :placeholder="$t('username')"
         :class="{
-          'mb-2': usernameInvalid,
+          'mb-3': !usernameInvalid,
+          'input-valid': usernameValid,
+          'input-invalid mb-2': usernameInvalid,
         }"
       >
       <!-- eslint-disable vue/require-v-for-key -->
@@ -32,11 +34,11 @@
         {{ issue }}
       </div>
       <p class="purple-600">{{ $t('usernameLimitations')}} </p>
-      <div class="custom-control custom-checkbox">
+      <div class="custom-control custom-checkbox mb-4">
         <input
           id="privacyTOS"
           v-model="privacyAccepted"
-          class="custom-control-input"
+          class="custom-control-input dark"
           type="checkbox"
         >
         <label
@@ -63,6 +65,7 @@
   #privacy-tos {
     position: relative;
     z-index: 2;
+    width: 448px;
     a {
       color: $white;
       font-weight: bold;

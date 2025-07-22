@@ -4,38 +4,15 @@ import hello from 'hellojs';
 import { buildAppleAuthUrl } from '../libs/auth';
 
 export default {
-  computed: {
-    emailValid () {
-      if (this.email.length < 1) return false;
-      return isEmail(this.email);
-    },
-    emailInvalid () {
-      if (this.email.length < 1) return false;
-      if (!isEmail(this.email)) return true;
-      const domain = this.email.split('@')[1];
-      return ['habitica.com', 'habitrpg.com'].indexOf(domain) + 1;
-    },
-    passwordValid () {
-      if (this.password.length <= 0) return false;
-      return this.password.length >= MINIMUM_PASSWORD_LENGTH;
-    },
-    passwordInvalid () {
-      if (this.password.length <= 0) return false;
-      return this.password.length < MINIMUM_PASSWORD_LENGTH;
-    },
-    passwordConfirmValid () {
-      if (this.passwordConfirm.length <= 3) return false;
-      return this.passwordConfirm === this.password;
-    },
-    passwordConfirmInvalid () {
-      if (this.passwordConfirm.length <= 3) return false;
-      return this.passwordConfirm !== this.password;
-    },
-    signupFormInvalid () {
-      return this.emailInvalid
-        || this.passwordInvalid
-        || this.passwordConfirmInvalid;
-    },
+  data () {
+    return {
+      emailError: null,
+      emailValid: false,
+      passwordValid: false,
+      passwordInvalid: false,
+      passwordConfirmValid: false,
+      passwordConfirmInvalid: false,
+    };
   },
   // @TODO: Abstract hello in to action or lib
   mounted () {
@@ -44,15 +21,48 @@ export default {
     });
   },
   methods: {
+    async validateEmail () {
+      if (!this.email) {
+        this.emailValid = false;
+        this.emailError = null;
+        return;
+      }
+      if (!isEmail(this.email)) {
+        this.emailValid = false;
+        this.emailError = this.$t('enterValidEmail');
+        return;
+      }
+      const emailCheck = await this.$store.dispatch('auth:checkEmail', {
+        email: this.email,
+      });
+      if (!emailCheck.valid) {
+        this.emailValid = false;
+        this.emailError = this.$t('cannotFulfillReq');
+        return;
+      }
+      this.emailValid = true;
+      this.emailError = null;
+    },
+    validatePassword () {
+      if (!this.password) {
+        this.passwordValid = false;
+        this.passwordInvalid = false;
+        return;
+      }
+      this.passwordValid = this.password.length >= MINIMUM_PASSWORD_LENGTH;
+      this.passwordInvalid = this.password.length < MINIMUM_PASSWORD_LENGTH;
+    },
+    validatePasswordConfirm () {
+      if (!this.passwordConfirm) {
+        this.passwordConfirmValid = false;
+        this.passwordConfirmInvalid = false;
+        return;
+      }
+      this.passwordConfirmValid = this.passwordConfirm === this.password;
+      this.passwordConfirmInvalid = this.passwordConfirm !== this.password;
+    },
     async proceed (accountType) {
       if (accountType === 'local') {
-        const emailCheck = await this.$store.dispatch('auth:checkEmail', {
-          email: this.email,
-        });
-        if (!emailCheck.valid) {
-          this.error(this.$t('cannotFulfillReq'));
-          throw new Error(this.$t('cannotFulfillReq'));
-        }
         this.registrationMethod = 'local';
       } else if (accountType === 'apple') {
         window.sessionStorage.setItem('allow-register', 'false');
