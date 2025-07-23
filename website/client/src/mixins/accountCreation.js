@@ -84,7 +84,6 @@ export default {
       if (accountType === 'local') {
         this.registrationMethod = 'local';
       } else if (accountType === 'apple') {
-        window.sessionStorage.setItem('allow-register', 'false');
         window.location.href = buildAppleAuthUrl();
       } else {
         this.authData = await this.socialAuth(accountType);

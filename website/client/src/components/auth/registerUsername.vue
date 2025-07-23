@@ -174,7 +174,7 @@ export default {
       } else if (this.registrationMethod === 'apple') {
         await this.$store.dispatch('auth:appleAuth', {
           auth: this.authData,
-          code: window.sessionStorage.getItem('apple-code'),
+          idToken: window.sessionStorage.getItem('apple-token'),
           name: window.sessionStorage.getItem('apple-name'),
           username: this.username,
           allowRegister: true,
