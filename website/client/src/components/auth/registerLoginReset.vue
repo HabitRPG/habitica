@@ -660,8 +660,7 @@ export default {
         this.username = this.$route.query.email;
       }
     }
-    const appleCode = window.sessionStorage.getItem('apple-code');
-    if (appleCode) {
+    if (window.sessionStorage.getItem('apple-token')) {
       this.registrationMethod = 'apple';
     }
   },
