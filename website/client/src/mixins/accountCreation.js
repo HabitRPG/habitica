@@ -1,3 +1,4 @@
+import debounce from 'lodash/debounce';
 import isEmail from 'validator/es/lib/isEmail';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import hello from 'hellojs';
@@ -6,13 +7,30 @@ import { buildAppleAuthUrl } from '../libs/auth';
 export default {
   data () {
     return {
+      authData: {},
+      email: '',
       emailError: null,
       emailValid: false,
+      password: '',
+      passwordConfirm: '',
       passwordValid: false,
       passwordInvalid: false,
       passwordConfirmValid: false,
       passwordConfirmInvalid: false,
+      registrationMethod: null,
+      username: '',
     };
+  },
+  watch: {
+    email () {
+      this.validateEmail(this.email);
+    },
+    password () {
+      this.validatePassword(this.password);
+    },
+    passwordConfirm () {
+      this.validatePasswordConfirm(this.passwordConfirm);
+    },
   },
   // @TODO: Abstract hello in to action or lib
   mounted () {
@@ -21,46 +39,47 @@ export default {
     });
   },
   methods: {
-    async validateEmail () {
-      if (!this.email) {
+    validateEmail: debounce(function (email) {
+      if (!email) {
         this.emailValid = false;
         this.emailError = null;
         return;
       }
-      if (!isEmail(this.email)) {
+      if (!isEmail(email)) {
         this.emailValid = false;
         this.emailError = this.$t('enterValidEmail');
         return;
       }
-      const emailCheck = await this.$store.dispatch('auth:checkEmail', {
-        email: this.email,
+      this.$store.dispatch('auth:checkEmail', {
+        email,
+      }).then(res => {
+        if (!res.valid) {
+          this.emailValid = false;
+          this.emailError = this.$t('cannotFulfillReq');
+          return;
+        }
+        this.emailValid = true;
+        this.emailError = null;
       });
-      if (!emailCheck.valid) {
-        this.emailValid = false;
-        this.emailError = this.$t('cannotFulfillReq');
-        return;
-      }
-      this.emailValid = true;
-      this.emailError = null;
-    },
-    validatePassword () {
-      if (!this.password) {
+    }, 500),
+    validatePassword: debounce(function (password) {
+      if (!password) {
         this.passwordValid = false;
         this.passwordInvalid = false;
         return;
       }
-      this.passwordValid = this.password.length >= MINIMUM_PASSWORD_LENGTH;
-      this.passwordInvalid = this.password.length < MINIMUM_PASSWORD_LENGTH;
-    },
-    validatePasswordConfirm () {
-      if (!this.passwordConfirm) {
+      this.passwordValid = password.length >= MINIMUM_PASSWORD_LENGTH;
+      this.passwordInvalid = password.length < MINIMUM_PASSWORD_LENGTH;
+    }, 500),
+    validatePasswordConfirm: debounce(function (passwordConfirm) {
+      if (!passwordConfirm) {
         this.passwordConfirmValid = false;
         this.passwordConfirmInvalid = false;
         return;
       }
-      this.passwordConfirmValid = this.passwordConfirm === this.password;
-      this.passwordConfirmInvalid = this.passwordConfirm !== this.password;
-    },
+      this.passwordConfirmValid = passwordConfirm === this.password;
+      this.passwordConfirmInvalid = passwordConfirm !== this.password;
+    }, 500),
     async proceed (accountType) {
       if (accountType === 'local') {
         this.registrationMethod = 'local';

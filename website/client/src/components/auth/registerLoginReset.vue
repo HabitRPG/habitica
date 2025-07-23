@@ -97,7 +97,6 @@
           v-model="email"
           class="form-control dark"
           type="email"
-          @blur="validateEmail"
           :placeholder="$t('emailPlaceholder')"
           :class="{
             'input-invalid input-with-error': emailError,
@@ -127,7 +126,6 @@
           v-model="password"
           class="form-control dark"
           type="password"
-          @blur="validatePassword"
           :placeholder="$t(registering ? 'passwordPlaceholder' : 'password')"
           :class="{
             'input-invalid input-with-error': registering && passwordInvalid,
@@ -154,7 +152,6 @@
           v-model="passwordConfirm"
           class="form-control dark input-with-error"
           type="password"
-          @blur="validatePasswordConfirm"
           :placeholder="$t('confirmPasswordPlaceholder')"
           :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
         >
@@ -598,17 +595,11 @@ export default {
   mixins: [accountCreation, notifications, sanitizeRedirect],
   data () {
     const data = {
-      authData: {},
-      email: '',
       forgotPassword: false,
-      password: '',
-      passwordConfirm: '',
-      registrationMethod: null,
       resetPasswordSetNewOneData: {
         hasError: null,
         code: null,
       },
-      username: '',
       usernameIssues: [],
     };
 

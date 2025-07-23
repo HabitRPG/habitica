@@ -53,7 +53,6 @@
                   v-model="email"
                   class="form-control input-with-error dark"
                   type="email"
-                  @blur="validateEmail"
                   :placeholder="$t('email')"
                   :class="{
                     'mb-3': !emailError,
@@ -71,7 +70,6 @@
                   v-model="password"
                   class="form-control input-with-error dark"
                   type="password"
-                  @blur="validatePassword"
                   :placeholder="$t('password')"
                   :class="{
                     'mb-3': !passwordInvalid,
@@ -89,7 +87,6 @@
                   v-model="passwordConfirm"
                   class="form-control input-with-error dark"
                   type="password"
-                  @blur="validatePasswordConfirm"
                   :placeholder="$t('confirmPassword')"
                   :class="{
                     'mb-3': !passwordConfirmInvalid,
@@ -826,13 +823,7 @@ export default {
         makeuseof,
         thenewyorktimes,
       }),
-      authData: {},
-      email: '',
       userCountInMillions: 4,
-      username: '',
-      password: '',
-      passwordConfirm: '',
-      registrationMethod: null,
     };
   },
   mounted () {
