@@ -82,6 +82,12 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
   }
 
   if (!existingUser && email) {
+    if (network === 'apple') {
+      return res.status(200).send({
+        message: res.t('userNotFound'),
+        id_token: profile.idToken,
+      });
+    }
     existingUser = await User.findOne({ 'auth.local.email': email }).exec();
   }
 
