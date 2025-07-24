@@ -410,7 +410,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/faq.scss';
+  @import '@/assets/scss/faq.scss';
 
   table {
     border: 1px solid $gray-300;
