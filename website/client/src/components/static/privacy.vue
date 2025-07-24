@@ -6,7 +6,7 @@
       Last Updated July 31, 2025.
     </p>
     <p>
-      This Privacy Policy applies when you interact with us through Habitica.com and any other feature or service owned or controlled by HabitRPG, Inc. (“HabitRPG”, “we,” or “us”) that posts or includes a valid link to this Privacy Policy (collectively, the “Service(s)”). This Privacy Policy informs you of our practices regarding the collection, use, and disclosure of personal information we receive from users of our Services. By accessing or using the Services, you consent to our Privacy Policy and our collection, use, and sharing of your information as described in this policy, our <a href="https://habitica.com/static/terms">Terms of Use</a>, and any additional policies and terms you may agree to in connection with the Services.
+      This Privacy Policy applies when you interact with us through Habitica.com and any other feature or service owned or controlled by HabitRPG, Inc. (“<strong>HabitRPG</strong>”, “<strong>we</strong>,” or “<strong>us</strong>”) that posts or includes a valid link to this Privacy Policy (collectively, the “<strong>Service(s)</strong>”). This Privacy Policy informs you of our practices regarding the collection, use, and disclosure of personal information we receive from users of our Services. By accessing or using the Services, you consent to our Privacy Policy and our collection, use, and sharing of your information as described in this policy, our <a href="https://habitica.com/static/terms">Terms of Use</a>, and any additional policies and terms you may agree to in connection with the Services.
     </p>
     <h2>Table of Contents</h2>
       <ol>
@@ -56,7 +56,7 @@
       <p>The following chart sets out by category the personal data collected (<strong>“Category”</strong>), the purposes for which the information is collected (<strong>“A. Purposes”</strong>), the categories of third parties to whom the information may be disclosed for a business purpose (<strong>“B. Disclosed To”</strong>), and the categories of third parties to whom the information may be sold for monetary value or other valuable consideration or shared for cross-context behavioral advertising/targeted marketing (<strong>“C. Sold/Shared To”</strong>).</p>
       <input type="checkbox" id="title1">
       <label for="title1" class="btn btn-primary">Show/Hide Information from Third Parties</label>
-        <div class="content">
+        <div class="p-0">
           <table>
             <thead>
               <tr>
@@ -401,9 +401,9 @@
         <h3 id="contact-us">12. Contact Us</h3>
         <p>If you have any questions or concerns about this Privacy Policy, please contact us at <a href="mailto:privacy@habitica.com">privacy@habitica.com</a> with “Privacy Policy” in the subject line. You may also write to us at:</p>
         <address>
-          HabitRPG, Inc.
-          <br>202 Bicknell Ave., Ground Floor
-          <br>Santa Monica, CA 90405
+          HabitRPG, Inc. c/o Workbar
+          <br>120 Washington Street Suite 202
+          <br>Salem, MA 01970-6396
         </address>
   </div>
 <!-- eslint-enable max-len -->
@@ -412,47 +412,8 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/faq.scss';
 
-  table {
-    border: 1px solid $gray-300;
-    }
-
-  th {
-    align-items: center;
-    background-color: $gray-600;
-    border-right: 1px solid $gray-300;
-    color: $gray-10;
-    font-weight: 700;
-    height: 32px;
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-
-  td {
-    border: 1px solid $gray-300;
-    height: 32px;
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-
-  p {
-    margin-bottom: 12px;
-    margin-top: 12px;
-  }
-
-  .internal-border {
-    border-bottom: 1px solid $gray-300;
-  }
-
-  .subhead {
-    font-weight: bold;
-  }
-
   input {
     display: none;
-  }
-
-  .content {
-    padding: 0px 0px; // padding: 10px 25px;
   }
 
   input + label + .content {
@@ -461,5 +422,36 @@
 
   input:checked + label + .content {
     display: block;
+  }
+
+  p {
+    margin-bottom: 12px;
+    margin-top: 12px;
+  }
+
+  table, td {
+    border: 1px solid $gray-300;
+  }    
+
+  td, th {
+    padding-left: 12px;
+    padding-right: 12px;
+    line-height: 1.714;
+  }
+
+  th {
+    align-items: center;
+    background-color: $gray-600;
+    border-right: 1px solid $gray-300;
+    color: $gray-10;
+    font-weight: 700;
+  }
+
+  .internal-border {
+    border-bottom: 1px solid $gray-300;
+  }
+
+  .subhead {
+    font-weight: bold;
   }
 </style>
