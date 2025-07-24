@@ -81,18 +81,19 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     email = profile.emails[0].value.toLowerCase();
   }
 
-  if (!allowRegister) {
-    if (!existingUser && email) {
-      if (network === 'apple') {
-        return res.status(200).send({
-          message: res.t('userNotFound'),
-          id_token: profile.idToken,
-        });
-      }
-      existingUser = await User.findOne({ 'auth.local.email': email }).exec();
-      if (!existingUser) {
-        throw new NotFound(`${apiError('socialFlowUserNotFound')} ${email}`);
-      }
+  if (!existingUser && email) {
+    existingUser = await User.findOne({ 'auth.local.email': email }).exec();
+  }
+
+  if (!allowRegister && !existingUser) {
+    if (network === 'apple') {
+      return res.status(200).send({
+        message: res.t('userNotFound'),
+        id_token: profile.idToken,
+      });
+    }
+    if (email) {
+      throw new NotFound(`${apiError('socialFlowUserNotFound')} ${email}`);
     }
     throw new NotFound(res.t('userNotFound'));
   }
