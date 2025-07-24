@@ -173,7 +173,6 @@ export default {
         window.location.href = redirect;
       } else if (this.registrationMethod === 'apple') {
         await this.$store.dispatch('auth:appleAuth', {
-          auth: this.authData,
           idToken: window.sessionStorage.getItem('apple-token'),
           name: window.sessionStorage.getItem('apple-name'),
           username: this.username,
