@@ -431,7 +431,7 @@
 
   table, td {
     border: 1px solid $gray-300;
-  }    
+  }
 
   td, th {
     padding-left: 12px;
