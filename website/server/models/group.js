@@ -1503,8 +1503,13 @@ schema.methods.unlinkTask = async function groupUnlinkTask (
     'group.assignedUsers': user._id,
   };
 
-  delete unlinkingTask.group.assignedUsersDetail[user._id];
-  unlinkingTask.group.assignedUsers = _.keys(unlinkingTask.group.assignedUsersDetail);
+  if (unlinkingTask.group.assignedUsersDetail) {
+    delete unlinkingTask.group.assignedUsersDetail[user._id];
+    unlinkingTask.group.assignedUsers = _.keys(unlinkingTask.group.assignedUsersDetail);
+  } else {
+    // Task was created before assignedUsersDetail was added
+    removeFromArray(unlinkingTask.group.assignedUsers, user._id);
+  }
   unlinkingTask.markModified('group');
 
   const promises = [unlinkingTask.save()];
