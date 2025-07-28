@@ -373,6 +373,7 @@
 
 <style lang="scss" scoped>
 @import '@/assets/scss/colors.scss';
+@import '@/assets/scss/privacy.scss';
 
 @import url('https://fonts.googleapis.com/css?family=Varela+Round');
 
@@ -444,23 +445,6 @@
       font-weight: normal;
     }
 
-    .privacy-banner {
-      position: fixed;
-      bottom: 24px;
-      border-radius: 8px;
-      background-color: $white;
-      z-index: 5;
-      box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
-      width: calc(66vw + 96px);
-
-      @media only screen and (max-width: 992px) {
-        margin: auto 12.5%;
-      }
-      @media only screen and (min-width: 992px) {
-        margin: auto 14.5%;
-      }
-    }
-
     .seamless_stars_varied_opacity_repeat {
       background-image: url('@/assets/images/auth/seamless_stars_varied_opacity.png');
       background-repeat: repeat-x;
@@ -476,10 +460,6 @@
       @media only screen and (min-width: 992px) {
         margin-left: 15%;
       }
-    }
-
-    input {
-      height: 32px;
     }
 
     h1 {

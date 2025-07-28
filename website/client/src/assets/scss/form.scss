@@ -32,17 +32,9 @@ input, textarea, input.form-control, textarea.form-control {
 
   &:active:not(:disabled):not(:read-only), &:focus:not(:disabled):not(:read-only),
   &:active:not(:disabled):not(:read-only).dark, &:focus:not(:disabled):not(:read-only).dark {
-    border: 2px solid $purple-400;
-    outline: 0;
+    border: 1px solid $purple-400;
+    outline: 1px solid $purple-400;
     box-shadow: none;
-
-    &.input-valid {
-      border: 2px solid $green-10;
-    }
-
-    &.input-invalid {
-      border: 2px solid $red-100;
-    }
   }
 
   &:disabled {

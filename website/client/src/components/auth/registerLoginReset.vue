@@ -3,6 +3,9 @@
     <div id="top-background">
       <div class="seamless_stars_varied_opacity_repeat"></div>
     </div>
+    <privacy-banner
+      class="privacy-banner"
+    />
     <register-username
       v-if="registrationMethod"
       :auth-data="authData"
@@ -344,6 +347,7 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/privacy.scss';
 
   @media only screen  and (min-height: 1080px) {
     .bottom-wrap-register {
@@ -578,6 +582,7 @@
 
 <script>
 import axios from 'axios';
+import PrivacyBanner from '@/components/header/banners/privacy';
 import RegisterUsername from './registerUsername';
 import notifications from '@/mixins/notifications';
 import sanitizeRedirect from '@/mixins/sanitizeRedirect';
@@ -590,6 +595,7 @@ import appleIcon from '@/assets/svg/apple_black.svg?raw';
 
 export default {
   components: {
+    PrivacyBanner,
     RegisterUsername,
   },
   mixins: [accountCreation, notifications, sanitizeRedirect],
