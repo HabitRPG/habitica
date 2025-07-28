@@ -5,7 +5,6 @@ import * as authLib from '../../libs/auth';
 import { model as User } from '../../models/user';
 import { verifyUsername } from '../../libs/user/validation';
 import {
-  RESTRICTED_EMAIL_DOMAINS,
   isRestrictedEmailDomain
 } from '../../libs/auth/utils';
 

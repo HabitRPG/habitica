@@ -10,7 +10,7 @@
   box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
   color: $white;
 
-  &:hover, &:focus {
+  &:hover:not(:disabled):not(.disabled), &:focus {
     box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
 
     &.btn-flat {
@@ -164,7 +164,6 @@
   border: 2px solid transparent;
   box-shadow: 0 1px 3px 0 rgba($black, 0.16), 0 1px 3px 0 rgba($black, 0.24);
 
-
   &:hover:not(:disabled):not(.disabled) {
     background: $maroon-100;
     border: 2px solid transparent;
@@ -253,7 +252,7 @@
     box-shadow: none;
   }
 
-  &:hover {
+  &:hover:not(:disabled):not(.disabled) {
     border: 2px solid transparent;
     box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }

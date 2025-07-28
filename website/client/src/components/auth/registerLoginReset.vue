@@ -22,10 +22,11 @@
     >
       <div class="text-center">
         <div>
-          <div
+          <a
+            href="/static/home"
             class="svg-icon svg habitica-logo"
             v-html="icons.habiticaIcon"
-          ></div>
+          ></a>
         </div>
       </div>
       <div class="form-group row text-center">
@@ -74,6 +75,7 @@
       <div
         v-if="!registering"
         class="form-group"
+        :class="{ 'mb-2': usernameIssues.length > 0 }"
       >
         <label
           v-once
@@ -85,7 +87,17 @@
           class="form-control dark"
           type="text"
           :placeholder="$t('emailOrUsername')"
+          :class="{
+            'input-valid': usernameValid,
+            'input-invalid': usernameInvalid,
+          }"
         >
+      </div>
+      <div
+        v-for="issue in usernameIssues"
+        class="input-error"
+      >
+        {{ issue }}
       </div>
       <div
         v-if="registering"
@@ -113,7 +125,10 @@
           {{ emailError }}
         </div>
       </div>
-      <div class="form-group">
+      <div
+        class="form-group"
+        :class="{ 'mt-2': usernameIssues.length > 0 }"
+      >
         <label
           v-once
           for="passwordInput"
@@ -131,8 +146,8 @@
           type="password"
           :placeholder="$t(registering ? 'passwordPlaceholder' : 'password')"
           :class="{
-            'input-invalid input-with-error': registering && passwordInvalid,
-            'input-valid': registering && passwordValid
+            'input-invalid input-with-error': passwordInvalid,
+            'input-valid': passwordValid
           }"
         >
         <div
@@ -140,6 +155,12 @@
           class="input-error"
         >
           {{ $t('minPasswordLength') }}
+        </div>
+        <div
+          v-if="passwordInvalid && !registering"
+          class="input-error"
+        >
+          {{ $t('minPasswordLengthLogin') }}
         </div>
       </div>
       <div
@@ -219,10 +240,11 @@
           <div class="svg-icon gryphon"></div>
         </div>
         <div>
-          <div
+          <a
+            href="/static/home"
             class="svg-icon habitica-logo"
             v-html="icons.habiticaIcon"
-          ></div>
+          ></a>
         </div>
         <div class="header">
           <h2 v-once>
@@ -263,10 +285,11 @@
     >
       <div class="text-center">
         <div>
-          <div
+          <a
+            href="/static/home"
             class="svg-icon habitica-logo"
             v-html="icons.habiticaIcon"
-          ></div>
+          ></a>
         </div>
         <div class="header">
           <h2>{{ $t('passwordResetPage') }}</h2>
@@ -427,8 +450,7 @@
 
     .habitica-logo {
       width: 175px;
-      height: 64px;
-      margin: 2em auto 0;
+      margin: 2em auto 2em;
       z-index: 0;
     }
 
@@ -582,6 +604,8 @@
 
 <script>
 import axios from 'axios';
+import debounce from 'lodash/debounce';
+import isEmail from 'validator/es/lib/isEmail';
 import PrivacyBanner from '@/components/header/banners/privacy';
 import RegisterUsername from './registerUsername';
 import notifications from '@/mixins/notifications';
@@ -632,6 +656,14 @@ export default {
       }
       return false;
     },
+    usernameValid () {
+      if (this.username.length < 1) return false;
+      return this.usernameIssues.length === 0;
+    },
+    usernameInvalid () {
+      if (this.username.length < 1) return false;
+      return !this.usernameValid;
+    },
   },
   watch: {
     $route: {
@@ -658,6 +690,9 @@ export default {
       },
       immediate: true,
     },
+    username () {
+      this.validateUsername(this.username);
+    },
   },
   mounted () {
     this.forgotPassword = this.$route.path.startsWith('/forgot-password');
@@ -674,7 +709,6 @@ export default {
     async login () {
       await this.$store.dispatch('auth:login', {
         username: this.username,
-        // email: this.email,
         password: this.password,
       });
 
@@ -752,6 +786,20 @@ export default {
       this.resetPasswordSetNewOneData.hasError = false;
       this.$router.push({ name: 'login' });
     },
+    validateUsername: debounce(function (username) {
+      const usernameIssues = [];
+      if (username.length > 0 && !isEmail(username)) {
+        if (username.length > 20) {
+          usernameIssues.push(this.$t('usernameIssueLength'));
+        }
+        const invalidCharsRegex = /[^a-z0-9_-]/i;
+        const match = username.match(invalidCharsRegex);
+        if (match !== null && match[0] !== null) {
+          usernameIssues.push(this.$t('usernameIssueInvalidCharacters'));
+        }
+      }
+      this.usernameIssues = usernameIssues;
+    }, 500),
   },
 };
 </script>
