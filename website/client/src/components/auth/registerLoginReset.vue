@@ -24,13 +24,13 @@
         <div>
           <a
             href="/static/home"
-            class="svg-icon svg habitica-logo"
+            class="svg-icon svg habitica-logo mx-auto mb-4"
             v-html="icons.habiticaIcon"
           ></a>
         </div>
       </div>
-      <div class="form-group row text-center">
-        <div class="col-12 col-md-12">
+      <div class="form-group">
+        <div>
           <div
             class="btn btn-secondary social-button"
             @click="proceed('google')"
@@ -42,15 +42,13 @@
             <div
               class="text"
             >
-              {{ registering
-                ? $t('signUpWithSocial', {social: 'Google'})
-                : $t('loginWithSocial', {social: 'Google'}) }}
+              {{ $t('signUpWithSocial', {social: 'Google'}) }}
             </div>
           </div>
         </div>
       </div>
-      <div class="form-group row text-center">
-        <div class="col-12 col-md-12">
+      <div class="form-group">
+        <div>
           <div
             class="btn btn-secondary social-button"
             @click="proceed('apple')"
@@ -62,14 +60,12 @@
             <div
               class="text"
             >
-              {{ registering
-                ? $t('signUpWithSocial', {social: 'Apple'})
-                : $t('loginWithSocial', {social: 'Apple'}) }}
+              {{ $t('signUpWithSocial', {social: 'Apple'}) }}
             </div>
           </div>
         </div>
       </div>
-      <div class="strike">
+      <div class="strike mb-3">
         <span>{{ $t('or') }}</span>
       </div>
       <div
@@ -198,9 +194,9 @@
         </button>
         <button
           v-if="!registering"
-          v-once
           type="submit"
-          class="btn btn-info"
+          class="btn btn-info w-100"
+          :disabled="!usernameValid || !passwordValid"
         >
           {{ $t('login') }}
         </button>
@@ -235,46 +231,59 @@
       id="forgot-form"
       @submit.prevent="handleSubmit"
     >
-      <div class="text-center">
-        <div>
-          <div class="svg-icon gryphon"></div>
-        </div>
+      <div>
         <div>
           <a
             href="/static/home"
-            class="svg-icon habitica-logo"
+            class="svg-icon habitica-logo mx-auto mb-4"
             v-html="icons.habiticaIcon"
           ></a>
         </div>
         <div class="header">
-          <h2 v-once>
+          <h2 v-once class="text-center">
             {{ $t('emailNewPass') }}
           </h2>
-          <p v-once>
+          <p v-once class="purple-600 text-left">
             {{ $t('forgotPasswordSteps') }}
           </p>
         </div>
-      </div>
-      <div class="form-group row text-center">
-        <label
-          v-once
-          for="usernameInput"
-        >{{ $t('emailOrUsername') }}</label>
-        <input
-          id="usernameInput"
-          v-model="username"
-          class="form-control"
-          type="text"
-          :placeholder="$t('emailUsernamePlaceholder')"
-        >
-      </div>
-      <div class="text-center">
         <div
-          v-once
-          class="btn btn-info"
-          @click="forgotPasswordLink()"
+          class="form-group"
+          :class="{
+            'mb-2': usernameIssues.length > 0,
+            'mb-4': usernameIssues.length === 0,
+          }"
         >
-          {{ $t('sendLink') }}
+          <label
+            v-once
+            for="usernameInput"
+          >{{ $t('emailOrUsername') }}</label>
+          <input
+            id="usernameInput"
+            v-model="username"
+            class="form-control dark"
+            type="text"
+            :placeholder="$t('emailUsernamePlaceholder')"
+            :class="{
+              'input-valid': usernameValid,
+              'input-invalid': usernameInvalid,
+            }"
+          >
+        </div>
+        <div
+          v-for="issue in usernameIssues"
+          class="input-error mb-2"
+        >
+          {{ issue }}
+        </div>
+        <div class="text-center">
+          <button
+            class="btn btn-info w-100"
+            @click="forgotPasswordLink()"
+            :disabled="!username || usernameIssues.length > 0"
+          >
+            {{ $t('sendLink') }}
+          </button>
         </div>
       </div>
     </form>
@@ -287,7 +296,7 @@
         <div>
           <a
             href="/static/home"
-            class="svg-icon habitica-logo"
+            class="svg-icon habitica-logo mx-auto mb-4"
             v-html="icons.habiticaIcon"
           ></a>
         </div>
@@ -391,10 +400,6 @@
   }
 
   @media only screen and (max-width: 768px) {
-    #login-form {
-      width: 100% !important;
-    }
-
     .form-group {
       padding-left: .5em;
       padding-right: .5em;
@@ -426,37 +431,32 @@
 
   #login-form, #forgot-form, #reset-password-set-new-one-form {
     margin: 0 auto;
-    width: 40em;
+    width: 448px;
     padding-top: 5em;
     padding-bottom: 4em;
     position: relative;
     z-index: 1;
+    top: calc(50vh - 400px);
 
     .header {
       h2 {
+        font-size: 24px;
         color: $white;
       }
 
-      color: $white;
-    }
-
-    .gryphon {
-      background-size: cover;
-      color: $white;
-      height: 69.4px;
-      margin: 0 auto;
-      width: 63.2px;
+      p {
+        line-height: 1.714;
+      }
     }
 
     .habitica-logo {
-      width: 175px;
-      margin: 2em auto 2em;
-      z-index: 0;
+      width: 145px;
     }
 
     label {
       color: $white;
       font-weight: bold;
+      line-height: 1.714;
     }
 
     .input-with-error.input-invalid {
@@ -570,14 +570,13 @@
     text-align: center;
     overflow: hidden;
     white-space: nowrap;
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
   }
 
   .strike > span {
+    font-weight: 700;
     position: relative;
     display: inline-block;
-    line-height: 1.14;
+    line-height: 1.714;
     color: #fff;
   }
 
@@ -588,7 +587,7 @@
     top: 50%;
     width: 9999px;
     height: 1px;
-    background: #fff;
+    background: $purple-400;
   }
 
   .strike > span:before {
@@ -612,8 +611,7 @@ import notifications from '@/mixins/notifications';
 import sanitizeRedirect from '@/mixins/sanitizeRedirect';
 import accountCreation from '@/mixins/accountCreation';
 import exclamation from '@/assets/svg/exclamation.svg?raw';
-import gryphon from '@/assets/svg/gryphon.svg?raw';
-import habiticaIcon from '@/assets/svg/logo-horizontal.svg?raw';
+import habiticaIcon from '@/assets/svg/habitica-logo.svg?raw';
 import googleIcon from '@/assets/svg/google.svg?raw';
 import appleIcon from '@/assets/svg/apple_black.svg?raw';
 
@@ -635,7 +633,6 @@ export default {
 
     data.icons = Object.freeze({
       exclamation,
-      gryphon,
       habiticaIcon,
       googleIcon,
       appleIcon,
