@@ -125,7 +125,7 @@ api.checkEmail = {
     }).select({ _id: 1 }).lean().exec();
 
     if (emailAlreadyInUse) {
-      return res.respond(200, { valid: false, email: req.body.email, error: res.t('emailTaken') });
+      return res.respond(200, { valid: false, email: req.body.email, error: res.t('cannotFulfillReq') });
     }
 
     return res.respond(200, { valid: true, email: req.body.email });
