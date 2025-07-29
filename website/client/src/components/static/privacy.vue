@@ -56,6 +56,7 @@
       <p>The following chart sets out by category the personal data collected (<strong>“Category”</strong>), the purposes for which the information is collected (<strong>“A. Purposes”</strong>), the categories of third parties to whom the information may be disclosed for a business purpose (<strong>“B. Disclosed To”</strong>), and the categories of third parties to whom the information may be sold for monetary value or other valuable consideration or shared for cross-context behavioral advertising/targeted marketing (<strong>“C. Sold/Shared To”</strong>).</p>
       <input type="checkbox" id="title1">
       <label for="title1" class="btn btn-primary">Show/Hide Information from Third Parties</label>
+      <div class="content">
         <div class="p-0">
           <table>
             <thead>
@@ -233,6 +234,7 @@
         </div>
         &nbsp;<br>
         <br>
+      </div>
       <h3 id="purpose-and-use-of-information-we-collect">2. Purpose and Use of Information We Collect</h3>
       <p>We may use non-personal information for any purpose, including for research and marketing purposes. We also use information that we collect, including personal information and Usage Information, as disclosed in this Privacy Policy and as follows:</p>
       <ul>
