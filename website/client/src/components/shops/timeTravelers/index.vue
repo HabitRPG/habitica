@@ -94,20 +94,6 @@
               </span>
               <span class="rectangle"></span>
             </div>
-            </div>
-            <div
-              v-if="!isSubscribed && !hasTrinket"
-              class="shop-message featured-label with-border closed">
-              <span
-                class="rectangle">
-              </span>
-              <span
-                v-once
-                class="text"
-                >{{ $t('timeTravelersPopoverNoSubMobile') }}
-              </span>
-              <span class="rectangle"></span>
-            </div>
           </div>
         </div>
       </div>
