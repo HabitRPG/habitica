@@ -120,6 +120,7 @@ export async function appleAuth (store, params) {
 
 export function logout (store, options = {}) {
   localStorage.clear();
+  sessionStorage.clear();
   const query = options.redirectToLogin === true ? '?redirectToLogin=true' : '';
   window.location.href = `/logout-server${query}`;
 }
