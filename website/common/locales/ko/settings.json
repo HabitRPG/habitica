@@ -55,7 +55,6 @@
     "APIToken": "API 토큰 (이것은 패스워드입니다 - 위쪽의 경고를 보세요!)",
     "showAPIToken": "Show API Token",
     "hideAPIToken": "Hide API Token",
-    "APITokenWarning": "새로운 API 토큰이 필요하다면 (예를 들어, 실수로 공유했을 때), <%= hrefTechAssistanceEmail %>로 당신의 사용자 ID와 현재의 토큰을 보내주세요. 한번 재설정이 되면 당신은 웹사이트와 모바일 앱에서 로그아웃하고 당신이 사용하는 다른 Habitica 툴에 새로운 토큰을 입력하여 모든 것을 재인증해야합니다.",
     "thirdPartyApps": "제 3의 앱",
     "resetDo": "제 계정을 리셋시키세요!",
     "resetComplete": "리셋 완료!",

@@ -399,5 +399,16 @@
     "questEggOtterText": "カワウソ",
     "questEggOtterMountText": "カワウソ",
     "questEggOtterAdjective": "不実な",
-    "hatchingPotionJade": "ヒスイ"
+    "hatchingPotionJade": "ヒスイ",
+    "questEggAlpacaText": "アルパカ",
+    "questEggAlpacaMountText": "アルパカ",
+    "questEggAlpacaAdjective": "詰め込みすぎた",
+    "hatchingPotionCryptid": "未確認生物",
+    "wackyPotionNotes": "たまごにかけるとへんてこなペットとして孵化します。",
+    "wackyPotionAddlNotes": "乗騎に育ったりクエストペットの卵には使えません。",
+    "questEggPlatypusText": "カモノハシ",
+    "questEggPlatypusMountText": "カモノハシ",
+    "questEggPlatypusAdjective": "完璧主義者",
+    "hatchingPotionBalloon": "風船",
+    "hatchingPotionOpal": "オパール"
 }

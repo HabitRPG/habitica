@@ -55,7 +55,6 @@
     "APIToken": "API-nøgle (det er et kodeord - se advarsel ovenfor!)",
     "showAPIToken": "Vis API-nøgle",
     "hideAPIToken": "Skjul API-nøgle",
-    "APITokenWarning": "Hvis du har brug for en ny API-nøgle (f.eks. hvis du har delt den ved et uheld), så send en e-mail til <%= hrefTechAssistanceEmail %> med dit Bruger-ID og din nuværende Nøgle. Når den er nulstillet, skal du godkende alt på ny ved at logge ud af hjemmesiden og mobil-appen, og forsyne alle dine andre Habitica-værktøjer med den nye nøgle.",
     "thirdPartyApps": "Tredjeparts-apps",
     "resetDo": "Gør det, nulstil min konto!",
     "resetComplete": "Nulstilling gennemført!",

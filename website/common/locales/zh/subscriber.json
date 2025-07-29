@@ -21,7 +21,7 @@
     "subGemName": "订阅者宝石",
     "maxBuyGems": "你已购买了本月的所有宝石。更多宝石将在每月的前三天上架。感谢你的订阅！",
     "timeTravelers": "时空旅行者",
-    "timeTravelersPopoverNoSubMobile": "看来你需要一个神秘沙漏才能打开时空之门，召唤神秘的时空旅行者。",
+    "timeTravelersPopoverNoSubMobile": "订阅用户每月会收到一个稀有的神秘沙漏，可以使用这个沙漏在时空旅行者商店进行购物！",
     "timeTravelersPopover": "你的神秘沙漏打开了我们的时空之门！选择你希望我们从过去或未来获取的东西。",
     "mysterySetNotFound": "未找到神秘套装，或已拥有该套装。",
     "mysteryItemIsEmpty": "神秘物品已空",
@@ -123,7 +123,7 @@
     "subscriptionBenefit1": "最多可用金币购买50颗宝石，在市场上购买副本，自定义装扮，宠物以及更多其他好物！",
     "subscriptionBenefit3": "在Habitica发现更多物品，每日享受双倍物品掉落上限！",
     "subscriptionBenefit4": "穿上最新的独特装备 。立即订阅 ，即可获得<%=月%> 的<%= currentMysterySetName%>！",
-    "subscriptionBenefit5": "现在订阅即可获得独特的皇家紫色鹿角兔宠物！",
+    "subscriptionBenefit5": "现在订阅即可获得专属皇家紫色鹿角兔宠物！",
     "subscriptionBenefit6": "每月可获得1个神秘沙漏，在时空旅行者商店使用，不要错过任何物品 ！",
     "purchaseAll": "购买套装",
     "gemsRemaining": "剩余",
@@ -170,7 +170,7 @@
     "usuallyGems": "通常<%= originalGems %>",
     "supportHabitica": "支持Habitica",
     "cancelSubInfoApple": "请按照<a href=\"https://support.apple.com/en-us/HT202039\"> Apple官方说明</a>取消订阅，或查看订阅的终止日期（如果你已经取消订阅）。本页面无法显示你的订阅是否已取消。",
-    "cancelSubInfoGoogle": "要取消订阅或查看订阅终止日期，请使用 <a href='https://play.google.com/store/account/subscriptions'>Google Play 商店</a>。取消后，任何剩余月份的订阅点数都将计入您的终止日期。",
+    "cancelSubInfoGoogle": "如需取消订阅或者查询订阅终止日期，请使用 <a href='https://play.google.com/store/account/subscriptions'>Google Play 商店</a>。 取消订阅后，您已付费但尚未使用的订阅时长将自动延长您的订阅到期时间。",
     "organization": "组织",
     "mysterySet202010": "迷人怪蝠套装",
     "dropCapSubs": "Habitica的订阅者每日可以获得双倍的掉落物品，而且每月还能获得神秘物品!",
@@ -247,7 +247,7 @@
     "unlockNGems": "每月解锁购买 <strong><%= count %> 宝石</strong>资格",
     "mysterySet202503": "翡翠巨像套装",
     "maxGemCap": "即刻解锁<strong>宝石容量</strong>上限",
-    "earn2Gems": "订阅期间每月获得<strong>+2宝石</strong>",
+    "earn2Gems": "订阅期间每月获得<strong>+2 宝石</strong>",
     "mysterySet202502": "衷心小丑套装",
     "subscribeTo": "订阅",
     "resubscribeToPickUp": "重新订阅即可继续您的旅程！",
@@ -264,5 +264,6 @@
     "earn2GemsGift": "每月将获得订阅的<strong>2颗宝石</strong>",
     "maxGemCapGift": "他们将拥有最高的 <strong> 宝石上限 </strong>",
     "mysterySet202505": "翱翔燕尾服套装",
-    "mysterySet202506": "太阳辉光套装"
+    "mysterySet202506": "太阳辉光套装",
+    "mysterySet202507": "活力滑板套装"
 }

@@ -220,7 +220,6 @@
       v-if="forgotPassword"
       id="forgot-form"
       @submit.prevent="handleSubmit"
-      @keyup.enter="handleSubmit"
     >
       <div class="text-center">
         <div>
@@ -268,7 +267,6 @@
       v-if="resetPasswordSetNewOne"
       id="reset-password-set-new-one-form"
       @submit.prevent="handleSubmit"
-      @keyup.enter="handleSubmit"
     >
       <div class="text-center">
         <div>

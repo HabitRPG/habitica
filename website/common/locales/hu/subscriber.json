@@ -21,7 +21,7 @@
     "subGemName": "Előfizetői gyémántok",
     "maxBuyGems": "Ebben a hónapban már megvásároltad az összes elérhető gyémántot. Újra elérhetővé válnak minden hónap első három napjában. Köszönjük, hogy előfizettél!",
     "timeTravelers": "Időutazók",
-    "timeTravelersPopoverNoSubMobile": "Úgy tűnik, szükséged lesz egy misztikus homokórára, hogy megnyisd az időkaput és megidézd a titokzatos időutazókat.",
+    "timeTravelersPopoverNoSubMobile": "Az előfizetők minden hónapban kapnak egy ritka misztikus homokórát, amit az Időutazók boltjában használhatnak fel!",
     "timeTravelersPopover": "A misztikus homokórád megnyitotta az időkaput! Válaszd ki, mit szeretnél, hogy elhozzunk a múltból vagy a jövőből.",
     "mysterySetNotFound": "A rejtélyes szett nem található, vagy már a birtokodban van.",
     "mysteryItemIsEmpty": "A rejtélyes tárgyak üresek",
@@ -264,5 +264,6 @@
     "mysterySet202503": "Jáde kolosszus szett",
     "mysterySet202504": "Ritka jeti szett",
     "mysterySet202505": "Szárnyaló fecskefark szett",
-    "mysterySet202506": "Napfényes ragyogás szett"
+    "mysterySet202506": "Napfényes ragyogás szett",
+    "mysterySet202507": "Vagány gördeszkás szett"
 }

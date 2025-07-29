@@ -82,7 +82,7 @@ export default function errorHandler (err, req, res, next) { // eslint-disable-l
 
   const jsonRes = {
     success: false,
-    error: responseErr.name,
+    error: responseErr.code || responseErr.name,
     message: responseErr.message,
   };
 

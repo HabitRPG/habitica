@@ -209,7 +209,7 @@
     "backgrounds112016": "Набір 30: листопад 2016",
     "backgroundMidnightCloudsText": "Опівнічні хмари",
     "backgroundMidnightCloudsNotes": "Пролетіть крізь опівнічні хмари.",
-    "backgroundStormyRooftopsText": "Шалені дахи",
+    "backgroundStormyRooftopsText": "Дахи, занурені в шторм",
     "backgroundStormyRooftopsNotes": "Полізьте лабіринтом цих небезпених дахів.",
     "backgroundWindyAutumnText": "Вітряна осінь",
     "backgroundWindyAutumnNotes": "Женіться за листям вітряною осінню.",
@@ -906,5 +906,8 @@
     "backgroundTrailThroughAForestNotes": "Поблукайте стежкою через ліс.",
     "backgrounds062025": "Набір 133: червень 2025",
     "backgroundSummerSeashoreText": "Літнє узбережжя",
-    "backgroundSummerSeashoreNotes": "Спіймайте хвилю на літньому пляжі."
+    "backgroundSummerSeashoreNotes": "Спіймайте хвилю на літньому пляжі.",
+    "backgrounds072025": "Набір 134: липень 2025",
+    "backgroundSirensLairText": "Лігво сирени",
+    "backgroundSirensLairNotes": "Наважтеся пірнути до лігва сирени."
 }

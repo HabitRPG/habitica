@@ -2822,7 +2822,7 @@
     "weaponSpecialFall2024HealerText": "Falce Spaziale",
     "weaponSpecialFall2024MageText": "Bastone del Mondo Sotterraneo",
     "weaponSpecialFall2024WarriorNotes": "Le attività che ti ostacolano saranno tagliate immediatamente da questa formidabile arma. Aumenta la Forza di <%= str %>. Equipaggiamento in edizione limitata, Estate 2024.",
-    "weaponSpecialFall2024RogueNotes": "Le attività saranno bloccate sul posto grazie ai giri e alle giravolte di questa arma ipnotica. Aumenta la Forza di <%= str %>. Equipaggiamento in edizione limitata, Estate 2024.",
+    "weaponSpecialFall2024RogueNotes": "Le attività saranno bloccate sul posto grazie ai giri e alle giravolte di questa arma ipnotica. Aumenta la Forza di <%= str %>. Equipaggiamento in edizione limitata, Autunno 2024.",
     "weaponSpecialFall2024HealerNotes": "Le attività che una volta erano cosmicamente complicate sono stati decimate dai colpi di questa lama. Aumenta l'Intelligenza di <%= int %>. Equipaggiamento in edizione limitata, Autunno 2024.",
     "weaponArmoireScholarlyTextbooksNotes": "Ecco la tua occasione per imparare ed approfondire ogni materia che ti interessa. Qual è il tuo livello di fissazione? Aumenta l'Intelligenza di <%= int %>. Scrigno Incantato: Set della Divisa Scolastica (Oggetto 3 di 4).",
     "weaponArmoireOptimistsCloverText": "Quadrifoglio",

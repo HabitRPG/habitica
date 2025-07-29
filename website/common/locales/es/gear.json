@@ -3365,5 +3365,15 @@
     "shieldSpecialSummer2025HealerText": "Escudo Ángel de Mar",
     "shieldArmoireBeekeepersHiveText": "Panal",
     "backMystery202506Text": "Aureola de Brillo Solar",
-    "backMystery202506Notes": "Derrocha un aura de calidez mientras completas tus tareas diarias. No otorga ningún beneficio. Artículo de Suscriptor Junio 2025."
+    "backMystery202506Notes": "Derrocha un aura de calidez mientras completas tus tareas diarias. No otorga ningún beneficio. Artículo de Suscriptor Junio 2025.",
+    "armorArmoireFlyFishingWadersText": "Katiuskas para Pesca Fluvial",
+    "armorArmoireFlyFishingWadersNotes": "Te mantienen perfectamente calentito y seco mientras te dedicas a lo tuyo ya sea dentro de un arroyo, estanque, lago o río. Aumenta la fuerza y la constitución en <%= attrs %> cada uno. Armario Encantado: Conjunto Pescador Fluvial (Artículo 2 de 3)",
+    "headMystery202507Text": "Gorra de Patinador Audaz",
+    "headMystery202507Notes": "Llevar la gorra hacia atrás o ladeada es aún guay, ¿verdad tronco, fliiipas? No otorga ningún beneficio. Artículo de Suscriptor Julio 2025.",
+    "headArmoireFlyFishingHatText": "Gorro de Pescador Fluvial",
+    "headArmoireFlyFishingHatNotes": "Con un ala ancha y su espacio para colocar un señuelo de repuesto, no salgas a pescar con mosca sin esta hermosura. Aumenta la Fuerza y la Percepción en <%= attrs %> cada uno. Armario Encantado: Conjunto de Pescador Fluvial (Artículo 1 de 3)",
+    "shieldArmoireFlyFishingRodNotes": "Coloca un cebo en esta caña larga y flexible y engañará a los peces que lo confundirán con una auténtica mosca vez tras vez, garantizado. Aumenta la Fuerza y la Inteligencia en <%= attrs %> cada uno. Armario Encantado: Conjunto de Pescador Fluvial (Artículo 3 de 3)",
+    "shieldArmoireFlyFishingRodText": "Caña de Pescador Fluvial",
+    "backMystery202507Text": "Tabla del Audaz",
+    "backMystery202507Notes": "Tu montura para las aceras y los medio-tubos. No otorga ningún beneficio. Artículo de Suscriptor Julio 2025."
 }

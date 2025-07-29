@@ -27,9 +27,28 @@ describe('PUT /user/auth/update-password', async () => {
       newPassword,
       confirmPassword: newPassword,
     });
-    expect(response).to.eql({});
+
+    expect(response).to.exist;
+    expect(response.apiToken).to.exist;
+
     await user.sync();
     expect(user.auth.local.hashed_password).to.not.eql(previousHashedPassword);
+  });
+
+  it('should change the apiToken on password change', async () => {
+    const previousToken = user.apiToken;
+    const response = await user.put(ENDPOINT, {
+      password,
+      newPassword,
+      confirmPassword: newPassword,
+    });
+
+    const newToken = response.apiToken;
+    expect(newToken).to.exist;
+
+    await user.sync();
+    expect(user.apiToken).to.eql(newToken);
+    expect(user.apiToken).to.not.eql(previousToken);
   });
 
   it('returns an error when confirmPassword does not match newPassword', async () => {

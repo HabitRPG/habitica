@@ -55,7 +55,6 @@
     "APIToken": "API Dizgesi (bu bir şifredir - yukarıdaki uyarıya dikkat!)",
     "showAPIToken": "API Dizgesini Göster",
     "hideAPIToken": "API Dizgesini Gizle",
-    "APITokenWarning": "Eğer yeni bir API Dizgisine ihtiyaç duyarsan (örn. yanlışlıkla paylaştığında), <%= hrefTechAssistanceEmail %> adresine Kullanıcı ID'ni ve o anki Dizgini mail at. Dizgin sıfırlandığında siteden ve mobil uygulamadan çıkıp, kullandığın tüm Habitica araçlarına yeni Dizgini girmen gerekecektir.",
     "thirdPartyApps": "Üçüncü Parti Uygulamalar",
     "resetDo": "Evet, hesabımı sıfırla!",
     "resetComplete": "Sıfırlama tamamlandı!",

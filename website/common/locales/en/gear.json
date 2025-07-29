@@ -600,6 +600,8 @@
   "weaponMystery202404Notes": "This staff will bestow upon you an ancient wisdom as ageless as the rocks and trees. Confers no benefit. April 2024 Subscriber Item.",
   "weaponMystery202408Text": "Arcane Aegis",
   "weaponMystery202408Notes": "A magic bubble shield that protects you from enemy spells or helps you float in the air or water. Confers no benefit. August 2024 Subscriber Item.",
+  "weaponMystery202508Text": "Brilliant Crimson Blade",
+  "weaponMystery202508Notes": "This spinning blade will terrify any monster or red Daily that crosses your path! Confers no benefit. August 2025 Subscriber Item.",
 
   "weaponMystery301404Text": "Steampunk Cane",
   "weaponMystery301404Notes": "Excellent for taking a turn about town. March 3015 Subscriber Item. Confers no benefit.",
@@ -1736,6 +1738,8 @@
   "armorArmoireBeekeepersSuitNotes": "Keep yourself safe as you look after your busy bumbles. Increases Constitution by <%= con %>. Enchanted Armoire: Beekeeper Set (Item 2 of 4)",
   "armorArmoireFlyFishingWadersText": "Fly Fishing Waders",
   "armorArmoireFlyFishingWadersNotes": "Stay perfectly warm and dry when you wade into a stream, pond, lake, or river. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Fly Fishing Set (Item 2 of 3)",
+  "armorArmoireRedWaistcoatText": "Red Waistcoat",
+  "armorArmoireRedWaistcoatNotes": "Look smart and stunning as you tackle your tasks. There’s something secret hidden in the vest pocket—what do you think it could be? Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Red Waistcoat Set (Item 2 of 2)",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2673,6 +2677,8 @@
   "headArmoireBeekeepersHatNotes": "Keep your face safe as you tend to your buzzing buddies. Increases Perception by <%= per %>. Enchanted Armoire: Beekeeper Set (Item 1 of 4)",
   "headArmoireFlyFishingHatText": "Fly Fishing Hat",
   "headArmoireFlyFishingHatNotes": "With a wide brim and spot to hold a spare lure, don’t go fly fishing without this beauty. Increases Strength and Perception by <%= attrs %> each. Enchanted Armoire: Fly Fishing Set (Item 1 of 3)",
+  "headArmoireRedNewsieHatText": "Red Newsie Cap",
+  "headArmoireRedNewsieHatNotes": "Extra! Extra! Read all about it: this cap is comfortable, fashionable, and practical. Increases Perception and Intelligence by <%= attrs %> each. Enchanted Armoire: Red Waistcoat Set (Item 1 of 2)",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -3006,6 +3012,8 @@
   "shieldMystery202502Notes": "This Valentine’s Day and every day, may your heart be as light as these buoyant balloons. Confers no benefit. February 2025 Subscriber Item.",
   "shieldMystery202506Text": "Solar Shine Shield",
   "shieldMystery202506Notes": "Dispel darkness and bestow warm and cheerful rays wherever you are. Confers no benefit. June 2025 Subscriber Item.",
+  "shieldMystery202508Text": "Brilliant Cyan Blade",
+  "shieldMystery202508Notes": "If you thought one spinning blade was cool looking, try two! Confers no benefit. August 2025 Subscriber Item.",  
 
   "shieldMystery301405Text": "Clock Shield",
   "shieldMystery301405Notes": "Time is on your side with this towering clock shield! Confers no benefit. June 3015 Subscriber Item.",

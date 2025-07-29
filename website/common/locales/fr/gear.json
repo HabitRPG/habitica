@@ -3365,5 +3365,15 @@
     "shieldArmoireBeekeepersHiveNotes": "Les ruches servent à la fois de domicile et de lieu de travail. Il faudrait peut-être discuter d'un bon équilibre entre vie professionnelle et vie privée avec vos abeilles. Augmente la Force de <%= str %>. Armoire Enchantée : Ensemble d'Apicult·eur·rice (Objet 4 sur 4)",
     "backMystery202506Text": "Auréole de Rayonnement Solaire",
     "backMystery202506Notes": "Apporte une douce chaleur à vos tâches quotidiennes. Ne confère aucun bonus. Équipement d'Abonnement Juin 2025.",
-    "shieldSpecialSummer2025RogueNotes": "Ce tentacule sembles fébrile, mais ses ventouses ont une sacrée poigne. Ennemi·e·s, gare à vous ! Augmente la Force de <%= str %>. Équipement Édition Limitée Été 2025."
+    "shieldSpecialSummer2025RogueNotes": "Ce tentacule sembles fébrile, mais ses ventouses ont une sacrée poigne. Ennemi·e·s, gare à vous ! Augmente la Force de <%= str %>. Équipement Édition Limitée Été 2025.",
+    "armorArmoireFlyFishingWadersNotes": "Restez au chaud et au sec en vous immergeant dans un ruisseau, une mare, un lac ou une rivière. Augmente la Force et la Constitution de <%= attrs %> chacune. Armoire Enchantée : Ensemble Pêche à la Mouche (Objet 2 sur 3)",
+    "headArmoireFlyFishingHatNotes": "Avec sa large visière et son espace prévu pour fixer un leurre supplémentaire, n'oubliez pas de l'emporter avec pour partir à la pêche à la mouche. Augmente la Force et la Perception de <%= attrs %> chacune. Armoire Enchantée : Ensemble Pêche à la Mouche (Objet 1 sur 3)",
+    "shieldArmoireFlyFishingRodNotes": "Metter un appât sur cette canne longue et flexible, et les poissons penseront à chaque fois que c'est un insecte. Augmente la Force et l'Intelligence de <%= attrs %> chacune. Armoire Enchantée : Ensemble Pêche à la Mouche (Objet 3 sur 3)",
+    "armorArmoireFlyFishingWadersText": "Cuissardes de Pêche à la Mouche",
+    "headMystery202507Text": "Casquette Skateu·r·se Stylé·e",
+    "headMystery202507Notes": "La casquette à l'envers est toujours à la mode, hein ? Ne confère aucun bonus. Équipement d'Abonnement Juillet 2025.",
+    "headArmoireFlyFishingHatText": "Chapeau de Pêche à la Mouche",
+    "shieldArmoireFlyFishingRodText": "Canne à Mouche",
+    "backMystery202507Text": "Planche de Skate Stylée",
+    "backMystery202507Notes": "Votre fidèle destrier pour affronter le bitume et les rampes. Ne confère aucun bonus. Équipement d'Abonnement Juillet 2025."
 }

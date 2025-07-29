@@ -55,7 +55,6 @@
     "APIToken": "API-Token (Das ist ein Passwort – die obige Warnung gilt auch hier!)",
     "showAPIToken": "API-Token anzeigen",
     "hideAPIToken": "API-Token verbergen",
-    "APITokenWarning": "Wenn Du einen neuen API-Token brauchst (z.B. weil Du ihn versehentlich geteilt hast), schreibe eine E-Mail an <%= hrefTechAssistanceEmail %> mit Deiner Benutzer ID und dem aktuellen Schlüssel. Sobald er zurückgesetzt ist, wirst Du Dich auf der Webseite und der mobilen App aus- und neu einloggen müssen und den Schlüssel in jedem anderen Habitica Tool, das Du nutzt, einstellen müssen.",
     "thirdPartyApps": "Apps von Drittanbietern",
     "resetDo": "Ja, setzt mein Konto jetzt zurück!",
     "resetComplete": "Zurückgesetzt!",

@@ -236,5 +236,16 @@
     "mysterySet202306": "炫目彩虹套裝",
     "mysterySet202309": "巨型彗星飛蛾套裝",
     "mysterySet202305": "黃昏之龍套裝",
-    "mysterySet202304": "頭等茶壺套裝"
+    "mysterySet202304": "頭等茶壺套裝",
+    "mysterySet202403": "幸運傳奇套裝",
+    "mysterySet202402": "粉紅天堂套裝",
+    "subscribeTo": "訂閱",
+    "oneMonthGift": "為期一個月",
+    "nMonthsGift": "為期<%= months %>個月",
+    "unlockNGemsGift": "每個月他們在市場將解鎖<strong><%= count %>寶石</strong>",
+    "unlockNGems": "每個月在市場解鎖 <strong><%= count %>寶石</strong>",
+    "earn2Gems": "每個月訂閱會得到<strong>+2寶石</strong>",
+    "monthlyGemsLabel": "每月寶石",
+    "mysterySet202506": "陽光閃耀套裝",
+    "monthlyGems": "每月寶石:"
 }

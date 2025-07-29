@@ -7,7 +7,7 @@
     "reachedGoldToGemCapQuantity": "Your requested amount <%= quantity %> exceeds the amount you can buy for this month (<%= convCap %>). The full amount becomes available within the first three days of each month. Thanks for subscribing!",
     "mysteryItem": "Exclusive monthly items",
     "mysteryItemText": "Each month you will receive a unique cosmetic item for your avatar! Plus, for every three months of consecutive subscription, the Mysterious Time Travelers will grant you access to historic (and futuristic!) cosmetic items.",
-    "exclusiveJackalopePet": "Exclusive pet",
+    "exclusiveJackalopePet": "Special Pet",
     "giftSubscription": "Want to gift the benefits of a subscription to someone else?",
     "giftSubscriptionText4": "Thanks for supporting Habitica!",
     "groupPlans": "Group Plans",

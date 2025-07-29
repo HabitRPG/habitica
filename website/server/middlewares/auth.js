@@ -2,7 +2,9 @@ import moment from 'moment';
 import nconf from 'nconf';
 import url from 'url';
 import {
+  InvalidCredentialsError,
   NotAuthorized,
+  BadRequest,
 } from '../libs/errors';
 import {
   model as User,
@@ -10,6 +12,8 @@ import {
 import gcpStackdriverTracer from '../libs/gcpTraceAgent';
 import common from '../../common';
 import { getLanguageFromUser } from '../libs/language';
+
+const ENFORCE_CLIENT_HEADER = nconf.get('ENFORCE_CLIENT_HEADER') === 'true';
 
 const OFFICIAL_PLATFORMS = ['habitica-web', 'habitica-ios', 'habitica-android'];
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
@@ -62,6 +66,10 @@ export function authWithHeaders (options = {}) {
     const client = req.header('x-client');
     const optional = options.optional || false;
 
+    if (ENFORCE_CLIENT_HEADER && !client) {
+      return next(new BadRequest(res.t('missingClientHeader')));
+    }
+
     if (!userId || !apiToken) {
       if (optional) return next();
       return next(new NotAuthorized(res.t('missingAuthHeaders')));
@@ -81,7 +89,7 @@ export function authWithHeaders (options = {}) {
       .exec()
       .then(user => {
         if (!user || apiToken !== user.apiToken) {
-          throw new NotAuthorized(res.t('invalidCredentials'));
+          throw new InvalidCredentialsError(res.t('invalidCredentials'));
         }
 
         if (user.auth.blocked) {

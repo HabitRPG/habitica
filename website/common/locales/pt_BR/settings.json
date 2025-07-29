@@ -55,7 +55,6 @@
     "APIToken": "API Token (isso é uma senha - veja o aviso acima!)",
     "showAPIToken": "Mostrar API Token",
     "hideAPIToken": "Esconder API Token",
-    "APITokenWarning": "Se você precisa de um novo API Token (caso você tenha compartilhado seu Token acidentalmente, por exemplo), envie um email para <%= hrefTechAssistanceEmail %> informando seu ID de usuário e Token atual. Você precisará conceder autorizações novamente quando o Token for redefinido, então deslogue do site, do aplicativo e também informe o novo Token para qualquer ferramenta do Habitica que você usar.",
     "thirdPartyApps": "Aplicativos de terceiros",
     "resetDo": "Sim, reinicie minha conta!",
     "resetComplete": "Reinício completo!",

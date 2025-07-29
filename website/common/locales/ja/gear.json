@@ -3087,5 +3087,8 @@
     "weaponMystery202408Text": "神秘の神盾",
     "gearItemsCompleted": "すべての<%= klass %>ギアを集めました！ 新しいギアは季節のイベントでリリースされます。",
     "moreArmoireGearAvailable": "それまでは、<%= armoireCount %> 個のギアをEnchanted Armoireで見つけることができます！",
-    "moreArmoireGearComing": "ラッキー宝箱も毎月新入荷します！"
+    "moreArmoireGearComing": "ラッキー宝箱も毎月新入荷します！",
+    "weaponSpecialSummer2024RogueNotes": "敵の攻撃を相手に返します！力が<%= str %>上がります。2024年夏の限定装備。",
+    "weaponSpecialSummer2024WarriorText": "シャチの刃スライサー",
+    "weaponSpecialSummer2024RogueText": "ウミウシのトライデント"
 }

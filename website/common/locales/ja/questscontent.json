@@ -677,7 +677,7 @@
     "questFluoriteUnlockText": "市場で蛍石のたまごがえしの薬を買えるようになります",
     "evilSantaAddlNotes": "「猟師のサンタ」と「子グマの捜索」のクエストは何回でも挑戦できますが、クエスト報酬の特別なペットと乗騎が手に入るのは最初の一回だけです。ご注意ください。",
     "delightfulDinosText": "「愉快な恐竜」クエストセット",
-    "delightfulDinosNotes": "「テラー・ダクティル」「トリケラ・ステップス」「発掘された恐竜」のセット。<%= date %>まで購入できます。",
+    "delightfulDinosNotes": "「テラー・ダクティル」「トリケラ・ステップス」「発掘された恐竜」のセット。",
     "questRubyCollectRubyGems": "ルビー",
     "questRubyCollectVenusRunes": "金星のルーン",
     "questRubyCollectAquariusRunes": "みずがめ座のルーン",
@@ -774,5 +774,7 @@
     "questFungiRageEffect": "憂鬱キノコから霧が発生し、パーティを取り囲んで雰囲気を悪くし、魔力を抑制します。パーティーのMPが減少します！",
     "questCrabText": "いじわるカニ",
     "questCrabBoss": "いじわるカニ",
-    "questCrabRageTitle": "気まぐれないじわる"
+    "questCrabRageTitle": "気まぐれないじわる",
+    "questGiraffeText": "キ・リン",
+    "questOpalUnlockText": "オパールのたまごがえしの薬を市場で買えるようになる"
 }

@@ -128,5 +128,8 @@
     "limitedAvailabilityMinutes": "購買時間剩餘<%= minutes %>分鐘<%= seconds %>秒",
     "groupsPaymentSubBilling": "您的下一個續簽日期是<strong><%= renewalDate %></strong>。",
     "groupsPaymentAutoRenew": "該訂閱將自動續訂，直到您取消。如有需要，您可以在團隊計費選項卡中取消它。",
-    "helpSupportHabitica": "支持Habitica"
+    "helpSupportHabitica": "支持Habitica",
+    "customizationsShopText": "想要改變你的造型?你來對地方了!我們備有最時尚的款式適合這個季節。",
+    "notAvailable": "此項目無法使用。",
+    "sellItems": "販賣商品"
 }
