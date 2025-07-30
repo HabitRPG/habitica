@@ -34,7 +34,6 @@
       >
       </p>
       <div
-        v-once
         class="d-flex justify-content-center"
       >
         <div class="w-66">
@@ -55,6 +54,7 @@
             <div class="settings-label w-50"> {{ $t('performanceAnalytics') }}</div>
             <toggle-switch
               v-model="user.preferences.analyticsConsent"
+              @change="prefToggled()"
             />
           </div>
           <div class="mb-4">
@@ -64,7 +64,8 @@
           </div>
           <save-cancel-buttons
             class="mb-4"
-            @saveClicked="setUserPreference('analyticsConsent')"
+            :disable-save="!mixinData.inlineSettingMixin.sharedState.inlineSettingUnsavedValues"
+            @saveClicked="finalize()"
             @cancelClicked="requestCloseModal()"
           />
         </div>
@@ -118,6 +119,18 @@ export default {
     ...mapState({
       user: 'user.data',
     }),
+  },
+  methods: {
+    finalize () {
+      this.setUserPreference('analyticsConsent');
+      this.mixinData.inlineSettingMixin.sharedState.inlineSettingUnsavedValues = false;
+    },
+    prefToggled () {
+      this.mixinData.inlineSettingMixin.sharedState.inlineSettingUnsavedValues = !this.mixinData.inlineSettingMixin.sharedState.inlineSettingUnsavedValues;
+    },
+    resetControls () {
+      this.user.preferences.analyticsConsent = !this.user.preferences.analyticsConsent;
+    },
   },
 };
 </script>
