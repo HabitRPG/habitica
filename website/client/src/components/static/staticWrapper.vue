@@ -2,7 +2,7 @@
   <div>
     <chat-banner />
     <static-header
-      v-if="showContentWrap"
+      v-if="showContentWrap && ['login', 'register', 'username'].indexOf($route.name) === -1"
       :class="{
         'home-header': ['home', 'front'].indexOf($route.name) !== -1,
         'white-header': $route.name === 'plans'

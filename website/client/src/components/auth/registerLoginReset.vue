@@ -161,7 +161,7 @@
       </div>
       <div
         v-if="registering"
-        class="form-group"
+        class="form-group mb-4"
       >
         <label
           v-once
@@ -187,7 +187,7 @@
           id="continue-button"
           v-if="registering"
           type="submit"
-          class="btn btn-info"
+          class="btn btn-info w-100 mb-4"
           :disabled="!(emailValid && passwordValid && passwordConfirmValid)"
         >
           {{ $t('continue') }}
@@ -195,12 +195,12 @@
         <button
           v-if="!registering"
           type="submit"
-          class="btn btn-info w-100"
+          class="btn btn-info w-100 mb-4"
           :disabled="!usernameValid || !passwordValid"
         >
           {{ $t('login') }}
         </button>
-        <div class="toggle-links">
+        <div>
           <router-link
             v-if="registering"
             :to="{name: 'login'}"
@@ -208,7 +208,7 @@
           >
             <a
               v-once
-              class="toggle-link"
+              class="white"
               v-html="$t('alreadyHaveAccountLogin')"
             ></a>
           </router-link>
@@ -219,7 +219,7 @@
           >
             <a
               v-once
-              class="toggle-link"
+              class="white"
               v-html="$t('dontHaveAccountSignup')"
             ></a>
           </router-link>
@@ -354,15 +354,6 @@
         </div>
       </div>
     </form>
-    <div
-      id="bottom-wrap"
-      :class="`bottom-wrap-${!registering ? 'login' : 'register'}`"
-    >
-      <div id="bottom-background">
-        <div class="seamless_mountains_demo_repeat"></div>
-        <div class="midground_foreground_extended2"></div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -381,24 +372,6 @@
   @import '@/assets/scss/colors.scss';
   @import '@/assets/scss/privacy.scss';
 
-  @media only screen  and (min-height: 1080px) {
-    .bottom-wrap-register {
-      margin-top: 6em;
-      position: fixed !important;
-      width: 100%;
-      bottom: 0;
-    }
-  }
-
-  @media only screen  and (min-height: 862px) {
-    .bottom-wrap-login {
-      margin-top: 6em;
-      position: fixed !important;
-      width: 100%;
-      bottom: 0;
-    }
-  }
-
   @media only screen and (max-width: 768px) {
     .form-group {
       padding-left: .5em;
@@ -410,7 +383,6 @@
     background-color: $purple-200;
     background: $purple-200; /* For browsers that do not support gradients */
     background: linear-gradient(to bottom, #4f2a93, #6133b4); /* Standard syntax */
-    min-height: 100vh;
   }
 
   ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -436,7 +408,6 @@
     padding-bottom: 4em;
     position: relative;
     z-index: 1;
-    top: calc(50vh - 400px);
 
     .header {
       h2 {
@@ -502,44 +473,6 @@
       height: 500px;
       width: 100%;
     }
-  }
-
-  #bottom-wrap {
-    margin-top: 6em;
-    position: static;
-    width: 100%;
-    bottom: 0;
-  }
-
-  #bottom-background {
-    position: relative;
-
-    .seamless_mountains_demo_repeat {
-      background-image: url('@/assets/images/auth/seamless_mountains_demo.png');
-      background-repeat: repeat-x;
-      width: 100%;
-      height: 300px;
-      position: absolute;
-      z-index: 0;
-      bottom: 0;
-    }
-
-    .midground_foreground_extended2 {
-      background-image: url('@/assets/images/auth/midground_foreground_extended2.png');
-      position: relative;
-      width: 1500px;
-      max-width: 100%;
-      height: 150px;
-      margin: 0 auto;
-    }
-  }
-
-  .toggle-links {
-    margin-top: 1em;
-  }
-
-  .toggle-link {
-    color: $white !important;
   }
 
   .forgot-password {

@@ -49,7 +49,7 @@
         ></label>
       </div>
       <button
-        class="btn btn-info d-block sign-up mx-auto"
+        class="btn btn-info d-block w-100 sign-up mx-auto mb-5"
         :disabled="!username || usernameInvalid || !privacyAccepted"
         type="submit"
       >

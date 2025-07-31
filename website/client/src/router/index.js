@@ -76,12 +76,6 @@ const router = new VueRouter({
   // NOTE: when adding a new route entry make sure to implement the `common:setTitle` action
   // in the route component to set a specific subtitle for the page.
   routes: [
-    {
-      name: 'register', path: '/register', component: RegisterLoginReset, meta: { requiresLogin: false },
-    },
-    {
-      name: 'login', path: '/login', component: RegisterLoginReset, meta: { requiresLogin: false },
-    },
     { name: 'logout', path: '/logout', component: Logout },
     {
       name: 'resetPassword', path: '/reset-password', component: RegisterLoginReset, meta: { requiresLogin: false },
