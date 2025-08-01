@@ -2,7 +2,7 @@
   <div>
     <chat-banner />
     <static-header
-      v-if="showContentWrap && ['login', 'register', 'username'].indexOf($route.name) === -1"
+      v-if="showContentWrap && !loginFlow"
       :class="{
         'home-header': ['home', 'front'].indexOf($route.name) !== -1,
         'white-header': $route.name === 'plans'
@@ -15,17 +15,23 @@
       <router-view />
     </div>
     <div
+      id="bottom-background"
+      v-if="loginFlow"
+      class="bg-purple-300"
+    >
+      <div class="seamless_mountains_demo_repeat"></div>
+      <div class="midground_foreground_extended2"></div>
+    </div>
+    <app-footer
       v-if="showContentWrap"
       :id="footerId"
-    >
-      <app-footer />
-    </div>
+    />
     <div
       v-if="showContentWrap && footerId"
       id="bottom-wrap"
       class="purple-4"
     >
-      <div id="bottom-background">
+      <div id="bottom-background" v-if="!loginFlow">
         <div class="seamless_mountains_demo_repeat"></div>
         <div class="midground_foreground_extended2"></div>
       </div>
@@ -263,12 +269,15 @@ export default {
     StaticHeader,
   },
   computed: {
-    showContentWrap () {
-      return this.$route.name !== 'news';
-    },
     footerId () {
       if (this.$route.name === 'plans') return null;
       return 'purple-footer';
+    },
+    loginFlow () {
+      return ['login', 'register', 'username'].indexOf(this.$route.name) !== -1;
+    },
+    showContentWrap () {
+      return this.$route.name !== 'news';
     },
   },
 };

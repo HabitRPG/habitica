@@ -404,6 +404,7 @@
   #login-form, #forgot-form, #reset-password-set-new-one-form {
     margin: 0 auto;
     width: 448px;
+    height: 700px;
     padding-top: 5em;
     padding-bottom: 4em;
     position: relative;
