@@ -351,9 +351,11 @@
             >
               {{ $t('admin') }}
             </router-link>
-            <a v-else
+            <a
+              v-else
               href="#"
-              class="nav-link">
+              class="nav-link"
+            >
               {{ $t('admin') }}
             </a>
             <div class="topbar-dropdown">
@@ -815,7 +817,7 @@ export default {
     selectUserModal,
     userDropdown,
   },
-  mixins: [sync, reportBug, userStateMixin,],
+  mixins: [sync, reportBug, userStateMixin],
   data () {
     return {
       isUserDropdownOpen: false,

@@ -40,11 +40,15 @@
               <input
                 :id="permission.key"
                 v-model="hero.permissions[permission.key]"
-                :disabled="!hasPermission(user, permission.key) || (hero.permissions.fullAccess && permission.key !== 'fullAccess')"
+                :disabled="!hasPermission(user, permission.key)
+                  || (hero.permissions.fullAccess && permission.key !== 'fullAccess')"
                 class="custom-control-input"
                 type="checkbox"
               >
-              <label class="custom-control-label" :for="permission.key">
+              <label
+                class="custom-control-label"
+                :for="permission.key"
+              >
                 {{ permission.name }}<br>
                 <small class="text-secondary">{{ permission.description }}</small>
               </label>
