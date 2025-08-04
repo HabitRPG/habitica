@@ -122,7 +122,7 @@ api.getUserHistory = {
 api.getBlockers = {
   method: 'GET',
   url: '/admin/blockers',
-  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  middlewares: [authWithHeaders(), ensurePermission('accessControl')],
   async handler (req, res) {
     const blockers = await Blocker
       .find({ disabled: false })
@@ -136,7 +136,7 @@ api.getBlockers = {
 api.createBlocker = {
   method: 'POST',
   url: '/admin/blockers',
-  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  middlewares: [authWithHeaders(), ensurePermission('accessControl')],
   async handler (req, res) {
     const id = uuid();
     const blocker = await Blocker({
@@ -151,7 +151,7 @@ api.createBlocker = {
 api.updateBlocker = {
   method: 'PUT',
   url: '/admin/blockers/:blockerId',
-  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  middlewares: [authWithHeaders(), ensurePermission('accessControl')],
   async handler (req, res) {
     req.checkParams('blockerId', res.t('blockerIdRequired')).notEmpty().isUUID();
 
@@ -171,7 +171,7 @@ api.updateBlocker = {
 api.deleteBlocker = {
   method: 'DELETE',
   url: '/admin/blockers/:blockerId',
-  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  middlewares: [authWithHeaders(), ensurePermission('accessControl')],
   async handler (req, res) {
     req.checkParams('blockerId', res.t('blockerIdRequired')).notEmpty().isUUID();
 
