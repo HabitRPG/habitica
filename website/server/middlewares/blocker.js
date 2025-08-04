@@ -53,12 +53,16 @@ export default function ipBlocker (req, res, next) {
 
   const ipMatch = blockedIps.find(blockedIp => blockedIp === req.ip) !== undefined;
   if (ipMatch === true) {
-    return next(new Forbidden(apiError('ipAddressBlocked')));
+    const error = new Forbidden(apiError('ipAddressBlocked'));
+    error.skipLogging = true;
+    return next(error);
   }
 
   const clientMatch = blockedClients.find(blockedClient => blockedClient === req.headers['x-client']) !== undefined;
   if (clientMatch === true) {
-    return next(new Forbidden(apiError('clientBlocked')));
+    const error = new Forbidden(apiError('clientBlocked'));
+    error.skipLogging = true;
+    return next(error);
   }
 
   return next();
