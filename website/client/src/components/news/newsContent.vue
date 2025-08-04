@@ -81,9 +81,10 @@ import moment from 'moment';
 import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from '@/libs/store';
 import seasonalNPC from '@/mixins/seasonalNPC';
+import { userStateMixin } from '../../mixins/userState';
 
 export default {
-  mixins: [seasonalNPC],
+  mixins: [seasonalNPC, userStateMixin],
   data () {
     return {
       posts: [],
@@ -107,7 +108,7 @@ export default {
       if (lastPublishedPost) this.posts.push(lastPublishedPost);
 
       // If the user is authorized, show any draft
-      if (this.user && (this.user.permissions.news || this.user.permissions.fullAccess)) {
+      if (this.user && (this.hasPermission(this.user, 'news'))) {
         this.posts.unshift(
           ...postsFromServer
             .filter(p => !p.published || moment().isBefore(p.publishDate)),

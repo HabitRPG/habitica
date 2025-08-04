@@ -345,7 +345,7 @@
               ></div>
             </div>
             <router-link
-              v-if="user.permissions.fullAccess || user.permissions.userSupport"
+              v-if="hasPermission(user, 'userSupport')"
               class="nav-link"
               :to="{name: 'adminPanel'}"
             >
@@ -353,21 +353,21 @@
             </router-link>
             <div class="topbar-dropdown">
               <router-link
-                v-if="user.permissions.fullAccess || user.permissions.userSupport"
+                v-if="hasPermission(user, 'userSupport')"
                 class="topbar-dropdown-item dropdown-item"
                 :to="{name: 'adminPanel'}"
               >
                 {{ $t("adminPanel") }}
               </router-link>
               <router-link
-                v-if="user.permissions.fullAccess || user.permissions.accessControl"
+                v-if="hasPermission(user, 'accessControl')"
                 class="topbar-dropdown-item dropdown-item"
                 :to="{name: 'blockers'}"
               >
                 {{ $t("siteBlockers") }}
               </router-link>
               <a
-                v-if="user.permissions.fullAccess || user.permissions.news"
+                v-if="hasPermission(user, 'news')"
                 class="topbar-dropdown-item dropdown-item"
                 target="_blank"
                 href="https://panel.habitica.com"
@@ -797,6 +797,7 @@ import selectUserModal from '@/components/payments/selectUserModal';
 import sync from '@/mixins/sync';
 import userDropdown from './userDropdown';
 import reportBug from '@/mixins/reportBug.js';
+import { userStateMixin } from '../../mixins/userState';
 
 export default {
   components: {
@@ -809,7 +810,7 @@ export default {
     selectUserModal,
     userDropdown,
   },
-  mixins: [sync, reportBug],
+  mixins: [sync, reportBug, userStateMixin,],
   data () {
     return {
       isUserDropdownOpen: false,
