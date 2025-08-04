@@ -41,30 +41,58 @@
     <div class="standard-page">
       <div class="featuredItems">
         <div
+          v-if="isSubscribed || (hasTrinket && !isSubscribed)"
           class="background"
-          :class="{'background-closed': closed, 'background-open': !closed }"
           :style="{'background-image': imageURLs.background}"
         >
           <div
             class="npc"
-            :class="{'closed': closed }"
             :style="{'background-image': imageURLs.npc}"
           >
             <div class="featured-label">
-              <span class="rectangle"></span><span
+              <span class="rectangle"></span>
+              <span
                 v-once
                 class="text"
-              >{{ $t('timeTravelers') }}</span><span class="rectangle"></span>
+              >
+                {{ $t('timeTravelers') }}
+              </span>
+              <span class="rectangle"></span>
             </div>
-          </div><div
-            v-if="closed"
-            class="content"
+          </div>
+        </div>
+        <div class="content">
+          <div
+            class="background"
+            :style="{'background-image': imageURLs.background}"
           >
-            <div class="featured-label with-border closed">
-              <span class="rectangle"></span><span
+            <div
+              class="npc"
+              :style="{'background-image': imageURLs.npc}"
+            >
+              <div class="featured-label">
+                <span class="rectangle"></span>
+                <span
+                  v-once
+                  class="text"
+                >
+                  {{ $t('timeTravelers') }}
+                </span>
+                <span class="rectangle"></span>
+              </div>
+            </div>
+            <div
+              v-if="!isSubscribed && !hasTrinket"
+              class="shop-message featured-label with-border closed"
+            >
+              <span class="rectangle"></span>
+              <span
                 v-once
                 class="text"
-              >{{ $t('timeTravelersPopoverNoSubMobile') }}</span><span class="rectangle"></span>
+              >
+                {{ $t('timeTravelersPopoverNoSubMobile') }}
+              </span>
+              <span class="rectangle"></span>
             </div>
           </div>
         </div>
@@ -163,6 +191,7 @@ import _throttle from 'lodash/throttle';
 import _groupBy from 'lodash/groupBy';
 import _map from 'lodash/map';
 import _find from 'lodash/find';
+import moment from 'moment';
 import isPinned from '@/../../common/script/libs/isPinned';
 import shops from '@/../../common/script/libs/shops';
 import { mapState } from '@/libs/store';
@@ -233,15 +262,18 @@ export default {
       userItems: 'user.data.items',
       currentEventList: 'worldState.data.currentEventList',
     }),
-
-    closed () {
-      return this.user.purchased.plan.consecutive.trinkets === 0;
+    isSubscribed () {
+      const now = new Date();
+      const { plan } = this.user.purchased;
+      return plan && plan.customerId
+        && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
     },
-
+    hasTrinket () {
+      return this.user.purchased.plan.consecutive.trinkets > 0;
+    },
     shop () {
       return shops.getTimeTravelersShop(this.user);
     },
-
     categories () {
       const apiCategories = this.shop.categories;
 
@@ -302,10 +334,8 @@ export default {
       }
     });
     this.currentEvent = _find(this.currentEventList, event => Boolean(['winter', 'spring', 'summer', 'fall'].includes(event.season)));
-    if (!this.currentEvent || !this.currentEvent.season || this.currentEvent.season === 'thanksgiving' || this.closed) {
+    if (!this.currentEvent || !this.currentEvent.season || this.currentEvent.season === 'thanksgiving') {
       this.imageURLs.background = 'url(/static/npc/normal/time_travelers_background.png)';
-      this.imageURLs.npc = this.closed ? 'url(/static/npc/normal/time_travelers_closed_banner.png)'
-        : 'url(/static/npc/normal/time_travelers_open_banner.png)';
     } else {
       this.imageURLs.background = `url(/static/npc/${this.currentEvent.season}/time_travelers_background.png)`;
       this.imageURLs.npc = `url(/static/npc/${this.currentEvent.season}/time_travelers_open_banner.png)`;

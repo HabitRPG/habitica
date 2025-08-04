@@ -55,7 +55,6 @@
     "APIToken": "Tokern API (aceasta este ca o parolă - a se vedea atenționarea de mai sus!)",
     "showAPIToken": "Arată Token-ul API",
     "hideAPIToken": "Ascunde Token-ul API",
-    "APITokenWarning": "Dacă ai nevoie de un nou Token API (ex.: dacă l-ai distribuit din greșeală), trimite un email la <%= hrefTechAssistanceEmail %> cu ID-ul tău de Utilizator și Token-ul actual. Odată resetat, va trebui să reautorizezi totul de-logându-te de pe site și de pe aplicația de mobil și folosind noul Token pe oricare alt instrument Habitica pe care-l folosești.",
     "thirdPartyApps": "Aplicații Third Party",
     "resetDo": "Fă-o, resetează-mi contul!",
     "resetComplete": "Resetare completă!",

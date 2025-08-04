@@ -97,9 +97,9 @@ import { mapState } from '@/libs/store';
 import Sprite from '@/components/ui/sprite';
 
 export default {
-  components: [
+  components: {
     Sprite,
-  ],
+  },
   data () {
     return {
       maxHealth,

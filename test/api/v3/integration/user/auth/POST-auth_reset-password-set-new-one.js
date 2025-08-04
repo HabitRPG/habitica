@@ -238,6 +238,28 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
     expect(isPassValid).to.equal(true);
   });
 
+  it('changes the apiToken on password reset', async () => {
+    const user = await generateUser();
+    const previousToken = user.apiToken;
+
+    const code = encrypt(JSON.stringify({
+      userId: user._id,
+      expiresAt: moment().add({ days: 1 }),
+    }));
+    await user.updateOne({
+      'auth.local.passwordResetCode': code,
+    });
+
+    await api.post(`${endpoint}`, {
+      newPassword: 'my new password',
+      confirmPassword: 'my new password',
+      code,
+    });
+
+    await user.sync();
+    expect(user.apiToken).to.not.eql(previousToken);
+  });
+
   it('renders the success page and convert the password from sha1 to bcrypt', async () => {
     const user = await generateUser();
 

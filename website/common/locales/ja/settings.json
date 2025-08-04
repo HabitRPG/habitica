@@ -55,7 +55,6 @@
     "APIToken": "API トークン（これはあなたのパスワードです。上記の注意をよく読んでください！）",
     "showAPIToken": "APIトークンを表示する",
     "hideAPIToken": "APIトークンを非表示にする",
-    "APITokenWarning": "新しいAPIトークンが必要な場合 (例えば、誤って公開してしまったとき) は、 <%= hrefTechAssistanceEmail %> あてに、ユーザーIDと現在のトークンを書き添えてメールを送ってください。一度リセットした後は、Webサイトとモバイルアプリをログアウトしたり、その他にお使いのHabiticaツールに新しいトークンを入力したりして、すべて再認証する必要があります。",
     "thirdPartyApps": "サードパーティー アプリ",
     "resetDo": "はい。アカウントをリセットします！",
     "resetComplete": "リセット完了！",

@@ -183,7 +183,7 @@
     "questEggVelociraptorMountText": "Velociraptor",
     "questEggVelociraptorAdjective": "um inteligente",
     "eggNotes": "Ache uma poção de eclosão e use-a neste ovo e ele chocará como <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
-    "hatchingPotionBase": "&ZeroWidthSpace;",
+    "hatchingPotionBase": " ",
     "hatchingPotionWhite": "das Neves",
     "hatchingPotionDesert": "do Deserto",
     "hatchingPotionRed": "Escarlate",

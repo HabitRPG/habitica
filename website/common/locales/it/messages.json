@@ -55,5 +55,6 @@
     "messageBackgroundUnEquipped": "Sfondo rimosso.",
     "messagePetMountUnEquipped": "Animale e cavalcatura rimossi.",
     "messageCostumeUnEquipped": "Costume rimosso.",
-    "messageBattleGearUnEquipped": "Equipaggiamento da combattimento rimosso."
+    "messageBattleGearUnEquipped": "Equipaggiamento da combattimento rimosso.",
+    "featureRetired": "Questa funzionalità non è più supportata."
 }

@@ -82,5 +82,12 @@
     "commGuideList01A": "這些條約對所有空間適用，包括私人工會，隊伍聊天和信息。",
     "commGuideList02M": "不要在群組計劃裡索要或乞求寶石，訂閱或會員。這在酒館，公共或私人的聊天空間和在私人訊息中都不被允許。如果你收到索要付費物品的信息，請舉報該消息。重複或嚴重的寶石或訂閱乞求，尤其在警告之後，可能會導致賬號封禁。",
     "commGuideList05H": "嚴重或重複地常識詐騙或威脅其他玩家贈與付費物品",
-    "commGuideList02N": "<strong>舉報違反這些指南或服務條款的帖子。</strong>我們會盡快處理。您也可以通過 <a href='mailto:admin@habitica.com' target='_blank'>admin@habitica.com</a> 通知工作人員，但舉報是獲得幫助的最快方式。"
+    "commGuideList02N": "<strong>舉報違反這些指南或服務條款的帖子。</strong>我們會盡快處理。您也可以通過 <a href='mailto:admin@habitica.com' target='_blank'>admin@habitica.com</a> 通知工作人員，但舉報是獲得幫助的最快方式。",
+    "commGuideList02H": "<strong>所有顯示名稱和 @用戶名 必須遵守服務條款<strong>。要更改您的顯示名稱和/或 @用戶名：手機端，請前往菜單 > 設定 >帳戶。網頁版，請從頂部導航欄的用戶圖標進入設定。",
+    "commGuideList02I": "<strong>在創建挑戰時請記住挑戰名稱應該適合所有場合，因為它們將顯示在獲勝者的公共檔案中<strong>。如果收到報告，我們可能不得不編輯其檔案中的記錄。",
+    "commGuideList02O": "<strong>为了满足成员的舒适度和偏好，各群組可以制定自己的聊天规则</strong>. 不过，管理员无法在这些私密聊天室中强制执行聊天规则，除非存在违反服务条款的行为，包括骚扰。如果您的群组中有成员造成问题，我们建议群组管理员将其移除。",
+    "commGuideList02P": "<strong>我們不鼓励发送未经允許的私人信息</strong>. If you receive an unwanted message that makes you uncomfortable or that breaks these Guidelines or the Terms of Service, please block the sender and report it to bring it to Staff attention.如果您收到使您感到不舒服或违反这些准则或服务条款的信息，请拉黑发件人并报告给工作人员引起注意。",
+    "commGuideList02Q": "<strong>切勿嘗試規避封鎖功能</strong>. 若對方已封鎖您的私訊功能，請勿透過其他管道聯繫對方要求解封。",
+    "commGuideList09E": "永久喪失私訊發送權限與隊伍成員搜索列表顯示資格",
+    "commGuideList10G": "暫停私訊發送與隊伍成員搜索顯示權限"
 }

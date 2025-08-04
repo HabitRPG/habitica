@@ -12,7 +12,7 @@
     "showLess": "Visa Mindre",
     "markdownHelpLink": "Markdown formateringshjälp",
     "bold": "**Fetstilt**",
-    "markdownImageEx": "![mandatory alt text](https://habitica.com/cake.png \"optional mouseover title\")",
+    "markdownImageEx": "![obligatorisk alternativ text](https://habitica.com/cake.png \"valfri mouseover-titel\")",
     "code": "`kod`",
     "achievements": "Prestationer",
     "basicAchievs": "Grundläggande prestationer",

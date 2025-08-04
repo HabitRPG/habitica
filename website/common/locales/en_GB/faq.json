@@ -240,5 +240,6 @@
     "sunsetFaqHeader12": "What will happen to Guild Bank Gems?",
     "sunsetFaqPara21": "Gems in the Guild Bank will be refunded to the leader of the Guild on August 8th when Guild Services end.",
     "anotherQuestion": "Have another question?",
-    "contactAdmin": "Contact <a href='mailto:admin@habitica.com'>admin@habitica.com</a>"
+    "contactAdmin": "Contact <a href='mailto:admin@habitica.com'>admin@habitica.com</a>",
+    "webFaqAnswer60": "Here are some quick tips to get you started with your new Habitica Group Plan:\n\n * Promote a member to a manager to give them the ability to create and edit tasks\n * Leave tasks unassigned if anyone can complete it, and it only needs to be done once\n * Assign a task to one person to make sure no one else can complete their task\n * Assign a task to multiple people if they all need to complete it\n * Toggle the ability to display shared tasks on your personal board to not miss anything\n * You get rewarded for the tasks you complete, even multi-assigned\n * Task completion rewards aren’t split between members\n * Use task colour on the team board to judge the average completion rate of tasks\n * Regularly review the tasks on the shared task board to make sure they are still relevant\n * Missing a Daily won’t damage you or your team, but the task will degrade in colour"
 }

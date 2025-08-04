@@ -55,7 +55,6 @@
     "APIToken": "Ficha API (ésta es una contraseña - ¡lee el aviso de arriba!)",
     "showAPIToken": "Mostrar ficha API",
     "hideAPIToken": "Ocultar ficha API",
-    "APITokenWarning": "Si necesitas una nueva Ficha API (ej. si accidentalmente la compartiste) Manda un email a <%= hrefTechAssistanceEmail %> con tu ID de usuario y tu Ficha actual. Una vez que se cambie la Ficha tendrás que re-autorizar todo saliendo de tu cuenta en la pagina y en la aplicación móvil, y dando una nueva Ficha a cualquier otra herramienta de Habitica que uses.",
     "thirdPartyApps": "Aplicaciones de terceros",
     "resetDo": "¡Adelante, reinicia mi cuenta!",
     "resetComplete": "Reseteo completo!",

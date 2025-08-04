@@ -1,6 +1,20 @@
 import axios from 'axios';
+import { authAsCredentialsState, LOCALSTORAGE_AUTH_KEY } from '@/libs/auth';
 
-const LOCALSTORAGE_AUTH_KEY = 'habit-mobile-settings';
+function saveLocalDataAuth (store, apiId, apiToken) {
+  const credentialsObj = {
+    auth: {
+      apiId,
+      apiToken,
+    },
+  };
+
+  const userLocalData = JSON.stringify(credentialsObj);
+
+  localStorage.setItem(LOCALSTORAGE_AUTH_KEY, userLocalData);
+
+  store.state.credentials = authAsCredentialsState(credentialsObj);
+}
 
 export async function register (store, params) {
   let url = '/api/v4/user/auth/local/register';
@@ -16,13 +30,7 @@ export async function register (store, params) {
 
   const user = result.data.data;
 
-  const userLocalData = JSON.stringify({
-    auth: {
-      apiId: user._id,
-      apiToken: user.apiToken,
-    },
-  });
-  localStorage.setItem(LOCALSTORAGE_AUTH_KEY, userLocalData);
+  saveLocalDataAuth(store, user.id, user.apiToken);
 }
 
 export async function login (store, params) {
@@ -35,14 +43,7 @@ export async function login (store, params) {
 
   const user = result.data.data;
 
-  const userLocalData = JSON.stringify({
-    auth: {
-      apiId: user.id,
-      apiToken: user.apiToken,
-    },
-  });
-
-  localStorage.setItem(LOCALSTORAGE_AUTH_KEY, userLocalData);
+  saveLocalDataAuth(store, user.id, user.apiToken);
 }
 
 export async function verifyUsername (store, params) {
@@ -72,14 +73,7 @@ export async function socialAuth (store, params) {
 
   const user = result.data.data;
 
-  const userLocalData = JSON.stringify({
-    auth: {
-      apiId: user.id,
-      apiToken: user.apiToken,
-    },
-  });
-
-  localStorage.setItem(LOCALSTORAGE_AUTH_KEY, userLocalData);
+  saveLocalDataAuth(store, user.id, user.apiToken);
 }
 
 export async function appleAuth (store, params) {
@@ -93,18 +87,15 @@ export async function appleAuth (store, params) {
 
   const user = result.data.data;
 
-  const userLocalData = JSON.stringify({
-    auth: {
-      apiId: user.id,
-      apiToken: user.apiToken,
-    },
-  });
-
-  localStorage.setItem(LOCALSTORAGE_AUTH_KEY, userLocalData);
+  saveLocalDataAuth(store, user.id, user.apiToken);
 }
 
 export function logout (store, options = {}) {
   localStorage.clear();
   const query = options.redirectToLogin === true ? '?redirectToLogin=true' : '';
   window.location.href = `/logout-server${query}`;
+}
+
+export function setNewToken (store, params) {
+  saveLocalDataAuth(store, params.userId, params.apiToken);
 }

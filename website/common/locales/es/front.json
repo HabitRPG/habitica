@@ -182,5 +182,6 @@
     "translateHabitica": "Traduce Habitica",
     "incorrectResetPhrase": "Por favor, teclea <%= magicWord %> en mayúsculas para reiniciar tu cuenta.",
     "marketing3Lead1Title": "Aplicaciones para Android y iOS",
-    "marketing4Lead3Button": "Empieza Hoy Mismo"
+    "marketing4Lead3Button": "Empieza Hoy Mismo",
+    "missingClientHeader": "Faltan los encabezados x-client."
 }

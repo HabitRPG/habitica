@@ -427,5 +427,6 @@
     "tavernDiscontinuedDetail": "由於許多因素，包括我們的玩家群與 Habitica 互動方式的變化，維護這些空間所需的資源與參與人數不成比例，從長遠來看無法持續。",
     "tavernDiscontinuedLinks": "閱讀更多關於<a href='/static/faq/tavern-and-guilds'>「酒館與公會服務停用」</a>的資訊，或返回<a href='/'>首頁</a>。",
     "chatSunsetWarning": "<strong>Habitica公會和酒館聊天將於 2023 年 8 月 8 日停止。</strong><a href='/static/faq/tavern-and-guilds'>點選此處</a>閱讀更多關於這項變更的資訊。",
-    "sendTotal": "總計："
+    "sendTotal": "總計：",
+    "messageCopiedToClipboard": "訊息已複製到剪貼板。"
 }

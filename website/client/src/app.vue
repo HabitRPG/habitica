@@ -111,6 +111,7 @@ import axios from 'axios';
 import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import snackbars from '@/components/snackbars/notifications';
+import { LOCALSTORAGE_AUTH_KEY } from '@/libs/auth';
 
 const COMMUNITY_MANAGER_EMAIL = import.meta.env.EMAILS_COMMUNITY_MANAGER_EMAIL;
 
@@ -222,11 +223,10 @@ export default {
 
         const errorData = error.response.data;
         const errorMessage = errorData.message || errorData;
+        const errorCode = errorData.error;
 
-        // Check for conditions to reset the user auth
-        // TODO use a specific error like NotificationNotFound instead of checking for the string
-        const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
-        if (invalidUserMessage.indexOf(errorMessage) !== -1) {
+        // If 'invalid_credentials' signaled, force logout
+        if (error.response.status === 401 && errorCode === 'invalid_credentials') {
           this.$store.dispatch('auth:logout', { redirectToLogin: true });
           return null;
         }
@@ -269,6 +269,17 @@ export default {
     const loadingScreen = document.getElementById('loading-screen');
     if (loadingScreen) document.body.removeChild(loadingScreen);
 
+    // Check if we need to show password change success message
+    if (sessionStorage.getItem('passwordChangeSuccess') === 'true') {
+      sessionStorage.removeItem('passwordChangeSuccess');
+      this.$store.dispatch('snackbars:add', {
+        title: 'Habitica',
+        text: this.$t('passwordSuccess'),
+        type: 'success',
+        timeout: true,
+      });
+    }
+
     this.$router.onReady(() => {
       if (this.isStaticPage || !this.isUserLoggedIn) {
         this.hideLoadingScreen();
@@ -280,7 +291,7 @@ export default {
       this.loading = false;
     },
     checkForBannedUser (error) {
-      const AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
+      const AUTH_SETTINGS = localStorage.getItem(LOCALSTORAGE_AUTH_KEY);
       const parseSettings = JSON.parse(AUTH_SETTINGS);
       const errorMessage = error.response.data.message;
 

@@ -55,7 +55,6 @@
     "APIToken": "API token (ovo je lozinka - vidi upozorenje poviše!)",
     "showAPIToken": "Prikaži API token",
     "hideAPIToken": "Sakrij API token",
-    "APITokenWarning": "Ako ti treba novi API token (npr. ako si ga slučajno podijelio/la), pošalji e-mail na <%= hrefTechAssistanceEmail %> sa svojim Korisničkim ID-em i trenutnim tokenom. Kad ga se resetira, trebat ćeš sve ponovno autorizirati odjavom sa stranice i mobilne aplikacije i unošenjem novog tokena na drugim, dodatnim alatima Habitice koje koristiš.",
     "thirdPartyApps": "Aplikacije treće strane",
     "resetDo": "Hajde, resetiraj moj račun!",
     "resetComplete": "Resetiranje je obavljeno!",
