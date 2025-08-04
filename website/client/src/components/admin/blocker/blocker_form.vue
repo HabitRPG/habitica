@@ -41,6 +41,7 @@
       >
     </td>
     <td></td>
+    <td></td>
     <td>
       <button
         class="btn btn-primary mr-2"
