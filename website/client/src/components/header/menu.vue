@@ -351,6 +351,11 @@
             >
               {{ $t('admin') }}
             </router-link>
+            <a v-else
+              href="#"
+              class="nav-link">
+              {{ $t('admin') }}
+            </a>
             <div class="topbar-dropdown">
               <router-link
                 v-if="hasPermission(user, 'userSupport')"
