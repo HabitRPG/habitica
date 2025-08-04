@@ -38,12 +38,13 @@
           >
             <div class="custom-control custom-checkbox">
               <input
+                :id="permission.key"
                 v-model="hero.permissions[permission.key]"
-                :disabled="!hasPermission(user, permission.key)"
+                :disabled="!hasPermission(user, permission.key) || (hero.permissions.fullAccess && permission.key !== 'fullAccess')"
                 class="custom-control-input"
                 type="checkbox"
               >
-              <label class="custom-control-label">
+              <label class="custom-control-label" :for="permission.key">
                 {{ permission.name }}<br>
                 <small class="text-secondary">{{ permission.description }}</small>
               </label>
@@ -177,6 +178,11 @@ const permissionList = [
     key: 'challengeAdmin',
     name: 'Challenge Admin',
     description: 'Can create official habitica challenges and admin all challenges',
+  },
+  {
+    key: 'accessControl',
+    name: 'Access Control',
+    description: 'Can manage IP-Address, Client and E-Mail blockers',
   },
   {
     key: 'coupons',
