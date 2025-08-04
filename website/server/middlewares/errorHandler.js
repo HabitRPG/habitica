@@ -66,19 +66,21 @@ export default function errorHandler (err, req, res, next) { // eslint-disable-l
     responseErr = new InternalServerError();
   }
 
-  // log the error
-  logger.error(err, {
-    method: req.method,
-    originalUrl: req.originalUrl,
+  if (!err.skipLogging) {
+    // log the error
+    logger.error(err, {
+      method: req.method,
+      originalUrl: req.originalUrl,
 
-    // don't send sensitive information that only adds noise
-    headers: omit(req.headers, ['x-api-key', 'cookie', 'password', 'confirmPassword']),
-    body: omit(req.body, ['password', 'confirmPassword']),
-    query: omit(req.query, ['password', 'confirmPassword']),
+      // don't send sensitive information that only adds noise
+      headers: omit(req.headers, ['x-api-key', 'cookie', 'password', 'confirmPassword']),
+      body: omit(req.body, ['password', 'confirmPassword']),
+      query: omit(req.query, ['password', 'confirmPassword']),
 
-    httpCode: responseErr.httpCode,
-    isHandledError: responseErr.httpCode < 500,
-  });
+      httpCode: responseErr.httpCode,
+      isHandledError: responseErr.httpCode < 500,
+    });
+  }
 
   const jsonRes = {
     success: false,
