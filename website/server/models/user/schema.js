@@ -224,6 +224,7 @@ export const UserSchema = new Schema({
     userSupport: Boolean, // access User Support feature in Admin Panel
     challengeAdmin: Boolean, // Can manage and administrate challenges
     moderator: Boolean, // Can ban, flag users and manage social spaces
+    accessControl: Boolean, // Can manage IP and client blockers
     coupons: Boolean, // Can generate and request coupons
   },
   balance: { $type: Number, default: 0 },

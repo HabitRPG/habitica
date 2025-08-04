@@ -329,8 +329,7 @@
             </div>
           </li>
           <li
-            v-if="user.permissions.fullAccess ||
-              user.permissions.userSupport"
+            v-if="hasElevatedPrivileges"
             class="topbar-item droppable"
             :class="{
               'active': $route.path.startsWith('/admin')}"
@@ -346,6 +345,7 @@
               ></div>
             </div>
             <router-link
+              v-if="user.permissions.fullAccess || user.permissions.userSupport"
               class="nav-link"
               :to="{name: 'adminPanel'}"
             >
@@ -353,18 +353,21 @@
             </router-link>
             <div class="topbar-dropdown">
               <router-link
+                v-if="user.permissions.fullAccess || user.permissions.userSupport"
                 class="topbar-dropdown-item dropdown-item"
                 :to="{name: 'adminPanel'}"
               >
                 {{ $t("adminPanel") }}
               </router-link>
               <router-link
+                v-if="user.permissions.fullAccess || user.permissions.accessControl"
                 class="topbar-dropdown-item dropdown-item"
                 :to="{name: 'blockers'}"
               >
                 {{ $t("siteBlockers") }}
               </router-link>
               <a
+                v-if="user.permissions.fullAccess || user.permissions.news"
                 class="topbar-dropdown-item dropdown-item"
                 target="_blank"
                 href="https://panel.habitica.com"
@@ -838,6 +841,12 @@ export default {
         name: 'groupPlanDetailTaskInformation',
         params: { groupId: this.groupPlans[0]._id },
       };
+    },
+    hasElevatedPrivileges () {
+      return this.user.permissions.fullAccess
+        || this.user.permissions.userSupport
+        || this.user.permissions.accessControl
+        || this.user.permissions.news;
     },
   },
   async mounted () {

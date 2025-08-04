@@ -180,12 +180,13 @@ const router = new VueRouter({
     },
 
     {
-      name: 'adminPanel',
+      name: 'adminSection',
       path: '/admin',
       component: AdminContainerPage,
       meta: {
         privilegeNeeded: [ // any one of these is enough to give access
           'userSupport',
+          'accessControl',
         ],
       },
       children: [
@@ -227,7 +228,7 @@ const router = new VueRouter({
           component: BlockerPage,
           meta: {
             privilegeNeeded: [ // any one of these is enough to give access
-              'userSupport',
+              'accessControl',
             ],
           },
         },
