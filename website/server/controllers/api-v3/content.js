@@ -74,7 +74,10 @@ api.getContent = {
 
     if (proposedLang && langCodes.includes(proposedLang)) {
       language = proposedLang;
-    } else if (res.locals.user && res.locals.user.preferences && res.locals.user.preferences.language) {
+    } else if (res.locals.user
+      && res.locals.user.preferences
+      && res.locals.user.preferences.language
+    ) {
       const userLang = res.locals.user.preferences.language;
       if (langCodes.includes(userLang)) {
         language = userLang;
