@@ -83,7 +83,6 @@ export default {
     async proceed (accountType) {
       if (accountType === 'local') {
         this.registrationMethod = 'local';
-        this.$router.push({ name: 'username' });
       } else if (accountType === 'apple') {
         window.location.href = buildAppleAuthUrl();
       } else {
@@ -97,7 +96,6 @@ export default {
         } else {
           this.email = window.sessionStorage.getItem('social-email');
           this.registrationMethod = accountType;
-          this.$router.push({ name: 'username' });
         }
       }
     },
