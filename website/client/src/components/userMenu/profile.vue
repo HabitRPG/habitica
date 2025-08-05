@@ -1126,7 +1126,12 @@ export default {
     this.loadUser();
     this.oldTitle = this.$store.state.title;
     this.handleExternalLinks();
-    this.selectPage(this.startingPage);
+    // Check if there's a hash in the URL to determine the starting page
+    let pageToSelect = this.startingPage;
+    if (window.location.hash && (window.location.hash === '#stats' || window.location.hash === '#achievements')) {
+      pageToSelect = window.location.hash.substring(1);
+    }
+    this.selectPage(pageToSelect);
     this.$root.$on('habitica:report-profile-result', () => {
       this.loadUser();
     });
@@ -1211,10 +1216,22 @@ export default {
     },
     selectPage (page) {
       this.selectedPage = page || 'profile';
-      window.history.replaceState(null, null, '');
+      // Update URL based on whether viewing own profile or another user's profile
+      let newPath;
+      if (this.userId === this.userLoggedIn._id) {
+        // Own profile - use /user/profile, /user/stats, /user/achievements
+        newPath = `/user/${page}`;
+      } else {
+        // Other user's profile - use /profile/:userId#stats, /profile/:userId#achievements
+        newPath = `/profile/${this.userId}`;
+        if (page !== 'profile') {
+          newPath += `#${page}`;
+        }
+      }
+      window.history.replaceState(null, null, newPath);
       this.$store.dispatch('common:setTitle', {
         section: this.$t('user'),
-        subSection: this.$t(this.startingPage),
+        subSection: this.$t(page),
       });
     },
     getNextIncentive () {

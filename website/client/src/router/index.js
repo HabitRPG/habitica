@@ -98,6 +98,9 @@ const router = new VueRouter({
       path: '/profile/:userId',
       props: true,
     },
+    { name: 'profile', path: '/user/profile' },
+    { name: 'stats', path: '/user/stats' },
+    { name: 'achievements', path: '/user/achievements' },
     {
       path: '/inventory',
       component: InventoryContainer,
@@ -331,6 +334,10 @@ router.beforeEach(async (to, from, next) => {
     let startingPage = 'profile';
     if (to.params.startingPage !== undefined) {
       startingPage = to.params.startingPage;
+    }
+    // Check if there's a hash in the URL for stats or achievements
+    if (to.hash === '#stats' || to.hash === '#achievements') {
+      startingPage = to.hash.substring(1);
     }
     if (from.name === null) {
       store.state.postLoadModal = `profile/${to.params.userId}`;
