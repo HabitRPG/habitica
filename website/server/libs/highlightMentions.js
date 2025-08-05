@@ -168,7 +168,7 @@ export default async function highlightMentions (text) {
     members = await User
       .find({
         $or: usernameRegexes.map(regex => ({ 'auth.local.username': regex })),
-        'flags.verifiedUsername': true
+        'flags.verifiedUsername': true,
       })
       .select(['auth.local.username', '_id', 'preferences.pushNotifications', 'pushDevices', 'party', 'guilds'])
       .lean()
@@ -178,12 +178,10 @@ export default async function highlightMentions (text) {
       const { username } = member.auth.local;
       const regex = new RegExp(`@${escapeRegExp(username)}(?![\\-\\w])`, 'gi');
 
-      textBlocks.transformValidBlocks(blockText =>
-        blockText.replace(regex, match => {
-          const mentionedUsername = match.substr(1);
-          return `[@${mentionedUsername}](${baseUrl}/profile/${member._id})`;
-        })
-      );
+      textBlocks.transformValidBlocks(blockText => blockText.replace(regex, match => {
+        const mentionedUsername = match.substr(1);
+        return `[@${mentionedUsername}](${baseUrl}/profile/${member._id})`;
+      }));
     });
   }
 
