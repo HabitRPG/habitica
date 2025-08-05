@@ -47,6 +47,12 @@ describe('highlightMentions', () => {
     expect(result[0]).to.equal('[@user-dash](/profile/444): message [@user_underscore](/profile/555)');
   });
 
+  it('highlights users with case-insensitive matching', async () => {
+    const text = '@USER: message @User2 @USER3';
+    const result = await highlightMentions(text);
+    expect(result[0]).to.equal('[@USER](/profile/111): message [@User2](/profile/222) [@USER3](/profile/333)');
+  });
+
   it('doesn\'t highlight nonexisting users', async () => {
     const text = '@nouser message';
     const result = await highlightMentions(text);
