@@ -3,8 +3,8 @@
     <td>
       <select
         v-model="blocker.type"
-        @change="onTypeChanged"
         class="form-control"
+        @change="onTypeChanged"
       >
         <option value="ipaddress">
           IP-Address
@@ -30,10 +30,11 @@
     <td>
       <input
         v-model="blocker.value"
-        @input="validateValue"
         class="form-control"
         autocorrect="off"
         autocapitalize="off"
+        :class="{ 'is-invalid input-invalid': !isValid }"
+        @input="validateValue"
       >
     </td>
     <td>
@@ -42,7 +43,10 @@
         class="form-control"
       >
     </td>
-    <td colspan="3" class="text-right">
+    <td
+      colspan="3"
+      class="text-right"
+    >
       <button
         class="btn btn-primary mr-2"
         :disabled="!isValid"
@@ -60,6 +64,15 @@
     </td>
   </div>
 </template>
+
+<style lang="scss" scoped>
+ .btn-primary.disabled {
+    background: #4F2A93;
+    color: white;
+    cursor: not-allowed;
+    opacity: 0.5;
+ }
+</style>
 
 <script>
 export default {
@@ -88,13 +101,13 @@ export default {
     this.validateValue();
   },
   methods: {
-    onTypeChanged: function () {
+    onTypeChanged () {
       if (this.blocker.type === 'email') {
         this.blocker.area = 'full';
       }
       this.validateValue();
     },
-    validateValue: function () {
+    validateValue () {
       if (this.blocker.type === 'ipaddress') {
         this.validateValueAsIpAddress();
       } else if (this.blocker.type === 'client') {
@@ -103,15 +116,15 @@ export default {
         this.validateValueAsEmail();
       }
     },
-    validateValueAsEmail: function () {
+    validateValueAsEmail () {
       const emailRegex = /^([a-zA-Z0-9._%+-]*)@(?:[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})?$/;
       this.isValid = emailRegex.test(this.blocker.value) && this.blocker.value.length > 3;
     },
-    validateValueAsIpAddress: function () {
+    validateValueAsIpAddress () {
       const ipRegex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
       this.isValid = ipRegex.test(this.blocker.value);
     },
-    validateValueAsClient: function () {
+    validateValueAsClient () {
       this.isValid = this.blocker.value.length > 0;
     },
   },
