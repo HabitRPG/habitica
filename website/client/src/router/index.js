@@ -397,6 +397,7 @@ router.beforeEach(async (to, from, next) => {
 
   if ((to.name === 'stats' || to.name === 'achievements' || to.name === 'profile') && from.name !== null) {
     router.app.$emit('habitica:show-profile', {
+      userId: store.state.user.data._id,
       startingPage: to.name,
       fromPath: from.path,
       toPath: to.path,
