@@ -33,10 +33,12 @@ export default {
     }
     const response = await this.$store.dispatch('auth:appleAuth', reqParams);
     if (response.id) {
+      window.sessionStorage.removeItem('apple-token');
       window.location.href = '/';
+    } else {
+      window.sessionStorage.setItem('apple-token', response.idToken);
+      window.location.href = '/username';
     }
-    window.sessionStorage.setItem('apple-token', response.idToken);
-    window.location.href = '/username';
   },
 };
 </script>
