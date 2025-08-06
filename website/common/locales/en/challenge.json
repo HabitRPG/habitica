@@ -69,6 +69,7 @@
   "awardWinners": "Award Winner",
   "doYouWantedToDeleteChallenge": "Do you want to delete this Challenge?",
   "deleteChallenge": "Delete Challenge",
+  "deleteChallengeRefundDescription": "If you delete this Challenge, you will be refunded the Gem prize and the Challenge tasks will remain on the participants' task boards.",
   "challengeNamePlaceholder": "What is your Challenge name?",
   "challengeSummary": "Summary",
   "challengeSummaryPlaceholder": "Write a short description advertising your Challenge to other Habiticans. What is the main purpose of your Challenge and why should people join it? Try to include useful keywords in the description so that Habiticans can easily find it when they search!",
