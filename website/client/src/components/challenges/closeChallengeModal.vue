@@ -4,7 +4,7 @@
       id="close-challenge-modal"
       :title="$t('endChallenge')"
       size="md"
-      :hide-header="true"
+      :hide-header="false"
     >
       <div
         slot="modal-header"
@@ -90,6 +90,7 @@
             <button
               class="btn award-winner-btn"
               :class="{'has-winner': winner._id}"
+              :disabled="!winner._id"
               @click="closeChallenge"
             >
               <span>{{ $t('awardWinners') }}</span>
@@ -97,7 +98,7 @@
                 class="gem-icon"
                 v-html="icons.gem"
               ></div>
-              <span>{{ prize }} {{ prize === 1 ? $t('gem') || 'Gem' : $t('gems') }}</span>
+              <span>{{ prize }} {{ prize === 1 ? $t('gem') : $t('gems') }}</span>
             </button>
           </div>
         </span>
@@ -266,6 +267,7 @@
         width: 16px;
         height: 16px;
         display: inline-flex;
+        color: $white;
       }
     }
 
@@ -280,6 +282,15 @@
       box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
       transition: all 0.2s ease;
 
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        
+        &:hover {
+          background-color: $white;
+        }
+      }
+
       &.has-winner {
         background-color: $purple-200;
         color: $white;
@@ -290,7 +301,7 @@
         }
       }
 
-      &:hover:not(.has-winner) {
+      &:hover:not(.has-winner):not(:disabled) {
         background-color: $gray-700;
       }
 
