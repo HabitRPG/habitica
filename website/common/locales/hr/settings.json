@@ -116,7 +116,7 @@
     "generate": "Generiraj",
     "getCodes": "Preuzmi kodove",
     "webhooks": "Webhookovi",
-    "webhooksInfo": "Habitica nudi webhookove tako da, kad se određena radnja dogodi na tvom računu, podaci mogu biti poslani skripti na drugoj web-stranici. Te skripte možeš odrediti ovdje.  Pripazi s ovom opcijom jer navođenje krivog URL-a može uzrokovati greške ili usporavanje Habitice. Za dodatne informacije pogledaj <a target=\"_blank\" href=\"https://habitica.wikia.com/wiki/Webhooks\">Webhooks</a> wiki stranicu.",
+    "webhooksInfo": "Habitica nudi webhookove tako da, kad se određena radnja dogodi na tvom računu, podaci mogu biti poslani skripti na drugoj web-stranici. Te skripte možeš odrediti ovdje. Pripazi s ovom opcijom jer navođenje krivog URL-a može uzrokovati greške ili usporavanje Habitice. Za dodatne informacije pogledaj <a target=\"_blank\" href=\"https://habitica.wikia.com/wiki/Webhooks\">Webhooks</a> wiki stranicu.",
     "enabled": "Omogućeno",
     "webhookURL": "Webhook URL",
     "invalidUrl": "Nevažeći url",

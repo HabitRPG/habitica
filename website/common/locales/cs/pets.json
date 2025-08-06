@@ -56,7 +56,7 @@
     "mountMasterText": "Zkrotil všech 90 zvířátek ( šíleně obtížné, zaslouží si uznání!)",
     "mountMasterText2": " a vypustil všech svých 90 zvířat celkem <%= count %>krát",
     "triadBingoName": "Bingo trojice",
-    "triadBingoText": "Našel všech 90 mazlíčků, zkrotil všech 90  zkrocených zvířat, a našel všech 90 mazlíčků ZNOVU (JAK JSI TO UDĚLAL!)",
+    "triadBingoText": "Našel všech 90 mazlíčků, zkrotil všech 90 zkrocených zvířat, a našel všech 90 mazlíčků ZNOVU (JAK JSI TO UDĚLAL!)",
     "triadBingoText2": " a vypustil plnou stáj celkem <%= count %>krát",
     "triadBingoAchievement": "Získal jsi ocenění \"Bingo trojice\" za nalezení všech mazlíčků, zkrocení všech zvířat, a znovunalezení všech mazlíčku ještě jednou!",
     "hatchedPet": "Vylíhnul jsi nového <%= potion %><%= egg %>!",

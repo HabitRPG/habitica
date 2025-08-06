@@ -154,7 +154,8 @@
           </template>
         </itemRows>
       </div>
-    </div><buyQuestModal
+    </div>
+    <buyQuestModal
       :item="selectedItemToBuy || {}"
       :price-type="selectedItemToBuy ? selectedItemToBuy.currency : ''"
       :with-pin="true"

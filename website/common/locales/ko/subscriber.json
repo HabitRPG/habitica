@@ -6,7 +6,7 @@
     "mustSubscribeToPurchaseGems": "보석으로 GP를 구매하기 위해서는 정기 후원하세요",
     "reachedGoldToGemCapQuantity": "요청해주신 양은 <%= quantity %> 이번 달에 구매할 수 있는 양을 초과했습니다<%= convCap %>. 이 양은 매달 초 3일 안에 복구됩니다. 구독해 주셔서 감사합니다!",
     "mysteryItem": "매월마다 새로운 특권층인 아이템들",
-    "mysteryItemText": "매달 당신의 아바타를 위한 독특한 꾸미기 아이템을 받으실 겁니다! 그리고 3달마다 연속 후원해 주시는 분들께,  신비한 시간 여행자가 전통적인 (혹인 미래지향적인) 꾸미기 아이템을 얻을 수 있게 해드립니다.",
+    "mysteryItemText": "매달 당신의 아바타를 위한 독특한 꾸미기 아이템을 받으실 겁니다! 그리고 3달마다 연속 후원해 주시는 분들께, 신비한 시간 여행자가 전통적인 (혹인 미래지향적인) 꾸미기 아이템을 얻을 수 있게 해드립니다.",
     "exclusiveJackalopePet": "Exclusive pet",
     "giftSubscription": "정기 후원의 혜택을 다른 분에게 선물하고 싶으세요?",
     "giftSubscriptionText4": "Habitica를 지원해 주셔서 고맙습니다!",

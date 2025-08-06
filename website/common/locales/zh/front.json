@@ -182,5 +182,6 @@
     "translateHabitica": "翻译Habitica",
     "incorrectResetPhrase": "请用大写字母输入 <%= magicWord %> 以重置你的账号。",
     "marketing3Lead1Title": "Android和iOS上的应用程序",
-    "marketing4Lead3Button": "今日即刻启程"
+    "marketing4Lead3Button": "今日即刻启程",
+    "missingClientHeader": "缺少 x-client 请求头。"
 }

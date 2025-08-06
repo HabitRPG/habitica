@@ -214,7 +214,7 @@
     "showHatchPetModal": "Al eclosionar una mascota",
     "baileyAnnouncement": "Último anuncio de Bailey",
     "view": "Ver",
-    "APITokenDisclaimer": "<b>Tu token de API Token es como una contraseña; no lo compartas.</b> Es posible que se te pida tu ID de usuario, pero nunca publiques tu token de API donde otras personas puedan verlo, incluido Github.<br><br><b>Si necesitas un nuevo token de API </b>   (p. ej., si lo has compartido por error), puedes simplemente cambiar tu contraseña para obtener uno nuevo. Una vez se haya restaurado, necesitarás volver a acceder de nuevo en todos los dispositivos en los que estés usando Habitica y añadir el nuevo token de API a todas las herramientas de terceros que uses.",
+    "APITokenDisclaimer": "<b>Tu token de API Token es como una contraseña; no lo compartas.</b> Es posible que se te pida tu ID de usuario, pero nunca publiques tu token de API donde otras personas puedan verlo, incluido Github.<br><br><b>Si necesitas un nuevo token de API </b>  (p. ej., si lo has compartido por error), puedes simplemente cambiar tu contraseña para obtener uno nuevo. Una vez se haya restaurado, necesitarás volver a acceder de nuevo en todos los dispositivos en los que estés usando Habitica y añadir el nuevo token de API a todas las herramientas de terceros que uses.",
     "thirdPartyTools": "Encuentra aplicaciones de terceros, extensiones y todo tipo de herramientas que puedes utilizar con tu cuenta en la <a href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>wiki de Habitica</a>.",
     "transaction_create_bank_challenge": "Desafío de banco <b>creado</b>",
     "showRaisePetModal": "Al transformar una mascota en montura",
