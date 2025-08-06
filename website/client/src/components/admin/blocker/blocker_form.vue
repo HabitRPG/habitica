@@ -75,6 +75,8 @@
 </style>
 
 <script>
+import isIP from 'validator/es/lib/isIP';
+
 export default {
   name: 'BlockerForm',
   props: {
@@ -121,8 +123,7 @@ export default {
       this.isValid = emailRegex.test(this.blocker.value) && this.blocker.value.length > 3;
     },
     validateValueAsIpAddress () {
-      const ipRegex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-      this.isValid = ipRegex.test(this.blocker.value);
+      this.isValid = isIP(this.blocker.value);
     },
     validateValueAsClient () {
       this.isValid = this.blocker.value.length > 0;

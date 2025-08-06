@@ -5,24 +5,12 @@ import {
 import { apiError } from '../libs/apiError';
 import { model as Blocker } from '../models/blocker';
 
-// Middleware to block unwanted IP addresses
+// Middleware to block unwanted IP addresses and clients
 
 // NOTE: it's meant to be used behind a proxy (for example a load balancer)
 // that uses the 'x-forwarded-for' header to forward the original IP addresses.
 
-// A list of comma separated IPs to block
-// It works fine as long as the list is short,
-// if the list becomes too long for an env variable we'll switch to Redis.
-const BLOCKED_IPS_RAW = nconf.get('BLOCKED_IPS');
-
-const blockedIps = BLOCKED_IPS_RAW
-  ? BLOCKED_IPS_RAW
-    .trim()
-    .split(',')
-    .map(blockedIp => blockedIp.trim())
-    .filter(blockedIp => Boolean(blockedIp))
-  : [];
-
+const blockedIps = [];
 const blockedClients = [];
 
 Blocker.watchBlockers({
