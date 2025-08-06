@@ -1,6 +1,7 @@
 import nconf from 'nconf';
 import { langCodes } from '../../libs/i18n';
 import { serveContent } from '../../libs/content';
+import { authWithHeaders } from '../../middlewares/auth';
 
 const IS_PROD = nconf.get('IS_PROD');
 
@@ -66,12 +67,21 @@ api.getContent = {
   method: 'GET',
   url: '/content',
   noLanguage: true,
+  middlewares: [authWithHeaders({ optional: true })],
   async handler (req, res) {
     let language = 'en';
     const proposedLang = req.query.language;
 
     if (proposedLang && langCodes.includes(proposedLang)) {
       language = proposedLang;
+    } else if (res.locals.user
+      && res.locals.user.preferences
+      && res.locals.user.preferences.language
+    ) {
+      const userLang = res.locals.user.preferences.language;
+      if (langCodes.includes(userLang)) {
+        language = userLang;
+      }
     }
 
     let filter = req.query.filter || '';

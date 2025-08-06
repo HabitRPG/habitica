@@ -1,6 +1,7 @@
 import {
   requester,
   translate as t,
+  generateUser,
 } from '../../../../helpers/api-integration/v3';
 import i18n from '../../../../../website/common/script/i18n';
 
@@ -55,5 +56,29 @@ describe('GET /content', () => {
   it('filters content if the request contains invalid filters', async () => {
     const res = await requester().get('/content?filter=backgroundsFlat,invalid');
     expect(res).to.not.have.property('backgroundsFlat');
+  });
+
+  describe('authenticated user', () => {
+    let user;
+    it('returns content in user\'s preferred language when no language parameter is provided', async () => {
+      user = await generateUser({ 'preferences.language': 'de' });
+      const res = await user.get('/content');
+      expect(res).to.have.nested.property('backgrounds.backgrounds062014.beach');
+      expect(res.backgrounds.backgrounds062014.beach.text).to.equal(i18n.t('backgroundBeachText', 'de'));
+    });
+
+    it('respects language parameter over user\'s preferred language', async () => {
+      user = await generateUser({ 'preferences.language': 'de' });
+      const res = await user.get('/content?language=fr');
+      expect(res).to.have.nested.property('backgrounds.backgrounds062014.beach');
+      expect(res.backgrounds.backgrounds062014.beach.text).to.equal(i18n.t('backgroundBeachText', 'fr'));
+    });
+
+    it('falls back to English if user\'s preferred language is invalid', async () => {
+      user = await generateUser({ 'preferences.language': 'invalid_lang' });
+      const res = await user.get('/content');
+      expect(res).to.have.nested.property('backgrounds.backgrounds062014.beach');
+      expect(res.backgrounds.backgrounds062014.beach.text).to.equal(t('backgroundBeachText'));
+    });
   });
 });

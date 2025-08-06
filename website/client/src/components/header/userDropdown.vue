@@ -176,7 +176,12 @@ export default {
       }
     },
     showProfile (startingPage) {
-      this.$router.push({ name: startingPage });
+      const userId = this.$store.state.user.data._id;
+      let path = `/profile/${userId}`;
+      if (startingPage !== 'profile') {
+        path += `#${startingPage}`;
+      }
+      this.$router.push(path);
     },
     toLearnMore () {
       this.$router.push({ name: 'subscription' });

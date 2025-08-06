@@ -164,18 +164,24 @@ export default async function highlightMentions (text) {
 
   if (mentions && mentions.length <= 5) {
     const usernames = mentions.map(mention => mention.substr(1));
+    const usernameRegexes = usernames.map(username => new RegExp(`^${escapeRegExp(username)}$`, 'i'));
     members = await User
-      .find({ 'auth.local.username': { $in: usernames }, 'flags.verifiedUsername': true })
+      .find({
+        $or: usernameRegexes.map(regex => ({ 'auth.local.username': regex })),
+        'flags.verifiedUsername': true,
+      })
       .select(['auth.local.username', '_id', 'preferences.pushNotifications', 'pushDevices', 'party', 'guilds'])
       .lean()
       .exec();
     const baseUrl = determineBaseUrl();
     members.forEach(member => {
       const { username } = member.auth.local;
-      const regex = new RegExp(`@${username}(?![\\-\\w])`, 'g');
-      const replacement = `[@${username}](${baseUrl}/profile/${member._id})`;
+      const regex = new RegExp(`@${escapeRegExp(username)}(?![\\-\\w])`, 'gi');
 
-      textBlocks.transformValidBlocks(blockText => blockText.replace(regex, replacement));
+      textBlocks.transformValidBlocks(blockText => blockText.replace(regex, match => {
+        const mentionedUsername = match.substr(1);
+        return `[@${mentionedUsername}](${baseUrl}/profile/${member._id})`;
+      }));
     });
   }
 
