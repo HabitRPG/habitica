@@ -1216,17 +1216,10 @@ export default {
     },
     selectPage (page) {
       this.selectedPage = page || 'profile';
-      // Update URL based on whether viewing own profile or another user's profile
-      let newPath;
-      if (this.userId === this.userLoggedIn._id) {
-        // Own profile - use /user/profile, /user/stats, /user/achievements
-        newPath = `/user/${page}`;
-      } else {
-        // Other user's profile - use /profile/:userId#stats, /profile/:userId#achievements
-        newPath = `/profile/${this.userId}`;
-        if (page !== 'profile') {
-          newPath += `#${page}`;
-        }
+      const profileUserId = this.userId || this.userLoggedIn._id;
+      let newPath = `/profile/${profileUserId}`;
+      if (page !== 'profile') {
+        newPath += `#${page}`;
       }
       window.history.replaceState(null, null, newPath);
       this.$store.dispatch('common:setTitle', {
