@@ -16,15 +16,9 @@
         >
           {{ $t('endChallenge') }}
         </h2>
-        <button
-          class="close-button"
-          @click="$root.$emit('bv::hide::modal', 'close-challenge-modal')"
-        >
-          <div
-            class="svg-icon"
-            v-html="icons.close"
-          ></div>
-        </button>
+        <close-x
+          @close="$root.$emit('bv::hide::modal', 'close-challenge-modal')"
+        />
       </div>
       <div class="row text-center">
         <span
@@ -98,7 +92,7 @@
                 class="gem-icon"
                 v-html="icons.gem"
               ></div>
-              <span>{{ prize }} {{ prize === 1 ? $t('gem') : $t('gems') }}</span>
+              <span>{{ prize }} {{ prize === 1 ? $t('generic.gem') : $t('generic.gems') }}</span>
             </button>
           </div>
         </span>
@@ -115,7 +109,7 @@
           >{{ $t('doYouWantedToDeleteChallenge') }}</strong>
         </div>
         <div class="col-12 refund-text">
-          {{ $t('deleteChallengeRefundDescription') }}
+          {{ $t('challenge.deleteChallengeRefundDescription') }}
         </div>
         <div class="col-12">
           <button
@@ -157,27 +151,6 @@
       position: relative;
     }
 
-    .close-button {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: none;
-      padding: 0.5rem;
-      cursor: pointer;
-      opacity: 0.5;
-      transition: opacity 0.2s ease;
-
-      &:hover {
-        opacity: 1;
-      }
-
-      .svg-icon {
-        width: 16px;
-        height: 16px;
-        color: $gray-10;
-      }
-    }
 
     .search-input-wrapper {
       position: relative;
@@ -267,7 +240,10 @@
         width: 16px;
         height: 16px;
         display: inline-flex;
-        color: $white;
+        
+        ::v-deep svg {
+          fill: $white;
+        }
       }
     }
 
@@ -320,7 +296,7 @@
       justify-content: center;
       gap: 1.5rem;
       margin: 0 auto;
-      padding: 1rem 0;
+      padding: 0.5rem 0;
 
       .gems-left, .gems-right {
         width: 64px;
@@ -344,7 +320,11 @@
     }
 
     .col-12 {
-      margin-top: 2em;
+      margin-top: 1.5em;
+    }
+
+    .col-12:first-child {
+      margin-top: 0.5em;
     }
 
     .or {
@@ -362,13 +342,16 @@
 <script>
 import searchIcon from '@/assets/svg/for-css/search.svg?raw';
 import deleteIcon from '@/assets/svg/delete.svg?raw';
-import closeIcon from '@/assets/svg/close.svg?raw';
 import gemIcon from '@/assets/svg/gem.svg?raw';
 import endChallengeBadge from '@/assets/svg/for-css/end_challenge_badge.svg?raw';
 import gemsOrange from '@/assets/svg/for-css/orange100_red100_yellow100_gems.svg?raw';
 import gemsPurple from '@/assets/svg/for-css/purple200_green10_blue100_gems.svg?raw';
+import closeX from '@/components/ui/closeX';
 
 export default {
+  components: {
+    closeX,
+  },
   props: ['challengeId', 'members', 'prize', 'flagCount'],
   data () {
     return {
@@ -379,7 +362,6 @@ export default {
       icons: Object.freeze({
         search: searchIcon,
         deleteIcon,
-        close: closeIcon,
         gem: gemIcon,
         endChallengeBadge,
         gemsOrange,
