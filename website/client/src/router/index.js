@@ -359,11 +359,18 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if ((to.name === 'stats' || to.name === 'achievements' || to.name === 'profile') && from.name !== null) {
+    const userId = store.state.user.data._id;
+    let redirectPath = `/profile/${userId}`;
+    if (to.name === 'stats') {
+      redirectPath += '#stats';
+    } else if (to.name === 'achievements') {
+      redirectPath += '#achievements';
+    }
     router.app.$emit('habitica:show-profile', {
-      userId: store.state.user.data._id,
+      userId,
       startingPage: to.name,
       fromPath: from.path,
-      toPath: to.path,
+      toPath: redirectPath,
     });
     return null;
   }

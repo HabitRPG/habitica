@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     action () {
-      this.$router.push({ name: 'stats' });
+      this.$router.push(`/profile/${this.$store.state.user.data._id}#stats`);
     },
   },
 };

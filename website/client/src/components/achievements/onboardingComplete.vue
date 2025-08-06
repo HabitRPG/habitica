@@ -117,7 +117,7 @@ export default {
     closeWithAction () {
       this.close();
       setTimeout(() => {
-        this.$router.push({ name: 'achievements' });
+        this.$router.push(`/profile/${this.$store.state.user.data._id}#achievements`);
       }, 200);
     },
   },

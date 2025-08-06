@@ -71,7 +71,7 @@ export default {
   props: ['notification', 'canRemove'],
   methods: {
     action () {
-      this.$router.push({ name: 'achievements' });
+      this.$router.push(`/profile/${this.$store.state.user.data._id}#achievements`);
     },
   },
 };
