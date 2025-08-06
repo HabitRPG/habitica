@@ -391,13 +391,13 @@ export default {
         this.filteredMembers = [];
         return;
       }
-      
+
       const searchLower = this.searchTerm.toLowerCase().replace('@', '');
       this.filteredMembers = this.members.filter(member => {
         const username = member.auth?.local?.username || '';
         const displayName = member.profile?.name || '';
-        return username.toLowerCase().includes(searchLower) || 
-               displayName.toLowerCase().includes(searchLower);
+        return username.toLowerCase().includes(searchLower)
+               || displayName.toLowerCase().includes(searchLower);
       }).slice(0, 10);
     },
     getMemberDisplayName (member) {
