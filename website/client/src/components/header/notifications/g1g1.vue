@@ -70,13 +70,19 @@
   }
 
   .btn-secondary {
-    width: 5.75rem;
+    min-width: 5.75rem;
+    width: auto;
+    max-width: calc(100% - 2rem);
     min-height: 1.5rem;
+    padding: 0.25rem 0.75rem;
     border-radius: 2px;
     border-color: $white;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     font-size: 12px;
     font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 </style>
 
