@@ -239,10 +239,7 @@
         width: 16px;
         height: 16px;
         display: inline-flex;
-
-        ::v-deep svg {
-          fill: $white;
-        }
+        color: $white;
       }
     }
 
