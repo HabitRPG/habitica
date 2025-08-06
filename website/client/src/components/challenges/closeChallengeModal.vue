@@ -151,7 +151,6 @@
       position: relative;
     }
 
-
     .search-input-wrapper {
       position: relative;
       width: 384px;
@@ -240,7 +239,7 @@
         width: 16px;
         height: 16px;
         display: inline-flex;
-        
+
         ::v-deep svg {
           fill: $white;
         }
