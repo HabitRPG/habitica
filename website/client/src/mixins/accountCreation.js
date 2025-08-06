@@ -81,6 +81,11 @@ export default {
       this.passwordConfirmInvalid = passwordConfirm !== this.password;
     }, 500),
     async proceed (accountType) {
+      if (accountType === 'apple') {
+        window.location.href = buildAppleAuthUrl();
+      } else {
+        window.sessionStorage.removeItem('apple-token');
+      }
       if (accountType === 'local') {
         this.$store.state.registrationOptions = {
           email: this.email,
@@ -88,8 +93,6 @@ export default {
           passwordConfirm: this.passwordConfirm,
           registrationMethod: 'local',         
         };
-      } else if (accountType === 'apple') {
-        window.location.href = buildAppleAuthUrl();
       } else {
         this.authData = await this.socialAuth(accountType);
         const authId = await this.$store.dispatch('auth:socialAuth', {
