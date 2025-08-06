@@ -149,6 +149,7 @@ export default function clientStore () {
         question: false,
       },
       postLoadModal: '',
+      registrationOptions: {},
     },
   });
 

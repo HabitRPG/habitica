@@ -82,7 +82,12 @@ export default {
     }, 500),
     async proceed (accountType) {
       if (accountType === 'local') {
-        this.registrationMethod = 'local';
+        this.$store.state.registrationOptions = {
+          email: this.email,
+          password: this.password,
+          passwordConfirm: this.passwordConfirm,
+          registrationMethod: 'local',         
+        };
       } else if (accountType === 'apple') {
         window.location.href = buildAppleAuthUrl();
       } else {
@@ -94,10 +99,14 @@ export default {
         if (authId) {
           window.location.href = '/';
         } else {
-          this.email = window.sessionStorage.getItem('social-email');
-          this.registrationMethod = accountType;
+          this.$store.state.registrationOptions = {
+            authData: this.authData,
+            email: window.sessionStorage.getItem('social-email'),
+            registrationMethod: accountType,         
+          };
         }
       }
+      this.$router.push({ name: 'username' });
     },
     async socialAuth (network) {
       try {

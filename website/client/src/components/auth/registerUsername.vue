@@ -1,61 +1,68 @@
 <template>
-  <div
-    id="privacy-tos"
-    class="d-flex flex-column mx-auto pt-5"
-  >
-    <img
-      class="mx-auto"
-      src="@/assets/images/home/signup-quill@2x.png"
-      width="120px"
+  <div class="gradient-bg">
+    <div
+      id="privacy-tos"
+      class="w-100"
     >
-    <h1 class="mt-0 mb-3 white mx-auto">{{ $t('whatToCallYou') }}</h1>
-    <form
-      class="form mx-auto"
-      @submit.prevent.stop="register()"
-    >
-      <input
-        id="usernameInput"
-        v-model="username"
-        class="form-control dark"
-        type="text"
-        :placeholder="$t('username')"
-        :class="{
-          'mb-3': !usernameInvalid,
-          'input-valid': usernameValid,
-          'input-invalid mb-2': usernameInvalid,
-        }"
-      >
-      <!-- eslint-disable vue/require-v-for-key -->
-      <div
-        v-for="issue in usernameIssues"
-        class="input-error"
-      >
-        <!-- eslint-enable vue/require-v-for-key -->
-        {{ issue }}
-      </div>
-      <p class="purple-600">{{ $t('usernameLimitations')}} </p>
-      <div class="custom-control custom-checkbox mb-4">
-        <input
-          id="privacyTOS"
-          v-model="privacyAccepted"
-          class="custom-control-input dark"
-          type="checkbox"
+      <privacy-banner
+        class="privacy-banner"
+      />
+      <div class="d-flex flex-column mx-auto pt-5 w-448px">
+        <img
+          class="mx-auto"
+          src="@/assets/images/home/signup-quill@2x.png"
+          width="120px"
         >
-        <label
-          v-once
-          class="custom-control-label purple-600"
-          for="privacyTOS"
-          v-html="$t('acceptPrivacyTOS')"
-        ></label>
+        <h1 class="mt-0 mb-3 white mx-auto">{{ $t('whatToCallYou') }}</h1>
+        <form
+          class="form mx-auto"
+          @submit.prevent.stop="register()"
+        >
+          <input
+            id="usernameInput"
+            v-model="username"
+            class="form-control dark"
+            type="text"
+            :placeholder="$t('username')"
+            :class="{
+              'mb-3': !usernameInvalid,
+              'input-valid': usernameValid,
+              'input-invalid mb-2': usernameInvalid,
+            }"
+          >
+          <!-- eslint-disable vue/require-v-for-key -->
+          <div
+            v-for="issue in usernameIssues"
+            class="input-error"
+          >
+            <!-- eslint-enable vue/require-v-for-key -->
+            {{ issue }}
+          </div>
+          <p class="purple-600">{{ $t('usernameLimitations')}} </p>
+          <div class="custom-control custom-checkbox mb-4">
+            <input
+              id="privacyTOS"
+              v-model="privacyAccepted"
+              class="custom-control-input dark"
+              type="checkbox"
+            >
+            <label
+              v-once
+              class="custom-control-label purple-600"
+              for="privacyTOS"
+              v-html="$t('acceptPrivacyTOS')"
+            ></label>
+          </div>
+          <button
+            class="btn btn-info d-block w-100 sign-up mx-auto mb-5"
+            :disabled="!username || usernameInvalid || !privacyAccepted"
+            type="submit"
+          >
+            {{ $t('getStarted') }}
+          </button>
+        </form>
       </div>
-      <button
-        class="btn btn-info d-block w-100 sign-up mx-auto mb-5"
-        :disabled="!username || usernameInvalid || !privacyAccepted"
-        type="submit"
-      >
-        {{ $t('getStarted') }}
-      </button>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -66,16 +73,35 @@
     position: relative;
     z-index: 2;
     width: 448px;
+    background-image: url('@/assets/images/auth/seamless_stars_varied_opacity.png');
+    background-repeat: repeat-x;
+
     a {
       color: $white;
       font-weight: bold;
       text-decoration: underline;
+    }
+
+    .privacy-banner a {
+      color: $purple-300;
+      font-weight: normal;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 </style>
 
 <style lang="scss" scoped>
   @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/privacy.scss';
+
+  .gradient-bg {
+    background: linear-gradient(to bottom, $purple-200, $purple-300);
+    height: 700px;
+  }
 
   p.purple-600 {
     line-height: 1.714;
@@ -97,35 +123,41 @@
       box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
     }
   }
+
+  .w-448px {
+    width: 448px;
+  }
 </style>
 
 <script>
 import debounce from 'lodash/debounce';
+import PrivacyBanner from '@/components/header/banners/privacy';
 import sanitizeRedirect from '@/mixins/sanitizeRedirect';
 
 export default {
-  mixins: [sanitizeRedirect],
-  props: {
-    authData: Object,
-    email: String,
-    password: String,
-    passwordConfirm: String,
-    registrationMethod: String,
+  components: {
+    PrivacyBanner,
   },
+  mixins: [sanitizeRedirect],
   data () {
     return {
+      authData: {},
+      email: '',
+      password: '',
+      passwordConfirm: '',
       privacyAccepted: false,
+      registrationMethod: null,
       username: '',
       usernameIssues: [],
     };
   },
   computed: {
     usernameValid () {
-      if (this.username.length < 1) return false;
+      if (this.username?.length < 1) return false;
       return this.usernameIssues.length === 0;
     },
     usernameInvalid () {
-      if (this.username.length < 1) return false;
+      if (this.username?.length < 1) return false;
       return !this.usernameValid;
     },
   },
@@ -135,6 +167,18 @@ export default {
     },
   },
   mounted () {
+    if (window.sessionStorage.getItem('apple-token')) {
+      this.registrationMethod = 'apple';
+    } else if (!this.$store.state.registrationOptions.registrationMethod) {
+      this.$router.push('/');
+    }
+    this.authData = this.$store.state.registrationOptions.authData;
+    this.email = this.$store.state.registrationOptions.email;
+    this.username = this.$store.state.registrationOptions.username;
+    this.password = this.$store.state.registrationOptions.password;
+    this.passwordConfirm = this.$store.state.registrationOptions.passwordConfirm;
+    this.registrationMethod = this.$store.state.registrationOptions.registrationMethod;
+
     if (!this.email) {
       return;
     }

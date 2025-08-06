@@ -22,6 +22,7 @@ const OverviewPage = () => import('@/components/static/overview');
 const PressKitPage = () => import('@/components/static/pressKit');
 const PrivacyPage = () => import('@/components/static/privacy');
 const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'@/components/auth/registerLoginReset');
+const RegisterUsername = () => import(/* webpackChunkName: "auth" */'@/components/auth/registerUsername');
 const SubscriptionBenefitsFaq = () => import('@/components/static/subscriptionBenefitsFaq');
 const TermsPage = () => import('@/components/static/terms');
 const TermsReviewPage = () => import('@/components/static/termsReview');
@@ -88,7 +89,7 @@ export const STATIC_ROUTES = {
       name: 'register', path: '/register', component: RegisterLoginReset, meta: { requiresLogin: false },
     },
     {
-      name: 'username', path: '/username', component: HomePage, meta: { requiresLogin: false },
+      name: 'username', path: '/username', component: RegisterUsername, meta: { requiresLogin: false },
     },
     {
       name: 'terms', path: 'terms', component: TermsPage, meta: { requiresLogin: false },

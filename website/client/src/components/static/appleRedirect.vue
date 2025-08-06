@@ -36,7 +36,7 @@ export default {
       window.location.href = '/';
     }
     window.sessionStorage.setItem('apple-token', response.idToken);
-    window.location.href = '/register';
+    window.location.href = '/username';
   },
 };
 </script>

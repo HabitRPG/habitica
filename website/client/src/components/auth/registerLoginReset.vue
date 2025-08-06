@@ -6,17 +6,8 @@
     <privacy-banner
       class="privacy-banner"
     />
-    <register-username
-      v-if="registrationMethod"
-      :auth-data="authData"
-      :default-username="username"
-      :email="email"
-      :password="password"
-      :password-confirm="passwordConfirm"
-      :registration-method="registrationMethod"
-    />
     <form
-      v-else-if="!forgotPassword && !resetPasswordSetNewOne"
+      v-if="!forgotPassword && !resetPasswordSetNewOne"
       id="login-form"
       @submit.prevent.stop="handleSubmit"
     >
@@ -540,7 +531,6 @@ import axios from 'axios';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/es/lib/isEmail';
 import PrivacyBanner from '@/components/header/banners/privacy';
-import RegisterUsername from './registerUsername';
 import notifications from '@/mixins/notifications';
 import sanitizeRedirect from '@/mixins/sanitizeRedirect';
 import accountCreation from '@/mixins/accountCreation';
@@ -552,7 +542,6 @@ import appleIcon from '@/assets/svg/apple_black.svg?raw';
 export default {
   components: {
     PrivacyBanner,
-    RegisterUsername,
   },
   mixins: [accountCreation, notifications, sanitizeRedirect],
   data () {
@@ -631,9 +620,6 @@ export default {
       if (this.$route.query.email) {
         this.username = this.$route.query.email;
       }
-    }
-    if (window.sessionStorage.getItem('apple-token')) {
-      this.registrationMethod = 'apple';
     }
   },
   methods: {

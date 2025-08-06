@@ -11,22 +11,8 @@
     <privacy-banner
       class="privacy-banner"
     />
-    <div class="purple-1">
-      <div
-        class="seamless_stars_varied_opacity_repeat"
-        v-if="registrationMethod"
-      >
-        <register-username
-          class="position-relative"
-          :auth-data="authData"
-          :default-username="username"
-          :email="email"
-          :password="password"
-          :password-confirm="passwordConfirm"
-          :registration-method="registrationMethod"
-        />
-      </div>
-      <div v-else>
+    <div class="bg-purple-300">
+      <div>
         <div
           id="intro-signup"
         >
@@ -144,7 +130,7 @@
         </div>
         <div
           id="gamify-life"
-          class="purple-2"
+          class="bg-purple-100"
         >
           <div class="container-fluid">
             <div
@@ -201,7 +187,7 @@
         </div>
         <div
           id="use-cases"
-          class="purple-2"
+          class="bg-purple-100"
         >
           <div class="container text-center">
             <div class="row">
@@ -391,16 +377,8 @@
       padding-bottom: 5em;
     }
 
-    .custom-control-label, .purple-1, .purple-2, .purple-3, .purple-4, h1, h2, h3, h4, h5 {
+    .custom-control-label, .bg-purple-100, .bg-purple-300, .purple-3, .purple-4, h1, h2, h3, h4, h5 {
       color: $white;
-    }
-
-    .purple-1 {
-      background-color: $purple-300;
-    }
-
-    .purple-2 {
-      background-color: $purple-100;
     }
 
     .purple-3 {
@@ -755,7 +733,6 @@
 import notifications from '@/mixins/notifications';
 import accountCreation from '@/mixins/accountCreation';
 import PrivacyBanner from '@/components/header/banners/privacy';
-import RegisterUsername from '../auth/registerUsername';
 import googlePlay from '@/assets/images/home/google-play-badge.svg?raw';
 import iosAppStore from '@/assets/images/home/ios-app-store.svg?raw';
 import iphones from '@/assets/images/home/iphones.svg?raw';
@@ -778,7 +755,6 @@ import thenewyorktimes from '@/assets/images/home/the-new-york-times.svg?raw';
 export default {
   components: {
     PrivacyBanner,
-    RegisterUsername,
   },
   mixins: [accountCreation, notifications],
   data () {
