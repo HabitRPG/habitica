@@ -26,7 +26,7 @@
             :placeholder="$t('username')"
             :class="{
               'mb-3': !usernameInvalid,
-              'input-valid': usernameValid,
+              'input-valid': username && usernameValid,
               'input-invalid mb-2': usernameInvalid,
             }"
           >
