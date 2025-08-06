@@ -204,10 +204,11 @@
         .search-result-item {
           padding: 8px 12px;
           cursor: pointer;
-          transition: background-color 0.2s ease;
+          transition: all 0.2s ease;
 
           &:hover {
-            background-color: $gray-700;
+            background-color: $purple-600;
+            color: $purple-300;
           }
         }
       }
