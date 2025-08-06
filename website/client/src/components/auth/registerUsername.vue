@@ -163,8 +163,7 @@ export default {
   },
   watch: {
     username () {
-      if (!this.username) return;
-      this.validateUsername(this.username);
+      this.validateUsername(this.username || '');
     },
   },
   mounted () {
