@@ -117,15 +117,6 @@ describe('Blocker middleware', () => {
 
       checkIPBlockedErrorThrown(next);
     });
-
-    it('throws when the ip is blocked', () => {
-      req.ip = '192.168.1.1';
-      sandbox.stub(nconf, 'get').withArgs('BLOCKED_IPS').returns('192.168.1.1');
-      const attachBlocker = requireAgain(pathToBlocker).default;
-      attachBlocker(req, res, next);
-
-      checkIPBlockedErrorThrown(next);
-    });
   });
 
   describe('Blocking clients', () => {
