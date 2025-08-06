@@ -92,7 +92,7 @@
                 class="gem-icon"
                 v-html="icons.gem"
               ></div>
-              <span>{{ prize }} {{ prize === 1 ? $t('generic.gem') : $t('generic.gems') }}</span>
+              <span>{{ prize }} {{ prize === 1 ? $t('gem') : $t('gems') }}</span>
             </button>
           </div>
         </span>
@@ -109,7 +109,7 @@
           >{{ $t('doYouWantedToDeleteChallenge') }}</strong>
         </div>
         <div class="col-12 refund-text">
-          {{ $t('challenge.deleteChallengeRefundDescription') }}
+          {{ $t('deleteChallengeRefundDescription') }}
         </div>
         <div class="col-12">
           <button
