@@ -1,4 +1,3 @@
-import nconf from 'nconf';
 import {
   Forbidden,
 } from '../libs/errors';
