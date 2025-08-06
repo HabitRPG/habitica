@@ -163,6 +163,7 @@ export default {
   },
   watch: {
     username () {
+      if (!this.username) return;
       this.validateUsername(this.username);
     },
   },
@@ -171,13 +172,14 @@ export default {
       this.registrationMethod = 'apple';
     } else if (!this.$store.state.registrationOptions.registrationMethod) {
       this.$router.push('/');
+    } else {
+      this.registrationMethod = this.$store.state.registrationOptions.registrationMethod;
     }
     this.authData = this.$store.state.registrationOptions.authData;
     this.email = this.$store.state.registrationOptions.email;
     this.username = this.$store.state.registrationOptions.username;
     this.password = this.$store.state.registrationOptions.password;
     this.passwordConfirm = this.$store.state.registrationOptions.passwordConfirm;
-    this.registrationMethod = this.$store.state.registrationOptions.registrationMethod;
 
     if (!this.email) {
       return;
