@@ -118,7 +118,7 @@
             @click="deleteChallenge()"
           >
             <div
-              class="delete-icon"
+              class="svg-icon color delete-icon"
               v-html="icons.deleteIcon"
             ></div>
             {{ $t('deleteChallenge') }}
@@ -240,7 +240,6 @@
         width: 16px;
         height: 16px;
         display: inline-flex;
-        color: $white;
       }
     }
 
@@ -321,7 +320,7 @@
     }
 
     .col-12:first-child {
-      margin-top: 0.5em;
+      margin-top: 0;
     }
 
     .or {
