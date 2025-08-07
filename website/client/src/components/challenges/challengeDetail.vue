@@ -91,17 +91,21 @@
               </div>
             </div>
           </div>
-          <div class="box">
-            <div
-              class="svg-icon gem-icon"
-              v-html="icons.gemIcon"
-            ></div>
-            {{ challenge.prize || 0 }}
-            <div
-              v-once
-              class="details"
-            >
-              {{ $t('prize') }}
+          <div class="box prize-count">
+            <div class="box-content">
+              <div class="icon-number-row">
+                <div
+                  class="svg-icon gem-icon"
+                  v-html="icons.gemIcon"
+                ></div>
+                <span class="number">{{ challenge.prize || 0 }}</span>
+              </div>
+              <div
+                v-once
+                class="details"
+              >
+                {{ $t('prize') }}
+              </div>
             </div>
           </div>
         </div>
@@ -365,6 +369,25 @@
     }
 
     &.member-count {
+      .icon-number-row {
+        .svg-icon {
+          width: 24px;
+          height: 24px;
+        }
+
+        .number {
+          font-size: 18px;
+        }
+      }
+
+      .details {
+        font-size: 11px;
+        line-height: 1.1;
+        max-height: 2.2em;
+      }
+    }
+
+    &.prize-count {
       .icon-number-row {
         .svg-icon {
           width: 24px;
