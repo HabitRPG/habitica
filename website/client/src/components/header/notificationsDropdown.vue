@@ -120,8 +120,8 @@
 <script>
 import * as quests from '@/../../common/script/content/quests';
 import { hasCompletedOnboarding } from '@/../../common/script/libs/onboarding';
-import { mapState, mapActions } from '@/libs/store';
 import find from 'lodash/find';
+import { mapState, mapActions } from '@/libs/store';
 import notificationsIcon from '@/assets/svg/notifications.svg?raw';
 import MenuDropdown from '../ui/customMenuDropdown';
 import MessageCount from './messageCount.functional.vue';
@@ -212,7 +212,7 @@ export default {
     };
   },
   computed: {
-    ...mapState({ 
+    ...mapState({
       user: 'user.data',
       currentEventList: 'worldState.data.currentEventList',
     }),
