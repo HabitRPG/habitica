@@ -88,10 +88,9 @@
 
 <script>
 import closeIcon from '@/assets/svg/close-teal.svg?raw';
-import { mapActions } from '@/libs/store';
 
 export default {
-  props: ['notification'],
+  props: ['notification', 'eventKey'],
   data () {
     return {
       icons: Object.freeze({
@@ -100,11 +99,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions({
-      readNotification: 'notifications:readNotification',
-    }),
     remove () {
-      this.readNotification({ notificationId: this.notification.id });
+      if (this.eventKey) {
+        window.sessionStorage.setItem(`hide-g1g1-${this.eventKey}`, 'true');
+      }
+      this.$emit('notification-removed');
     },
     showSelectUser () {
       this.$root.$emit('bv::show::modal', 'select-user-modal');
