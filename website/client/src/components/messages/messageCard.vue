@@ -152,11 +152,6 @@
 
 <style lang="scss">
 .message-card {
-  .at-highlight {
-    background-color: rgba(213, 200, 255, 0.32);
-    padding: 0.1rem;
-  }
-
   .at-text {
     color: #6133b4;
   }
