@@ -73,7 +73,7 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .dropdown-item {
     padding: 16px 24px;
@@ -115,12 +115,12 @@
 import * as quests from '@/../../common/script/content/quests';
 import { hasCompletedOnboarding } from '@/../../common/script/libs/onboarding';
 import { mapState, mapActions } from '@/libs/store';
-import notificationsIcon from '@/assets/svg/notifications.svg';
+import notificationsIcon from '@/assets/svg/notifications.svg?raw';
 import MenuDropdown from '../ui/customMenuDropdown';
 import MessageCount from './messageCount.functional.vue';
 import { CONSTANTS, getLocalSetting, setLocalSetting } from '@/libs/userlocalManager';
-import successImage from '@/assets/svg/success.svg';
-import starBadge from '@/assets/svg/star-badge.svg';
+import successImage from '@/assets/svg/success.svg?raw';
+import starBadge from '@/assets/svg/star-badge.svg?raw';
 
 // Notifications
 import CARD_RECEIVED from './notifications/cardReceived';

@@ -2784,7 +2784,7 @@
     "weaponSpecialSummer2023HealerText": "Alga Ondeggiante",
     "weaponSpecialSummer2023HealerNotes": "Possono sembrare frondose, ma diventano piuttosto scontrose se li chiamate 'piante'. Aumenta l'intelligenza di <%= int %>. Equipaggiamento in edizione limitata, Estate 2023.",
     "weaponSpecialSpring2023HealerNotes": "Con uno sbuffo e un luccichio, dispieghi una nuova crescita, gioia e colori. Aumenta l'Intelligenza di <%= int %>. Equipaggiamento in edizione limitata, Primavera 2023.",
-    "weaponSpecialSpring2023MageNotes": "Più brillano e più sono potenti. Aumenta l'Intelligenza di <%= int %>. Equipaggiamento in edizione limitata, Primavera 2023.",
+    "weaponSpecialSpring2023MageNotes": "Più brillano e più sono potenti. Aumenta l'Intelligenza di <%= int %> e la Percezione di <%= per %>. Equipaggiamento in edizione limitata, Primavera 2023.",
     "weaponSpecialSpring2023MageText": "Magia delle Pietre Lunari",
     "weaponSpecialSpring2023WarriorNotes": "In guardia! Difendi i tuoi fiori dai nemici con questo fioretto! Aumenta la Forza di <%= str %>. Equipaggiamento in edizione limitata, Primavera 2023.",
     "weaponSpecialSpring2023RogueNotes": "Squarcia! Colpisci! Mordi! Diventa forte e pronto per la tua metamorfosi in arrivo. Aumenta la Forza di <%= str %>. Equipaggiamento in edizione limitata, Primavera 2023.",
@@ -2822,7 +2822,7 @@
     "weaponSpecialFall2024HealerText": "Falce Spaziale",
     "weaponSpecialFall2024MageText": "Bastone del Mondo Sotterraneo",
     "weaponSpecialFall2024WarriorNotes": "Le attività che ti ostacolano saranno tagliate immediatamente da questa formidabile arma. Aumenta la Forza di <%= str %>. Equipaggiamento in edizione limitata, Estate 2024.",
-    "weaponSpecialFall2024RogueNotes": "Le attività saranno bloccate sul posto grazie ai giri e alle giravolte di questa arma ipnotica. Aumenta la Forza di <%= str %>. Equipaggiamento in edizione limitata, Estate 2024.",
+    "weaponSpecialFall2024RogueNotes": "Le attività saranno bloccate sul posto grazie ai giri e alle giravolte di questa arma ipnotica. Aumenta la Forza di <%= str %>. Equipaggiamento in edizione limitata, Autunno 2024.",
     "weaponSpecialFall2024HealerNotes": "Le attività che una volta erano cosmicamente complicate sono stati decimate dai colpi di questa lama. Aumenta l'Intelligenza di <%= int %>. Equipaggiamento in edizione limitata, Autunno 2024.",
     "weaponArmoireScholarlyTextbooksNotes": "Ecco la tua occasione per imparare ed approfondire ogni materia che ti interessa. Qual è il tuo livello di fissazione? Aumenta l'Intelligenza di <%= int %>. Scrigno Incantato: Set della Divisa Scolastica (Oggetto 3 di 4).",
     "weaponArmoireOptimistsCloverText": "Quadrifoglio",
@@ -2901,5 +2901,9 @@
     "armorSpecialWinter2024WarriorNotes": "Alla fin fine il cioccolato, la menta e la glassa sono materiali più resistenti di quanto si pensi. Aumenta la Costituzione di <%= con %>. Equipaggiamento in edizione limitata, Inverno 2023-2024.",
     "armorSpecialWinter2024HealerText": "Armatura Ghiacciata",
     "armorSpecialWinter2024RogueText": "Vesti del Gufo delle Nevi",
-    "armorSpecialWinter2024WarriorText": "Armatura di Peppermint Bark"
+    "armorSpecialWinter2024WarriorText": "Armatura di Peppermint Bark",
+    "weaponSpecialWinter2025WarriorText": "Ascia dell'Alce Guerriero",
+    "weaponSpecialWinter2025WarriorNotes": "Una possente ascia per un possente alce! Sarai inarrestabile! Aumenta la Forza di <%= str %>.Edizione Limitata Equipaggiamento Inverno 2024-2025.",
+    "weaponSpecialWinter2025RogueText": "Esplosione di Fiocchi di Neve",
+    "weaponSpecialWinter2025HealerText": "Bacchetta Stellare"
 }

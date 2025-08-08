@@ -371,5 +371,11 @@
     "hatchingPotionMoonglow": "Maangloei",
     "hatchingPotionOnyx": "Onyx",
     "hatchingPotionVirtualPet": "Virtuele Huisdier",
-    "questEggGiraffeText": "Giraffe"
+    "questEggGiraffeText": "Giraffe",
+    "hatchingPotionBalloon": "Ballon",
+    "hatchingPotionGingerbread": "Gemberkoek",
+    "hatchingPotionJade": "Jade",
+    "hatchingPotionCryptid": "Cryptid",
+    "wackyPotionNotes": "Gebruik dit op een ei, en er zal een maf <%= potText(locale) %> huisdier uitkomen.",
+    "hatchingPotionOpal": "Opaal"
 }

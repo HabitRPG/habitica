@@ -1,3 +1,6 @@
+import {
+  describe, expect, test, beforeEach, afterEach,
+} from 'vitest';
 import Vue from 'vue';
 import MemberDetailsComponent from '@/components/memberDetails.vue';
 
@@ -14,7 +17,7 @@ describe('Members Details Component', () => {
     vm.$destroy();
   });
 
-  it.skip('prevents flickering by setting a 1px margin-right on elements of class member-stats', () => {
+  test.skip('prevents flickering by setting a 1px margin-right on elements of class member-stats', () => {
     const memberstats = vm.$el.querySelector('.member-stats');
     const style = window.getComputedStyle(memberstats, null);
     const marginRightProp = style.getPropertyValue('margin-right');

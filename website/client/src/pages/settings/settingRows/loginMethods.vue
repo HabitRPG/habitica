@@ -48,8 +48,8 @@ import hello from 'hellojs';
 import { SUPPORTED_SOCIAL_NETWORKS } from '@/../../common/script/constants';
 import { buildAppleAuthUrl } from '@/libs/auth';
 import { mapState } from '@/libs/store';
-import googleIcon from '@/assets/svg/google.svg';
-import appleIcon from '@/assets/svg/apple_black.svg';
+import googleIcon from '@/assets/svg/google.svg?raw';
+import appleIcon from '@/assets/svg/apple_black.svg?raw';
 
 export default {
   name: 'LoginMethods',
@@ -81,7 +81,7 @@ export default {
     });
 
     hello.init({
-      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line no-process-env
+      google: import.meta.env.GOOGLE_CLIENT_ID, // eslint-disable-line no-process-env
     }, {
       redirect_uri: '', // eslint-disable-line
     });
@@ -150,7 +150,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .icon-16 ::v-deep svg {
   height: 16px;

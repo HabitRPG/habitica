@@ -7,7 +7,7 @@
     "messageNotAvailable": "This item is not currently available for purchase.",
     "messageCannotFeedPet": "Ovu zver nije moguće hraniti.",
     "messageAlreadyMount": "Već imate takvu zver za jahanje. Hranite neku drugu zver.",
-    "messageEvolve": "Ukrotili ste  <%= egg %>, idemo na jahanje!",
+    "messageEvolve": "Ukrotili ste <%= egg %>, idemo na jahanje!",
     "messageLikesFood": "<%= egg %> really likes <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> eats <%= foodText %> but doesn't seem to enjoy it.",
     "messageBought": "Predmet <%= itemText %> kupljen",

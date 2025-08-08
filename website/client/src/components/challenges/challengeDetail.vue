@@ -259,7 +259,7 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   h1 {
     color: $purple-200;
@@ -380,9 +380,9 @@ import sidebarSection from '../sidebarSection';
 import userLink from '../userLink';
 import groupLink from '../groupLink';
 
-import gemIcon from '@/assets/svg/gem.svg';
-import memberIcon from '@/assets/svg/member-icon.svg';
-import calendarIcon from '@/assets/svg/calendar.svg';
+import gemIcon from '@/assets/svg/gem.svg?raw';
+import memberIcon from '@/assets/svg/member-icon.svg?raw';
+import calendarIcon from '@/assets/svg/calendar.svg?raw';
 
 const TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'history', 'id', 'streak', 'createdAt', 'challenge'];
 

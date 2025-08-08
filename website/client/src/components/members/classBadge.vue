@@ -12,7 +12,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .class-badge {
   --badge-size: 32px;
@@ -38,10 +38,10 @@
 </style>
 
 <script>
-import warriorIcon from '@/assets/svg/warrior.svg';
-import rogueIcon from '@/assets/svg/rogue.svg';
-import healerIcon from '@/assets/svg/healer.svg';
-import wizardIcon from '@/assets/svg/wizard.svg';
+import warriorIcon from '@/assets/svg/warrior.svg?raw';
+import rogueIcon from '@/assets/svg/rogue.svg?raw';
+import healerIcon from '@/assets/svg/healer.svg?raw';
+import wizardIcon from '@/assets/svg/wizard.svg?raw';
 
 export default {
   props: {

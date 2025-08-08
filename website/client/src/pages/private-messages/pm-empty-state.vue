@@ -33,7 +33,7 @@
 </template>
 
 <style scoped lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 strong {
   line-height: 1.71;
@@ -52,8 +52,8 @@ p {
 </style>
 
 <script>
-import mailIcon from '@/assets/svg/mail.svg';
-import positiveIcon from '@/assets/svg/positive.svg';
+import mailIcon from '@/assets/svg/mail.svg?raw';
+import positiveIcon from '@/assets/svg/positive.svg?raw';
 
 export default {
   props: {

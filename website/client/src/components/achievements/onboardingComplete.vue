@@ -17,7 +17,7 @@
       </h2>
       <img
         class="onboarding-complete-banner d-block"
-        src="~@/assets/images/onboarding-complete-banner@2x.png"
+        src="@/assets/images/onboarding-complete-banner@2x.png"
       >
       <p
         v-once
@@ -59,7 +59,7 @@
 </style>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 h2 {
   color: $purple-200;
@@ -100,7 +100,7 @@ button {
 </style>
 
 <script>
-import svgClose from '@/assets/svg/close.svg';
+import svgClose from '@/assets/svg/close.svg?raw';
 
 export default {
   data () {

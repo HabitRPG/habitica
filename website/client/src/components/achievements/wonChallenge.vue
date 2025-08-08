@@ -73,7 +73,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   #won-challenge {
     .modal-body {
@@ -96,7 +96,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .purple {
     color: $purple-300;
@@ -146,9 +146,9 @@
 <script>
 import habiticaMarkdown from 'habitica-markdown';
 import closeIcon from '@/components/shared/closeIcon';
-import sparkles from '@/assets/svg/star-group.svg';
-import gem from '@/assets/svg/gem.svg';
-import stars from '@/assets/svg/sparkles-left.svg';
+import sparkles from '@/assets/svg/star-group.svg?raw';
+import gem from '@/assets/svg/gem.svg?raw';
+import stars from '@/assets/svg/sparkles-left.svg?raw';
 import { mapState } from '@/libs/store';
 
 export default {

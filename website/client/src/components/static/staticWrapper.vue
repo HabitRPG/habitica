@@ -34,7 +34,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .home-header {
     background: $purple-300 !important;
@@ -211,7 +211,7 @@
 
     &.groups-bg {
       background-color: $white;
-      background-image: url('../../assets/images/group-plans-static/top.svg');
+      background-image: url('../../assets/images/group-plans-static/top.svg?raw');
       background-repeat: no-repeat;
       background-position-y: 56px;
     }
@@ -231,7 +231,7 @@
     position: relative;
 
     .seamless_mountains_demo_repeat {
-      background-image: url('~@/assets/images/auth/seamless_mountains_demo.png');
+      background-image: url('@/assets/images/auth/seamless_mountains_demo.png');
       background-repeat: repeat-x;
       width: 100%;
       height: 300px;
@@ -241,7 +241,7 @@
     }
 
     .midground_foreground_extended2 {
-      background-image: url('~@/assets/images/auth/midground_foreground_extended2.png');
+      background-image: url('@/assets/images/auth/midground_foreground_extended2.png');
       position: relative;
       width: 1500px;
       max-width: 100%;

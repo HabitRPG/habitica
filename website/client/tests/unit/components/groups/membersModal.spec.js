@@ -1,3 +1,6 @@
+import {
+  describe, expect, test, beforeEach, afterEach,
+} from 'vitest';
 import Vue from 'vue';
 import MembersModalComponent from '@/components/groups/membersModal.vue';
 
@@ -15,12 +18,12 @@ describe.skip('Members Modal Component', () => {
       vm.$destroy();
     });
 
-    it('should have an empty object as sort-option at start', () => {
+    test('should have an empty object as sort-option at start', () => {
       const defaultData = vm.data();
       expect(defaultData.sortOption).to.eq({});
     });
 
-    it('should accept sort-option object', () => {
+    test('should accept sort-option object', () => {
       const sortOption = vm.data().sortOption[0];
       vm.sort(sortOption);
       Vue.nextTick(() => {

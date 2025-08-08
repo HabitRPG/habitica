@@ -1,3 +1,6 @@
+import {
+  describe, expect, test, beforeEach,
+} from 'vitest';
 import Vue from 'vue';
 import StoreModule, { mapState, mapGetters, mapActions } from '@/libs/store';
 import { flattenAndNamespace } from '@/libs/store/helpers/internals';
@@ -42,7 +45,7 @@ describe('Store', () => {
     Vue.use(StoreModule);
   });
 
-  it('injects itself in all component', done => {
+  test('injects itself in all component', done => {
     new Vue({ // eslint-disable-line no-new
       store,
       created () {
@@ -52,7 +55,7 @@ describe('Store', () => {
     });
   });
 
-  it('can watch a function on the state', done => {
+  test('can watch a function on the state', done => {
     store.watch(state => state.name, newName => {
       expect(newName).to.equal('test updated');
       done();
@@ -62,13 +65,13 @@ describe('Store', () => {
   });
 
   describe('getters', () => {
-    it('supports getters', () => {
+    test('supports getters', () => {
       expect(store.getters.computedName).to.equal('test computed!');
       store.state.name = 'test updated';
       expect(store.getters.computedName).to.equal('test updated computed!');
     });
 
-    it('supports nested getters', () => {
+    test('supports nested getters', () => {
       expect(store.getters['nested:computedName']).to.equal('test computed!');
       store.state.name = 'test updated';
       expect(store.getters['nested:computedName']).to.equal('test updated computed!');
@@ -76,21 +79,21 @@ describe('Store', () => {
   });
 
   describe('actions', () => {
-    it('can dispatch an action', async () => {
+    test('can dispatch an action', async () => {
       expect(await store.dispatch('getName', 1, 2, 3)).to.deep.equal(['test', 1, 2, 3]);
     });
 
-    it('can dispatch a nested action', async () => {
+    test('can dispatch a nested action', async () => {
       expect(await store.dispatch('nested:getName', 1, 2, 3)).to.deep.equal(['test', 1, 2, 3]);
     });
 
-    it('throws an error if the action doesn\'t exists', () => {
+    test('throws an error if the action doesn\'t exists', () => {
       expect(() => store.dispatched('wrong')).to.throw;
     });
   });
 
   describe('helpers', () => {
-    it('mapState', done => {
+    test('mapState', done => {
       new Vue({ // eslint-disable-line no-new
         store,
         data: {
@@ -114,7 +117,7 @@ describe('Store', () => {
       });
     });
 
-    it('mapGetters', done => {
+    test('mapGetters', done => {
       new Vue({ // eslint-disable-line no-new
         store,
         data: {
@@ -134,7 +137,7 @@ describe('Store', () => {
       });
     });
 
-    it('mapActions', done => {
+    test('mapActions', done => {
       new Vue({ // eslint-disable-line no-new
         store,
         data: {
@@ -154,7 +157,7 @@ describe('Store', () => {
       });
     });
 
-    it('flattenAndNamespace', () => {
+    test('flattenAndNamespace', () => {
       const result = flattenAndNamespace({
         nested: {
           computed ({ state }, ...args) {

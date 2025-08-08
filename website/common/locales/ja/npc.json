@@ -132,5 +132,5 @@
     "sellItems": "アイテムを売る",
     "customizationsShopText": "スタイルを変えたいですか？そんなあなたにぴったりの場所です！季節に合った新しい外見を取り揃えています。",
     "notAvailable": "このアイテムはご利用いただけません。",
-    "paymentYouSentSubscriptionG1G1": "あなたは <strong><%- name %></strong>に<br><%= months %>ヶ月分のHabitica有料プランを送り、同じ分の有料プランが１つ贈って、１つ無料で手に入れようキャンペーンによってあなたにも適用されました！"
+    "paymentYouSentSubscriptionG1G1": "あなたは<strong><%- name %></strong><br>さんに<%= months %>か月間のHabitica 有料プランを送信しました。そして、Gift One Get One プロモーションのため、同じ有料プランがあなたのアカウントに適用されました。"
 }

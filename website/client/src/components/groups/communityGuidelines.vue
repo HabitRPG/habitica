@@ -21,7 +21,7 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .community-guidelines {
   background-color: rgba(135, 129, 144, 0.84);

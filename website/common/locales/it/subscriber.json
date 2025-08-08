@@ -170,7 +170,7 @@
     "usuallyGems": "Normalmente <%= originalGems %>",
     "supportHabitica": "Sostieni Habitica",
     "cancelSubInfoApple": "Segui le <a href=\"https://support.apple.com/en-us/HT202039\">istruzioni ufficiali di Apple</a> per annullare l'abbonamento o per vedere la data di scadenza dell'abbonamento se l'hai già annullato. Questa schermata non è in grado di mostrarti se il tuo abbonamento è stato annullato.",
-    "cancelSubInfoGoogle": "Vai nella sezione \"Account\"> \"Abbonamenti\" dell'app Google Play Store per annullare l'abbonamento o per vedere la data di scadenza dell'abbonamento se l'hai già annullato. Questa schermata non è in grado di mostrarti se il tuo abbonamento è stato annullato.",
+    "cancelSubInfoGoogle": "Per annullare l'abbonamento o per vedere la data di scadenza dell'abbonamento usa il <a href='https://play.google.com/store/account/subscriptions'>Google Play Store</a>. Eventuali mesi di credito residuo dell'abbonamento saranno aggiunti alla tua data di scadenza dopo la cancellazione.",
     "organization": "Organizzazione",
     "mysterySet202010": "Set Ammaliante da Pipistrello",
     "dropCapLearnMore": "Scopri di più sulla gestione del bottino di Habitica",

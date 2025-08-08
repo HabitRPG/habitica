@@ -1,6 +1,8 @@
+import { LOCALSTORAGE_AUTH_KEY } from '@/libs/auth';
+
 // @TODO: I have abstracted this in another PR. Use that function when merged
 function getApiKey () {
-  let AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
+  let AUTH_SETTINGS = localStorage.getItem(LOCALSTORAGE_AUTH_KEY);
 
   if (AUTH_SETTINGS) {
     AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS);

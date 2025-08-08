@@ -222,7 +222,7 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 #payments-success-modal {
   .modal-md {
@@ -415,16 +415,16 @@
 </style>
 
 <style lang="scss">
-  @import '~@/assets/scss/mixins.scss';
+  @import '@/assets/scss/mixins.scss';
 
 </style>
 
 <script>
 // icons
 import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
-import checkIcon from '@/assets/svg/check.svg';
-import gemIcon from '@/assets/svg/gem.svg';
-import closeIcon from '@/assets/svg/close.svg';
+import checkIcon from '@/assets/svg/check.svg?raw';
+import gemIcon from '@/assets/svg/gem.svg?raw';
+import closeIcon from '@/assets/svg/close.svg?raw';
 
 // components
 import { mapState } from '@/libs/store';

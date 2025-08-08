@@ -13,7 +13,7 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   // NOTE: the loader is currently set to work inside standard buttons
   // To properly work outside of them some abstraction will be needed

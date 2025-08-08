@@ -2288,7 +2288,7 @@
     "backMystery202012Text": "Vorstvuur vleugels",
     "backMystery202010Notes": "Jij bent de nacht! Vlieg dus zo stil als een middernachtwolk met deze snelle paarse vleugels. Geeft geen voordelen. Abonnee uitrusting uit oktober 2020.",
     "backMystery202010Text": "Betoverende vleermuisvleugels",
-    "shieldArmoireSoftPinkPillowNotes": "De verstandige krijger pakt een kussen voor elke expeditie. Verzacht de slagen van het leven... zelfs terwijl je een dutje doet. Verhoogt Kracht met <%= str %> en Weerbaarheid met <%= con %>. Betoverde kast: Roze Loungewear Set (voorwerp 3 van 3).",
+    "shieldArmoireSoftPinkPillowNotes": "De verstandige krijger pakt een kussen voor elke expeditie. Verzacht de slagen van het leven... zelfs terwijl je een dutje doet. Verhoogt kracht en constitutie door <%= attrs> elk. Betoverde kast: Roze Loungewear Set (voorwerp 3 van 3).",
     "shieldArmoireSoftPinkPillowText": "Zacht roze kussen",
     "armorMystery202104Notes": "Zacht van binnen, stekelig van buiten, stijlvol overal! Geeft geen voordelen. Abonnee uitrusting uit april 2021.",
     "armorMystery202104Text": "Donsachtig distel harnas",

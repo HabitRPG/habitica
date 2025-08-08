@@ -38,12 +38,17 @@
           >
             <div class="custom-control custom-checkbox">
               <input
+                :id="permission.key"
                 v-model="hero.permissions[permission.key]"
-                :disabled="!hasPermission(user, permission.key)"
+                :disabled="!hasPermission(user, permission.key)
+                  || (hero.permissions.fullAccess && permission.key !== 'fullAccess')"
                 class="custom-control-input"
                 type="checkbox"
               >
-              <label class="custom-control-label">
+              <label
+                class="custom-control-label"
+                :for="permission.key"
+              >
                 {{ permission.name }}<br>
                 <small class="text-secondary">{{ permission.description }}</small>
               </label>
@@ -124,7 +129,10 @@
           value="Save"
           class="btn btn-primary mt-1"
         >
-        <b v-if="hasUnsavedChanges" class="text-warning float-right">
+        <b
+          v-if="hasUnsavedChanges"
+          class="text-warning float-right"
+        >
           Unsaved changes
         </b>
       </div>
@@ -147,7 +155,7 @@ import markdownDirective from '@/directives/markdown';
 import saveHero from '../mixins/saveHero';
 
 import { mapState } from '@/libs/store';
-import { userStateMixin } from '../../../mixins/userState';
+import { userStateMixin } from '../../../../mixins/userState';
 
 const permissionList = [
   {
@@ -174,6 +182,11 @@ const permissionList = [
     key: 'challengeAdmin',
     name: 'Challenge Admin',
     description: 'Can create official habitica challenges and admin all challenges',
+  },
+  {
+    key: 'accessControl',
+    name: 'Access Control',
+    description: 'Can manage IP-Address, Client and E-Mail blockers',
   },
   {
     key: 'coupons',

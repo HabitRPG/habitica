@@ -55,7 +55,6 @@
     "APIToken": "API-sleutel (dit is een persoonlijke code - zie waarschuwing hierboven!)",
     "showAPIToken": "API-token tonen",
     "hideAPIToken": "API-token verbergen",
-    "APITokenWarning": "Als je een nieuw API-token nodig hebt (b.v. omdat je hem per ongeluk hebt gedeeld), stuur dan een mail naar <%= hrefTechAssistanceEmail %> met je Gebruikers-ID en je huidige token. Eens het opnieuw ingesteld is zal je alles opnieuw moeten machtigen door uit te loggen van de website en mobiele app en door het nieuwe token aan elke andere Habitica-tool die je gebruikt te verstrekken.",
     "thirdPartyApps": "Applicaties van derden",
     "resetDo": "Ja, reset mijn account!",
     "resetComplete": "Reset voltooid!",

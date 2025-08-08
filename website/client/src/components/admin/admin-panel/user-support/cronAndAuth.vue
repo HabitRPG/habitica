@@ -126,7 +126,7 @@
               @click="changeApiToken()"
             >
               Change API Token
-          </a>
+            </a>
             <div
               v-if="tokenModified"
             >

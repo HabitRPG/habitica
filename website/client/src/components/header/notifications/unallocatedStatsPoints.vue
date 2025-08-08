@@ -27,7 +27,7 @@
 
 <script>
 import BaseNotification from './base';
-import sparklesIcon from '@/assets/svg/sparkles.svg';
+import sparklesIcon from '@/assets/svg/sparkles.svg?raw';
 
 export default {
   components: {

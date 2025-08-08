@@ -12,7 +12,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
   .badge-pin {
     background-color: $white;
@@ -40,7 +40,7 @@
 </style>
 
 <script>
-import svgPin from '@/assets/svg/pin.svg';
+import svgPin from '@/assets/svg/pin.svg?raw';
 
 export default {
   props: {

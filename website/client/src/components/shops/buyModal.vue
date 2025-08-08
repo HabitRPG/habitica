@@ -230,8 +230,8 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/mixins.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/mixins.scss';
 
   #buy-modal {
     @include centeredModal();
@@ -576,7 +576,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .hourglass-nonsub {
     color: $yellow-5;
@@ -598,14 +598,14 @@ import numberInvalid from '@/mixins/numberInvalid';
 import spellsMixin from '@/mixins/spells';
 import sync from '@/mixins/sync';
 
-import svgClose from '@/assets/svg/close.svg';
-import svgGold from '@/assets/svg/gold.svg';
-import svgGem from '@/assets/svg/gem.svg';
-import svgHourglasses from '@/assets/svg/hourglass.svg';
-import svgClock from '@/assets/svg/clock.svg';
-import svgWhiteClock from '@/assets/svg/clock-white.svg';
-import svgPositive from '@/assets/svg/positive.svg';
-import svgNegative from '@/assets/svg/negative.svg';
+import svgClose from '@/assets/svg/close.svg?raw';
+import svgGold from '@/assets/svg/gold.svg?raw';
+import svgGem from '@/assets/svg/gem.svg?raw';
+import svgHourglasses from '@/assets/svg/hourglass.svg?raw';
+import svgClock from '@/assets/svg/clock.svg?raw';
+import svgWhiteClock from '@/assets/svg/clock-white.svg?raw';
+import svgPositive from '@/assets/svg/positive.svg?raw';
+import svgNegative from '@/assets/svg/negative.svg?raw';
 
 import BalanceInfo from './balanceInfo.vue';
 import PinBadge from '@/components/ui/pinBadge';

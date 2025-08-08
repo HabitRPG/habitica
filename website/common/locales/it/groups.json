@@ -16,7 +16,7 @@
     "wiki": "Wiki",
     "resources": "Risorse",
     "communityGuidelines": "Linee guida della community",
-    "bannedWordUsed": "Ops! Sembra che questo messaggio contenga una parolaccia o un riferimento ad una sostanza che crea dipendenza o ad un argomento per adulti (<%= swearWordsUsed %>). Habitica mantiene le nostre chat molto pulite. Sentiti libero/a di modificare il tuo messaggio in modo che tu lo possa pubblicare! Devi rimuovere la parola, non solo censurarla.",
+    "bannedWordUsed": "Ops! Sembra che questo messaggio contenga una parolaccia o un riferimento ad una sostanza che crea dipendenza o ad un argomento per adulti (<%= swearWordsUsed %>). Habitica mantiene le nostre chat molto pulite. Sentiti libero/a di modificare il tuo messaggio in modo da poterlo pubblicare! Devi rimuovere la parola, non solo censurarla.",
     "bannedSlurUsed": "Il tuo messaggio conteneva un linguaggio inappropriato e i tuoi privilegi legati alle chat sono stati revocati.",
     "party": "Squadra",
     "usernameCopied": "Nome utente copiato negli appunti.",
@@ -397,5 +397,8 @@
     "groupUse": "Quale tra questi descrive meglio l'utilizzo del tuo Gruppo?*",
     "groupTeacher": "Insegnante che imposta le attività per gli studenti",
     "sendGiftLabel": "Vuoi inviare un messaggio col tuo regalo?",
-    "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a> ti ha invitato ad unirti alla Squadra <span class=\"notification-bold\"><%- party %></span>"
+    "invitedToPartyBy": "<a href=\"/profile/<%- userId %>\" target=\"_blank\">@<%- userName %></a> ti ha invitato ad unirti alla Squadra <span class=\"notification-bold\"><%- party %></span>",
+    "challengeBannedWords": "La tua Sfida contiene una o più parolacce o riferimenti a tematiche adulte. Modifica la tua Sfida in modo da poterla salvare. Devi rimuovere la parola, non solo censurarla.",
+    "challengeBannedSlurs": "La tua Sfida contiene una parolaccia che viola le linee guida della community di Habitica e i tuoi privilegi di creazione delle chat e delle Sfide sono stati revocati. Contatta admin@habitica.com per maggiori informazioni.",
+    "challengeBannedSlursPrivate": "La tua Sfida contiene un insulto che viola le linee guida della community di Habitica. Rimuovilo in modo da poter salvare la tua Sfida."
 }

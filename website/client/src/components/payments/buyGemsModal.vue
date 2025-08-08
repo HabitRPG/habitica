@@ -24,28 +24,28 @@
               v-if="eventInfo?.name === 'fall_extra_gems'"
               :alt="$t('supportHabitica')"
               srcset="
-          ~@/assets/images/gems/fall-header.png,
-          ~@/assets/images/gems/fall-header@2x.png 2x,
-          ~@/assets/images/gems/fall-header@3x.png 3x"
-              src="~@/assets/images/gems/fall-header.png"
+          @/assets/images/gems/fall-header.png,
+          @/assets/images/gems/fall-header@2x.png 2x,
+          @/assets/images/gems/fall-header@3x.png 3x"
+              src="@/assets/images/gems/fall-header.png"
             >
             <img
               v-else-if="eventInfo?.name === 'spooky_extra_gems'"
               :alt="$t('supportHabitica')"
               srcset="
-          ~@/assets/images/gems/spooky-header.png,
-          ~@/assets/images/gems/spooky-header@2x.png 2x,
-          ~@/assets/images/gems/spooky-header@3x.png 3x"
-              src="~@/assets/images/gems/spooky-header.png"
+          @/assets/images/gems/spooky-header.png,
+          @/assets/images/gems/spooky-header@2x.png 2x,
+          @/assets/images/gems/spooky-header@3x.png 3x"
+              src="@/assets/images/gems/spooky-header.png"
             >
             <img
               v-else
               :alt="$t('supportHabitica')"
               srcset="
-          ~@/assets/images/gems/support-habitica.png,
-          ~@/assets/images/gems/support-habitica@2x.png 2x,
-          ~@/assets/images/gems/support-habitica@3x.png 3x"
-              src="~@/assets/images/gems/support-habitica.png"
+          @/assets/images/gems/support-habitica.png,
+          @/assets/images/gems/support-habitica@2x.png 2x,
+          @/assets/images/gems/support-habitica@3x.png 3x"
+              src="@/assets/images/gems/support-habitica.png"
             >
           </div>
         </div>
@@ -196,7 +196,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   #buy-gems {
     small {
@@ -266,21 +266,21 @@
 
   #buy-gems.event-fall_extra_gems {
     .header-wrap {
-      background-image: url('~@/assets/images/gems/fall-header-bg@2x.png');
+      background-image: url('@/assets/images/gems/fall-header-bg@2x.png');
       background-size: 100%;
     }
   }
 
   #buy-gems.event-spooky_extra_gems {
     .header-wrap {
-      background-image: url('~@/assets/images/gems/spooky-header-bg@2x.png');
+      background-image: url('@/assets/images/gems/spooky-header-bg@2x.png');
       background-size: 100%;
     }
   }
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .gem-btn {
     min-width: 4.813rem;
@@ -397,14 +397,14 @@ import { mapState } from '@/libs/store';
 import markdown from '@/directives/markdown';
 import paymentsMixin from '@/mixins/payments';
 
-import checkIcon from '@/assets/svg/check.svg';
+import checkIcon from '@/assets/svg/check.svg?raw';
 
-import fourGems from '@/assets/svg/4-gems.svg';
-import twentyOneGems from '@/assets/svg/21-gems.svg';
-import fortyTwoGems from '@/assets/svg/42-gems.svg';
-import eightyFourGems from '@/assets/svg/84-gems.svg';
-import svgClose from '@/assets/svg/close.svg';
-import gifts from '@/assets/svg/gifts.svg';
+import fourGems from '@/assets/svg/4-gems.svg?raw';
+import twentyOneGems from '@/assets/svg/21-gems.svg?raw';
+import fortyTwoGems from '@/assets/svg/42-gems.svg?raw';
+import eightyFourGems from '@/assets/svg/84-gems.svg?raw';
+import svgClose from '@/assets/svg/close.svg?raw';
+import gifts from '@/assets/svg/gifts.svg?raw';
 
 import paymentsButtons from '@/components/payments/buttons/list';
 import { worldStateMixin } from '@/mixins/worldState';

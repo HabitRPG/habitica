@@ -81,7 +81,7 @@
 </template>
 
 <style lang='scss'>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   #close-challenge-modal {
     h2 {
@@ -98,7 +98,7 @@
     }
 
     .support-habitica {
-      background-image: url('~@/assets/svg/for-css/support-habitica-gems.svg');
+      background-image: url('@/assets/svg/for-css/support-habitica-gems.svg?raw');
       width: 325px;
       height: 89px;
       margin: 0 auto;

@@ -130,7 +130,7 @@
     "winter2019PyrotechnicSet": "烟花（法师）",
     "winter2019WinterStarSet": "冬日之星（医者）",
     "winter2019PoinsettiaSet": "圣诞花（盗贼）",
-    "winterPromoGiftHeader": "赠送其他用户一份订阅服务的同时，您自己也能同样免费获得一份订阅！",
+    "winterPromoGiftHeader": "赠送其他用户一份订阅的同时，您自己也能同样免费获得一份订阅！",
     "winterPromoGiftDetails1": "本活动持续到1月6日，当你向他人赠送一份订阅后，自己也将免费获得相同的订阅！",
     "winterPromoGiftDetails2": "请注意，如果你或你的礼物接收人已经拥有一份订阅，赠送的订阅将增加至结存订阅，只有在当前订阅被取消或过期后才会生效。非常感谢你的支持！<3",
     "discountBundle": "一批",
@@ -274,5 +274,9 @@
     "spring2025MantisMageSet": "螳螂法师套装",
     "spring2025CrystalPointRogueSet": "晶芒盗贼套装",
     "spring2025PlumeriaHealerSet": "缅栀医者套装",
-    "winter2025StringLightsHealerSet": "流光医者套装"
+    "winter2025StringLightsHealerSet": "流光医者套装",
+    "summer2025ScallopWarriorSet": "扇贝战士套装",
+    "summer2025SeaAngelHealerSet": "海天使医者套装",
+    "summer2025FairyWrasseMageSet": "仙女濑鱼法师套装",
+    "summer2025SquidRogueSet": "乌贼盗贼套装"
 }

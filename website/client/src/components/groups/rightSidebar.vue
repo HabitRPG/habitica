@@ -143,12 +143,12 @@ import questSidebarSection from '@/components/groups/questSidebarSection';
 import sidebarSection from '@/components/sidebarSection';
 import markdownDirective from '@/directives/markdown';
 
-import menuIcon from '@/assets/svg/menu.svg';
-import sparklesIcon from '@/assets/svg/sparklesIcon.svg';
-import leaveIcon from '@/assets/svg/leave.svg';
-import editIcon from '@/assets/svg/edit.svg';
-import messageIcon from '@/assets/svg/message.svg';
-import usersIcon from '@/assets/svg/users.svg';
+import menuIcon from '@/assets/svg/menu.svg?raw';
+import sparklesIcon from '@/assets/svg/sparklesIcon.svg?raw';
+import leaveIcon from '@/assets/svg/leave.svg?raw';
+import editIcon from '@/assets/svg/edit.svg?raw';
+import messageIcon from '@/assets/svg/message.svg?raw';
+import usersIcon from '@/assets/svg/users.svg?raw';
 
 export default {
   components: {
@@ -181,7 +181,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   @media (min-width: 1300px) {
     .sidebar {

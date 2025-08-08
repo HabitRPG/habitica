@@ -17,7 +17,7 @@ import {
 } from './constants';
 
 import achievements from './achievements';
-
+import categoryOptions from './categoryOptions';
 import eggs from './eggs';
 import hatchingPotions from './hatching-potions';
 import stable from './stable';
@@ -84,6 +84,8 @@ api.timeTravelerStore = timeTravelers.timeTravelerStore;
 api.officialPinnedItems = officialPinnedItems;
 
 api.bundles = bundles;
+
+api.categoryOptions = categoryOptions;
 
 /*
    ---------------------------------------------------------------

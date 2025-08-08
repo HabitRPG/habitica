@@ -36,7 +36,7 @@
 </template>
 
 <style scoped lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 div {
   display: flex;

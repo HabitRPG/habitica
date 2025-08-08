@@ -1,7 +1,6 @@
 import moment from 'moment';
-import nconf from 'nconf';
 
-const SWITCHOVER_TIME = nconf.get('CONTENT_SWITCHOVER_TIME_OFFSET') || 0;
+const SWITCHOVER_TIME = process.env.CONTENT_SWITCHOVER_TIME_OFFSET || 0;
 
 function getDay (date) {
   if (date === undefined) {

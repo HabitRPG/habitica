@@ -12,7 +12,8 @@
     ></div>
     <Sprite
       slot="icon"
-      :image-name="mysteryClass" />
+      :image-name="mysteryClass"
+    />
   </base-notification>
 </template>
 

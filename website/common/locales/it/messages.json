@@ -15,7 +15,7 @@
     "messageMissingEggPotion": "Ti manca un uovo o una pozione",
     "messageInvalidEggPotionCombo": "Non puoi far schiudere le Uova delle Missioni con le Pozioni di Schiusa Magiche! Prova con un uovo diverso.",
     "messageAlreadyPet": "Possiedi già quell'animale. Prova un'altra combinazione!",
-    "messageHatched": "Il tuo uovo si è schiuso! Vai alla Scuderia per equipaggiarlo.",
+    "messageHatched": "Il tuo uovo si è schiuso! Vai alla Scuderia per equipaggiare il tuo animale domestico.",
     "messageNotEnoughGold": "Non hai abbastanza Oro",
     "messageTwoHandedEquip": "Brandire <%= twoHandedText %> richiede due mani, perciò <%= offHandedText %> è stato disequipaggiato.",
     "messageTwoHandedUnequip": "Brandire <%= twoHandedText %> richiede due mani, perciò è stato disequipaggiato per poterti armare con <%= offHandedText %>.",
@@ -55,5 +55,6 @@
     "messageBackgroundUnEquipped": "Sfondo rimosso.",
     "messagePetMountUnEquipped": "Animale e cavalcatura rimossi.",
     "messageCostumeUnEquipped": "Costume rimosso.",
-    "messageBattleGearUnEquipped": "Equipaggiamento da combattimento rimosso."
+    "messageBattleGearUnEquipped": "Equipaggiamento da combattimento rimosso.",
+    "featureRetired": "Questa funzionalità non è più supportata."
 }

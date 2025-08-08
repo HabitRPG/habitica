@@ -213,7 +213,7 @@
     "backgroundStormyRooftopsNotes": "Zakrádaj sa po Búrkových strechách.",
     "backgroundWindyAutumnText": "Veterná jeseň",
     "backgroundWindyAutumnNotes": "Naháňaj listy počas Veternej jesene.",
-    "incentiveBackgrounds": "Obyčajná sada pozadí",
+    "incentiveBackgrounds": "Štandartná sada pozadí",
     "backgroundVioletText": "Fialové",
     "backgroundVioletNotes": "Energický fialový horizont.",
     "backgroundBlueText": "Modré",
@@ -408,5 +408,8 @@
     "backgroundArchaeologicalDigNotes": "Unearth secrets of the ancient past at an Archaeological Dig.",
     "backgroundScribesWorkshopText": "Scribe's Workshop",
     "backgroundScribesWorkshopNotes": "Write your next great scroll in a Scribe's Workshop.",
-    "hideLockedBackgrounds": "Skryť nedostupné pozadia"
+    "hideLockedBackgrounds": "Skryť nedostupné pozadia",
+    "backgrounds022019": "Sada 57: Vydaná Február 2019",
+    "backgroundMedievalKitchenNotes": "Varte búrku v stredovekej kuchyni.",
+    "backgroundMedievalKitchenText": "Stredoveká kuchyňa"
 }

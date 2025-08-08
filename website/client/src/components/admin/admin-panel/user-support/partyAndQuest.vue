@@ -32,38 +32,43 @@
         ></p>
       </div>
       <div v-if="userHasParty">
-      <div class="form-group row">
-        <label class="col-sm-3 col-form-label">
-          Party ID
-        </label>
-        <strong class="col-sm-9 col-form-label">
-          {{ groupPartyData._id }}
-        </strong>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-3 col-form-label">
-          Estimated Member Count
-        </label>
-        <strong class="col-sm-9 col-form-label">
-          {{ groupPartyData.memberCount }}
-        </strong>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-3 col-form-label">
-          Leader
-        </label>
-        <strong class="col-sm-9 col-form-label">
-          <span v-if="userIsPartyLeader">User is the party leader</span>
-          <span v-else>Party leader is
-            <router-link :to="{'name': 'userProfile', 'params': {'userId': groupPartyData.leader}}">
-              {{ groupPartyData.leader }}
-            </router-link>
-          </span>
-        </strong>
-      </div>
-      <div
-        class="btn btn-danger"
-        @click="removeFromParty()">Remove from Party</div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">
+            Party ID
+          </label>
+          <strong class="col-sm-9 col-form-label">
+            {{ groupPartyData._id }}
+          </strong>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">
+            Estimated Member Count
+          </label>
+          <strong class="col-sm-9 col-form-label">
+            {{ groupPartyData.memberCount }}
+          </strong>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">
+            Leader
+          </label>
+          <strong class="col-sm-9 col-form-label">
+            <span v-if="userIsPartyLeader">User is the party leader</span>
+            <span v-else>Party leader is
+              <router-link
+                :to="{'name': 'userProfile', 'params': {'userId': groupPartyData.leader}}"
+              >
+                {{ groupPartyData.leader }}
+              </router-link>
+            </span>
+          </strong>
+        </div>
+        <div
+          class="btn btn-danger"
+          @click="removeFromParty()"
+        >
+          Remove from Party
+        </div>
       </div>
       <strong v-else>User is not in a party.</strong>
       <div class="subsection-start">

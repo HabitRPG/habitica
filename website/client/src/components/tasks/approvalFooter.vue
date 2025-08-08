@@ -116,7 +116,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
   .claim-bottom-message {
     background-color: $gray-600;
     border-bottom-left-radius: 4px;
@@ -213,10 +213,10 @@
 import moment from 'moment';
 import reduce from 'lodash/reduce';
 import { mapState } from '@/libs/store';
-import checkIcon from '@/assets/svg/check.svg';
-import lockIcon from '@/assets/svg/lock.svg';
-import usersIcon from '@/assets/svg/users.svg';
-import lastComplete from '@/assets/svg/last-complete.svg';
+import checkIcon from '@/assets/svg/check.svg?raw';
+import lockIcon from '@/assets/svg/lock.svg?raw';
+import usersIcon from '@/assets/svg/users.svg?raw';
+import lastComplete from '@/assets/svg/last-complete.svg?raw';
 
 export default {
   props: ['task', 'group'],

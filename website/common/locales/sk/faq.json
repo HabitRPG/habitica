@@ -2,5 +2,9 @@
     "frequentlyAskedQuestions": "Časté otázky",
     "iosFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](http://habitica.fandom.com/wiki/FAQ), come ask in the Tavern chat under Menu > Tavern! We're happy to help.",
     "androidFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](http://habitica.fandom.com/wiki/FAQ), come ask in the Tavern chat under Menu > Tavern! We're happy to help.",
-    "webFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](http://habitica.fandom.com/wiki/FAQ), come ask in the [Habitica Help guild](https://habitica.com/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a)! We're happy to help."
+    "webFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](http://habitica.fandom.com/wiki/FAQ), come ask in the [Habitica Help guild](https://habitica.com/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a)! We're happy to help.",
+    "commonQuestions": "Časté otázky",
+    "faqQuestion25": "Aké rôzne úlohy existujú?",
+    "webFaqAnswer25": "Habitica používa tri rôzne typy úloh pre vaše potreby: Návyky, Denné návyky a Zoznam úloh.\n\nNávyky môžu byť pozitívne alebo negatívne a predstavujú niečo, čo chcete sledovať viackrát za deň alebo bez pevného harmonogramu. Pozitívne Návyky vám prinesú odmeny, ako Zlato a Skúsenosti (Exp), zatiaľ čo Negatívne Návyky spôsobia stratu zdravia (HP).\n\nDenné návyky sú opakujúce sa úlohy, ktoré chcete splniť podľa štruktúrovanejšieho harmonogramu. Napríklad raz za deň, trikrát za týždeň alebo štyrikrát za mesiac. Nesplnenie Denných úloh spôsobuje stratu HP, ale čím sú náročnejšie, tým lepšie sú odmeny!\n\nZoznam úloh obsahuje jednorazové úlohy, ktoré poskytujú odmeny po ich splnení. Úlohy môžu mať termín dokončenia, ale nestratíte HP, ak ho nestihnete.\n\nVyberte si typ úlohy, ktorý najlepšie vyhovuje tomu, čo chcete dosiahnuť!",
+    "faqQuestion26": "Aké úlohy môžem napríklad vytvoriť?"
 }

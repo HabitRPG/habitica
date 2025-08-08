@@ -528,6 +528,20 @@ const armor = {
     per: 11,
     set: 'gildedKnightSet',
   },
+  beekeepersSuit: {
+    con: 12,
+    set: 'beekeepersSet',
+  },
+  flyFishingWaders: {
+    str: 7,
+    con: 7,
+    set: 'flyFishingSet',
+  },
+  redWaistcoat: {
+    con: 8,
+    str: 8,
+    set: 'redWaistcoatSet',
+  },
 };
 
 const body = {
@@ -1080,6 +1094,20 @@ const head = {
     con: 11,
     set: 'gildedKnightSet',
   },
+  beekeepersHat: {
+    per: 12,
+    set: 'beekeepersSet',
+  },
+  flyFishingHat: {
+    str: 7,
+    per: 7,
+    set: 'flyFishingSet',
+  },
+  redNewsieHat: {
+    per: 8,
+    int: 8,
+    set: 'redWaistcoatSet',
+  },
 };
 
 const shield = {
@@ -1443,6 +1471,15 @@ const shield = {
     int: 8,
     per: 8,
     set: 'springPetalSet',
+  },
+  beekeepersHive: {
+    str: 12,
+    set: 'beekeepersSet',
+  },
+  flyFishingRod: {
+    str: 7,
+    int: 7,
+    set: 'flyFishingSet',
   },
 };
 
@@ -1954,6 +1991,10 @@ const weapon = {
   gildedKnightsSpear: {
     str: 11,
     set: 'gildedKnightSet',
+  },
+  beekeepersSmoker: {
+    int: 12,
+    set: 'beekeepersSet',
   },
 };
 

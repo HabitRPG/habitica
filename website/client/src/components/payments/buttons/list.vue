@@ -24,7 +24,7 @@
     >
       &nbsp;
       <img
-        src="~@/assets/images/paypal-checkout.png"
+        src="@/assets/images/paypal-checkout.png"
         :alt="$t('paypal')"
       >&nbsp;
     </button>
@@ -32,7 +32,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .payments-column {
     display: flex;
@@ -86,7 +86,7 @@
 </style>
 
 <script>
-import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
+import creditCardIcon from '@/assets/svg/credit-card-icon.svg?raw';
 
 export default {
   props: {

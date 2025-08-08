@@ -13,9 +13,12 @@
           @click="expand = !expand"
         >
           User Profile
-          <b v-if="hasUnsavedChanges && !expand" class="text-warning float-right">
-          Unsaved changes
-        </b>
+          <b
+            v-if="hasUnsavedChanges && !expand"
+            class="text-warning float-right"
+          >
+            Unsaved changes
+          </b>
         </h3>
       </div>
       <div
@@ -66,7 +69,10 @@
           value="Save"
           class="btn btn-primary mt-1"
         >
-        <b v-if="hasUnsavedChanges" class="text-warning float-right">
+        <b
+          v-if="hasUnsavedChanges"
+          class="text-warning float-right"
+        >
           Unsaved changes
         </b>
       </div>
@@ -86,7 +92,7 @@ import markdownDirective from '@/directives/markdown';
 import saveHero from '../mixins/saveHero';
 
 import { mapState } from '@/libs/store';
-import { userStateMixin } from '../../../mixins/userState';
+import { userStateMixin } from '../../../../mixins/userState';
 
 function resetData (self) {
   self.expand = false;

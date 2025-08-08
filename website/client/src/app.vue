@@ -29,12 +29,14 @@
     </div>
     <snackbars />
     <router-view v-if="!isUserLoggedIn || isStaticPage" />
-    <user-main v-else />
+    <div v-else>
+      <user-main />
+    </div>
   </div>
 </template>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   #loading-screen-inapp {
     #melior {
@@ -90,7 +92,7 @@
 </style>
 
 <style lang='scss'>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .modal-backdrop {
     opacity: .9 !important;
@@ -108,16 +110,16 @@ import axios from 'axios';
 
 import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
-import userMain from '@/pages/user-main';
 import snackbars from '@/components/snackbars/notifications';
+import { LOCALSTORAGE_AUTH_KEY } from '@/libs/auth';
 
-const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
+const COMMUNITY_MANAGER_EMAIL = import.meta.env.EMAILS_COMMUNITY_MANAGER_EMAIL;
 
 export default {
   name: 'App',
   components: {
     snackbars,
-    userMain,
+    userMain: () => import('@/pages/user-main'),
   },
   data () {
     return {
@@ -221,11 +223,10 @@ export default {
 
         const errorData = error.response.data;
         const errorMessage = errorData.message || errorData;
+        const errorCode = errorData.error;
 
-        // Check for conditions to reset the user auth
-        // TODO use a specific error like NotificationNotFound instead of checking for the string
-        const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
-        if (invalidUserMessage.indexOf(errorMessage) !== -1) {
+        // If 'invalid_credentials' signaled, force logout
+        if (error.response.status === 401 && errorCode === 'invalid_credentials') {
           this.$store.dispatch('auth:logout', { redirectToLogin: true });
           return null;
         }
@@ -268,16 +269,29 @@ export default {
     const loadingScreen = document.getElementById('loading-screen');
     if (loadingScreen) document.body.removeChild(loadingScreen);
 
-    if (this.isStaticPage || !this.isUserLoggedIn) {
-      this.hideLoadingScreen();
+    // Check if we need to show password change success message
+    if (sessionStorage.getItem('passwordChangeSuccess') === 'true') {
+      sessionStorage.removeItem('passwordChangeSuccess');
+      this.$store.dispatch('snackbars:add', {
+        title: 'Habitica',
+        text: this.$t('passwordSuccess'),
+        type: 'success',
+        timeout: true,
+      });
     }
+
+    this.$router.onReady(() => {
+      if (this.isStaticPage || !this.isUserLoggedIn) {
+        this.hideLoadingScreen();
+      }
+    });
   },
   methods: {
     hideLoadingScreen () {
       this.loading = false;
     },
     checkForBannedUser (error) {
-      const AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
+      const AUTH_SETTINGS = localStorage.getItem(LOCALSTORAGE_AUTH_KEY);
       const parseSettings = JSON.parse(AUTH_SETTINGS);
       const errorMessage = error.response.data.message;
 
@@ -301,4 +315,3 @@ export default {
 </script>
 
 <style src="@/assets/scss/index.scss" lang="scss"></style>
-<style src="@/assets/scss/sprites.scss" lang="scss"></style>

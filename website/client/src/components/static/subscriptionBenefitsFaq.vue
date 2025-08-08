@@ -54,30 +54,30 @@
         <li>{{ $t('subscriptionDetail33') }}</li>
       </ul>
       <h3>{{ $t('commonQuestions') }}</h3>
-      <h4>{{ $t('subscriptionDetail40')}}</h4>
-      <p>{{ $t('subscriptionDetail400')}}</p>
-      <h4>{{ $t('subscriptionDetail41')}}</h4>
-      <p>{{ $t('subscriptionDetail410')}}</p>
-      <h4>{{ $t('subscriptionDetail42')}}</h4>
-      <p>{{ $t('subscriptionDetail420')}}</p>
-      <h4>{{ $t('subscriptionDetail43')}}</h4>
-      <p>{{ $t('subscriptionDetail430')}}</p>
-      <h4>{{ $t('subscriptionDetail44')}}</h4>
-      <p>{{ $t('subscriptionDetail440')}}</p>
+      <h4>{{ $t('subscriptionDetail40') }}</h4>
+      <p>{{ $t('subscriptionDetail400') }}</p>
+      <h4>{{ $t('subscriptionDetail41') }}</h4>
+      <p>{{ $t('subscriptionDetail410') }}</p>
+      <h4>{{ $t('subscriptionDetail42') }}</h4>
+      <p>{{ $t('subscriptionDetail420') }}</p>
+      <h4>{{ $t('subscriptionDetail43') }}</h4>
+      <p>{{ $t('subscriptionDetail430') }}</p>
+      <h4>{{ $t('subscriptionDetail44') }}</h4>
+      <p>{{ $t('subscriptionDetail440') }}</p>
       <ul>
         <li>{{ $t('subscriptionDetail4400', { initialNumber: 25, roundedNumber: 26 }) }}</li>
         <li>{{ $t('subscriptionDetail4400', { initialNumber: 35, roundedNumber: 36 }) }}</li>
         <li>{{ $t('subscriptionDetail4400', { initialNumber: 45, roundedNumber: 46 }) }}</li>
       </ul>
-      <h4>{{ $t('subscriptionDetail45')}}</h4>
-      <p>{{ $t('subscriptionDetail450')}}</p>
-      <p>{{ $t('subscriptionDetail451')}}</p>
-      <h4>{{ $t('subscriptionDetail46')}}</h4>
-      <p>{{ $t('subscriptionDetail460')}}</p>
-      <h4>{{ $t('subscriptionDetail47')}}</h4>
-      <p>{{ $t('subscriptionDetail470')}}</p>
-      <h4>{{ $t('subscriptionDetail48')}}</h4>
-      <p>{{ $t('subscriptionDetail480')}}</p>
+      <h4>{{ $t('subscriptionDetail45') }}</h4>
+      <p>{{ $t('subscriptionDetail450') }}</p>
+      <p>{{ $t('subscriptionDetail451') }}</p>
+      <h4>{{ $t('subscriptionDetail46') }}</h4>
+      <p>{{ $t('subscriptionDetail460') }}</p>
+      <h4>{{ $t('subscriptionDetail47') }}</h4>
+      <p>{{ $t('subscriptionDetail470') }}</p>
+      <h4>{{ $t('subscriptionDetail48') }}</h4>
+      <p>{{ $t('subscriptionDetail480') }}</p>
       <p
         v-html="$t('subscriptionPara2',
                    { mailto: '<a href=mailto:admin@habitica.com>admin@habitica.com</a>'}
@@ -90,7 +90,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/faq.scss';
+  @import '@/assets/scss/faq.scss';
 </style>
 
 <script>

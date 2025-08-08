@@ -189,7 +189,7 @@
     "dismissAll": "すべて閉じる",
     "messages": "メッセージ",
     "emptyMessagesLine1": "メッセージはありません",
-    "emptyMessagesLine2": "ユーザーのプロフィールを見に行って「メッセージ」ボタンを押すと、新しいメッセージを送ることができます。",
+    "emptyMessagesLine2": "Habiticaのプレイヤーやパーティーメンバーにメッセージを送って会話を始めよう！ユーザーのプロフィールの「メッセージ」ボタンを押すと、新しいメッセージを送ることができます。",
     "userSentMessage": "<span class=\"notification-bold\"><%- user %></span>からのメッセージが届きました",
     "letsgo": "レッツゴー！",
     "selected": "選択中",
@@ -238,5 +238,8 @@
     "bannedPlayer": "このプレーヤーはアカウント停止されました。",
     "skipExternalLinkModal": "リンクをクリックするときにCTRL（Windows）またはCommand（Mac）を押したままにすると、このモーダルがスキップされます。",
     "general": "一般",
-    "titleCustomizations": "カスタマイズ"
+    "titleCustomizations": "カスタマイズ",
+    "newMessage": "新しいメッセージ",
+    "targetUserNotExist": "「<%= userName %>」というユーザーはいません。",
+    "rememberToBeKind": "他人には優しくして、<a href='/static/community-guidelines' target='_blank'>コミュニティガイドラン</a>を守ってください。"
 }

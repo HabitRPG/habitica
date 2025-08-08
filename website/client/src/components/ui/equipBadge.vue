@@ -21,7 +21,7 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
   .badge-equip {
     cursor: pointer;
@@ -70,8 +70,8 @@
 </style>
 
 <script>
-import svgEquip from '@/assets/svg/equip.svg';
-import svgUnEquip from '@/assets/svg/unequip.svg';
+import svgEquip from '@/assets/svg/equip.svg?raw';
+import svgUnEquip from '@/assets/svg/unequip.svg?raw';
 
 export default {
   props: {

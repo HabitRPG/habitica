@@ -84,7 +84,7 @@ export default {
     showButton () {
       window.OffAmazonPayments.Button( // eslint-disable-line new-cap
         this.buttonId, // ID of the button
-        process.env.AMAZON_PAYMENTS_SELLER_ID,
+        import.meta.env.AMAZON_PAYMENTS_SELLER_ID,
         {
           type: 'PwA',
           color: 'Gold',

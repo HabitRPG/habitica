@@ -4,7 +4,7 @@
       <!-- @TODO i18n. How to setup the strings with the router-link inside?-->
       <img
         :class="retiredChatPage ? 'mt-5' : 'image-404'"
-        src="~@/assets/images/404.png"
+        src="@/assets/images/404.png"
       >
       <div v-if="retiredChatPage">
         <h1>
@@ -48,7 +48,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 h1, .static-wrapper h1 {
   color: $purple-200;

@@ -64,7 +64,7 @@
       top: -55px;
       width: 48px;
       height: 51px;
-      background-image: url('~@/assets/images/justin_textbox.png');
+      background-image: url('@/assets/images/justin_textbox.png');
     }
   }
 

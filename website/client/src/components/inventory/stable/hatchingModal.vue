@@ -46,8 +46,8 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/mixins.scss';
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/mixins.scss';
+  @import '@/assets/scss/colors.scss';
 
   #hatching-modal {
     @include centeredModal();
@@ -113,7 +113,7 @@
 </style>
 
 <script>
-import svgClose from '@/assets/svg/close.svg';
+import svgClose from '@/assets/svg/close.svg?raw';
 
 import petMixin from '@/mixins/petMixin';
 import Sprite from '@/components/ui/sprite';

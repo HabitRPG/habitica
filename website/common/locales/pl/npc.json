@@ -23,7 +23,7 @@
     "pauseDailies": "Wstrzymaj obrażenia",
     "unpauseDailies": "Wznów otrzymywanie obrażeń",
     "staffAndModerators": "Personel oraz Moderatorzy",
-    "communityGuidelinesIntro": "Habitika próbuje stworzyć gościnne środowisko dla użytkowników każdego wieku i pochodzenia, szczególnie w przestrzeniach publicznych jak Tawerna. Jeśli masz jakieś pytania proszę poradź się <a href='/static/community-guidelines' target='_blank'>Wytyczne Społeczności</a>.",
+    "communityGuidelinesIntro": "Habitika próbuje stworzyć gościnne środowisko dla użytkowników każdego wieku i pochodzenia, szczególnie w miejscach takich jak Grupy i Zespoły. Jeśli masz jakieś pytania proszę poradź się <a href='/static/community-guidelines' target='_blank'>Wytyczne Społeczności</a>.",
     "acceptCommunityGuidelines": "Zgadzam się na przestrzeganie Regulaminu Społeczności",
     "worldBossEvent": "Wydarzenie: Boss Świata",
     "worldBossDescription": "Opis Bossa Świata",
@@ -129,5 +129,7 @@
     "helpSupportHabitica": "Wesprzyj Habitica",
     "groupsPaymentSubBilling": "Następne rozliczenie nastąpi dnia <strong><%= renewalDate %></strong>.",
     "sellItems": "Sprzedaj przedmioty",
-    "groupsPaymentAutoRenew": "Ta subskrybcja będzie odnawiana automatycznie. Aby z niej zrezygnować, przejdź do rozliczeń w zakładce \"Grupa\"."
+    "groupsPaymentAutoRenew": "Ta subskrybcja będzie odnawiana automatycznie. Aby z niej zrezygnować, przejdź do rozliczeń w zakładce \"Grupa\".",
+    "notAvailable": "Ten przedmiot jest niedostępny.",
+    "customizationsShopText": "Chcesz zmienić swój styl? Dobrze trafiłeś! Oferujemy najświeższe stylizacje na każdą porę roku."
 }
