@@ -2,7 +2,6 @@ import got from 'got';
 import nconf from 'nconf';
 import logger from './logger';
 
-const IS_PROD = nconf.get('IS_PROD');
 const EMAIL_SERVER = {
   url: nconf.get('EMAIL_SERVER_URL'),
   auth: {
@@ -12,27 +11,23 @@ const EMAIL_SERVER = {
 };
 
 export function sendJob (type, config) {
-  if (IS_PROD) {
-    const { data, options } = config;
-    const usedOptions = {
-      priority: 'high',
-      backoff: { delay: 10 * 60 * 1000, type: 'exponential' },
-      ...options,
-    };
+  const { data, options } = config;
+  const usedOptions = {
+    backoff: { delay: 10 * 60 * 1000, type: 'exponential' },
+    ...options,
+  };
 
-    return got.post(`${EMAIL_SERVER.url}/job`, {
-      retry: 5, // retry the http request to the email server 5 times
-      timeout: 60000, // wait up to 60s before timing out
-      username: EMAIL_SERVER.auth.user,
-      password: EMAIL_SERVER.auth.password,
-      json: {
-        type,
-        data,
-        options: usedOptions,
-      },
-    }).json().catch(err => logger.error(err, {
-      extraMessage: 'Error while sending an email.',
-    }));
-  }
-  return null;
+  return got.post(`${EMAIL_SERVER.url}/job`, {
+    retry: 5, // retry the http request to the email server 5 times
+    timeout: 60000, // wait up to 60s before timing out
+    username: EMAIL_SERVER.auth.user,
+    password: EMAIL_SERVER.auth.password,
+    json: {
+      type,
+      data,
+      options: usedOptions,
+    },
+  }).json().catch(err => logger.error(err, {
+    extraMessage: 'Error while sending an email.',
+  }));
 }
