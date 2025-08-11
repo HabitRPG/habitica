@@ -39,7 +39,7 @@ export default {
     });
   },
   methods: {
-    validateEmail: debounce(function (email) {
+    validateEmail: debounce(function valEmail (email) {
       if (!email) {
         this.emailValid = false;
         this.emailError = null;
@@ -62,7 +62,7 @@ export default {
         this.emailError = null;
       });
     }, 500),
-    validatePassword: debounce(function (password) {
+    validatePassword: debounce(function valPass (password) {
       if (!password) {
         this.passwordValid = false;
         this.passwordInvalid = false;
@@ -71,7 +71,7 @@ export default {
       this.passwordValid = password.length >= MINIMUM_PASSWORD_LENGTH;
       this.passwordInvalid = password.length < MINIMUM_PASSWORD_LENGTH;
     }, 500),
-    validatePasswordConfirm: debounce(function (passwordConfirm) {
+    validatePasswordConfirm: debounce(function valPassConf (passwordConfirm) {
       if (!passwordConfirm) {
         this.passwordConfirmValid = false;
         this.passwordConfirmInvalid = false;
@@ -91,7 +91,7 @@ export default {
           email: this.email,
           password: this.password,
           passwordConfirm: this.passwordConfirm,
-          registrationMethod: 'local',         
+          registrationMethod: 'local',
         };
       } else {
         this.authData = await this.socialAuth(accountType);
@@ -105,7 +105,7 @@ export default {
           this.$store.state.registrationOptions = {
             authData: this.authData,
             email: window.sessionStorage.getItem('social-email'),
-            registrationMethod: accountType,         
+            registrationMethod: accountType,
           };
         }
       }
@@ -125,4 +125,4 @@ export default {
       return auth;
     },
   },
-}
+};

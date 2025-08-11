@@ -82,6 +82,7 @@
       </div>
       <div
         v-for="issue in usernameIssues"
+        :key="issue"
         class="input-error"
       >
         {{ issue }}
@@ -175,8 +176,8 @@
       </div>
       <div class="text-center">
         <button
-          id="continue-button"
           v-if="registering"
+          id="continue-button"
           type="submit"
           class="btn btn-info w-100 mb-4"
           :disabled="!(emailValid && passwordValid && passwordConfirmValid)"
@@ -231,10 +232,16 @@
           ></a>
         </div>
         <div class="header">
-          <h2 v-once class="text-center">
+          <h2
+            v-once
+            class="text-center"
+          >
             {{ $t('emailNewPass') }}
           </h2>
-          <p v-once class="purple-600 text-left">
+          <p
+            v-once
+            class="purple-600 text-left"
+          >
             {{ $t('forgotPasswordSteps') }}
           </p>
         </div>
@@ -270,8 +277,8 @@
         <div class="text-center">
           <button
             class="btn btn-info w-100"
-            @click="forgotPasswordLink()"
             :disabled="!username || usernameIssues.length > 0"
+            @click="forgotPasswordLink()"
           >
             {{ $t('sendLink') }}
           </button>
@@ -703,7 +710,7 @@ export default {
       this.resetPasswordSetNewOneData.hasError = false;
       this.$router.push({ name: 'login' });
     },
-    validateUsername: debounce(function (username) {
+    validateUsername: debounce(function valUsername (username) {
       const usernameIssues = [];
       if (username.length > 0 && !isEmail(username)) {
         if (username.length > 20) {

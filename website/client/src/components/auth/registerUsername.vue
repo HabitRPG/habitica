@@ -13,7 +13,9 @@
           src="@/assets/images/home/signup-quill@2x.png"
           width="120px"
         >
-        <h1 class="mt-0 mb-3 white mx-auto">{{ $t('whatToCallYou') }}</h1>
+        <h1 class="mt-0 mb-3 white mx-auto">
+          {{ $t('whatToCallYou') }}
+        </h1>
         <form
           class="form mx-auto"
           @submit.prevent.stop="register()"
@@ -38,7 +40,9 @@
             <!-- eslint-enable vue/require-v-for-key -->
             {{ issue }}
           </div>
-          <p class="purple-600">{{ $t('usernameLimitations')}} </p>
+          <p class="purple-600">
+            {{ $t('usernameLimitations') }}
+          </p>
           <div class="custom-control custom-checkbox mb-4">
             <input
               id="privacyTOS"
@@ -200,11 +204,11 @@ export default {
         if (this.$route.query && this.$route.query.p) {
           groupInvite = this.$route.query.p;
         }
-  
+
         if (this.$route.query && this.$route.query.groupInvite) {
           groupInvite = this.$route.query.groupInvite;
         }
-  
+
         await this.$store.dispatch('auth:register', {
           username: this.username,
           email: this.email,
@@ -212,9 +216,9 @@ export default {
           passwordConfirm: this.passwordConfirm,
           groupInvite,
         });
-  
+
         const redirect = this.sanitizeRedirect(this.$route.query.redirectTo);
-  
+
         window.location.href = redirect;
       } else if (this.registrationMethod === 'apple') {
         await this.$store.dispatch('auth:appleAuth', {

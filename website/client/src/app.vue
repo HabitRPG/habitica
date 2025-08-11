@@ -218,8 +218,8 @@ export default {
           }
           // Also, a 404 occurs during routine attempt to log in with social,
           // when we check for account already existing.
-          if (error.response.config.method === 'post' && error.response.config.url.indexOf('/api/v4/user/auth/social') !== -1
-            || error.response.config.url.indexOf('/api/v4/user/auth/apple') !== -1) {
+          if (error.response.config.method === 'post' && (error.response.config.url.indexOf('/api/v4/user/auth/social') !== -1
+            || error.response.config.url.indexOf('/api/v4/user/auth/apple') !== -1)) {
             const socialEmail = error.response.data.message.split(': ')[1];
             if (socialEmail) {
               window.sessionStorage.setItem('social-email', socialEmail);

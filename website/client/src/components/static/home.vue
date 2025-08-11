@@ -11,7 +11,7 @@
     <privacy-banner
       class="privacy-banner"
     />
-    <div class="bg-purple-300">
+    <div class="bg-purple-300 white">
       <div>
         <div
           id="intro-signup"
@@ -130,7 +130,7 @@
         </div>
         <div
           id="gamify-life"
-          class="bg-purple-100"
+          class="bg-purple-100 white"
         >
           <div class="container-fluid">
             <div
@@ -187,7 +187,7 @@
         </div>
         <div
           id="use-cases"
-          class="bg-purple-100"
+          class="bg-purple-100 white"
         >
           <div class="container text-center">
             <div class="row">
@@ -240,7 +240,7 @@
         </div>
         <div
           id="level-up-anywhere"
-          class="purple-3"
+          class="bg-purple-50 white"
         >
           <div class="container">
             <div class="row">
@@ -274,7 +274,7 @@
         </div>
         <div
           id="call-to-action"
-          class="purple-4"
+          class="purple-4 white"
         >
           <div class="container featured">
             <div class="row text-center">
@@ -377,12 +377,8 @@
       padding-bottom: 5em;
     }
 
-    .custom-control-label, .bg-purple-100, .bg-purple-300, .purple-3, .purple-4, h1, h2, h3, h4, h5 {
+    .custom-control-label, h1, h2, h3, h4, h5 {
       color: $white;
-    }
-
-    .purple-3 {
-      background-color: $purple-50;
     }
 
     .purple-4 {
