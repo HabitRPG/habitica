@@ -450,7 +450,7 @@
             <strong class="col-sm-9 col-form-label">
               <span v-if="value === true">Yes</span>
               <span v-else-if="value === false">No</span>
-              <span v-else-if="isDate(value)"
+              <span v-else-if="value instanceof String && isDate(value)"
                 v-b-tooltip.hover="value">
                 {{ formatDate(value) }}
                 </span>
@@ -466,6 +466,13 @@
                 target="_blank"
                 :href="playOrdersUrl">
                 Play Console
+              </a>
+              <a
+                v-else-if="hero.purchased.plan.paymentMethod === 'Paypal'"
+                class="btn btn-primary btn-sm"
+                target="_blank"
+                :href="'https://www.paypal.com/billing/subscriptions/' + paymentDetails.customerId">
+                PayPal Dashboard
               </a>
             </div>
           </div>
@@ -604,6 +611,14 @@ const humandReadablePaymentDetails = {
   nextPaymentDate: {
     label: 'Next Payment Date',
     help: 'The date when the next payment is due. If the subscription is canceled or expired, this may be null.',
+  },
+  lastPaymentDate: {
+    label: 'Last Payment Date',
+    help: 'The date when the lastpayment was made for the subscription.',
+  },
+  failedPayments: {
+    label: 'Failed Payments',
+    help: 'Number of times the payment failed for this subscription.',
   },
 }
 
