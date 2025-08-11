@@ -270,6 +270,7 @@
         </div>
         <div
           v-for="issue in usernameIssues"
+          :key="issue"
           class="input-error mb-2"
         >
           {{ issue }}
