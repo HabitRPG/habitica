@@ -36,7 +36,7 @@ const envVars = [
   'TIME_TRAVEL_ENABLED',
   'DEBUG_ENABLED',
   'CONTENT_SWITCHOVER_TIME_OFFSET',
-  // TODO necessary? if yes how not to mess up with vue cli? 'NODE_ENV'
+  'PLAY_CONSOLE_ORDERS_BASE_URL',
 ];
 
 const envObject = {};

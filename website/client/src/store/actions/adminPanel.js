@@ -11,3 +11,9 @@ export async function getUserHistory (store, payload) {
   const response = await axios.get(url);
   return response.data.data;
 }
+
+export async function getSubscriptionPaymentDetails (store, payload) {
+  const url = `/api/v4/admin/user/${payload.userIdentifier}/subscription-payment-details`;
+  const response = await axios.get(url);
+  return response.data.data;
+}

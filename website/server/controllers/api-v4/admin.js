@@ -9,6 +9,8 @@ import { model as Blocker } from '../../models/blocker';
 import {
   NotFound,
 } from '../../libs/errors';
+import apple from '../../libs/payments/apple';
+import google from '../../libs/payments/google';
 
 const api = {};
 
@@ -185,6 +187,48 @@ api.deleteBlocker = {
     const savedBlocker = await blocker.save();
 
     res.respond(200, savedBlocker);
+  },
+};
+
+api.validateSubscriptionPaymentDetails = {
+  method: 'GET',
+  url: '/admin/user/:userId/subscription-payment-details',
+  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  async handler (req, res) {
+    req.checkParams('userId', res.t('heroIdRequired')).notEmpty().isUUID();
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const { userId } = req.params;
+
+    const user = await User.findById(userId)
+      .select('purchased')
+      .lean()
+      .exec();
+
+    if (!user) throw new NotFound(res.t('userWithIDNotFound', { userId }));
+    if (!user.purchased || !user.purchased.plan || !user.purchased.plan.paymentMethod || !user.purchased.plan.paymentMethod === '') {
+      throw new NotFound(res.t('subscriptionNotFoundForUser', { userId }));
+    }
+
+    let paymentDetails;
+    if (user.purchased.plan.paymentMethod === 'Apple') {
+      paymentDetails = await apple.getSubscriptionPaymentDetails(userId, user.purchased.plan);
+    } else if (user.purchased.plan.paymentMethod === 'Google') {
+      paymentDetails = await google.getSubscriptionPaymentDetails(userId, user.purchased.plan);
+    } else if (user.purchased.plan.paymentMethod === 'Paypal') {
+      throw new NotFound(res.t('paypalSubscriptionNotValidated'));
+    } else if (user.purchased.plan.paymentMethod === 'Stripe') {
+      throw new NotFound(res.t('stripeSubscriptionNotValidated'));
+    } else if (user.purchased.plan.paymentMethod === 'Amazon Payments') {
+      throw new NotFound(res.t('amazonSubscriptionNotValidated'));
+    } else if (user.purchased.plan.paymentMethod === 'Gift') {
+      throw new NotFound(res.t('giftSubscriptionNotValidated'));
+    } else {
+      throw new NotFound(res.t('unknownSubscriptionPaymentMethod', { method: user.purchased.paymentMethod }));
+    }
+    res.respond(200, paymentDetails);
   },
 };
 

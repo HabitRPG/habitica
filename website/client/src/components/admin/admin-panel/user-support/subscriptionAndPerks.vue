@@ -419,6 +419,57 @@
             >
           </div>
         </div>
+
+        <div class="form-group row">
+          <h2>Payment Details</h2>
+        </div>
+        <div class="form-group row">
+          <div class="offset-sm-3 col-sm-9 mb-3">
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm"
+              @click="getSubscriptionPaymentDetails"
+            >
+              Get Subscription Payment Details
+            </button>
+          </div>
+          </div>
+        <div
+          v-if="paymentDetails">
+          <div
+            v-for="(value, key) in paymentDetails"
+            class="form-group row">
+            <label class="col-sm-3 col-form-label">
+              {{ getHumandReadablePaymentDetails(key).label }}:
+              <span
+                :id="`${key}_tooltip`"
+                class="info-icon"
+                v-b-tooltip.hover.right="getHumandReadablePaymentDetails(key).help"
+              >?</span>
+            </label>
+            <strong class="col-sm-9 col-form-label">
+              <span v-if="value === true">Yes</span>
+              <span v-else-if="value === false">No</span>
+              <span v-else-if="isDate(value)"
+                v-b-tooltip.hover="value">
+                {{ formatDate(value) }}
+                </span>
+              <span v-else-if="value === null">---</span>
+              <span v-else>{{ value }}</span>
+            </strong>
+          </div>
+          <div class="form-group row">
+            <div class="offset-sm-3 col-sm-9">
+              <a
+                v-if="hero.purchased.plan.paymentMethod === 'Google'"
+                class="btn btn-primary btn-sm"
+                target="_blank"
+                :href="playOrdersUrl">
+                Play Console
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
       <div
         v-if="expand"
@@ -474,17 +525,36 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/colors.scss';
 
-.input-group-append {
-  width: auto;
-
-  .input-group-text {
-    border-bottom-right-radius: 2px;
-    border-top-right-radius: 2px;
-    font-weight: 600;
-    font-size: 0.8rem;
-    color: $gray-200;
+  .form-group {
+    margin-bottom: 0.4rem;
   }
-}
+
+  .input-group-append {
+    width: auto;
+
+    .input-group-text {
+      border-bottom-right-radius: 2px;
+      border-top-right-radius: 2px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: $gray-200;
+    }
+  }
+
+  .info-icon {
+    font-size: 0.8rem;
+    color: $purple-400;
+    cursor: pointer;
+    margin-left: 0.2rem;
+    background-color: $gray-500;
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.2rem;
+  }
+
+  .info-icon:hover {
+    background-color: $purple-400;
+    color: white;
+  }
 </style>
 
 <script>
@@ -494,6 +564,48 @@ import { getPlanContext } from '@/../../common/script/cron';
 import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 import saveHero from '../mixins/saveHero';
 import LoadingSpinner from '@/components/ui/loadingSpinner';
+import { get } from 'lodash';
+
+const PLAY_CONSOLE_ORDERS_BASE_URL = import.meta.env.PLAY_CONSOLE_ORDERS_BASE_URL;
+
+const humandReadablePaymentDetails = {
+  customerId: {
+    label: 'Customer ID',
+    help: 'The unique identifier for the customer in the payment system.',
+  },
+  purchaseDate: {
+    label: 'Purchase Date',
+    help: 'The date when the subscription was purchased or renewed.',
+  },
+  originalPurchaseDate: {
+    label: 'Original Purchase Date',
+    help: 'The date when the subscription was first purchased.',
+  },
+  productId: {
+    label: 'Product ID',
+    help: 'The identifier for the product associated with the subscription.',
+  },
+  transactionId: {
+    label: 'Transaction ID',
+    help: 'The unique identifier for the last transaction in the payment system.',
+  },
+  isCanceled: {
+    label: 'Is Canceled',
+    help: 'Indicates whether the subscription has been canceled by the user or the system.',
+  },
+  isExpired: {
+    label: 'Is Expired',
+    help: 'Indicates whether the subscription has expired. A cancelled subscription may still be active until the end of the billing cycle.',
+  },
+  expirationDate: {
+    label: 'Termination Date',
+    help: 'The date when the subscription will expire or has expired.',
+  },
+  nextPaymentDate: {
+    label: 'Next Payment Date',
+    help: 'The date when the next payment is due. If the subscription is canceled or expired, this may be null.',
+  },
+}
 
 export default {
   components: {
@@ -520,6 +632,7 @@ export default {
       isConvertingToGroupPlan: false,
       groupPlanID: '',
       subscriptionBlocks,
+      paymentDetails: null,
     };
   },
   computed: {
@@ -553,6 +666,9 @@ export default {
       }
       return terminationDate;
     },
+    playOrdersUrl () {
+      return `${PLAY_CONSOLE_ORDERS_BASE_URL}${this.paymentDetails?.transactionId || ''}`;
+    }
   },
   methods: {
     dateFormat (date) {
@@ -583,6 +699,20 @@ export default {
       this.isConvertingToGroupPlan = true;
       this.hero.purchased.plan.owner = '';
     },
+    getSubscriptionPaymentDetails () {
+      this.$store.dispatch('adminPanel:getSubscriptionPaymentDetails', { userIdentifier: this.hero._id })
+        .then((details) => {
+          if (details) {
+            this.paymentDetails = details
+          } else {
+            alert('No payment details found.');
+          }
+        })
+        .catch((error) => {
+          console.error('Error fetching subscription payment details:', error);
+          alert(`Failed to fetch payment details: ${error.message || 'Unknown error'}`);
+        });
+    },
     saveClicked (e) {
       e.preventDefault();
       if (this.isConvertingToGroupPlan) {
@@ -601,6 +731,15 @@ export default {
         this.$emit('changeUserIdentifier', id);
       }
     },
+    getHumandReadablePaymentDetails (key) {
+      return humandReadablePaymentDetails[key] || { label: key, help: '' };
+    },
+    isDate (date) {
+      return moment(date).isValid();
+    },
+    formatDate (date) {
+      return date ? moment(date).format('MM/DD/YYYY') : '---';
+    }
   },
 };
 </script>

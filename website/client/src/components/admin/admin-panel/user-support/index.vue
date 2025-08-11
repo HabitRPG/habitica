@@ -98,7 +98,8 @@
         />
         <button
           class="btn btn-danger mt-3"
-          @click="confirmDeleteHero">
+          @click="confirmDeleteHero"
+        >
           Begin Member deletion
         </button>
         <b-modal
@@ -107,7 +108,8 @@
           ok-title="Delete"
           ok-variant="danger"
           cancel-title="Cancel"
-          @ok="deleteHero">
+          @ok="deleteHero"
+        >
           <b-modal-body>
             <p>
               Are you sure you want to delete this member?
@@ -116,29 +118,37 @@
               Please note: This action cannot be undone!
             </p>
             <div class="ml-4">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                v-model="deleteHabiticaAccount"
-                id="deleteAccountCheck">
-              <label class="form-check-label" for="deleteAccountCheck">
-                Delete Habitica account
-              </label>
+              <div class="form-check">
+                <input
+                  id="deleteAccountCheck"
+                  v-model="deleteHabiticaAccount"
+                  class="form-check-input"
+                  type="checkbox"
+                >
+                <label
+                  class="form-check-label"
+                  for="deleteAccountCheck"
+                >
+                  Delete Habitica account
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  id="deleteAmplitudeCheck"
+                  v-model="deleteAmplitudeData"
+                  class="form-check-input"
+                  type="checkbox"
+                >
+                <label
+                  class="form-check-label"
+                  for="deleteAmplitudeCheck"
+                >
+                  Delete Amplitude data
+                </label>
+              </div>
             </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                v-model="deleteAmplitudeData"
-                id="deleteAmplitudeCheck">
-              <label class="form-check-label" for="deleteAmplitudeCheck">
-                Delete Amplitude data
-              </label>
-            </div>
-          </div>
           </b-modal-body>
-          </b-modal>
+        </b-modal>
       </div>
     </div>
   </div>
