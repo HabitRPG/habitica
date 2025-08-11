@@ -92,6 +92,6 @@
   "STRIPE_WEBHOOKS_ENDPOINT_SECRET": "111111",
   "TEST_DB_URI": "mongodb://localhost:27017/habitica-test?replicaSet=rs",
   "TIME_TRAVEL_ENABLED": "false",
-  "TRUSTED_DOMAINS": "TRUSTED_DOMAINS": "localhost,https://habitica.com",
+  "TRUSTED_DOMAINS": "localhost,https://habitica.com",
   "WEB_CONCURRENCY": 1
 }
