@@ -63,7 +63,6 @@
     cursor: pointer;
   }
 
-
   .btn-secondary {
     min-width: 5.75rem;
     width: auto;
