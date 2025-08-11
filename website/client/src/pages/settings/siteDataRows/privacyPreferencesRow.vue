@@ -126,8 +126,8 @@ export default {
       this.mixinData.inlineSettingMixin.sharedState.inlineSettingUnsavedValues = false;
     },
     prefToggled () {
-      this.mixinData.inlineSettingMixin.sharedState.inlineSettingUnsavedValues =
-        !this.mixinData.inlineSettingMixin.sharedState.inlineSettingUnsavedValues;
+      const newVal = !this.mixinData.inlineSettingMixin.sharedState.inlineSettingUnsavedValues;
+      this.mixinData.inlineSettingMixin.sharedState.inlineSettingUnsavedValues = newVal;
     },
     resetControls () {
       this.user.preferences.analyticsConsent = !this.user.preferences.analyticsConsent;
