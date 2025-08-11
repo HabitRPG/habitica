@@ -76,10 +76,10 @@ async function findSubscriptionPurchase (additionalData) {
   const googleRes = await iap.validate(iap.GOOGLE, additionalData);
 
   const isValidated = iap.isValidated(googleRes);
-  if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
+  if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
 
   const purchases = iap.getPurchaseData(googleRes);
-  if (purchases.length === 0) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
+  if (purchases.length === 0) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
 
   let purchase;
   let newestDate;

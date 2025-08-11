@@ -438,6 +438,7 @@
           v-if="paymentDetails">
           <div
             v-for="(value, key) in paymentDetails"
+            :key="key"
             class="form-group row">
             <label class="col-sm-3 col-form-label">
               {{ getHumandReadablePaymentDetails(key).label }}:
@@ -578,7 +579,6 @@ import { getPlanContext } from '@/../../common/script/cron';
 import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 import saveHero from '../mixins/saveHero';
 import LoadingSpinner from '@/components/ui/loadingSpinner';
-import { get } from 'lodash';
 
 const PLAY_CONSOLE_ORDERS_BASE_URL = import.meta.env.PLAY_CONSOLE_ORDERS_BASE_URL;
 
@@ -627,7 +627,7 @@ const humandReadablePaymentDetails = {
     label: 'Failed Payments',
     help: 'Number of times the payment failed for this subscription.',
   },
-}
+};
 
 export default {
   components: {
@@ -690,7 +690,7 @@ export default {
     },
     playOrdersUrl () {
       return `${PLAY_CONSOLE_ORDERS_BASE_URL}${this.paymentDetails?.transactionId || ''}`;
-    }
+    },
   },
   methods: {
     dateFormat (date) {
@@ -723,14 +723,14 @@ export default {
     },
     getSubscriptionPaymentDetails () {
       this.$store.dispatch('adminPanel:getSubscriptionPaymentDetails', { userIdentifier: this.hero._id })
-        .then((details) => {
+        .then(details => {
           if (details) {
-            this.paymentDetails = details
+            this.paymentDetails = details;
           } else {
             alert('No payment details found.');
           }
         })
-        .catch((error) => {
+        .catch(error => {
           console.error('Error fetching subscription payment details:', error);
           alert(`Failed to fetch payment details: ${error.message || 'Unknown error'}`);
         });
@@ -761,7 +761,7 @@ export default {
     },
     formatDate (date) {
       return date ? moment(date).format('MM/DD/YYYY') : '---';
-    }
+    },
   },
 };
 </script>

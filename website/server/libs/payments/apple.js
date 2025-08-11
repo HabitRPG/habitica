@@ -89,7 +89,12 @@ async function findSubscriptionPurchase (receipt, onlyActive = true) {
   let newestDate;
 
   for (const purchaseData of purchaseDataList) {
-    const datePurchased = new Date(Number(purchaseData.purchaseDateMs));
+    let datePurchased;
+    if (purchaseData.purchaseDate instanceof Date) {
+      datePurchased = purchaseData.purchaseDate;
+    } else {
+      datePurchased = new Date(Number(purchaseData.purchaseDateMs || purchaseData.purchaseDate));
+    }
     const dateTerminated = new Date(Number(purchaseData.expirationDate || 0));
     if ((!newestDate || datePurchased > newestDate)) {
       if (!onlyActive || dateTerminated > new Date()) {
