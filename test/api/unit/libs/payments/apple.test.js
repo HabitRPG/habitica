@@ -6,11 +6,10 @@ import iap from '../../../../../website/server/libs/inAppPurchases';
 import { model as User } from '../../../../../website/server/models/user';
 import common from '../../../../../website/common';
 import * as gems from '../../../../../website/server/libs/payments/gems';
-import { after } from 'lodash';
 
 const { i18n } = common;
 
-describe.only('Apple Payments', () => {
+describe('Apple Payments', () => {
   const subKey = 'basic_3mo';
 
   let iapSetupStub;

@@ -17,7 +17,6 @@ import {
   BadRequest,
   NotFound,
 } from '../../errors';
-import { payment } from 'paypal-rest-sdk';
 
 export async function checkSubData (sub, isGroup = false, coupon) {
   if (!sub || !sub.canSubscribe) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
