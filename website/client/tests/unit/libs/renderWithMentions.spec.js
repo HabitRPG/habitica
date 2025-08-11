@@ -12,12 +12,12 @@ describe('renderWithMentions', () => {
     expect(result).to.be.null;
   });
 
-  test('highlights displayname', () => {
+  test('does not highlight displayname to prevent impersonation', () => {
     const text = 'hello @displayedUser with text after';
 
     const result = renderMarkdown(text, user('user', 'displayedUser'));
-
-    expect(result).to.contain('<span class="at-text at-highlight">@displayedUser</span>');
+    expect(result).to.contain('<span class="at-text">@displayedUser</span>');
+    expect(result).to.not.contain('<span class="at-text at-highlight">@displayedUser</span>');
   });
 
   test('highlights username', () => {
@@ -56,7 +56,8 @@ describe('renderWithMentions', () => {
 
     const result = renderMarkdown(plainText, user('use', 'mentions'));
 
-    expect(result).to.contain('<span class="at-text at-highlight">@mentions</span>');
+    expect(result).to.contain('<span class="at-text">@mentions</span>');
+    expect(result).to.not.contain('<span class="at-text at-highlight">@mentions</span>');
     expect(result).to.contain('<span class="at-text at-highlight">@use</span>');
     expect(result).to.contain('<span class="at-text">@mail</span>');
     expect(result).to.not.contain('<span class="at-text at-highlight">@mentions</span>.com');
