@@ -12,6 +12,9 @@ import {
 import apple from '../../libs/payments/apple';
 import google from '../../libs/payments/google';
 import paypal from '../../libs/payments/paypal';
+import {
+  getSubscriptionPaymentDetails as getStripeSubscriptionPaymentDetails,
+} from '../../libs/payments/stripe/subscriptions';
 
 const api = {};
 
@@ -221,7 +224,7 @@ api.validateSubscriptionPaymentDetails = {
     } else if (user.purchased.plan.paymentMethod === 'Paypal') {
       paymentDetails = await paypal.getSubscriptionPaymentDetails({ user });
     } else if (user.purchased.plan.paymentMethod === 'Stripe') {
-      throw new NotFound(res.t('stripeSubscriptionNotValidated'));
+      paymentDetails = await getStripeSubscriptionPaymentDetails(user);
     } else if (user.purchased.plan.paymentMethod === 'Amazon Payments') {
       throw new NotFound(res.t('amazonSubscriptionNotValidated'));
     } else if (user.purchased.plan.paymentMethod === 'Gift') {

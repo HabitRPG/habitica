@@ -474,6 +474,13 @@
                 :href="'https://www.paypal.com/billing/subscriptions/' + paymentDetails.customerId">
                 PayPal Dashboard
               </a>
+              <a
+                v-else-if="hero.purchased.plan.paymentMethod === 'Stripe'"
+                class="btn btn-primary btn-sm"
+                target="_blank"
+                :href="'https://dashboard.stripe.com/customers/' + paymentDetails.customerId">
+                Stripe Dashboard
+              </a>
             </div>
           </div>
         </div>
