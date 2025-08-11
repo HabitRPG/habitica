@@ -4,9 +4,7 @@ import {
 import * as authLib from '../../libs/auth';
 import { model as User } from '../../models/user';
 import { verifyUsername } from '../../libs/user/validation';
-import {
-  isRestrictedEmailDomain
-} from '../../libs/auth/utils';
+import { isRestrictedEmailDomain } from '../../libs/auth/utils';
 
 const api = {};
 

@@ -38,6 +38,7 @@
   "IGNORE_REDIRECT": "true",
   "ITUNES_SHARED_SECRET": "aaaabbbbccccddddeeeeffff00001111",
   "LIVELINESS_PROBE_KEY": "",
+  "LOG_AMPLITUDE_EVENTS": "false",
   "LOG_REQUESTS_EXCESSIVE_MODE": "false",
   "LOGGLY_CLIENT_TOKEN": "token",
   "LOGGLY_SUBDOMAIN": "example-subdomain",
@@ -90,5 +91,7 @@
   "STRIPE_PUB_KEY": "22223333444455556666777788889999",
   "STRIPE_WEBHOOKS_ENDPOINT_SECRET": "111111",
   "TEST_DB_URI": "mongodb://localhost:27017/habitica-test?replicaSet=rs",
-  "TIME_TRAVEL_ENABLED": "false"
+  "TIME_TRAVEL_ENABLED": "false",
+  "TRUSTED_DOMAINS": "TRUSTED_DOMAINS": "localhost,https://habitica.com",
+  "WEB_CONCURRENCY": 1
 }
