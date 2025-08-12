@@ -218,12 +218,18 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 0.5rem;
-
-    // somehow the browser felt like setting this 398px instead
-    // now its fixed to 400 :)
-    width: 400px;
-
+    max-width: 400px;
+    width: 100%;
     margin-bottom: 1.5rem;
+
+    @media (max-width: 589px) {
+      max-width: 100%;
+      justify-content: center;
+    }
+
+    @media (max-width: 353px) {
+      gap: 0.25rem;
+    }
 
     .quest-col {
       ::v-deep {
@@ -251,6 +257,28 @@
     ::v-deep & {
       .modal-dialog {
         width: 448px !important;
+        max-width: calc(100vw - 20px);
+        margin: 0.5rem auto;
+        display: flex;
+
+        @media (max-width: 468px) {
+          width: 100% !important;
+        }
+
+        @media (max-width: 353px) {
+          width: 100% !important;
+          margin: 0.25rem auto;
+        }
+      }
+
+      .modal-content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        @media (max-width: 300px) {
+          border-radius: 0;
+        }
       }
     }
 

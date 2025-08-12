@@ -165,6 +165,28 @@
     .modal-dialog {
       margin-top: 8%;
       width: 448px !important;
+      max-width: calc(100vw - 20px);
+      display: flex;
+
+      @media (max-width: 468px) {
+        width: 100% !important;
+        margin: 0.5rem auto;
+        margin-top: 2%;
+      }
+
+      @media (max-width: 353px) {
+        margin: 0.25rem auto;
+      }
+    }
+
+    .modal-content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      @media (max-width: 300px) {
+        border-radius: 0;
+      }
     }
 
     .content {
