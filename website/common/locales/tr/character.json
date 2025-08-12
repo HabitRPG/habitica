@@ -83,7 +83,7 @@
     "allocatePerPop": "Sezgiye bir Puan ekle",
     "allocateInt": "Zekaya verilen puanlar:",
     "allocateIntPop": "Zekaya bir Puan ekle",
-    "noMoreAllocate": "Artık seviye 100'e ulaştın, bu yüzden artık Stat Puanı kazanamayacaksın. Seviye atlamaya devam edebilir veya  \n<a href='/shops/market'>Yeniden Doğuş Küresi</a>ni kullanarak 1. seviyeden yeni bir maceraya başlayabilirsin!",
+    "noMoreAllocate": "Artık seviye 100'e ulaştın, bu yüzden artık Stat Puanı kazanamayacaksın. Seviye atlamaya devam edebilir veya \n<a href='/shops/market'>Yeniden Doğuş Küresi</a>ni kullanarak 1. seviyeden yeni bir maceraya başlayabilirsin!",
     "stats": "Nitelikler",
     "strength": "Güç",
     "strText": "Güç, rastgele \"kritik vuruş\" şansını ve kritik vuruştan kazanılan Altın ile Tecrübe miktarını ve eşya düşürme olasılığını arttırır. Aynı zamanda canavarlara hasar verilmesine katkı sağlar.",

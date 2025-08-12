@@ -146,7 +146,7 @@
     "emailsMustBeAnArray": "Invitationer med e-mailadresse skal indtastes korrekt i tabellen.",
     "usernamesMustBeAnArray": "Invitationer med brugernavn skal indtastes korrekt i tabellen.",
     "canOnlyInviteMaxInvites": "Du kan kun invitere \"<%= maxInvites %>\" ad gangen",
-    "partyExceedsMembersLimit": "Holdets størrelse er begrænset til  <%= maxMembersParty %> medlemmer",
+    "partyExceedsMembersLimit": "Holdets størrelse er begrænset til <%= maxMembersParty %> medlemmer",
     "onlyCreatorOrAdminCanDeleteChat": "Du har ikke rettigheder til at slette denne besked!",
     "onlyGroupLeaderCanEditTasks": "Du har ikke rettigheder til at administrere opgaver!",
     "onlyGroupTasksCanBeAssigned": "Kun gruppeopgaver kan blive tildelt",

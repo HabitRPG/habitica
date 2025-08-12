@@ -5,7 +5,7 @@ import {
 import { apiError } from '../libs/apiError';
 import { model as Blocker } from '../models/blocker';
 
-// Middleware to block unwanted IP addresses
+// Middleware to block unwanted IP addresses and clients
 
 // NOTE: it's meant to be used behind a proxy (for example a load balancer)
 // that uses the 'x-forwarded-for' header to forward the original IP addresses.

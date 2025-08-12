@@ -1,5 +1,5 @@
 import validator from 'validator';
-import _ from 'lodash';
+import merge from 'lodash/merge';
 import { v4 as uuid } from 'uuid';
 import { authWithHeaders } from '../../middlewares/auth';
 import { ensurePermission } from '../../middlewares/ensureAccessRight';
@@ -161,7 +161,7 @@ api.updateBlocker = {
     const blocker = await Blocker.findById(req.params.blockerId).exec();
     if (!blocker) throw new NotFound(res.t('blockerNotFound'));
 
-    _.merge(blocker, Blocker.sanitize(req.body));
+    merge(blocker, Blocker.sanitize(req.body));
     const savedBlocker = await blocker.save();
 
     res.respond(200, savedBlocker);
@@ -187,5 +187,4 @@ api.deleteBlocker = {
     res.respond(200, savedBlocker);
   },
 };
-
 export default api;

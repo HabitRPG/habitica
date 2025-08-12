@@ -182,7 +182,7 @@
     "questEggVelociraptorText": "Velociraptor",
     "questEggVelociraptorMountText": "Velociraptor",
     "questEggVelociraptorAdjective": "en vaks",
-    "eggNotes": "Find en udrugningseliksir til at hælde på dit æg, og det vil udklække  <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
+    "eggNotes": "Find en udrugningseliksir til at hælde på dit æg, og det vil udklække <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Almindelig",
     "hatchingPotionWhite": "Hvid",
     "hatchingPotionDesert": "Ørken",

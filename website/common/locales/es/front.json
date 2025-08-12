@@ -36,7 +36,7 @@
     "marketing2Lead1Title": "Productividad social",
     "marketing2Lead1": "¡Fortalece tu motivación al colaborar, competir, y interactuar con otros! Habitica está diseñado para aprovechar la parte más efectiva de cualquier programa de superación personal: la responsabilidad social.",
     "marketing2Lead2Title": "Ve a la batalla contra poderosos monstruos en las Misiones",
-    "marketing2Lead2": "Elige una de entre las cientos de Misiones con tu Equipo de amigos para comenzar la refriega. Los monstruos de la Misiones forzarán tu responsabilidad hacia tu Equipo al máximo.  ¡No cumplir con las tareas se traducirá en daño colectivo a tu Equipo!",
+    "marketing2Lead2": "Elige una de entre las cientos de Misiones con tu Equipo de amigos para comenzar la refriega. Los monstruos de la Misiones forzarán tu responsabilidad hacia tu Equipo al máximo. ¡No cumplir con las tareas se traducirá en daño colectivo a tu Equipo!",
     "marketing2Lead3Title": "Retaos el uno al otro",
     "marketing2Lead3": "Únete a los Desafíos creados por nuestra comunidad para obtener una variedad de listas de tareas que encajen con tus intereses y objetivos. ¡Dalo todo y completa lo que te pide para así ser merecedor del premio en Gemas para el ganador!",
     "marketing3Header": "Más maneras de usar Habitica",
@@ -183,5 +183,6 @@
     "incorrectResetPhrase": "Por favor, teclea <%= magicWord %> en mayúsculas para reiniciar tu cuenta.",
     "marketing3Lead1Title": "Aplicaciones para Android y iOS",
     "marketing4Lead3Button": "Empieza Hoy Mismo",
-    "missingClientHeader": "Faltan los encabezados x-client."
+    "missingClientHeader": "Faltan los encabezados x-client.",
+    "emailBlockedRegistration": "Esta cuenta de E-Mail está bloqueada desde el registro. Si crees que es un error, por favor contacta con nosotros por medio de admin@habitica.com."
 }

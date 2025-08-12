@@ -177,7 +177,7 @@
   height: 96px;
 }
 
-.Mount_Head_Gryphon-Gryphatrice, .Mount_Body_Gryphon-Gryphatrice {
+.Mount_Head_Gryphon-Gryphatrice, .Mount_Body_Gryphon-Gryphatrice, .Mount_Head_Dragon-Hydra, .Mount_Body_Dragon-Hydra {
   width: 135px;
   height: 135px;
 }
@@ -188,6 +188,14 @@
 
 .Mount_Body_Gryphon-Gryphatrice {
   background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/BackerOnly-Mount-Body-Gryphatrice.gif") no-repeat;
+}
+
+.Mount_Head_Dragon-Hydra {
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Dragon-Hydra.gif") no-repeat;
+}
+
+.Mount_Body_Dragon-Hydra {
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Dragon-Hydra.gif") no-repeat;
 }
 
 .background_airship, .background_clocktower, .background_steamworks {

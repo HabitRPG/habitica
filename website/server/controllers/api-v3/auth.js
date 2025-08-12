@@ -151,9 +151,7 @@ api.loginSocial = {
 // Called by apple for web authentication.
 api.redirectApple = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    optional: true,
-  })],
+  middlewares: [],
   url: '/user/auth/apple',
   async handler (req, res) {
     if (req.body.id_token) {

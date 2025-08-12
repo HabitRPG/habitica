@@ -3375,5 +3375,13 @@
     "headArmoireFlyFishingHatText": "Chapeau de Pêche à la Mouche",
     "shieldArmoireFlyFishingRodText": "Canne à Mouche",
     "backMystery202507Text": "Planche de Skate Stylée",
-    "backMystery202507Notes": "Votre fidèle destrier pour affronter le bitume et les rampes. Ne confère aucun bonus. Équipement d'Abonnement Juillet 2025."
+    "backMystery202507Notes": "Votre fidèle destrier pour affronter le bitume et les rampes. Ne confère aucun bonus. Équipement d'Abonnement Juillet 2025.",
+    "weaponMystery202508Notes": "Cette lame tournoyante terrifiera tou·te·s monstres et Quotidiennes rouges que vous croiserez sur votre chemin ! Ne confère aucun bonus. Équipement d'Abonnement Août 2025.",
+    "weaponMystery202508Text": "Lame Lumineuse Pourpe",
+    "armorArmoireRedWaistcoatText": "Gilet Rouge",
+    "armorArmoireRedWaistcoatNotes": "Profitez d'un look classe et flamboyant en effectuant vos tâches. Il y a quelque chose de caché dans la poche intérieur, qu'est-ce que ça pourrait être ? Augmente la Constitution et la Force de <%= attrs %> chacune. Armoire Enchantée : Ensemble Gilet Rouge (Objet 2 sur 2)",
+    "headArmoireRedNewsieHatText": "Casquette Rouge d·u·e la Crieu·r·se Publi·c·que",
+    "headArmoireRedNewsieHatNotes": "Extra ! Extra ! Toutes les dernières infos : cette casquette est confortable, à la mode, et pratique. Augmente la Perception et l'Intelligence de <%= attrs %> chacune. Armoire Enchantée : Ensemble Gilet Rouge (Objet 1 sur 2)",
+    "shieldMystery202508Text": "Lame Lumineuse Cyan",
+    "shieldMystery202508Notes": "Si vous pensiez que c'était classe de faire tournoyer une lame, essayez avec deux ! Ne confère aucun bonus. Équipement d'Abonnement Août 2025."
 }

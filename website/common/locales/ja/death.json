@@ -1,7 +1,7 @@
 {
     "lostAllHealth": "体力がなくなった！",
     "dontDespair": "がっかりしないで！",
-    "deathPenaltyDetails": "レベル、ゴールド、装備の一部を失ってしまいました。しかし、がんばればすべてを取り戻せます！ あなたなら、きっとやれる――幸あらんことを。",
+    "deathPenaltyDetails": "レベル、ゴールド、装備の一部を失ってしまいました。しかし、努力すればすべて取り戻せます！ あなたなら、きっとできる！頑張って！",
     "refillHealthTryAgain": "体力を復活させて、もう一度やってみよう",
     "dyingOftenTips": "よく体力がなくなってしまいますか？ <a href='https://habitica.fandom.com/ja/wiki/死のしくみ#生き残るための戦略' target='_blank'>ここにヒントがあります！ </a>",
     "losingHealthWarning": "気をつけて - 体力が減っています！",

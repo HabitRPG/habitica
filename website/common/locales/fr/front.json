@@ -182,5 +182,6 @@
     "translateHabitica": "Traduire Habitica",
     "incorrectResetPhrase": "Merci de taper <%= magicWord %> en lettres capitales pour réinitialiser votre compte.",
     "marketing3Lead1Title": "Applications Android et iOS",
-    "marketing4Lead3Button": "Commencez dès Aujourd'hui"
+    "marketing4Lead3Button": "Commencez dès Aujourd'hui",
+    "missingClientHeader": "En-têtes x-client manquants."
 }

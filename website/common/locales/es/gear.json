@@ -3090,7 +3090,7 @@
     "armorMystery202406Notes": "¡Hostiga cruelmente a tus enemigos con estilo y elegancia! No otorga ningún beneficio. Artículo de Suscriptor Junio 2024.",
     "armorArmoireYellowStripedSwimsuitText": "Clásico Bañador de Rallas Amarillas",
     "armorArmoireYellowStripedSwimsuitNotes": "¿Qué podría hacer que te regodearas y disfrutaras más que una batalla marina contra horripilantes criaturas salidas de las profundidades desde la comodidad de la playa? Aumenta la Constitución en <%= con %>. Armario Encantado: Conjunto a Pie de Playa (Artículo 1 de 4).",
-    "shieldArmoireBuoyantBeachBallNotes": "¿Tratando de mantener demasiadas pelotas en el aire al mismo tiempo? Puede que esto ayude, aquí tienes una que puedes dejar caer, hacerla rodar y rebotar una y otra vez...  Aumenta la Fuerza en <%= str %>. Armario Encantado: Conjunto a Pie de Playa (Artículo 4 de 4).",
+    "shieldArmoireBuoyantBeachBallNotes": "¿Tratando de mantener demasiadas pelotas en el aire al mismo tiempo? Puede que esto ayude, aquí tienes una que puedes dejar caer, hacerla rodar y rebotar una y otra vez... Aumenta la Fuerza en <%= str %>. Armario Encantado: Conjunto a Pie de Playa (Artículo 4 de 4).",
     "weaponArmoireShadyBeachUmbrellaNotes": "La sombra de esta sombrilla de color arcoíris te protege por breves periodos del potente astro rey y de otras molestias indeseadas. Aumenta la Percepción en <%= per %>. Armario Encantado: Conjunto a Pie de Playa (Artículo 3 de 4).",
     "armorArmoireBlueStripedSwimsuitNotes": "¿Qué hacer que te regodearas y disfrutaras más que una batalla marina contra horripilantes criaturas salidas de las profundidades desde la comodidad de la playa? Aumenta la Constitución en <%= con %>. Armario Encantado: Conjunto a Pie de Playa (Artículo 2 de 4).",
     "eyewearMystery202406Text": "Máscara de Bucanero Fantasmal",
@@ -3375,5 +3375,13 @@
     "shieldArmoireFlyFishingRodNotes": "Coloca un cebo en esta caña larga y flexible y engañará a los peces que lo confundirán con una auténtica mosca vez tras vez, garantizado. Aumenta la Fuerza y la Inteligencia en <%= attrs %> cada uno. Armario Encantado: Conjunto de Pescador Fluvial (Artículo 3 de 3)",
     "shieldArmoireFlyFishingRodText": "Caña de Pescador Fluvial",
     "backMystery202507Text": "Tabla del Audaz",
-    "backMystery202507Notes": "Tu montura para las aceras y los medio-tubos. No otorga ningún beneficio. Artículo de Suscriptor Julio 2025."
+    "backMystery202507Notes": "Tu montura para las aceras y los medio-tubos. No otorga ningún beneficio. Artículo de Suscriptor Julio 2025.",
+    "weaponMystery202508Text": "Cuchilla Brillante Carmesí",
+    "weaponMystery202508Notes": "¡Esta cuchilla giratoria será el terror de cualquier monstruo o cualquier Tarea Diaria en rojo que se cruce en tu camino, huirán despavoridos! No otorga ningún beneficio. Artículo de Suscriptor Agosto 2025.",
+    "headArmoireRedNewsieHatText": "Gorra Roja de Vendedor de Periódicos",
+    "headArmoireRedNewsieHatNotes": "¡Extra! ¡Extra! Leed las jugosas últimas noticias: esta gorra es cómoda, práctica y está a la moda. Aumenta la Percepción y la Inteligencia en <%= attrs %> cada uno. Armario Encantado: Conjunto Chaleco Rojo (Artículo 1 de 2)",
+    "shieldMystery202508Text": "Cuchilla Brillante Cian",
+    "shieldMystery202508Notes": "Si una cuchilla giratoria ya te había volado el cerebro ¡Imagínate dos! Un auténtico disparate no apto para todas las mentes. No otorga ningún beneficio. Artículo de Suscriptor Agosto 2025.",
+    "armorArmoireRedWaistcoatText": "Chaleco Rojo",
+    "armorArmoireRedWaistcoatNotes": "Viste elegante y con clase mientras cumples con tus tareas. Hay algo secreto escondido en el bolsillo interior, pero, quién no tiene uno o dos cadáveres escondidos en el armario—¿qué crees que será, precioso mío? Aumenta la Constitución y la Fuerza en <%= attrs %>. Armario Encantado: Conjunto Chaleco Rojo (Artículo 2 de 2)"
 }

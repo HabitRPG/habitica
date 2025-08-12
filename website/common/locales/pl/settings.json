@@ -27,7 +27,7 @@
     "userData": "Dane użytkownika",
     "exportUserData": "Eksportuj dane użytkownika:",
     "export": "Eksport",
-    "xml": "(XML)",
+    "xml": "XML",
     "json": "JSON",
     "customDayStart": "Własny początek dnia",
     "sureChangeCustomDayStartTime": "Jesteś pewien, że chcesz zmienić Czas Początku Dnia? Twoje Codzienne będą się resetować, kiedy pierwszy raz włączysz Habitikę po <%= time %>. Upewnij się, że wykonałeś wszystkie swoje Codzienne przed tym czasem!",
@@ -97,9 +97,9 @@
     "unsubscribedSuccessfully": "Poprawnie zrezygnowano z subskrypcji!",
     "unsubscribedTextUsers": "Poprawnie zrezygnowałeś z subskrypcji wszystkich e-maili od Habitiki. W opcji <a href=\"/user/settings/notifications\">Ustawienia > &gt; Powiadomienia</a> możesz włączyć przesyłanie wybranych powiadomień, które chcesz otrzymywać (wymaga zalogowania).",
     "unsubscribedTextOthers": "Nie otrzymasz więcej żadnych e-maili od Habitica.",
-    "unsubscribeAllEmails": "Zaznacz by zrezygnować z subskrypcji e-maili",
+    "unsubscribeAllEmails": "Zrezygnuj z subskrypcji e-maili",
     "unsubscribeAllEmailsText": "Przez zaznaczenie tego pola poświadczam, że rozumiem że po zrezygnowaniu z subskrypcji wszystkich e-maili, Habitica nie będzie w stanie powiadamiać mnie przez e-mail o ważnych zmianach na stronie lub na moim koncie.",
-    "unsubscribeAllPush": "Zaznacz aby zrezygnować z subskrypcji wszystkich powiadomień",
+    "unsubscribeAllPush": "Zrezygnuj z subskrypcji wszystkich powiadomień",
     "correctlyUnsubscribedEmailType": "Poprawnie zrezygnowano z subskrypcji e-maili \"<%= emailType %>\".",
     "subscriptionRateText": "Okresowa opłata <strong>$<%= price %> USD</strong> co <strong><%= months %> miesięcy</strong>",
     "benefits": "Korzyści",
@@ -235,5 +235,6 @@
     "developerMode": "Tryb Dewelopera",
     "developerModeTooltip": "Habitica zapewnia tryb dewelopera w celu umożliwienia korzystania z dodatkowych funkcji współpracujących z API Habitica.",
     "resetDetail2": "Zachowasz swoją obecną klasę, osiągnięcia oraz swoje chowańce i wierzchowce.",
-    "resetDetail3": "Wszystkie Twoje zadania (poza zadaniami z wyzwań) zostaną trwale usunięte, a Ty utracisz wszystkie dane dotyczące ich historii."
+    "resetDetail3": "Wszystkie Twoje zadania (poza zadaniami z wyzwań) zostaną trwale usunięte, a Ty utracisz wszystkie dane dotyczące ich historii.",
+    "contentRelease": "Publikacja treści + Wydarzenia"
 }

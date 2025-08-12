@@ -972,7 +972,7 @@ describe('User Model', () => {
       expect(valid).to.equal(false);
     });
 
-    it('throws an error if email is not blocked', () => {
+    it('does not throw an error if email is not blocked', () => {
       sandbox.stub(Blocker, 'watchBlockers').returns({
         on: (event, callback) => {
           callback({ operation: 'add', blocker: { type: 'email', area: 'full', value: '@example.com' } });
