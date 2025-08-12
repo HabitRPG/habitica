@@ -204,6 +204,9 @@ export default {
       return response;
     }, error => { // Set up Error interceptors
       if (error.response.status >= 400) {
+        if (!error.response) {
+          return Promise.reject(error);
+        }
         const isBanned = this.checkForBannedUser(error);
         if (isBanned === true) return null; // eslint-disable-line consistent-return
 

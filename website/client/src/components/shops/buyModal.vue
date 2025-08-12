@@ -851,7 +851,7 @@ export default {
           return;
         }
         if (this.genericPurchase) {
-          this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
+          await this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
           await this.purchased(this.item.text);
         }
       }
