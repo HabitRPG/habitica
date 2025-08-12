@@ -20,26 +20,23 @@
       >
         {{ $t('g1g1Details') }}
       </small>
-      <div
-        class="btn-secondary mx-auto d-flex"
+      <button
+        class="btn btn-secondary mx-auto"
         @click="showSelectUser()"
       >
-        <div
-          v-once
-          class="m-auto"
-        >
-          {{ $t('sendGift') }}
-        </div>
-      </div>
+        {{ $t('sendGift') }}
+      </button>
     </div>
     <img
       src="@/assets/images/gifts_end.svg"
       class="gift-end"
       alt=""
     >
-    <close-x
-      @close="remove()"
-    />
+    <div class="close-x">
+      <close-x
+        @close="remove()"
+      />
+    </div>
   </div>
 </template>
 
@@ -84,41 +81,36 @@
   }
 
   .gift-start {
-    align-self: stretch;
-    height: 100%;
+    height: 96px;
     width: auto;
     position: absolute;
     left: 0;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 0;
   }
 
   .gift-end {
-    align-self: stretch;
-    height: 100%;
+    height: 96px;
     width: auto;
     position: absolute;
     right: 0;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 0;
   }
 
-  .btn-secondary {
-    min-width: 5.75rem;
-    width: auto;
-    max-width: calc(100% - 2rem);
-    min-height: 32px;
-    padding: 0.25rem 0.75rem;
-    border-radius: 2px;
-    border-color: $white;
-    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-    font-family: 'Roboto', sans-serif;
-    font-weight: 700;
-    font-style: normal;
-    font-size: 14px;
-    line-height: 24px;
-    color: $gray-50;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .close-x ::v-deep {
+    .modal-close {
+      .svg-close {
+        color: $white;
+        opacity: 0.5;
+
+        &:hover {
+          opacity: 0.75;
+        }
+      }
+    }
   }
 </style>
 
