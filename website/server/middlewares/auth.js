@@ -100,6 +100,7 @@ export function authWithHeaders (options = {}) {
           throw new NotAuthorized(common.i18n.t('accountSuspended', {
             communityManagerEmail: COMMUNITY_MANAGER_EMAIL,
             userId: user._id,
+            username: user.auth.local.username,
           }, language));
         }
 

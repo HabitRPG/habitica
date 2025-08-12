@@ -44,7 +44,7 @@ describe('POST /user/auth/local/login', () => {
     })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('accountSuspended', { communityManagerEmail: nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL'), userId: user._id }),
+      message: t('accountSuspended', { communityManagerEmail: nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL'), userId: user._id, username: user.auth.local.username }),
     });
   });
 
