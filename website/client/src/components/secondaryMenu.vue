@@ -12,6 +12,12 @@
   box-shadow: 0 1px 2px 0 rgba($black, 0.2);
   z-index: 9;
   height: 3rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 683px) {
+    height: auto;
+    min-height: 3rem;
+  }
 }
 
 .nav-link {
@@ -23,6 +29,19 @@
   padding: 0.75rem;
 
   color: $gray-50;
+  white-space: nowrap;
+
+  @media (max-width: 683px) {
+    padding: 0.5rem;
+    font-size: 13px;
+    flex: 1 1 auto;
+    min-width: fit-content;
+  }
+
+  @media (max-width: 576px) {
+    padding: 0.5rem 0.4rem;
+    font-size: 12px;
+  }
 
   &.active {
     color: $purple-300;
