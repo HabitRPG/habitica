@@ -1,0 +1,14 @@
+{
+  "name": "Habitica V3 API Documentation",
+  "title": "Habitica",
+  "url": "https://habitica.com",
+  "version": "3.0.0",
+  "sampleUrl": null,
+  "header": {
+    "title": "Introduction",
+    "filename": "apidoc/header.md"
+  },
+  "template": {
+    "withCompare": false
+  }
+}

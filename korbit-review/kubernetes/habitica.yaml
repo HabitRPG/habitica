@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: habitica
+  labels:
+    name: habitica
+spec:
+  containers:
+#    - image: mongo:latest
+#      name: mongo
+#      ports:
+#        - containerPort: 27017
+#          name: mongo
+    - image: ksonney/habitrpg:latest
+      name: habitica
+      env:
+        - name: NODE_DB_URI
+          value: mongodb://mongosvc/habitrpg
+      ports: 
+        - containerPort: 3000
+          hostPort: 3000
+          name: habitica

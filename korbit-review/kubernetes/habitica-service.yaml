@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata: 
+  labels: 
+    name: habiticaweb
+  name: habiticaweb
+spec: 
+  ports:
+    # the port that this service should serve on
+    - port: 3000
+  # label keys and values that must match in order to receive traffic for this service
+  selector: 
+    name: habitica
+  type: LoadBalancer

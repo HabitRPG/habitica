@@ -1,0 +1,168 @@
+/* eslint-disable camelcase */
+
+import nconf from 'nconf';
+import {
+  generateUser,
+} from '../../../../helpers/api-integration/v3';
+
+describe('POST /debug/modify-inventory', () => {
+  let user; let
+    originalItems;
+  let nconfStub;
+
+  before(async () => {
+    originalItems = {
+      gear: { owned: { armor_base_0: true } },
+      special: {
+        snowball: 1,
+      },
+      pets: {
+        'Wolf-Desert': 5,
+      },
+      mounts: {
+        'Wolf-Desert': true,
+      },
+      eggs: {
+        Wolf: 5,
+      },
+      hatchingPotions: {
+        Desert: 5,
+      },
+      food: {
+        Watermelon: 5,
+      },
+      quests: {
+        gryphon: 5,
+      },
+    };
+    user = await generateUser({
+      items: originalItems,
+    });
+  });
+
+  beforeEach(() => {
+    nconfStub = sandbox.stub(nconf, 'get');
+    nconfStub.withArgs('DEBUG_ENABLED').returns(true);
+    nconfStub.withArgs('BASE_URL').returns('https://example.com');
+  });
+
+  afterEach(() => {
+    nconfStub.restore();
+  });
+
+  it('sets equipment', async () => {
+    const gear = {
+      weapon_healer_2: true,
+      weapon_wizard_1: true,
+      weapon_special_critical: true,
+    };
+
+    await user.post('/debug/modify-inventory', {
+      gear,
+    });
+
+    await user.sync();
+
+    expect(user.items.gear.owned).to.eql(gear);
+  });
+
+  it('sets special spells', async () => {
+    const special = {
+      shinySeed: 3,
+    };
+
+    await user.post('/debug/modify-inventory', {
+      special,
+    });
+
+    await user.sync();
+
+    expect(user.items.special).to.eql(special);
+  });
+
+  it('sets mounts', async () => {
+    const mounts = {
+      'Orca-Base': true,
+      'Mammoth-Base': true,
+    };
+
+    await user.post('/debug/modify-inventory', {
+      mounts,
+    });
+
+    await user.sync();
+
+    expect(user.items.mounts).to.eql(mounts);
+  });
+
+  it('sets eggs', async () => {
+    const eggs = {
+      Gryphon: 3,
+      Hedgehog: 7,
+    };
+
+    await user.post('/debug/modify-inventory', {
+      eggs,
+    });
+
+    await user.sync();
+
+    expect(user.items.eggs).to.eql(eggs);
+  });
+
+  it('sets hatching potions', async () => {
+    const hatchingPotions = {
+      White: 7,
+      Spooky: 2,
+    };
+
+    await user.post('/debug/modify-inventory', {
+      hatchingPotions,
+    });
+
+    await user.sync();
+
+    expect(user.items.hatchingPotions).to.eql(hatchingPotions);
+  });
+
+  it('sets food', async () => {
+    const food = {
+      Meat: 5,
+      Candy_Red: 7,
+    };
+
+    await user.post('/debug/modify-inventory', {
+      food,
+    });
+
+    await user.sync();
+
+    expect(user.items.food).to.eql(food);
+  });
+
+  it('sets quests', async () => {
+    const quests = {
+      whale: 5,
+      cheetah: 10,
+    };
+
+    await user.post('/debug/modify-inventory', {
+      quests,
+    });
+
+    await user.sync();
+
+    expect(user.items.quests).to.eql(quests);
+  });
+
+  it('returns error when not in production mode', async () => {
+    nconfStub.withArgs('DEBUG_ENABLED').returns(false);
+
+    await expect(user.post('/debug/modify-inventory'))
+      .eventually.be.rejected.and.to.deep.equal({
+        code: 404,
+        error: 'NotFound',
+        message: 'Not found.',
+      });
+  });
+});
