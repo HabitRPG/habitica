@@ -121,8 +121,10 @@ api.loginLocal = {
     // convert the hashed password to bcrypt from sha1
     if (user.auth.local.passwordHashMethod === 'sha1') {
       await passwordUtils.convertToBcrypt(user, password);
-      await user.save();
     }
+    // Force the updated timestampt to update, so that we know they logged in
+    user.auth.timestamps.updated = new Date();
+    await user.save();
 
     res.analytics.track('login', {
       category: 'behaviour',

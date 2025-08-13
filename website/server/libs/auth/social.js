@@ -67,10 +67,10 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     }
     if (!user.auth.local.email) {
       user.auth.local.email = await socialEmailToLocal(user);
-      if (user.auth.local.email) {
-        await user.save();
-      }
     }
+    // Force the updated timestampt to update, so that we know they logged in
+    user.auth.timestamps.updated = new Date();
+    await user.save();
     return loginRes(user, req, res);
   }
 

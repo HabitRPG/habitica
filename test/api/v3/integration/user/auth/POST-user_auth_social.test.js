@@ -167,5 +167,24 @@ describe('POST /user/auth/social', () => {
 
       await expect(getProperty('users', user._id, '_ABtests')).to.eventually.be.a('object');
     });
+
+    it('sets auth.timestamps.updated', async () => {
+      let oldUpdated = new Date(user.auth.timestamps.updated);
+      await user.post(endpoint, {
+        authResponse: { access_token: randomAccessToken }, // eslint-disable-line camelcase
+        network,
+      });
+      await user.sync();
+      expect(user.auth.timestamps.updated).to.be.greaterThan(oldUpdated);
+      oldUpdated = new Date(user.auth.timestamps.updated);
+
+      // Do it again to ensure it updates even when nothing else changes
+      await api.post(endpoint, {
+        authResponse: { access_token: randomAccessToken }, // eslint-disable-line camelcase
+        network,
+      });
+      await user.sync();
+      expect(user.auth.timestamps.updated).to.be.greaterThan(oldUpdated);
+    });
   });
 });

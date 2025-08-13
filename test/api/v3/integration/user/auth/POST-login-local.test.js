@@ -110,6 +110,18 @@ describe('POST /user/auth/local/login', () => {
     expect(isValidPassword).to.equal(true);
   });
 
+  it('sets auth.timestamps.updated', async () => {
+    const oldUpdated = new Date(user.auth.timestamps.updated);
+    // login
+    await api.post(endpoint, {
+      username: user.auth.local.email,
+      password,
+    });
+
+    await user.sync();
+    expect(user.auth.timestamps.updated).to.be.greaterThan(oldUpdated);
+  });
+
   it('user uses social authentication and has no password', async () => {
     await user.unset({
       'auth.local.hashed_password': 1,
