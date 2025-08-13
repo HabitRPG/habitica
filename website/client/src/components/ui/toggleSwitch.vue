@@ -111,7 +111,7 @@
   .toggle-switch-inner:before {
     content: "";
     padding-left: 10px;
-    background-color: $green-50;
+    background-color: $purple-300;
   }
 
   .toggle-switch-inner:after {
