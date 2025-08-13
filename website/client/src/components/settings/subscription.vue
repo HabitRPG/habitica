@@ -2,7 +2,8 @@
   <div>
     <div class="pt-0 px-0">
       <div v-if="!hasSubscription && !hasCanceledSubscription">
-        <div class="d-flex flex-column justify-content-center align-items-center
+        <div
+          class="d-flex flex-column justify-content-center align-items-center
           purple-gradient full-banner mb-4"
         >
           <p class="white header-top mt-4 mb-2">
@@ -41,14 +42,18 @@
               v-if="gemCap > 24"
               class="w-100 green-gradient mb-3 text-center"
             >
-              <div class='cap-readout bg-purple-300'>
+              <div class="cap-readout bg-purple-300">
                 <div
                   v-once
                   class="svg-icon svg-gems"
                   v-html="icons.subscriberGems"
                 ></div>
-                <div class="white label"> {{ $t('gemCap') }}</div>
-                <div class="white readout"> {{ gemCap }} / 50</div>
+                <div class="white label">
+                  {{ $t('gemCap') }}
+                </div>
+                <div class="white readout">
+                  {{ gemCap }} / 50
+                </div>
                 <div class="progress-bar bg-purple-100">
                   <div
                     class="progress-fill h-100 bg-green-100"
@@ -56,11 +61,14 @@
                   >
                   </div>
                 </div>
-                <img src="~@/assets/images/confetti.png">
+                <img src="@/assets/images/confetti.png">
               </div>
               <small class="teal-1">{{ $t('resubscribeToPickUp') }}</small>
             </div>
-            <div v-else class="d-flex mb-3 align-items-center">
+            <div
+              v-else
+              class="d-flex mb-3 align-items-center"
+            >
               <div class="sub-benefit bg-gray-600 d-flex mr-4">
                 <div
                   v-once
@@ -69,7 +77,9 @@
                 ></div>
               </div>
               <div class="w-330p my-auto">
-                <h3 class="mb-1"> {{ $t('buyGemsGold') }} </h3>
+                <h3 class="mb-1">
+                  {{ $t('buyGemsGold') }}
+                </h3>
                 <p> {{ $t('subscriptionBenefit1') }} </p>
               </div>
             </div>
@@ -82,10 +92,12 @@
               </div>
               <div class="w-330p my-auto">
                 <h3> {{ $t('monthlyMysteryItems') }} </h3>
-                <p> {{ $t('subscriptionBenefit4', {
-                  month,
-                  currentMysterySetName,
-                }) }} </p>
+                <p>
+                  {{ $t('subscriptionBenefit4', {
+                    month,
+                    currentMysterySetName,
+                  }) }}
+                </p>
               </div>
             </div>
             <div class="d-flex mb-3 align-items-center">
@@ -147,7 +159,8 @@
             v-if="hasSubscription && !hasCanceledSubscription"
             class="d-flex flex-column align-items-center"
           >
-            <div class="round-container bg-green-10
+            <div
+              class="round-container bg-green-10
               d-flex align-items-center justify-content-center"
             >
               <div
@@ -204,7 +217,8 @@
             v-if="hasGiftSubscription"
             class="d-flex flex-column align-items-center mt-4"
           >
-            <div class="round-container bg-green-10
+            <div
+              class="round-container bg-green-10
               d-flex align-items-center justify-content-center"
             >
               <div
@@ -246,7 +260,8 @@
             v-else-if="hasCanceledSubscription"
             class="d-flex flex-column align-items-center"
           >
-            <div class="round-container bg-gray-100
+            <div
+              class="round-container bg-gray-100
               d-flex align-items-center justify-content-center"
             >
               <div
@@ -264,13 +279,17 @@
             >
             </div>
             <h2>{{ $t('readyToResubscribe') }}</h2>
-            <subscription-options class="w-100 mb-4" :canceled="true"/>
+            <subscription-options
+              class="w-100 mb-4"
+              :canceled="true"
+            />
           </div>
           <div
             v-if="hasSubscription"
           >
             <div class="d-flex justify-content-around mb-3">
-              <div class="bg-gray-700 d-flex flex-column
+              <div
+                class="bg-gray-700 d-flex flex-column
                 justify-content-center align-items-center stats-card"
               >
                 <div class="d-flex justify-content-center align-items-center">
@@ -288,7 +307,8 @@
                   {{ $t('subMonths') }}
                 </div>
               </div>
-              <div class="bg-gray-700 d-flex flex-column
+              <div
+                class="bg-gray-700 d-flex flex-column
                 justify-content-center align-items-center stats-card"
               >
                 <div class="d-flex justify-content-center align-items-center">
@@ -317,7 +337,10 @@
                 v-html="icons.hourglassLeft"
               >
               </div>
-              <div v-if="nextHourGlass" class="text-center">
+              <div
+                v-if="nextHourGlass"
+                class="text-center"
+              >
                 <div
                   class="white mb-1"
                 >
@@ -326,11 +349,14 @@
                 <div
                   v-once
                   class="purple-600"
-                  >
+                >
                   {{ $t('nextHourglass') }}
                 </div>
               </div>
-              <p class="w-50 text-center" v-else>
+              <p
+                v-else
+                class="w-50 text-center"
+              >
                 {{ $t('subscribeAgainContinueHourglasses') }}
               </p>
               <div
@@ -390,7 +416,10 @@
         <p class="purple-300 mb-3">
           {{ $t('giftSubscription') }}
         </p>
-        <button class="btn btn-secondary w-448p mb-5" @click="showSelectUser()">
+        <button
+          class="btn btn-secondary w-448p mb-5"
+          @click="showSelectUser()"
+        >
           {{ $t('giftASubscription') }}
         </button>
       </div>
@@ -399,7 +428,7 @@
 </template>
 
 <style scoped lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   a {
     color: $purple-300;
@@ -763,28 +792,28 @@ import notificationsMixin from '../../mixins/notifications';
 import subscriptionOptions from './subscriptionOptions.vue';
 import Sprite from '@/components/ui/sprite';
 
-import amazonPayLogo from '@/assets/svg/amazonpay.svg';
-import applePayLogo from '@/assets/svg/apple-pay-logo.svg';
-import calendarIcon from '@/assets/svg/calendar-purple.svg';
-import checkmarkIcon from '@/assets/svg/check.svg';
-import closeIcon from '@/assets/svg/close.svg';
-import dividerStars from '@/assets/svg/divider-stars.svg';
-import gemIcon from '@/assets/svg/gem.svg';
-import giftBox from '@/assets/svg/gift-purple.svg';
-import googlePayLogo from '@/assets/svg/google-pay-logo.svg';
-import heartIcon from '@/assets/svg/health.svg';
-import hourglassIcon from '@/assets/svg/hourglass.svg';
-import hourglassLeft from '@/assets/svg/hourglass-sparkle-left.svg';
-import hourglassRight from '@/assets/svg/hourglass-sparkle-right.svg';
-import jackalope from '@/assets/svg/jackalope.svg';
-import logo from '@/assets/svg/habitica-logo-purple.svg';
-import paypalLogo from '@/assets/svg/paypal-logo.svg';
-import purpleStars from '@/assets/svg/stars-purple.svg';
-import stripeLogo from '@/assets/svg/stripe.svg';
-import subscriberFood from '@/assets/svg/subscriber-food.svg';
-import subscriberGems from '@/assets/svg/subscriber-gems.svg';
-import subscriberHourglasses from '@/assets/svg/subscriber-hourglasses.svg';
-import wordmark from '@/assets/svg/habitica-logo.svg';
+import amazonPayLogo from '@/assets/svg/amazonpay.svg?raw';
+import applePayLogo from '@/assets/svg/apple-pay-logo.svg?raw';
+import calendarIcon from '@/assets/svg/calendar-purple.svg?raw';
+import checkmarkIcon from '@/assets/svg/check.svg?raw';
+import closeIcon from '@/assets/svg/close.svg?raw';
+import dividerStars from '@/assets/svg/divider-stars.svg?raw';
+import gemIcon from '@/assets/svg/gem.svg?raw';
+import giftBox from '@/assets/svg/gift-purple.svg?raw';
+import googlePayLogo from '@/assets/svg/google-pay-logo.svg?raw';
+import heartIcon from '@/assets/svg/health.svg?raw';
+import hourglassIcon from '@/assets/svg/hourglass.svg?raw';
+import hourglassLeft from '@/assets/svg/hourglass-sparkle-left.svg?raw';
+import hourglassRight from '@/assets/svg/hourglass-sparkle-right.svg?raw';
+import jackalope from '@/assets/svg/jackalope.svg?raw';
+import logo from '@/assets/svg/habitica-logo-purple.svg?raw';
+import paypalLogo from '@/assets/svg/paypal-logo.svg?raw';
+import purpleStars from '@/assets/svg/stars-purple.svg?raw';
+import stripeLogo from '@/assets/svg/stripe.svg?raw';
+import subscriberFood from '@/assets/svg/subscriber-food.svg?raw';
+import subscriberGems from '@/assets/svg/subscriber-gems.svg?raw';
+import subscriberHourglasses from '@/assets/svg/subscriber-hourglasses.svg?raw';
+import wordmark from '@/assets/svg/habitica-logo.svg?raw';
 
 export default {
   components: {

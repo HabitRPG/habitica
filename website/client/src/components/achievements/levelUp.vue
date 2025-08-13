@@ -58,7 +58,7 @@ label(style='display:inline-block') {{ $t('dontShowAgain') }}
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   #level-up {
     .modal-content {
@@ -157,8 +157,8 @@ label(style='display:inline-block') {{ $t('dontShowAgain') }}
 import Avatar from '../avatar';
 import Sprite from '@/components/ui/sprite';
 import { mapState } from '@/libs/store';
-import starGroup from '@/assets/svg/star-group.svg';
-import sparkles from '@/assets/svg/sparkles-left.svg';
+import starGroup from '@/assets/svg/star-group.svg?raw';
+import sparkles from '@/assets/svg/sparkles-left.svg?raw';
 
 const levelQuests = {
   15: 'atom1',

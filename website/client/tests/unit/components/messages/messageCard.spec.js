@@ -1,3 +1,6 @@
+import {
+  describe, expect, test, beforeEach,
+} from 'vitest';
 import Vue from 'vue';
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 
@@ -42,19 +45,19 @@ describe('MessageCard', () => {
     });
   });
 
-  it('shows the message text', () => {
+  test('shows the message text', () => {
     expect(wrapper.find('div.text').text()).to.equal(message.text);
     expect(wrapper.find('div.mentioned-icon').exists()).to.be.false;
   });
 
-  it('shows mention dot if user is mentioned', () => {
+  test('shows mention dot if user is mentioned', () => {
     wrapper.setProps({ msg: createMessage('@Tester') });
 
     expect(wrapper.find('div.mentioned-icon').exists()).to.be.true;
   });
 
   // Bug fixed by https://github.com/HabitRPG/habitica/pull/12177
-  it('shows mention dot if user is mentioned after almostmention', () => {
+  test('shows mention dot if user is mentioned after almostmention', () => {
     wrapper.setProps({ msg: createMessage('thetester @Tester') });
 
     expect(wrapper.find('div.mentioned-icon').exists()).to.be.true;

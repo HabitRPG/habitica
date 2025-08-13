@@ -86,7 +86,7 @@
     "summaryRequired": "Il riepilogo è richiesto",
     "summaryTooLong": "Il riassunto è troppo lungo",
     "descriptionRequired": "La descrizione è richiesta",
-    "locationRequired": "Location of Challenge is required ('Add to')",
+    "locationRequired": "La posizione della Sfida è obbligatoria ('Aggiungi a')",
     "categoiresRequired": "Devono essere selezionate una o più categorie",
     "viewProgressOf": "Vedi i progressi di",
     "viewProgress": "Vedi il Progresso",
@@ -100,5 +100,13 @@
     "messageChallengeFlagOfficial": "Le sfide ufficiali non possono essere segnalate.",
     "whyReportingChallenge": "Perchè stai segnalando questa sfida?",
     "whyReportingChallengePlaceholder": "Motivo della segnalazione",
-    "messageChallengeFlagAlreadyReported": "Hai già segnalato questa sfida."
+    "messageChallengeFlagAlreadyReported": "Hai già segnalato questa sfida.",
+    "resetFlagCount": "Reimposta Conteggio Segnalazioni",
+    "flaggedNotHidden": "Sfida segnalata una volta, non nascosta",
+    "flaggedAndHidden": "Sfida segnalata e nascosta",
+    "resetFlags": "Reimposta Segnalazioni",
+    "cannotClone": "Questa Sfida non può essere clonata perché uno o più giocatori l'hanno segnalata come inappropriata. Un membro dello staff ti contatterà a breve con le istruzioni. Se sono trascorse più di 48 ore e non hai ricevuto loro notizie, invia un'email a admin@habitica.com per assistenza.",
+    "cannotMakeChallenge": "Non puoi creare Sfide pubbliche perché il tuo account attualmente non dispone dei privilegi di inviare messaggi in chat. Contatta admin@habitica.com per maggiori informazioni.",
+    "abuseFlagModalBodyChallenge": "Dovresti segnalare una Sfida solo se viola le <%= firstLinkStart %>Linee Guida della Community<%= linkEnd %> e/o i <%= secondLinkStart %>Termini di Servizio di Habitica<%= linkEnd %>. L'invio di una segnalazione falsa costituisce una violazione delle Linee Guida della Community di Habitica.",
+    "cannotClose": "Questa Sfida non può essere chiusa perché uno o più giocatori l'hanno segnalata come inappropriata. Un membro dello staff ti contatterà a breve con le istruzioni. Se sono trascorse più di 48 ore e non hai ricevuto loro notizie, invia un'email a admin@habitica.com per assistenza."
 }

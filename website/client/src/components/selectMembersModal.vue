@@ -160,9 +160,9 @@
 import sortBy from 'lodash/sortBy';
 
 import MemberDetails from './memberDetails';
-import removeIcon from '@/assets/svg/remove.svg';
-import messageIcon from '@/assets/members/message.svg';
-import starIcon from '@/assets/members/star.svg';
+import removeIcon from '@/assets/svg/remove.svg?raw';
+import messageIcon from '@/assets/members/message.svg?raw';
+import starIcon from '@/assets/members/star.svg?raw';
 
 import { mapState } from '@/libs/store';
 

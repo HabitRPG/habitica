@@ -662,6 +662,9 @@ const backgrounds = {
   backgrounds072025: {
     sirens_lair: { },
   },
+  backgrounds082025: {
+    sunny_street_with_shops: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,

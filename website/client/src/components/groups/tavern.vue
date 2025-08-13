@@ -157,12 +157,12 @@
                     <img
                       v-if="!group.quest.extra.worldDmg.seasonalShop"
                       class="rage-strike"
-                      src="~@/assets/images/world-boss/rage_strike@2x.png"
+                      src="@/assets/images/world-boss/rage_strike@2x.png"
                     >
                     <img
                       v-if="group.quest.extra.worldDmg.seasonalShop"
                       class="rage-strike-active"
-                      src="~@/assets/images/world-boss/rage_strike-seasonalShop@2x.png"
+                      src="@/assets/images/world-boss/rage_strike-seasonalShop@2x.png"
                     >
                   </div>
                   <div
@@ -172,12 +172,12 @@
                     <img
                       v-if="!group.quest.extra.worldDmg.market"
                       class="rage-strike"
-                      src="~@/assets/images/world-boss/rage_strike@2x.png"
+                      src="@/assets/images/world-boss/rage_strike@2x.png"
                     >
                     <img
                       v-if="group.quest.extra.worldDmg.market"
                       class="rage-strike-active"
-                      src="~@/assets/images/world-boss/rage_strike-market@2x.png"
+                      src="@/assets/images/world-boss/rage_strike-market@2x.png"
                     >
                   </div>
                   <div
@@ -187,12 +187,12 @@
                     <img
                       v-if="!group.quest.extra.worldDmg.quests"
                       class="rage-strike"
-                      src="~@/assets/images/world-boss/rage_strike@2x.png"
+                      src="@/assets/images/world-boss/rage_strike@2x.png"
                     >
                     <img
                       v-if="group.quest.extra.worldDmg.quests"
                       class="rage-strike-active"
-                      src="~@/assets/images/world-boss/rage_strike-quests@2x.png"
+                      src="@/assets/images/world-boss/rage_strike-quests@2x.png"
                     >
                   </div>
                 </div>
@@ -486,7 +486,7 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   h1 {
     color: $purple-200;
@@ -756,25 +756,25 @@ import worldBossRageModal from '../world-boss/worldBossRageModal';
 import sidebarSection from '../sidebarSection';
 import chat from './chat';
 
-import challengeIcon from '@/assets/svg/challenge.svg';
-import chevronIcon from '@/assets/svg/chevron-red.svg';
-import gemIcon from '@/assets/svg/gem.svg';
-import healthIcon from '@/assets/svg/health.svg';
-import informationIconRed from '@/assets/svg/information-red.svg';
-import questBackground from '@/assets/svg/quest-background-border.svg';
-import rageIcon from '@/assets/svg/rage.svg';
-import swordIcon from '@/assets/svg/sword.svg';
+import challengeIcon from '@/assets/svg/challenge.svg?raw';
+import chevronIcon from '@/assets/svg/chevron-red.svg?raw';
+import gemIcon from '@/assets/svg/gem.svg?raw';
+import healthIcon from '@/assets/svg/health.svg?raw';
+import informationIconRed from '@/assets/svg/information-red.svg?raw';
+import questBackground from '@/assets/svg/quest-background-border.svg?raw';
+import rageIcon from '@/assets/svg/rage.svg?raw';
+import swordIcon from '@/assets/svg/sword.svg?raw';
 
-import tier1 from '@/assets/svg/tier-1.svg';
-import tier2 from '@/assets/svg/tier-2.svg';
-import tier3 from '@/assets/svg/tier-3.svg';
-import tier4 from '@/assets/svg/tier-4.svg';
-import tier5 from '@/assets/svg/tier-5.svg';
-import tier6 from '@/assets/svg/tier-6.svg';
-import tier7 from '@/assets/svg/tier-7.svg';
-import tierMod from '@/assets/svg/tier-mod.svg';
-import tierNPC from '@/assets/svg/tier-npc.svg';
-import tierStaff from '@/assets/svg/tier-staff.svg';
+import tier1 from '@/assets/svg/tier-1.svg?raw';
+import tier2 from '@/assets/svg/tier-2.svg?raw';
+import tier3 from '@/assets/svg/tier-3.svg?raw';
+import tier4 from '@/assets/svg/tier-4.svg?raw';
+import tier5 from '@/assets/svg/tier-5.svg?raw';
+import tier6 from '@/assets/svg/tier-6.svg?raw';
+import tier7 from '@/assets/svg/tier-7.svg?raw';
+import tierMod from '@/assets/svg/tier-mod.svg?raw';
+import tierNPC from '@/assets/svg/tier-npc.svg?raw';
+import tierStaff from '@/assets/svg/tier-staff.svg?raw';
 
 import staffList from '../../libs/staffList';
 import reportBug from '@/mixins/reportBug.js';

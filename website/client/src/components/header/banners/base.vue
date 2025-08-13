@@ -20,7 +20,7 @@ body.modal-open .habitica-top-banner {
 </style>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .habitica-top-banner {
   width: 100%;

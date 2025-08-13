@@ -60,7 +60,7 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 #external-link-modal {
   &.modal {
@@ -174,8 +174,8 @@
 </style>
 
 <script>
-import exclamationIcon from '@/assets/svg/exclamation.svg';
-import closeIcon from '@/assets/svg/new-close.svg';
+import exclamationIcon from '@/assets/svg/exclamation.svg?raw';
+import closeIcon from '@/assets/svg/new-close.svg?raw';
 
 export default {
   data () {

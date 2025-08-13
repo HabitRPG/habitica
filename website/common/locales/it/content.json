@@ -119,8 +119,8 @@
     "questEggTreelingText": "Alberello",
     "questEggTreelingMountText": "Alberello",
     "questEggTreelingAdjective": "un frondoso",
-    "questEggAxolotlText": "Axolotl",
-    "questEggAxolotlMountText": "Axolotl",
+    "questEggAxolotlText": "Assolotto",
+    "questEggAxolotlMountText": "Assolotto",
     "questEggAxolotlAdjective": "un piccolo",
     "questEggTurtleText": "Tartaruga Marina",
     "questEggTurtleMountText": "Tartaruga Marina Gigante",
@@ -211,7 +211,7 @@
     "hatchingPotionGlow": "Fosforescente",
     "hatchingPotionFrost": "Gelo",
     "hatchingPotionIcySnow": "Neve Ghiacciata",
-    "hatchingPotionNotes": "Versa questa pozione su un uovo, e nascerà un animale <%= potText(locale) %>.",
+    "hatchingPotionNotes": "Versa questa pozione su un uovo, e nascerà un Animale Domestico <%= potText(locale) %>.",
     "foodMeat": "Carne",
     "foodMeatThe": "la Carne",
     "foodMeatA": "Carne",
@@ -354,7 +354,7 @@
     "foodPieBaseA": "una Fetta di Torta di Mele Classica",
     "foodPieBaseThe": "la Torta di Mele Classica",
     "foodPieBase": "Torta di Mele Classica",
-    "premiumPotionUnlimitedNotes": "Non utilizzabile su uova di animali ottenute dalle missioni.",
+    "premiumPotionUnlimitedNotes": "Non utilizzabile su uova di Animali Domestici ottenute dalle Missioni.",
     "hatchingPotionDessert": "Dolcetto",
     "hatchingPotionBirchBark": "Corteccia di Betulla",
     "hatchingPotionRuby": "Rubino",
@@ -408,5 +408,7 @@
     "hatchingPotionGingerbread": "Pan di Zenzero",
     "hatchingPotionOpal": "Opale",
     "hatchingPotionPinkMarble": "Marmo Rosa",
-    "hatchingPotionTeaShop": "Negozio di Tè"
+    "hatchingPotionTeaShop": "Negozio di Tè",
+    "wackyPotionNotes": "Versalo su un uovo, e si schiuderà uno Strano <%= potText(locale) %> Animale Domestico.",
+    "wackyPotionAddlNotes": "Non può essere trasformato in Cavalcature né usato su uova di animali domestici ottenuti attraverso una Missione."
 }

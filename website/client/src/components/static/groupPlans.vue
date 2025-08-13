@@ -12,9 +12,21 @@
             class="party"
             src="../../assets/images/group-plans-static/party@3x.png"
           >
-          <h1 class="mt-5" v-if="upgradingGroup._id">{{ $t('upgradeYourCrew') }}</h1>
-          <h1 class="mt-5" v-else>{{ $t('groupPlanTitle') }}</h1>
-          <p class="mb-0">{{ $t('groupPlanDesc') }}</p>
+          <h1
+            v-if="upgradingGroup._id"
+            class="mt-5"
+          >
+            {{ $t('upgradeYourCrew') }}
+          </h1>
+          <h1
+            v-else
+            class="mt-5"
+          >
+            {{ $t('groupPlanTitle') }}
+          </h1>
+          <p class="mb-0">
+            {{ $t('groupPlanDesc') }}
+          </p>
           <div class="pricing mt-5">
             <span>Just</span>
             <span class="number">$9</span>
@@ -30,12 +42,16 @@
               {{ $t('getStarted') }}
             </button>
           </div>
-          <p class="gray-200">{{ $t('billedMonthly') }}</p>
+          <p class="gray-200">
+            {{ $t('billedMonthly') }}
+          </p>
         </div>
         <div class="top-right"></div>
         <div class="d-flex justify-content-between align-items-middle w-100 gap-72 mb-100">
           <div class="ml-auto my-auto w-448 text-left">
-            <h2 class="mt-0">{{ $t('teamBasedTasksList') }}</h2>
+            <h2 class="mt-0">
+              {{ $t('teamBasedTasksList') }}
+            </h2>
             <p>{{ $t('teamBasedTasksListDesc') }}</p>
           </div>
           <div class="mr-auto my-auto">
@@ -47,7 +63,9 @@
             <img src="../../assets/images/group-plans-static/team-based@3x.png">
           </div>
           <div class="mr-auto my-auto w-448 text-left">
-            <h2 class="mt-0">{{ $t('groupManagementControls') }}</h2>
+            <h2 class="mt-0">
+              {{ $t('groupManagementControls') }}
+            </h2>
             <p>{{ $t('groupManagementControlsDesc') }}</p>
           </div>
         </div>
@@ -56,16 +74,26 @@
             class="big-gem mb-3 mx-auto"
             src="../../assets/images/group-plans-static/big-gem@3x.png"
           >
-          <h2 class="mt-3">{{ $t('inGameBenefits') }}</h2>
-          <p class="final-paragraph mx-auto">{{ $t('inGameBenefitsDesc') }}</p>
+          <h2 class="mt-3">
+            {{ $t('inGameBenefits') }}
+          </h2>
+          <p class="final-paragraph mx-auto">
+            {{ $t('inGameBenefitsDesc') }}
+          </p>
         </div>
         <div class="text-center mb-128">
           <div class="bot-left"></div>
           <div class="col-6 offset-3">
-            <h2 class="purple-300 mt-0 mb-4" v-if="upgradingGroup._id">
+            <h2
+              v-if="upgradingGroup._id"
+              class="purple-300 mt-0 mb-4"
+            >
               {{ $t('readyToUpgrade') }}
             </h2>
-            <h2 v-else class="purple-300 mt-0 mb-4">
+            <h2
+              v-else
+              class="purple-300 mt-0 mb-4"
+            >
               {{ $t('createGroupToday') }}
             </h2>
             <div class="pricing mb-4">
@@ -83,7 +111,9 @@
                 {{ $t('getStarted') }}
               </button>
             </div>
-            <p class="gray-200">{{ $t('billedMonthly') }}</p>
+            <p class="gray-200">
+              {{ $t('billedMonthly') }}
+            </p>
           </div>
           <div class="bot-right"></div>
         </div>
@@ -105,8 +135,13 @@
       class="bottom-banner text-center"
       :class="{ static: isStaticPage }"
     >
-      <h2 class="white">{{ $t('interestedLearningMore') }}</h2>
-      <p class="purple-600" v-html="$t('checkGroupPlanFAQ')"></p>
+      <h2 class="white">
+        {{ $t('interestedLearningMore') }}
+      </h2>
+      <p
+        class="purple-600"
+        v-html="$t('checkGroupPlanFAQ')"
+      ></p>
     </div>
   </div>
 </template>
@@ -124,7 +159,7 @@
 
 <style lang='scss' scoped>
   @import url('https://fonts.googleapis.com/css?family=Varela+Round');
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   // General typography tweaks
 

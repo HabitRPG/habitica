@@ -80,10 +80,10 @@
         <img
           class="swords mb-3"
           srcset="
-        ~@/assets/images/swords.png,
-        ~@/assets/images/swords@2x.png 2x,
-        ~@/assets/images/swords@3x.png 3x"
-          src="~@/assets/images/swords.png"
+        @/assets/images/swords.png,
+        @/assets/images/swords@2x.png 2x,
+        @/assets/images/swords@3x.png 3x"
+          src="@/assets/images/swords.png"
         >
         <p
           v-once
@@ -104,7 +104,7 @@
 </template>
 
 <style lang='scss' scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 @media only screen and (max-width: 992px) {
   .item-with-icon.item-user {
     margin-right: 0px;
@@ -140,7 +140,7 @@
 
 <script>
 import { mapState } from '@/libs/store';
-import userIcon from '@/assets/svg/user.svg';
+import userIcon from '@/assets/svg/user.svg?raw';
 import MenuDropdown from '../ui/customMenuDropdown';
 import MessageCount from './messageCount.functional.vue';
 import { EVENTS } from '@/libs/events';

@@ -294,7 +294,7 @@
     "teamBasedTasksListDesc": "グループメンバー全員が同じタスクボードで作業することで、グループ内の状況を把握することができます。共有タスクボードからタスクを完了させることも、個人のタスクにコピーして外出先で完了させることもできます。",
     "groupManagementControls": "柔軟な説明責任",
     "groupManagementControlsDesc": "タスクが本当に完了されたかを確認するためにタスク承認機能を使いましょう。グループメンバーへ任務を共有するためのグループマネージャーを追加し、全てのチームメンバーのためのプライベートなグループチャットを楽しみましょう。",
-    "inGameBenefits": "ゲーム中のメリット",
+    "inGameBenefits": "メリットがたくさん！",
     "inGameBenefitsDesc": "グループメンバーは、限定のジャッカロープの乗騎だけでなく、毎月の特別な装備セットや、ゴールドでジェムを買う機能など、有料プランの特典を全て受けられます。",
     "letsMakeAccount": "まずはアカウントを作成しましょう",
     "nameYourGroup": "次に、あなたのグループの名前をつけましょう",
@@ -393,7 +393,7 @@
     "groupTeacher": "教師として生徒のタスクを設定する",
     "descriptionOptional": "説明",
     "descriptionOptionalText": "説明を追加",
-    "nextPaymentMethod": "次のステップ：支払方法",
+    "nextPaymentMethod": "次のステップ：お支払い",
     "createGroup": "グループを作る",
     "groupParentChildren": "保護者として子どものタスクを設定する",
     "sendGiftLabel": "ギフトメッセージを送信しますか？",
@@ -422,5 +422,8 @@
     "challengeBannedSlursPrivate": "あなたのチャレンジには、ハビティカのコミュニティガイドラインに違反する中傷が含まれています。あなたのチャレンジを保存するには、それを削除してください。",
     "challengeBannedSlurs": "あなたのチャレンジにはHabiticaのコミュニティガイドラインに違反する中傷が含まれており、あなたのチャットおよびチャレンジ作成権限は剥奪されました。詳しくは admin@habitica.com までお問い合わせください。",
     "challengeBannedWords": "あなたのチャレンジには、1 つ以上の汚い言葉またはアダルト トピックへの言及が含まれています。チャレンジを保存できるように編集してください。単に検閲するのではなく、その言葉を削除する必要があります。",
-    "upgradeYourCrew": "チームをアップグレードする準備はできていますか？"
+    "upgradeYourCrew": "チームをアップグレードする準備はできていますか？",
+    "messageCopiedToClipboard": "コピーしました。",
+    "createGroupToday": "グループを作成しよう！",
+    "createGroupTitle": "グループを作成する"
 }

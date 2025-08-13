@@ -55,7 +55,6 @@
     "APIToken": "Token API (ini kata sandi - lihat peringatan di atas!)",
     "showAPIToken": "Perlihatkan Token API",
     "hideAPIToken": "Sembunyikan Token API",
-    "APITokenWarning": "Kalau kamu butuh Token API baru (misal kamu tidak sengaja menyebarkannya), email <%= hrefTechAssistanceEmail %> berisi ID Pengguna dan Token-mu yang sekarang. Setelah direset kamu harus logout dari situs dan aplikasi handphone, dan kamu harus memasukkan Token barumu ke tools Habitica lain yang kamu gunakan.",
     "thirdPartyApps": "Aplikasi Pihak Ketiga",
     "resetDo": "Lakukan, reset akun!",
     "resetComplete": "Reset selesai!",

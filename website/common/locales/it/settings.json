@@ -55,7 +55,6 @@
     "APIToken": "Chiave API (questa è una password - leggi la nota sopra!)",
     "showAPIToken": "Mostra chiave API",
     "hideAPIToken": "Nascondi chiave API",
-    "APITokenWarning": "Se hai bisogno di una nuova Chiave API (per esempio se l'hai condivisa per sbaglio), manda una mail a <%= hrefTechAssistanceEmail %> con il tuo ID Utente e la tua attuale Chiave API. Una volta resettata dovrai ri-autorizzare ogni cosa uscendo dal sito e dalla app, fornendo poi la tua nuova Chiave API ad eventuali estensioni di Habitica che utilizzi.",
     "thirdPartyApps": "Applicazioni di terze parti",
     "resetDo": "Sì, resetta il mio account!",
     "resetComplete": "Reset completato!",

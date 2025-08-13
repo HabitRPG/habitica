@@ -90,7 +90,7 @@
 <script>
 import { v4 as uuid } from 'uuid';
 import SectionButton from './sectionButton';
-import informationIcon from '@/assets/svg/information.svg';
+import informationIcon from '@/assets/svg/information.svg?raw';
 
 export default {
   components: { SectionButton },

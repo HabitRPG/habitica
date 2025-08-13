@@ -115,7 +115,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   @media (min-width: 1300px) {
     .standard-page {
@@ -297,17 +297,17 @@ import markdownDirective from '@/directives/markdown';
 import chat from './chat';
 import userLink from '../userLink';
 
-import deleteIcon from '@/assets/svg/delete.svg';
-import copyIcon from '@/assets/svg/copy.svg';
-import likeIcon from '@/assets/svg/like.svg';
-import likedIcon from '@/assets/svg/liked.svg';
-import reportIcon from '@/assets/svg/report.svg';
-import gemIcon from '@/assets/svg/gem.svg';
-import questIcon from '@/assets/svg/quest.svg';
-import questBackground from '@/assets/svg/quest-background-border.svg';
-import goldGuildBadgeIcon from '@/assets/svg/gold-guild-badge-small.svg';
-import silverGuildBadgeIcon from '@/assets/svg/silver-guild-badge-small.svg';
-import bronzeGuildBadgeIcon from '@/assets/svg/bronze-guild-badge-small.svg';
+import deleteIcon from '@/assets/svg/delete.svg?raw';
+import copyIcon from '@/assets/svg/copy.svg?raw';
+import likeIcon from '@/assets/svg/like.svg?raw';
+import likedIcon from '@/assets/svg/liked.svg?raw';
+import reportIcon from '@/assets/svg/report.svg?raw';
+import gemIcon from '@/assets/svg/gem.svg?raw';
+import questIcon from '@/assets/svg/quest.svg?raw';
+import questBackground from '@/assets/svg/quest-background-border.svg?raw';
+import goldGuildBadgeIcon from '@/assets/svg/gold-guild-badge-small.svg?raw';
+import silverGuildBadgeIcon from '@/assets/svg/silver-guild-badge-small.svg?raw';
+import bronzeGuildBadgeIcon from '@/assets/svg/bronze-guild-badge-small.svg?raw';
 import QuestDetailModal from './questDetailModal';
 import RightSidebar from '@/components/groups/rightSidebar';
 import InvitationListModal from './invitationListModal';

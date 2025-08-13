@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import gem from '@/assets/svg/gem.svg';
-import gold from '@/assets/svg/gold.svg';
+import gem from '@/assets/svg/gem.svg?raw';
+import gold from '@/assets/svg/gold.svg?raw';
 import { avatarEditorUtilities } from '../../mixins/avatarEditUtilities';
 import Sprite from '@/components/ui/sprite.vue';
 
@@ -72,7 +72,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .customize-options {
     width: 100%;

@@ -2,27 +2,27 @@
 
 import { NotFoundPage } from './shared-route-imports';
 
-const StaticWrapper = () => import(/* webpackChunkName: "entry" */'@/components/static/staticWrapper');
-const HomePage = () => import(/* webpackChunkName: "entry" */'@/components/static/home');
+const StaticWrapper = () => import('@/components/static/staticWrapper');
+const HomePage = () => import('@/components/static/home');
 
-const AppleRedirectPage = () => import(/* webpackChunkName: "static" */'@/components/static/appleRedirect');
-const ClearBrowserDataPage = () => import(/* webpackChunkName: "static" */'@/components/static/clearBrowserData');
-const CommunityGuidelinesPage = () => import(/* webpackChunkName: "static" */'@/components/static/communityGuidelines');
-const ContactPage = () => import(/* webpackChunkName: "static" */'@/components/static/contact');
-const FAQPage = () => import(/* webpackChunkName: "static" */'@/components/static/faq');
-const ChatSunsetFaq = () => import(/* webpackChunkName: "static" */'@/components/static/chatSunsetFaq');
-const ContentScheduleFaq = () => import(/* webpackChunkName: "static" */'@/components/static/contentScheduleFaq');
-const SubscriptionBenefitsFaq = () => import(/* webpackChunkName: "static" */'@/components/static/subscriptionBenefitsFaq');
-const FeaturesPage = () => import(/* webpackChunkName: "static" */'@/components/static/features');
-const GroupPlansPage = () => import(/* webpackChunkName: "static" */'@/components/static/groupPlans');
+const AppleRedirectPage = () => import('@/components/static/appleRedirect');
+const ClearBrowserDataPage = () => import('@/components/static/clearBrowserData');
+const CommunityGuidelinesPage = () => import('@/components/static/communityGuidelines');
+const ContactPage = () => import('@/components/static/contact');
+const FAQPage = () => import('@/components/static/faq');
+const ChatSunsetFaq = () => import('@/components/static/chatSunsetFaq');
+const ContentScheduleFaq = () => import('@/components/static/contentScheduleFaq');
+const SubscriptionBenefitsFaq = () => import('@/components/static/subscriptionBenefitsFaq');
+const FeaturesPage = () => import('@/components/static/features');
+const GroupPlansPage = () => import('@/components/static/groupPlans');
 // Commenting out merch page see
 // https://github.com/HabitRPG/habitica/issues/12039
-// const MerchPage = () => import(/* webpackChunkName: "static" */'@/components/static/merch');
-const NewsPage = () => import(/* webpackChunkName: "static" */'@/components/static/newStuff');
-const OverviewPage = () => import(/* webpackChunkName: "static" */'@/components/static/overview');
-const PressKitPage = () => import(/* webpackChunkName: "static" */'@/components/static/pressKit');
-const PrivacyPage = () => import(/* webpackChunkName: "static" */'@/components/static/privacy');
-const TermsPage = () => import(/* webpackChunkName: "static" */'@/components/static/terms');
+// const MerchPage = () => import('@/components/static/merch');
+const NewsPage = () => import('@/components/static/newStuff');
+const OverviewPage = () => import('@/components/static/overview');
+const PressKitPage = () => import('@/components/static/pressKit');
+const PrivacyPage = () => import('@/components/static/privacy');
+const TermsPage = () => import('@/components/static/terms');
 
 export const STATIC_ROUTES = {
   path: '/static',

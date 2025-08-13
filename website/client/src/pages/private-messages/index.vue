@@ -180,8 +180,8 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/colors';
-@import '~@/assets/scss/variables';
+@import '@/assets/scss/colors';
+@import '@/assets/scss/variables';
 
 $pmHeaderHeight: 56px;
 
@@ -189,18 +189,119 @@ $pmHeaderHeight: 56px;
 
 #private-message {
   height: calc(100vh - #{$menuToolbarHeight} -
-  var(--banner-gift-promo-height, 0px) -
-  var(--banner-damage-paused-height, 0px) -
-  var(--banner-gems-promo-height, 0px)
-  ); // css variable magic :), must be 0px, 0 alone won't work
-
-  .content {
-    flex: 1;
-    height: calc(100vh - #{$menuToolbarHeight} - #{$pmHeaderHeight} -
     var(--banner-gift-promo-height, 0px) -
     var(--banner-damage-paused-height, 0px) -
     var(--banner-gems-promo-height, 0px)
-    );
+  ); // css variable magic :), must be 0px, 0 alone won't work
+
+    .content {
+      flex: 1;
+      height: calc(100vh - #{$menuToolbarHeight} - #{$pmHeaderHeight} -
+        var(--banner-gift-promo-height, 0px) -
+        var(--banner-damage-paused-height, 0px) -
+        var(--banner-gems-promo-height, 0px)
+      );
+    }
+
+    .disable-background {
+      .toggle-switch-description {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        flex: 1;
+      }
+
+      .toggle-switch-outer {
+        display: flex;
+      }
+
+    }
+
+    .modal-body {
+      padding: 0rem;
+    }
+
+    .modal-content {
+      width: 66vw;
+    }
+
+    .modal-dialog {
+      margin: 10vh 15vw 0rem;
+    }
+
+    .modal-header {
+      padding: 1rem 0rem;
+
+      .close {
+        cursor: pointer;
+        margin: 0rem 1.5rem;
+        min-width: 0.75rem;
+        padding: 0rem;
+        width: 0.75rem;
+      }
+    }
+
+    .toggle-switch-description {
+      font-size: 14px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.43;
+      letter-spacing: normal;
+      color: $gray-50;
+    }
+  }
+</style>
+
+<style lang="scss" scoped>
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/tiers.scss';
+  @import '@/assets/scss/variables.scss';
+
+  $pmHeaderHeight: 56px;
+  $background: $white;
+
+  .header-bar {
+    height: 56px;
+    background-color: $white;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    align-items: center;
+
+    .mail-icon {
+      width: 32px;
+      height: 24px;
+      object-fit: contain;
+    }
+
+    .mail-icon-label {
+      margin-bottom: 0;
+    }
+
+    .placeholder.svg-icon {
+      width: 32px;
+    }
+  }
+
+  .full-height {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .user-link {
+    margin-left: 12px;
+  }
+
+  .selected-conversion {
+    justify-content: center;
+    align-items: center;
+  }
+
+  #private-message {
+    background-color: $background;
+    position: relative;
   }
 
   .disable-background {
@@ -285,13 +386,12 @@ $pmHeaderHeight: 56px;
       }
     }
   }
-}
 </style>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors';
-@import '~@/assets/scss/tiers';
-@import '~@/assets/scss/variables';
+@import '@/assets/scss/colors';
+@import '@/assets/scss/tiers';
+@import '@/assets/scss/variables';
 
 $pmHeaderHeight: 56px;
 $background: $white;
@@ -565,8 +665,8 @@ import toggleSwitch from '@/components/ui/toggleSwitch.vue';
 import userLink from '@/components/userLink.vue';
 
 import messageList from '@/components/messages/messageList.vue';
-import messageIcon from '@/assets/svg/message.svg';
-import mail from '@/assets/svg/mail.svg';
+import messageIcon from '@/assets/svg/message.svg?raw';
+import mail from '@/assets/svg/mail.svg?raw';
 import faceAvatar from '@/components/faceAvatar.vue';
 import { EVENTS } from '@/libs/events';
 import PmConversationsList from './pm-conversations-list.vue';
@@ -574,7 +674,7 @@ import PmEmptyState from './pm-empty-state.vue';
 import PmDisabledState from './pm-disabled-state.vue';
 import PmNewMessageStarted from './pm-new-message-started.vue';
 import StartNewConversationInputHeader from './start-new-conversation-input-header.vue';
-import positiveIcon from '@/assets/svg/positive.svg';
+import positiveIcon from '@/assets/svg/positive.svg?raw';
 import NotificationMixins from '@/mixins/notifications';
 
 // extract to a shared path

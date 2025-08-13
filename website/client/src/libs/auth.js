@@ -1,9 +1,18 @@
 import axios from 'axios';
 import moment from 'moment';
 
+export const LOCALSTORAGE_AUTH_KEY = 'habit-mobile-settings';
+
+export function authAsCredentialsState (authObject) {
+  return {
+    API_ID: authObject.auth.apiId,
+    API_TOKEN: authObject.auth.apiToken,
+  };
+}
+
 export function setUpAxios (AUTH_SETTINGS) { // eslint-disable-line import/prefer-default-export
   if (!AUTH_SETTINGS) {
-    AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings'); // eslint-disable-line no-param-reassign, max-len
+    AUTH_SETTINGS = localStorage.getItem(LOCALSTORAGE_AUTH_KEY); // eslint-disable-line no-param-reassign, max-len
     if (!AUTH_SETTINGS) return false;
     AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS); // eslint-disable-line no-param-reassign
   }
@@ -25,5 +34,5 @@ export function setUpAxios (AUTH_SETTINGS) { // eslint-disable-line import/prefe
 
 export function buildAppleAuthUrl () {
   const redirectUrl = encodeURIComponent(`${window.location.protocol}//${window.location.host}/api/v4/user/auth/apple`);
-  return `https://appleid.apple.com/auth/authorize?response_mode=form_post&scope=name%20email&response_type=code&version=2&redirect_uri=${redirectUrl}&client_id=${process.env.APPLE_AUTH_CLIENT_ID}`;
+  return `https://appleid.apple.com/auth/authorize?response_mode=form_post&scope=name%20email&response_type=code&version=2&redirect_uri=${redirectUrl}&client_id=${import.meta.env.APPLE_AUTH_CLIENT_ID}`;
 }

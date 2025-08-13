@@ -537,6 +537,11 @@ const armor = {
     con: 7,
     set: 'flyFishingSet',
   },
+  redWaistcoat: {
+    con: 8,
+    str: 8,
+    set: 'redWaistcoatSet',
+  },
 };
 
 const body = {
@@ -1097,6 +1102,11 @@ const head = {
     str: 7,
     per: 7,
     set: 'flyFishingSet',
+  },
+  redNewsieHat: {
+    per: 8,
+    int: 8,
+    set: 'redWaistcoatSet',
   },
 };
 

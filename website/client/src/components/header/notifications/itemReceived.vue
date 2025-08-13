@@ -15,7 +15,8 @@
     <Sprite
       slot="icon"
       class="mt-3"
-      :image-name="notification.data.icon" />
+      :image-name="notification.data.icon"
+    />
   </base-notification>
 </template>
 

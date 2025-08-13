@@ -1,5 +1,4 @@
 import moment from 'moment';
-import nconf from 'nconf';
 import SEASONAL_SETS from './seasonalSets';
 import { getRepeatingEvents } from './events';
 
@@ -665,7 +664,7 @@ export const MONTHLY_SCHEDULE = {
   },
 };
 
-export const GALA_SWITCHOVER_DAY = 21;
+export const GALA_SWITCHOVER_DAY = 1;
 export const GALA_KEYS = [
   'winter',
   'spring',
@@ -794,7 +793,7 @@ export const GALA_SCHEDULE = {
   },
 };
 
-const SWITCHOVER_TIME = nconf.get('CONTENT_SWITCHOVER_TIME_OFFSET') || process.env.CONTENT_SWITCHOVER_TIME_OFFSET || 0;
+const SWITCHOVER_TIME = process.env.CONTENT_SWITCHOVER_TIME_OFFSET || 0;
 
 export const TYPE_SCHEDULE = {
   timeTravelers: FIRST_RELEASE_DAY,

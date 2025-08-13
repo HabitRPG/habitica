@@ -3365,5 +3365,15 @@
     "shieldArmoireBeekeepersHiveNotes": "A méhkas otthon és munkahely egyben. Talán ideje lenne beszélned a méheiddel a munka és a pihenés egyensúlyáról. Növeli az erődet <%= str %> ponttal. Megbűvölt komód: Méhész szett (4/4 tárgy)",
     "backMystery202506Text": "Napfényes ragyogás dicsfény",
     "backMystery202506Notes": "Vigyél magaddal meleg ragyogást a napi teendőid során. Nem jár semmilyen előnnyel. 2025. júniusi előfizetői tárgy.",
-    "headSpecialSummer2025MageNotes": "Mindenkit elbűvöl majd, ahogy az uszonyaid együtt táncolnak az áramlatokkal. Növeli az észlelésedet <%= per %> ponttal. Korlátozott kiadású nyári 2025-ös felszerelés."
+    "headSpecialSummer2025MageNotes": "Mindenkit elbűvöl majd, ahogy az uszonyaid együtt táncolnak az áramlatokkal. Növeli az észlelésedet <%= per %> ponttal. Korlátozott kiadású nyári 2025-ös felszerelés.",
+    "headMystery202507Notes": "A hátrafelé hordott sapka még mindig menő, ugye? Nem jár semmilyen előnnyel. 2025. júliusi előfizetői tárgy.",
+    "headArmoireFlyFishingHatNotes": "Széles karimája és csalitartó helye nélkülözhetetlenné teszi a legyezőhorgászathoz. Növeli az erődet és az észlelésedet egyaránt <%= attrs %> ponttal. Megbűvölt komód: Legyezőhorgász szett (1/3. tárgy)",
+    "shieldArmoireFlyFishingRodNotes": "Tegyél csalit erre a hosszú és hajlékony botra, és a halak biztosan rovarnak nézik. Növeli az erődet és az intelligenciádat egyaránt <%= attrs %> ponttal. Megbűvölt komód: Legyezőhorgász szett (3/3. tárgy)",
+    "armorArmoireFlyFishingWadersText": "Legyezőhorgász nadrág",
+    "armorArmoireFlyFishingWadersNotes": "Maradj teljesen száraz és meleg, akár patakban, tóban vagy folyóban gázolsz. Növeli az erődet és a szívósságodat egyaránt <%= attrs %> ponttal. Megbűvölt komód: Legyezőhorgász szett (2/3. tárgy)",
+    "headMystery202507Text": "Vagány gördeszkás sapka",
+    "headArmoireFlyFishingHatText": "Legyezőhorgász kalap",
+    "shieldArmoireFlyFishingRodText": "Legyezőhorgász bot",
+    "backMystery202507Text": "Vagány gördeszka",
+    "backMystery202507Notes": "A hátasod a járdákon és félcsövekben. Nem jár semmilyen előnnyel. 2025. júliusi előfizetői tárgy."
 }

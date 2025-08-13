@@ -117,7 +117,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors';
+  @import '@/assets/scss/colors.scss';
 
   .action-padding {
     height: 24px !important;
@@ -153,7 +153,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors';
+  @import '@/assets/scss/colors.scss';
 
   .conversation {
     padding: 1rem 1.5rem;

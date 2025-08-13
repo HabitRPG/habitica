@@ -23,7 +23,7 @@ import StoreModule from './libs/store';
 import './filters/registerGlobals';
 import i18n from './libs/i18n';
 
-const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
+const IS_PRODUCTION = import.meta.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 
 // Configure Vue global options, see https://vuejs.org/v2/api/#Global-Config
 
@@ -53,7 +53,7 @@ setUpLogging();
 setupAnalytics(); // just create queues for analytics, no scripts loaded at this time
 const store = getStore();
 
-if (process.env.TIME_TRAVEL_ENABLED === 'true') {
+if (import.meta.env.TIME_TRAVEL_ENABLED === 'true') {
   (async () => {
     const sinon = await import('sinon');
     if (axios.defaults.headers.common['x-api-user']) {

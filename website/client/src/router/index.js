@@ -19,16 +19,12 @@ const HallPage = () => import(/* webpackChunkName: "hall" */'@/components/hall/i
 const PatronsPage = () => import(/* webpackChunkName: "hall" */'@/components/hall/patrons');
 const HeroesPage = () => import(/* webpackChunkName: "hall" */'@/components/hall/heroes');
 
-// Admin Panel
-const AdminPanelPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel');
-const AdminPanelUserPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel/user-support');
-const AdminPanelSearchPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel/search');
-
-// Except for tasks that are always loaded all the other main level
-// All the main level
-// components are loaded in separate webpack chunks.
-// See https://webpack.js.org/guides/code-splitting-async/
-// for docs
+// Admin Pages
+const AdminContainerPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin/container');
+const AdminPanelPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin/admin-panel');
+const AdminPanelUserPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin/admin-panel/user-support');
+const AdminPanelSearchPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin/admin-panel/search');
+const BlockerPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin/blocker');
 
 // Tasks
 const UserTasks = () => import(/* webpackChunkName: "userTasks" */'@/components/tasks/user');
@@ -69,7 +65,7 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.NODE_ENV === 'production' ? '/' : __dirname, // eslint-disable-line no-process-env
+  base: '/',
   linkActiveClass: 'active',
   // When navigating to another route always scroll to the top
   // To customize the behavior see https://router.vuejs.org/en/advanced/scroll-behavior.html
@@ -184,32 +180,55 @@ const router = new VueRouter({
     },
 
     {
-      name: 'adminPanel',
-      path: '/admin-panel',
-      component: AdminPanelPage,
+      name: 'adminSection',
+      path: '/admin',
+      component: AdminContainerPage,
       meta: {
         privilegeNeeded: [ // any one of these is enough to give access
           'userSupport',
+          'accessControl',
         ],
       },
       children: [
         {
-          name: 'adminPanelSearch',
-          path: 'search/:userIdentifier',
-          component: AdminPanelSearchPage,
+          name: 'adminPanel',
+          path: 'panel',
+          component: AdminPanelPage,
           meta: {
-            privilegeNeeded: [
+            privilegeNeeded: [ // any one of these is enough to give access
               'userSupport',
             ],
           },
+          children: [
+            {
+              name: 'adminPanelSearch',
+              path: 'search/:userIdentifier',
+              component: AdminPanelSearchPage,
+              meta: {
+                privilegeNeeded: [
+                  'userSupport',
+                ],
+              },
+            },
+            {
+              name: 'adminPanelUser',
+              path: ':userIdentifier',
+              component: AdminPanelUserPage,
+              meta: {
+                privilegeNeeded: [
+                  'userSupport',
+                ],
+              },
+            },
+          ],
         },
         {
-          name: 'adminPanelUser',
-          path: ':userIdentifier',
-          component: AdminPanelUserPage,
+          name: 'blockers',
+          path: 'blockers',
+          component: BlockerPage,
           meta: {
-            privilegeNeeded: [
-              'userSupport',
+            privilegeNeeded: [ // any one of these is enough to give access
+              'accessControl',
             ],
           },
         },

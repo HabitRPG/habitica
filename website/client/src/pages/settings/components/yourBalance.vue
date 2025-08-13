@@ -11,7 +11,7 @@
       class="balance-info"
       :currency-needed="currencyNeeded"
       :amount-needed="amountNeeded"
-      :neededCurrencyOnly="true"
+      :needed-currency-only="true"
     />
   </div>
 </template>
@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .your-balance {
   padding: 8px 16px;

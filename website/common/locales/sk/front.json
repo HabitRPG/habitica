@@ -133,7 +133,7 @@
     "invalidReqParams": "Neplatné požadované parametre.",
     "memberIdRequired": "\"member\" musí byť platné UUID.",
     "heroIdRequired": "\"heroId\" musí byť platné UUID.",
-    "cannotFulfillReq": "Tvoja požiadavka nemôže byť splnená.  Pokiaľ táto chyba pretrváva, napíš nám na email admin@habitica.com.",
+    "cannotFulfillReq": "Tvoja požiadavka nemôže byť splnená. Pokiaľ táto chyba pretrváva, napíš nám na email admin@habitica.com.",
     "modelNotFound": "Tento model neexistuje.",
     "signUpWithSocial": "Sign up with <%= social %>",
     "loginWithSocial": "Log in with <%= social %>",

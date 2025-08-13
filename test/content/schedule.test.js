@@ -133,21 +133,21 @@ describe('Content Schedule', () => {
   });
 
   it('sets the end date for a gala', () => {
-    const date = new Date('2024-05-20');
+    const date = new Date('2024-05-31');
     const matchers = getAllScheduleMatchingGroups(date);
-    expect(matchers.seasonalGear.end).to.eql(moment.utc(`2024-06-21T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
+    expect(matchers.seasonalGear.end).to.eql(moment.utc(`2024-06-01T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
   });
 
   it('sets the end date for a winter gala', () => {
-    const date = new Date('2024-12-22');
+    const date = new Date('2025-02-28');
     const matchers = getAllScheduleMatchingGroups(date);
-    expect(matchers.seasonalGear.end).to.eql(moment.utc(`2025-03-21T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
+    expect(matchers.seasonalGear.end).to.eql(moment.utc(`2025-03-01T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
   });
 
   it('sets the end date in new year for a winter gala', () => {
-    const date = new Date('2025-01-04');
+    const date = new Date('2025-02-28');
     const matchers = getAllScheduleMatchingGroups(date);
-    expect(matchers.seasonalGear.end).to.eql(moment.utc(`2025-03-21T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
+    expect(matchers.seasonalGear.end).to.eql(moment.utc(`2025-03-01T${String(switchoverTime).padStart(2, '0')}:00:00.000Z`).toDate());
   });
 
   it('uses correct date for first hours of the month', () => {

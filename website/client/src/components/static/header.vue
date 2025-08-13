@@ -134,7 +134,7 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .habitica-logo {
     height: 64px;
@@ -157,7 +157,7 @@
   }
 
   nav.navbar {
-    background: $purple-100 url(~@/assets/svg/for-css/bits.svg) right no-repeat;
+    background: $purple-100 url(@/assets/svg/for-css/bits.svg) right no-repeat;
     padding-left: 24px;
     padding-right: 12.5px;
     height: 56px;
@@ -271,9 +271,9 @@
 </style>
 
 <script>
-import habiticaLogo from '@/assets/svg/logo-horizontal.svg';
-import purpleLogo from '@/assets/svg/logo-horizontal-purple.svg';
-import melior from '@/assets/svg/melior.svg';
+import habiticaLogo from '@/assets/svg/logo-horizontal.svg?raw';
+import purpleLogo from '@/assets/svg/logo-horizontal-purple.svg?raw';
+import melior from '@/assets/svg/melior.svg?raw';
 
 export default {
   data () {

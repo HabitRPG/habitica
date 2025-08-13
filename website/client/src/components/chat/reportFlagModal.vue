@@ -95,7 +95,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
    .modal-body {
      padding: 0px 8px 0px 8px;
@@ -199,7 +199,7 @@
 import notifications from '@/mixins/notifications';
 import markdownDirective from '@/directives/markdown';
 import { userStateMixin } from '../../mixins/userState';
-import svgClose from '@/assets/svg/close.svg';
+import svgClose from '@/assets/svg/close.svg?raw';
 
 export default {
   directives: {

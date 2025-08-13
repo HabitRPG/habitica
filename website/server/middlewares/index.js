@@ -23,7 +23,7 @@ import {
   forceSSL,
   forceHabitica,
 } from './redirects';
-import ipBlocker from './ipBlocker';
+import blocker from './blocker';
 import v1 from './v1';
 import v2 from './v2';
 import appRoutes from './appRoutes';
@@ -81,7 +81,7 @@ export default function attachMiddlewares (app, server) {
 
   app.use(maintenanceMode);
 
-  app.use(ipBlocker);
+  app.use(blocker);
 
   app.use(cors);
   app.use(forceSSL);

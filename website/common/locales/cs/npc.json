@@ -63,7 +63,7 @@
     "mustPurchaseToSet": "Musíte koupit <%= val %> k nastavení na <%= key %>.",
     "typeRequired": "Je požadován typ",
     "positiveAmountRequired": "Pozitivní množství je požadováno",
-    "notAccteptedType": "Typ musí být v  [vajíčka, líhnoucíLektvary, prémiovéLíhnoucíLektvary, jídlo, výpravy, výbava]",
+    "notAccteptedType": "Typ musí být v [vajíčka, líhnoucíLektvary, prémiovéLíhnoucíLektvary, jídlo, výpravy, výbava]",
     "contentKeyNotFound": "Klíč nenalezen pro Obsah <%= type %>",
     "plusGem": "+<%= count %> Drahokam",
     "typeNotSellable": "Nelze prodat. Lze prodat pouze <%= acceptedTypes %>",

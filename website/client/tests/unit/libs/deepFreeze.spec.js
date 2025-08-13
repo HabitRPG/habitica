@@ -1,7 +1,8 @@
+import { describe, expect, test } from 'vitest';
 import deepFreeze from '@/libs/deepFreeze';
 
 describe('deepFreeze', () => {
-  it('deeply freezes an object', () => {
+  test('deeply freezes an object', () => {
     const obj = {
       a: 1,
       b () {

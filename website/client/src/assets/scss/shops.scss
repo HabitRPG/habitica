@@ -46,13 +46,11 @@
 
     .background {
       background-repeat: repeat-x;
-
+      height:216px;
       width: 100%;
       position: absolute;
-
       top: 0;
       left: 0;
-
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -67,6 +65,13 @@
       flex-direction: column;
     }
 
+    .shop-message {
+      position: relative;
+      height: 76px;
+      margin: 71px auto;
+      width: 240px;
+    }
+    
     .npc {
       position: absolute;
       left: 0;

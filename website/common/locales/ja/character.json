@@ -129,7 +129,7 @@
     "healerText": "治療師は痛みに耐え、他者を守ります。やらなかった日課や悪い習慣にも治療師は動揺せず、失敗から体力を回復させる能力を持っています。パーティーの他のメンバーを助けることに喜びを感じる、困難な仕事による死をも恐れぬ理想があるのなら、治療師でプレイしましょう！",
     "optOutOfClasses": "やめる",
     "chooseClass": "クラスを選んでください",
-    "chooseClassLearnMarkdown": "[Habiticaのクラス・システムについて詳しく調べる](https://habitica.fandom.com/ja/wiki/クラス・システム)",
+    "chooseClassLearnMarkdown": "[Habiticaのクラス・システムについて詳しく調べる](/static/faq/#what-classes)",
     "optOutOfClassesText": "まだ選ぶ準備ができていない？ 焦らなくても大丈夫です！ もし選択しない場合、後で設定からクラスを有効にする事ができます。各クラスについては<a href='/static/faq#what-classes' target='_blank'>よくある質問</a>で読むことができます。",
     "selectClass": "<%= heroClass %>を選択",
     "select": "選択",

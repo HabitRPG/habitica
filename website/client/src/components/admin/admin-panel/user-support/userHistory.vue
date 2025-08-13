@@ -150,7 +150,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .page-header.btn-flat {
     background: transparent;
@@ -180,7 +180,7 @@
 
 <script>
 import moment from 'moment';
-import { userStateMixin } from '../../../mixins/userState';
+import { userStateMixin } from '../../../../mixins/userState';
 
 export default {
   filters: {
