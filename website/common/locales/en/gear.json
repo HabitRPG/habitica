@@ -1739,7 +1739,7 @@
   "armorArmoireFlyFishingWadersText": "Fly Fishing Waders",
   "armorArmoireFlyFishingWadersNotes": "Stay perfectly warm and dry when you wade into a stream, pond, lake, or river. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Fly Fishing Set (Item 2 of 3)",
   "armorArmoireRedWaistcoatText": "Red Waistcoat",
-  "armorArmoireRedWaistcoatNotes": "Look smart and stunning as you tackle your tasks. There’s something secret hidden in the vest pocket—what do you think it could be? Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Red Waistcoat Set (Item 2 of 2)"
+  "armorArmoireRedWaistcoatNotes": "Look smart and stunning as you tackle your tasks. There's something secret hidden in the vest pocket—what do you think it could be? Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Red Waistcoat Set (Item 2 of 2)",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
