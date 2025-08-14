@@ -100,16 +100,12 @@
     z-index: 0;
   }
 
-  .close-x ::v-deep {
-    .modal-close {
-      .svg-close {
-        color: $white;
-        opacity: 0.5;
+  .close-x ::v-deep .svg-close {
+    color: $white !important;
+    opacity: 0.5;
 
-        &:hover {
-          opacity: 0.75;
-        }
-      }
+    &:hover {
+      opacity: 0.75;
     }
   }
 </style>
