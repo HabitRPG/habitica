@@ -109,7 +109,7 @@ export default {
           };
         }
       }
-      this.$router.push({ name: 'username' });
+      this.$router.push({ name: 'username', query: this.$route.query });
     },
     async socialAuth (network) {
       try {

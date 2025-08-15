@@ -117,18 +117,6 @@
           </div>
           <div class="bot-right"></div>
         </div>
-        <b-modal
-          id="group-plan"
-          title
-          size="md"
-          :hide-footer="true"
-          :hide-header="true"
-        >
-          <div>
-            <h2>{{ $t('letsMakeAccount') }}</h2>
-            <auth-form @authenticate="authenticate()" />
-          </div>
-        </b-modal>
       </div>
     </div>
     <div
@@ -353,13 +341,11 @@ export default {
   },
   methods: {
     authenticate () {
-      this.$root.$emit('bv::hide::modal', 'group-plan');
       this.$root.$emit('bv::show::modal', 'create-group');
     },
     goToNewGroupPage () {
       if (this.isStaticPage && !this.user) {
-        this.modalOption = 'static';
-        return this.$root.$emit('bv::show::modal', 'group-plan');
+        return this.$router.push('/register');
       }
       if (this.upgradingGroup._id) {
         return this.stripeGroup({ group: this.upgradingGroup, upgrade: true });
