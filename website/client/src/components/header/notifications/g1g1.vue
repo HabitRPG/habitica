@@ -107,7 +107,7 @@
         opacity: 0.5 !important;
         transition: opacity 0.2s ease;
       }
-      
+
       &:hover .svg-close {
         opacity: 0.75 !important;
       }
