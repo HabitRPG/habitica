@@ -50,7 +50,7 @@
           <div class="col-12">
             <strong v-once>{{ $t('selectChallengeWinnersDescription') }}</strong>
           </div>
-          <div class="col-12">
+          <div class="col-12 search-input-container">
             <div class="search-input-wrapper">
               <div
                 class="search-icon"
@@ -60,7 +60,7 @@
                 v-model="searchTerm"
                 class="search-input"
                 type="text"
-                :placeholder="'@' + $t('username')"
+                placeholder="@Username"
                 @input="searchMembers"
                 @focus="showResults = true"
                 @blur="handleBlur"
@@ -147,8 +147,18 @@
 
     .header-wrap {
       width: 100%;
-      padding-top: 2em;
+      padding-top: 32px;
       position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+    }
+
+    .search-input-container {
+      margin-top: 1em !important;
     }
 
     .search-input-wrapper {
@@ -160,11 +170,13 @@
         position: absolute;
         left: 12px;
         top: 50%;
-        transform: translateY(-50%);
+        transform: translateY(-55%);
         width: 16px;
         height: 16px;
         color: $gray-200;
         pointer-events: none;
+        display: flex;
+        align-items: center;
       }
 
       .search-input {
@@ -202,9 +214,10 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
         .search-result-item {
-          padding: 8px 12px;
+          padding: 8px 16px;
           cursor: pointer;
           transition: all 0.2s ease;
+          text-align: left;
 
           &:hover {
             background-color: $purple-600;
@@ -255,8 +268,24 @@
       transition: all 0.2s ease;
 
       &:disabled {
-        opacity: 0.5;
+        background-color: $white;
+        color: $gray-200;
+        border-color: $gray-400;
         cursor: not-allowed;
+        opacity: 1;
+
+        span {
+          font-family: 'Roboto', sans-serif;
+          font-size: 14px;
+          font-weight: 700;
+          line-height: 24px;
+          color: $gray-200;
+        }
+
+        .gem-icon {
+          opacity: 1;
+          color: $gems-color;
+        }
 
         &:hover {
           background-color: $white;
@@ -291,7 +320,7 @@
       align-items: center;
       justify-content: center;
       gap: 1.5rem;
-      margin: 0 auto;
+      margin: -8px auto 0;
       padding: 0.5rem 0;
 
       .gems-left, .gems-right {
