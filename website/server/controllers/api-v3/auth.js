@@ -122,7 +122,7 @@ api.loginLocal = {
     if (user.auth.local.passwordHashMethod === 'sha1') {
       await passwordUtils.convertToBcrypt(user, password);
     }
-    // Force the updated timestampt to update, so that we know they logged in
+    // Force the updated timestamp to update, so that we know they logged in
     user.auth.timestamps.updated = new Date();
     await user.save();
 
