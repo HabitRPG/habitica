@@ -109,6 +109,12 @@
     right: 16px;
     top: 16px;
     cursor: pointer;
+    z-index: 2;
+    padding: 4px;
+
+    &:hover .svg-close {
+      opacity: 0.75;
+    }
 
     .svg-close {
       color: $white;
@@ -116,10 +122,7 @@
       height: 18px;
       opacity: 0.5;
       transition: opacity 0.2s ease;
-
-      &:hover {
-        opacity: 0.75;
-      }
+      pointer-events: none;
     }
   }
 </style>
