@@ -86,13 +86,19 @@ export const STATIC_ROUTES = {
       name: 'privacy', path: 'privacy', component: PrivacyPage, meta: { requiresLogin: false },
     },
     {
+      name: 'privacyReview', path: 'privacy-review', component: PrivacyPage, meta: { requiresLogin: false },
+    },
+    {
       name: 'register', path: '/register', component: RegisterLoginReset, meta: { requiresLogin: false },
     },
     {
-      name: 'username', path: '/username', component: RegisterUsername, meta: { requiresLogin: false },
+      name: 'terms', path: 'terms', component: TermsPage, meta: { requiresLogin: false },
     },
     {
-      name: 'terms', path: 'terms', component: TermsPage, meta: { requiresLogin: false },
+      name: 'termsReview', path: 'terms-review', component: TermsPage, meta: { requiresLogin: false },
+    },
+    {
+      name: 'username', path: '/username', component: RegisterUsername, meta: { requiresLogin: false },
     },
     {
       name: 'termsReview', path: 'terms-review', component: TermsReviewPage, meta: { requiresLogin: false },
