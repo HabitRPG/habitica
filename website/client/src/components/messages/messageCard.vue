@@ -459,15 +459,8 @@ export default {
       }
       const { user } = this;
       const { username } = user.auth.local;
-      const displayName = user.profile?.name;
-      if (username) {
-        const usernamePattern = `@${escapeRegExp(username)}(\\b)`;
-        message.highlight = new RegExp(usernamePattern, 'i').test(message.text);
-      }
-      if (!message.highlight && displayName && displayName !== username) {
-        const displayNamePattern = `@${escapeRegExp(displayName)}(\\b)`;
-        message.highlight = new RegExp(displayNamePattern, 'i').test(message.text);
-      }
+      const pattern = `@${escapeRegExp(username)}(\\b)`;
+      message.highlight = new RegExp(pattern, 'i').test(message.text);
       return message.highlight;
     },
     flagCountDescription () {
