@@ -122,16 +122,12 @@
       opacity: 0.5;
       transition: opacity 0.2s ease;
       pointer-events: none;
-
-      ::v-deep svg {
-        fill: $white !important;
-      }
     }
   }
 </style>
 
 <script>
-import closeIcon from '@/assets/svg/close.svg?raw';
+import closeIcon from '@/assets/svg/close-white.svg?raw';
 
 export default {
   props: ['notification', 'eventKey'],
