@@ -25,7 +25,7 @@
             v-else-if="isSubscribed"
             class="text-success float-right"
           >
-            Active until {{ hero.purchased.plan.dateTerminated ? dateFormat(hero.purchased.plan.dateTerminated) : 'N/A' }}
+            Active until {{ dateFormat(hero.purchased.plan.dateTerminated) }}
           </span>
           <span
             v-else-if="hero.purchased.plan.customerId && hero.purchased.plan.dateTerminated"
