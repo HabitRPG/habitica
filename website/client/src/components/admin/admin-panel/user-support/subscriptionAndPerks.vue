@@ -797,15 +797,16 @@ export default {
         && this.hero.purchased.plan.customerId
         && this.hero.purchased.plan.customerId !== ''
         && (
-        this.hero.purchased.plan.dateTerminated === null
-        || moment(this.hero.purchased.plan.dateTerminated).isAfter(moment())
+          this.hero.purchased.plan.dateTerminated === null
+          || moment(this.hero.purchased.plan.dateTerminated).isAfter(moment()
+        )
       );
     },
     isCancelled () {
       return this.hero.purchased.plan
         && this.hero.purchased.plan.dateTerminated
-        && this.hero.purchased.plan.dateTerminated !== ''
-    }
+        && this.hero.purchased.plan.dateTerminated !== '';
+    },
   },
 };
 </script>
