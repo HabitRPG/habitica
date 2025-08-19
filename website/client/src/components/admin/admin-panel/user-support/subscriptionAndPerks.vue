@@ -15,6 +15,22 @@
           :class="{ 'open': expand }"
         >
           Subscription, Monthly Perks
+          <span
+            v-if="hero.purchased.plan.customerId && !hero.purchased.plan.dateTerminated"
+            class="text-success float-right">
+            Active
+          </span>
+          <span
+            v-else-if="isSubscribed"
+            class="text-success float-right">
+            Active until {{ hero.purchased.plan.dateTerminated ? dateFormat(hero.purchased.plan.dateTerminated) : 'N/A' }}
+          </span>
+          <span
+            v-else-if="hero.purchased.plan.customerId && hero.purchased.plan.dateTerminated"
+            class="text-warning float-right">
+            Inactive
+          </span>
+
           <b
             v-if="hasUnsavedChanges && !expand"
             class="text-warning float-right"
@@ -46,7 +62,7 @@
               class="form-control"
               type="text"
             >
-              <option value="groupPlan">
+              <option value="Group Plan">
                 Group Plan
               </option>
               <option value="Stripe">
@@ -764,6 +780,12 @@ export default {
     },
     formatDate (date) {
       return date ? moment(date).format('MM/DD/YYYY') : '---';
+    },
+    isSubscribed () {
+      return this.hero.purchased.plan && this.hero.purchased.plan.customerId && (
+        this.hero.purchased.plan.dateTerminated === null ||
+        moment(this.hero.purchased.plan.dateTerminated).isAfter(moment())
+      );
     },
   },
 };
