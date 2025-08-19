@@ -40,7 +40,7 @@
             <router-link
               :to="{'name': 'groupAdminGroup', 'params': {'groupId': groupPartyData._id}}"
             >
-            {{ groupPartyData._id }}
+              {{ groupPartyData._id }}
             </router-link>
           </strong>
         </div>

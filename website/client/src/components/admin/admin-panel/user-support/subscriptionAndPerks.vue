@@ -17,17 +17,20 @@
           Subscription, Monthly Perks
           <span
             v-if="hero.purchased.plan.customerId && !hero.purchased.plan.dateTerminated"
-            class="text-success float-right">
+            class="text-success float-right"
+          >
             Active
           </span>
           <span
             v-else-if="isSubscribed"
-            class="text-success float-right">
+            class="text-success float-right"
+          >
             Active until {{ hero.purchased.plan.dateTerminated ? dateFormat(hero.purchased.plan.dateTerminated) : 'N/A' }}
           </span>
           <span
             v-else-if="hero.purchased.plan.customerId && hero.purchased.plan.dateTerminated"
-            class="text-warning float-right">
+            class="text-warning float-right"
+          >
             Inactive
           </span>
 
@@ -171,10 +174,11 @@
               <div class="card-body">
                 <h6 class="card-title">
                   <router-link
-                    :to="{ name: 'groupAdminGroup', params: { groupId: group._id } }">
+                    :to="{ name: 'groupAdminGroup', params: { groupId: group._id } }"
+                  >
                     {{ group.name }}
                   </router-link>
-                    <small class="float-right">{{ group._id }}</small>
+                  <small class="float-right">{{ group._id }}</small>
                 </h6>
                 <p class="card-text">
                   <strong>Leader: </strong>
@@ -452,28 +456,32 @@
               Get Subscription Payment Details
             </button>
           </div>
-          </div>
+        </div>
         <div
-          v-if="paymentDetails">
+          v-if="paymentDetails"
+        >
           <div
             v-for="(value, key) in paymentDetails"
             :key="key"
-            class="form-group row">
+            class="form-group row"
+          >
             <label class="col-sm-3 col-form-label">
               {{ getHumandReadablePaymentDetails(key).label }}:
               <span
                 :id="`${key}_tooltip`"
-                class="info-icon"
                 v-b-tooltip.hover.right="getHumandReadablePaymentDetails(key).help"
+                class="info-icon"
               >?</span>
             </label>
             <strong class="col-sm-9 col-form-label">
               <span v-if="value === true">Yes</span>
               <span v-else-if="value === false">No</span>
-              <span v-else-if="value instanceof String && isDate(value)"
-                v-b-tooltip.hover="value">
+              <span
+                v-else-if="value instanceof String && isDate(value)"
+                v-b-tooltip.hover="value"
+              >
                 {{ formatDate(value) }}
-                </span>
+              </span>
               <span v-else-if="value === null">---</span>
               <span v-else>{{ value }}</span>
             </strong>
@@ -484,21 +492,24 @@
                 v-if="hero.purchased.plan.paymentMethod === 'Google'"
                 class="btn btn-primary btn-sm"
                 target="_blank"
-                :href="playOrdersUrl">
+                :href="playOrdersUrl"
+              >
                 Play Console
               </a>
               <a
                 v-else-if="hero.purchased.plan.paymentMethod === 'Paypal'"
                 class="btn btn-primary btn-sm"
                 target="_blank"
-                :href="'https://www.paypal.com/billing/subscriptions/' + paymentDetails.customerId">
+                :href="'https://www.paypal.com/billing/subscriptions/' + paymentDetails.customerId"
+              >
                 PayPal Dashboard
               </a>
               <a
                 v-else-if="hero.purchased.plan.paymentMethod === 'Stripe'"
                 class="btn btn-primary btn-sm"
                 target="_blank"
-                :href="'https://dashboard.stripe.com/customers/' + paymentDetails.customerId">
+                :href="'https://dashboard.stripe.com/customers/' + paymentDetails.customerId"
+              >
                 Stripe Dashboard
               </a>
             </div>
@@ -783,8 +794,8 @@ export default {
     },
     isSubscribed () {
       return this.hero.purchased.plan && this.hero.purchased.plan.customerId && (
-        this.hero.purchased.plan.dateTerminated === null ||
-        moment(this.hero.purchased.plan.dateTerminated).isAfter(moment())
+        this.hero.purchased.plan.dateTerminated === null
+        || moment(this.hero.purchased.plan.dateTerminated).isAfter(moment())
       );
     },
   },

@@ -7,8 +7,8 @@
           v-if="inputType === 'textarea'"
           :value="value"
           class="form-control"
-          @input="$emit('input', $event.target.value)"
           :rows="rows"
+          @input="$emit('input', $event.target.value)"
         ></textarea>
         <input
           v-else
@@ -43,5 +43,5 @@ export default {
       default: 3,
     },
   },
-}
+};
 </script>

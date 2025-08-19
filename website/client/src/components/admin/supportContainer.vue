@@ -6,26 +6,28 @@
         :class="{'open': expand}"
         @click="expand = !expand"
       >
-        <slot name="title">{{ title }}</slot>
+        <slot name="title">
+          {{ title }}
+        </slot>
       </h3>
     </div>
     <div
       v-if="expand"
       class="card-body"
     >
-    <slot></slot>
+      <slot></slot>
     </div>
     <div
-        v-if="expand && onSave"
-        class="card-footer"
+      v-if="expand && onSave"
+      class="card-footer"
+    >
+      <button
+        class="btn btn-primary mt-1"
+        @click="onSave"
       >
-        <button
-          class="btn btn-primary mt-1"
-          @click="onSave"
-        >
-          {{ $t('save') }}
-        </button>
-      </div>
+        {{ $t('save') }}
+      </button>
+    </div>
   </div>
 </template>
 
@@ -47,5 +49,5 @@ export default {
       expand: false,
     };
   },
-}
+};
 </script>

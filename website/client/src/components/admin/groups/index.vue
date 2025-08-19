@@ -17,7 +17,7 @@
             <button
               class="btn btn-primary"
               type="button"
-                :disabled="!groupID"
+              :disabled="!groupID"
               @click="loadGroup(groupID)"
             >
               Load

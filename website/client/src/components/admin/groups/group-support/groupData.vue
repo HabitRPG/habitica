@@ -3,26 +3,28 @@
     <form-row
       v-model="group.name"
       :label="$t('groupName')"
-      />
+    />
     <form-row
-      v-model="group.summary || ''"
+      v-model="group.summary"
       :label="$t('guildSummary')"
-      inputType="textarea"
-      />
+      input-type="textarea"
+    />
     <form-row
-      v-model="group.description || ''"
+      v-model="group.description"
       :label="$t('groupDescription')"
-      inputType="textarea"
+      input-type="textarea"
       rows="6"
-      />
+    />
     <form-row
-      v-model="group.bannedWordsAllowed || false"
+      v-model="group.bannedWordsAllowed"
       :label="$t('bannedWordsAllowed')"
-      inputType="checkbox" />
+      input-type="checkbox"
+    />
     <form-row
-      v-model="group.leaderOnly.challenges || false"
+      v-model="group.leaderOnly.challenges"
       :label="$t('leaderOnlyChallenges')"
-      inputType="checkbox" />
+      input-type="checkbox"
+    />
   </form>
 </template>
 

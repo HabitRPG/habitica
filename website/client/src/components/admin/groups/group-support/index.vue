@@ -2,21 +2,25 @@
   <div v-if="hasPermission(user, 'groupSupport')">
     <h2>{{ group.name }}</h2>
     <supportContainer
-      :title="$t('groupData')">
+      :title="$t('groupData')"
+    >
       <groupData
-        :group="group" />
+        :group="group"
+      />
     </supportContainer>
     <supportContainer
-      :title="$t('groupPlanSubscription')">
-    </supportContainer>
+      :title="$t('groupPlanSubscription')"
+    />
     <supportContainer
       v-if="group.type === 'party'"
-      :title="$t('questDetails')">
-    </supportContainer>
+      :title="$t('questDetails')"
+    />
     <supportContainer
-      :title="$t('members')">
+      :title="$t('members')"
+    >
       <members
-        :group="group" />
+        :group="group"
+      />
     </supportContainer>
   </div>
 </template>
@@ -28,11 +32,11 @@ import groupData from './groupData.vue';
 import members from './members.vue';
 
 export default {
-    components: {
-      supportContainer,
-      groupData,
-      members,
-    },
+  components: {
+    supportContainer,
+    groupData,
+    members,
+  },
   mixins: [userStateMixin],
   data () {
     return {
@@ -53,8 +57,8 @@ export default {
       this.group = {};
     },
     async loadGroup (groupId) {
-        this.$emit('changeGroupId', groupId);
-        this.group = await this.$store.dispatch('admin:getGroup', { groupId });
+      this.$emit('changeGroupId', groupId);
+      this.group = await this.$store.dispatch('admin:getGroup', { groupId });
     },
     async updateGroup () {
       await this.$store.dispatch('admin:updateGroup', { group: this.group });

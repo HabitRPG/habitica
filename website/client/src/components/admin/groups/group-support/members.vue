@@ -1,9 +1,11 @@
 <template>
   <form-row
-    :label="$t('groupLeader')">
+    :label="$t('groupLeader')"
+  >
     <strong class="col-form-label">
       <router-link
-        :to="{'name': 'adminPanelUser', 'params': {'userIdentifier':  group.leader }}">
+        :to="{'name': 'adminPanelUser', 'params': {'userIdentifier': group.leader }}"
+      >
         {{ group.leader }}
       </router-link>
     </strong>
