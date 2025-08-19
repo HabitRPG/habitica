@@ -117,12 +117,15 @@
     }
 
     .svg-close {
-      color: $white;
       width: 18px;
       height: 18px;
       opacity: 0.5;
       transition: opacity 0.2s ease;
       pointer-events: none;
+      
+      ::v-deep svg {
+        fill: $white !important;
+      }
     }
   }
 </style>
