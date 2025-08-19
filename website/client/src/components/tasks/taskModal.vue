@@ -35,7 +35,7 @@
           </button>
           <button
             class="btn btn-secondary d-flex align-items-center justify-content-center"
-            :class="{disabled: !canSave}"
+            :class="{'btn-disabled': !canSave}"
             type="button"
             @click="submit()"
           >
@@ -162,13 +162,13 @@
             >
               <div
                 class="habit-option-icon svg-icon no-transition"
-                :class="task.up ? '' : 'disabled'"
+                :class="task.up ? '' : 'icon-disabled'"
                 v-html="icons.positive"
               ></div>
             </div>
             <div
               class="habit-option-label no-transition"
-              :class="task.up ? cssClass('icon') : 'disabled'"
+              :class="task.up ? cssClass('icon') : 'label-disabled'"
             >
               {{ $t('positive') }}
             </div>
@@ -188,13 +188,13 @@
             >
               <div
                 class="habit-option-icon no-transition svg-icon negative mx-auto"
-                :class="task.down ? '' : 'disabled'"
+                :class="task.down ? '' : 'icon-disabled'"
                 v-html="icons.negative"
               ></div>
             </div>
             <div
               class="habit-option-label no-transition"
-              :class="task.down ? cssClass('icon') : 'disabled'"
+              :class="task.down ? cssClass('icon') : 'label-disabled'"
             >
               {{ $t('negative') }}
             </div>
@@ -592,7 +592,7 @@
           <button
             class="btn btn-primary btn-footer
             d-flex align-items-center justify-content-center"
-            :class="{disabled: !canSave}"
+            :class="{'btn-disabled': !canSave}"
             type="button"
             @click="submit()"
           >
@@ -881,12 +881,14 @@
       }
     }
 
-    .disabled {
+    .btn-disabled {
       background-color: $white;
       border: 2px solid transparent;
       color: $gray-200;
       line-height: 1.714;
       box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.12), 0px 1px 2px 0px rgba(26, 24, 29, 0.24);
+      cursor: not-allowed;
+      opacity: 0.6;
 
       &:focus {
         background-color: $white;
@@ -948,7 +950,7 @@
       height: 10px;
       color: $white;
 
-      &.disabled {
+      &.icon-disabled {
         color: $gray-200;
       }
 
@@ -962,7 +964,7 @@
       font-weight: bold;
       text-align: center;
 
-      &.disabled {
+      &.label-disabled {
         color: $gray-100;
         font-weight: normal;
       }
@@ -1018,7 +1020,7 @@
     border: 0;
   }
 
-  .disabled .input-group-text {
+  .input-group-outer.disabled .input-group-text {
     color: $gray-200;
   }
 
