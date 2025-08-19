@@ -798,9 +798,8 @@ export default {
         && this.hero.purchased.plan.customerId !== ''
         && (
           this.hero.purchased.plan.dateTerminated === null
-          || moment(this.hero.purchased.plan.dateTerminated).isAfter(moment()
-        )
-      );
+          || moment(this.hero.purchased.plan.dateTerminated).isAfter(moment())
+        );
     },
     isCancelled () {
       return this.hero.purchased.plan
