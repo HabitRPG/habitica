@@ -32,10 +32,14 @@
       class="gift-end"
       alt=""
     >
-    <div class="close-x">
-      <close-x
-        @close="remove()"
-      />
+    <div
+      class="close-x"
+      @click="remove()"
+    >
+      <div
+        class="svg-icon svg-close"
+        v-html="icons.close"
+      ></div>
     </div>
   </div>
 </template>
@@ -101,32 +105,37 @@
   }
 
   .close-x {
-    ::v-deep .modal-close {
-      cursor: pointer;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    cursor: pointer;
 
-      .svg-close {
-        color: $white !important;
-        opacity: 0.5 !important;
-        transition: opacity 0.2s ease;
-      }
+    .svg-close {
+      color: $white;
+      width: 18px;
+      height: 18px;
+      opacity: 0.5;
+      transition: opacity 0.2s ease;
 
-      &:hover .svg-close,
-      .svg-close:hover {
-        opacity: 0.75 !important;
-        color: $white !important;
+      &:hover {
+        opacity: 0.75;
       }
     }
   }
 </style>
 
 <script>
-import closeX from '@/components/ui/closeX';
+import closeIcon from '@/assets/svg/close.svg?raw';
 
 export default {
-  components: {
-    closeX,
-  },
   props: ['notification', 'eventKey'],
+  data () {
+    return {
+      icons: Object.freeze({
+        close: closeIcon,
+      }),
+    };
+  },
   methods: {
     remove () {
       if (this.eventKey) {
