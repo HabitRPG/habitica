@@ -238,7 +238,7 @@ export default {
       partyNotExistError: false,
       adminHasPrivForParty: true,
       deleteHabiticaAccount: true,
-      deleteAmplitudeData: false,
+      deleteAmplitudeData: true,
     };
   },
   watch: {
