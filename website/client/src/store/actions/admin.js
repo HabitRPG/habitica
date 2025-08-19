@@ -17,3 +17,15 @@ export async function getSubscriptionPaymentDetails (store, payload) {
   const response = await axios.get(url);
   return response.data.data;
 }
+
+export async function getGroup (store, payload) {
+  const url = `/api/v4/admin/groups/${payload.groupId}`;
+  const response = await axios.get(url);
+  return response.data.data;
+}
+
+export async function updateGroup (store, payload) {
+  const url = `/api/v4/admin/groups/${payload.groupId || payload.group._id}`;
+  const response = await axios.put(url, payload.group);
+  return response.data.data;
+}

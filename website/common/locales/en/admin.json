@@ -3,5 +3,9 @@
     "siteBlockers": "Site Blockers",
     "newsroom": "Newsroom",
     "adminBlockerTypeDescription": "<b>IP-Address</b> - Block access for a specific IP-Address\n\nClient - Block access for a client based on the \"x-client\" header.\n\nE-Mail - Blocks e-mails from being used for signup.",
-    "adminBlockerAreaDescription": "A blocker can either apply to the full site, completely blocking any access. Or it can apply to purchases, which still allows the site to be accessed."
+    "adminBlockerAreaDescription": "A blocker can either apply to the full site, completely blocking any access. Or it can apply to purchases, which still allows the site to be accessed.",
+    "groupAdmin": "Group Admin",
+    "groupSupportDescription": "Manage groups and their members. You can search for groups by ID, or load your own group by leaving the field blank.",
+    "groupData": "Group Data",
+    "groupPlanSubscription": "Group Plan Subscription"
 }

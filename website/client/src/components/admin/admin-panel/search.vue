@@ -81,7 +81,7 @@ export default {
   watch: {
     userIdentifier () {
       this.isSearching = true;
-      this.$store.dispatch('adminPanel:searchUsers', { userIdentifier: this.userIdentifier }).then(users => {
+      this.$store.dispatch('admin:searchUsers', { userIdentifier: this.userIdentifier }).then(users => {
         this.isSearching = false;
         if (users.length === 1) {
           this.loadUser(users[0]._id);

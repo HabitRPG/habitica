@@ -9,6 +9,13 @@
         {{ $t('adminPanel') }}
       </router-link>
       <router-link
+        v-if="hasPermission(user, 'groupSupport')"
+        class="nav-link"
+        :to="{name: 'groupAdmin'}"
+      >
+        {{ $t('groupAdmin') }}
+      </router-link>
+      <router-link
         v-if="hasPermission(user, 'accessControl')"
         class="nav-link"
         :to="{name: 'blockers'}"

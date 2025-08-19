@@ -5,6 +5,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 import { ensurePermission } from '../../middlewares/ensureAccessRight';
 import { model as User } from '../../models/user';
 import { model as UserHistory } from '../../models/userHistory';
+import { model as Group } from '../../models/group';
 import { model as Blocker } from '../../models/blocker';
 import {
   NotFound,
@@ -233,6 +234,28 @@ api.validateSubscriptionPaymentDetails = {
       throw new NotFound(res.t('unknownSubscriptionPaymentMethod', { method: user.purchased.paymentMethod }));
     }
     res.respond(200, paymentDetails);
+  },
+};
+
+api.getGroup = {
+  method: 'GET',
+  url: '/admin/groups/:groupId',
+  middlewares: [authWithHeaders(), ensurePermission('groupSupport')],
+  async handler (req, res) {
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const { groupId } = req.params;
+
+    const group = await Group.findById(groupId)
+      .lean()
+      .exec();
+
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    res.respond(200, group);
   },
 };
 

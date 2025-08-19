@@ -722,7 +722,7 @@ export default {
       this.hero.purchased.plan.owner = '';
     },
     getSubscriptionPaymentDetails () {
-      this.$store.dispatch('adminPanel:getSubscriptionPaymentDetails', { userIdentifier: this.hero._id })
+      this.$store.dispatch('admin:getSubscriptionPaymentDetails', { userIdentifier: this.hero._id })
         .then(details => {
           if (details) {
             this.paymentDetails = details;
