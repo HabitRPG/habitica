@@ -154,8 +154,11 @@
             >
               <div class="card-body">
                 <h6 class="card-title">
-                  {{ group.name }}
-                  <small class="float-right">{{ group._id }}</small>
+                  <router-link
+                    :to="{ name: 'groupAdminGroup', params: { groupId: group._id } }">
+                    {{ group.name }}
+                  </router-link>
+                    <small class="float-right">{{ group._id }}</small>
                 </h6>
                 <p class="card-text">
                   <strong>Leader: </strong>

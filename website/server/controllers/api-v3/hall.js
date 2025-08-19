@@ -320,16 +320,16 @@ api.updateHero = {
       if (plan.extraMonths || plan.extraMonths === 0) {
         hero.purchased.plan.extraMonths = plan.extraMonths;
       }
-      if (plan.customerId) {
+      if (plan.customerId || plan.customerId === '') {
         hero.purchased.plan.customerId = plan.customerId;
       }
-      if (plan.paymentMethod) {
+      if (plan.paymentMethod || plan.customerId === '') {
         hero.purchased.plan.paymentMethod = plan.paymentMethod;
       }
-      if (plan.planId) {
+      if (plan.planId || plan.customerId === '') {
         hero.purchased.plan.planId = plan.planId;
       }
-      if (plan.owner) {
+      if (plan.owner || plan.customerId === '') {
         hero.purchased.plan.owner = plan.owner;
       }
       if (plan.hourglassPromoReceived) {
@@ -341,8 +341,7 @@ api.updateHero = {
         const group = await Group.getGroup({ user: hero, groupId: groupID });
         if (!group) throw new NotFound(res.t('groupNotFound'));
         if (group.hasNotCancelled()) {
-          hero.purchased.plan.customerId = null;
-          hero.purchased.plan.paymentMethod = null;
+          hero.purchased.plan.paymentMethod = 'groupPlan';
           await addSubToGroupUser(hero, group);
           await group.updateGroupPlan();
         } else {
