@@ -122,7 +122,7 @@
       opacity: 0.5;
       transition: opacity 0.2s ease;
       pointer-events: none;
-      
+
       ::v-deep svg {
         fill: $white !important;
       }
