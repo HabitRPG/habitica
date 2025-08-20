@@ -16,20 +16,20 @@
         >
           Subscription, Monthly Perks
           <span
-            v-if="isSubscribed && !isCancelled"
-            class="text-success float-right"
+            v-if="isSubscribed() && !isCancelled()"
+            class="text-success float-right ml-3"
           >
             Active
           </span>
           <span
-            v-else-if="isSubscribed && isCancelled"
-            class="text-success float-right"
+            v-else-if="isSubscribed() && isCancelled()"
+            class="text-success float-right ml-3"
           >
             Active until {{ dateFormat(hero.purchased.plan.dateTerminated) }}
           </span>
           <span
             v-else-if="hero.purchased.plan.customerId && hero.purchased.plan.dateTerminated"
-            class="text-warning float-right"
+            class="text-warning float-right ml-3"
           >
             Inactive
           </span>
@@ -268,8 +268,7 @@
               </div>
             </div>
             <small
-              v-if="!hero.purchased.plan.dateTerminated
-                && hero.purchased.plan.planId"
+              v-if="isSubscribed() && !isCancelled()"
               class="text-success"
             >
               The subscription does not have a termination date and is active.
@@ -793,11 +792,13 @@ export default {
       return date ? moment(date).format('MM/DD/YYYY') : '---';
     },
     isSubscribed () {
+      console.log(this.hero.purchased.plan.customerId, this.hero.purchased.plan.dateTerminated);
       return this.hero.purchased.plan
         && this.hero.purchased.plan.customerId
-        && this.hero.purchased.plan.customerId !== ''
+        && this.hero.purchased.plan.planId
+        && this.hero.purchased.plan.paymentMethod
         && (
-          this.hero.purchased.plan.dateTerminated === null
+          !this.hero.purchased.plan.dateTerminated
           || moment(this.hero.purchased.plan.dateTerminated).isAfter(moment())
         );
     },
