@@ -5,12 +5,19 @@
       class="row"
     >
       <div class="form col-12">
+                <button
+          class="btn btn-danger mt-3 float-right"
+          @click="confirmDeleteHero"
+        >
+          Begin Member deletion
+        </button>
         <basic-details
           :user-id="hero._id"
           :auth="hero.auth"
           :preferences="hero.preferences"
           :profile="hero.profile"
         />
+        
 
         <privileges-and-gems
           :hero="hero"
@@ -96,12 +103,6 @@
           :reset-counter="resetCounter"
           @clear-data="clearData"
         />
-        <button
-          class="btn btn-danger mt-3"
-          @click="confirmDeleteHero"
-        >
-          Begin Member deletion
-        </button>
         <b-modal
           id="delete-member-modal"
           title="Delete Member"
