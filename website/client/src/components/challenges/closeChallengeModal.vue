@@ -155,6 +155,8 @@
       position: absolute;
       right: 16px;
       top: 16px;
+      padding: 0;
+      margin: 0;
     }
 
     .search-input-container {
@@ -184,14 +186,14 @@
         height: 32px;
         padding-left: 36px;
         padding-right: 12px;
-        border: 2px solid $gray-400;
+        border: 1px solid $gray-400;
         border-radius: 4px;
         font-size: 14px;
-        transition: border-color 0.2s ease;
+        transition: border-color 0.2s ease, border-width 0.2s ease;
 
         &:focus {
           outline: none;
-          border-color: $purple-300;
+          border: 2px solid $purple-400;
         }
 
         &::placeholder {
@@ -320,7 +322,7 @@
       align-items: center;
       justify-content: center;
       gap: 1.5rem;
-      margin: -8px auto 0;
+      margin: -24px auto 0;
       padding: 0.5rem 0;
 
       .gems-left, .gems-right {
@@ -338,6 +340,10 @@
 
     .modal-footer, .modal-header {
       border: none !important;
+    }
+
+    .modal-header {
+      padding: 0 !important;
     }
 
     .footer-wrap {
