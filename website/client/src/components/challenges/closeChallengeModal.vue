@@ -298,10 +298,6 @@
         background-color: $purple-200;
         color: $white;
         border-color: $purple-200;
-
-        .gem-icon {
-          color: $white;
-        }
       }
 
       &:hover:not(.has-winner):not(:disabled) {
