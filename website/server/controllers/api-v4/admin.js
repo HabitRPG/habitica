@@ -1,5 +1,6 @@
 import validator from 'validator';
 import merge from 'lodash/merge';
+import uniqBy from 'lodash/uniqBy';
 import { v4 as uuid } from 'uuid';
 import { authWithHeaders } from '../../middlewares/auth';
 import { ensurePermission } from '../../middlewares/ensureAccessRight';
@@ -47,8 +48,6 @@ api.searchHero = {
 
     const { userIdentifier } = req.params;
 
-    const re = new RegExp(String.raw`^${userIdentifier.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`);
-
     let query;
     let users = [];
     if (validator.isUUID(userIdentifier)) {
@@ -61,7 +60,7 @@ api.searchHero = {
         'auth.facebook.emails.value',
       ];
       for (const field of emailFields) {
-        const emailQuery = { [field]: userIdentifier };
+        const emailQuery = { [field]: userIdentifier.toLowerCase() };
         // eslint-disable-next-line no-await-in-loop
         const found = await User.findOne(emailQuery)
           .select('contributor backer profile auth')
@@ -72,6 +71,7 @@ api.searchHero = {
         }
       }
     } else {
+      const re = new RegExp(String.raw`^${userIdentifier.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`);
       query = { 'auth.local.lowerCaseUsername': { $regex: re, $options: 'i' } };
     }
 
@@ -83,7 +83,8 @@ api.searchHero = {
         .lean()
         .exec();
     }
-    res.respond(200, users);
+
+    res.respond(200, uniqBy(users, '_id'));
   },
 };
 
