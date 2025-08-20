@@ -270,27 +270,15 @@
       transition: all 0.2s ease;
 
       &:disabled {
-        background-color: $white;
-        color: $gray-200;
-        border-color: $gray-400;
-        cursor: not-allowed;
-        opacity: 1;
-
-        span {
-          font-family: 'Roboto', sans-serif;
-          font-size: 14px;
-          font-weight: 700;
-          line-height: 24px;
-          color: $gray-200;
-        }
+        cursor: default;
+        color: $gray-50;
+        opacity: 0.75;
+        box-shadow: none;
+        background-color: $gray-700;
+        border: 2px solid transparent;
 
         .gem-icon {
-          opacity: 1;
-          color: $gems-color;
-        }
-
-        &:hover {
-          background-color: $white;
+          color: $gray-300;
         }
       }
 
