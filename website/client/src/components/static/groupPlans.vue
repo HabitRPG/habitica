@@ -303,12 +303,10 @@
 <script>
 import { setup as setupPayments } from '@/libs/payments';
 import paymentsMixin from '../../mixins/payments';
-import AuthForm from '../auth/authForm.vue';
 import GroupPlanCreationModal from '../group-plans/groupPlanCreationModal.vue';
 
 export default {
   components: {
-    AuthForm,
     GroupPlanCreationModal,
   },
   mixins: [paymentsMixin],
