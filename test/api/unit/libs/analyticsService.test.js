@@ -43,6 +43,11 @@ describe('analyticsService', () => {
           'x-client': 'habitica-web',
           'user-agent': '',
         },
+        user: {
+          preferences: {
+            analyticsConsent: true,
+          },
+        },
       };
     });
 
