@@ -135,6 +135,7 @@
 
 <style lang='scss'>
   @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/button.scss';
 
   #close-challenge-modal {
     h2 {
@@ -268,19 +269,6 @@
       border: 1px solid $gray-400;
       box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
       transition: all 0.2s ease;
-
-      &:disabled {
-        cursor: default;
-        color: $gray-50;
-        opacity: 0.75;
-        box-shadow: none;
-        background-color: $gray-700;
-        border: 2px solid transparent;
-
-        .gem-icon {
-          color: $gray-300;
-        }
-      }
 
       &.has-winner {
         background-color: $purple-200;
