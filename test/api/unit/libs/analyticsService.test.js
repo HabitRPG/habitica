@@ -515,6 +515,9 @@ describe('analyticsService', () => {
           dailys: [{ _id: 'daily' }],
           todos: [{ _id: 'todo' }],
           rewards: [{ _id: 'reward' }],
+          preferences: {
+            analyticsConsent: true,
+          },
         };
 
         data.user = user;
