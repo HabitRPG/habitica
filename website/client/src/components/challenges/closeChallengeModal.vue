@@ -289,7 +289,7 @@
         opacity: 1;
         background-color: transparent;
         border: 2px solid transparent;
-        box-shadow: 
+        box-shadow:
           0 1px 3px 0 rgba(#1A1B1D, 0.12),
           0 1px 2px 0 rgba(#1A1B1D, 0.24);
       }
