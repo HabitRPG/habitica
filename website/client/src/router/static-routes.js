@@ -101,9 +101,6 @@ export const STATIC_ROUTES = {
       name: 'username', path: '/username', component: RegisterUsername, meta: { requiresLogin: false },
     },
     {
-      name: 'termsReview', path: 'terms-review', component: TermsReviewPage, meta: { requiresLogin: false },
-    },
-    {
       name: 'notFound', path: 'not-found', component: NotFoundPage, meta: { requiresLogin: false },
     },
   ],
