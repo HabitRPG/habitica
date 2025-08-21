@@ -6,6 +6,7 @@ import {
   translate as t,
   getProperty,
 } from '../../../../../helpers/api-integration/v3';
+import apiErrorMessages from '../../../../../../website/common/script/errors/apiErrorMessages';
 
 describe('POST /user/auth/social', () => {
   let api;
@@ -72,7 +73,7 @@ describe('POST /user/auth/social', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: t('userNotFound'),
+        message: `${apiErrorMessages.socialFlowUserNotFound} ${user.auth.local.username}+google@example.com`,
       });
     });
 

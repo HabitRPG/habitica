@@ -40,7 +40,7 @@ describe('POST /user/auth/check-email', () => {
     expect(response).to.eql({
       valid: false,
       email: user.auth.local.email,
-      error: t('emailTaken'),
+      error: t('cannotFulfillReq'),
     });
   });
 
@@ -53,7 +53,7 @@ describe('POST /user/auth/check-email', () => {
     expect(response).to.eql({
       valid: false,
       email: user.auth.local.email.toUpperCase(),
-      error: t('emailTaken'),
+      error: t('cannotFulfillReq'),
     });
   });
 
