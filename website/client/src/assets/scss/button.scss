@@ -39,6 +39,11 @@
     font-weight: 700;
     font-size: 14px;
     line-height: 24px;
+    padding: 4px 12px;
+    min-height: 32px;
+    max-height: 32px;
+    gap: 8px;
+    border-radius: 4px;
     
     .svg {
       color: $gray-200;
