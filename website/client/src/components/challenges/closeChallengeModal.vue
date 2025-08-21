@@ -263,7 +263,8 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 16px;
+      min-height: 32px;
+      padding: 4px 12px;
       transition: all 0.2s ease;
 
       &:not(:disabled) {
