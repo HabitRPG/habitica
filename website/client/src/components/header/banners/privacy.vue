@@ -94,6 +94,7 @@ export default {
   mounted () {
     if (localStorage.getItem('analyticsConsent') !== null
       || this.user?.preferences?.analyticsConsent !== undefined
+      || navigator.globalPrivacyControl
     ) {
       this.hidden = true;
     }
