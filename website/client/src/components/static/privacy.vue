@@ -64,7 +64,9 @@
       <li>sexual orientation; and</li>
       <li>information collected from a known child.</li>
     </ul>
-
+    <p><strong>
+      NOTE: Please do not provide us “sensitive personal information” or “sensitive personal data”, as those terms are defined under applicable privacy laws, unless we directly request that you do so. If you feel, after careful consideration, that it is necessary to provide us certain sensitive personal information or data, please provide us the minimum amount of such information or data that is necessary.
+    </strong></p>
     <h3 id="section_1_1">
       1.1 Information You Provide Directly
     </h3>
