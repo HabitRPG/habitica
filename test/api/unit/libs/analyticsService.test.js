@@ -294,6 +294,9 @@ describe('analyticsService', () => {
           rewards: [{ _id: 'reward' }],
           balance: 12,
           loginIncentives: 1,
+          preferences: {
+            analyticsConsent: true,
+          },
         };
 
         data.user = user;
@@ -343,6 +346,11 @@ describe('analyticsService', () => {
         headers: {
           'x-client': 'habitica-web',
           'user-agent': '',
+        },
+        user: {
+          preferences: {
+            analyticsConsent: true,
+          },
         },
       };
     });

@@ -34,6 +34,7 @@ describe('bug-report', () => {
       emailData: {
         BROWSER_UA: userAgent,
         REPORT_MSG: userMessage,
+        USER_ANALYTICS: undefined,
         USER_CLASS: 'warrior',
         USER_CONSECUTIVE_MONTHS: 0,
         USER_COSTUME: 'false',
