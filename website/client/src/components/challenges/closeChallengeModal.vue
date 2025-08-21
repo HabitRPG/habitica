@@ -264,20 +264,34 @@
       align-items: center;
       gap: 8px;
       padding: 8px 16px;
-      background-color: $white;
-      color: $gray-200;
-      border: 1px solid $gray-400;
-      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
       transition: all 0.2s ease;
 
-      &.has-winner {
-        background-color: $purple-200;
-        color: $white;
-        border-color: $purple-200;
+      &:not(:disabled) {
+        background-color: $white;
+        color: $gray-200;
+        border: 1px solid $gray-400;
+        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+
+        &.has-winner {
+          background-color: $purple-200;
+          color: $white;
+          border-color: $purple-200;
+        }
+
+        &:hover:not(.has-winner) {
+          background-color: $gray-700;
+        }
       }
 
-      &:hover:not(.has-winner):not(:disabled) {
-        background-color: $gray-700;
+      &:disabled {
+        cursor: default;
+        color: #FFFFFF;
+        opacity: 1;
+        background-color: transparent;
+        border: 2px solid transparent;
+        box-shadow: 
+          0 1px 3px 0 rgba(#1A1B1D, 0.12),
+          0 1px 2px 0 rgba(#1A1B1D, 0.24);
       }
 
       .gem-icon {
