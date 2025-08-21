@@ -110,7 +110,6 @@
     top: 16px;
     cursor: pointer;
     z-index: 2;
-    padding: 4px;
 
     &:hover .svg-close {
       opacity: 0.75;
