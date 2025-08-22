@@ -25,7 +25,6 @@ const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'@/compone
 const RegisterUsername = () => import(/* webpackChunkName: "auth" */'@/components/auth/registerUsername');
 const SubscriptionBenefitsFaq = () => import('@/components/static/subscriptionBenefitsFaq');
 const TermsPage = () => import('@/components/static/terms');
-const TermsReviewPage = () => import('@/components/static/termsReview');
 
 export const STATIC_ROUTES = {
   path: '/static',
