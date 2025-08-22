@@ -120,7 +120,6 @@
         <div
           slot="drawer-slider"
           class="equipment items items-one-line"
-          :class="getContainerClass()"
         >
           <item
             v-for="(label, group) in gearTypesToStrings"
@@ -239,86 +238,6 @@
   background: $gray-10 !important;
 }
 
-@media (max-width: 768px) {
-  .equipment.items.items-one-line {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    padding: 0 8px;
-
-    .item-wrapper {
-      flex: 0 0 auto;
-      margin-right: 0;
-      margin-bottom: 8px;
-    }
-
-    &.equipment-scale-default .item-wrapper {
-      .item {
-        width: 94px;
-        height: 92px;
-      }
-      .item-label {
-        width: 94px;
-        font-size: 12px;
-      }
-    }
-
-    &.equipment-scale-small .item-wrapper {
-      .item {
-        width: 70px;
-        height: 70px;
-      }
-      .item-label {
-        width: 70px;
-        font-size: 10px;
-      }
-    }
-
-    .item-wrapper:nth-child(4n+1) {
-      clear: left;
-    }
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .equipment.items.items-one-line {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    padding: 0 12px;
-
-    .item-wrapper {
-      flex: 0 0 auto;
-      margin-right: 0;
-      margin-bottom: 8px;
-    }
-
-    &.equipment-scale-default .item-wrapper {
-      .item {
-        width: 84px;
-        height: 82px;
-      }
-      .item-label {
-        width: 84px;
-        font-size: 11px;
-      }
-    }
-
-    &.equipment-scale-small .item-wrapper {
-      .item {
-        width: 65px;
-        height: 65px;
-      }
-      .item-label {
-        width: 65px;
-        font-size: 10px;
-      }
-    }
-  }
-}
-
 </style>
 
 <style lang="scss" scoped>
@@ -432,7 +351,6 @@ export default {
       searchText: null,
       searchTextThrottled: null,
       costumeMode: false,
-      windowWidth: window.innerWidth,
       groupByItems: [
         'type', 'class',
       ],
@@ -605,27 +523,8 @@ export default {
       subSection: this.$t('equipment'),
       section: this.$t('inventory'),
     });
-
-    this.handleResize = throttle(() => {
-      this.windowWidth = window.innerWidth;
-    }, 250);
-    window.addEventListener('resize', this.handleResize);
-  },
-  beforeDestroy () {
-    window.removeEventListener('resize', this.handleResize);
   },
   methods: {
-    getContainerClass () {
-      const equippedCount = Object.keys(this.gearTypesToStrings).filter(group => {
-        const item = this.flatGear[this.activeItems[group]];
-        return item && item.key.indexOf('_base_0') === -1;
-      }).length;
-
-      if (this.windowWidth <= 1024) {
-        return equippedCount > 4 ? 'equipment-scale-small' : 'equipment-scale-default';
-      }
-      return '';
-    },
     selectDrawerTab (tabName) {
       let tabNameValue;
       if (tabName === 'costume') {
