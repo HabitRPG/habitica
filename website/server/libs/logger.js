@@ -55,10 +55,14 @@ if (IS_PROD) {
   }
 
   if (LOGGLY_TOKEN && LOGGLY_SUBDOMAIN) {
+    const tags = ['Winston-NodeJS'];
+    if (nconf.get('SERVER_EMOJI')) {
+      tags.push(nconf.get('SERVER_EMOJI'));
+    }
     logger.add(new Loggly({
       inputToken: LOGGLY_TOKEN,
       subdomain: LOGGLY_SUBDOMAIN,
-      tags: ['Winston-NodeJS'],
+      tags,
       json: true,
       format: winston.format.combine(
         slimLogs(),
