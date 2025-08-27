@@ -24,6 +24,17 @@ const _config = {
 
 export { _config as _loggerConfig }; // exported for use during tests
 
+const slimLogs = winston.format(info => {
+  if (info && info.message && info.message.indexOf('BadRequest: Missing x-client headers') === 0) {
+    info.body = undefined;
+    info.headers = {
+      'x-api-user': info.headers['x-api-user'] || 'unknown',
+    };
+    info.message = 'BadRequest: Missing x-client headers';
+  }
+  return info;
+});
+
 if (IS_PROD) {
   if (ENABLE_CONSOLE_LOGS_IN_PROD) {
     logger
@@ -49,6 +60,11 @@ if (IS_PROD) {
       subdomain: LOGGLY_SUBDOMAIN,
       tags: ['Winston-NodeJS'],
       json: true,
+      format: winston.format.combine(
+        slimLogs(),
+        winston.format.timestamp(),
+        winston.format.json(),
+      ),
     }));
   }
 // Do not log anything when testing unless specified
