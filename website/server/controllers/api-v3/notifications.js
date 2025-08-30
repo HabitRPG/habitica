@@ -9,14 +9,18 @@ import {
 const api = {};
 
 /**
- * @api {post} /api/v3/notifications/:notificationId/read Mark one notification as read
- * @apiName ReadNotification
+ * @api {post} /api/v3/notifications/read Mark multiple notifications as read
+ * @apiName ReadMultipleNotifications
  * @apiGroup Notification
  *
- * @apiParam (Path) {UUID} notificationId
+ * @apiBody {UUID[]} notificationIds Required. An array of notification IDs to mark as read.
  *
  * @apiSuccess {Object} data user.notifications
+ *
+ * @apiError (400) MissingParameter notificationIds must be provided.
  */
+
+
 api.readNotification = {
   method: 'POST',
   url: '/notifications/:notificationId/read',
