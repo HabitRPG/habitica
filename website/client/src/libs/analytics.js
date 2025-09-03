@@ -74,17 +74,9 @@ export function setup (userId) {
     user_id: userId,
   });
   amplitude.init(AMPLITUDE_KEY);
+  amplitude.setUserId(userId);
   analyticsReady = true;
   analyticsLoading = false;
-}
-
-export async function setUser () {
-  const user = _getConsentedUser();
-  if (!user) return;
-  if (!analyticsReady) {
-    setup(user._id);
-  }
-  amplitude.setUserId(user._id);
 }
 
 export async function track (properties, options = {}) {

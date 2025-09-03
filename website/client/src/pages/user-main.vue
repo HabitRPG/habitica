@@ -263,8 +263,6 @@ export default {
       this.$store.dispatch('tasks:fetchUserTasks'),
     ]).then(() => {
       this.$store.state.isUserLoaded = true;
-      Analytics.setUser();
-      Analytics.updateUser();
       const analyticsConsent = localStorage.getItem('analyticsConsent');
       if (analyticsConsent !== null
         && analyticsConsent !== this.user.preferences.analyticsConsent
@@ -281,6 +279,7 @@ export default {
           return null;
         }
       }
+      Analytics.updateUser();
       return axios.get(
         '/api/v4/i18n/browser-script',
         {
