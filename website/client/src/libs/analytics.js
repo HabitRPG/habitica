@@ -69,11 +69,11 @@ export async function setup (userId) {
   if (analyticsLoading) return;
   analyticsLoading = true;
   await Vue.loadScript(`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`);
-  window.gtag('config', GA_ID, {
+  gtag('config', GA_ID, { // eslint-disable-line no-undef
     debug_mode: DEBUG_ENABLED || !IS_PRODUCTION,
     user_id: userId,
   });
-  amplitude.getInstance().init(AMPLITUDE_KEY);
+  amplitude.init(AMPLITUDE_KEY);
   analyticsReady = true;
   analyticsLoading = false;
 }
@@ -84,7 +84,7 @@ export async function setUser () {
   if (!analyticsReady) {
     await setup(user._id);
   }
-  amplitude.getInstance().setUserId(user._id);
+  amplitude.setUserId(user._id);
 }
 
 export async function track (properties, options = {}) {
@@ -100,10 +100,8 @@ export async function track (properties, options = {}) {
     const trackOnClient = options && options.trackOnClient === true;
     // Track events on the server by default
     if (trackOnClient === true) {
-      amplitude.getInstance().logEvent(properties.eventAction, properties);
-      if (window.gtag) {
-        window.gtag('event', properties.eventAction, properties);
-      }
+      amplitude.logEvent(properties.eventAction, properties);
+      gtag('event', properties.eventAction, properties); // eslint-disable-line no-undef
     } else {
       const store = getStore();
       store.dispatch('analytics:trackEvent', properties);
@@ -120,12 +118,10 @@ export async function updateUser (properties = {}) {
   // Use nextTick to avoid blocking the UI
   Vue.nextTick(() => {
     _gatherUserStats(properties);
-    if (window.gtag) {
-      window.gtag('set', 'user_properties', properties);
-    }
+    gtag('set', 'user_properties', properties); // eslint-disable-line no-undef
     forEach(properties, (value, key) => {
       const identify = new amplitude.Identify().set(key, value);
-      amplitude.getInstance().identify(identify);
+      amplitude.identify(identify);
     });
   });
 }
