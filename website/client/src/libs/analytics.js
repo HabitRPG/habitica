@@ -5,14 +5,13 @@ import pick from 'lodash/pick';
 import amplitude from 'amplitude-js';
 import Vue from 'vue';
 import getStore from '@/store';
+import { gtag, install } from 'ga-gtag';
 
 const AMPLITUDE_KEY = import.meta.env.AMPLITUDE_KEY;
 const DEBUG_ENABLED = import.meta.env.DEBUG_ENABLED === 'true';
 const GA_ID = import.meta.env.GA_ID;
 const IS_PRODUCTION = import.meta.env.NODE_ENV === 'production';
 const REQUIRED_FIELDS = ['eventCategory', 'eventAction'];
-
-import gtag from `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
 
 let analyticsLoading = false;
 let analyticsReady = false;
@@ -70,8 +69,7 @@ function _gatherUserStats (properties) {
 export function setup (userId) {
   if (analyticsLoading) return;
   analyticsLoading = true;
-  gtag('js', new Date());
-  gtag('config', GA_ID, {
+  install(GA_ID, {
     debug_mode: DEBUG_ENABLED || !IS_PRODUCTION,
     user_id: userId,
   });
