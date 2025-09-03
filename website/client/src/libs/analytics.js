@@ -12,6 +12,7 @@ const GA_ID = import.meta.env.GA_ID;
 const IS_PRODUCTION = import.meta.env.NODE_ENV === 'production';
 const REQUIRED_FIELDS = ['eventCategory', 'eventAction'];
 
+let analyticsLoading = false;
 let analyticsReady = false;
 
 function _getConsentedUser () {
@@ -65,8 +66,8 @@ function _gatherUserStats (properties) {
 }
 
 export async function setup () {
-  const user = _getConsentedUser();
-  if (!user) return;
+  if (analyticsLoading) return;
+  analyticsLoading = true;
   await Vue.loadScript(`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`);
   window.gtag('config', GA_ID, {
     debug_mode: DEBUG_ENABLED || !IS_PRODUCTION,
@@ -74,23 +75,24 @@ export async function setup () {
   });
   amplitude.getInstance().init(AMPLITUDE_KEY);
   analyticsReady = true;
+  analyticsLoading = false;
 }
 
 export async function setUser () {
+  const user = _getConsentedUser();
+  if (!user) return;
   if (!analyticsReady) {
     await setup();
   }
-  const user = _getConsentedUser();
-  if (!user) return;
   amplitude.getInstance().setUserId(user._id);
 }
 
 export async function track (properties, options = {}) {
+  const user = _getConsentedUser();
+  if (!user) return;
   if (!analyticsReady) {
     await setup();
   }
-  const user = _getConsentedUser();
-  if (!user) return;
   // Use nextTick to avoid blocking the UI
   Vue.nextTick(() => {
     if (_doesNotHaveRequiredFields(properties)) return;
@@ -110,11 +112,11 @@ export async function track (properties, options = {}) {
 }
 
 export async function updateUser (properties = {}) {
+  const user = _getConsentedUser();
+  if (!user) return;
   if (!analyticsReady) {
     await setup();
   }
-  const user = _getConsentedUser();
-  if (!user) return;
   // Use nextTick to avoid blocking the UI
   Vue.nextTick(() => {
     _gatherUserStats(properties);
