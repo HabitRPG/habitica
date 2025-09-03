@@ -3,9 +3,9 @@ import isEqual from 'lodash/isEqual';
 import keys from 'lodash/keys';
 import pick from 'lodash/pick';
 import amplitude from 'amplitude-js';
+import { gtag, install } from 'ga-gtag';
 import Vue from 'vue';
 import getStore from '@/store';
-import { gtag, install } from 'ga-gtag';
 
 const AMPLITUDE_KEY = import.meta.env.AMPLITUDE_KEY;
 const DEBUG_ENABLED = import.meta.env.DEBUG_ENABLED === 'true';
