@@ -73,8 +73,7 @@ export function setup (userId) {
     debug_mode: DEBUG_ENABLED || !IS_PRODUCTION,
     user_id: userId,
   });
-  amplitude.init(AMPLITUDE_KEY);
-  amplitude.setUserId(userId);
+  amplitude.getInstance().init(AMPLITUDE_KEY, userId);
   analyticsReady = true;
   analyticsLoading = false;
 }
@@ -92,7 +91,7 @@ export async function track (properties, options = {}) {
     const trackOnClient = options && options.trackOnClient === true;
     // Track events on the server by default
     if (trackOnClient === true) {
-      amplitude.track(properties.eventAction, properties);
+      amplitude.getInstance().logEvent(properties.eventAction, properties);
       gtag('event', properties.eventAction, properties);
     } else {
       const store = getStore();
@@ -113,7 +112,7 @@ export async function updateUser (properties = {}) {
     gtag('set', 'user_properties', properties);
     forEach(properties, (value, key) => {
       const identify = new amplitude.Identify().set(key, value);
-      amplitude.identify(identify);
+      amplitude.getInstance().identify(identify);
     });
   });
 }
