@@ -103,7 +103,7 @@ export async function track (properties, options = {}) {
     const trackOnClient = options && options.trackOnClient === true;
     // Track events on the server by default
     if (trackOnClient === true) {
-      amplitude.logEvent(properties.eventAction, properties);
+      amplitude.track(properties.eventAction, properties);
       gtag('event', properties.eventAction, properties); // eslint-disable-line no-undef
     } else {
       const store = getStore();
