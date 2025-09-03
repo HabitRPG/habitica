@@ -10,8 +10,9 @@ const AMPLITUDE_KEY = import.meta.env.AMPLITUDE_KEY;
 const DEBUG_ENABLED = import.meta.env.DEBUG_ENABLED === 'true';
 const GA_ID = import.meta.env.GA_ID;
 const IS_PRODUCTION = import.meta.env.NODE_ENV === 'production';
-
 const REQUIRED_FIELDS = ['eventCategory', 'eventAction'];
+
+let analyticsReady = false;
 
 function _getConsentedUser () {
   const store = getStore();
@@ -63,13 +64,31 @@ function _gatherUserStats (properties) {
   if (user.purchased.plan.planId) properties.subscription = user.purchased.plan.planId;
 }
 
-export function setUser () {
+export async function setup () {
+  const user = _getConsentedUser();
+  if (!user) return;
+  await Vue.loadScript(`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`);
+  window.gtag('config', GA_ID, {
+    debug_mode: DEBUG_ENABLED || !IS_PRODUCTION,
+    user_id: user._id,
+  });
+  amplitude.getInstance().init(AMPLITUDE_KEY);
+  analyticsReady = true;
+}
+
+export async function setUser () {
+  if (!analyticsReady) {
+    await setup();
+  }
   const user = _getConsentedUser();
   if (!user) return;
   amplitude.getInstance().setUserId(user._id);
 }
 
-export function track (properties, options = {}) {
+export async function track (properties, options = {}) {
+  if (!analyticsReady) {
+    await setup();
+  }
   const user = _getConsentedUser();
   if (!user) return;
   // Use nextTick to avoid blocking the UI
@@ -90,7 +109,10 @@ export function track (properties, options = {}) {
   });
 }
 
-export function updateUser (properties = {}) {
+export async function updateUser (properties = {}) {
+  if (!analyticsReady) {
+    await setup();
+  }
   const user = _getConsentedUser();
   if (!user) return;
   // Use nextTick to avoid blocking the UI
@@ -104,15 +126,4 @@ export function updateUser (properties = {}) {
       amplitude.getInstance().identify(identify);
     });
   });
-}
-
-export async function setup () {
-  const user = _getConsentedUser();
-  if (!user) return;
-  await Vue.loadScript(`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`);
-  window.gtag('config', GA_ID, {
-    debug_mode: DEBUG_ENABLED || !IS_PRODUCTION,
-    user_id: user._id,
-  });
-  amplitude.getInstance().init(AMPLITUDE_KEY);
 }
