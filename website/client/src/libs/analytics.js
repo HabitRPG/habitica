@@ -65,13 +65,13 @@ function _gatherUserStats (properties) {
   if (user.purchased.plan.planId) properties.subscription = user.purchased.plan.planId;
 }
 
-export async function setup () {
+export async function setup (userId) {
   if (analyticsLoading) return;
   analyticsLoading = true;
   await Vue.loadScript(`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`);
   window.gtag('config', GA_ID, {
     debug_mode: DEBUG_ENABLED || !IS_PRODUCTION,
-    user_id: user._id,
+    user_id: userId,
   });
   amplitude.getInstance().init(AMPLITUDE_KEY);
   analyticsReady = true;
@@ -82,7 +82,7 @@ export async function setUser () {
   const user = _getConsentedUser();
   if (!user) return;
   if (!analyticsReady) {
-    await setup();
+    await setup(user._id);
   }
   amplitude.getInstance().setUserId(user._id);
 }
@@ -91,7 +91,7 @@ export async function track (properties, options = {}) {
   const user = _getConsentedUser();
   if (!user) return;
   if (!analyticsReady) {
-    await setup();
+    await setup(user._id);
   }
   // Use nextTick to avoid blocking the UI
   Vue.nextTick(() => {
@@ -115,7 +115,7 @@ export async function updateUser (properties = {}) {
   const user = _getConsentedUser();
   if (!user) return;
   if (!analyticsReady) {
-    await setup();
+    await setup(user._id);
   }
   // Use nextTick to avoid blocking the UI
   Vue.nextTick(() => {
