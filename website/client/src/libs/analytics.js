@@ -78,7 +78,7 @@ export function setup (userId) {
   analyticsLoading = false;
 }
 
-export async function track (properties, options = {}) {
+export function track (properties, options = {}) {
   const user = _getConsentedUser();
   if (!user) return;
   if (!analyticsReady) {
@@ -100,7 +100,7 @@ export async function track (properties, options = {}) {
   });
 }
 
-export async function updateUser (properties = {}) {
+export function updateUser (properties = {}) {
   const user = _getConsentedUser();
   if (!user) return;
   if (!analyticsReady) {
