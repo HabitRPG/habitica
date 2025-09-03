@@ -4,7 +4,6 @@ import keys from 'lodash/keys';
 import pick from 'lodash/pick';
 import amplitude from 'amplitude-js';
 import Vue from 'vue';
-import LoadScript from 'vue-plugin-load-script';
 import getStore from '@/store';
 
 const AMPLITUDE_KEY = import.meta.env.AMPLITUDE_KEY;
@@ -13,10 +12,10 @@ const GA_ID = import.meta.env.GA_ID;
 const IS_PRODUCTION = import.meta.env.NODE_ENV === 'production';
 const REQUIRED_FIELDS = ['eventCategory', 'eventAction'];
 
+import gtag from `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+
 let analyticsLoading = false;
 let analyticsReady = false;
-
-Vue.use(LoadScript);
 
 function _getConsentedUser () {
   const store = getStore();
@@ -68,11 +67,11 @@ function _gatherUserStats (properties) {
   if (user.purchased.plan.planId) properties.subscription = user.purchased.plan.planId;
 }
 
-export async function setup (userId) {
+export function setup (userId) {
   if (analyticsLoading) return;
   analyticsLoading = true;
-  await Vue.loadScript(`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`);
-  gtag('config', GA_ID, { // eslint-disable-line no-undef
+  gtag('js', new Date());
+  gtag('config', GA_ID, {
     debug_mode: DEBUG_ENABLED || !IS_PRODUCTION,
     user_id: userId,
   });
@@ -85,7 +84,7 @@ export async function setUser () {
   const user = _getConsentedUser();
   if (!user) return;
   if (!analyticsReady) {
-    await setup(user._id);
+    setup(user._id);
   }
   amplitude.setUserId(user._id);
 }
@@ -94,7 +93,7 @@ export async function track (properties, options = {}) {
   const user = _getConsentedUser();
   if (!user) return;
   if (!analyticsReady) {
-    await setup(user._id);
+    setup(user._id);
   }
   // Use nextTick to avoid blocking the UI
   Vue.nextTick(() => {
@@ -104,7 +103,7 @@ export async function track (properties, options = {}) {
     // Track events on the server by default
     if (trackOnClient === true) {
       amplitude.track(properties.eventAction, properties);
-      gtag('event', properties.eventAction, properties); // eslint-disable-line no-undef
+      gtag('event', properties.eventAction, properties);
     } else {
       const store = getStore();
       store.dispatch('analytics:trackEvent', properties);
@@ -116,12 +115,12 @@ export async function updateUser (properties = {}) {
   const user = _getConsentedUser();
   if (!user) return;
   if (!analyticsReady) {
-    await setup(user._id);
+    setup(user._id);
   }
   // Use nextTick to avoid blocking the UI
   Vue.nextTick(() => {
     _gatherUserStats(properties);
-    gtag('set', 'user_properties', properties); // eslint-disable-line no-undef
+    gtag('set', 'user_properties', properties);
     forEach(properties, (value, key) => {
       const identify = new amplitude.Identify().set(key, value);
       amplitude.identify(identify);
