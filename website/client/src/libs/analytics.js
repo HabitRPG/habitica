@@ -4,6 +4,7 @@ import keys from 'lodash/keys';
 import pick from 'lodash/pick';
 import amplitude from 'amplitude-js';
 import Vue from 'vue';
+import LoadScript from 'vue-plugin-load-script';
 import getStore from '@/store';
 
 const AMPLITUDE_KEY = import.meta.env.AMPLITUDE_KEY;
@@ -14,6 +15,8 @@ const REQUIRED_FIELDS = ['eventCategory', 'eventAction'];
 
 let analyticsLoading = false;
 let analyticsReady = false;
+
+Vue.use(LoadScript);
 
 function _getConsentedUser () {
   const store = getStore();
