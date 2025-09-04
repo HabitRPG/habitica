@@ -2,11 +2,9 @@ import forEach from 'lodash/forEach';
 import isEqual from 'lodash/isEqual';
 import keys from 'lodash/keys';
 import pick from 'lodash/pick';
-import amplitude from 'amplitude-js';
 import Vue from 'vue';
 import getStore from '@/store';
 
-const AMPLITUDE_KEY = import.meta.env.AMPLITUDE_KEY;
 const DEBUG_ENABLED = import.meta.env.DEBUG_ENABLED === 'true';
 const GA_ID = import.meta.env.GA_ID;
 const IS_PRODUCTION = import.meta.env.NODE_ENV === 'production';
@@ -63,12 +61,6 @@ function _gatherUserStats (properties) {
   if (user.purchased.plan.planId) properties.subscription = user.purchased.plan.planId;
 }
 
-export function setUser () {
-  const user = _getConsentedUser();
-  if (!user) return;
-  amplitude.getInstance().setUserId(user._id);
-}
-
 export function track (properties, options = {}) {
   const user = _getConsentedUser();
   if (!user) return;
@@ -79,14 +71,12 @@ export function track (properties, options = {}) {
     const trackOnClient = options && options.trackOnClient === true;
     // Track events on the server by default
     if (trackOnClient === true) {
-      amplitude.getInstance().logEvent(properties.eventAction, properties);
       if (window.gtag) {
         window.gtag('event', properties.eventAction, properties);
       }
-    } else {
-      const store = getStore();
-      store.dispatch('analytics:trackEvent', properties);
     }
+    const store = getStore();
+    store.dispatch('analytics:trackEvent', properties);
   });
 }
 
@@ -99,10 +89,8 @@ export function updateUser (properties = {}) {
     if (window.gtag) {
       window.gtag('set', 'user_properties', properties);
     }
-    forEach(properties, (value, key) => {
-      const identify = new amplitude.Identify().set(key, value);
-      amplitude.getInstance().identify(identify);
-    });
+    const store = getStore();
+    store.dispatch('analytics:updateUserProperties', properties);
   });
 }
 
@@ -114,5 +102,4 @@ export async function setup () {
     debug_mode: DEBUG_ENABLED || !IS_PRODUCTION,
     user_id: user._id,
   });
-  amplitude.getInstance().init(AMPLITUDE_KEY);
 }

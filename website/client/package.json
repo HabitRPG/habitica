@@ -16,7 +16,6 @@
     "@froxz/vite-plugin-s3": "^1.6.0",
     "@vitejs/plugin-vue2": "^2.3.3",
     "@vue/test-utils": "1.0.0-beta.29",
-    "amplitude-js": "^8.21.3",
     "assert": "^2.1.0",
     "autoprefixer": "^10.4.20",
     "axios": "^0.28.0",
