@@ -37,7 +37,7 @@ export default async function buyMysterySet (user, req = {}, analytics) {
 
   if (analytics) {
     analytics.track('buy', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       itemKey: mysterySet.key,
       itemType: 'Subscriber Gear',

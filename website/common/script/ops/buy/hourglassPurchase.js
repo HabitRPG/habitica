@@ -96,7 +96,7 @@ export default async function purchaseHourglass (user, req = {}, analytics, quan
 
   if (analytics) {
     analytics.track('buy', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       itemKey: key,
       itemType: type,

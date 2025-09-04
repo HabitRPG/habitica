@@ -465,7 +465,7 @@ async function cancelSubscription (data) {
 
   analytics.track(cancelType, {
     uuid: data.user._id,
-    user: pick(data.user, ['preferences', 'registeredThrough']),
+    user: data.user,
     groupId,
     paymentMethod: data.paymentMethod,
     headers: data.headers,

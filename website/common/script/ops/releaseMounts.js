@@ -44,7 +44,7 @@ export default async function releaseMounts (user, req = {}, analytics) {
 
   if (analytics) {
     analytics.track('release mounts', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       currency: 'Gems',
       gemCost: 4,

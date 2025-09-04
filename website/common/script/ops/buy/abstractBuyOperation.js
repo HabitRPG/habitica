@@ -114,7 +114,7 @@ export class AbstractBuyOperation {
   sendToAnalytics (additionalData = {}) {
     // spread-operator produces an "unexpected token" error
     const analyticsData = merge(additionalData, {
-      user: pick(this.user, ['preferences', 'registeredThrough']),
+      user: this.user,
       uuid: this.user._id,
       category: 'behavior',
       headers: this.req.headers,

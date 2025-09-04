@@ -737,7 +737,7 @@ api.transferGems = {
 
     if (res.analytics) {
       res.analytics.track('transfer gems', {
-        user: pick(sender, ['preferences', 'registeredThrough']),
+        user,
         uuid: sender._id,
         hitType: 'event',
         category: 'behavior',

@@ -115,7 +115,7 @@ export async function buyGems (data) {
   if (!data.gift) txnEmail(data.user, 'donation');
 
   analytics.trackPurchase({
-    user: pick(data.user, ['preferences', 'registeredThrough']),
+    user: data.user,
     uuid: data.user._id,
     itemPurchased: 'Gems',
     sku: `${data.paymentMethod.toLowerCase()}-checkout`,

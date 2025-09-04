@@ -318,7 +318,7 @@ export default async function unlock (user, req = {}, analytics) {
 
     if (analytics) {
       analytics.track('buy', {
-        user: pick(user, ['preferences', 'registeredThrough']),
+        user,
         uuid: user._id,
         itemKey: path,
         itemType: 'customization',

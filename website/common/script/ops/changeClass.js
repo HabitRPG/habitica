@@ -70,7 +70,7 @@ export default async function changeClass (user, req = {}, analytics) {
 
     if (analytics) {
       analytics.track('change class', {
-        user: pick(user, ['preferences', 'registeredThrough']),
+        user,
         uuid: user._id,
         class: klass,
         currency: balanceRemoved === 0 ? 'Free' : 'Gems',

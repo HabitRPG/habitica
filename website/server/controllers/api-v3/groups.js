@@ -169,7 +169,7 @@ api.createGroup = {
     };
 
     const analyticsObject = {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',
@@ -220,7 +220,7 @@ api.createGroupPlan = {
     const savedGroup = results[1];
 
     res.analytics.track('join group', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',
@@ -705,7 +705,7 @@ api.joinGroup = {
     promises.push(group.save());
 
     const analyticsObject = {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',

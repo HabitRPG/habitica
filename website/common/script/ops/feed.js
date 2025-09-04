@@ -143,7 +143,7 @@ export default function feed (user, req = {}, analytics) {
 
   if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
     analytics.track('pet feed', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       foodKey: food.key,
       petKey: pet.key,

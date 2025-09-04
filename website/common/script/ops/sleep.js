@@ -5,7 +5,7 @@ export function sleep (user, req = {}, analytics) {
 
   if (analytics) {
     analytics.track('sleep', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       status: user.preferences.sleep,
       category: 'behavior',

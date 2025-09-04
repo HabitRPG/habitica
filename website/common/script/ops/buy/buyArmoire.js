@@ -73,7 +73,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
     this.analytics.track(
       'Enchanted Armoire',
       {
-        user: pick(user, ['preferences', 'registeredThrough']),
+        user,
         uuid: user._id,
         itemKey: key,
         category: 'behavior',

@@ -24,7 +24,7 @@ export default async function reroll (user, tasks = [], req = {}, analytics) {
 
   if (analytics) {
     analytics.track('Fortify Potion', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       currency: 'Gems',
       gemCost: 4,

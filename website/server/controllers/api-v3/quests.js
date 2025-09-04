@@ -168,7 +168,7 @@ api.inviteToQuest = {
 
     // track that the inviting user has accepted the quest
     analytics.track('quest', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       category: 'behavior',
       headers: req.headers,
@@ -233,7 +233,7 @@ api.acceptQuest = {
 
     // track that a user has accepted the quest
     analytics.track('quest', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       category: 'behavior',
       owner: false,
       response: 'accept',
@@ -298,7 +298,7 @@ api.rejectQuest = {
     res.respond(200, savedGroup.quest);
 
     analytics.track('quest', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       category: 'behavior',
       owner: false,
       response: 'reject',
@@ -362,7 +362,7 @@ api.forceStart = {
     res.respond(200, savedGroup.quest);
 
     analytics.track('quest', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       category: 'behavior',
       owner: user._id === group.quest.leader,
       response: 'force-start',

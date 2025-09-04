@@ -158,7 +158,7 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
 
   if (!existingUser) {
     res.analytics.track('register', {
-      user: pick(savedUser, ['preferences', 'registeredThrough']),
+      user: savedUser,
       uuid: savedUser._id,
       category: 'acquisition',
       type: network,

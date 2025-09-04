@@ -64,7 +64,7 @@ api.createGroupTasks = {
 
     tasks.forEach(task => {
       res.analytics.track('team task created', {
-        user: pick(user, ['preferences', 'registeredThrough']),
+        user,
         uuid: user._id,
         hitType: 'event',
         category: 'behavior',
@@ -253,7 +253,7 @@ api.assignTask = {
     res.respond(200, task);
 
     res.analytics.track('task assign', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',

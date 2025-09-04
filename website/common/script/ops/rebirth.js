@@ -23,7 +23,7 @@ export default async function rebirth (user, tasks = [], req = {}, analytics) {
 
   const analyticsData = {
     uuid: user._id,
-    user: pick(user, ['preferences', 'registeredThrough']),
+    user,
     category: 'behavior',
   };
 

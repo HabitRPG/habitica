@@ -104,7 +104,7 @@ function trackCronAnalytics (analytics, user, _progress, options) {
   analytics.track('Cron', {
     category: 'behavior',
     uuid: user._id,
-    user: pick(user, ['preferences', 'registeredThrough']),
+    user,
     resting: user.preferences.sleep,
     cronCount: user.flags.cronCount,
     progressUp: Math.min(_progress.up, 900),

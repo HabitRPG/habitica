@@ -219,7 +219,7 @@ async function registerLocal (req, res, { isV3 = false }) {
 
   if (!existingUser) {
     res.analytics.track('register', {
-      user: pick(savedUser, ['preferences', 'registeredThrough']),
+      user: savedUser,
       category: 'acquisition',
       type: 'local',
       uuid: savedUser._id,

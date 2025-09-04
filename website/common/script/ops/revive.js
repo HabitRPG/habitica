@@ -112,7 +112,7 @@ export default function revive (user, req = {}, analytics) {
 
   if (analytics) {
     analytics.track('Death', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       lostItem,
       category: 'behavior',

@@ -154,7 +154,7 @@ export default function hatch (user, req = {}, analytics) {
 
   if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
     analytics.track('pet hatch', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       petKey: pet,
       category: 'behavior',

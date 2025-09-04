@@ -291,7 +291,7 @@ api.createChallenge = {
     response.group = getChallengeGroupResponse(group);
 
     res.analytics.track('challenge create', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',
@@ -360,7 +360,7 @@ api.joinChallenge = {
     response.leader = chalLeader ? chalLeader.toJSON({ minimize: true }) : null;
 
     res.analytics.track('challenge join', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',
@@ -411,7 +411,7 @@ api.leaveChallenge = {
     await challenge.unlinkTasks(user, keep);
 
     res.analytics.track('challenge leave', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',
@@ -896,7 +896,7 @@ api.deleteChallenge = {
     await challenge.closeChal({ broken: 'CHALLENGE_DELETED' });
 
     res.analytics.track('challenge delete', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',
@@ -957,7 +957,7 @@ api.selectChallengeWinner = {
     await challenge.closeChal({ broken: 'CHALLENGE_CLOSED', winner });
 
     res.analytics.track('challenge close', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',

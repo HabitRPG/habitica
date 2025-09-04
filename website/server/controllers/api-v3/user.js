@@ -326,7 +326,7 @@ api.deleteUser = {
     }
 
     res.analytics.track('account delete', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',

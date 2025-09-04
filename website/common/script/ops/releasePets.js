@@ -44,7 +44,7 @@ export default function releasePets (user, req = {}, analytics) {
 
   if (analytics) {
     analytics.track('release pets', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       currency: 'Gems',
       gemCost: 4,

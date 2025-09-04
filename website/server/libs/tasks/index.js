@@ -516,7 +516,7 @@ async function scoreTask (user, task, direction, req, res) {
       role = 'member';
     }
     res.analytics.track('team task scored', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',

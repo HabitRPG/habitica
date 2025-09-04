@@ -128,7 +128,7 @@ api.loginLocal = {
     await user.save();
 
     res.analytics.track('login', {
-      user: pick(user, ['preferences', 'registeredThrough']),
+      user,
       category: 'behavior',
       type: 'local',
       uuid: user._id,

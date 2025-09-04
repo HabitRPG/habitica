@@ -144,7 +144,7 @@ async function inviteByUUID (uuid, group, inviter, req, res) {
   }
 
   const analyticsObject = {
-    user: pick(inviter, ['preferences', 'registeredThrough']),
+    user: inviter,
     uuid: inviter._id,
     hitType: 'event',
     category: 'behavior',
@@ -209,7 +209,7 @@ async function inviteByEmail (invite, group, inviter, req, res) {
     if (!userIsUnsubscribed) sendTxnEmail(invite, `invite-friend${groupLabel}`, variables);
 
     const analyticsObject = {
-      user: pick(inviter, ['preferences', 'registeredThrough']),
+      user: inviter,
       uuid: inviter._id,
       hitType: 'event',
       category: 'behavior',
@@ -247,7 +247,7 @@ async function inviteByUserName (username, group, inviter, req, res) {
   }
 
   const analyticsObject = {
-    user: pick(inviter, ['preferences', 'registeredThrough']),
+    user: inviter,
     uuid: inviter._id,
     hitType: 'event',
     category: 'behavior',

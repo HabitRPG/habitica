@@ -333,7 +333,7 @@ api.createChallengeTasks = {
 
     tasks.forEach(task => {
       res.analytics.track('challenge task created', {
-        user: pick(user, ['preferences', 'registeredThrough']),
+        user,
         uuid: user._id,
         hitType: 'event',
         category: 'behavior',
@@ -703,7 +703,7 @@ api.updateTask = {
 
     if (group) {
       res.analytics.track('task edit', {
-        user: pick(user, ['preferences', 'registeredThrough']),
+        user,
         uuid: user._id,
         hitType: 'event',
         category: 'behavior',

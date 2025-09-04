@@ -21,7 +21,7 @@ export function checkOnboardingStatus (user, req, analytics) {
     user.addNotification('ONBOARDING_COMPLETE');
     if (analytics) {
       analytics.track('onboarding complete', {
-        user: pick(user, ['preferences', 'registeredThrough']),
+        user,
         uuid: user._id,
         hitType: 'event',
         category: 'behavior',

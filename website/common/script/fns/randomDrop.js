@@ -160,7 +160,7 @@ export default function randomDrop (user, options, req = {}, analytics) {
 
     if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
       analytics.track('dropped item', {
-        user: pick(user, ['preferences', 'registeredThrough']),
+        user,
         uuid: user._id,
         itemKey: drop.key,
         category: 'behavior',
