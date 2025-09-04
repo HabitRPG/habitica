@@ -66,8 +66,8 @@ function _gatherUserStats (properties) {
   if (user.purchased.plan.planId) properties.subscription = user.purchased.plan.planId;
 }
 
-export function setup (userId) {
-  if (analyticsLoading) return;
+export function safeSetup (userId) {
+  if (analyticsLoading || analyticsReady) return;
   analyticsLoading = true;
   install(GA_ID, {
     debug_mode: DEBUG_ENABLED || !IS_PRODUCTION,
@@ -81,9 +81,7 @@ export function setup (userId) {
 export function track (properties, options = {}) {
   const user = _getConsentedUser();
   if (!user) return;
-  if (!analyticsReady) {
-    setup(user._id);
-  }
+  safeSetup(user._id);
   // Use nextTick to avoid blocking the UI
   Vue.nextTick(() => {
     if (_doesNotHaveRequiredFields(properties)) return;
@@ -103,9 +101,7 @@ export function track (properties, options = {}) {
 export function updateUser (properties = {}) {
   const user = _getConsentedUser();
   if (!user) return;
-  if (!analyticsReady) {
-    setup(user._id);
-  }
+  safeSetup(user._id);
   // Use nextTick to avoid blocking the UI
   Vue.nextTick(() => {
     _gatherUserStats(properties);
