@@ -1,6 +1,6 @@
 import gulp from 'gulp';
 import spritesmith from 'gulp.spritesmith';
-import clean from 'rimraf';
+import { rimraf as clean } from 'rimraf';
 import mergeStream from 'merge-stream';
 import { sync } from 'glob';
 
@@ -109,7 +109,8 @@ gulp.task('sprites:main', async () => {
 });
 
 gulp.task('sprites:clean', done => {
-  clean(`${IMG_DIST_PATH}spritesmith*,${CSS_DIST_PATH}spritesmith*}`, done);
+  clean.sync(`${IMG_DIST_PATH}spritesmith*,${CSS_DIST_PATH}spritesmith*}`);
+  done();
 });
 
 gulp.task('sprites:compile', gulp.series('sprites:clean', 'sprites:main', done => done()));

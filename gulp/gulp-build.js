@@ -6,7 +6,7 @@ import babel from 'gulp-babel';
 import os from 'os';
 import fs from 'fs';
 import spawn from 'cross-spawn'; // eslint-disable-line import/no-extraneous-dependencies
-import clean from 'rimraf';
+import { rimraf as clean } from 'rimraf';
 
 gulp.task('build:babel:server', () => gulp.src('website/server/**/*.js')
   .pipe(babel())
