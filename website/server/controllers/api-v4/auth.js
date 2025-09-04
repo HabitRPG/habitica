@@ -21,8 +21,8 @@ api.verifyUsername = {
       },
     });
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { user } = res.locals;
     const chosenUsername = req.body.username;
@@ -105,8 +105,8 @@ api.checkEmail = {
       },
     });
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const lowercaseEmail = req.body.email.toLowerCase();
     if (isRestrictedEmailDomain(lowercaseEmail)) {

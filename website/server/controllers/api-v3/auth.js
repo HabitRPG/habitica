@@ -3,6 +3,7 @@ import moment from 'moment';
 import pick from 'lodash/pick';
 import sortBy from 'lodash/sortBy';
 import nconf from 'nconf';
+import { body , validationResult } from 'express-validator';
 import {
   authWithHeaders,
 } from '../../middlewares/auth';
@@ -87,8 +88,8 @@ api.loginLocal = {
         errorMessage: res.t('missingPassword'),
       },
     });
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     req.sanitizeBody('username').trim();
     req.sanitizeBody('password').trim();
@@ -216,8 +217,8 @@ api.updateUsername = {
       },
     });
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const newUsername = req.body.username;
 
@@ -307,7 +308,7 @@ api.updatePassword = {
       },
     });
 
-    const validationErrors = req.validationErrors();
+    const validationErrors = validationResult(req).array();
 
     if (validationErrors) {
       throw validationErrors;
@@ -353,8 +354,8 @@ api.resetPassword = {
         notEmpty: { errorMessage: res.t('missingEmail') },
       },
     });
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const email = req.body.email.toLowerCase();
     let user = await User.findOne(
@@ -419,12 +420,12 @@ api.updateEmail = {
 
     if (!user.auth.local.email) throw new BadRequest(res.t('userHasNoLocalRegistration'));
 
-    req.checkBody('newEmail', res.t('newEmailRequired')).notEmpty().isEmail();
+    await body('newEmail', res.t('newEmailRequired')).notEmpty().isEmail().run(req)
     if (user.auth.local.hashed_password) {
-      req.checkBody('password', res.t('missingPassword')).notEmpty();
+      await body('password', res.t('missingPassword')).notEmpty().run(req)
     }
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const emailAlreadyInUse = await User.findOne({
       'auth.local.email': req.body.newEmail.toLowerCase(),
@@ -485,8 +486,8 @@ api.resetPasswordSetNewOne = {
       },
     });
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { newPassword, confirmPassword } = req.body;
 

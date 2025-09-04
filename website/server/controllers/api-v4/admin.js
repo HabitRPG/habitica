@@ -1,5 +1,6 @@
 import validator from 'validator';
 import merge from 'lodash/merge';
+import { param , validationResult } from 'express-validator';
 import uniqBy from 'lodash/uniqBy';
 import { v4 as uuid } from 'uuid';
 import { authWithHeaders } from '../../middlewares/auth';
@@ -41,10 +42,10 @@ api.searchHero = {
   url: '/admin/search/:userIdentifier',
   middlewares: [authWithHeaders(), ensurePermission('userSupport')],
   async handler (req, res) {
-    req.checkParams('userIdentifier', res.t('userIdentifierRequired')).notEmpty();
+    await param('userIdentifier', res.t('userIdentifierRequired')).notEmpty().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { userIdentifier } = req.params;
 
@@ -109,10 +110,10 @@ api.getUserHistory = {
   url: '/admin/user/:userId/history',
   middlewares: [authWithHeaders(), ensurePermission('userSupport')],
   async handler (req, res) {
-    req.checkParams('userId', res.t('heroIdRequired')).notEmpty().isUUID();
+    await param('userId', res.t('heroIdRequired')).notEmpty().isUUID().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { userId } = req.params;
 
@@ -161,10 +162,10 @@ api.updateBlocker = {
   url: '/admin/blockers/:blockerId',
   middlewares: [authWithHeaders(), ensurePermission('accessControl')],
   async handler (req, res) {
-    req.checkParams('blockerId', res.t('blockerIdRequired')).notEmpty().isUUID();
+    await param('blockerId', res.t('blockerIdRequired')).notEmpty().isUUID().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const blocker = await Blocker.findById(req.params.blockerId).exec();
     if (!blocker) throw new NotFound(res.t('blockerNotFound'));
@@ -181,10 +182,10 @@ api.deleteBlocker = {
   url: '/admin/blockers/:blockerId',
   middlewares: [authWithHeaders(), ensurePermission('accessControl')],
   async handler (req, res) {
-    req.checkParams('blockerId', res.t('blockerIdRequired')).notEmpty().isUUID();
+    await param('blockerId', res.t('blockerIdRequired')).notEmpty().isUUID().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const blocker = await Blocker.findById(req.params.blockerId).exec();
     if (!blocker) throw new NotFound(res.t('blockerNotFound'));

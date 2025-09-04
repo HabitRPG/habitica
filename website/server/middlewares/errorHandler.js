@@ -27,11 +27,11 @@ export default function errorHandler (err, req, res, next) { // eslint-disable-l
   }
 
   // Handle errors by express-validator
-  if (Array.isArray(err) && err[0].param && err[0].msg) {
+  if (Array.isArray(err) && err.length >= 1 && err[0].path && err[0].msg) {
     responseErr = new BadRequest(res.t('invalidReqParams'));
     responseErr.errors = err.map(paramErr => ({
       message: paramErr.msg,
-      param: paramErr.param,
+      param: paramErr.path,
       value: paramErr.value,
     }));
   }
@@ -66,7 +66,7 @@ export default function errorHandler (err, req, res, next) { // eslint-disable-l
     responseErr = new InternalServerError();
   }
 
-  if (!err.skipLogging) {
+  if (!err.skipLogging && err instanceof Error) {
     // log the error
     logger.error(err, {
       method: req.method,

@@ -9,6 +9,7 @@ import pick from 'lodash/pick';
 import uniqBy from 'lodash/uniqBy';
 import nconf from 'nconf';
 import moment from 'moment';
+import { body, param, query , validationResult } from 'express-validator';
 import { authWithHeaders } from '../../middlewares/auth';
 import {
   model as Group,
@@ -132,10 +133,10 @@ api.createGroup = {
     const group = new Group(Group.sanitize(req.body));
     group.leader = user._id;
 
-    req.checkBody('summary', apiError('summaryLengthExceedsMax')).isLength({ max: MAX_SUMMARY_SIZE_FOR_GUILDS });
+    await body('summary', apiError('summaryLengthExceedsMax')).isLength({ max: MAX_SUMMARY_SIZE_FOR_GUILDS }).run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     if (group.type === 'guild') {
       if (!user.hasPermission('fullAccess')) {
@@ -206,10 +207,10 @@ api.createGroupPlan = {
     const { user } = res.locals;
     const group = new Group(Group.sanitize(req.body.groupToCreate));
 
-    req.checkBody('paymentType', res.t('paymentTypeRequired')).notEmpty();
-    req.checkBody('summary', apiError('summaryLengthExceedsMax')).isLength({ max: MAX_SUMMARY_SIZE_FOR_GUILDS });
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    await body('paymentType', res.t('paymentTypeRequired')).notEmpty().run(req)
+    await body('summary', apiError('summaryLengthExceedsMax')).isLength({ max: MAX_SUMMARY_SIZE_FOR_GUILDS }).run(req)
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     // @TODO: Change message
     if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
@@ -321,13 +322,13 @@ api.getGroups = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkQuery('type', res.t('groupTypesRequired')).notEmpty();
+    await query('type', res.t('groupTypesRequired')).notEmpty().run(req)
     // pagination options, can only be used with public guilds
-    req.checkQuery('paginate').optional().isIn(['true', 'false'], apiError('guildsPaginateBooleanString'));
-    req.checkQuery('page').optional().isInt({ min: 0 }, apiError('queryPageInteger'));
+    await query('paginate').optional().isIn(['true', 'false'], apiError('guildsPaginateBooleanString')).run(req)
+    await query('page').optional().isInt({ min: 0 }, apiError('queryPageInteger')).run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const types = req.query.type.split(',');
 
@@ -419,10 +420,10 @@ api.getGroup = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
+    await param('groupId', apiError('groupIdRequired')).notEmpty().run(req);
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { groupId } = req.params;
     const group = await Group.getGroup({ user, groupId, populateLeader: false });
@@ -481,11 +482,11 @@ api.updateGroup = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
-    req.checkBody('summary', apiError('summaryLengthExceedsMax')).isLength({ max: MAX_SUMMARY_SIZE_FOR_GUILDS });
+    await param('groupId', apiError('groupIdRequired')).notEmpty().run(req);
+    await body('summary', apiError('summaryLengthExceedsMax')).isLength({ max: MAX_SUMMARY_SIZE_FOR_GUILDS }).run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
     const optionalMembership = Boolean(user.hasPermission('moderator'));
     const group = await Group.getGroup({ user, groupId: req.params.groupId, optionalMembership });
 
@@ -567,10 +568,10 @@ api.joinGroup = {
     const { user } = res.locals;
     let inviter;
 
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    await param('groupId', apiError('groupIdRequired')).notEmpty().run(req); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     // Works even if the user is not yet a member of the group
     // Do not fetch chat and work even if the user is not yet a member of the group
@@ -760,10 +761,10 @@ api.rejectGroupInvite = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    await param('groupId', apiError('groupIdRequired')).notEmpty().run(req); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { groupId } = req.params;
     let isUserInvited = false;
@@ -831,13 +832,13 @@ api.leaveGroup = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
+    await param('groupId', apiError('groupIdRequired')).notEmpty().run(req);
     // When removing the user from challenges, should we keep the tasks?
-    req.checkQuery('keep', apiError('keepOrRemoveAll')).optional().isIn(['keep-all', 'remove-all']);
-    req.checkBody('keepChallenges', apiError('groupRemainOrLeaveChallenges')).optional().isIn(['remain-in-challenges', 'leave-challenges']);
+    await query('keep', apiError('keepOrRemoveAll')).optional().isIn(['keep-all', 'remove-all']).run(req)
+    await body('keepChallenges', apiError('groupRemainOrLeaveChallenges')).optional().isIn(['remain-in-challenges', 'leave-challenges']).run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { groupId } = req.params;
     await leaveGroup({
@@ -899,11 +900,11 @@ api.removeGroupMember = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
-    req.checkParams('memberId', res.t('userIdRequired')).notEmpty().isUUID();
+    await param('groupId', apiError('groupIdRequired')).notEmpty().run(req);
+    await param('memberId', res.t('userIdRequired')).notEmpty().isUUID().run(req);
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
     const optionalMembership = Boolean(user.hasPermission('moderator'));
     const group = await Group.getGroup({
       user, groupId: req.params.groupId, optionalMembership, fields: '-chat',
@@ -1105,12 +1106,12 @@ api.inviteToGroup = {
 
     if (user.flags.chatRevoked) throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
 
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
+    await param('groupId', apiError('groupIdRequired')).notEmpty().run(req);
 
     if (user.invitesSent >= MAX_EMAIL_INVITES_BY_USER) throw new NotAuthorized(res.t('inviteLimitReached', { techAssistanceEmail: TECH_ASSISTANCE_EMAIL }));
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const group = await Group.getGroup({ user, groupId: req.params.groupId, fields: '-chat' });
     if (!group) throw new NotFound(res.t('groupNotFound'));
@@ -1182,11 +1183,11 @@ api.addGroupManager = {
     const { user } = res.locals;
     const { managerId } = req.body;
 
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
-    req.checkBody('managerId', apiError('managerIdRequired')).notEmpty();
+    await param('groupId', apiError('groupIdRequired')).notEmpty().run(req); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    await body('managerId', apiError('managerIdRequired')).notEmpty().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const newManager = await User.findById(managerId, 'guilds party').exec();
     const groupFields = basicGroupFields.concat(' managers');
@@ -1232,11 +1233,11 @@ api.removeGroupManager = {
     const { user } = res.locals;
     const { managerId } = req.body;
 
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
-    req.checkBody('managerId', apiError('managerIdRequired')).notEmpty();
+    await param('groupId', apiError('groupIdRequired')).notEmpty().run(req); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    await body('managerId', apiError('managerIdRequired')).notEmpty().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const groupFields = basicGroupFields.concat(' managers');
     const group = await Group.getGroup({ user, groupId: req.params.groupId, fields: groupFields });
@@ -1323,7 +1324,7 @@ api.getLookingForParty = {
     const USERS_PER_PAGE = 30;
     const { user } = res.locals;
 
-    req.checkQuery('page').optional().isInt({ min: 0 }, apiError('queryPageInteger'));
+    await query('page').optional().isInt({ min: 0 }, apiError('queryPageInteger')).run(req)
     const PAGE = req.query.page || 0;
     const PAGE_START = USERS_PER_PAGE * PAGE;
 

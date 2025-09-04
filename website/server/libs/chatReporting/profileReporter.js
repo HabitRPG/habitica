@@ -1,5 +1,6 @@
 import { model as User } from '../../models/user';
 import * as slack from '../slack';
+import { param , validationResult } from 'express-validator';
 
 import ChatReporter from './chatReporter';
 import {
@@ -15,10 +16,10 @@ export default class ProfileReporter extends ChatReporter {
   }
 
   async validate () {
-    this.req.checkParams('memberId', this.res.t('memberIdRequired')).notEmpty().isUUID();
+    await param('memberId', this.res.t('memberIdRequired')).notEmpty().isUUID().run(req)
 
-    const validationErrors = this.req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = this.validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const flaggedUser = await User.findOne(
       { _id: this.req.params.memberId },

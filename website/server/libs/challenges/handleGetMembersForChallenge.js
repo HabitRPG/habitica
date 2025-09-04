@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { param, query , validationResult } from 'express-validator';
 import {
   model as User,
   publicFields as memberFields,
@@ -22,13 +23,13 @@ async function getMembersTasksForChallenge (members, challenge) {
 }
 
 export async function handleGetMembersForChallenge (req, res) {
-  req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
-  req.checkQuery('lastId').optional().notEmpty().isUUID();
+  await param('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID().run(req);
+  await query('lastId').optional().notEmpty().isUUID().run(req);
   // Allow an arbitrary number of results (up to 60)
-  req.checkQuery('limit', res.t('groupIdRequired')).optional().notEmpty().isInt({ min: 1, max: 60 });
+  await query('limit', res.t('groupIdRequired')).optional().notEmpty().isInt({ min: 1, max: 60 }).run(req);
 
-  const validationErrors = req.validationErrors();
-  if (validationErrors) throw validationErrors;
+  const validationErrors = validationResult(req).array();
+  if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
   const { challengeId } = req.params;
   const { lastId } = req.query;

@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import couponCode from 'coupon-code';
+import { param, query , validationResult } from 'express-validator';
 import csvStringify from '../../libs/csvStringify';
 import {
   authWithHeaders,
@@ -72,11 +73,11 @@ api.generateCoupons = {
   url: '/coupons/generate/:event',
   middlewares: [authWithHeaders(), ensurePermission('coupons')],
   async handler (req, res) {
-    req.checkParams('event', apiError('eventRequired')).notEmpty();
-    req.checkQuery('count', apiError('countRequired')).notEmpty().isNumeric();
+    await param('event', apiError('eventRequired')).notEmpty().run(req)
+    await query('count', apiError('countRequired')).notEmpty().isNumeric().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const coupons = await Coupon.generate(req.params.event, req.query.count);
     res.respond(200, coupons);
@@ -122,10 +123,10 @@ api.validateCoupon = {
     optional: true,
   })],
   async handler (req, res) {
-    req.checkParams('code', res.t('couponCodeRequired')).notEmpty();
+    await param('code', res.t('couponCodeRequired')).notEmpty().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     let valid = false;
     const code = couponCode.validate(req.params.code);

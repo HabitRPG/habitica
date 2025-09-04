@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { param , validationResult } from 'express-validator';
 
 const api = {};
 
@@ -36,10 +37,10 @@ api.getModelPaths = {
   method: 'GET',
   url: '/models/:model/paths',
   async handler (req, res) {
-    req.checkParams('model', res.t('modelNotFound')).notEmpty().isIn(allModels);
+    await param('model', res.t('modelNotFound')).notEmpty().isIn(allModels).run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     let { model } = req.params;
     // tasks models are lowercase, the others have the first letter uppercase (User, Group)

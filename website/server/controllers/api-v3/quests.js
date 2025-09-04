@@ -2,6 +2,7 @@ import each from 'lodash/each';
 import every from 'lodash/every';
 import isBoolean from 'lodash/isBoolean';
 import pick from 'lodash/pick';
+import { param , validationResult } from 'express-validator';
 import { authWithHeaders } from '../../middlewares/auth';
 import { getAnalyticsServiceByEnvironment } from '../../libs/analyticsService';
 import {
@@ -68,10 +69,10 @@ api.inviteToQuest = {
     const { questKey } = req.params;
     const quest = questScrolls[questKey];
 
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
+    await param('groupId', apiError('groupIdRequired')).notEmpty().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const group = await Group.getGroup({ user, groupId: req.params.groupId, fields: basicGroupFields.concat(' quest chat') });
 
@@ -202,10 +203,10 @@ api.acceptQuest = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
+    await param('groupId', apiError('groupIdRequired')).notEmpty().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const group = await Group.getGroup({ user, groupId: req.params.groupId, fields: basicGroupFields.concat(' quest chat') });
 
@@ -267,10 +268,10 @@ api.rejectQuest = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
+    await param('groupId', apiError('groupIdRequired')).notEmpty().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const group = await Group.getGroup({ user, groupId: req.params.groupId, fields: basicGroupFields.concat(' quest chat') });
     if (!group) throw new NotFound(res.t('groupNotFound'));
@@ -335,10 +336,10 @@ api.forceStart = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
+    await param('groupId', apiError('groupIdRequired')).notEmpty().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const group = await Group.getGroup({ user, groupId: req.params.groupId, fields: basicGroupFields.concat(' quest chat') });
 
@@ -400,10 +401,10 @@ api.cancelQuest = {
     const { user } = res.locals;
     const { groupId } = req.params;
 
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
+    await param('groupId', apiError('groupIdRequired')).notEmpty().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const group = await Group.getGroup({ user, groupId, fields: basicGroupFields.concat(' quest') });
 
@@ -475,10 +476,10 @@ api.abortQuest = {
     const { user } = res.locals;
     const { groupId } = req.params;
 
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
+    await param('groupId', apiError('groupIdRequired')).notEmpty().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const group = await Group.getGroup({ user, groupId, fields: basicGroupFields.concat(' quest chat') });
 
@@ -549,10 +550,10 @@ api.leaveQuest = {
     const { user } = res.locals;
     const { groupId } = req.params;
 
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
+    await param('groupId', apiError('groupIdRequired')).notEmpty().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const group = await Group.getGroup({ user, groupId, fields: basicGroupFields.concat(' quest') });
 

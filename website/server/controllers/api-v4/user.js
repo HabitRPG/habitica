@@ -252,8 +252,8 @@ api.verifyDisplayName = {
       },
     });
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const chosenDisplayName = req.body.displayName;
 

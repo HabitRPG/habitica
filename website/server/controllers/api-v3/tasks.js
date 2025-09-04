@@ -2,6 +2,7 @@ import assign from 'lodash/assign';
 import find from 'lodash/find';
 import merge from 'lodash/merge';
 import pick from 'lodash/pick';
+import { param, query , validationResult } from 'express-validator'
 import moment from 'moment';
 import { authWithHeaders } from '../../middlewares/auth';
 import {
@@ -310,9 +311,9 @@ api.createChallengeTasks = {
   url: '/tasks/challenge/:challengeId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    await param('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID().run(req)
 
-    const reqValidationErrors = req.validationErrors();
+    const reqValidationErrors = validationResult(req).array();
     if (reqValidationErrors) throw reqValidationErrors;
 
     const { user } = res.locals;
@@ -394,10 +395,10 @@ api.getUserTasks = {
   async handler (req, res) {
     const types = Tasks.tasksTypes.map(type => `${type}s`);
     types.push('completedTodos', '_allCompletedTodos'); // _allCompletedTodos is currently in BETA and is likely to be removed in future
-    req.checkQuery('type', res.t('invalidTasksTypeExtra')).optional().isIn(types);
+    await query('type', res.t('invalidTasksTypeExtra')).optional().isIn(types).run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { user } = res.locals;
     const { dueDate } = req.query;
@@ -447,12 +448,12 @@ api.getChallengeTasks = {
   url: '/tasks/challenge/:challengeId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    await param('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID().run(req)
     const types = Tasks.tasksTypes.map(type => `${type}s`);
-    req.checkQuery('type', res.t('invalidTasksType')).optional().isIn(types);
+    await query('type', res.t('invalidTasksType')).optional().isIn(types).run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { user } = res.locals;
     const { challengeId } = req.params;
@@ -602,10 +603,10 @@ api.updateTask = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
+    await param('taskId', apiError('taskIdRequired')).notEmpty().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { taskId } = req.params;
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
@@ -805,11 +806,11 @@ api.moveTask = {
   url: '/tasks/:taskId/move/to/:position',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
-    req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
+    await param('taskId', apiError('taskIdRequired')).notEmpty().run(req)
+    await param('position', res.t('positionRequired')).notEmpty().isNumeric().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { user } = res.locals;
     const { taskId } = req.params;
@@ -908,10 +909,10 @@ api.addChecklistItem = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
+    await param('taskId', apiError('taskIdRequired')).notEmpty().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { taskId } = req.params;
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
@@ -957,11 +958,11 @@ api.scoreCheckListItem = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
-    req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
+    await param('taskId', apiError('taskIdRequired')).notEmpty().run(req)
+    await param('itemId', res.t('itemIdRequired')).notEmpty().isUUID().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { taskId } = req.params;
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
@@ -1018,11 +1019,11 @@ api.updateChecklistItem = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
-    req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
+    await param('taskId', apiError('taskIdRequired')).notEmpty().run(req)
+    await param('itemId', res.t('itemIdRequired')).notEmpty().isUUID().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { taskId } = req.params;
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
@@ -1079,11 +1080,11 @@ api.removeChecklistItem = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
-    req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
+    await param('taskId', apiError('taskIdRequired')).notEmpty().run(req)
+    await param('itemId', res.t('itemIdRequired')).notEmpty().isUUID().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { taskId } = req.params;
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
@@ -1141,12 +1142,12 @@ api.addTagToTask = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
+    await param('taskId', apiError('taskIdRequired')).notEmpty().run(req)
     const userTags = user.tags.map(tag => tag.id);
-    req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID().isIn(userTags);
+    await param('tagId', res.t('tagIdRequired')).notEmpty().isUUID().isIn(userTags).run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { taskId } = req.params;
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
@@ -1198,11 +1199,11 @@ api.removeTagFromTask = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
-    req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
+    await param('taskId', apiError('taskIdRequired')).notEmpty().run(req)
+    await param('tagId', res.t('tagIdRequired')).notEmpty().isUUID().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { taskId } = req.params;
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
@@ -1243,11 +1244,11 @@ api.unlinkAllTasks = {
   url: '/tasks/unlink-all/:challengeId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
-    req.checkQuery('keep', apiError('keepOrRemoveAll')).notEmpty().isIn(['keep-all', 'remove-all']);
+    await param('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID().run(req)
+    await query('keep', apiError('keepOrRemoveAll')).notEmpty().isIn(['keep-all', 'remove-all']).run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { user } = res.locals;
     const { keep } = req.query;
@@ -1309,11 +1310,11 @@ api.unlinkOneTask = {
   url: '/tasks/unlink-one/:taskId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty().isUUID();
-    req.checkQuery('keep', apiError('keepOrRemove')).notEmpty().isIn(['keep', 'remove']);
+    await param('taskId', apiError('taskIdRequired')).notEmpty().isUUID().run(req)
+    await query('keep', apiError('keepOrRemove')).notEmpty().isIn(['keep', 'remove']).run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { user } = res.locals;
     const { keep } = req.query;

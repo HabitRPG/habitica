@@ -1,3 +1,4 @@
+import { param , validationResult } from 'express-validator';
 import { authWithHeaders } from '../../middlewares/auth';
 import { apiError } from '../../libs/apiError';
 import { NotFound } from '../../libs/errors';
@@ -38,10 +39,10 @@ api.deleteMessage = {
   middlewares: [authWithHeaders()],
   url: '/inbox/messages/:messageId',
   async handler (req, res) {
-    req.checkParams('messageId', apiError('messageIdRequired')).notEmpty().isUUID();
+    await param('messageId', apiError('messageIdRequired')).notEmpty().isUUID().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { messageId } = req.params;
     const { user } = res.locals;
@@ -216,10 +217,10 @@ api.likePrivateMessage = {
   url: '/inbox/like-private-message/:uniqueMessageId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('uniqueMessageId', apiError('messageIdRequired')).notEmpty();
+    await param('uniqueMessageId', apiError('messageIdRequired')).notEmpty().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { user } = res.locals;
     const { uniqueMessageId } = req.params;

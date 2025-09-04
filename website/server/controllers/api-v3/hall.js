@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import validator from 'validator';
+import { query, param , validationResult } from 'express-validator';
 import { authWithHeaders } from '../../middlewares/auth';
 import { ensurePermission } from '../../middlewares/ensureAccessRight';
 import { model as User } from '../../models/user';
@@ -73,10 +74,10 @@ api.getPatrons = {
   url: '/hall/patrons',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkQuery('page').optional().isInt({ min: 0 }, apiError('queryPageInteger'));
+    await query('page').optional().isInt({ min: 0 }, apiError('queryPageInteger')).run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const page = req.query.page ? Number(req.query.page) : 0;
     const perPage = 50;
@@ -177,10 +178,10 @@ api.getHero = {
   url: '/hall/heroes/:heroId',
   middlewares: [authWithHeaders(), ensurePermission('userSupport')],
   async handler (req, res) {
-    req.checkParams('heroId', res.t('heroIdRequired')).notEmpty();
+    await param('heroId', res.t('heroIdRequired')).notEmpty().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { heroId } = req.params;
 
@@ -263,10 +264,10 @@ api.updateHero = {
     const { heroId } = req.params;
     const updateData = req.body;
 
-    req.checkParams('heroId', res.t('heroIdRequired')).notEmpty().isUUID();
+    await param('heroId', res.t('heroIdRequired')).notEmpty().isUUID().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const hero = await User.findById(heroId).exec();
     if (!hero) throw new NotFound(res.t('userWithIDNotFound', { userId: heroId }));
@@ -555,10 +556,10 @@ api.getHeroParty = { // @TODO XXX add tests
   url: '/hall/heroes/party/:groupId',
   middlewares: [authWithHeaders(), ensurePermission('userSupport')],
   async handler (req, res) {
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty().isUUID();
+    await param('groupId', apiError('groupIdRequired')).notEmpty().isUUID().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { groupId } = req.params;
 
@@ -597,10 +598,10 @@ api.getHeroGroupPlans = {
   url: '/hall/heroes/:heroId/group-plans',
   middlewares: [authWithHeaders(), ensurePermission('userSupport')],
   async handler (req, res) {
-    req.checkParams('heroId', res.t('heroIdRequired')).notEmpty();
+    await param('heroId', res.t('heroIdRequired')).notEmpty().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { heroId } = req.params;
 

@@ -13,8 +13,8 @@ async function emailUnsubscribe (req, res) {
       notEmpty: { errorMessage: res.t('missingUnsubscriptionCode') },
     },
   });
-  const validationErrors = req.validationErrors();
-  if (validationErrors) throw validationErrors;
+  const validationErrors = validationResult(req).array();
+  if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
   const data = JSON.parse(decrypt(req.query.code));
 

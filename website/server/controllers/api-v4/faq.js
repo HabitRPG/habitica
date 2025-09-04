@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { query , validationResult } from 'express-validator';
 import { langCodes } from '../../libs/i18n';
 import { apiError } from '../../libs/apiError';
 import common from '../../../common';
@@ -57,10 +58,10 @@ api.faq = {
   method: 'GET',
   url: '/faq',
   async handler (req, res) {
-    req.checkQuery('platform').optional().isIn(['web', 'android', 'ios'], apiError('invalidPlatform'));
+    await query('platform').optional().isIn(['web', 'android', 'ios'], apiError('invalidPlatform')).run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const proposedLang = req.query.language && req.query.language.toString();
     const language = langCodes.includes(proposedLang) ? proposedLang : 'en';

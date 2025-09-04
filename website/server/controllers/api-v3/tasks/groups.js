@@ -1,5 +1,6 @@
 import pick from 'lodash/pick';
 import isUUID from 'validator/lib/isUUID';
+import { param , query , validationResult } from 'express-validator';
 import { authWithHeaders } from '../../../middlewares/auth';
 import * as Tasks from '../../../models/task';
 import { model as Group } from '../../../models/group';
@@ -45,9 +46,9 @@ api.createGroupTasks = {
   url: '/tasks/group/:groupId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty().isUUID();
+    await param('groupId', apiError('groupIdRequired')).notEmpty().isUUID().run(req)
 
-    const reqValidationErrors = req.validationErrors();
+    const reqValidationErrors = validationResult(req).array();
     if (reqValidationErrors) throw reqValidationErrors;
 
     const { user } = res.locals;
@@ -92,11 +93,11 @@ api.getGroupTasks = {
   url: '/tasks/group/:groupId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty().isUUID();
-    req.checkQuery('type', res.t('invalidTasksType')).optional().isIn(types);
+    await param('groupId', apiError('groupIdRequired')).notEmpty().isUUID().run(req)
+    await query('type', res.t('invalidTasksType')).optional().isIn(types).run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { user } = res.locals;
 
@@ -132,10 +133,10 @@ api.groupMoveTask = {
   url: '/group-tasks/:taskId/move/to/:position',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
-    req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
+    await param('taskId', apiError('taskIdRequired')).notEmpty().run(req)
+    await param('position', res.t('positionRequired')).notEmpty().isNumeric().run(req)
 
-    const reqValidationErrors = req.validationErrors();
+    const reqValidationErrors = validationResult(req).array();
     if (reqValidationErrors) throw reqValidationErrors;
 
     const { user } = res.locals;
@@ -203,9 +204,9 @@ api.assignTask = {
   url: '/tasks/:taskId/assign',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty().isUUID();
+    await param('taskId', apiError('taskIdRequired')).notEmpty().isUUID().run(req)
 
-    const reqValidationErrors = req.validationErrors();
+    const reqValidationErrors = validationResult(req).array();
     if (reqValidationErrors) throw reqValidationErrors;
 
     const { user } = res.locals;
@@ -280,10 +281,10 @@ api.unassignTask = {
   url: '/tasks/:taskId/unassign/:assignedUserId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty().isUUID();
-    req.checkParams('assignedUserId', res.t('userIdRequired')).notEmpty().isUUID();
+    await param('taskId', apiError('taskIdRequired')).notEmpty().isUUID().run(req)
+    await param('assignedUserId', res.t('userIdRequired')).notEmpty().isUUID().run(req)
 
-    const reqValidationErrors = req.validationErrors();
+    const reqValidationErrors = validationResult(req).array();
     if (reqValidationErrors) throw reqValidationErrors;
 
     const { user } = res.locals;
@@ -337,10 +338,10 @@ api.taskNeedsWork = {
   url: '/tasks/:taskId/needs-work/:userId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty().isUUID();
-    req.checkParams('userId', res.t('userIdRequired')).notEmpty().isUUID();
+    await param('taskId', apiError('taskIdRequired')).notEmpty().isUUID().run(req)
+    await param('userId', res.t('userIdRequired')).notEmpty().isUUID().run(req)
 
-    const reqValidationErrors = req.validationErrors();
+    const reqValidationErrors = validationResult(req).array();
     if (reqValidationErrors) throw reqValidationErrors;
 
     const { user } = res.locals;

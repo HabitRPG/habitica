@@ -1,3 +1,4 @@
+import { param , validationResult } from 'express-validator';
 import { model as User } from '../../models/user';
 
 import ChatReporter from './chatReporter';
@@ -20,10 +21,10 @@ export default class InboxChatReporter extends ChatReporter {
   }
 
   async validate () {
-    this.req.checkParams('messageId', apiError('messageIdRequired')).notEmpty();
+    await param('messageId', apiError('messageIdRequired')).notEmpty().run(req)
 
-    const validationErrors = this.req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = this.validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     if (this.user.hasPermission('moderator') && this.req.query.userId) {
       this.inboxUser = await User.findOne({ _id: this.req.query.userId }).exec();

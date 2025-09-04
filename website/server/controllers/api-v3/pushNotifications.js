@@ -1,3 +1,4 @@
+import { body, param , validationResult } from 'express-validator';
 import { authWithHeaders } from '../../middlewares/auth';
 import {
   NotFound,
@@ -25,11 +26,11 @@ api.addPushDevice = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkBody('regId', res.t('regIdRequired')).notEmpty();
-    req.checkBody('type', res.t('typeRequired')).notEmpty().isIn(['ios', 'android']);
+    await body('regId', res.t('regIdRequired')).notEmpty().run(req)
+    await body('type', res.t('typeRequired')).notEmpty().isIn(['ios', 'android']).run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { pushDevices } = user;
 
@@ -75,10 +76,10 @@ api.removePushDevice = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('regId', res.t('regIdRequired')).notEmpty();
+    await param('regId', res.t('regIdRequired')).notEmpty().run(req);
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { regId } = req.params;
 

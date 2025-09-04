@@ -97,7 +97,7 @@ async function createTasks (req, res, options = {}) {
     // and task in parallel it could save the user/challenge/group
     // with a tasksOrder that doens't match reality
     const validationErrors = newTask.validateSync();
-    if (validationErrors) throw validationErrors;
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     // Otherwise update the user/challenge/group
     if (!taskOrderToAdd[`${taskType}s`]) taskOrderToAdd[`${taskType}s`] = [];

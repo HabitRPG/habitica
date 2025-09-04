@@ -1,5 +1,6 @@
 import nconf from 'nconf';
 import moment from 'moment';
+import { param , validationResult } from 'express-validator';
 import { getAuthorEmailFromMessage } from '../chat';
 import ChatReporter from './chatReporter';
 import {
@@ -23,11 +24,11 @@ export default class GroupChatReporter extends ChatReporter {
   }
 
   async validate () {
-    this.req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
-    this.req.checkParams('chatId', apiError('chatIdRequired')).notEmpty();
+    await param('groupId', apiError('groupIdRequired')).notEmpty().run(req)
+    await param('chatId', apiError('chatIdRequired')).notEmpty().run(req)
 
-    const validationErrors = this.req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = this.validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const group = await Group.getGroup({
       user: this.user,

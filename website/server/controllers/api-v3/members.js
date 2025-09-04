@@ -1,5 +1,6 @@
 import escapeRegExp from 'lodash/escapeRegExp';
 import pick from 'lodash/pick';
+import { body, param, query as checkQuery , validationResult } from 'express-validator';
 import { authWithHeaders } from '../../middlewares/auth';
 import {
   model as User,
@@ -103,10 +104,10 @@ api.getMember = {
   url: '/members/:memberId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
+    await param('memberId', res.t('memberIdRequired')).notEmpty().isUUID().run(req);
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { memberId } = req.params;
 
@@ -132,10 +133,10 @@ api.getMemberByUsername = {
   url: '/members/username/:username',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('username', res.t('invalidReqParams')).notEmpty();
+    await param('username', res.t('invalidReqParams')).notEmpty().run(req);
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     let username = req.params.username.toLowerCase();
     if (username[0] === '@') username = username.slice(1, username.length);
@@ -261,10 +262,10 @@ api.getMemberAchievements = {
   url: '/members/:memberId/achievements',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
+    await param('memberId', res.t('memberIdRequired')).notEmpty().isUUID().run(req);
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { memberId } = req.params;
 
@@ -292,13 +293,13 @@ function _getMembersForItem (type) {
   }
 
   return async function handleGetMembersForItem (req, res) {
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
-    req.checkQuery('lastId').optional().notEmpty().isUUID();
+    await param('groupId', res.t('groupIdRequired')).notEmpty().run(req);
+    await checkQuery('lastId').optional().notEmpty().isUUID().run(req)
     // Allow an arbitrary number of results (up to 60)
-    req.checkQuery('limit', res.t('groupIdRequired')).optional().notEmpty().isInt({ min: 1, max: 60 });
+    await checkQuery('limit', res.t('groupIdRequired')).optional().notEmpty().isInt({ min: 1, max: 60 }).run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { groupId } = req.params;
     const { lastId } = req.query;
@@ -566,11 +567,11 @@ api.getChallengeMemberProgress = {
   url: '/challenges/:challengeId/members/:memberId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
-    req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
+    await param('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID().run(req);
+    await param('memberId', res.t('memberIdRequired')).notEmpty().isUUID().run(req);
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { user } = res.locals;
     const { challengeId } = req.params;
@@ -627,11 +628,11 @@ api.getObjectionsToInteraction = {
   url: '/members/:toUserId/objections/:interaction',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();
-    req.checkParams('interaction', res.t('interactionRequired')).notEmpty().isIn(KNOWN_INTERACTIONS);
+    await param('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID().run(req);
+    await param('interaction', res.t('interactionRequired')).notEmpty().isIn(KNOWN_INTERACTIONS).run(req);
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const sender = res.locals.user;
     const receiver = await User.findById(req.params.toUserId).exec();
@@ -662,11 +663,11 @@ api.transferGems = {
   url: '/members/transfer-gems',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkBody('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();
-    req.checkBody('gemAmount', res.t('gemAmountRequired')).notEmpty().isInt();
+    await body('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID().run(req)
+    await body('gemAmount', res.t('gemAmountRequired')).notEmpty().isInt().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const sender = res.locals.user;
     const receiver = await User.findById(req.body.toUserId).exec();
@@ -815,9 +816,9 @@ api.clearUserFlags = {
     const { user } = res.locals;
     const { memberId } = req.params;
 
-    req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    await param('memberId', res.t('memberIdRequired')).notEmpty().isUUID().run(req);
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     if (!user.hasPermission('moderator')) {
       throw new BadRequest('Only a moderator may clear reports from a profile.');

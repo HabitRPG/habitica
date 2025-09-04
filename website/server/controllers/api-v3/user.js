@@ -4,6 +4,7 @@ import isFunction from 'lodash/isFunction';
 import pick from 'lodash/pick';
 import nconf from 'nconf';
 import get from 'lodash/get';
+import { param , validationResult } from 'express-validator';
 import { authWithHeaders } from '../../middlewares/auth';
 import common from '../../../common';
 import {
@@ -1735,11 +1736,11 @@ api.movePinnedItem = {
   url: '/user/move-pinned-item/:path/move/to/:position',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('path', res.t('taskIdRequired')).notEmpty();
-    req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
+    await param('path', res.t('taskIdRequired')).notEmpty().run(req)
+    await param('position', res.t('positionRequired')).notEmpty().isNumeric().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { user } = res.locals;
     const { path } = req.params;

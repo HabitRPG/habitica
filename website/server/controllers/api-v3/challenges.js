@@ -4,6 +4,7 @@ import merge from 'lodash/merge';
 import pick from 'lodash/pick';
 import reduce from 'lodash/reduce';
 import times from 'lodash/times';
+import { body, param, query , validationResult } from 'express-validator';
 import { authWithHeaders, authWithSession } from '../../middlewares/auth';
 import { model as Challenge } from '../../models/challenge';
 import bannedWords from '../../libs/bannedWords';
@@ -232,11 +233,11 @@ api.createChallenge = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkBody('group', apiError('groupIdRequired')).notEmpty();
-    req.checkBody('summary', apiError('summaryLengthExceedsMax')).isLength({ max: MAX_SUMMARY_SIZE_FOR_CHALLENGES });
+    await body('group', apiError('groupIdRequired')).notEmpty().run(req)
+    await body('summary', apiError('summaryLengthExceedsMax')).isLength({ max: MAX_SUMMARY_SIZE_FOR_CHALLENGES }).run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const group = await Group.getGroup({
       user, groupId: req.body.group, fields: basicGroupFields, optionalMembership: true,
@@ -328,10 +329,10 @@ api.joinChallenge = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    await param('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID().run(req);
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -397,10 +398,10 @@ api.leaveChallenge = {
     const { user } = res.locals;
     const keep = req.body.keep === 'remove-all' ? 'remove-all' : 'keep-all';
 
-    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    await param('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID().run(req);
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -463,10 +464,10 @@ api.getUserChallenges = {
   url: '/challenges/user',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkQuery('page').notEmpty().isInt({ min: 0 }, apiError('queryPageInteger'));
+    await query('page').notEmpty().isInt({ min: 0 }, apiError('queryPageInteger')).run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const CHALLENGES_PER_PAGE = 10;
     const {
@@ -599,10 +600,10 @@ api.getGroupChallenges = {
     const { user } = res.locals;
     let { groupId } = req.params;
 
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
+    await param('groupId', apiError('groupIdRequired')).notEmpty().run(req);
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     if (groupId === 'party') groupId = user.party._id;
     if (groupId === 'habitrpg') groupId = TAVERN_ID;
@@ -661,10 +662,10 @@ api.getChallenge = {
   url: '/challenges/:challengeId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    await param('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID().run(req);
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { user } = res.locals;
     const { challengeId } = req.params;
@@ -719,10 +720,10 @@ api.exportChallengeCsv = {
   url: '/challenges/:challengeId/export/csv',
   middlewares: [authWithSession],
   async handler (req, res) {
-    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    await param('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID().run(req);
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { user } = res.locals;
     const { challengeId } = req.params;
@@ -836,11 +837,11 @@ api.updateChallenge = {
   url: '/challenges/:challengeId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
-    req.checkBody('summary', apiError('summaryLengthExceedsMax')).isLength({ max: MAX_SUMMARY_SIZE_FOR_CHALLENGES });
+    await param('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID().run(req);
+    await body('summary', apiError('summaryLengthExceedsMax')).isLength({ max: MAX_SUMMARY_SIZE_FOR_CHALLENGES }).run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { user } = res.locals;
     const { challengeId } = req.params;
@@ -883,10 +884,10 @@ api.deleteChallenge = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    await param('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID().run(req);
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -931,11 +932,11 @@ api.selectChallengeWinner = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
-    req.checkParams('winnerId', res.t('winnerIdRequired')).notEmpty().isUUID();
+    await param('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID().run(req);
+    await param('winnerId', res.t('winnerIdRequired')).notEmpty().isUUID().run(req);
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -992,10 +993,10 @@ api.cloneChallenge = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    await param('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID().run(req);
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const challengeToClone = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challengeToClone) throw new NotFound(res.t('challengeNotFound'));
@@ -1061,10 +1062,10 @@ api.flagChallenge = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    await param('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID().run(req);
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
@@ -1094,10 +1095,10 @@ api.clearFlagsChallenge = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    await param('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID().run(req);
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     if (!user.hasPermission('moderator')) {
       throw new NotAuthorized(res.t('messageGroupChatAdminClearFlagCount'));

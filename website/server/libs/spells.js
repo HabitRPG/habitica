@@ -1,3 +1,5 @@
+
+import { query, validationResult } from 'express-validator';
 import { model as User } from '../models/user';
 import { chatModel as Chat } from '../models/message';
 import * as Tasks from '../models/task';
@@ -157,9 +159,9 @@ async function castSpell (req, res, { isV3 = false }) {
   const quantity = req.body.quantity || 1;
 
   // optional because not required by all targetTypes, presence is checked later if necessary
-  req.checkQuery('targetId', res.t('targetIdUUID')).optional().isUUID();
+  await query('targetId', res.t('targetIdUUID')).optional().isUUID().run(req)
 
-  const reqValidationErrors = req.validationErrors();
+  const reqValidationErrors = validationResult(req).array();
   if (reqValidationErrors) throw reqValidationErrors;
 
   const klass = common.content.spells.special[spellId] ? 'special' : user.stats.class;

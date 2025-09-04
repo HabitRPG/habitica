@@ -1,4 +1,5 @@
 import { sendJob } from '../../libs/worker';
+import { param , validationResult } from 'express-validator';
 import { authWithHeaders } from '../../middlewares/auth';
 import { ensurePermission } from '../../middlewares/ensureAccessRight';
 import { TransactionModel as Transaction } from '../../models/transaction';
@@ -16,9 +17,9 @@ api.purchaseHistory = {
   middlewares: [authWithHeaders(), ensurePermission('userSupport')],
   url: '/members/:memberId/purchase-history',
   async handler (req, res) {
-    req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    await param('memberId', res.t('memberIdRequired')).notEmpty().isUUID().run(req)
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
     let transactions = await Transaction
       .find({ userId: req.params.memberId })
       .sort({ createdAt: -1 })

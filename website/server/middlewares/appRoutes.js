@@ -1,5 +1,4 @@
 import express from 'express';
-import expressValidator from 'express-validator';
 import path from 'path';
 import analytics from './analytics';
 import setupBody from './setupBody';
@@ -16,7 +15,6 @@ const app = express();
 // re-set the view options because they are not inherited from the top level app
 setupExpress(app);
 
-app.use(expressValidator());
 app.use(analytics);
 app.use(setupBody);
 

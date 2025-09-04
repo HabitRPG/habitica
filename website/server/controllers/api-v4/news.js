@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { param , validationResult } from 'express-validator';
 import { authWithHeaders } from '../../middlewares/auth';
 import { apiError } from '../../libs/apiError';
 import { model as NewsPost } from '../../models/newsPost';
@@ -110,7 +111,7 @@ api.getPost = {
   })],
   noLanguage: true,
   async handler (req, res) {
-    req.checkParams('postId', apiError('postIdRequired')).notEmpty().isUUID();
+    await param('postId', apiError('postIdRequired')).notEmpty().isUUID().run(req)
     const { user } = res.locals;
 
     const newsPost = await NewsPost.findById(req.params.postId).exec();
@@ -148,9 +149,9 @@ api.updateNews = {
   url: '/news/:postId',
   middlewares: [authWithHeaders(), ensurePermission('news')],
   async handler (req, res) {
-    req.checkParams('postId', apiError('postIdRequired')).notEmpty().isUUID();
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    await param('postId', apiError('postIdRequired')).notEmpty().isUUID().run(req)
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const newsPost = await NewsPost.findById(req.params.postId).exec();
     if (!newsPost) throw new NotFound(res.t('newsPostNotFound'));
@@ -183,9 +184,9 @@ api.deleteNews = {
   url: '/news/:postId',
   middlewares: [authWithHeaders(), ensurePermission('news')],
   async handler (req, res) {
-    req.checkParams('postId', apiError('postIdRequired')).notEmpty().isUUID();
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    await param('postId', apiError('postIdRequired')).notEmpty().isUUID().run(req)
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const newsPost = await NewsPost.findById(req.params.postId).exec();
     if (!newsPost) throw new NotFound(res.t('newsPostNotFound'));

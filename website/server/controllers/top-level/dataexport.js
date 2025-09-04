@@ -177,10 +177,10 @@ api.exportUserAvatarHtml = {
   async handler (/* req, res */) {
     throw new NotFound('This API route is currently not available. See https://github.com/HabitRPG/habitica/issues/9489.');
 
-    /* req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
+    /* await param('memberId', res.t('memberIdRequired')).notEmpty().isUUID().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { memberId } = req.params;
 
@@ -215,10 +215,10 @@ api.exportUserAvatarPng = {
   async handler (/* req, res */) {
     throw new NotFound('This API route is currently not available. See https://github.com/HabitRPG/habitica/issues/9489.');
 
-    /* req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
+    /* await param('memberId', res.t('memberIdRequired')).notEmpty().isUUID().run(req)
 
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    const validationErrors = validationResult(req).array();
+    if (validationErrors && validationErrors.length > 0) throw validationErrors;
 
     const { memberId } = req.params;
 
