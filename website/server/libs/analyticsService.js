@@ -215,6 +215,15 @@ function _setOnce (dataToSetOnce, uuid) {
     .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
 }
 
+function _updateProperties (properties, uuid) {
+  return amplitude
+    .identify({
+      user_id: _formatUUIDForAmplitude(uuid),
+      user_properties: properties,
+    })
+    .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
+}
+
 // There's no error handling directly here because it's handled inside _sendDataTo{Amplitude|Google}
 async function track (eventType, data, loggerOnly = false) {
   const { user } = data;
@@ -245,18 +254,33 @@ async function trackPurchase (data) {
   ]);
 }
 
+async function updateUserData (data) {
+  const { user, properties } = data;
+  if (!user || !user.preferences || !user.preferences.analyticsConsent) {
+    return null;
+  }
+  const toUpdate = {
+    ..._formatUserData(user),
+    ...properties
+  }
+
+  return _updateProperties(toUpdate, user._id);
+}
+
 // Stub for non-prod environments
 const mockAnalyticsService = {
   track: () => { },
   trackPurchase: () => { },
+  updateUserData: () => { }
 };
 
 // Return the production or mock service based on the current environment
 function getServiceByEnvironment () {
-  if (nconf.get('IS_PROD') || (nconf.get('DEBUG_ENABLED') && !nconf.get('BASE_URL').includes('localhost'))) {
+  if (nconf.get('IS_PROD') || nconf.get('USE_PROD_ANALYTICS') || (nconf.get('DEBUG_ENABLED') && !nconf.get('BASE_URL').includes('localhost'))) {
     return {
       track,
       trackPurchase,
+      updateUserData
     };
   }
   return mockAnalyticsService;
