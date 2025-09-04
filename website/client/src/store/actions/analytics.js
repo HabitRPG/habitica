@@ -6,6 +6,6 @@ export async function trackEvent (store, params) {
 }
 
 export async function updateUserProperties (store, params) {
-  const url = `/analytics/update`;
+  const url = '/analytics/update';
   await axios.post(url, params);
 }

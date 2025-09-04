@@ -1,6 +1,5 @@
 import find from 'lodash/find';
 import includes from 'lodash/includes';
-import pick from 'lodash/pick';
 
 import { encrypt } from '../encryption';
 import { sendNotification as sendPushNotification } from '../pushNotifications';

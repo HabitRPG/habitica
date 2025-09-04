@@ -1,5 +1,4 @@
 import merge from 'lodash/merge';
-import pick from 'lodash/pick';
 import reduce from 'lodash/reduce';
 import each from 'lodash/each';
 import i18n from '../i18n';

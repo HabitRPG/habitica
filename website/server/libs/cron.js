@@ -1,6 +1,5 @@
 import moment from 'moment';
 import mongoose from 'mongoose';
-import pick from 'lodash/pick';
 import nconf from 'nconf';
 import { model as User } from '../models/user';
 import * as Tasks from '../models/task';

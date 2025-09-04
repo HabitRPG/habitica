@@ -1,4 +1,3 @@
-import pick from 'lodash/pick';
 import content from '../content/index';
 import { mountMasterProgress } from '../count';
 import i18n from '../i18n';

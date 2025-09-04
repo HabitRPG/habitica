@@ -1,4 +1,3 @@
-import pick from 'lodash/pick';
 import isUUID from 'validator/lib/isUUID';
 import { authWithHeaders } from '../../../middlewares/auth';
 import * as Tasks from '../../../models/task';

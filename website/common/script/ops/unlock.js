@@ -1,5 +1,4 @@
 import get from 'lodash/get';
-import pick from 'lodash/pick';
 import setWith from 'lodash/setWith';
 import i18n from '../i18n';
 import { NotAuthorized, BadRequest } from '../libs/errors';

@@ -1,6 +1,5 @@
 import get from 'lodash/get';
 import each from 'lodash/each';
-import pick from 'lodash/pick';
 import i18n from '../../i18n';
 import content from '../../content/index';
 import {

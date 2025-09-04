@@ -1,5 +1,4 @@
 import find from 'lodash/find';
-import pick from 'lodash/pick';
 import { getAnalyticsServiceByEnvironment } from '../analyticsService';
 import { getCurrentEventList } from '../worldState'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle

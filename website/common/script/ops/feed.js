@@ -2,7 +2,6 @@ import forEach from 'lodash/forEach';
 import findIndex from 'lodash/findIndex';
 import get from 'lodash/get';
 import keys from 'lodash/keys';
-import pick from 'lodash/pick';
 import upperFirst from 'lodash/upperFirst';
 import moment from 'moment';
 import i18n from '../i18n';

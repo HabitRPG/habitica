@@ -1,6 +1,5 @@
 import validator from 'validator';
 import moment from 'moment';
-import pick from 'lodash/pick';
 import sortBy from 'lodash/sortBy';
 import nconf from 'nconf';
 import {

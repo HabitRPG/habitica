@@ -1,7 +1,6 @@
 import assign from 'lodash/assign';
 import find from 'lodash/find';
 import merge from 'lodash/merge';
-import pick from 'lodash/pick';
 import moment from 'moment';
 import { authWithHeaders } from '../../middlewares/auth';
 import {

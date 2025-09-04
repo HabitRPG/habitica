@@ -1,5 +1,4 @@
 import each from 'lodash/each';
-import pick from 'lodash/pick';
 import i18n from '../i18n';
 import {
   NotAuthorized,

@@ -3,7 +3,6 @@ import isFunction from 'lodash/isFunction';
 import min from 'lodash/min';
 import reduce from 'lodash/reduce';
 import filter from 'lodash/filter';
-import pick from 'lodash/pick';
 import pickBy from 'lodash/pickBy';
 import size from 'lodash/size';
 import moment from 'moment';

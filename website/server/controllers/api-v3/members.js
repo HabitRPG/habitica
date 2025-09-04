@@ -1,5 +1,4 @@
 import escapeRegExp from 'lodash/escapeRegExp';
-import pick from 'lodash/pick';
 import { authWithHeaders } from '../../middlewares/auth';
 import {
   model as User,
@@ -737,7 +736,7 @@ api.transferGems = {
 
     if (res.analytics) {
       res.analytics.track('transfer gems', {
-        user,
+        user: sender,
         uuid: sender._id,
         hitType: 'event',
         category: 'behavior',

@@ -1,4 +1,3 @@
-import forEach from 'lodash/forEach';
 import isEqual from 'lodash/isEqual';
 import keys from 'lodash/keys';
 import pick from 'lodash/pick';

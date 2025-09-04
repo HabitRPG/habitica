@@ -25,8 +25,8 @@
           type="checkbox"
           :checked="isChecked"
           :value="value"
-          @change="handleChange"
           :disabled="disabled"
+          @change="handleChange"
         >
         <label
           class="toggle-switch-label"

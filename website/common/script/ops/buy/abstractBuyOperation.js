@@ -1,7 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import get from 'lodash/get';
 import merge from 'lodash/merge';
-import pick from 'lodash/pick';
 import i18n from '../../i18n';
 import {
   NotAuthorized,

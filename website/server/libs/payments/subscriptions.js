@@ -3,7 +3,6 @@
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import find from 'lodash/find';
-import pick from 'lodash/pick';
 import moment from 'moment';
 
 import { getAnalyticsServiceByEnvironment } from '../analyticsService';

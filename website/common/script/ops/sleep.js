@@ -1,5 +1,3 @@
-import pick from 'lodash/pick';
-
 export function sleep (user, req = {}, analytics) {
   user.preferences.sleep = !user.preferences.sleep;
 

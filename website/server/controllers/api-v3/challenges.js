@@ -1,7 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep';
 import escapeRegExp from 'lodash/escapeRegExp';
 import merge from 'lodash/merge';
-import pick from 'lodash/pick';
 import reduce from 'lodash/reduce';
 import times from 'lodash/times';
 import { authWithHeaders, authWithSession } from '../../middlewares/auth';

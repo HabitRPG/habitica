@@ -261,8 +261,8 @@ async function updateUserData (data) {
   }
   const toUpdate = {
     ..._formatUserData(user),
-    ...properties
-  }
+    ...properties,
+  };
 
   return _updateProperties(toUpdate, user._id);
 }
@@ -271,7 +271,7 @@ async function updateUserData (data) {
 const mockAnalyticsService = {
   track: () => { },
   trackPurchase: () => { },
-  updateUserData: () => { }
+  updateUserData: () => { },
 };
 
 // Return the production or mock service based on the current environment
@@ -280,7 +280,7 @@ function getServiceByEnvironment () {
     return {
       track,
       trackPurchase,
-      updateUserData
+      updateUserData,
     };
   }
   return mockAnalyticsService;

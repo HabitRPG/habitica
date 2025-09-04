@@ -1,4 +1,3 @@
-import pick from 'lodash/pick';
 import passport from 'passport';
 import common from '../../../common';
 import { BadRequest, NotAuthorized, NotFound } from '../errors';

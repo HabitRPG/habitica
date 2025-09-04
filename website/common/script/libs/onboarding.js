@@ -1,5 +1,3 @@
-import pick from 'lodash/pick';
-
 export function hasCompletedOnboarding (user) {
   return (
     user.achievements.createdTask === true

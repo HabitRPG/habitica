@@ -5,7 +5,6 @@ import findIndex from 'lodash/findIndex';
 import includes from 'lodash/includes';
 import isArray from 'lodash/isArray';
 import mergeWith from 'lodash/mergeWith';
-import pick from 'lodash/pick';
 import uniqBy from 'lodash/uniqBy';
 import nconf from 'nconf';
 import moment from 'moment';

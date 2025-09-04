@@ -1,7 +1,6 @@
 import each from 'lodash/each';
 import every from 'lodash/every';
 import isBoolean from 'lodash/isBoolean';
-import pick from 'lodash/pick';
 import { authWithHeaders } from '../../middlewares/auth';
 import { getAnalyticsServiceByEnvironment } from '../../libs/analyticsService';
 import {

@@ -1,4 +1,3 @@
-import pick from 'lodash/pick';
 import moment from 'moment';
 import {
   BadRequest,
