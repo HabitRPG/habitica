@@ -80,7 +80,7 @@ async function createSpritesStream (name, src) {
   const stream = mergeStream();
   // need to import this way bc of weird dependency things
   // eslint-disable-next-line global-require
-  const filter = require('gulp-filter');
+  const filter = require('gulp-filter').default;
 
   const f = filter(filterFile);
 
