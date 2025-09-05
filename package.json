@@ -43,6 +43,7 @@
     "habitica-markdown": "^3.0.0",
     "helmet": "^4.6.0",
     "in-app-purchase": "^1.11.3",
+    "ip-location-api": "^4.0.0",
     "js2xmlparser": "^5.0.0",
     "jsonwebtoken": "^9.0.2",
     "jwks-rsa": "^2.1.5",

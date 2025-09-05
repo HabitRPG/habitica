@@ -2,6 +2,8 @@
 import nconf from 'nconf';
 import Amplitude from 'amplitude';
 import useragent from 'useragent';
+import { lookup } from 'ip-location-api'
+import { createHash } from 'crypto';
 import {
   omit,
   toArray,
@@ -56,7 +58,7 @@ function _lookUpItemName (itemKey) {
   return itemName;
 }
 
-function _formatUserData (user) {
+function _formatUserData (user, ipaddress) {
   const properties = {};
 
   if (user.stats) {
@@ -101,6 +103,12 @@ function _formatUserData (user) {
 
   if (user.loginIncentives) {
     properties.loginIncentives = user.loginIncentives;
+  }
+
+  if (ipaddress) {
+    const location = lookup(ipaddress);
+    properties.country = location.country;
+    properties.region = location.region1;
   }
 
   return properties;
@@ -156,7 +164,7 @@ function _formatDataForAmplitude (data) {
   };
 
   if (data.user) {
-    ampData.user_properties = _formatUserData(data.user);
+    ampData.user_properties = _formatUserData(data.user, data.ipaddress);
   }
 
   const itemName = _lookUpItemName(data.itemKey);
@@ -260,7 +268,7 @@ async function updateUserData (data) {
     return null;
   }
   const toUpdate = {
-    ..._formatUserData(user),
+    ..._formatUserData(user, data.ipaddress),
     ...properties,
   };
 
