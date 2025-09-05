@@ -2,6 +2,7 @@
 import nconf from 'nconf';
 import Amplitude from 'amplitude';
 import useragent from 'useragent';
+import validator from 'validator';
 import { lookup } from 'ip-location-api';
 import { createHash } from 'crypto';
 import {
@@ -31,6 +32,15 @@ const Content = common.content;
 
 function _hashUUID (uuid) {
   return createHash('sha256').update(uuid).digest('hex');
+}
+
+function _anonymizeProperties (properties) {
+  return properties.map(userProp => {
+    if (typeof userProp === 'string' && validator.isEmail(userProp)) {
+      return _hashUUID(userProp);
+    }
+    return userProp;
+  });
 }
 
 function _lookUpItemName (itemKey) {
@@ -172,7 +182,15 @@ function _formatDataForAmplitude (data) {
   };
 
   if (data.user) {
-    ampData.user_properties = _formatUserData(data.user, data.ipaddress, !consented);
+    const ipaddress = data.ipaddress || (data.headers && data.headers['x-forwarded-for']);
+    ampData.user_properties = _formatUserData(data.user, ipaddress, !consented);
+  }
+
+  if (!consented) {
+    ampData.event_properties = _anonymizeProperties(ampData.event_properties);
+    if (ampData.user_properties) {
+      ampData.user_properties = _anonymizeProperties(ampData.user_properties);
+    }
   }
 
   const itemName = _lookUpItemName(data.itemKey);
