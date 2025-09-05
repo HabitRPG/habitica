@@ -2,7 +2,7 @@
 import nconf from 'nconf';
 import Amplitude from 'amplitude';
 import useragent from 'useragent';
-import { lookup } from 'ip-location-api'
+import { lookup } from 'ip-location-api';
 import { createHash } from 'crypto';
 import {
   omit,
@@ -28,6 +28,10 @@ let amplitude;
 if (AMPLITUDE_TOKEN) amplitude = new Amplitude(AMPLITUDE_TOKEN);
 
 const Content = common.content;
+
+function _hashUUID (uuid) {
+  return createHash('sha256').update(uuid).digest('hex');
+}
 
 function _lookUpItemName (itemKey) {
   if (!itemKey) return null;
@@ -58,7 +62,7 @@ function _lookUpItemName (itemKey) {
   return itemName;
 }
 
-function _formatUserData (user, ipaddress) {
+function _formatUserData (user, ipaddress, anonymize = false) {
   const properties = {};
 
   if (user.stats) {
@@ -74,7 +78,7 @@ function _formatUserData (user, ipaddress) {
   properties.balanceGemAmount = properties.balance * 4;
   properties.tutorialComplete = user.flags && user.flags.tour && user.flags.tour.intro === -2;
   properties.verifiedUsername = user.flags && user.flags.verifiedUsername;
-  if (properties.verifiedUsername && user.auth && user.auth.local) {
+  if (properties.verifiedUsername && user.auth && user.auth.local && !anonymize) {
     properties.username = user.auth.local.lowerCaseUsername;
   }
 
@@ -147,16 +151,20 @@ function _formatUserAgentForAmplitude (platform, agentString) {
   return formattedAgent;
 }
 
-function _formatUUIDForAmplitude (uuid) {
+function _formatUUIDForAmplitude (uuid, anonymize = false) {
+  if (anonymize) {
+    return _hashUUID(uuid);
+  }
   return uuid || 'no-user-id-was-provided';
 }
 
 function _formatDataForAmplitude (data) {
+  const consented = data.user && data.user.preferences && data.user.preferences.analyticsConsent;
   const event_properties = omit(data, AMPLITUDE_PROPERTIES_TO_SCRUB);
   const platform = _formatPlatformForAmplitude(data.headers && data.headers['x-client']);
   const agent = _formatUserAgentForAmplitude(platform, data.headers && data.headers['user-agent']);
   const ampData = {
-    user_id: _formatUUIDForAmplitude(data.uuid),
+    user_id: _formatUUIDForAmplitude(data.uuid, !consented),
     platform,
     os_name: agent.name,
     os_version: agent.version,
@@ -164,7 +172,7 @@ function _formatDataForAmplitude (data) {
   };
 
   if (data.user) {
-    ampData.user_properties = _formatUserData(data.user, data.ipaddress);
+    ampData.user_properties = _formatUserData(data.user, data.ipaddress, !consented);
   }
 
   const itemName = _lookUpItemName(data.itemKey);
