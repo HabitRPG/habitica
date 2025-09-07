@@ -169,6 +169,7 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
           textarea="textarea"
           :placeholder="isParty
             ? $t('partyDescriptionPlaceholder') : $t('guildDescriptionPlaceholder')"
+          @keydown.ctrl.enter.prevent="submit"
         ></textarea>
       </div>
       <div
