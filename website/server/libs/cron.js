@@ -356,14 +356,34 @@ export async function cron (options = {}) {
       streaks: false,
     };
   } else {
-    user.stats.buffs = {
-      str: 0,
-      int: 0,
-      per: 0,
-      con: 0,
-      stealth: 0,
-      streaks: false,
+    const currentTime = new Date();
+    const buffDuration = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+    // Check each buff to see if 24 hours have passed
+    const oldBuffs = user.stats.buffs;
+    const newBuffs = {
+      str: (oldBuffs.strStartDate && currentTime - oldBuffs.strStartDate < buffDuration) ? oldBuffs.str : 0,
+      strStartDate: (oldBuffs.strStartDate && currentTime - oldBuffs.strStartDate < buffDuration) ? oldBuffs.strStartDate : undefined,
+      int: (oldBuffs.intStartDate && currentTime - oldBuffs.intStartDate < buffDuration) ? oldBuffs.int : 0,
+      intStartDate: (oldBuffs.intStartDate && currentTime - oldBuffs.intStartDate < buffDuration) ? oldBuffs.intStartDate : undefined,
+      per: (oldBuffs.perStartDate && currentTime - oldBuffs.perStartDate < buffDuration) ? oldBuffs.per : 0,
+      perStartDate: (oldBuffs.perStartDate && currentTime - oldBuffs.perStartDate < buffDuration) ? oldBuffs.perStartDate : undefined,
+      con: (oldBuffs.conStartDate && currentTime - oldBuffs.conStartDate < buffDuration) ? oldBuffs.con : 0,
+      conStartDate: (oldBuffs.conStartDate && currentTime - oldBuffs.conStartDate < buffDuration) ? oldBuffs.conStartDate : undefined,
+      stealth: (oldBuffs.stealthStartDate && currentTime - oldBuffs.stealthStartDate < buffDuration) ? oldBuffs.stealth : 0,
+      stealthStartDate: (oldBuffs.stealthStartDate && currentTime - oldBuffs.stealthStartDate < buffDuration) ? oldBuffs.stealthStartDate : undefined,
+      streaks: (oldBuffs.streaksStartDate && currentTime - oldBuffs.streaksStartDate < buffDuration) ? oldBuffs.streaks : false,
+      streaksStartDate: (oldBuffs.streaksStartDate && currentTime - oldBuffs.streaksStartDate < buffDuration) ? oldBuffs.streaksStartDate : undefined,
+      snowball: (oldBuffs.snowballStartDate && currentTime - oldBuffs.snowballStartDate < buffDuration) ? oldBuffs.snowball : false,
+      snowballStartDate: (oldBuffs.snowballStartDate && currentTime - oldBuffs.snowballStartDate < buffDuration) ? oldBuffs.snowballStartDate : undefined,
+      spookySparkles: (oldBuffs.spookySparklesStartDate && currentTime - oldBuffs.spookySparklesStartDate < buffDuration) ? oldBuffs.spookySparkles : false,
+      spookySparklesStartDate: (oldBuffs.spookySparklesStartDate && currentTime - oldBuffs.spookySparklesStartDate < buffDuration) ? oldBuffs.spookySparklesStartDate : undefined,
+      shinySeed: (oldBuffs.shinySeedStartDate && currentTime - oldBuffs.shinySeedStartDate < buffDuration) ? oldBuffs.shinySeed : false,
+      shinySeedStartDate: (oldBuffs.shinySeedStartDate && currentTime - oldBuffs.shinySeedStartDate < buffDuration) ? oldBuffs.shinySeedStartDate : undefined,
+      seafoam: (oldBuffs.seafoamStartDate && currentTime - oldBuffs.seafoamStartDate < buffDuration) ? oldBuffs.seafoam : false,
+      seafoamStartDate: (oldBuffs.seafoamStartDate && currentTime - oldBuffs.seafoamStartDate < buffDuration) ? oldBuffs.seafoamStartDate : undefined,
     };
+    user.stats.buffs = newBuffs;
   }
 
   common.setDebuffPotionItems(user);

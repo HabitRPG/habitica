@@ -1236,6 +1236,7 @@ describe('cron', async () => {
       tasksByType.dailys[0].isDue = true;
 
       const previousBuffs = user.stats.buffs.toObject();
+      const now = new Date();
 
       await cron({
         user, tasksByType, daysMissed, analytics,
@@ -1245,6 +1246,10 @@ describe('cron', async () => {
       expect(user.stats.buffs.int).to.be.greaterThan(previousBuffs.int);
       expect(user.stats.buffs.per).to.be.greaterThan(previousBuffs.per);
       expect(user.stats.buffs.con).to.be.greaterThan(previousBuffs.con);
+      expect(user.stats.buffs.strStartDate).to.be.at.most(now);
+      expect(user.stats.buffs.intStartDate).to.be.at.most(now);
+      expect(user.stats.buffs.perStartDate).to.be.at.most(now);
+      expect(user.stats.buffs.conStartDate).to.be.at.most(now);
     });
 
     it('gives perfect day buff if all (at least 1) due dailies were completed when user is sleeping', async () => {
@@ -1265,18 +1270,68 @@ describe('cron', async () => {
       expect(user.stats.buffs.con).to.be.greaterThan(previousBuffs.con);
     });
 
-    it('clears buffs if user does not have a perfect day (no due dailys)', async () => {
+    it('does not clear 24h buffs that have not expired', async () => {
       daysMissed = 1;
       tasksByType.dailys[0].completed = true;
       tasksByType.dailys[0].isDue = false;
 
+      const now = new Date();
+      const buffStartDate = new Date(now.getTime() - (23 * 60 * 60 * 1000)); // 23 hours ago
+
       user.stats.buffs = {
         str: 1,
+        strStartDate: buffStartDate,
         int: 1,
-        per: 1,
+        intStartDate: buffStartDate,
+        per: 1, 
+        perStartDate: buffStartDate,
         con: 1,
-        stealth: 0,
+        conStartDate: buffStartDate,
+        stealth: 1,
+        stealthStartDate: buffStartDate,
         streaks: true,
+        streaksStartDate: buffStartDate,
+      };
+
+      await cron({
+        user, tasksByType, daysMissed, analytics,
+      });
+
+      expect(user.stats.buffs.str).to.equal(1);
+      expect(user.stats.buffs.int).to.equal(1);
+      expect(user.stats.buffs.per).to.equal(1);
+      expect(user.stats.buffs.con).to.equal(1);
+      expect(user.stats.buffs.stealth).to.equal(1);
+      expect(user.stats.buffs.streaks).to.be.true;
+      expect(user.stats.buffs.strStartDate).to.equal(buffStartDate);
+      expect(user.stats.buffs.intStartDate).to.equal(buffStartDate);
+      expect(user.stats.buffs.perStartDate).to.equal(buffStartDate);
+      expect(user.stats.buffs.conStartDate).to.equal(buffStartDate);
+      expect(user.stats.buffs.stealthStartDate).to.equal(buffStartDate);
+      expect(user.stats.buffs.streaksStartDate).to.equal(buffStartDate);
+    });
+
+    it('clears 24h buffs that have expired', async () => {
+      daysMissed = 1;
+      tasksByType.dailys[0].completed = true;
+      tasksByType.dailys[0].isDue = false;
+
+      const now = new Date();
+      const buffStartDate = new Date(now.getTime() - (25 * 60 * 60 * 1000)); // 25 hours ago
+
+      user.stats.buffs = {
+        str: 1,
+        strStartDate: buffStartDate,
+        int: 1,
+        intStartDate: buffStartDate,
+        per: 1,
+        perStartDate: buffStartDate,
+        con: 1,
+        conStartDate: buffStartDate,
+        stealth: 1,
+        stealthStartDate: buffStartDate,
+        streaks: true,
+        streaksStartDate: buffStartDate,
       };
 
       await cron({
@@ -1289,6 +1344,12 @@ describe('cron', async () => {
       expect(user.stats.buffs.con).to.equal(0);
       expect(user.stats.buffs.stealth).to.equal(0);
       expect(user.stats.buffs.streaks).to.be.false;
+      expect(user.stats.buffs.strStartDate).to.be.undefined;
+      expect(user.stats.buffs.intStartDate).to.be.undefined;
+      expect(user.stats.buffs.perStartDate).to.be.undefined;
+      expect(user.stats.buffs.conStartDate).to.be.undefined;
+      expect(user.stats.buffs.stealthStartDate).to.be.undefined;
+      expect(user.stats.buffs.streaksStartDate).to.be.undefined;
     });
 
     it('clears buffs if user does not have a perfect day (no due dailys) when user is sleeping', async () => {
@@ -1318,30 +1379,43 @@ describe('cron', async () => {
       expect(user.stats.buffs.streaks).to.be.false;
     });
 
-    it('clears buffs if user does not have a perfect day (at least one due daily not completed)', async () => {
+    it('clears buffs from failed dailies but keeps other active buffs', async () => {
       daysMissed = 1;
       tasksByType.dailys[0].completed = false;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
 
+      const now = new Date();
+      const recentBuffStartDate = new Date(now.getTime() - (12 * 60 * 60 * 1000)); // 12 hours ago
+
       user.stats.buffs = {
         str: 1,
+        strStartDate: recentBuffStartDate,
         int: 1,
+        intStartDate: recentBuffStartDate,
         per: 1,
+        perStartDate: recentBuffStartDate,
         con: 1,
+        conStartDate: recentBuffStartDate,
         stealth: 0,
         streaks: true,
+        streaksStartDate: recentBuffStartDate,
       };
 
       await cron({
         user, tasksByType, daysMissed, analytics,
       });
 
-      expect(user.stats.buffs.str).to.equal(0);
-      expect(user.stats.buffs.int).to.equal(0);
-      expect(user.stats.buffs.per).to.equal(0);
-      expect(user.stats.buffs.con).to.equal(0);
+      expect(user.stats.buffs.str).to.equal(1);
+      expect(user.stats.buffs.int).to.equal(1);
+      expect(user.stats.buffs.per).to.equal(1);
+      expect(user.stats.buffs.con).to.equal(1);
       expect(user.stats.buffs.stealth).to.equal(0);
-      expect(user.stats.buffs.streaks).to.be.false;
+      expect(user.stats.buffs.streaks).to.be.true;
+      expect(user.stats.buffs.strStartDate).to.equal(recentBuffStartDate);
+      expect(user.stats.buffs.intStartDate).to.equal(recentBuffStartDate);
+      expect(user.stats.buffs.perStartDate).to.equal(recentBuffStartDate);
+      expect(user.stats.buffs.conStartDate).to.equal(recentBuffStartDate);
+      expect(user.stats.buffs.streaksStartDate).to.equal(recentBuffStartDate);
     });
 
     it('clears buffs if user does not have a perfect day (at least one due daily not completed) when user is sleeping', async () => {
@@ -1350,13 +1424,22 @@ describe('cron', async () => {
       tasksByType.dailys[0].completed = false;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
 
+      const now = new Date();
+      const expiredBuffStartDate = new Date(now.getTime() - (25 * 60 * 60 * 1000)); // 25 hours ago
+
       user.stats.buffs = {
         str: 1,
+        strStartDate: expiredBuffStartDate,
         int: 1,
+        intStartDate: expiredBuffStartDate,
         per: 1,
+        perStartDate: expiredBuffStartDate,
         con: 1,
+        conStartDate: expiredBuffStartDate,
         stealth: 0,
+        stealthStartDate: expiredBuffStartDate,
         streaks: true,
+        streaksStartDate: expiredBuffStartDate
       };
 
       await cron({
@@ -1369,6 +1452,49 @@ describe('cron', async () => {
       expect(user.stats.buffs.con).to.equal(0);
       expect(user.stats.buffs.stealth).to.equal(0);
       expect(user.stats.buffs.streaks).to.be.false;
+      expect(user.stats.buffs.strStartDate).to.be.undefined;
+      expect(user.stats.buffs.intStartDate).to.be.undefined;
+      expect(user.stats.buffs.perStartDate).to.be.undefined;
+      expect(user.stats.buffs.conStartDate).to.be.undefined;
+      expect(user.stats.buffs.stealthStartDate).to.be.undefined;
+      expect(user.stats.buffs.streaksStartDate).to.be.undefined;
+    });
+
+    it('handles seasonal and special item buffs correctly', async () => {
+      daysMissed = 1;
+      tasksByType.dailys[0].completed = true;
+      tasksByType.dailys[0].isDue = false;
+
+      const now = new Date();
+      const recentBuffStartDate = new Date(now.getTime() - (12 * 60 * 60 * 1000)); // 12 hours ago
+      const expiredBuffStartDate = new Date(now.getTime() - (25 * 60 * 60 * 1000)); // 25 hours ago
+
+      user.stats.buffs = {
+        snowball: true,
+        snowballStartDate: recentBuffStartDate,
+        spookySparkles: true,
+        spookySparklesStartDate: expiredBuffStartDate,
+        shinySeed: true,
+        shinySeedStartDate: recentBuffStartDate,
+        seafoam: true,
+        seafoamStartDate: expiredBuffStartDate,
+      };
+
+      await cron({
+        user, tasksByType, daysMissed, analytics,
+      });
+
+      // Buffs less than 24h old should remain
+      expect(user.stats.buffs.snowball).to.be.true;
+      expect(user.stats.buffs.snowballStartDate).to.equal(recentBuffStartDate);
+      expect(user.stats.buffs.shinySeed).to.be.true;
+      expect(user.stats.buffs.shinySeedStartDate).to.equal(recentBuffStartDate);
+
+      // Expired buffs should be cleared
+      expect(user.stats.buffs.spookySparkles).to.be.false;
+      expect(user.stats.buffs.spookySparklesStartDate).to.be.undefined;
+      expect(user.stats.buffs.seafoam).to.be.false;
+      expect(user.stats.buffs.seafoamStartDate).to.be.undefined;
     });
 
     it('always grants a perfect day buff when CRON_SAFE_MODE is set', async () => {

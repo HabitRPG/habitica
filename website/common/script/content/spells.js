@@ -95,7 +95,10 @@ spells.wizard = {
     bulk: true,
     cast (user, data) {
       const bonus = statsComputed(user).int - user.stats.buffs.int;
-      data.update = { $inc: { 'stats.buffs.int': Math.ceil(diminishingReturns(bonus, 30, 200)) } };
+      data.update = {
+        $inc: { 'stats.buffs.int': Math.ceil(diminishingReturns(bonus, 30, 200)) },
+        $set: { 'stats.buffs.intStartDate': new Date() }
+      };
     },
   },
   frost: { // Chilling Frost
@@ -109,6 +112,7 @@ spells.wizard = {
       // See #12361 for more details.
       if (user.stats.buffs.streaks === true) throw new BadRequest(t('spellAlreadyCast')(req.language));
       user.stats.buffs.streaks = true;
+      user.stats.buffs.streaksStartDate = new Date();
     },
   },
 };
@@ -137,6 +141,7 @@ spells.warrior = {
       const bonus = statsComputed(user).con - user.stats.buffs.con;
       if (!user.stats.buffs.con) user.stats.buffs.con = 0;
       user.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 40, 200));
+      user.stats.buffs.conStartDate = new Date();
     },
   },
   valorousPresence: { // Valorous Presence
@@ -148,7 +153,10 @@ spells.warrior = {
     bulk: true,
     cast (user, data) {
       const bonus = statsComputed(user).str - user.stats.buffs.str;
-      data.update = { $inc: { 'stats.buffs.str': Math.ceil(diminishingReturns(bonus, 20, 200)) } };
+      data.update = {
+        $inc: { 'stats.buffs.str': Math.ceil(diminishingReturns(bonus, 20, 200)) },
+        $set: { 'stats.buffs.strStartDate': new Date() }
+      };
     },
   },
   intimidate: { // Intimidating Gaze
@@ -160,7 +168,10 @@ spells.warrior = {
     bulk: true,
     cast (user, data) {
       const bonus = statsComputed(user).con - user.stats.buffs.con;
-      data.update = { $inc: { 'stats.buffs.con': Math.ceil(diminishingReturns(bonus, 24, 200)) } };
+      data.update = {
+        $inc: { 'stats.buffs.con': Math.ceil(diminishingReturns(bonus, 24, 200)) },
+        $set: { 'stats.buffs.conStartDate': new Date() }
+      };
     },
   },
 };
@@ -200,7 +211,10 @@ spells.rogue = {
     bulk: true,
     cast (user, data) {
       const bonus = statsComputed(user).per - user.stats.buffs.per;
-      data.update = { $inc: { 'stats.buffs.per': Math.ceil(diminishingReturns(bonus, 100, 50)) } };
+      data.update = {
+        $inc: { 'stats.buffs.per': Math.ceil(diminishingReturns(bonus, 100, 50)) },
+        $set: { 'stats.buffs.perStartDate': new Date() }
+      };
     },
   },
   stealth: { // Stealth
@@ -212,6 +226,7 @@ spells.rogue = {
     cast (user) {
       if (!user.stats.buffs.stealth) user.stats.buffs.stealth = 0;
       user.stats.buffs.stealth += stealthBuffsToAdd(user);
+      user.stats.buffs.stealthStartDate = new Date();
     },
   },
 };
@@ -252,7 +267,10 @@ spells.healer = {
     bulk: true,
     cast (user, data) {
       const bonus = statsComputed(user).con - user.stats.buffs.con;
-      data.update = { $inc: { 'stats.buffs.con': Math.ceil(diminishingReturns(bonus, 200, 200)) } };
+      data.update = {
+        $inc: { 'stats.buffs.con': Math.ceil(diminishingReturns(bonus, 200, 200)) },
+        $set: { 'stats.buffs.conStartDate': new Date() }
+      };
     },
   },
   healAll: { // Blessing
@@ -281,10 +299,15 @@ spells.special = {
     limited: true,
     cast (user, target, req) {
       if (!user.items.special.snowball) throw new NotAuthorized(t('spellNotOwned')(req.language));
+      const now = new Date();
       target.stats.buffs.snowball = true;
+      target.stats.buffs.snowballStartDate = now;
       target.stats.buffs.spookySparkles = false;
+      target.stats.buffs.spookySparklesStartDate = undefined;
       target.stats.buffs.shinySeed = false;
+      target.stats.buffs.shinySeedStartDate = undefined;
       target.stats.buffs.seafoam = false;
+      target.stats.buffs.seafoamStartDate = undefined;
       if (!target.achievements.snowball) target.achievements.snowball = 0;
       target.achievements.snowball += 1;
       user.items.special.snowball -= 1;
@@ -301,6 +324,7 @@ spells.special = {
     notes: t('spellSpecialSaltNotes'),
     cast (user) {
       user.stats.buffs.snowball = false;
+      user.stats.buffs.snowballStartDate = undefined;
       user.stats.gp -= 5;
       setDebuffPotionItems(user);
     },
@@ -315,10 +339,15 @@ spells.special = {
     limited: true,
     cast (user, target, req) {
       if (!user.items.special.spookySparkles) throw new NotAuthorized(t('spellNotOwned')(req.language));
+      const now = new Date();
       target.stats.buffs.snowball = false;
+      target.stats.buffs.snowballStartDate = undefined;
       target.stats.buffs.spookySparkles = true;
+      target.stats.buffs.spookySparklesStartDate = now;
       target.stats.buffs.shinySeed = false;
+      target.stats.buffs.shinySeedStartDate = undefined;
       target.stats.buffs.seafoam = false;
+      target.stats.buffs.seafoamStartDate = undefined;
       if (!target.achievements.spookySparkles) target.achievements.spookySparkles = 0;
       target.achievements.spookySparkles += 1;
       user.items.special.spookySparkles -= 1;
@@ -335,6 +364,7 @@ spells.special = {
     notes: t('spellSpecialOpaquePotionNotes'),
     cast (user) {
       user.stats.buffs.spookySparkles = false;
+      user.stats.buffs.spookySparklesStartDate = undefined;
       user.stats.gp -= 5;
       setDebuffPotionItems(user);
     },
@@ -349,10 +379,15 @@ spells.special = {
     limited: true,
     cast (user, target, req) {
       if (!user.items.special.shinySeed) throw new NotAuthorized(t('spellNotOwned')(req.language));
+      const now = new Date();
       target.stats.buffs.snowball = false;
+      target.stats.buffs.snowballStartDate = undefined;
       target.stats.buffs.spookySparkles = false;
+      target.stats.buffs.spookySparklesStartDate = undefined;
       target.stats.buffs.shinySeed = true;
+      target.stats.buffs.shinySeedStartDate = now;
       target.stats.buffs.seafoam = false;
+      target.stats.buffs.seafoamStartDate = undefined;
       if (!target.achievements.shinySeed) target.achievements.shinySeed = 0;
       target.achievements.shinySeed += 1;
       user.items.special.shinySeed -= 1;
@@ -369,6 +404,7 @@ spells.special = {
     notes: t('spellSpecialPetalFreePotionNotes'),
     cast (user) {
       user.stats.buffs.shinySeed = false;
+      user.stats.buffs.shinySeedStartDate = undefined;
       user.stats.gp -= 5;
       setDebuffPotionItems(user);
     },
@@ -383,10 +419,15 @@ spells.special = {
     limited: true,
     cast (user, target, req) {
       if (!user.items.special.seafoam) throw new NotAuthorized(t('spellNotOwned')(req.language));
+      const now = new Date();
       target.stats.buffs.snowball = false;
+      target.stats.buffs.snowballStartDate = undefined;
       target.stats.buffs.spookySparkles = false;
+      target.stats.buffs.spookySparklesStartDate = undefined;
       target.stats.buffs.shinySeed = false;
+      target.stats.buffs.shinySeedStartDate = undefined;
       target.stats.buffs.seafoam = true;
+      target.stats.buffs.seafoamStartDate = now;
       if (!target.achievements.seafoam) target.achievements.seafoam = 0;
       target.achievements.seafoam += 1;
       user.items.special.seafoam -= 1;
@@ -403,6 +444,7 @@ spells.special = {
     notes: t('spellSpecialSandNotes'),
     cast (user) {
       user.stats.buffs.seafoam = false;
+      user.stats.buffs.seafoamStartDate = undefined;
       user.stats.gp -= 5;
       setDebuffPotionItems(user);
     },
