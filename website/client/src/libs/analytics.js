@@ -19,7 +19,7 @@ let analyticsReady = false;
 function _getConsentedUser () {
   const store = getStore();
   const user = store.state.user.data;
-  if (!user?.preferences?.analyticsConsent || navigator.globalPrivacyControl) {
+  if (!user?.preferences?.analyticsConsent) {
     return false;
   }
   return user;
