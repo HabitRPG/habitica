@@ -34,6 +34,21 @@
       >
       </p>
       <div
+        v-if="gpcEnabled"
+        class="mx-4 pl-3 py-2 mb-4 gpc-alert d-flex align-items-center black bg-yellow-50"
+      >
+        <div
+          class="svg svg-icon mr-1"
+          v-html="icons.alert"
+        >
+        </div>
+        <div
+          v-once
+          v-html="$t('gpcWarning', { url: 'https://globalprivacycontrol.org/' })"
+        >
+        </div>
+      </div>
+      <div
         class="d-flex justify-content-center"
       >
         <div class="w-66">
@@ -91,6 +106,26 @@
     line-height: 1.33;
   }
 
+  .gpc-alert {
+    border-radius: 4px;
+    line-height: 1.714;
+    opacity: 0.9;
+
+    ::v-deep a {
+      color: $black;
+      text-decoration: underline;
+    }
+
+    .svg-icon {
+      width: 16px;
+      opacity: 0.75;
+
+      ::v-deep svg path {
+        fill: $black;
+      }
+    }
+  }
+
   .mb-28p {
     margin-bottom: 28px;
   }
@@ -110,6 +145,7 @@ import ToggleSwitch from '@/components/ui/toggleSwitch.vue';
 import { GenericUserPreferencesMixin } from '@/pages/settings/components/genericUserPreferencesMixin';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import { mapState } from '@/libs/store';
+import alert from '@/assets/svg/for-css/alert.svg?raw';
 
 export default {
   mixins: [
@@ -120,10 +156,20 @@ export default {
     SaveCancelButtons,
     ToggleSwitch,
   },
+  data () {
+    return {
+      icons: Object.freeze({
+        alert,
+      }),
+    };
+  },
   computed: {
     ...mapState({
       user: 'user.data',
     }),
+    gpcEnabled () {
+      return navigator.globalPrivacyControl;
+    },
   },
   methods: {
     finalize () {
