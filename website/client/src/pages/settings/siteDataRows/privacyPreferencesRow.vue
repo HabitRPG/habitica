@@ -35,15 +35,16 @@
       </p>
       <div
         v-if="gpcEnabled"
-        class="mx-4 pl-3 py-2 mb-4 gpc-alert d-flex align-items-center black bg-yellow-50"
+        class="mx-4 px-3 py-2 mb-4 gpc-alert d-flex align-items-center black bg-yellow-50"
       >
         <div
-          class="svg svg-icon mr-1"
+          class="svg svg-icon mr-2"
           v-html="icons.alert"
         >
         </div>
         <div
           v-once
+          class="gpc-message"
           v-html="$t('gpcWarning', { url: 'https://globalprivacycontrol.org/' })"
         >
         </div>
@@ -109,7 +110,10 @@
   .gpc-alert {
     border-radius: 4px;
     line-height: 1.714;
-    opacity: 0.9;
+
+    .gpc-message {
+      opacity: 0.9;
+    }
 
     ::v-deep a {
       color: $black;
