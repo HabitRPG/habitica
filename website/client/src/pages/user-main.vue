@@ -263,11 +263,12 @@ export default {
       this.$store.dispatch('tasks:fetchUserTasks'),
     ]).then(() => {
       this.$store.state.isUserLoaded = true;
-      const analyticsConsent = localStorage.getItem('analyticsConsent');
-      if (analyticsConsent !== null
-        && analyticsConsent !== this.user.preferences.analyticsConsent
-      ) {
-        this.$store.dispatch('user:set', { 'preferences.analyticsConsent': analyticsConsent });
+      let analyticsConsent = localStorage.getItem('analyticsConsent');
+      if (analyticsConsent !== null) {
+        analyticsConsent = analyticsConsent === 'true';
+        if (analyticsConsent !== this.user.preferences.analyticsConsent) {
+          this.$store.dispatch('user:set', { 'preferences.analyticsConsent': analyticsConsent });
+        }
       }
       if (window && window['habitica-i18n']) {
         if (this.user.preferences.language === window['habitica-i18n'].language.code) {

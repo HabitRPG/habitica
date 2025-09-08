@@ -43,9 +43,8 @@
         >
         </div>
         <div
-          v-once
           class="gpc-message"
-          v-html="$t('gpcWarning', { url: 'https://globalprivacycontrol.org/' })"
+          v-html="gpcInfo"
         >
         </div>
       </div>
@@ -174,10 +173,18 @@ export default {
     gpcEnabled () {
       return navigator.globalPrivacyControl;
     },
+    gpcInfo () {
+      const gpcUrl = 'https://globalprivacycontrol.org/';
+      if (this.user.preferences.analyticsConsent) {
+        return this.$t('gpcPlusAnalytics', { url: gpcUrl });
+      }
+      return this.$t('gpcWarning', { url: gpcUrl });
+    },
   },
   methods: {
     finalize () {
       this.setUserPreference('analyticsConsent');
+      localStorage.setItem('analyticsConsent', this.user.preferences.analyticsConsent);
       this.mixinData.inlineSettingMixin.sharedState.inlineSettingUnsavedValues = false;
     },
     prefToggled () {
