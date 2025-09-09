@@ -17,7 +17,6 @@
           :preferences="hero.preferences"
           :profile="hero.profile"
         />
-        
 
         <privileges-and-gems
           :hero="hero"
