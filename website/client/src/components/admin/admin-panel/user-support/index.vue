@@ -5,7 +5,7 @@
       class="row"
     >
       <div class="form col-12">
-                <button
+        <button
           class="btn btn-danger mt-3 float-right"
           @click="confirmDeleteHero"
         >
