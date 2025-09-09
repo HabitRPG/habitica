@@ -465,10 +465,10 @@
             class="form-group row"
           >
             <label class="col-sm-3 col-form-label">
-              {{ getHumandReadablePaymentDetails(key).label }}:
+              {{ getHumanReadablePaymentDetails(key).label }}:
               <span
                 :id="`${key}_tooltip`"
-                v-b-tooltip.hover.right="getHumandReadablePaymentDetails(key).help"
+                v-b-tooltip.hover.right="getHumanReadablePaymentDetails(key).help"
                 class="info-icon"
               >?</span>
             </label>
@@ -611,7 +611,7 @@ import LoadingSpinner from '@/components/ui/loadingSpinner';
 
 const PLAY_CONSOLE_ORDERS_BASE_URL = import.meta.env.PLAY_CONSOLE_ORDERS_BASE_URL;
 
-const humandReadablePaymentDetails = {
+const humanReadablePaymentDetails = {
   customerId: {
     label: 'Customer ID',
     help: 'The unique identifier for the customer in the payment system.',
@@ -782,8 +782,8 @@ export default {
         this.$emit('changeUserIdentifier', id);
       }
     },
-    getHumandReadablePaymentDetails (key) {
-      return humandReadablePaymentDetails[key] || { label: key, help: '' };
+    getHumanReadablePaymentDetails (key) {
+      return humanReadablePaymentDetails[key] || { label: key, help: '' };
     },
     isDate (date) {
       return moment(date).isValid();
