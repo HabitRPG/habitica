@@ -192,7 +192,10 @@ export default {
       this.mixinData.inlineSettingMixin.sharedState.inlineSettingUnsavedValues = newVal;
     },
     resetControls () {
-      this.user.preferences.analyticsConsent = !this.user.preferences.analyticsConsent;
+      if (this.mixinData.inlineSettingMixin.sharedState.inlineSettingUnsavedValues) {
+        this.user.preferences.analyticsConsent = !this.user.preferences.analyticsConsent;
+        this.mixinData.inlineSettingMixin.sharedState.inlineSettingUnsavedValues = false;
+      }
     },
   },
 };
