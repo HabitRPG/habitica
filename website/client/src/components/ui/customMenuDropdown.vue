@@ -6,8 +6,7 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
   <div
     class="habitica-menu-dropdown dropdown"
     role="button"
-    tabindex="0"
-    :class="{open: isOpen}"
+    tabindex="0" :class="{open: isOpen}"
     :aria-pressed="isPressed"
     @click="toggleDropdown()"
     @keypress.enter.space.stop.prevent="toggleDropdown()"

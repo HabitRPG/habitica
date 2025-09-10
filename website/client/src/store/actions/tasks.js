@@ -168,7 +168,6 @@ export async function collapseChecklist(store, task) {
 }
 
 export async function destroy(store, task) {
-  console.log("HERE")
   const list = store.state.tasks.data[`${task.type}s`];
   const taskIndex = list.findIndex(t => t._id === task._id);
 

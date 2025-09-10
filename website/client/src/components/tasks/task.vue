@@ -167,6 +167,20 @@
                     </span>
                   </div>
                   <div
+                    class="dropdown-item"
+                    tabindex="0"
+                    @click="duplicateTask"
+                    @keypress.enter="duplicateTask"
+                  >
+                    <span class="dropdown-icon-item">
+                      <span
+                        class="svg-icon inline copy-icon"
+                        v-html="icons.duplicate"
+                      ></span>
+                      <span class="text">Duplicate</span>
+                    </span>
+                  </div>
+                  <div
                     v-if="showDelete"
                     class="dropdown-item"
                     tabindex="0"
@@ -928,6 +942,7 @@ import checkIcon from '@/assets/svg/check.svg?raw';
 import editIcon from '@/assets/svg/edit.svg?raw';
 import topIcon from '@/assets/svg/top.svg?raw';
 import bottomIcon from '@/assets/svg/bottom.svg?raw';
+import duplicateIcon from '@/assets/svg/copy.svg?raw';
 import deleteIcon from '@/assets/svg/delete.svg?raw';
 import checklistIcon from '@/assets/svg/checklist.svg?raw';
 import lockIcon from '@/assets/svg/lock.svg?raw';
@@ -977,6 +992,7 @@ export default {
         edit: editIcon,
         top: topIcon,
         bottom: bottomIcon,
+        duplicate: duplicateIcon,
         menu: menuIcon,
         lock: lockIcon,
       }),
@@ -1182,8 +1198,6 @@ export default {
       const type = this.$t(this.task.type);
       // if (!window.confirm(this.$t('sureDeleteType', { type }))) return; // eslint-disable-line no-alert
 
-      console.log("HERE1")
-      console.log(this.$t)
       // cache a deep copy for undo
       this.lastDeletedTask = JSON.parse(JSON.stringify(this.task));
       // this.$store.dispatch('tasks:destroy', this.task);
@@ -1195,7 +1209,6 @@ export default {
         action: () => this.undoDelete(this.task),
         timeout: true,
       });
-      console.log("HERE2")
 
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
@@ -1221,10 +1234,10 @@ export default {
         delete payload.history;
 
         await this.$store.dispatch('tasks:create', payload);
-        
+
         // Clear the cache after successful restore
         this.lastDeletedTask = null;
-        
+
         this.$store.dispatch('snackbars:add', {
           text: 'Task restored',
           type: 'success',
@@ -1234,6 +1247,61 @@ export default {
         console.error('Undo failed:', e);
         this.$store.dispatch('snackbars:add', {
           text: 'Undo failed',
+          type: 'error',
+          timeout: true,
+        });
+      }
+    },
+    duplicateTask () {
+      try {
+        // Create a completely new task object with fresh data
+        const newTask = {
+          _id: uuid(), // Generate new UUID
+          type: this.task.type,
+          text: `${this.task.text} (Copy)`,
+          notes: this.task.notes || '',
+          tags: this.task.tags ? [...this.task.tags] : [],
+          value: this.task.value || 0,
+          priority: this.task.priority || 1,
+          attribute: this.task.attribute || 'str',
+          challenge: {},
+          group: {},
+          completed: false,
+          streak: 0,
+          counterUp: 0,
+          counterDown: 0,
+          up: this.task.up || false,
+          down: this.task.down || false,
+          date: this.task.date || null,
+          frequency: this.task.frequency || 'weekly',
+          everyX: this.task.everyX || 1,
+          startDate: this.task.startDate || null,
+          daysOfMonth: this.task.daysOfMonth || [],
+          weeksOfMonth: this.task.weeksOfMonth || [],
+          checklist: this.task.checklist ? this.task.checklist.map(item => ({
+            id: uuid(),
+            text: item.text,
+            completed: false
+          })) : [],
+          collapseChecklist: this.task.collapseChecklist || false,
+          reminders: this.task.reminders || [],
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
+
+        // Create the new task
+        this.$store.dispatch('tasks:create', newTask);
+
+        // Show success notification
+        this.$store.dispatch('snackbars:add', {
+          text: 'Task duplicated',
+          type: 'success',
+          timeout: true,
+        });
+      } catch (e) {
+        console.error('Duplicate failed:', e);
+        this.$store.dispatch('snackbars:add', {
+          text: 'Duplicate failed',
           type: 'error',
           timeout: true,
         });
