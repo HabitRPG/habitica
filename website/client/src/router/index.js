@@ -296,7 +296,7 @@ router.beforeEach(async (to, from, next) => {
       eventName: 'View Find Members',
       eventAction: 'View Find Members',
       eventCategory: 'behavior',
-    }, { trackOnClient: true });
+    });
   }
 
   // Redirect old guild urls

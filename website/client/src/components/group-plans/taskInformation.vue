@@ -445,7 +445,7 @@ export default {
         hitType: 'event',
         mirror: newVal,
         group: this.group._id,
-      }, { trackOnClient: true });
+      });
       const groupsToMirror = this.user.preferences.tasks.mirrorGroupTasks || [];
       if (newVal) { // we're turning copy ON for this group
         groupsToMirror.push(this.group._id);

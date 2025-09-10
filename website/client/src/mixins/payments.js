@@ -215,7 +215,7 @@ export default {
             eventCategory: 'behavior',
             demographics: appState.newGroup.demographics,
             type: appState.newGroup.type,
-          }, { trackOnClient: true });
+          });
         }
       } catch (err) {
         console.error('Error while redirecting to Stripe', err); // eslint-disable-line

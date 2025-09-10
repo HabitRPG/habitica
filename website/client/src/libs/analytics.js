@@ -4,9 +4,6 @@ import pick from 'lodash/pick';
 import Vue from 'vue';
 import getStore from '@/store';
 
-const DEBUG_ENABLED = import.meta.env.DEBUG_ENABLED === 'true';
-const IS_PRODUCTION = import.meta.env.NODE_ENV === 'production';
-
 const REQUIRED_FIELDS = ['eventCategory', 'eventAction'];
 
 function _getConsentedUser () {
@@ -59,7 +56,7 @@ function _gatherUserStats (properties) {
   if (user.purchased.plan.planId) properties.subscription = user.purchased.plan.planId;
 }
 
-export function track (properties, options = {}) {
+export function track (properties) {
   const user = _getConsentedUser();
   if (!user) return;
   // Use nextTick to avoid blocking the UI
