@@ -42,7 +42,7 @@
     "timers-browserify": "^2.0.12",
     "uuid": "^9.0.1",
     "validator": "^13.9.0",
-    "vite": "^6.0.0",
+    "vite": "^6.3.6",
     "vite-plugin-compression2": "^1.3.3",
     "vue": "^2.7.10",
     "vue-fragment": "^1.6.0",
