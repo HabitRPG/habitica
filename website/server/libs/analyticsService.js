@@ -105,10 +105,12 @@ function _formatUserData (user, ipaddress, anonymize = false) {
     properties.contributorLevel = user.contributor.level;
   }
 
-  if (user.purchased && user.purchased.plan.planId) {
-    properties.subscription = user.purchased.plan.planId;
-  } else {
-    properties.subscription = null;
+  if (!anonymize) {
+    if (user.purchased && user.purchased.plan.planId) {
+      properties.subscription = user.purchased.plan.planId;
+    } else {
+      properties.subscription = null;
+    }
   }
 
   if (user._ABtests) {
@@ -123,6 +125,10 @@ function _formatUserData (user, ipaddress, anonymize = false) {
     const location = lookup(ipaddress);
     properties.country = location.country;
     properties.region = location.region1;
+  }
+
+  if (anonymize) {
+    return _anonymizeProperties(properties);
   }
 
   return properties;
@@ -188,9 +194,6 @@ function _formatDataForAmplitude (data) {
 
   if (!consented) {
     ampData.event_properties = _anonymizeProperties(ampData.event_properties);
-    if (ampData.user_properties) {
-      ampData.user_properties = _anonymizeProperties(ampData.user_properties);
-    }
   }
 
   const itemName = _lookUpItemName(data.itemKey);
