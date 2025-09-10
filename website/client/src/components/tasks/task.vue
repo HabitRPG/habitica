@@ -980,6 +980,7 @@ export default {
         menu: menuIcon,
         lock: lockIcon,
       }),
+      lastDeletedTask: null,
     };
   },
   computed: {
@@ -1179,9 +1180,64 @@ export default {
     },
     destroy () {
       const type = this.$t(this.task.type);
-      if (!window.confirm(this.$t('sureDeleteType', { type }))) return; // eslint-disable-line no-alert
+      // if (!window.confirm(this.$t('sureDeleteType', { type }))) return; // eslint-disable-line no-alert
+
+      console.log("HERE1")
+      console.log(this.$t)
+      // cache a deep copy for undo
+      this.lastDeletedTask = JSON.parse(JSON.stringify(this.task));
+      // this.$store.dispatch('tasks:destroy', this.task);
+
+      this.$store.dispatch('snackbars:add', {
+        text: this.$t('delete') + 'd',
+        type: 'info',
+        actionLabel: this.$t('undo') || 'Undo',
+        action: () => this.undoDelete(this.task),
+        timeout: true,
+      });
+      console.log("HERE2")
+
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
+    },
+    async undoDelete (task) {
+      try {
+        const toRestore = this.lastDeletedTask && this.lastDeletedTask._id === task._id
+          ? this.lastDeletedTask
+          : task;
+        if (!toRestore) {
+          this.$store.dispatch('snackbars:add', {
+            text: 'Task not found for undo',
+            type: 'error',
+            timeout: true,
+          });
+          return;
+        }
+
+        const payload = { ...toRestore };
+        // ensure backend creates a new id
+        delete payload._id;
+        // server will ignore history on create, but avoid sending unnecessary data
+        delete payload.history;
+
+        await this.$store.dispatch('tasks:create', payload);
+        
+        // Clear the cache after successful restore
+        this.lastDeletedTask = null;
+        
+        this.$store.dispatch('snackbars:add', {
+          text: 'Task restored',
+          type: 'success',
+          timeout: true,
+        });
+      } catch (e) {
+        console.error('Undo failed:', e);
+        this.$store.dispatch('snackbars:add', {
+          text: 'Undo failed',
+          type: 'error',
+          timeout: true,
+        });
+      }
     },
     castEnd (e, task) {
       setTimeout(() => this.$root.$emit('castEnd', task, 'task', e), 0);

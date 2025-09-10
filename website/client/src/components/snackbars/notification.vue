@@ -99,10 +99,18 @@
         </div>
         <div
           v-if="['info', 'success', 'crit', 'lvl'].indexOf(notification.type) !== -1"
-          class="row"
+          class="row d-flex align-items-center"
         >
-          <div class="text">
+          <div class="text flex-grow-1">
             <div v-html="notification.text"></div>
+          </div>
+          <div v-if="notification.actionLabel" class="ml-2 flex-shrink-0">
+            <button 
+              class="btn" 
+              @click.stop="notification.action && notification.action()"
+            >
+              {{ notification.actionLabel }}
+            </button>
           </div>
         </div>
         <div
@@ -221,6 +229,27 @@
   .notification-animation-holder {
     justify-content: flex-end;
     display: flex;
+  }
+
+  .btn {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+    }
   }
 </style>
 
