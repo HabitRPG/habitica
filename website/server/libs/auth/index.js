@@ -19,6 +19,10 @@ import {
 } from './social';
 import { loginRes } from './utils';
 import { verifyUsername } from '../user/validation';
+import { sendEmail } from '../email';
+import { generateVerificationToken, tokenExpiryHours } from '../verification';
+import nconf from 'nconf';
+const BASE_URL = nconf.get('BASE_URL') || 'https://habitica.com';
 
 const USERNAME_LENGTH_MIN = 1;
 const USERNAME_LENGTH_MAX = 20;
@@ -189,6 +193,40 @@ async function registerLocal (req, res, { isV3 = false }) {
 
   const savedUser = await newUser.save();
 
+  // Email Verification Logic
+  if (!existingUser) {
+    // Generate a verification token
+    const token = generateVerificationToken();
+    savedUser.verification = {
+      verified: false,
+      token,
+      tokenExpires: tokenExpiryHours(48),
+    };
+
+    // Save verification data
+    await savedUser.save();
+
+    // Construct verification link
+    const verifyUrl = `${BASE_URL}/verify-email?token=${token}`;
+
+    // Send verification email
+    try {
+      await sendEmail({
+        to: savedUser.auth.local.email,
+        subject: 'Verify your Habitica account',
+        html: `
+          <p>Hello ${savedUser.auth.local.username || 'Adventurer'},</p>
+          <p>Please verify your email by clicking the link below:</p>
+          <p><a href="${verifyUrl}">${verifyUrl}</a></p>
+          <p>Thanks for joining Habitica!</p>
+        `,
+        text: `Verify your email: ${verifyUrl}`,
+      });
+    } catch (err) {
+      logger.error('Email verification sending failed:', err);
+    }
+  }
+
   let userToJSON;
   if (isV3) {
     userToJSON = await savedUser.toJSONWithInbox();
@@ -209,10 +247,13 @@ async function registerLocal (req, res, { isV3 = false }) {
     .deleteOne({ email: savedUser.auth.local.email })
     .then(() => {
       if (existingUser) return;
-      if (newUser.registeredThrough === 'habitica-web') {
-        sendTxnEmail(savedUser, 'welcome-v2b');
-      } else {
-        sendTxnEmail(savedUser, 'welcome');
+      // Only send welcome email after verification
+      if (savedUser.verification?.verified) {
+        if (newUser.registeredThrough === 'habitica-web') {
+          sendTxnEmail(savedUser, 'welcome-v2b');
+        } else {
+          sendTxnEmail(savedUser, 'welcome');
+        }
       }
     })
     .catch(err => logger.error(err));

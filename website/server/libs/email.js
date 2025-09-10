@@ -4,6 +4,7 @@ import { TAVERN_ID } from '../models/group'; // eslint-disable-line import/no-cy
 import { encrypt } from './encryption';
 import logger from './logger';
 import common from '../../common';
+import fetch from 'node-fetch';
 
 const IS_PROD = nconf.get('IS_PROD');
 const EMAIL_SERVER = {
@@ -196,4 +197,39 @@ export function convertVariableObjectToArray (variableObject) {
   }
 
   return variablesArray;
+}
+
+//  Sends an email via the Habitica email server.
+//  Uses EMAIL_SERVER_URL, EMAIL_SERVER_AUTH_USER, and EMAIL_SERVER_AUTH_PASSWORD from config.json.
+ 
+export async function sendEmail({ to, subject, html, text = '', template = null }) {
+  const emailServerUrl = nconf.get('EMAIL_SERVER_URL');
+  const authUser = nconf.get('EMAIL_SERVER_AUTH_USER');
+  const authPassword = nconf.get('EMAIL_SERVER_AUTH_PASSWORD');
+
+  if (!emailServerUrl || !authUser || !authPassword) {
+    throw new Error('Email server configuration is missing in config.json');
+  }
+
+  const response = await fetch(`${emailServerUrl}/send`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + Buffer.from(`${authUser}:${authPassword}`).toString('base64'),
+    },
+    body: JSON.stringify({
+      to,
+      subject,
+      html,
+      text,
+      template,
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`Email server error (${response.status}): ${error}`);
+  }
+
+  return response.json();
 }
