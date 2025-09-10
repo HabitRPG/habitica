@@ -14,9 +14,6 @@ import {
 import Fragment from 'vue-fragment';
 import LoadScript from 'vue-plugin-load-script';
 import AppComponent from './app';
-import {
-  setup as setupAnalytics,
-} from '@/libs/analytics';
 import { setUpLogging } from '@/libs/logging';
 import router from './router/index';
 import getStore from './store';
@@ -52,7 +49,6 @@ Vue.use(Fragment.Plugin);
 Vue.use(LoadScript);
 
 setUpLogging();
-setupAnalytics();
 const store = getStore();
 
 if (import.meta.env.TIME_TRAVEL_ENABLED === 'true') {
