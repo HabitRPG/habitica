@@ -5,7 +5,6 @@ import Vue from 'vue';
 import getStore from '@/store';
 
 const DEBUG_ENABLED = import.meta.env.DEBUG_ENABLED === 'true';
-const GA_ID = import.meta.env.GA_ID;
 const IS_PRODUCTION = import.meta.env.NODE_ENV === 'production';
 
 const REQUIRED_FIELDS = ['eventCategory', 'eventAction'];
@@ -66,14 +65,6 @@ export function track (properties, options = {}) {
   // Use nextTick to avoid blocking the UI
   Vue.nextTick(() => {
     if (_doesNotHaveRequiredFields(properties)) return;
-
-    const trackOnClient = options && options.trackOnClient === true;
-    // Track events on the server by default
-    if (trackOnClient === true) {
-      if (window.gtag) {
-        window.gtag('event', properties.eventAction, properties);
-      }
-    }
     const store = getStore();
     store.dispatch('analytics:trackEvent', properties);
   });
@@ -85,20 +76,7 @@ export function updateUser (properties = {}) {
   // Use nextTick to avoid blocking the UI
   Vue.nextTick(() => {
     _gatherUserStats(properties);
-    if (window.gtag) {
-      window.gtag('set', 'user_properties', properties);
-    }
     const store = getStore();
     store.dispatch('analytics:updateUserProperties', properties);
-  });
-}
-
-export async function setup () {
-  const user = _getConsentedUser();
-  if (!user) return;
-  await Vue.loadScript(`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`);
-  window.gtag('config', GA_ID, {
-    debug_mode: DEBUG_ENABLED || !IS_PRODUCTION,
-    user_id: user._id,
   });
 }

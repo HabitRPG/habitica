@@ -261,7 +261,7 @@ function _updateProperties (properties, uuid) {
     .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
 }
 
-// There's no error handling directly here because it's handled inside _sendDataTo{Amplitude|Google}
+// There's no error handling directly here because it's handled inside _sendDataToAmplitude
 async function track (eventType, data, loggerOnly = false) {
   const { user } = data;
   if (!user || !user.preferences || !user.preferences.analyticsConsent) {
@@ -280,7 +280,7 @@ async function track (eventType, data, loggerOnly = false) {
 }
 
 // There's no error handling directly here because
-// it's handled inside _sendPurchaseDataTo{Amplitude|Google}
+// it's handled inside _sendPurchaseDataToAmplitude
 async function trackPurchase (data) {
   const { user } = data;
   if (!user || !user.preferences || !user.preferences.analyticsConsent) {
