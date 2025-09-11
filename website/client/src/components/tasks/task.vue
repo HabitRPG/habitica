@@ -141,6 +141,16 @@
                   <div
                     class="dropdown-item"
                     tabindex="0"
+                    @click="togglePinnedTask"
+                    @keypress.enter="togglePinnedTask"
+                  >
+                    <span class="dropdown-icon-item">
+                      <span class="text">{{ task.pinned ? 'Unpin' : 'Pin to top' }}</span>
+                    </span>
+                  </div>
+                  <div
+                    class="dropdown-item"
+                    tabindex="0"
                     @click="moveToTop"
                     @keypress.enter="moveToTop"
                   >
@@ -1140,7 +1150,12 @@ export default {
       scoreChecklistItem: 'tasks:scoreChecklistItem',
       collapseChecklist: 'tasks:collapseChecklist',
       destroyTask: 'tasks:destroy',
+      saveTask: 'tasks:save',
     }),
+    async togglePinnedTask () {
+      const updated = { ...this.task, pinned: !this.task.pinned };
+      await this.saveTask(updated);
+    },
     toggleChecklistItem (item) {
       if (this.castingSpell) return;
       item.completed = !item.completed; // @TODO this should go into the action?

@@ -21,6 +21,7 @@ export default function taskDefaults (task, user) {
     _id: defaultId,
     text: task._id || defaultId,
     notes: '',
+    pinned: false,
     tags: [],
     value: task.type === 'reward' ? 10 : 0,
     priority: 1,

@@ -63,6 +63,7 @@ export const TaskSchema = new Schema({
   },
   text: { $type: String, required: true },
   notes: { $type: String, default: '' },
+  pinned: { $type: Boolean, default: false },
   alias: {
     $type: String,
     match: [/^[a-zA-Z0-9-_]+$/, 'Task short names can only contain alphanumeric characters, underscores and dashes.'],
