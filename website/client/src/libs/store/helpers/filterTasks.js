@@ -107,8 +107,15 @@ export function getActiveFilter (type, filterType, isChallenge) {
 
 export function sortAndFilterTasks (tasks, selectedFilter) {
   let sortedTasks = tasks.filter(selectedFilter.filterFn);
+  // Pinned tasks always appear first client-side too, preserving order otherwise
+  const pinned = sortedTasks.filter(t => t.pinned);
+  const unpinned = sortedTasks.filter(t => !t.pinned);
+  sortedTasks = pinned.concat(unpinned);
   if (selectedFilter.sort) {
-    sortedTasks = sortBy(sortedTasks, selectedFilter.sort);
+    // Keep pinned first while applying secondary sort to each group
+    const pinnedSorted = sortBy(pinned, selectedFilter.sort);
+    const unpinnedSorted = sortBy(unpinned, selectedFilter.sort);
+    sortedTasks = pinnedSorted.concat(unpinnedSorted);
   }
   return sortedTasks;
 }

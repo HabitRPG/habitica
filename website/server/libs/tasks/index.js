@@ -275,7 +275,7 @@ async function getTasks (req, res, options = {}) {
     }
   });
 
-  // Order tasks based on tasksOrder
+  // Order tasks based on tasksOrder, but always keep pinned tasks first (stable within pinned/non-pinned)
   let order = [];
   if (type && type !== 'completedTodos' && type !== '_allCompletedTodos') {
     order = owner.tasksOrder[type];
@@ -307,6 +307,12 @@ async function getTasks (req, res, options = {}) {
 
   // Remove empty values from the array and add any unordered task
   orderedTasks = compact(orderedTasks).concat(unorderedTasks);
+
+  // Stable partition: pinned first, preserve relative order
+  const pinnedTasks = [];
+  const unpinnedTasks = [];
+  orderedTasks.forEach(t => ((t.pinned ? pinnedTasks : unpinnedTasks).push(t)));
+  orderedTasks = pinnedTasks.concat(unpinnedTasks);
   return orderedTasks;
 }
 

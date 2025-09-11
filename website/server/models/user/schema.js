@@ -98,9 +98,9 @@ export const UserSchema = new Schema({
   // Added email verification fields to support validating user accounts during signup.
   // These fields store the verification status, a unique token, and its expiration time.
   verification: {
-    verified: { type: Boolean, default: false },
-    token: { type: String, default: null },
-    tokenExpires: { type: Date, default: null },
+    verified: { $type: Boolean, default: false },
+    token: { $type: String, default: null },
+    tokenExpires: { $type: Date, default: null },
   },
 
   // We want to know *every* time an object updates.
