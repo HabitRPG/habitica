@@ -53,7 +53,7 @@
     font-weight: 400;
     font-style: normal;
     font-size: 14px;
-    line-height: 24px;
+    line-height: 1.714;
     letter-spacing: 0;
   }
 
@@ -63,7 +63,7 @@
     font-weight: 700;
     font-style: normal;
     font-size: 14px;
-    line-height: 24px;
+    line-height: 1.714;
   }
 
   .notification {
