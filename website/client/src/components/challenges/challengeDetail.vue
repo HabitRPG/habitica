@@ -72,7 +72,7 @@
         </div>
         <div class="col-12 col-md-6 text-right">
           <div
-            class="box member-count"
+            class="box member-count p-2"
             @click="showMemberModal()"
           >
             <div class="box-content">
@@ -91,7 +91,7 @@
               </div>
             </div>
           </div>
-          <div class="box prize-count">
+          <div class="box prize-count p-2">
             <div class="box-content">
               <div class="icon-number-row">
                 <div
@@ -312,7 +312,6 @@
 
   .box {
     display: inline-block;
-    padding: 0.5em;
     border-radius: 2px;
     background-color: $white;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
