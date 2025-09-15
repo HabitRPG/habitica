@@ -108,7 +108,10 @@
             class="delete-challenge-text"
           >{{ $t('doYouWantedToDeleteChallenge') }}</strong>
         </div>
-        <div class="col-12 refund-text">
+        <div
+          v-once
+          class="col-12 refund-text"
+        >
           {{ $t('deleteChallengeRefundDescription') }}
         </div>
         <div class="col-12">
