@@ -28,7 +28,7 @@
       </button>
     </div>
     <img
-      src="@/assets/images/gifts_end.svg"
+      src="@/assets/images/gifts_start.svg"
       class="gift-end"
       alt=""
     >
@@ -100,7 +100,7 @@
     position: absolute;
     right: 0;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%) scaleX(-1);
     z-index: 0;
   }
 
