@@ -73,7 +73,7 @@ export default async function processUsers () {
       break;
     } else {
       query._id = {
-        $gt: users[users.length - 1],
+        $gt: users[users.length - 1]?._id, // Here you’re passing the whole user object instead of its _id
       };
     }
 
