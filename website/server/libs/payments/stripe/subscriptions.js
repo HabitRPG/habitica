@@ -33,6 +33,26 @@ export async function checkSubData (sub, isGroup = false, coupon) {
   }
 }
 
+export async function getSubscriptionPaymentDetails (user) {
+  const stripeApi = getStripeApi();
+
+  const { plan } = user.purchased;
+  const customer = await stripeApi.customers.retrieve(plan.customerId);
+  const paymentIntents = await stripeApi.paymentIntents.search({
+    query: `customer:'${plan.customerId}'`,
+  });
+  const lastPayment = paymentIntents.data.length > 0
+    ? paymentIntents.data[0]
+    : null;
+  console.log(paymentIntents.data);
+  console.log(customer);
+  return {
+    customerId: customer.id,
+    originalPurchaseDate: new Date(Number(customer.created) * 1000),
+    lastPaymentDate: new Date(Number(lastPayment.created) * 1000),
+  };
+}
+
 export async function applySubscription (session) {
   const { metadata, customer: customerId, subscription: subscriptionId } = session;
   const {

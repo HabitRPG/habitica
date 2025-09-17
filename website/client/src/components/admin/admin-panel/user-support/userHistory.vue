@@ -226,7 +226,7 @@ export default {
       }
     },
     async retrieveUserHistory () {
-      const history = await this.$store.dispatch('adminPanel:getUserHistory', { userIdentifier: this.hero._id });
+      const history = await this.$store.dispatch('admin:getUserHistory', { userIdentifier: this.hero._id });
       this.armoire = history.armoire;
       this.questInviteResponses = history.questInviteResponses;
       this.cron = history.cron;

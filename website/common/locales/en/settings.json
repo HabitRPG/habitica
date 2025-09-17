@@ -271,5 +271,7 @@
     "performanceAnalytics": "Performance and Analytics",
     "usedForSupport": "These are used to improve the user experience, performance, and services of our website and apps. This data is used by our support team when handling requests and bug reports.",
     "savePreferences": "Save Preferences",
-    "habiticaPrivacyPolicy": "Habitica's Privacy Policy"
+    "habiticaPrivacyPolicy": "Habitica's Privacy Policy",
+    "gpcWarning": "<a href='<%= url %>' target='_blank'>GPC</a> is on. Turning on tracking below will override this and send data to our analytics partners.",
+    "gpcPlusAnalytics": "<a href='<%= url %>' target='_blank'>GPC</a> is on. You have opted in to tracking and sending data to our analytics partners."
 }

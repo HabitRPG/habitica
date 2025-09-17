@@ -124,7 +124,7 @@
     "subscriptionBenefit3": "毎日2倍のタマゴ、たまごがえしの薬と餌を見つけてペットコレクションを増やしましょう！",
     "subscriptionBenefit4": "最新の限定装備で着飾りましょう。有料プランに登録して<%= month %>の <%= currentMysterySetName %>をゲットしよう！",
     "subscriptionBenefit5": "さっそく有料プランに登録して、特別なロイヤルパープルのジャッカロープのペットをゲットしよう！",
-    "subscriptionBenefit6": "タイムトラベラーの店でアイテムを買うために神秘の砂時計を手に入れましょう！",
+    "subscriptionBenefit6": "タイムトラベラーの店で使える神秘の砂時計を毎月1個ゲットして、アイテムを見逃さないようにしよう！",
     "purchaseAll": "セットを購入する",
     "gemsRemaining": "残り",
     "notEnoughGemsToBuy": "今月はこれ以上購入できるジェムはありません。毎月最初の 3 日以内にさらに多く購入可能になります。",
@@ -263,5 +263,11 @@
     "mysterySet202511": "霜の戦士セット",
     "recurringNMonthly": "<%= length %>ヶ月ごとに更新されます",
     "mysterySet202510": "空中に浮かぶグールセット",
-    "unlockNGemsGift": "受取人は毎月<strong><%= count %> 個のジェム</strong>をアンロックします"
+    "unlockNGemsGift": "受取人は毎月<strong><%= count %> 個のジェム</strong>をアンロックします",
+    "earn2GemsGift": "受取人は有料プランに登録している間、毎月<strong>+2個のジェム</strong>を獲得します",
+    "earn2Gems": "登録している間、毎月<strong>+2個のジェム</strong>を獲得",
+    "mysterySet202502": "親切なアルレッキーノセット",
+    "maxGemCapGift": "受取人は<strong>最大限のジェム</strong>をゲットします",
+    "subscribeAgainContinueHourglasses": "神秘の砂時計をゲットし続けるには、再び有料プランに登録してください",
+    "immediate12Hourglasses": "初めて12ヶ月間の有料プランに登録したとき、<strong>12個の神秘の砂時計</strong> をすぐにゲットしよう！"
 }

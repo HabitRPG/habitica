@@ -1772,7 +1772,7 @@
     "eyewearArmoireComedyMaskText": "Komediowa Maska",
     "eyewearArmoireJewelersEyeLoupeText": "Lupa Jubilerska",
     "moreArmoireGearAvailable": "Do tego czasu, zostało do znalezienia <%= armoireCount %> części wyposażenia w Zaczarowanej Skrzyni!",
-    "gearItemsCompleted": "Jesteś w posiadaniu całego ekwipunku klasy <%= class %>! Nowy ekwipunek jest wydawany podczas Gal sezonowych.",
+    "gearItemsCompleted": "Jesteś w posiadaniu całego ekwipunku klasy <%= klass %>! Nowy ekwipunek jest wydawany podczas Gal sezonowych.",
     "moreArmoireGearComing": "Zaczarowana Skrzynia również comiesięcznie otrzymuje nowy asortyment!",
     "weaponSpecialFall2019MageNotes": "Niezależnie od tego, czy chodzi o wykuwanie piorunów, wznoszenie fortyfikacji, czy po prostu wzbudzanie przerażenia w sercach śmiertelników, ta laska daje moc gigantów do czynienia cudów. Zwiększa inteligencję o <%= int %> i percepcję o <%= per %>. Limitowana edycja 2019 Jesienne Wyposażenie.",
     "weaponSpecialFall2019HealerText": "Przerażające Filakterium",

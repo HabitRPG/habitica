@@ -21,7 +21,7 @@ function loadLocale (i18nData) {
     script.type = 'text/javascript';
     script.text = i18nData.momentLang;
     head.appendChild(script);
-    moment.locale(language.momentLangCode);
+    moment.updateLocale(language.momentLangCode);
   }
 }
 

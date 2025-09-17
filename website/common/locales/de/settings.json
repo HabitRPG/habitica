@@ -2,7 +2,7 @@
     "settings": "Einstellungen",
     "language": "Sprache",
     "americanEnglishGovern": "Im Fall von Bedeutungsunterschieden gilt die englische Version.",
-    "helpWithTranslation": "Hast du Interesse, bei der Übersetzung von Habitica helfen? Toll! Dann besuche doch die <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">Aspiring Linguists Guild</a>!",
+    "helpWithTranslation": "Hast du Interesse, bei der Übersetzung von Habitica helfen? Toll! Dann besuche doch die <a href=\"https://translate.habitica.com\"> Habitica's Weblate Seite</a>!",
     "stickyHeader": "Kopfzeile anheften",
     "newTaskEdit": "Neue Aufgaben im Bearbeiten-Modus öffnen",
     "reverseChatOrder": "Zeige die Chat-Nachrichten in umgekehrter Reihenfolge",

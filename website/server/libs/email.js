@@ -1,18 +1,10 @@
 import nconf from 'nconf';
-import got from 'got';
 import { TAVERN_ID } from '../models/group'; // eslint-disable-line import/no-cycle
 import { encrypt } from './encryption';
-import logger from './logger';
 import common from '../../common';
+import { sendJob } from './worker';
 
 const IS_PROD = nconf.get('IS_PROD');
-const EMAIL_SERVER = {
-  url: nconf.get('EMAIL_SERVER_URL'),
-  auth: {
-    user: nconf.get('EMAIL_SERVER_AUTH_USER'),
-    password: nconf.get('EMAIL_SERVER_AUTH_PASSWORD'),
-  },
-};
 const BASE_URL = nconf.get('BASE_URL');
 
 export function getUserInfo (user, fields = []) {
@@ -156,29 +148,14 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
   }
 
   if (IS_PROD && mailingInfoArray.length > 0) {
-    return got.post(`${EMAIL_SERVER.url}/job`, {
-      retry: 5, // retry the http request to the email server 5 times
-      timeout: 60000, // wait up to 60s before timing out
-      username: EMAIL_SERVER.auth.user,
-      password: EMAIL_SERVER.auth.password,
-      json: {
-        type: 'email',
-        data: {
-          emailType,
-          to: mailingInfoArray,
-          variables,
-          personalVariables,
-        },
-        options: {
-          priority: 'high',
-          attempts: 5,
-          backoff: { delay: 10 * 60 * 1000, type: 'fixed' },
-        },
+    return sendJob('email', {
+      data: {
+        emailType,
+        to: mailingInfoArray,
+        variables,
+        personalVariables,
       },
-    }).json().catch(err => logger.error(err, {
-      extraMessage: 'Error while sending an email.',
-      emailType,
-    }));
+    });
   }
 
   return null;

@@ -98,7 +98,7 @@
   }
 
   .settings-content {
-    flex: 0 0 732px;
+    flex: 0 0 751px;
     max-width: unset;
 
     ::v-deep {

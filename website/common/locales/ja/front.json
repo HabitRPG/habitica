@@ -184,5 +184,8 @@
     "marketing4Lead3Button": "Habiticaを始める",
     "emailBlockedRegistration": "このEメールは登録ブロックされています。間違いだと思われる場合は、admin@habitica.com までご連絡ください。",
     "missingClientHeader": "x-client ヘッダが見つかりません。",
-    "enterValidEmail": "有効なメールアドレスを入力してください。"
+    "enterValidEmail": "有効なメールアドレスを入力してください。",
+    "minPasswordLengthLogin": "パスワードは8文字以上です。",
+    "whatToCallYou": "何とお呼びしたらいいですか？",
+    "acceptPrivacyTOS": "あなたは18歳以上であり、Habiticaの<a href='/static/terms' target='_blank'>利用規約</a>および<a href='/static/privacy' target='_blank'>プライバシーポリシー</a>に同意することを確認します"
 }

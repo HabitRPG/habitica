@@ -9,7 +9,7 @@ const REQUIRED_FIELDS = ['eventCategory', 'eventAction'];
 function _getConsentedUser () {
   const store = getStore();
   const user = store.state.user.data;
-  if (!user?.preferences?.analyticsConsent || navigator.globalPrivacyControl) {
+  if (!user?.preferences?.analyticsConsent) {
     return false;
   }
   return user;
@@ -59,6 +59,7 @@ function _gatherUserStats (properties) {
 export function track (properties) {
   const user = _getConsentedUser();
   if (!user) return;
+  safeSetup(user._id);
   // Use nextTick to avoid blocking the UI
   Vue.nextTick(() => {
     if (_doesNotHaveRequiredFields(properties)) return;
@@ -70,6 +71,7 @@ export function track (properties) {
 export function updateUser (properties = {}) {
   const user = _getConsentedUser();
   if (!user) return;
+  safeSetup(user._id);
   // Use nextTick to avoid blocking the UI
   Vue.nextTick(() => {
     _gatherUserStats(properties);

@@ -86,8 +86,8 @@
         v-if="taskList.length > 0"
         ref="tasksList"
         class="sortable-tasks"
-        :options="{disabled: activeFilter.label === 'scheduled' || !canBeDragged(),
-                   scrollSensitivity: 64}"
+        :disabled="activeFilter.label === 'scheduled' || !canBeDragged()"
+        scrollSensitivity="64"
         :delay-on-touch-only="true"
         :delay="100"
         @update="taskSorted"

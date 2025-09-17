@@ -12,7 +12,6 @@ import {
   CollapsePlugin,
 } from 'bootstrap-vue';
 import Fragment from 'vue-fragment';
-import LoadScript from 'vue-plugin-load-script';
 import AppComponent from './app';
 import { setUpLogging } from '@/libs/logging';
 import router from './router/index';
@@ -46,7 +45,6 @@ Vue.use(TooltipPlugin);
 Vue.use(NavbarPlugin);
 Vue.use(CollapsePlugin);
 Vue.use(Fragment.Plugin);
-Vue.use(LoadScript);
 
 setUpLogging();
 const store = getStore();

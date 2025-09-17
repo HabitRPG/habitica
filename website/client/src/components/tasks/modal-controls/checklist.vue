@@ -21,11 +21,9 @@
     >
       <draggable
         v-model="checklist"
-        :options="{
-          handle: '.grippy',
-          filter: '.task-dropdown',
-          disabled: disabled,
-        }"
+        handle=".grippy"
+        filter=".task-dropdown"
+        :disabled="disabled"
         @update="updateChecklist"
       >
         <div

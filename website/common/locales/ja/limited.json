@@ -93,7 +93,7 @@
     "fall2016SwampThingSet": "沼地の怪物（戦士）",
     "fall2016WickedSorcererSet": "悪意の妖術師（魔道士）",
     "fall2016GorgonHealerSet": "ゴルゴン（治療師）",
-    "fall2016BlackWidowSet": "黒婦人（盗賊）",
+    "fall2016BlackWidowSet": "クロゴケグモ（盗賊）",
     "winter2017IceHockeySet": "アイスホッケー（戦士）",
     "winter2017WinterWolfSet": "冬オオカミ（魔道士）",
     "winter2017SugarPlumSet": "シュガープラム（治療師）",
@@ -281,5 +281,6 @@
     "summer2025FairyWrasseMageSet": "イトヒキベラの魔導士セット",
     "fall2025SasquatchWarriorSet": "サスクワッチの戦士セット",
     "fall2025SkeletonRogueSet": "ガイコツの盗賊セット",
-    "fall2025KoboldHealerSet": "コボルドの治療師セット"
+    "fall2025KoboldHealerSet": "コボルドの治療師セット",
+    "fall2025MaskedGhostMageSet": "覆面をした幽霊の魔導士セット"
 }

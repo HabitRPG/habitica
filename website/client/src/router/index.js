@@ -24,6 +24,8 @@ const AdminContainerPage = () => import(/* webpackChunkName: "admin-panel" */'@/
 const AdminPanelPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin/admin-panel');
 const AdminPanelUserPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin/admin-panel/user-support');
 const AdminPanelSearchPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin/admin-panel/search');
+const GroupAdminPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin/groups');
+const GroupAdminGroupPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin/groups/group-support');
 const BlockerPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin/blocker');
 
 // Tasks
@@ -211,6 +213,28 @@ const router = new VueRouter({
               meta: {
                 privilegeNeeded: [
                   'userSupport',
+                ],
+              },
+            },
+          ],
+        },
+        {
+          name: 'groupAdmin',
+          path: 'groups',
+          component: GroupAdminPage,
+          meta: {
+            privilegeNeeded: [ // any one of these is enough to give access
+              'groupSupport',
+            ],
+          },
+          children: [
+            {
+              name: 'groupAdminGroup',
+              path: ':groupId',
+              component: GroupAdminGroupPage,
+              meta: {
+                privilegeNeeded: [
+                  'groupsSupport',
                 ],
               },
             },

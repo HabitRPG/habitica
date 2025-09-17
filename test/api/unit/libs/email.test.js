@@ -150,7 +150,7 @@ describe('emails', () => {
 
       sendTxn(mailingInfo, emailType);
       expect(got.post).to.be.called;
-      expect(got.post).to.be.calledWith('undefined/job', sinon.match({
+      expect(got.post).to.be.calledWith('http://example.com/job', sinon.match({
         json: {
           data: {
             emailType: sinon.match.same(emailType),
@@ -234,7 +234,7 @@ describe('emails', () => {
 
       sendTxn(mailingInfo, emailType);
       expect(got.post).to.be.called;
-      expect(got.post).to.be.calledWith('undefined/job', sinon.match({
+      expect(got.post).to.be.calledWith('http://example.com/job', sinon.match({
         json: {
           data: {
             emailType: sinon.match.same(emailType),
@@ -254,7 +254,7 @@ describe('emails', () => {
 
       sendTxn(mailingInfo, emailType, variables);
       expect(got.post).to.be.called;
-      expect(got.post).to.be.calledWith('undefined/job', sinon.match({
+      expect(got.post).to.be.calledWith('http://example.com/job', sinon.match({
         json: {
           data: {
             variables: sinon.match(value => value[0].name === 'BASE_URL', 'matches variables'),

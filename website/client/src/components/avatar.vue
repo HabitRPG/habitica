@@ -321,8 +321,8 @@ export default {
       return null;
     },
     petClass () {
-      const foolEvent = this.currentEventList?.find(event => moment()
-        .isBetween(event.start, event.end) && event.aprilFools);
+      const foolEvent = this.currentEventList?.find(event => event.aprilFools && moment()
+        .isBetween(event.start, event.end));
       if (foolEvent) {
         return this.foolPet(this.member.items.currentPet, foolEvent.aprilFools);
       }

@@ -37,7 +37,11 @@
             Party ID
           </label>
           <strong class="col-sm-9 col-form-label">
-            {{ groupPartyData._id }}
+            <router-link
+              :to="{'name': 'groupAdminGroup', 'params': {'groupId': groupPartyData._id}}"
+            >
+              {{ groupPartyData._id }}
+            </router-link>
           </strong>
         </div>
         <div class="form-group row">
