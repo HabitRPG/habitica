@@ -153,6 +153,10 @@ import { mapState } from '@/libs/store';
 import alert from '@/assets/svg/for-css/alert.svg?raw';
 
 export default {
+  mixins: [
+    GenericUserPreferencesMixin,
+    InlineSettingMixin,
+  ],
   components: {
     SaveCancelButtons,
     ToggleSwitch,
