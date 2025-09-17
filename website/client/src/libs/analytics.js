@@ -59,7 +59,6 @@ function _gatherUserStats (properties) {
 export function track (properties) {
   const user = _getConsentedUser();
   if (!user) return;
-  safeSetup(user._id);
   // Use nextTick to avoid blocking the UI
   Vue.nextTick(() => {
     if (_doesNotHaveRequiredFields(properties)) return;
@@ -71,7 +70,6 @@ export function track (properties) {
 export function updateUser (properties = {}) {
   const user = _getConsentedUser();
   if (!user) return;
-  safeSetup(user._id);
   // Use nextTick to avoid blocking the UI
   Vue.nextTick(() => {
     _gatherUserStats(properties);
