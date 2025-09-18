@@ -59,7 +59,7 @@ api.updateUserProperties = {
     const { user } = res.locals;
     const properties = req.body;
 
-    res.analytics.track(req.params.eventName, {
+    res.analytics.updateUserData({
       user,
       uuid: user._id,
       properties,
