@@ -264,9 +264,6 @@ function _updateProperties (properties, uuid) {
 // There's no error handling directly here because it's handled inside _sendDataToAmplitude
 async function track (eventType, data, loggerOnly = false) {
   const { user } = data;
-  if (!user || !user.preferences || !user.preferences.analyticsConsent) {
-    return null;
-  }
   const promises = [
     _sendDataToAmplitude(eventType, data, loggerOnly),
   ];
@@ -282,10 +279,6 @@ async function track (eventType, data, loggerOnly = false) {
 // There's no error handling directly here because
 // it's handled inside _sendPurchaseDataToAmplitude
 async function trackPurchase (data) {
-  const { user } = data;
-  if (!user || !user.preferences || !user.preferences.analyticsConsent) {
-    return null;
-  }
   return Promise.all([
     _sendPurchaseDataToAmplitude(data),
   ]);
@@ -293,9 +286,6 @@ async function trackPurchase (data) {
 
 async function updateUserData (data) {
   const { user, properties } = data;
-  if (!user || !user.preferences || !user.preferences.analyticsConsent) {
-    return null;
-  }
   const toUpdate = {
     ..._formatUserData(user, data.ipaddress),
     ...properties,
