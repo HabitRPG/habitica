@@ -112,7 +112,7 @@
     "heroku-postbuild": ".heroku/report_deploy.sh"
   },
   "devDependencies": {
-    "axios": "^1.8.2",
+    "axios": "^1.12.0",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
     "chai-moment": "^0.1.0",
