@@ -20,7 +20,7 @@
       >
         <div
           v-if="notification.type === 'error'"
-          class="row pr-3"
+          class="row pr-4"
         >
           <div class="text">
             <div v-html="notification.text"></div>
@@ -121,8 +121,13 @@
 <style lang="scss" scoped>
 @import '@/assets/scss/colors.scss';
 
-  ::v-deep .modal-close .svg-close {
-    color: $black;
+  ::v-deep .modal-close {
+    top: 11px;
+    right: 11px;
+
+    .svg-close {
+      color: $black;
+    }
   }
 
   .notification-holder {
