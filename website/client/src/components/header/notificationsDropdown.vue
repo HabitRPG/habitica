@@ -49,6 +49,12 @@
         v-if="showOnboardingGuide"
         :never-seen="hasSpecialBadge"
       />
+      <gift-one-get-one-notification
+        v-if="shouldShowG1g1"
+        :notification="g1g1Notification"
+        :event-key="g1g1EventKey"
+        @notification-removed="handleG1g1Removed"
+      />
       <component
         :is="notification.type"
         v-for="notification in notifications"
@@ -114,6 +120,7 @@
 <script>
 import * as quests from '@/../../common/script/content/quests';
 import { hasCompletedOnboarding } from '@/../../common/script/libs/onboarding';
+import find from 'lodash/find';
 import { mapState, mapActions } from '@/libs/store';
 import notificationsIcon from '@/assets/svg/notifications.svg?raw';
 import MenuDropdown from '../ui/customMenuDropdown';
@@ -151,6 +158,7 @@ export default {
     CARD_RECEIVED,
     CHALLENGE_INVITATION,
     GIFT_ONE_GET_ONE,
+    GiftOneGetOneNotification: GIFT_ONE_GET_ONE,
     GROUP_TASK_ASSIGNED,
     GROUP_TASK_CLAIMED,
     GROUP_TASK_NEEDS_WORK,
@@ -178,17 +186,14 @@ export default {
       hasSpecialBadge: false,
       quests,
       openStatus: undefined,
+      g1g1Hidden: false,
       actionableNotifications: [
         'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
         'QUEST_INVITATION',
       ],
-      // A list of notifications handled by this component,
-      // listed in the order they should appear in the notifications panel.
-      // NOTE: Those not listed here won't be shown in the notification panel!
       handledNotifications: [
         'NEW_STUFF',
         'ITEM_RECEIVED',
-        'GIFT_ONE_GET_ONE',
         'GROUP_TASK_NEEDS_WORK',
         'GUILD_INVITATION',
         'PARTY_INVITATION',
@@ -207,7 +212,10 @@ export default {
     };
   },
   computed: {
-    ...mapState({ user: 'user.data' }),
+    ...mapState({
+      user: 'user.data',
+      currentEventList: 'worldState.data.currentEventList',
+    }),
     notificationsOrder () {
       // Returns a map of NOTIFICATION_TYPE -> POSITION
       const orderMap = {};
@@ -286,9 +294,9 @@ export default {
 
       return notifications;
     },
-    // The total number of notification, shown inside the dropdown
     notificationsCount () {
-      return this.notifications.length;
+      const g1g1Count = this.shouldShowG1g1 ? 1 : 0;
+      return this.notifications.length + g1g1Count;
     },
     hasUnseenNotifications () {
       return this.notifications.some(notification => (notification.seen === false));
@@ -298,6 +306,30 @@ export default {
     },
     showOnboardingGuide () {
       return !hasCompletedOnboarding(this.user);
+    },
+    currentG1g1Event () {
+      return find(this.currentEventList, event => event.promo === 'g1g1');
+    },
+    g1g1EventKey () {
+      if (!this.currentG1g1Event || !this.currentG1g1Event.start) return null;
+      const startDate = new Date(this.currentG1g1Event.start);
+      return `${startDate.getFullYear()}-${startDate.getMonth()}`;
+    },
+    shouldShowG1g1 () {
+      if (!this.currentG1g1Event) return false;
+      const eventKey = this.g1g1EventKey;
+      if (eventKey && window.sessionStorage.getItem(`hide-g1g1-${eventKey}`) === 'true') {
+        return false;
+      }
+      return !this.g1g1Hidden;
+    },
+    g1g1Notification () {
+      return {
+        type: 'GIFT_ONE_GET_ONE',
+        id: `g1g1-event-${this.currentG1g1Event?.start || 'default'}`,
+        data: {},
+        seen: false,
+      };
     },
   },
   mounted () {
@@ -363,6 +395,9 @@ export default {
     },
     isActionable (notification) {
       return this.actionableNotifications.indexOf(notification.type) !== -1;
+    },
+    handleG1g1Removed () {
+      this.g1g1Hidden = true;
     },
   },
 

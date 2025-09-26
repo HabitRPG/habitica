@@ -3389,7 +3389,7 @@
     "weaponSpecialFall2025MageNotes": "Una poderosa arma capaz de trazar una senda segura a través de los terrores del Bosque Negro. Aumenta la Inteligencia en <%= int %> y la Percepción en <%= per %>. Equipamiento de Edición Limitada Otoño 2025.",
     "weaponSpecialFall2025WarriorText": "Hacha de Bigfoot",
     "weaponSpecialFall2025HealerText": "Hacha Kobold",
-    "weaponSpecialFall2025HealerNotes": "Una poderosa arma capaz de trazar una senda segura a través de los obstáculos del Bosque Negro. Aumenta la Fuerza en <%= str %>. Equipamiento de Edición Limitada Otoño 2025.",
+    "weaponSpecialFall2025HealerNotes": "Una poderosa arma capaz de trazar una senda segura a través de los obstáculos del Bosque Negro. Aumenta la Inteligencia en <%= int %>. Equipamiento de Edición Limitada Otoño 2025.",
     "weaponSpecialFall2025MageText": "Hacha de Fantasma Enmascarado",
     "weaponMystery202511Text": "Espada Escarcha",
     "weaponMystery202511Notes": "El halo helado de esta espada te permitirá realizar con rapidez incluso las tareas rojas más oscuras. No otorga ningún beneficio. Artículo de Suscriptor Noviembre 2025.",

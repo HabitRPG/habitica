@@ -454,17 +454,14 @@ export default {
     },
     isUserMentioned () {
       const message = this.msg;
-
       if (message.highlight) {
         return true;
       }
-
       const { user } = this;
-      const displayName = user.profile.name;
       const { username } = user.auth.local;
-      const pattern = `@(${escapeRegExp(displayName)}|${escapeRegExp(username)})(\\b)`;
-      message.highlight = new RegExp(pattern, 'i').test(message.text);
-
+      if (!username) return false;
+      const usernamePattern = new RegExp(`@${escapeRegExp(username)}(?:\\b|(?=[^a-zA-Z0-9_]))`, 'i');
+      message.highlight = usernamePattern.test(message.text);
       return message.highlight;
     },
     flagCountDescription () {

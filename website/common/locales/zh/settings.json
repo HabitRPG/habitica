@@ -271,5 +271,7 @@
     "managePrivacyPreferences": "管理隐私偏好",
     "strictlyNecessary": "绝对必要",
     "yourPrivacyPreferences": "您的隐私偏好",
-    "savePreferences": "保存偏好设置"
+    "savePreferences": "保存偏好设置",
+    "gpcWarning": "<a href='<%= url %>' target='_blank'>GPC（全球隐私控制）</a> 已开启。若启用下方数据可追溯性，将会覆盖此设置并将数据发送至我们的分析合作伙伴。",
+    "gpcPlusAnalytics": "<a href='<%= url %>' target='_blank'>GPC（全球隐私控制）</a> 已开启。您已同意启用可追溯性，并将数据传输给至我们的分析合作伙伴。"
 }

@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { authAsCredentialsState, LOCALSTORAGE_AUTH_KEY } from '@/libs/auth';
 
-const GA_ID = import.meta.env.GA_ID;
-
 function saveLocalDataAuth (store, apiId, apiToken) {
   const credentialsObj = {
     auth: {
@@ -123,9 +121,6 @@ export async function appleAuth (store, params) {
 export function logout (store, options = {}) {
   localStorage.clear();
   sessionStorage.clear();
-  if (window.gtag) {
-    window.gtag('config', GA_ID, { user_id: null });
-  }
   const query = options.redirectToLogin === true ? '?redirectToLogin=true' : '';
   window.location.href = `/logout-server${query}`;
 }

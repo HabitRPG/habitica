@@ -271,5 +271,7 @@
     "privacySettingsOverview": "Habitica usa las cookies para analizar el rendimiento, gestionar solicitudes de soporte y brindarle la mejor experiencia de juego posible. Para eso, necesitamos pedirte los siguientes permisos. Puedes cambiar tus preferencias en cualquier momento desde los ajustes de tu cuenta.",
     "usedForSupport": "Estás se usan para mejorar la experiencia del usuario, el rendimiento, y los servicios de nuestra página web y nuestras aplicaciones. Estos datos se usan para ayudar a nuestro equipo de soporte cuando tienen que gestionar tanto solicitudes como informes de error.",
     "privacyOverview": "En el mundo en el que vivimos, parece que todas las compañías buscan obtener beneficios de los datos que recopilan acerca de nosotros. Esto nos dificulta la búsqueda de una aplicación que nos ayude a mejorar nuestros hábitos y estilo de vida. Habitica usa cookies que almacenan nuestros datos solo para analizar el rendimiento, gestionar solicitudes de soporte y brindarnos la mejor experiencia de juego posible. Aún así puedes cambiar tus preferencias en cualquier momento desde los ajustes de tu cuenta.",
-    "acceptAllCookies": "Aceptar Todas las Cookies"
+    "acceptAllCookies": "Aceptar Todas las Cookies",
+    "gpcWarning": "<a href='<%= url %>' target='_blank'>GPC</a>está activado. Al activar el seguimiento de abajo, se anulará esto y se enviarán datos a nuestros socios analíticos.",
+    "gpcPlusAnalytics": "<a href='<%= url %>' target='_blank'>GPC</a>está activado. Ha aceptado el seguimiento y envío de datos a nuestros socios analíticos."
 }

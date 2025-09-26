@@ -108,5 +108,6 @@
     "cannotClone": "此挑战无法被复制，因为一名或多名玩家举报此挑战有不适当的内容。 工作人员将很快与您联系并进行说明。 如果超过 48 小时仍未收到联系，请发送电子邮件至 admin@habitica.com 寻求帮助。",
     "resetFlags": "重置举报计数",
     "cannotMakeChallenge": "您无法创建公开挑战，因为您的账号目前没有聊天权限。 更多相关信息请联系 admin@habitica.com。",
-    "messageChallengeFlagOfficial": "不能举报官方挑战。"
+    "messageChallengeFlagOfficial": "不能举报官方挑战。",
+    "deleteChallengeRefundDescription": "如果您删除该挑战，将退还用于奖励的宝石，但挑战任务仍会保留在参加者的任务面板上。"
 }

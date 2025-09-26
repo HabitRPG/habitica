@@ -241,5 +241,6 @@
     "titleCustomizations": "Individualisierungen",
     "targetUserNotExist": "Zielbenutzer: '<%= userName %>' existiert nicht.",
     "newMessage": "Neue Nachricht",
-    "rememberToBeKind": "Bitte sei freundlich, respektvoll, und folge den <a href='/static/community-guidelines' target='_blank'>Community-Richtlinien</a>."
+    "rememberToBeKind": "Bitte sei freundlich, respektvoll, und folge den <a href='/static/community-guidelines' target='_blank'>Community-Richtlinien</a>.",
+    "gem": "Edelstein"
 }

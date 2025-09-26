@@ -72,32 +72,40 @@
         </div>
         <div class="col-12 col-md-6 text-right">
           <div
-            class="box member-count"
+            class="box member-count p-2"
             @click="showMemberModal()"
           >
-            <div
-              class="svg-icon member-icon"
-              v-html="icons.memberIcon"
-            ></div>
-            {{ challenge.memberCount }}
-            <div
-              v-once
-              class="details"
-            >
-              {{ $t('participantsTitle') }}
+            <div class="box-content">
+              <div class="icon-number-row">
+                <div
+                  class="svg-icon member-icon"
+                  v-html="icons.memberIcon"
+                ></div>
+                <span class="number">{{ challenge.memberCount }}</span>
+              </div>
+              <div
+                v-once
+                class="details"
+              >
+                {{ $t('participantsTitle') }}
+              </div>
             </div>
           </div>
-          <div class="box">
-            <div
-              class="svg-icon gem-icon"
-              v-html="icons.gemIcon"
-            ></div>
-            {{ challenge.prize || 0 }}
-            <div
-              v-once
-              class="details"
-            >
-              {{ $t('prize') }}
+          <div class="box prize-count p-2">
+            <div class="box-content">
+              <div class="icon-number-row">
+                <div
+                  class="svg-icon gem-icon"
+                  v-html="icons.gemIcon"
+                ></div>
+                <span class="number">{{ challenge.prize || 0 }}</span>
+              </div>
+              <div
+                v-once
+                class="details"
+              >
+                {{ $t('prize') }}
+              </div>
             </div>
           </div>
         </div>
@@ -304,7 +312,6 @@
 
   .box {
     display: inline-block;
-    padding: 1em;
     border-radius: 2px;
     background-color: $white;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
@@ -314,22 +321,88 @@
     text-align: center;
     font-size: 20px;
     vertical-align: bottom;
+    overflow: hidden;
+    position: relative;
 
     &.member-count:hover {
       cursor: pointer;
     }
 
+    .box-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+    }
+
+    .icon-number-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.1em;
+
+      .number {
+        font-size: 20px;
+        font-weight: normal;
+        margin-left: 0.2em;
+      }
+    }
+
     .svg-icon {
       width: 30px;
       display: inline-block;
-      margin-right: .2em;
       vertical-align: bottom;
     }
 
     .details {
       font-size: 12px;
-      margin-top: 0.4em;
       color: $gray-200;
+      width: 100%;
+      padding: 0 4px;
+      line-height: 1.15;
+      word-break: break-word;
+      max-height: 2.3em;
+      overflow: visible;
+    }
+
+    &.member-count {
+      .icon-number-row {
+        .svg-icon {
+          width: 24px;
+          height: 24px;
+        }
+
+        .number {
+          font-size: 18px;
+        }
+      }
+
+      .details {
+        font-size: 11px;
+        line-height: 1.1;
+        max-height: 2.2em;
+      }
+    }
+
+    &.prize-count {
+      .icon-number-row {
+        .svg-icon {
+          width: 24px;
+          height: 24px;
+        }
+
+        .number {
+          font-size: 18px;
+        }
+      }
+
+      .details {
+        font-size: 11px;
+        line-height: 1.1;
+        max-height: 2.2em;
+      }
     }
   }
 

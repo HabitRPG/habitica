@@ -241,5 +241,6 @@
     "playerReportModalBody": "Solo deberías informar de un jugador que de alguna forma quebrantara las <%= firstLinkStart %>Normas de la Comunidad<%= linkEnd %> y/o <%= secondLinkStart %>los Terminos de Servicio<%= linkEnd %>. Enviar un informe falso es una clara violación de la Normas de la Comunidad de Habitica.",
     "newMessage": "Nuevo Mensaje",
     "targetUserNotExist": "Usuario objetivo: '<%= userName %>' no existe.",
-    "rememberToBeKind": "Por favor recuerda ser bondadoso, respetuoso y seguir las <a href='/static/community-guidelines' target='_blank'>Normas de la Comunidad</a>."
+    "rememberToBeKind": "Por favor recuerda ser bondadoso, respetuoso y seguir las <a href='/static/community-guidelines' target='_blank'>Normas de la Comunidad</a>.",
+    "gem": "Gema"
 }

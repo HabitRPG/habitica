@@ -241,5 +241,6 @@
     "titleCustomizations": "Personnalisations",
     "rememberToBeKind": "N'oubliez pas d'être bienveillant·e, respectueu·x·se, et de suivre le <a href='/static/community-guidelines' target='_blank'>Guide de la Communauté</a>.",
     "newMessage": "Nouveau Message",
-    "targetUserNotExist": "L'Utilisat·eur·rice '<%= userName %>' n'existe pas."
+    "targetUserNotExist": "L'Utilisat·eur·rice '<%= userName %>' n'existe pas.",
+    "gem": "Gemme"
 }

@@ -3437,5 +3437,7 @@
     "shieldSpecialFall2025WarriorText": "Sasquatch Schild",
     "shieldSpecialFall2025WarriorNotes": "Verschaffe dir etwas mehr Zeit zum Nachdenken und Planen, indem du dich vor deinen nächsten Tagesaufgaben abschirmst. Erhöht die Konstitution um <%= con %>. Limitierte Auflage Herbst 2025 Ausrüstung.",
     "shieldSpecialFall2025HealerNotes": "Verschaffe dir etwas mehr Zeit, um Vorräte zu sammeln, indem du dich vor deinen Aufgaben abschirmst. Erhöht die Konstitution um <%= con %>. Limitierte Ausgabe Herbst 2025 Ausrüstung.",
-    "shieldArmoireSoftOrangePillowNotes": "Der vorbereitete Krieger packt für jede Expedition ein Kissen ein. Mach dich bereit, neue Verpflichtungen zu übernehmen ... sogar während du ein Nickerchen machst. Erhöht Intelligenz und Wahrnehmung um jeweils <%= attrs %>. Verzauberter Kleiderschrank: Orangenes Loungewear-Set (Gegenstand 3 von 3)."
+    "shieldArmoireSoftOrangePillowNotes": "Der vorbereitete Krieger packt für jede Expedition ein Kissen ein. Mach dich bereit, neue Verpflichtungen zu übernehmen ... sogar während du ein Nickerchen machst. Erhöht Intelligenz und Wahrnehmung um jeweils <%= attrs %>. Verzauberter Kleiderschrank: Orangenes Loungewear-Set (Gegenstand 3 von 3).",
+    "bodyMystery202509Text": "Schal des windgepeitschten Wanderers",
+    "armorSpecialFall2025RogueNotes": "Ein hartes und schmales Ziel in dieser saisonalen Rüstung ist am schwersten zu treffen. Erhöht die Wahrnehmung um <%= per %>. Limitierte Ausgabe Herbst 2025 Ausrüstung."
 }
