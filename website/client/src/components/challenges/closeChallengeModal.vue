@@ -350,6 +350,7 @@
 </style>
 
 <script>
+import debounce from 'lodash/debounce';
 import searchIcon from '@/assets/svg/for-css/search.svg?raw';
 import deleteIcon from '@/assets/svg/delete.svg?raw';
 import gemIcon from '@/assets/svg/gem.svg?raw';
@@ -362,13 +363,14 @@ export default {
   components: {
     closeX,
   },
-  props: ['challengeId', 'members', 'prize', 'flagCount'],
+  props: ['challengeId', 'prize', 'flagCount'],
   data () {
     return {
       winner: {},
       searchTerm: '',
       showResults: false,
       filteredMembers: [],
+      isSearching: false,
       icons: Object.freeze({
         search: searchIcon,
         deleteIcon,
@@ -388,20 +390,42 @@ export default {
       return this.flagCount > 0;
     },
   },
+  created () {
+    this.searchMembersDebounced = debounce(this.performSearch, 500);
+  },
   methods: {
     searchMembers () {
       if (!this.searchTerm) {
         this.filteredMembers = [];
+        this.isSearching = false;
         return;
       }
 
-      const searchLower = this.searchTerm.toLowerCase().replace('@', '');
-      this.filteredMembers = this.members.filter(member => {
-        const username = member.auth?.local?.username || '';
-        const displayName = member.profile?.name || '';
-        return username.toLowerCase().includes(searchLower)
-               || displayName.toLowerCase().includes(searchLower);
-      }).slice(0, 10);
+      this.isSearching = true;
+      this.searchMembersDebounced();
+    },
+    async performSearch () {
+      if (!this.searchTerm) {
+        this.filteredMembers = [];
+        this.isSearching = false;
+        return;
+      }
+
+      const searchTerm = this.searchTerm.replace('@', '');
+
+      try {
+        const members = await this.$store.dispatch('members:getChallengeMembers', {
+          challengeId: this.challengeId,
+          searchTerm,
+          includeAllPublicFields: true,
+        });
+
+        this.filteredMembers = members.slice(0, 10);
+      } catch (err) {
+        this.filteredMembers = [];
+      } finally {
+        this.isSearching = false;
+      }
     },
     getMemberDisplayName (member) {
       if (member.auth?.local?.username) {
