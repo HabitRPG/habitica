@@ -616,18 +616,36 @@ export default {
       }
       return this.$store.dispatch('members:getChallengeMembers', payload);
     },
-    initialMembersLoad () {
+    async initialMembersLoad () {
       this.$store.state.memberModalOptions.loading = true;
       if (!this.membersLoaded) {
         this.membersLoaded = true;
 
-        this.loadMembers({
-          challengeId: this.searchId,
-          includeAllPublicFields: true,
-        }).then(m => {
-          this.members.push(...m);
-          this.$store.state.memberModalOptions.loading = false;
-        });
+        let allMembers = [];
+        let lastMemberId = null;
+        let hasMore = true;
+
+        while (hasMore) {
+          const payload = {
+            challengeId: this.searchId,
+            includeAllPublicFields: true,
+          };
+
+          if (lastMemberId) {
+            payload.lastMemberId = lastMemberId;
+          }
+
+          const batch = await this.loadMembers(payload);
+          allMembers = allMembers.concat(batch);
+
+          hasMore = batch.length === 30;
+          if (hasMore && batch.length > 0) {
+            lastMemberId = batch[batch.length - 1]._id;
+          }
+        }
+
+        this.members.push(...allMembers);
+        this.$store.state.memberModalOptions.loading = false;
       } else {
         this.$store.state.memberModalOptions.loading = false;
       }
