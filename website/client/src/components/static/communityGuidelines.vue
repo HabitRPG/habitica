@@ -120,9 +120,9 @@
     >
     <ul>
       <li>
-        {{ $t('commGuideAKA', {habitName: 'heyeilatan', realName: 'Natalie'}) }}
-        ({{ $t('commGuideOnGitHub', {gitHubName: 'CuriousMagpie'}) }})
-        - Web Developer
+        {{ $t('commGuideAKA', {habitName: 'Viirus', realName: 'Phillip'}) }}
+        ({{ $t('commGuideOnGitHub', {gitHubName: 'phillipthelen'}) }})
+        - Developer
       </li>
       <li>
         {{ $t('commGuideAKA', {habitName: 'redphoenix', realName: 'Vicky'}) }}
@@ -134,10 +134,6 @@
         - Art, Community Management, Many Hats
       </li>
       <li>
-        {{ $t('commGuideAKA', {habitName: 'SabreCat', realName: 'Sabe'}) }}
-        - Web Developer
-      </li>
-      <li>
         {{ $t('commGuideAKA', {habitName: 'Apollo', realName: 'Tressley'}) }}
         - Designer
       </li>
@@ -146,8 +142,13 @@
         - Mobile Designer
       </li>
       <li>
-        {{ $t('commGuideAKA', {habitName: 'Viirus', realName: 'Phillip'}) }}
-        - Mobile Developer
+        {{ $t('commGuideAKA', {habitName: 'SabreCat', realName: 'Kalista'}) }}
+        - Web Developer
+      </li>
+      <li>
+        {{ $t('commGuideAKA', {habitName: 'fizself', realName: 'Hafiz'}) }}
+        ({{ $t('commGuideOnGitHub', {gitHubName: 'hafizzle'}) }})
+        - Developer
       </li>
     </ul>
     <p v-html="$t('commGuidePara013')"></p>
@@ -156,7 +157,7 @@
       <em>
         Lemoness, lefnire, Slappybag, litenull, Shaner, Bobbyroberts99, wc8,
         Breadstrings, Megan, Blade, Daniel the Bard, deilann, shanaqui, Nakonana,
-        Dewines, Alys, Fox_town, MaybeSteveRogers, and Cantras.
+        Dewines, Alys, Fox_town, MaybeSteveRogers, Cantras, and heyeilatan.
       </em>
     </p>
     <h2 id="final">
