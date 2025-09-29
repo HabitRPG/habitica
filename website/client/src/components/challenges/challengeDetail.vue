@@ -495,6 +495,7 @@ export default {
       challenge: {},
       members: [],
       membersLoaded: false,
+      allMembersLoaded: false,
       tasksByType: {
         habit: [],
         daily: [],
@@ -616,10 +617,15 @@ export default {
       }
       return this.$store.dispatch('members:getChallengeMembers', payload);
     },
-    async initialMembersLoad () {
+    async initialMembersLoad (loadAll = false) {
       this.$store.state.memberModalOptions.loading = true;
-      if (!this.membersLoaded) {
-        this.membersLoaded = true;
+
+      const shouldLoadAll = loadAll && !this.allMembersLoaded;
+      const shouldLoadFirst = !loadAll && !this.membersLoaded;
+
+      if (shouldLoadAll) {
+        this.allMembersLoaded = true;
+        this.members = [];
 
         const loadAllMembers = async (accumulator = [], lastMemberId = null) => {
           const payload = {
@@ -643,8 +649,18 @@ export default {
         };
 
         const allMembers = await loadAllMembers();
-        this.members.push(...allMembers);
+        this.members = allMembers;
         this.$store.state.memberModalOptions.loading = false;
+      } else if (shouldLoadFirst) {
+        this.membersLoaded = true;
+
+        this.loadMembers({
+          challengeId: this.searchId,
+          includeAllPublicFields: true,
+        }).then(m => {
+          this.members.push(...m);
+          this.$store.state.memberModalOptions.loading = false;
+        });
       } else {
         this.$store.state.memberModalOptions.loading = false;
       }
@@ -698,6 +714,7 @@ export default {
       this.user.challenges.push(this.searchId);
       this.challenge = await this.$store.dispatch('challenges:joinChallenge', { challengeId: this.searchId });
       this.membersLoaded = false;
+      this.allMembersLoaded = false;
       this.members = [];
 
       await Promise.all([
@@ -711,10 +728,11 @@ export default {
     async updateChallenge () {
       this.challenge = await this.$store.dispatch('challenges:getChallenge', { challengeId: this.searchId });
       this.membersLoaded = false;
+      this.allMembersLoaded = false;
       this.members = [];
     },
     closeChallenge () {
-      this.initialMembersLoad();
+      this.initialMembersLoad(true);
       this.$root.$emit('bv::show::modal', 'close-challenge-modal');
     },
     edit () {
