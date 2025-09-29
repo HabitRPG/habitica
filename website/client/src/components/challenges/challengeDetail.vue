@@ -731,8 +731,8 @@ export default {
       this.endChallengeAllMembersLoaded = false;
       this.members = [];
     },
-    closeChallenge () {
-      this.initialMembersLoad(true);
+    async closeChallenge () {
+      await this.initialMembersLoad(true);
       this.$root.$emit('bv::show::modal', 'close-challenge-modal');
     },
     edit () {
