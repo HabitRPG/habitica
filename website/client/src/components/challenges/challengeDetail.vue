@@ -495,7 +495,7 @@ export default {
       challenge: {},
       members: [],
       membersLoaded: false,
-      allMembersLoaded: false,
+      endChallengeAllMembersLoaded: false,
       tasksByType: {
         habit: [],
         daily: [],
@@ -620,11 +620,11 @@ export default {
     async initialMembersLoad (loadAll = false) {
       this.$store.state.memberModalOptions.loading = true;
 
-      const shouldLoadAll = loadAll && !this.allMembersLoaded;
+      const shouldLoadAll = loadAll && !this.endChallengeAllMembersLoaded;
       const shouldLoadFirst = !loadAll && !this.membersLoaded;
 
       if (shouldLoadAll) {
-        this.allMembersLoaded = true;
+        this.endChallengeAllMembersLoaded = true;
         this.members = [];
 
         const loadAllMembers = async (accumulator = [], lastMemberId = null) => {
@@ -714,7 +714,7 @@ export default {
       this.user.challenges.push(this.searchId);
       this.challenge = await this.$store.dispatch('challenges:joinChallenge', { challengeId: this.searchId });
       this.membersLoaded = false;
-      this.allMembersLoaded = false;
+      this.endChallengeAllMembersLoaded = false;
       this.members = [];
 
       await Promise.all([
@@ -728,7 +728,7 @@ export default {
     async updateChallenge () {
       this.challenge = await this.$store.dispatch('challenges:getChallenge', { challengeId: this.searchId });
       this.membersLoaded = false;
-      this.allMembersLoaded = false;
+      this.endChallengeAllMembersLoaded = false;
       this.members = [];
     },
     closeChallenge () {
