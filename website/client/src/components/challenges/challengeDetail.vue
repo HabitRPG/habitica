@@ -621,11 +621,7 @@ export default {
       if (!this.membersLoaded) {
         this.membersLoaded = true;
 
-        let allMembers = [];
-        let lastMemberId = null;
-        let hasMore = true;
-
-        while (hasMore) {
+        const loadAllMembers = async (accumulator = [], lastMemberId = null) => {
           const payload = {
             challengeId: this.searchId,
             includeAllPublicFields: true,
@@ -636,14 +632,17 @@ export default {
           }
 
           const batch = await this.loadMembers(payload);
-          allMembers = allMembers.concat(batch);
+          const updatedMembers = accumulator.concat(batch);
 
-          hasMore = batch.length === 30;
-          if (hasMore && batch.length > 0) {
-            lastMemberId = batch[batch.length - 1]._id;
+          if (batch.length === 30) {
+            const newLastMemberId = batch[batch.length - 1]._id;
+            return loadAllMembers(updatedMembers, newLastMemberId);
           }
-        }
 
+          return updatedMembers;
+        };
+
+        const allMembers = await loadAllMembers();
         this.members.push(...allMembers);
         this.$store.state.memberModalOptions.loading = false;
       } else {
