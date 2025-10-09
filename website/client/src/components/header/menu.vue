@@ -8,7 +8,8 @@
     <select-user-modal />
     <b-navbar
       id="habitica-menu"
-      class="topbar navbar-inverse static-top"
+      class="topbar navbar-inverse fixed-top"
+      :class="{ 'is-hidden': isHeaderHidden }"
       toggleable="lg"
       type="dark"
     >
@@ -467,10 +468,15 @@ body.modal-open #habitica-menu {
     background: $purple-100 url(@/assets/svg/for-css/bits.svg) right top no-repeat;
     min-height: 56px;
     box-shadow: 0 1px 2px 0 rgba($black, 0.24);
+    transition: transform 0.2s ease;
 
     a {
       color: white !important;
     }
+  }
+
+  .topbar.is-hidden {
+    transform: translateY(-100%);
   }
 
   .logo {
@@ -823,6 +829,8 @@ export default {
       isUserDropdownOpen: false,
       menuIsOpen: false,
       partyLeaderId: null,
+      lastScrollY: 0,
+      isHeaderHidden: false,
       icons: Object.freeze({
         gem: gemIcon,
         gold: goldIcon,
@@ -872,6 +880,11 @@ export default {
     this.$root.$on('update-party', () => {
       this.getUserParty();
     });
+    this.lastScrollY = window.scrollY || 0;
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.onScroll);
   },
   methods: {
     modForm () {
@@ -940,6 +953,18 @@ export default {
     },
     isDesktop () {
       return !this.isMobile();
+    },
+    onScroll () {
+      const currentY = window.scrollY || 0;
+      const scrollingDown = currentY > this.lastScrollY;
+      if (currentY <= 0) {
+        this.isHeaderHidden = false;
+      } else if (scrollingDown && currentY > 100) {
+        this.isHeaderHidden = true;
+      } else if (!scrollingDown) {
+        this.isHeaderHidden = false;
+      }
+      this.lastScrollY = currentY;
     },
   },
 };
