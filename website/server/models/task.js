@@ -68,17 +68,17 @@ export const TaskSchema = new Schema({
     $type: String,
     match: [/^[a-zA-Z0-9-_]+$/, 'Task short names can only contain alphanumeric characters, underscores and dashes.'],
     validate: [{
-      validator () {
+      validator() {
         return Boolean(this.userId);
       },
       msg: 'Task short names can only be applied to tasks in a user\'s own task list.',
     }, {
-      validator (val) {
+      validator(val) {
         return !validator.isUUID(val);
       },
       msg: 'Task short names cannot be uuids.',
     }, {
-      async validator (alias) {
+      async validator(alias) {
         const taskDuplicated = await Task.findOne({ // eslint-disable-line no-use-before-define
           _id: { $ne: this._id },
           userId: this.userId,
@@ -100,7 +100,7 @@ export const TaskSchema = new Schema({
     default: 0,
     required: true,
     validate: {
-      validator (value) {
+      validator(value) {
         return this.type === 'reward' ? value >= 0 : true;
       },
       msg: 'Reward cost should be a positive number or 0.',
@@ -159,7 +159,7 @@ export const TaskSchema = new Schema({
 
 TaskSchema.plugin(baseModel, {
   noSet: ['challenge', 'userId', 'completed', 'history', 'dateCompleted', '_legacyId', 'group', 'isDue', 'nextDue'],
-  sanitizeTransform (taskObj) {
+  sanitizeTransform(taskObj) {
     if (taskObj.type && taskObj.type !== 'reward') { // value should be settable directly only for rewards
       delete taskObj.value;
     }
@@ -184,7 +184,7 @@ TaskSchema.plugin(baseModel, {
   timestamps: true,
 });
 
-TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (
+TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias(
   identifier,
   userId,
   additionalQueries = {},
@@ -206,7 +206,7 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (
   return task;
 };
 
-TaskSchema.statics.findMultipleByIdOrAlias = async function findMultipleByIdOrAlias (
+TaskSchema.statics.findMultipleByIdOrAlias = async function findMultipleByIdOrAlias(
   identifiers,
   userId,
   additionalQueries = {},
@@ -248,7 +248,7 @@ TaskSchema.statics.findMultipleByIdOrAlias = async function findMultipleByIdOrAl
 
 // Sanitize user tasks linked to a challenge
 // See https://habitica.fandom.com/wiki/Challenges#Challenge_Participant.27s_Permissions for more info
-TaskSchema.statics.sanitizeUserChallengeTask = function sanitizeUserChallengeTask (taskObj) {
+TaskSchema.statics.sanitizeUserChallengeTask = function sanitizeUserChallengeTask(taskObj) {
   const initialSanitization = this.sanitize(taskObj);
 
   return _.pick(initialSanitization, [
@@ -258,7 +258,7 @@ TaskSchema.statics.sanitizeUserChallengeTask = function sanitizeUserChallengeTas
   ]);
 };
 
-TaskSchema.statics.sanitizeUserGroupTask = function sanitizeUserGroupTask (taskObj) {
+TaskSchema.statics.sanitizeUserGroupTask = function sanitizeUserGroupTask(taskObj) {
   const initialSanitization = this.sanitize(taskObj);
 
   return _.pick(initialSanitization, [
@@ -269,19 +269,19 @@ TaskSchema.statics.sanitizeUserGroupTask = function sanitizeUserGroupTask (taskO
 };
 
 // Sanitize checklist objects (disallowing id)
-TaskSchema.statics.sanitizeChecklist = function sanitizeChecklist (checklistObj) {
+TaskSchema.statics.sanitizeChecklist = function sanitizeChecklist(checklistObj) {
   delete checklistObj.id;
   return checklistObj;
 };
 
 // Sanitize reminder objects (disallowing id)
-TaskSchema.statics.sanitizeReminder = function sanitizeReminder (reminderObj) {
+TaskSchema.statics.sanitizeReminder = function sanitizeReminder(reminderObj) {
   delete reminderObj.id;
   return reminderObj;
 };
 
 // NOTE: this is used for group tasks as well
-TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta, direction) {
+TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask(delta, direction) {
   const chalTask = this;
 
   if (chalTask.type !== 'reward') chalTask.value += delta;
@@ -384,7 +384,7 @@ export const DailySchema = new Schema(_.defaults({
   },
   startDate: {
     $type: Date,
-    default () {
+    default() {
       return moment.utc().toDate();
     },
     required: true,

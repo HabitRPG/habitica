@@ -52,7 +52,7 @@ api.registerLocal = {
     optional: true,
   })],
   url: '/user/auth/local/register',
-  async handler (req, res) {
+  async handler(req, res) {
     await registerLocal(req, res, { isV3: true });
   },
 };
@@ -76,7 +76,7 @@ api.loginLocal = {
   method: 'POST',
   url: '/user/auth/local/login',
   middlewares: [],
-  async handler (req, res) {
+  async handler(req, res) {
     req.checkBody({
       username: {
         notEmpty: true,
@@ -100,11 +100,17 @@ api.loginLocal = {
     if (validator.isEmail(String(username))) {
       login = { 'auth.local.email': username.toLowerCase() }; // Emails are stored lowercase
     } else {
-      login = { 'auth.local.username': username };
+      login = { 'auth.local.lowerCaseUsername': username.toLowerCase() }; // Usernames are stored to lowercase
     }
 
-    // load the entire user because we may have to save it to convert the password to bcrypt
-    const user = await User.findOne(login).exec();
+    const possibleUsers = await User.find(login).exec();
+    let user;
+
+    if (possibleUsers.length > 1) {
+      user = possibleUsers.find(u => u.auth.local.username === username);
+    } else {
+      [user] = possibleUsers;
+    }
 
     // if user is using social login, then user will not have a hashed_password stored
     if (!user || !user.auth.local.hashed_password) throw new NotAuthorized(res.t('invalidLoginCredentialsLong'));
@@ -146,7 +152,7 @@ api.loginSocial = {
     optional: true,
   })],
   url: '/user/auth/social',
-  async handler (req, res) {
+  async handler(req, res) {
     await loginSocial(req, res);
   },
 };
@@ -156,7 +162,7 @@ api.redirectApple = {
   method: 'POST',
   middlewares: [],
   url: '/user/auth/apple',
-  async handler (req, res) {
+  async handler(req, res) {
     if (req.body.id_token) {
       req.body.network = 'apple';
       if (!req.body.allowRegister) {
@@ -183,7 +189,7 @@ api.loginApple = {
     optional: true,
   })],
   url: '/user/auth/apple',
-  async handler (req, res) {
+  async handler(req, res) {
     req.body.network = 'apple';
     req.body.allowRegister = req.query.allowRegister === 'true';
     req.body.username = req.query.username;
@@ -207,7 +213,7 @@ api.updateUsername = {
   method: 'PUT',
   middlewares: [authWithHeaders()],
   url: '/user/auth/update-username',
-  async handler (req, res) {
+  async handler(req, res) {
     const { user } = res.locals;
 
     req.checkBody({
@@ -283,7 +289,7 @@ api.updatePassword = {
   method: 'PUT',
   middlewares: [authWithHeaders()],
   url: '/user/auth/update-password',
-  async handler (req, res) {
+  async handler(req, res) {
     const { user } = res.locals;
 
     if (!user.auth.local.hashed_password) throw new BadRequest(res.t('userHasNoLocalRegistration'));
@@ -347,7 +353,7 @@ api.resetPassword = {
   method: 'POST',
   middlewares: [],
   url: '/user/reset-password',
-  async handler (req, res) {
+  async handler(req, res) {
     req.checkBody({
       email: {
         notEmpty: { errorMessage: res.t('missingEmail') },
@@ -414,7 +420,7 @@ api.updateEmail = {
   method: 'PUT',
   middlewares: [authWithHeaders()],
   url: '/user/auth/update-email',
-  async handler (req, res) {
+  async handler(req, res) {
     const { user } = res.locals;
 
     if (!user.auth.local.email) throw new BadRequest(res.t('userHasNoLocalRegistration'));
@@ -466,7 +472,7 @@ api.updateEmail = {
 api.resetPasswordSetNewOne = {
   method: 'POST',
   url: '/user/auth/reset-password-set-new-one',
-  async handler (req, res) {
+  async handler(req, res) {
     const user = await passwordUtils.validatePasswordResetCodeAndFindUser(req.body.code);
     const isValidCode = Boolean(user);
 
@@ -520,7 +526,7 @@ api.deleteSocial = {
   method: 'DELETE',
   url: '/user/auth/social/:network',
   middlewares: [authWithHeaders()],
-  async handler (req, res) {
+  async handler(req, res) {
     const { user } = res.locals;
     const { network } = req.params;
     const isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS
