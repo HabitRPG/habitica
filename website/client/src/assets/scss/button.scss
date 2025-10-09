@@ -118,13 +118,13 @@
 
   &:not(:disabled):not(.disabled) {
     &:active, &.active {
-      background: $white;
-      border: 2px solid $purple-400;
-      color: $purple-300;
-      --icon-color: #{$purple-300};
+      background: $purple-200;
+      border: 2px solid transparent;
+      color: $white;
+      --icon-color: #{$white};
 
       &:focus {
-        color: $purple-300;
+        color: $white;
         border: 2px solid $purple-400;
         box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
       }
