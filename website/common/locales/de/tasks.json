@@ -27,6 +27,7 @@
     "advancedSettings": "Erweiterte Einstellungen",
     "difficulty": "Schwierigkeit",
     "difficultyHelp": "Die Schwierigkeit gibt an, wie herausfordernd eine Gewohnheit, Tagesaufgabe oder ein To-Do für Dich zu erledigen ist. Eine höhere Schwierigkeit resultiert in größeren Belohnungen, wenn eine Aufgabe abgeschlossen wird, aber auch in größerem Schaden, wenn eine Tagesaufgabe unerledigt bleibt oder eine negative Gewohnheit geklickt wird.",
+    "none": "Keine",
     "trivial": "Trivial",
     "easy": "Einfach",
     "medium": "Mittel",

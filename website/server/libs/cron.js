@@ -296,7 +296,7 @@ export async function cron (options = {}) {
               // This was by accident
               // initially, and when we realised, we could not fix it because users are used to
               // their Medium and Hard Dailies doing an Easy amount of damage from boss.
-              // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
+              // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or None (0)
               // setting between Trivial and Easy.
             }
           }

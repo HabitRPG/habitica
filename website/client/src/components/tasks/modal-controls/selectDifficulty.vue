@@ -20,11 +20,18 @@
 
           <div class="svg-icon">
             <span
+              v-if="item.stars > 0"
               v-for="n in item.stars"
               :key="n"
               v-html="icons.difficultyTrivial"
             >
 
+            </span>
+            <span
+              v-else
+              class="no-stars"
+            >
+              —
             </span>
           </div>
         </div>
@@ -69,6 +76,12 @@
 
     span {
       display: inline;
+    }
+
+    .no-stars {
+      color: $gray-200;
+      font-size: 0.875rem;
+      font-weight: bold;
     }
 
     ::v-deep svg {
@@ -154,6 +167,11 @@ export default {
   },
   data () {
     const items = [
+      {
+        value: 0,
+        label: this.$t('none'),
+        stars: 0,
+      },
       {
         value: 0.1,
         label: this.$t('trivial'),

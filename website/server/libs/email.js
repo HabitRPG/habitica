@@ -1,10 +1,10 @@
 import nconf from 'nconf';
 import got from 'got';
+import fetch from 'node-fetch';
 import { TAVERN_ID } from '../models/group'; // eslint-disable-line import/no-cycle
 import { encrypt } from './encryption';
 import logger from './logger';
 import common from '../../common';
-import fetch from 'node-fetch';
 
 const IS_PROD = nconf.get('IS_PROD');
 const EMAIL_SERVER = {
@@ -201,8 +201,10 @@ export function convertVariableObjectToArray (variableObject) {
 
 //  Sends an email via the Habitica email server.
 //  Uses EMAIL_SERVER_URL, EMAIL_SERVER_AUTH_USER, and EMAIL_SERVER_AUTH_PASSWORD from config.json.
- 
-export async function sendEmail({ to, subject, html, text = '', template = null }) {
+
+export async function sendEmail ({
+  to, subject, html, text = '', template = null,
+}) {
   const emailServerUrl = nconf.get('EMAIL_SERVER_URL');
   const authUser = nconf.get('EMAIL_SERVER_AUTH_USER');
   const authPassword = nconf.get('EMAIL_SERVER_AUTH_PASSWORD');
@@ -215,7 +217,7 @@ export async function sendEmail({ to, subject, html, text = '', template = null 
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + Buffer.from(`${authUser}:${authPassword}`).toString('base64'),
+      Authorization: `Basic ${Buffer.from(`${authUser}:${authPassword}`).toString('base64')}`,
     },
     body: JSON.stringify({
       to,

@@ -111,8 +111,8 @@ export const TaskSchema = new Schema({
     default: 1,
     required: true,
     validate: [
-      val => [0.1, 1, 1.5, 2].indexOf(val) !== -1,
-      'Valid priority values are 0.1, 1, 1.5, 2.',
+      val => [0, 0.1, 1, 1.5, 2].indexOf(val) !== -1,
+      'Valid priority values are 0, 0.1, 1, 1.5, 2.',
     ],
   },
   attribute: { $type: String, default: 'str', enum: ['str', 'con', 'int', 'per'] },

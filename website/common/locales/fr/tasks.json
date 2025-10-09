@@ -27,6 +27,7 @@
     "advancedSettings": "Paramètres avancés",
     "difficulty": "Difficulté",
     "difficultyHelp": "La difficulté décrit à quel point une habitude, une quotidienne ou une tâche peut s'avérer complexe à réaliser. Une difficulté élevée donne de plus grandes récompenses lorsque la tâche est complétée, mais inflige de plus grands dégâts lorsqu'une quotidienne est ratée ou qu'une habitude négative est validée.",
+    "none": "Aucune",
     "trivial": "Banal",
     "easy": "Facile",
     "medium": "Moyen",

@@ -70,7 +70,7 @@ const api = {};
  * @apiParam (Body) {Boolean} [collapseChecklist=false] Determines if a checklist will be displayed
  * @apiParam (Body) {String} [notes] Extra notes
  * @apiParam (Body) {Date} [date] Due date to be shown in task list. Only valid for type "todo."
- * @apiParam (Body) {Number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1,
+ * @apiParam (Body) {Number="0","0.1","1","1.5","2"} [priority=1] Difficulty, options are 0, 0.1, 1,
  *                                                            1.5, 2; equivalent of Trivial,
  *                                                            Easy, Medium, Hard.
  * @apiParam (Body) {String[]} [reminders] Array of reminders, each an object that must
@@ -241,7 +241,7 @@ api.createUserTasks = {
  * @apiParam (Body) {Boolean} [collapseChecklist=false] Determines if a checklist will be displayed
  * @apiParam (Body) {String} [notes] Extra notes
  * @apiParam (Body) {Date} [date] Due date to be shown in task list. Only valid for type "todo."
- * @apiParam (Body) {Number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1,
+ * @apiParam (Body) {Number="0","0.1","1","1.5","2"} [priority=1] Difficulty, options are 0, 0.1, 1,
  *                                                            1.5, 2; equivalent of Trivial,
  *                                                            Easy, Medium, Hard.
  * @apiParam (Body) {String[]} [reminders] Array of reminders, each an object that must
@@ -555,7 +555,7 @@ api.getTask = {
  * @apiParam (Body) {Boolean} [collapseChecklist=false] Determines if a checklist will be displayed
  * @apiParam (Body) {String} [notes] Extra notes
  * @apiParam (Body) {Date} [date] Due date to be shown in task list. Only valid for type "todo."
- * @apiParam (Body) {Number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1,
+ * @apiParam (Body) {Number="0","0.1","1","1.5","2"} [priority=1] Difficulty, options are 0, 0.1, 1,
  *                                                            1.5, 2; equivalent of Trivial,
  *                                                            Easy, Medium, Hard.
  * @apiParam (Body) {String[]} [reminders] Array of reminders, each an object that must include:

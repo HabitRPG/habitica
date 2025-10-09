@@ -275,7 +275,8 @@ async function getTasks (req, res, options = {}) {
     }
   });
 
-  // Order tasks based on tasksOrder, but always keep pinned tasks first (stable within pinned/non-pinned)
+  // Order tasks based on tasksOrder, but always keep pinned tasks first
+  // (stable within pinned/non-pinned)
   let order = [];
   if (type && type !== 'completedTodos' && type !== '_allCompletedTodos') {
     order = owner.tasksOrder[type];

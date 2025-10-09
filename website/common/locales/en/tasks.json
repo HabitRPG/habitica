@@ -29,6 +29,7 @@
   "advancedSettings": "Advanced Settings",
   "difficulty": "Difficulty",
   "difficultyHelp": "Difficulty describes how challenging a Habit, Daily, or To Do is for you to complete. A higher difficulty results in greater rewards when a Task is completed, but also greater damage when a Daily is missed or a negative Habit is clicked.",
+  "none": "None",
   "trivial": "Trivial",
   "easy": "Easy",
   "medium": "Medium",
