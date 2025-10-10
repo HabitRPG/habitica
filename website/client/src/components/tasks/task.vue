@@ -1218,7 +1218,7 @@ export default {
       // this.$store.dispatch('tasks:destroy', this.task);
 
       this.$store.dispatch('snackbars:add', {
-        text: this.$t('delete') + 'd',
+        text: `${this.$t('delete')}d`,
         type: 'info',
         actionLabel: this.$t('undo') || 'Undo',
         action: () => this.undoDelete(this.task),
@@ -1296,12 +1296,12 @@ export default {
           checklist: this.task.checklist ? this.task.checklist.map(item => ({
             id: uuid(),
             text: item.text,
-            completed: false
+            completed: false,
           })) : [],
           collapseChecklist: this.task.collapseChecklist || false,
           reminders: this.task.reminders || [],
           createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString()
+          updatedAt: new Date().toISOString(),
         };
 
         // Create the new task

@@ -87,7 +87,7 @@
         ref="tasksList"
         class="sortable-tasks"
         :disabled="activeFilter.label === 'scheduled' || !canBeDragged()"
-        scrollSensitivity="64"
+        scroll-sensitivity="64"
         :delay-on-touch-only="true"
         :delay="100"
         @update="taskSorted"

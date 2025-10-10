@@ -44,6 +44,12 @@ api.createTag = {
   async handler (req, res) {
     const { user } = res.locals;
 
+    // Check if tag with same name already exists
+    const existingTag = _.find(user.tags, { name: req.body.name });
+    if (existingTag) {
+      return res.respond(400, { message: res.t('tagAlreadyExists') });
+    }
+
     user.tags.push(Tag.sanitize(req.body));
     const savedUser = await user.save();
 

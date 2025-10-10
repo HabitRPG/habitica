@@ -64,9 +64,11 @@
       <li>sexual orientation; and</li>
       <li>information collected from a known child.</li>
     </ul>
-    <p><strong>
-      NOTE: Please do not provide us “sensitive personal information” or “sensitive personal data”, as those terms are defined under applicable privacy laws, unless we directly request that you do so. If you feel, after careful consideration, that it is necessary to provide us certain sensitive personal information or data, please provide us the minimum amount of such information or data that is necessary.
-    </strong></p>
+    <p>
+      <strong>
+        NOTE: Please do not provide us “sensitive personal information” or “sensitive personal data”, as those terms are defined under applicable privacy laws, unless we directly request that you do so. If you feel, after careful consideration, that it is necessary to provide us certain sensitive personal information or data, please provide us the minimum amount of such information or data that is necessary.
+      </strong>
+    </p>
     <h3 id="section_1_1">
       1.1 Information You Provide Directly
     </h3>
@@ -617,7 +619,7 @@
       7. General Audience Services
     </h2>
     <p>
-      The Service is intended for users 18 years or older; you are not permitted to access or use the Service if you are younger than 18. We do not knowingly collect personal information from children under the age of 18 through the Service. We encourage parents and legal guardians to monitor their children’s Internet usage and to help enforce our Privacy Policy by instructing their children to never provide personal information without their permission. If you have reason to believe that a child under the age of 18 has provided personal information to us, please contact us at <a href='mailto:privacy@habitica.com'>privacy@habitica.com</a>, and we will delete that information from our databases.
+      The Service is intended for users 18 years or older; you are not permitted to access or use the Service if you are younger than 18. We do not knowingly collect personal information from children under the age of 18 through the Service. We encourage parents and legal guardians to monitor their children’s Internet usage and to help enforce our Privacy Policy by instructing their children to never provide personal information without their permission. If you have reason to believe that a child under the age of 18 has provided personal information to us, please contact us at <a href="mailto:privacy@habitica.com">privacy@habitica.com</a>, and we will delete that information from our databases.
     </p>
 
     <h2 id="section_8">
@@ -708,7 +710,7 @@
 
     <p><strong><u>Nevada Residents</u></strong></p>
     <p>
-      Nevada residents may opt out of the sale of certain “covered information” collected by operators of websites or online services. We currently do not sell covered information, as “sale” is defined by such law, and do not have plans to do so. In accordance with Nevada law, you may submit to us a verified request instructing us not to sell your covered information by sending an email to <a href='mailto:privacy@habitica.com'>privacy@habitica.com</a>.
+      Nevada residents may opt out of the sale of certain “covered information” collected by operators of websites or online services. We currently do not sell covered information, as “sale” is defined by such law, and do not have plans to do so. In accordance with Nevada law, you may submit to us a verified request instructing us not to sell your covered information by sending an email to <a href="mailto:privacy@habitica.com">privacy@habitica.com</a>.
     </p>
     <p><strong><u>Notice to United Kingdom/European/Switzerland Residents.</u></strong></p>
     <p>

@@ -8,14 +8,28 @@ export async function getTags () {
 
 export async function createTag (store, payload) {
   const url = '/api/v4/tags';
-  const response = await axios.post(url, {
-    name: payload.name,
-  });
+  try {
+    const response = await axios.post(url, {
+      name: payload.name,
+    });
 
-  const tag = response.data.data;
+    const tag = response.data.data;
 
-  store.state.user.data.tags.push(tag);
-  return tag;
+    store.state.user.data.tags.push(tag);
+    return tag;
+  } catch (error) {
+    if (error.response && error.response.status === 400 && error.response.data.message) {
+      // Show toast notification for duplicate tag
+      store.dispatch('snackbars:add', {
+        title: '',
+        text: error.response.data.message,
+        type: 'error',
+        icon: 'glyphicon glyphicon-exclamation-sign',
+      });
+      throw error;
+    }
+    throw error;
+  }
 }
 
 export async function getTag (store, payload) {

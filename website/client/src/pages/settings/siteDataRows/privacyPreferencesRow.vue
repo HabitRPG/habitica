@@ -1,7 +1,8 @@
 <template>
   <tr>
-    <td colspan="3"
+    <td
       v-if="!mixinData.inlineSettingMixin.modalVisible"
+      colspan="3"
     >
       <div class="d-flex justify-content-between align-items-center">
         <h3
@@ -18,8 +19,9 @@
         </a>
       </div>
     </td>
-    <td colspan="3"
+    <td
       v-if="mixinData.inlineSettingMixin.modalVisible"
+      colspan="3"
     >
       <h3
         v-once
@@ -44,8 +46,8 @@
               {{ $t('performanceAnalytics') }}
             </label>
             <toggle-switch
-              class="mb-auto"
               v-model="user.preferences.analyticsConsent"
+              class="mb-auto"
               @change="prefToggled()"
             />
           </div>
@@ -112,14 +114,14 @@ import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import { mapState } from '@/libs/store';
 
 export default {
-  mixins: [
-    GenericUserPreferencesMixin,
-    InlineSettingMixin,
-  ],
   components: {
     SaveCancelButtons,
     ToggleSwitch,
   },
+  mixins: [
+    GenericUserPreferencesMixin,
+    InlineSettingMixin,
+  ],
   computed: {
     ...mapState({
       user: 'user.data',

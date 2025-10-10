@@ -110,6 +110,7 @@
   "positionRequired": "\"position\" is required and must be a number.",
   "cantMoveCompletedTodo": "Can't move a completed todo.",
   "alreadyTagged": "The task is already tagged with given tag.",
+  "tagAlreadyExists": "A tag with this name already exists.",
   "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
   "taskApprovalHasBeenRequested": "Approval has been requested",
   "taskApprovalWasNotRequested": "Approval has not been requested for this task.",

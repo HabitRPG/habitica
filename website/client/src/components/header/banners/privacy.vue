@@ -1,8 +1,8 @@
 <template>
   <div
-    class="banner d-flex align-items-center justify-content-between py-3 px-4"
-    id="privacy-banner"
     v-if="!hidden"
+    id="privacy-banner"
+    class="banner d-flex align-items-center justify-content-between py-3 px-4"
   >
     <p
       class="mr-3 mb-0"

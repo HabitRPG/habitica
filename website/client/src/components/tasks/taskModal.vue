@@ -1349,9 +1349,13 @@ export default {
       this.$refs.inputToFocus.focus();
     },
     async addTag (name) {
-      const tagResult = await this.createTag({ name });
-
-      this.task.tags.push(tagResult.id);
+      try {
+        const tagResult = await this.createTag({ name });
+        this.task.tags.push(tagResult.id);
+      } catch (error) {
+        // Error handling is done in the createTag action
+        // Just prevent the tag from being added to the task
+      }
     },
   },
 };

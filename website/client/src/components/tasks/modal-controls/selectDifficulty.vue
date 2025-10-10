@@ -20,8 +20,8 @@
 
           <div class="svg-icon">
             <span
-              v-if="item.stars > 0"
               v-for="n in item.stars"
+              v-if="item.stars > 0"
               :key="n"
               v-html="icons.difficultyTrivial"
             >

@@ -511,6 +511,18 @@ export default {
       this.editingTags = true;
     },
     addTag (eventObj, key) {
+      // Check if tag with same name already exists
+      const existingTag = this.tagsSnap[key].find(tag => tag.name === this.newTag);
+      if (existingTag) {
+        this.$store.dispatch('snackbars:add', {
+          title: '',
+          text: this.$t('tagAlreadyExists'),
+          type: 'error',
+          icon: 'glyphicon glyphicon-exclamation-sign',
+        });
+        return;
+      }
+
       this.tagsSnap[key].push({ id: uuid(), name: this.newTag });
       this.newTag = null;
     },

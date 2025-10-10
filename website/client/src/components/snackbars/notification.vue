@@ -104,9 +104,12 @@
           <div class="text flex-grow-1">
             <div v-html="notification.text"></div>
           </div>
-          <div v-if="notification.actionLabel" class="ml-2 flex-shrink-0">
-            <button 
-              class="btn" 
+          <div
+            v-if="notification.actionLabel"
+            class="ml-2 flex-shrink-0"
+          >
+            <button
+              class="btn"
               @click.stop="notification.action && notification.action()"
             >
               {{ notification.actionLabel }}

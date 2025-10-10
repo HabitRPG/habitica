@@ -1,5 +1,8 @@
 <template>
-  <nav class="navbar navbar-inverse fixed-top navbar-expand-md" :class="{ 'is-hidden': isHeaderHidden }">
+  <nav
+    class="navbar navbar-inverse fixed-top navbar-expand-md"
+    :class="{ 'is-hidden': isHeaderHidden }"
+  >
     <div class="navbar-header">
       <router-link
         class="nav-item"
@@ -297,6 +300,13 @@ export default {
       return this.$store.state.isUserLoggedIn;
     },
   },
+  mounted () {
+    this.lastScrollY = window.scrollY || 0;
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.onScroll);
+  },
   methods: {
     playButtonClick () {
       if (this.isUserLoggedIn) {
@@ -324,13 +334,6 @@ export default {
       }
       this.lastScrollY = currentY;
     },
-  },
-  mounted () {
-    this.lastScrollY = window.scrollY || 0;
-    window.addEventListener('scroll', this.onScroll, { passive: true });
-  },
-  destroyed () {
-    window.removeEventListener('scroll', this.onScroll);
   },
 };
 </script>
