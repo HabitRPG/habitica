@@ -213,6 +213,12 @@
               class="task-notes small-text"
               :class="{'has-checklist': task.notes && hasChecklist}"
             ></div>
+            <div
+              v-if="task.createdAt"
+              class="task-created-date"
+            >
+              Created: {{ formatCreatedDate(task.createdAt) }}
+            </div>
           </div>
           <div
             v-if="canViewchecklist"
@@ -650,6 +656,14 @@
     &.has-checklist {
       padding-bottom: 2px;
     }
+  }
+
+  .task-created-date {
+    color: $gray-200;
+    font-size: 0.75rem;
+    font-style: italic;
+    padding-right: 20px;
+    margin-top: 2px;
   }
 
   .task-content {
@@ -1175,6 +1189,9 @@ export default {
         return this.$t('today');
       }
       return moment(this.task.date).format(this.user.preferences.dateFormat.toUpperCase());
+    },
+    formatCreatedDate (createdAt) {
+      return moment(createdAt).format('MMM D, YYYY');
     },
     edit (e, task) {
       if (this.isRunningYesterdailies) return;
