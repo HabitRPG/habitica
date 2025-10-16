@@ -169,13 +169,17 @@
 
       @media (max-width: 468px) {
         width: 100% !important;
-        margin: 0.5rem auto;
-        margin-top: 2%;
+        margin: 3rem auto 0.5rem;
       }
 
       @media (max-width: 353px) {
-        margin: 0.25rem auto;
+        margin: 2.5rem auto 0.25rem;
       }
+    }
+
+    .badge-dialog {
+      left: -8px;
+      top: -8px;
     }
 
     .modal-content {
