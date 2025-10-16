@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { shouldDo } from '@/../../common/script/cron';
 
 // Library / Utility function
@@ -20,10 +21,23 @@ export function getTagsByIdList (store) {
   };
 }
 
-function getTaskColor (task) {
+function getTaskColor (task, userPreferences = {}) {
   if (task.type === 'reward' || task.byHabitica) return 'purple';
 
   const { value } = task;
+
+  // Check if task is a todo with a due date that hasn't passed yet
+  // If the task is not overdue yet, don't let it turn red based on value alone
+  if (task.type === 'todo' && task.date) {
+    const endOfToday = moment().subtract(userPreferences.dayStart || 0, 'hours').endOf('day');
+    const endOfDueDate = moment(task.date).endOf('day');
+    const isOverdue = moment.duration(endOfDueDate.diff(endOfToday)).asDays() < 0;
+    if (!isOverdue && value < -1) {
+      if (value < 1) {
+        return 'neutral';
+      }
+    }
+  }
 
   if (value < -20) {
     return 'worst';
@@ -133,7 +147,7 @@ export function getTaskClasses (store) {
   return (task, purpose, dueDate) => {
     if (!dueDate) dueDate = new Date(); // eslint-disable-line no-param-reassign
     const { type } = task;
-    const color = getTaskColor(task);
+    const color = getTaskColor(task, userPreferences);
 
     switch (purpose) {
       case 'edit-modal-bg':
