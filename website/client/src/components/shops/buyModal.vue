@@ -586,7 +586,7 @@
 
     .limitedTime {
       height: 32px;
-      width: 446px;
+      width: 100%;
       font-size: 0.75rem;
       margin: 24px 0 0 0;
       background-color: $purple-300;
