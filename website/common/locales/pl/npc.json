@@ -1,6 +1,6 @@
 {
     "npc": "NPC",
-    "npcAchievementName": "<%= key %> postać niegrająca",
+    "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Wsparł projekt na Kickstarterze na maksymalnym poziomie!",
     "welcomeTo": "Witamy w",
     "welcomeBack": "Witaj ponownie!",

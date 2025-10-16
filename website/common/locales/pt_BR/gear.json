@@ -3158,5 +3158,11 @@
     "weaponMystery202508Notes": "Esta lâmina giratória aterrorizará qualquer monstro ou item diário vermelho que cruzar seu caminho! Não concede nenhum benefício. Item de assinante de agosto 2025.",
     "weaponArmoireBeekeepersSmokerText": "Fumante",
     "armorSpecialSpring2024RogueText": "Manto Derrete Neves",
-    "armorSpecialSpring2024MageText": "Vestes de Hibisco"
+    "armorSpecialSpring2024MageText": "Vestes de Hibisco",
+    "headSpecialSummer2025WarriorText": "Elmo de Couraça Marinha",
+    "headSpecialSummer2025WarriorNotes": "Impenetrável e perfeitamente pontiagudo, este elmo encouraçado protegerá você até de estrelas-do-mar. Aumenta a Força em <%= str %>. Equipamento de edição limitada do verão de 2025.",
+    "shieldSpecialSummer2025WarriorText": "Escudo Couraça de Concha",
+    "armorSpecialSummer2025WarriorText": "Couraça de concha",
+    "armorSpecialSummer2025WarriorNotes": "Esta armadura não só o torna resistente, como também o torna rápido. Lute com agilidade ou esconda-se em sua couraça impenetrável! — a escolha é sua! Aumenta a Constituição em <%= con %>. Equipamento de Edição Limitada do Verão de 2025.",
+    "shieldSpecialSummer2025WarriorNotes": "Cores esplêndidas, mas cristas mortais! Inimigos, não subestimem o perigo deste escudo ou será o seu fim! Aumenta a Constituição em <%= con %>. Equipamento de edição limitada do verão de 2025."
 }

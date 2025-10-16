@@ -12,14 +12,12 @@
           class="staff col-6 p-0"
         >
           <div class="d-flex">
-            <router-link
+            <div
               class="title"
-              :to="{'name': 'userProfile', 'params': {'userId': user.uuid}}"
             >
               {{ user.name }}
-            </router-link>
+            </div>
             <div
-              v-if="user.type === 'Staff'"
               class="svg-icon staff-icon ml-1"
               v-html="icons.tierStaff"
             ></div>

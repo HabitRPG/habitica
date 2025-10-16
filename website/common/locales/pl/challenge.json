@@ -108,5 +108,6 @@
     "cannotClone": "To Wyzwanie nie może zostać zamknięte, ponieważ jeden lub więcej graczy zgłosiło je jako niewłaściwe. Pracownik wkrótce skontaktuje się z Tobą, żeby przekazać dalsze instrukcje. Jeśli nie nastąpi to w przeciągu 48 godzin, prosimy o wysłanie maila na adres admin@habitica.com z prośbą o pomoc.",
     "cannotMakeChallenge": "Nie możesz tworzyć publicznych Wyzwań, ponieważ twoje konto ma ograniczone pozwolenia dotyczące czatu. Skontaktuj się z nami na adres admin@habitica.com, aby uzyskać więcej informacji.",
     "resetFlags": "Wyzeruj Oznaczenia",
-    "abuseFlagModalBodyChallenge": "Powinieneś zgłaszać wyłącznie Wyzwanie, które narusza <%= firstLinkStart %>Regulamin Społeczności<%= linkEnd %> i/lub <%= secondLinkStart %>Warunki korzystania z Usług<%= linkEnd %>. Złożenie mylnego zgłoszenia narusza Regulamin Społeczności Habitica."
+    "abuseFlagModalBodyChallenge": "Powinieneś zgłaszać wyłącznie Wyzwanie, które narusza <%= firstLinkStart %>Regulamin Społeczności<%= linkEnd %> i/lub <%= secondLinkStart %>Warunki korzystania z Usług<%= linkEnd %>. Złożenie mylnego zgłoszenia narusza Regulamin Społeczności Habitica.",
+    "deleteChallengeRefundDescription": "Jeżeli usuniesz to Wyzwanie, Klejnoty z nagrody zostaną zwrócone, a zadania przypisane do Wyzwania pozostaną na tablicach zadań uczestników."
 }

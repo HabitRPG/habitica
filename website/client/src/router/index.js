@@ -90,6 +90,9 @@ const router = new VueRouter({
       path: '/profile/:userId',
       props: true,
     },
+    { name: 'profile', path: '/user/profile' },
+    { name: 'stats', path: '/user/stats' },
+    { name: 'achievements', path: '/user/achievements' },
     {
       path: '/inventory',
       component: InventoryContainer,
@@ -369,6 +372,10 @@ router.beforeEach(async (to, from, next) => {
     if (to.params.startingPage !== undefined) {
       startingPage = to.params.startingPage;
     }
+    // Check if there's a hash in the URL for stats or achievements
+    if (to.hash === '#stats' || to.hash === '#achievements') {
+      startingPage = to.hash.substring(1);
+    }
     if (from.name === null) {
       store.state.postLoadModal = `profile/${to.params.userId}`;
       return next({ name: 'tasks' });
@@ -389,10 +396,18 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if ((to.name === 'stats' || to.name === 'achievements' || to.name === 'profile') && from.name !== null) {
+    const userId = store.state.user.data._id;
+    let redirectPath = `/profile/${userId}`;
+    if (to.name === 'stats') {
+      redirectPath += '#stats';
+    } else if (to.name === 'achievements') {
+      redirectPath += '#achievements';
+    }
     router.app.$emit('habitica:show-profile', {
+      userId,
       startingPage: to.name,
       fromPath: from.path,
-      toPath: to.path,
+      toPath: redirectPath,
     });
     return null;
   }

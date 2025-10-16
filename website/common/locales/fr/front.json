@@ -124,7 +124,7 @@
     "passwordReset": "Si nous avons votre courriel ou votre identifiant dans nos fichiers, un nouveau mot de passe vous a été envoyé.",
     "invalidLoginCredentialsLong": "Votre email, identifiant ou mot de passe est incorrect. Merci de réessayer ou de faire \"Mot de passe oublié\".",
     "invalidCredentials": "Aucun compte n'utilise cet identifiant.",
-    "accountSuspended": "Ce compte, identifiant “<%= userId %>”, a été bloqué pour avoir enfreint les règles de vie en communauté (https://habitica.com/static/community-guidelines) ou les conditions d’utilisation (https://habitica.com/static/terms). Pour plus d’informations, ou pour demander un déblocage, merci d’envoyer un courriel à notre gestionnaire de la communauté : <%= communityManagerEmail %>, ou demandez à un parent ou à un tuteur de leur envoyer un courriel. Merci d'y inclure votre @identifiant.",
+    "accountSuspended": "Votre compte @<%= username %> a été bloqué. Pour plus d'informations ou pour faire appel de la décision, merci de nous contacter à admin@habitica.com en indiquant votre identifiant Habitica ou votre ID d'Utilisat·eur·rice.",
     "accountSuspendedTitle": "Le compte a été suspendu",
     "unsupportedNetwork": "Ce réseau n'est actuellement pas pris en charge.",
     "cantDetachSocial": "Votre compte n'a pas d'autre méthode d'authentification ; vous ne pouvez pas désaffecter cette méthode d'authentification.",

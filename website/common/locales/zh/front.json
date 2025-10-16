@@ -124,7 +124,7 @@
     "passwordReset": "如果我们已经记录过您的电子邮箱或用户名，那么设置新密码的说明邮件已发送至您的电子邮箱中。",
     "invalidLoginCredentialsLong": "您的电子邮箱、用户名或者密码错误。请重试或点击“忘记密码。”",
     "invalidCredentials": "没有使用这些凭据的帐户。",
-    "accountSuspended": "此账号<%= userId %>”因违反社区准则(https://habitica.com/static/community-guidelines)或服务条款(https://habitica.com/static/terms)已被冻结。若要询问细节或要求解冻，请您或者请您的家长、监护人协助发送电子邮件给我们的社区管理员<%= communityManagerEmail %> 。请记得在电子邮件中附上您的用户名。",
+    "accountSuspended": "您的账户@<%= username %>已被封禁。如需了解更多信息或提出申诉，请发送邮件至 admin@habitica.com，并在邮件中注明您的Habitica用户名或用户ID。",
     "accountSuspendedTitle": "账户已被暂停使用",
     "unsupportedNetwork": "当前网络不支持。",
     "cantDetachSocial": "帐户缺少另一个认证方式；无法分离此认证方式。",

@@ -17,7 +17,11 @@ export function loginRes (user, req, res) {
   if (user.auth.blocked) {
     throw new NotAuthorized(res.t(
       'accountSuspended',
-      { communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id },
+      {
+        communityManagerEmail: COMMUNITY_MANAGER_EMAIL,
+        userId: user._id,
+        username: user.auth.local.username,
+      },
     ));
   }
   const urlPath = url.parse(req.url).pathname;

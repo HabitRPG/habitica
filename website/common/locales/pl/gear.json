@@ -1780,5 +1780,9 @@
     "weaponSpecialFall2019MageText": "Jednooka Laska",
     "eyewearArmoireRoseColoredGlassesNotes": "Te okulary pomogą ci dostrzec najlepszą stronę każdej sytuacji, a te stylowe oprawki pomogą ci również wyglądać jak najlepiej. Zwiększa Percepcję o <%= per %>. Zaczarowana Szafa: Zestaw Optymisty (przedmiot 2 z 4).",
     "headAccessoryMystery202212Text": "Lodowa Tiara",
-    "headAccessoryMystery202212Notes": "Wznieś swoje ciepło i przyjaźń na nowy poziom dzięki tej ozdobnej złotej tiarze. Nie zapewnia żadnych korzyści. Przedmiot dla subskrybentów z grudnia 2022 r."
+    "headAccessoryMystery202212Notes": "Wznieś swoje ciepło i przyjaźń na nowy poziom dzięki tej ozdobnej złotej tiarze. Nie zapewnia żadnych korzyści. Przedmiot dla subskrybentów z grudnia 2022 r.",
+    "weaponSpecialSpring2020RogueText": "Lazurytowe Ostrze",
+    "weaponSpecialSpring2020WarriorText": "Naostrzone Skrzydło",
+    "weaponSpecialWinter2020HealerText": "Berło Koniczyny",
+    "weaponSpecialSpring2020MageText": "Krople Deszczu"
 }

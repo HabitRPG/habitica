@@ -197,9 +197,7 @@
         <select-translated-array
           :items="[
             'groupParentChildren',
-            'groupCouple',
             'groupFriends',
-            'groupCoworkers',
             'groupManager',
             'groupTeacher'
           ]"

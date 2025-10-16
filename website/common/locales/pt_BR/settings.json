@@ -116,7 +116,7 @@
     "generate": "Gerar",
     "getCodes": "Obter Códigos",
     "webhooks": "Webhooks",
-    "webhooksInfo": "Os webhooks fornecem uma maneira para os desenvolvedores receberem notificações quando uma ação específica é realizada, como marcar ou atualizar uma Tarefa, ou enviar uma mensagem em um Grupo. Ao criar um webhook, você poderá ouvir as mudanças no Habitica e construir aplicativos que respondam a essas mudanças. <br><br>Para informações adicionais e exemplos sobre webhooks, por favor visite nossa <a target=\"_blank\" href=\"https://habitica.fandom.com/wiki/Webhooks\">Documentação da API</a>.",
+    "webhooksInfo": "Os webhooks fornecem uma maneira para os desenvolvedores receberem notificações quando uma ação específica é realizada, como marcar ou atualizar uma Tarefa, ou enviar uma mensagem em um Grupo. Ao criar um webhook, você poderá ouvir as mudanças no Habitica e construir aplicativos que respondam a essas mudanças. <br><br>Para informações adicionais e exemplos sobre webhooks, por favor visite nossa <a target=\"_blank\" href=\"https://habitica.com/apidoc/#api-Webhook-AddWebhook\">Documentação da API</a>.",
     "enabled": "Habilitado",
     "webhookURL": "URL do Webhook",
     "invalidUrl": "url inválida",
@@ -169,9 +169,9 @@
     "bannedSlurUsedInProfile": "Seu Nome de Exibição ou texto na seção Sobre continha ofensa. Seus privilégios de bate-papo foram revogados.",
     "addPasswordAuth": "Adicionar senha",
     "gemCap": "Limite de Gemas",
-    "nextHourglass": "Próxima Ampulheta Mística",
+    "nextHourglass": "Proxima Encomenda da Ampulheta Mística",
     "transactions": "Transações",
-    "nextHourglassDescription": "Assinantes recebem Ampulhetas Místicas entre\nos três primeiros dias do mês.",
+    "nextHourglassDescription": "Assinantes recebem uma Ampulheta Mística, um misterioso Conjunto de Equipamento, e Gemas reabastecidas no Mercado dentro dos primeiros dois dias do mês",
     "adjustment": "Ajuste",
     "dayStartAdjustment": "Ajuste de Início de Dia",
     "transaction_rebirth": "Orbe do Renascimento utilizado",
@@ -251,9 +251,10 @@
     "playDemoAudio": "Reproduzir Demo",
     "enableAudio": "Habilitar Áudio",
     "dateFormatDisclaimer": "Ajustar a formatação de data em todo o Habitica.",
-    "changePasswordDisclaimer": "A senha deve ter 8 caracteres ou mais. Recomendamos uma senha forte que você não esteja usando em outros lugares.",
+    "changePasswordDisclaimer": "Senhas devem ter 8 caracteres ou mais. Alterar a sua senha fará com que você saia de outros dispositivos e ferramentas de terceiros que você pode usar.",
     "contentRelease": "Lançamentos de Conteúdo + Eventos",
     "baileyAnnouncement": "Último Anúncio da Bailey",
     "showRaisePetModal": "Ao cuidar de um Mascote para virar Montaria",
-    "resetTextSocial": "Se você tiver certeza absoluta, digite <b>\"<%= magicWord %>\"</b> na caixa de texto abaixo."
+    "resetTextSocial": "Se você tiver certeza absoluta, digite <b>\"<%= magicWord %>\"</b> na caixa de texto abaixo.",
+    "APITokenDisclaimer": "<b>Seu API Token é como uma senha; não o compartilhe publicamente.</b> Ocasionalmente, você poderá ser solicitado a informar seu ID de Usuário, mas nunca publique seu API Token onde outras pessoas possam vê-lo, inclusive no GitHub.<br><br><b>Se precisar de um novo API Token</b> (por exemplo, se você o compartilhou acidentalmente), pode alterar sua senha para redefini-la. Após a redefinição, você precisará efetuar login novamente em quaisquer outros dispositivos em que use o Habitica e fornecer o novo API Token para ferramentas de terceiros que você possa usar."
 }

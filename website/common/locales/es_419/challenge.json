@@ -108,5 +108,6 @@
     "flaggedNotHidden": "Desafío marcado una vez, No esta oculto",
     "whyReportingChallenge": "Por qué estas reportando este Desafío?",
     "abuseFlagModalBodyChallenge": "Deberías solo reportar un Desafío que viola las <%= firstLinkStart %>Directrices de la Comunidad<%= linkEnd %> y/o los <%= secondLinkStart %>Términos de Servicio<%= linkEnd %>. Envíar un reporte falso es una violación a las Directrices de la Comunidad.",
-    "resetFlags": "Reiniciar marcadores"
+    "resetFlags": "Reiniciar marcadores",
+    "deleteChallengeRefundDescription": "Si eliminas este Desafío, recuperarás las Gemas de la recompensa y las tareas del Desafío permanecerán en los listados de tareas de los participantes."
 }

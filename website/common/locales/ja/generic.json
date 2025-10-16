@@ -241,5 +241,6 @@
     "titleCustomizations": "カスタマイズ",
     "newMessage": "新しいメッセージ",
     "targetUserNotExist": "「<%= userName %>」というユーザーはいません。",
-    "rememberToBeKind": "他人には優しくして、<a href='/static/community-guidelines' target='_blank'>コミュニティガイドラン</a>を守ってください。"
+    "rememberToBeKind": "他人には優しくして、<a href='/static/community-guidelines' target='_blank'>コミュニティガイドラン</a>を守ってください。",
+    "gem": "ジェム"
 }

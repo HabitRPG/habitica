@@ -108,5 +108,6 @@
     "resetFlagCount": "Markierungszähler zurücksetzen",
     "cannotClone": "Diese Herausforderung kann nicht dupliziert werden, weil einer oder mehrere Spieler sie als unangemessen gemeldet haben. Einer der Mitarbeiter wird dich in Kürze mit Anweisungen kontaktieren. Wenn mehr als 48 Stunden vergangen sind, und du nichts von ihnen gehört hast, schicke bitte eine Email an admin@habitica.com, um Unterstützung zu erhalten.",
     "resetFlags": "Markierungen zurücksetzen",
-    "messageChallengeFlagOfficial": "Offizielle Herausforderungen können nicht gemeldet werden."
+    "messageChallengeFlagOfficial": "Offizielle Herausforderungen können nicht gemeldet werden.",
+    "deleteChallengeRefundDescription": "Wenn du diese Herausforderung löschst, bekommst du den Preis in Edelsteinen erstattet und die Aufgaben der Herausforderung verbleiben auf der Aufgabentafel der Teilnehmer."
 }

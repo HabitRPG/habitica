@@ -124,7 +124,7 @@
     "passwordReset": "ユーザーネームかメールアドレスが登録されていた場合、新しいパスワードの設定方法がメールで送信されます。",
     "invalidLoginCredentialsLong": "メールアドレス、ユーザー名、パスワードのどれかが間違っています。もう一度やり直すか、「パスワードを忘れた場合」をクリックしてください。",
     "invalidCredentials": "この認証情報を使ったアカウントはありません。",
-    "accountSuspended": "このアカウント（ユーザーID：<%= userId %>）は、[コミュニティガイドライン](https://habitica.com/static/community-guidelines)または[利用規約](https://habitica.com/static/terms)に違反したため、ブロックされています。詳細について説明がほしい場合、またはブロックの解除を求める場合は、私たちのコミュニティマネージャー（<%= communityManagerEmail %>）へEメールでご連絡ください。未成年の場合はコミュニティマネージャーへメールを送ってもらうよう親か保護者に頼んでください。メールの中にあなたの@ユーザー名を添えてください。",
+    "accountSuspended": "あなたのアカウント@<%= username %>はブロックされました。詳細を知りたい場合や、アピールをリクエストしたい場合は、Habiticaのユーザー名またはユーザーIDを記載して、admin@habitica.com へメールしてください。",
     "accountSuspendedTitle": "このアカウントは一時停止されています",
     "unsupportedNetwork": "このネットワークは現在対応していません。",
     "cantDetachSocial": "アカウントには他の認証方法が設定されていないので、この認証方法 を取りのぞくことはできません。",

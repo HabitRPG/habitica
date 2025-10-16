@@ -5,7 +5,7 @@
     "groupBy": "依<%= type %>分組",
     "classBonus": "（這項裝備與您的職業相匹配，可獲得1.5倍的額外屬性加成。）",
     "classArmor": "職業盔甲",
-    "featuredset": "精選套裝<%= name %>",
+    "featuredset": "精選套裝：<%= name %>",
     "mysterySets": "神秘套裝",
     "gearNotOwned": "您尚未擁有此裝備。",
     "noGearItemsOfType": "您尚未擁有任何此類物品。",
@@ -2380,11 +2380,11 @@
     "weaponSpecialWinter2023HealerNotes": "看著這個慶祝的、多刺的花環在空中旋轉，飛向你的敵人或障礙物，接著像迴旋鏢一樣回到你身邊，等待著下一次的投擲。增加<%= int %>點智力。2022-2023年冬季限定版裝備。",
     "weaponArmoireEveningTeaNotes": "這瓶靈丹妙藥將幫助您放鬆，讓那些大型任務看起來沒那麼有威脅性。增加<%= int %>點智力。魔法衣櫥：晨衣套裝（3/3）。",
     "weaponSpecialSpring2023RogueText": "被啃過的樹葉",
-    "weaponSpecialSpring2023RogueNotes": "劈砍！拍打！點心！為即將到來的改變做好準備。增加 <%= str %> 點力量。2023春季限定版裝備。",
+    "weaponSpecialSpring2023RogueNotes": "咻！啪！喀！振作起來，準備迎接即將到來的蛻變吧。增加 <%= str %> 點力量。2023 春季限定版裝備。",
     "weaponSpecialSpring2023WarriorText": "蜂鳥箔",
-    "weaponSpecialSpring2023WarriorNotes": "做好準備！用這枚箔片抵禦花朵中的敵人！增加 <%= str %> 點力量。2023春季限定版裝備。",
+    "weaponSpecialSpring2023WarriorNotes": "預備，接招！用這把花劍擊退靠近花朵的敵人！增加 <%= str %> 點力量。2023 春季限定版裝備。",
     "weaponSpecialSpring2023MageText": "魔法月光石",
-    "weaponSpecialSpring2023MageNotes": "光芒越亮，威力越強。增加 <%= int %> 點智力。2023春季限定版裝備。",
+    "weaponSpecialSpring2023MageNotes": "光芒愈亮，威力愈強。增加 <%= int %> 點智力及 <%= per %> 點感知。2023 春季限定版裝備。",
     "weaponSpecialSpring2023HealerText": "百合花粉",
     "weaponSpecialSpring2023HealerNotes": "輕輕一吸，熠熠生辉。你出現了新的成長、喜悅及色彩。增加 <%= int %> 點智力。2023春季限定版裝備。",
     "weaponSpecialSummer2023RogueText": "孔雀魚扇",
@@ -2407,5 +2407,7 @@
     "weaponSpecialFall2023MageText": "閃亮法杖",
     "weaponSpecialFall2023MageNotes": "這把閃亮法杖以水晶為核心，讓魔法從平凡中顯現。增加 <%= int %> 點智力。2023秋季限定版裝備。",
     "weaponSpecialFall2023HealerText": "原木大錘",
-    "weaponSpecialFall2023HealerNotes": "通過緩慢而沉重的攻擊，這把粗糙的錘子能造成治療而非傷害。增加 <%= int %> 點智力。2023秋季限定版裝備。"
+    "weaponSpecialFall2023HealerNotes": "通過緩慢而沉重的攻擊，這把粗糙的錘子能造成治療而非傷害。增加 <%= int %> 點智力。2023秋季限定版裝備。",
+    "moreArmoireGearAvailable": "在此之前，您可以在魔法衣櫥中找到 <%= armoireCount %> 件裝備！",
+    "moreArmoireGearComing": "魔法衣櫥也會每個月進新貨！"
 }

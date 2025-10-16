@@ -5,7 +5,7 @@
     "groupBy": "Grupiraj po <%= type %>",
     "classBonus": "(Ovaj predmet odgovara tvojoj klasi pa se zato njegova Statistika množi s 1.5.)",
     "classArmor": "Oklop klase",
-    "featuredset": "Istaknuti komplet <%= name %>",
+    "featuredset": "Istaknuti Set: <%= name %>",
     "mysterySets": "Tajni kompleti",
     "gearNotOwned": "Ne posjeduješ ovaj artikal.",
     "noGearItemsOfType": "Ne posjeduješ nijednog od ovih.",

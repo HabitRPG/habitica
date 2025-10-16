@@ -1,37 +1,43 @@
 <template>
   <div
-    class="notification d-flex flex-column justify-content-center text-center"
+    class="notification d-flex justify-content-center align-items-center"
   >
-    <strong
-      v-once
-      class="mx-auto mb-2"
+    <img
+      src="@/assets/images/gifts_start.svg"
+      class="gift-start"
+      alt=""
     >
-      {{ $t('g1g1') }}
-    </strong>
-    <small
-      v-once
-      class="mx-4 mb-3"
-    >
-      {{ $t('g1g1Details') }}
-    </small>
-    <div
-      class="btn-secondary mx-auto d-flex"
-      @click="showSelectUser()"
-    >
-      <div
+    <div class="content-wrapper d-flex flex-column justify-content-center text-center">
+      <strong
         v-once
-        class="m-auto"
+        class="mx-auto mb-2"
+      >
+        {{ $t('g1g1') }}
+      </strong>
+      <small
+        v-once
+        class="mx-4 mb-3"
+      >
+        {{ $t('g1g1Details') }}
+      </small>
+      <button
+        class="btn btn-secondary mx-auto"
+        @click="showSelectUser()"
       >
         {{ $t('sendGift') }}
-      </div>
+      </button>
     </div>
+    <img
+      src="@/assets/images/gifts_start.svg"
+      class="gift-end"
+      alt=""
+    >
     <div
-      class="notification-remove"
-      @click.stop="remove()"
+      class="close-x"
+      @click="remove()"
     >
       <div
-        v-once
-        class="svg-icon"
+        class="svg-icon svg-close"
         v-html="icons.close"
       ></div>
     </div>
@@ -41,51 +47,89 @@
 <style lang='scss' scoped>
   @import '@/assets/scss/colors.scss';
 
-  small, strong {
+  small {
     color: $white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 1.714;
+    letter-spacing: 0;
+  }
+
+  strong {
+    color: $white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 1.714;
   }
 
   .notification {
-    background-image: url('@/assets/images/g1g1-notif.png');
+    background-image: url('@/assets/images/gifts_bg.svg');
+    background-size: cover;
+    background-position: center;
     height: 10rem;
-    padding: 3rem;
+    padding: 0;
     position: relative;
     overflow: hidden;
     white-space: normal;
     cursor: pointer;
   }
 
-  .notification-remove {
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    padding: 4px;
-    right: 24px;
-    top: 24px;
-
-    .svg-icon {
-      width: 10px;
-      height: 10px;
-    }
+  .content-wrapper {
+    flex: 1;
+    padding: 2rem;
+    z-index: 1;
   }
 
-  .btn-secondary {
-    width: 5.75rem;
-    min-height: 1.5rem;
-    border-radius: 2px;
-    border-color: $white;
-    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-    font-size: 12px;
-    font-weight: bold;
+  .gift-start {
+    height: 96px;
+    width: auto;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 0;
+  }
+
+  .gift-end {
+    height: 96px;
+    width: auto;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) scaleX(-1);
+    z-index: 0;
+  }
+
+  .close-x {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    cursor: pointer;
+    z-index: 2;
+
+    &:hover .svg-close {
+      opacity: 0.75;
+    }
+
+    .svg-close {
+      width: 18px;
+      height: 18px;
+      opacity: 0.5;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
   }
 </style>
 
 <script>
-import closeIcon from '@/assets/svg/close-teal.svg?raw';
-import { mapActions } from '@/libs/store';
+import closeIcon from '@/assets/svg/close-white.svg?raw';
 
 export default {
-  props: ['notification'],
+  props: ['notification', 'eventKey'],
   data () {
     return {
       icons: Object.freeze({
@@ -94,11 +138,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions({
-      readNotification: 'notifications:readNotification',
-    }),
     remove () {
-      this.readNotification({ notificationId: this.notification.id });
+      if (this.eventKey) {
+        window.sessionStorage.setItem(`hide-g1g1-${this.eventKey}`, 'true');
+      }
+      this.$emit('notification-removed');
     },
     showSelectUser () {
       this.$root.$emit('bv::show::modal', 'select-user-modal');

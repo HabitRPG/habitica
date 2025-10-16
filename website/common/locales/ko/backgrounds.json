@@ -728,5 +728,7 @@
     "backgrounds102022": "SET 101: 2022년 10월에 출시",
     "backgroundSpookyRuinsText": "으스스한 폐허",
     "backgroundSpookyRuinsNotes": "으스스한 폐허를 모험하세요.",
-    "backgroundMaskMakersWorkshopText": "마스크 제작자의 워크숍"
+    "backgroundMaskMakersWorkshopText": "마스크 제작자의 워크숍",
+    "backgroundMaskMakersWorkshopNotes": "마스크 제작자의 워크숍에서 새로운 마스크를 체험해보세요.",
+    "backgroundCemeteryGateText": "묘지 입구"
 }

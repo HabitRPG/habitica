@@ -238,8 +238,9 @@
     "mutePlayer": "屏蔽",
     "shadowMute": "隐形屏蔽",
     "playerReportModalBody": "您只能举报违反<%= firstLinkStart %>社区准则<%= linkEnd %>和/或<%= secondLinkStart %>服务条款<%= linkEnd %>的玩家。提交虚假举报是违反Habitica社区准则的行为。",
-    "titleCustomizations": "自定义",
+    "titleCustomizations": "个性装扮",
     "newMessage": "新信息",
     "targetUserNotExist": "目标用户：'<%= userName %>'不存在。",
-    "rememberToBeKind": "请谨记友善、尊重他人，并遵守<a href='/static/community-guidelines' target='_blank'>社区准则</a>。"
+    "rememberToBeKind": "请谨记友善、尊重他人，并遵守<a href='/static/community-guidelines' target='_blank'>社区准则</a>。",
+    "gem": "宝石"
 }

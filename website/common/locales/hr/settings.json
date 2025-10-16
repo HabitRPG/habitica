@@ -155,5 +155,8 @@
     "usernameVerifiedConfirmation": "Tvoje korisničko ime, <%= username %>, je potvrđeno!",
     "usernameNotVerified": "Molimo te da potvrdiš svoje korisničko ime.",
     "changeUsernameDisclaimer": "Uskoro ćemo se prebaciti s korištenja imena za prijavu na jedinstvena, javna korisnička imena. Ovo korisničko ime će se koristiti za pozivnice, @spomene u chatu i u porukama.",
-    "verifyUsernameVeteranPet": "Jedan od ovih veteranskih ljubimaca će te čekati nakon što potvrdiš!"
+    "verifyUsernameVeteranPet": "Jedan od ovih veteranskih ljubimaca će te čekati nakon što potvrdiš!",
+    "generalSettings": "Opće postavke",
+    "siteData": "Podaci s web mjesta",
+    "taskSettings": "Postavke zadatka"
 }

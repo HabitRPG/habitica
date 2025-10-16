@@ -124,7 +124,7 @@
     "passwordReset": "Si tenemos constancia de tu correo electrónico o nombre de usuario, te hemos enviado un mensaje con las instrucciones a seguir para establecer una nueva contraseña.",
     "invalidLoginCredentialsLong": "Tu correo electrónico o contraseña son incorrectos. Por favor intenta de nuevo o pulsa sobre \"¿Has olvidado la contraseña?\"",
     "invalidCredentials": "No hay ninguna cuenta con esas credenciales.",
-    "accountSuspended": "Esta cuenta, con ID de usuario \"<%= userId %>\", ha sido bloqueada por incumplir las [Normas de la Comunidad](https://habitica.com/static/community-guidelines) o los [Términos de Servicio](https://habitica.com/static/terms). Para más detalles o solicitar su desbloqueo, por favor, envía un correo electrónico a nuestro Community Manager en <%= communityManagerEmail %> o pídele a tu padre o tutor que lo haga. Por favor, incluye tu @NombreDeUsuario en el mismo.",
+    "accountSuspended": "Tu cuenta @<%= username %> ha sido bloqueada. Para más información o para iniciar una apelación, por favor envía un email a admin@habitica.com indicando tu nombre de usuario en Habitica o tu ID de Usuario.",
     "accountSuspendedTitle": "Esta cuenta ha sido suspendida",
     "unsupportedNetwork": "La red no está en servicio.",
     "cantDetachSocial": "La cuenta carece de otro método de autenticación; no se puede separar de este método de autenticación.",

@@ -43,9 +43,11 @@ export default {
       const AUTH_SETTINGS = localStorage.getItem(LOCALSTORAGE_AUTH_KEY);
       const parseSettings = JSON.parse(AUTH_SETTINGS);
       const userId = parseSettings ? parseSettings.auth.apiId : '';
+      const username = this.$store?.state?.user?.data?.auth?.local?.username || '';
 
       return this.$t('accountSuspended', {
         userId,
+        username,
         communityManagerEmail: COMMUNITY_MANAGER_EMAIL,
       });
     },
