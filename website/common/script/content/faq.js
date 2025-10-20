@@ -26,6 +26,10 @@ const questionList = [
     translationIndex: 30,
   },
   {
+    heading: 'prevent-damage',
+    translationIndex: 68,
+  },
+  {
     heading: 'lose-hp',
     translationIndex: 31,
   },
