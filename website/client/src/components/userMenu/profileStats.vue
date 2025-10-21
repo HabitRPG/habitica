@@ -679,6 +679,13 @@ export default {
 
       ::v-deep .toggle-switch-label {
         margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      ::v-deep .toggle-switch-switch {
+        margin: auto;
+        margin-left: -2px;
+        margin-right: -2px;
       }
 
       ::v-deep .toggle-switch-inner:before {
