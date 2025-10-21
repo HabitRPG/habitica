@@ -3,6 +3,144 @@
     id="stats"
     class="standard-page"
   >
+    <div
+      id="attributes"
+      class="row"
+    >
+      <hr class="col-12">
+      <h2 class="col-12">
+        {{ $t('attributes') }}
+      </h2>
+      <div
+        v-for="(statInfo, stat) in stats"
+        :key="stat"
+        class="col-12 col-md-6"
+      >
+        <div class="row col-12 stats-column">
+          <div class="col-12 col-md-4 attribute-label">
+            <span
+              class="hint"
+              :popover-title="$t(statInfo.title)"
+              popover-placement="right"
+              :popover="$t(statInfo.popover)"
+              popover-trigger="mouseenter"
+            ></span>
+            <div
+              class="stat-title"
+              :class="stat"
+            >
+              {{ $t(statInfo.title) }}
+            </div>
+            <strong class="number">{{ totalStatPoints(stat) | floorWholeNumber }}</strong>
+          </div>
+          <div class="col-12 col-md-6">
+            <ul class="bonus-stats">
+              <li>
+                <strong>{{ $t('level') }}:</strong>
+                {{ statsComputed.levelBonus[stat] }}
+              </li>
+              <li>
+                <strong>{{ $t('equipment') }}:</strong>
+                {{ statsComputed.gearBonus[stat] }}
+              </li>
+              <li>
+                <strong>{{ $t('class') }}:</strong>
+                {{ statsComputed.classBonus[stat] }}
+              </li>
+              <li>
+                <strong>{{ $t('allocated') }}:</strong>
+                {{ totalAllocatedStats(stat) }}
+              </li>
+              <li>
+                <strong>{{ $t('buffs') }}:</strong>
+                {{ user.stats.buffs[stat] }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      v-if="showAllocation"
+      id="allocation"
+    >
+      <div class="row title-row">
+        <div class="col-12 col-md-6">
+          <h3
+            v-if="userLevel100Plus"
+            v-once
+            v-html="$t('noMoreAllocate')"
+          ></h3>
+          <h3>
+            {{ $t('statPoints') }}
+            <div
+              v-if="user.stats.points || userLevel100Plus"
+              class="counter badge badge-pill"
+            >
+              {{ pointsRemaining }}
+            </div>
+          </h3>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="float-right">
+            <toggle-switch
+              v-model="user.preferences.automaticAllocation"
+              :label="$t('autoAllocation')"
+              @change="setAutoAllocate()"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          v-for="(statInfo, stat) in allocateStatsList"
+          :key="stat"
+          class="col-12 col-md-3"
+        >
+          <div class="box white row col-12">
+            <div class="col-9 text-nowrap">
+              <div :class="stat">
+                {{ $t(stats[stat].title) }}
+              </div>
+              <div class="number">
+                {{ totalAllocatedStats(stat) }}
+              </div>
+              <div class="points">
+                {{ $t('pts') }}
+              </div>
+            </div>
+            <div class="col-3">
+              <div>
+                <div
+                  v-if="showStatsSave"
+                  class="up"
+                  @click="allocate(stat)"
+                ></div>
+              </div>
+              <div>
+                <div
+                  v-if="showStatsSave"
+                  class="down"
+                  @click="deallocate(stat)"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        v-if="showStatsSave"
+        class="row save-row"
+      >
+        <button
+          class="btn btn-primary"
+          :disabled="loading"
+          @click="saveAttributes()"
+        >
+          {{ loading ? $t('loading') : $t('save') }}
+        </button>
+      </div>
+    </div>
     <div class="row">
       <div class="stats-section-equipment col-12 col-md-6">
         <h2 class="text-center">
@@ -180,144 +318,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div
-      id="attributes"
-      class="row"
-    >
-      <hr class="col-12">
-      <h2 class="col-12">
-        {{ $t('attributes') }}
-      </h2>
-      <div
-        v-for="(statInfo, stat) in stats"
-        :key="stat"
-        class="col-12 col-md-6"
-      >
-        <div class="row col-12 stats-column">
-          <div class="col-12 col-md-4 attribute-label">
-            <span
-              class="hint"
-              :popover-title="$t(statInfo.title)"
-              popover-placement="right"
-              :popover="$t(statInfo.popover)"
-              popover-trigger="mouseenter"
-            ></span>
-            <div
-              class="stat-title"
-              :class="stat"
-            >
-              {{ $t(statInfo.title) }}
-            </div>
-            <strong class="number">{{ totalStatPoints(stat) | floorWholeNumber }}</strong>
-          </div>
-          <div class="col-12 col-md-6">
-            <ul class="bonus-stats">
-              <li>
-                <strong>{{ $t('level') }}:</strong>
-                {{ statsComputed.levelBonus[stat] }}
-              </li>
-              <li>
-                <strong>{{ $t('equipment') }}:</strong>
-                {{ statsComputed.gearBonus[stat] }}
-              </li>
-              <li>
-                <strong>{{ $t('class') }}:</strong>
-                {{ statsComputed.classBonus[stat] }}
-              </li>
-              <li>
-                <strong>{{ $t('allocated') }}:</strong>
-                {{ totalAllocatedStats(stat) }}
-              </li>
-              <li>
-                <strong>{{ $t('buffs') }}:</strong>
-                {{ user.stats.buffs[stat] }}
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      v-if="showAllocation"
-      id="allocation"
-    >
-      <div class="row title-row">
-        <div class="col-12 col-md-6">
-          <h3
-            v-if="userLevel100Plus"
-            v-once
-            v-html="$t('noMoreAllocate')"
-          ></h3>
-          <h3>
-            {{ $t('statPoints') }}
-            <div
-              v-if="user.stats.points || userLevel100Plus"
-              class="counter badge badge-pill"
-            >
-              {{ pointsRemaining }}
-            </div>
-          </h3>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="float-right">
-            <toggle-switch
-              v-model="user.preferences.automaticAllocation"
-              :label="$t('autoAllocation')"
-              @change="setAutoAllocate()"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div
-          v-for="(statInfo, stat) in allocateStatsList"
-          :key="stat"
-          class="col-12 col-md-3"
-        >
-          <div class="box white row col-12">
-            <div class="col-9 text-nowrap">
-              <div :class="stat">
-                {{ $t(stats[stat].title) }}
-              </div>
-              <div class="number">
-                {{ totalAllocatedStats(stat) }}
-              </div>
-              <div class="points">
-                {{ $t('pts') }}
-              </div>
-            </div>
-            <div class="col-3">
-              <div>
-                <div
-                  v-if="showStatsSave"
-                  class="up"
-                  @click="allocate(stat)"
-                ></div>
-              </div>
-              <div>
-                <div
-                  v-if="showStatsSave"
-                  class="down"
-                  @click="deallocate(stat)"
-                ></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        v-if="showStatsSave"
-        class="row save-row"
-      >
-        <button
-          class="btn btn-primary"
-          :disabled="loading"
-          @click="saveAttributes()"
-        >
-          {{ loading ? $t('loading') : $t('save') }}
-        </button>
       </div>
     </div>
   </div>
