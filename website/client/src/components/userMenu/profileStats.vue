@@ -37,23 +37,23 @@
             <ul class="bonus-stats">
               <li>
                 <strong>{{ $t('level') }}:</strong>
-                {{ statsComputed.levelBonus[stat] }}
+                <span>{{ statsComputed.levelBonus[stat] }}</span>
               </li>
               <li>
                 <strong>{{ $t('equipment') }}:</strong>
-                {{ statsComputed.gearBonus[stat] }}
+                <span>{{ statsComputed.gearBonus[stat] }}</span>
               </li>
               <li>
                 <strong>{{ $t('class') }}:</strong>
-                {{ statsComputed.classBonus[stat] }}
+                <span>{{ statsComputed.classBonus[stat] }}</span>
               </li>
               <li>
                 <strong>{{ $t('allocated') }}:</strong>
-                {{ totalAllocatedStats(stat) }}
+                <span>{{ totalAllocatedStats(stat) }}</span>
               </li>
               <li>
                 <strong>{{ $t('buffs') }}:</strong>
-                {{ user.stats.buffs[stat] }}
+                <span>{{ user.stats.buffs[stat] }}</span>
               </li>
             </ul>
           </div>
@@ -71,29 +71,93 @@
       id="allocation"
     >
       <div class="row title-row">
-        <div class="col-12 col-md-6">
+        <div :class="user.preferences.automaticAllocation ? 'col-12 col-md-6' : 'col-12'">
           <h3
             v-if="userLevel100Plus"
             v-once
             v-html="$t('noMoreAllocate')"
           ></h3>
-          <h3>
-            {{ $t('statPoints') }}
-            <div
-              v-if="user.stats.points || userLevel100Plus"
-              class="counter badge badge-pill"
-            >
-              {{ pointsRemaining }}
+          <div class="points-allocation-header" :class="{'auto-off': !user.preferences.automaticAllocation}">
+            <h3>
+              {{ $t('pointsAvailable') }}
+              <div
+                v-if="user.stats.points || userLevel100Plus"
+                class="counter badge badge-pill"
+              >
+                {{ pointsRemaining }}
+              </div>
+            </h3>
+            <div class="auto-allocate-toggle">
+              <toggle-switch
+                v-model="user.preferences.automaticAllocation"
+                :label="$t('autoAllocate')"
+                @change="setAutoAllocate()"
+              />
             </div>
-          </h3>
+          </div>
         </div>
-        <div class="col-12 col-md-6">
-          <div class="float-right">
-            <toggle-switch
-              v-model="user.preferences.automaticAllocation"
-              :label="$t('autoAllocation')"
-              @change="setAutoAllocate()"
+        <div v-if="user.preferences.automaticAllocation" class="col-12 col-md-6 allocation-dropdown-container">
+          <div class="task-allocation-box" @click="toggleAllocationDropdown">
+            <span class="task-allocation-text">{{ allocationModeLabel }}</span>
+            <information-icon
+              tooltip-id="task-allocation-info"
+              :tooltip="allocationModeTooltip"
             />
+            <div class="dropdown-chevron" :class="{rotated: showAllocationDropdown}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 9" width="14" height="9">
+                <path fill="none" fill-rule="evenodd" stroke="#A5A1AC" stroke-width="2.5" d="M13 1L7 7 1 1"/>
+              </svg>
+            </div>
+          </div>
+          <div v-if="showAllocationDropdown" class="allocation-dropdown">
+            <div class="allocation-option">
+              <label>
+                <input
+                  v-model="user.preferences.allocationMode"
+                  type="radio"
+                  name="allocationMode"
+                  value="flat"
+                  @change="setAllocationMode('flat')"
+                >
+                <span class="option-text">{{ $t('evenAllocation') }}</span>
+              </label>
+              <information-icon
+                tooltip-id="even-allocation-info"
+                :tooltip="$t('evenAllocationPop')"
+              />
+            </div>
+            <div class="allocation-option">
+              <label>
+                <input
+                  v-model="user.preferences.allocationMode"
+                  type="radio"
+                  name="allocationMode"
+                  value="classbased"
+                  @change="setAllocationMode('classbased')"
+                >
+                <span class="option-text">{{ $t('classAllocation') }}</span>
+              </label>
+              <information-icon
+                tooltip-id="class-allocation-info"
+                :tooltip="$t('classAllocationPop')"
+              />
+            </div>
+            <div class="allocation-option">
+              <label>
+                <input
+                  v-model="user.preferences.allocationMode"
+                  type="radio"
+                  name="allocationMode"
+                  value="taskbased"
+                  @change="setAllocationMode('taskbased')"
+                >
+                <span class="option-text">{{ $t('taskAllocation') }}</span>
+              </label>
+              <information-icon
+                tooltip-id="task-allocation-dropdown-info"
+                :tooltip="$t('taskAllocationPop')"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -115,37 +179,21 @@
                 {{ $t('pts') }}
               </div>
             </div>
-            <div class="col-3">
-              <div>
-                <div
-                  v-if="showStatsSave"
-                  class="up"
-                  @click="allocate(stat)"
-                ></div>
-              </div>
-              <div>
-                <div
-                  v-if="showStatsSave"
-                  class="down"
-                  @click="deallocate(stat)"
-                ></div>
+            <div class="col-3 arrow-container">
+              <div
+                v-if="user.stats.points > 0"
+                class="triangle-up"
+                @click="allocate(stat)"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 12">
+                  <path fill="#A5A1AC" d="M10 0l10 12H0z"/>
+                </svg>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div
-        v-if="showStatsSave"
-        class="row save-row"
-      >
-        <button
-          class="btn btn-primary"
-          :disabled="loading"
-          @click="saveAttributes()"
-        >
-          {{ loading ? $t('loading') : $t('save') }}
-        </button>
-      </div>
+      <div class="allocation-divider"></div>
     </div>
     <div class="row">
       <div class="stats-section-equipment col-12 col-md-6">
@@ -337,12 +385,12 @@ import keys from 'lodash/keys';
 import Content from '@/../../common/script/content';
 import { beastMasterProgress, mountMasterProgress } from '@/../../common/script/count';
 import autoAllocate from '@/../../common/script/fns/autoAllocate';
-import allocateBulk from '@/../../common/script/ops/stats/allocateBulk';
 import statsComputed from '@/../../common/script/libs/statsComputed';
 import { mapState } from '@/libs/store';
 import attributesGrid from '@/components/inventory/equipment/attributesGrid';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 import Sprite from '@/components/ui/sprite';
+import InformationIcon from '@/components/ui/informationIcon';
 
 const DROP_ANIMALS = keys(Content.pets);
 const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
@@ -351,11 +399,12 @@ export default {
     toggleSwitch,
     attributesGrid,
     Sprite,
+    InformationIcon,
   },
   props: ['user', 'showAllocation'],
   data () {
     return {
-      loading: false,
+      showAllocationDropdown: false,
       equipTypes: {
         eyewear: this.$t('eyewear'),
         head: this.$t('headgearCapitalized'),
@@ -393,12 +442,6 @@ export default {
           popover: 'perText',
         },
       },
-      statUpdates: {
-        str: 0,
-        int: 0,
-        con: 0,
-        per: 0,
-      },
       content: Content,
     };
   },
@@ -418,15 +461,22 @@ export default {
     userLevel100Plus () {
       return this.user.stats.lvl >= 100;
     },
-    showStatsSave () {
-      return Boolean(this.user.stats.points);
-    },
     pointsRemaining () {
-      let { points } = this.user.stats;
-      Object.values(this.statUpdates).forEach(value => {
-        points -= value;
-      });
-      return points;
+      return this.user.stats.points;
+    },
+    allocationModeLabel () {
+      const mode = this.user.preferences.allocationMode || 'flat';
+      if (mode === 'flat') return this.$t('evenAllocation');
+      if (mode === 'classbased') return this.$t('classAllocation');
+      if (mode === 'taskbased') return this.$t('taskAllocation');
+      return this.$t('evenAllocation');
+    },
+    allocationModeTooltip () {
+      const mode = this.user.preferences.allocationMode || 'flat';
+      if (mode === 'flat') return this.$t('evenAllocationPop');
+      if (mode === 'classbased') return this.$t('classAllocationPop');
+      if (mode === 'taskbased') return this.$t('taskAllocationPop');
+      return this.$t('evenAllocationPop');
     },
 
   },
@@ -438,10 +488,10 @@ export default {
       return this.flatGear[key].text();
     },
     totalAllocatedStats (stat) {
-      return this.user.stats[stat] + this.statUpdates[stat];
+      return this.user.stats[stat];
     },
     totalStatPoints (stat) {
-      return this.statsComputed[stat] + this.statUpdates[stat];
+      return this.statsComputed[stat];
     },
     totalCount (objectToCount) {
       const total = size(objectToCount);
@@ -487,37 +537,17 @@ export default {
       const display = `${stat}/${totalStat}`;
       return display;
     },
-    allocate (stat) {
-      if (this.pointsRemaining === 0) return;
-      this.statUpdates[stat] += 1;
-    },
-    deallocate (stat) {
-      if (this.statUpdates[stat] === 0) return;
-      this.statUpdates[stat] -= 1;
-    },
-    async saveAttributes () {
-      this.loading = true;
+    async allocate (stat) {
+      if (this.user.stats.points === 0) return;
 
-      const statUpdates = {};
-      ['str', 'int', 'per', 'con'].forEach(stat => {
-        if (this.statUpdates[stat] > 0) statUpdates[stat] = this.statUpdates[stat];
-      });
-
-      // reset statUpdates to zero before request to avoid display errors while waiting for server
-      this.statUpdates = {
-        str: 0,
-        int: 0,
-        con: 0,
-        per: 0,
-      };
-
-      allocateBulk(this.user, { body: { stats: statUpdates } });
-
-      await axios.post('/api/v4/user/allocate-bulk', {
-        stats: statUpdates,
-      });
-
-      this.loading = false;
+      try {
+        const response = await axios.post(`/api/v4/user/allocate?stat=${stat}`);
+        if (response.data && response.data.data) {
+          this.$store.state.user.data.stats = response.data.data;
+        }
+      } catch (error) {
+        console.error('Error allocating stat point:', error);
+      }
     },
     allocateNow () {
       autoAllocate(this.user);
@@ -525,10 +555,20 @@ export default {
     setAutoAllocate () {
       const settings = {
         'preferences.automaticAllocation': Boolean(this.user.preferences.automaticAllocation),
-        'preferences.allocationMode': 'taskbased',
+        'preferences.allocationMode': this.user.preferences.allocationMode || 'flat',
       };
 
       this.$store.dispatch('user:set', settings);
+    },
+    toggleAllocationDropdown () {
+      this.showAllocationDropdown = !this.showAllocationDropdown;
+    },
+    setAllocationMode (mode) {
+      const settings = {
+        'preferences.allocationMode': mode,
+      };
+      this.$store.dispatch('user:set', settings);
+      this.showAllocationDropdown = false;
     },
   },
 };
@@ -592,6 +632,73 @@ export default {
     .title-row {
       margin-top: 1em;
       margin-bottom: 1em;
+
+      h3 {
+        font-family: Roboto;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: 0px;
+        color: $gray-10;
+        margin: 0;
+        display: inline-block;
+      }
+    }
+
+    .points-allocation-header {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+      height: 40px;
+      transition: all 0.3s ease-in-out;
+
+      &.auto-off {
+        justify-content: space-between;
+      }
+    }
+
+    .auto-allocate-toggle {
+      display: inline-flex;
+      align-items: center;
+      transition: all 0.3s ease-in-out;
+
+      ::v-deep .toggle-switch-outer {
+        align-items: center;
+      }
+
+      ::v-deep .toggle-switch-description {
+        font-family: Roboto;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: 0px;
+        color: $gray-10;
+        margin: 0;
+        display: inline-block;
+      }
+
+      ::v-deep .toggle-switch-label {
+        margin-top: 0;
+      }
+
+      ::v-deep .toggle-switch-inner:before {
+        background-color: #9A62FF;
+      }
+    }
+
+    .allocation-dropdown-container {
+      animation: slideInFromRight 0.3s ease-in-out;
+    }
+
+    @keyframes slideInFromRight {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     .counter.badge {
@@ -599,8 +706,91 @@ export default {
       top: -0.25em;
       left: 0.5em;
       color: #fff;
-      background-color: #ff944c;
+      background-color: $orange-50;
       box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
+    }
+
+    .task-allocation-box {
+      height: 40px;
+      background-color: #FFFFFF;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      padding-left: 16px;
+      padding-right: 16px;
+      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
+      cursor: pointer;
+    }
+
+    .task-allocation-text {
+      font-family: Roboto;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0px;
+      color: $gray-50;
+      flex: 1;
+    }
+
+    .dropdown-chevron {
+      margin-left: 8px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+
+      &.rotated {
+        transform: rotate(180deg);
+      }
+    }
+
+    .allocation-dropdown {
+      position: absolute;
+      background-color: #FFFFFF;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px 0 rgba(26, 24, 29, 0.2);
+      margin-top: 4px;
+      padding: 8px 0;
+      z-index: 10;
+      min-width: 100%;
+    }
+
+    .allocation-option {
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #F9F9F9;
+      }
+
+      label {
+        display: flex;
+        align-items: center;
+        margin: 0;
+        cursor: pointer;
+        flex: 1;
+
+        input[type="radio"] {
+          margin-right: 8px;
+        }
+      }
+
+      .option-text {
+        font-family: Roboto;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0px;
+        color: $gray-50;
+      }
+    }
+
+    .allocation-divider {
+      height: 1px;
+      background-color: $gray-500;
+      margin: 2em 0;
     }
 
     .str, .int, .con, .per {
@@ -613,7 +803,9 @@ export default {
       margin-top: 26px;
       padding-bottom: 4px;
       border-bottom: 1px dashed;
-      display: inline-block;
+      display: block;
+      width: fit-content;
+      width: -moz-fit-content;
     }
 
     .box {
@@ -627,41 +819,57 @@ export default {
       }
 
       .number {
+        font-family: Roboto;
+        font-weight: 400;
         font-size: 40px;
+        line-height: 48px;
+        letter-spacing: 0px;
         text-align: left;
-        color: #686274;
+        color: $gray-100;
         display: inline-block;
+        vertical-align: baseline;
       }
 
       .points {
         display: inline-block;
-        font-weight: bold;
-        line-height: 1.67;
+        font-family: Roboto;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 20px;
+        letter-spacing: 0px;
         text-align: left;
-        color: #878190;
-        margin-left: .5em;
+        color: $gray-200;
+        margin-left: 0.5em;
+        vertical-align: baseline;
+        text-transform: uppercase;
       }
 
-      .up, .down {
-        border: solid #a5a1ac;
-        border-width: 0 3px 3px 0;
-        display: inline-block;
-        padding: 3px;
+      .arrow-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
-      .up:hover, .down:hover {
+      .triangle-up {
+        width: 21px !important;
+        height: 13px !important;
+        min-width: 21px !important;
+        min-height: 13px !important;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+          width: 21px !important;
+          height: 13px !important;
+          min-width: 21px !important;
+          min-height: 13px !important;
+        }
       }
 
-      .up {
-        transform: rotate(-135deg);
-        -webkit-transform: rotate(-135deg);
-        margin-top: 1em;
-      }
-
-      .down {
-        transform: rotate(45deg);
-        -webkit-transform: rotate(45deg);
+      .triangle-up:hover {
+        opacity: 0.8;
       }
     }
   }
@@ -679,8 +887,7 @@ export default {
     }
 
     .stat-title {
-      text-align: center;
-      display: block;
+      display: inline-block;
     }
 
     .bonus-stats {
@@ -697,6 +904,10 @@ export default {
         line-height: 20px;
         letter-spacing: 0px;
         color: $gray-300;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 1em;
 
         strong {
           font-weight: 700;
@@ -708,9 +919,9 @@ export default {
 
   .stat-allocation-info {
     margin-top: 3em;
-    margin-bottom: 3em;
+    margin-bottom: 0.5em;
     padding-top: 2em;
-    padding-bottom: 2em;
+    padding-bottom: 0.25em;
     text-align: center;
 
     p {
