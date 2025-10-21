@@ -17,7 +17,7 @@
         class="col-12 col-md-6"
       >
         <div class="row col-12 stats-column">
-          <div class="col-12 col-md-4 attribute-label">
+          <div class="col-12 col-md-6 attribute-label">
             <span
               class="hint"
               :popover-title="$t(statInfo.title)"
@@ -59,6 +59,12 @@
           </div>
         </div>
       </div>
+    </div>
+    <div
+      v-if="showAllocation"
+      class="stat-allocation-info"
+    >
+      <p>{{ $t('statAllocationInfo') }}</p>
     </div>
     <div
       v-if="showAllocation"
@@ -555,6 +561,15 @@ export default {
 
   .stat-title {
     text-transform: uppercase;
+    font-family: Roboto;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0px;
+    margin-top: 26px;
+    padding-bottom: 4px;
+    border-bottom: 1px dashed;
+    display: inline-block;
   }
 
   .str {
@@ -586,6 +601,19 @@ export default {
       color: #fff;
       background-color: #ff944c;
       box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
+    }
+
+    .str, .int, .con, .per {
+      font-family: Roboto;
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0px;
+      text-transform: uppercase;
+      margin-top: 26px;
+      padding-bottom: 4px;
+      border-bottom: 1px dashed;
+      display: inline-block;
     }
 
     .box {
@@ -643,10 +671,56 @@ export default {
       font-size: 64px;
       font-weight: bold;
       color: #686274;
+      display: block;
     }
 
     .attribute-label {
       text-align: center;
+    }
+
+    .stat-title {
+      text-align: center;
+      display: block;
+    }
+
+    .bonus-stats {
+      border-left: 1px solid $gray-500;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      padding-left: 1em;
+      padding-top: 10px;
+
+      li {
+        font-family: Roboto;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 20px;
+        letter-spacing: 0px;
+        color: $gray-300;
+
+        strong {
+          font-weight: 700;
+          color: $gray-200;
+        }
+      }
+    }
+  }
+
+  .stat-allocation-info {
+    margin-top: 3em;
+    margin-bottom: 3em;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    text-align: center;
+
+    p {
+      font-family: Roboto;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0px;
+      color: $gray-100;
+      margin: 0;
     }
   }
 
@@ -759,7 +833,7 @@ export default {
           margin: 0;
         }
         .col-9 div:first-child {
-          font-size: 13px;
+          font-size: 12px;
         }
       }
     }

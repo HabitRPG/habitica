@@ -190,6 +190,7 @@
   "mainHand": "Main-Hand",
   "offHand": "Off-Hand",
   "statPoints": "Stat Points",
+  "statAllocationInfo": "Each level earns you one point to assign to a Stat of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options.",
   "pts": "pts",
   "customizations": "Customizations"
 }
