@@ -77,7 +77,10 @@
             v-once
             v-html="$t('noMoreAllocate')"
           ></h3>
-          <div class="points-allocation-header" :class="{'auto-off': !user.preferences.automaticAllocation}">
+          <div
+            class="points-allocation-header"
+            :class="{'auto-off': !user.preferences.automaticAllocation}"
+          >
             <h3>
               {{ $t('pointsAvailable') }}
               <div
@@ -96,16 +99,33 @@
             </div>
           </div>
         </div>
-        <div v-if="user.preferences.automaticAllocation" class="col-12 col-md-6 allocation-dropdown-container">
+        <div
+          v-if="user.preferences.automaticAllocation"
+          class="col-12 col-md-6 allocation-dropdown-container"
+        >
           <div class="task-allocation-box" @click="toggleAllocationDropdown">
             <span class="task-allocation-text">{{ allocationModeLabel }}</span>
             <information-icon
               tooltip-id="task-allocation-info"
               :tooltip="allocationModeTooltip"
             />
-            <div class="dropdown-chevron" :class="{rotated: showAllocationDropdown}">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 9" width="14" height="9">
-                <path fill="none" fill-rule="evenodd" stroke="#A5A1AC" stroke-width="2.5" d="M13 1L7 7 1 1"/>
+            <div
+              class="dropdown-chevron"
+              :class="{rotated: showAllocationDropdown}"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 14 9"
+                width="14"
+                height="9"
+              >
+                <path
+                  fill="none"
+                  fill-rule="evenodd"
+                  stroke="#A5A1AC"
+                  stroke-width="2.5"
+                  d="M13 1L7 7 1 1"
+                ></path>
               </svg>
             </div>
           </div>
@@ -186,7 +206,7 @@
                 @click="allocate(stat)"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 12">
-                  <path fill="#A5A1AC" d="M10 0l10 12H0z"/>
+                  <path fill="#A5A1AC" d="M10 0l10 12H0z"></path>
                 </svg>
               </div>
             </div>
