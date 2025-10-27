@@ -71,7 +71,7 @@
       id="allocation"
     >
       <div class="row title-row">
-        <div :class="user.preferences.automaticAllocation ? 'col-12 col-md-6' : 'col-12'">
+        <div class="col-12 col-md-6">
           <h3
             v-if="userLevel100Plus"
             v-once
@@ -79,7 +79,6 @@
           ></h3>
           <div
             class="points-allocation-header"
-            :class="{'auto-off': !user.preferences.automaticAllocation}"
           >
             <h3>
               {{ $t('pointsAvailable') }}
@@ -100,15 +99,14 @@
           </div>
         </div>
         <div
-          v-if="user.preferences.automaticAllocation"
           class="col-12 col-md-6 allocation-dropdown-container"
+          :class="{'disabled': !user.preferences.automaticAllocation}"
         >
-          <div class="task-allocation-box" @click="toggleAllocationDropdown">
+          <div
+            class="task-allocation-box"
+            @click="user.preferences.automaticAllocation ? toggleAllocationDropdown() : null"
+          >
             <span class="task-allocation-text">{{ allocationModeLabel }}</span>
-            <information-icon
-              tooltip-id="task-allocation-info"
-              :tooltip="allocationModeTooltip"
-            />
             <div
               class="dropdown-chevron"
               :class="{rotated: showAllocationDropdown}"
@@ -130,53 +128,35 @@
             </div>
           </div>
           <div v-if="showAllocationDropdown" class="allocation-dropdown">
-            <div class="allocation-option">
-              <label>
-                <input
-                  v-model="user.preferences.allocationMode"
-                  type="radio"
-                  name="allocationMode"
-                  value="flat"
-                  @change="setAllocationMode('flat')"
-                >
+            <div
+              class="allocation-option"
+              :class="{ selected: user.preferences.allocationMode === 'flat' }"
+              @click="setAllocationMode('flat')"
+            >
+              <div class="option-content">
                 <span class="option-text">{{ $t('evenAllocation') }}</span>
-              </label>
-              <information-icon
-                tooltip-id="even-allocation-info"
-                :tooltip="$t('evenAllocationPop')"
-              />
+                <span class="option-description">{{ $t('evenAllocationPop') }}</span>
+              </div>
             </div>
-            <div class="allocation-option">
-              <label>
-                <input
-                  v-model="user.preferences.allocationMode"
-                  type="radio"
-                  name="allocationMode"
-                  value="classbased"
-                  @change="setAllocationMode('classbased')"
-                >
+            <div
+              class="allocation-option"
+              :class="{ selected: user.preferences.allocationMode === 'classbased' }"
+              @click="setAllocationMode('classbased')"
+            >
+              <div class="option-content">
                 <span class="option-text">{{ $t('classAllocation') }}</span>
-              </label>
-              <information-icon
-                tooltip-id="class-allocation-info"
-                :tooltip="$t('classAllocationPop')"
-              />
+                <span class="option-description">{{ $t('classAllocationPop') }}</span>
+              </div>
             </div>
-            <div class="allocation-option">
-              <label>
-                <input
-                  v-model="user.preferences.allocationMode"
-                  type="radio"
-                  name="allocationMode"
-                  value="taskbased"
-                  @change="setAllocationMode('taskbased')"
-                >
+            <div
+              class="allocation-option"
+              :class="{ selected: user.preferences.allocationMode === 'taskbased' }"
+              @click="setAllocationMode('taskbased')"
+            >
+              <div class="option-content">
                 <span class="option-text">{{ $t('taskAllocation') }}</span>
-              </label>
-              <information-icon
-                tooltip-id="task-allocation-dropdown-info"
-                :tooltip="$t('taskAllocationPop')"
-              />
+                <span class="option-description">{{ $t('taskAllocationPop') }}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -410,7 +390,6 @@ import { mapState } from '@/libs/store';
 import attributesGrid from '@/components/inventory/equipment/attributesGrid';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 import Sprite from '@/components/ui/sprite';
-import InformationIcon from '@/components/ui/informationIcon';
 
 const DROP_ANIMALS = keys(Content.pets);
 const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
@@ -419,7 +398,6 @@ export default {
     toggleSwitch,
     attributesGrid,
     Sprite,
-    InformationIcon,
   },
   props: ['user', 'showAllocation'],
   data () {
@@ -652,6 +630,7 @@ export default {
     .title-row {
       margin-top: 1em;
       margin-bottom: 1em;
+      align-items: baseline;
 
       h3 {
         font-family: Roboto;
@@ -667,23 +646,19 @@ export default {
 
     .points-allocation-header {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       gap: 1em;
       height: 40px;
       transition: all 0.3s ease-in-out;
-
-      &.auto-off {
-        justify-content: space-between;
-      }
     }
 
     .auto-allocate-toggle {
       display: inline-flex;
-      align-items: center;
+      align-items: baseline;
       transition: all 0.3s ease-in-out;
 
       ::v-deep .toggle-switch-outer {
-        align-items: center;
+        align-items: baseline;
       }
 
       ::v-deep .toggle-switch-description {
@@ -695,6 +670,11 @@ export default {
         color: $gray-10;
         margin: 0;
         display: inline-block;
+      }
+
+      ::v-deep .toggle-switch {
+        align-self: center;
+        transform: translateY(-0.5px);
       }
 
       ::v-deep .toggle-switch-label {
@@ -714,7 +694,15 @@ export default {
     }
 
     .allocation-dropdown-container {
-      animation: slideInFromRight 0.3s ease-in-out;
+      position: relative;
+      display: flex;
+      align-items: baseline;
+
+      &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+        cursor: not-allowed;
+      }
     }
 
     @keyframes slideInFromRight {
@@ -738,15 +726,17 @@ export default {
     }
 
     .task-allocation-box {
-      height: 40px;
       background-color: #FFFFFF;
       border-radius: 4px;
       display: flex;
-      align-items: center;
+      align-items: baseline;
       padding-left: 16px;
       padding-right: 16px;
+      padding-top: 10px;
+      padding-bottom: 10px;
       box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
       cursor: pointer;
+      width: 100%;
     }
 
     .task-allocation-text {
@@ -757,6 +747,7 @@ export default {
       letter-spacing: 0px;
       color: $gray-50;
       flex: 1;
+      display: inline-block;
     }
 
     .dropdown-chevron {
@@ -765,6 +756,7 @@ export default {
       align-items: center;
       cursor: pointer;
       transition: transform 0.2s;
+      align-self: center;
 
       &.rotated {
         transform: rotate(180deg);
@@ -773,6 +765,9 @@ export default {
 
     .allocation-dropdown {
       position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
       background-color: #FFFFFF;
       border-radius: 4px;
       box-shadow: 0 2px 8px 0 rgba(26, 24, 29, 0.2);
@@ -783,25 +778,25 @@ export default {
     }
 
     .allocation-option {
-      padding: 8px 16px;
+      padding: 12px 16px;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       cursor: pointer;
+      transition: background-color 0.2s;
 
       &:hover {
         background-color: #F9F9F9;
       }
 
-      label {
-        display: flex;
-        align-items: center;
-        margin: 0;
-        cursor: pointer;
-        flex: 1;
+      &.selected {
+        background-color: #F4F3F6;
+      }
 
-        input[type="radio"] {
-          margin-right: 8px;
-        }
+      .option-content {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        width: 100%;
       }
 
       .option-text {
@@ -811,6 +806,15 @@ export default {
         line-height: 20px;
         letter-spacing: 0px;
         color: $gray-50;
+      }
+
+      .option-description {
+        font-family: Roboto;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0px;
+        color: $gray-200;
       }
     }
 
