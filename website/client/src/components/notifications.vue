@@ -677,7 +677,16 @@ export default {
       this.handleUserNotifications(this.user.notifications);
 
       this.isInitialLoadComplete = true;
-      this.showPendingRebirthModal();
+
+      const hasRebirthConfirmationFlag = localStorage.getItem('show-rebirth-confirmation') === 'true';
+
+      if (hasRebirthConfirmationFlag) {
+        localStorage.removeItem('show-rebirth-confirmation');
+        this.playSound('Achievement_Unlocked');
+        this.$root.$emit('bv::show::modal', 'rebirth');
+      } else {
+        this.showPendingRebirthModal();
+      }
     },
     async handleUserNotifications (after) {
       if (this.$store.state.isRunningYesterdailies) return;

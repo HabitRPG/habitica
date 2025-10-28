@@ -874,7 +874,9 @@ export default {
         }
         if (this.genericPurchase) {
           await this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
-          await this.purchased(this.item.text);
+          if (this.item.key !== 'rebirth_orb') {
+            await this.purchased(this.item.text);
+          }
         }
       }
 
@@ -882,6 +884,7 @@ export default {
       this.hideDialog();
 
       if (this.item.key === 'rebirth_orb') {
+        localStorage.setItem('show-rebirth-confirmation', 'true');
         window.location.reload(true);
       }
     },
