@@ -887,6 +887,7 @@ export default {
       this.hideDialog();
 
       if (this.item.key === 'rebirth_orb') {
+        localStorage.setItem('show-rebirth-confirmation', 'true');
         window.location.reload(true);
       }
     },
