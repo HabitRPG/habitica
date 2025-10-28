@@ -96,7 +96,7 @@
     "optional": "Optional",
     "needsTextPlaceholder": "Gib Deine Nachricht hier ein.",
     "leaderOnlyChallenges": "Nur die Gruppenleitung kann Herausforderungen erstellen",
-    "sendGift": "Ein Geschenk schicken",
+    "sendGift": "Geschenk schicken",
     "inviteFriends": "Lade Freunde ein",
     "inviteByEmail": "Lade per E-Mail ein",
     "inviteMembersHowTo": "Leute einladen: mit einer gültigen E-Mailadresse oder der 36-stelligen Nutzer ID. Wenn eine E-Mailadresse noch nicht registriert ist, laden wir diejenigen nach Habitica ein.",
@@ -422,5 +422,9 @@
     "readyToUpgrade": "Bereit zum Aufrüsten?",
     "interestedLearningMore": "Willst du mehr erfahren?",
     "checkGroupPlanFAQ": "Schau in die <a href='/static/faq#what-is-group-plan'>Gruppenpläne FAQ</a> um herauszufinden, wie du deine gemeinsamen Aufgaben optimal nutzen kannst.",
-    "messageCopiedToClipboard": "Nachricht in Zwischenablage kopiert."
+    "messageCopiedToClipboard": "Nachricht in Zwischenablage kopiert.",
+    "groupTeacher": "Nutzung in der Bildung",
+    "groupParentChildren": "Nutzung mit der Familie",
+    "groupManager": "Nutzung für die Arbeit",
+    "groupFriends": "Nutzung mit Freunden"
 }

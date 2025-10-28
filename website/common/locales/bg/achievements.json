@@ -1,5 +1,5 @@
 {
-    "achievement": "Достижения",
+    "achievement": "Постижение",
     "onwards": "Напред!",
     "levelup": "Изпълнявайки целите си в истинския живот, Вие се качихте ниво и здравето Ви беше запълнено!",
     "reachedLevel": "Достигнахте Ниво <%= level %>",
@@ -106,5 +106,18 @@
     "achievementSeasonalSpecialist": "Сезонен експерт",
     "achievementRedLetterDayText": "Са събрали всички Червени животни.",
     "achievementSeeingRedModalText": "Събрали сте всички Червени любимци!",
-    "achievementSkeletonCrewText": "Събрали са всички Скелетни животни."
+    "achievementSkeletonCrewText": "Събрали са всички Скелетни животни.",
+    "achievementVioletsAreBlueText": "Събра всички сини пет-ове Памучен бонбон.",
+    "achievementWildBlueYonderModalText": "Ти укроти всички маунт-ове Памучен бонбон синьо!",
+    "achievementWildBlueYonderText": "Укроти всички маунт-ове Памучен бонбон синьо.",
+    "achievementVioletsAreBlue": "Розите са червени, Теменужките са сини",
+    "achievementVioletsAreBlueModalText": "Ти събра (или колекционира) всички домашни любимци (или пет-ове) от серията Памучен бонбон синьо!",
+    "achievementWildBlueYonder": "Дивото синьо небе",
+    "achievementSeasonalSpecialistText": "Завърши всички сезонни куестове от пролетта и зимата: Лов на яйца (Egg Hunt), Дядо Коледа-ловец (Trapper Santa) и Намери мечето (Find the Cub)!",
+    "achievementSeasonalSpecialistModalText": "Вие завършихте всичките сезонни куестове!",
+    "achievementDomesticatedModalText": "Ти събра (или колекционира) всички опитомени домашни любимци (пет-ове)!",
+    "achievementDomesticatedText": "Излюпи (или Отгледа) всички стандартни цветове на опитомени домашни любимци (пет-ове): пор, морско свинче, петел, летящо прасе), плъх, заек, кон и крава!",
+    "achievementShadyCustomerText": "Събра всички пет-ове Сянка.",
+    "achievementShadyCustomerModalText": "Събра всички пет-ове Сянка.",
+    "achievementShadyCustomer": "Сенчест тип"
 }

@@ -8,7 +8,7 @@
     "rebirthOrb": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen na het bereiken van Niveau <%= level %>.",
     "rebirthOrb100": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen na het bereiken van Niveau 100 of hoger.",
     "rebirthOrbNoLevel": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen.",
-    "rebirthPop": "Herstart je personage direct als een Niveau 1 Krijger zonder je prestaties, verzamelobjecten en uitrusting te verliezen. Je taken en hun geschiedenis zal hetzelfde blijven maar ze worden gereset naar een gele kleur. Je reeks word verwijderd behalve van taken die horen bij een actieve uitdaging of een groep plan. Je Goud, Ervaring, Mana en de effecten van al je Vaardigheden gaan verloren. Dit alles gaat direct in werking.",
+    "rebirthPop": "Herstart je personage direct als een Niveau 1 Krijger zonder je prestaties, verzamelobjecten en uitrusting te verliezen. Je Taken en hun geschiedenis zal hetzelfde blijven maar ze worden gereset naar een gele kleur. Je Reeks word verwijderd behalve van taken die horen bij een actieve Uitdaging of een Groepsplan. Je Goud, Ervaring, Mana en de effecten van al je Vaardigheden gaan verloren. Dit alles gaat direct in werking.",
     "rebirthName": "Bol der Hergeboorte",
     "rebirthComplete": "Je bent herboren!",
     "nextFreeRebirth": "<strong><%= days %> dagen</strong> tot <strong>GRATIS</strong> Bol der Hergeboorte"

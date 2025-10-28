@@ -241,5 +241,6 @@
     "whyReportingPlayerPlaceholder": "Причина жалобы",
     "playerReportModalBody": "Вы должны сообщать только об игроках, нарушающих <%= firstLinkStart %>Правила сообщества<%= linkEnd %> и/или <%= secondLinkStart %>Условия использования<%= linkEnd %>. Отправка ложного сообщения является нарушением Правил сообщества Habitica.",
     "rememberToBeKind": "Пожалуйста, помните, что нужно быть добрыми, уважительными и следовать <a href='/static/community-guidelines' target='_blank'>Правилам сообщества</a>.",
-    "targetUserNotExist": "Выбранный пользователь: '<%=имя пользователя %>' не существует."
+    "targetUserNotExist": "Выбранный пользователь: '<%=имя пользователя %>' не существует.",
+    "gem": "Самоцвет"
 }

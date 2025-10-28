@@ -422,5 +422,9 @@
     "readyToUpgrade": "Prêt·e à Passer à la Version Supérieure ?",
     "interestedLearningMore": "Vous souhaitez en Apprendre Plus ?",
     "checkGroupPlanFAQ": "Allez voir la <a href='/static/faq#what-is-group-plan'> FAQ des Offres de Groupe</a> pour en apprendre plus sur comment profiter complètement de l'expériences des tâches partagées.",
-    "messageCopiedToClipboard": "Message copié dans le presse-papier."
+    "messageCopiedToClipboard": "Message copié dans le presse-papier.",
+    "groupFriends": "Utilisation avec des ami·e·s",
+    "groupTeacher": "Utilisation pour les études",
+    "groupManager": "Utilisation pour le travail",
+    "groupParentChildren": "Utilisation dans mon foyer"
 }

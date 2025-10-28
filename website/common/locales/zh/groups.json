@@ -422,5 +422,9 @@
     "createGroupTitle": "创建团队",
     "readyToUpgrade": "准备好升级了？",
     "checkGroupPlanFAQ": "参阅<a href='/static/faq#what-is-group-plan'>团队方案常见问题</a>以了解任务合作功能的最佳用法。",
-    "messageCopiedToClipboard": "信息已复制到剪贴板。"
+    "messageCopiedToClipboard": "信息已复制到剪贴板。",
+    "groupFriends": "与朋友共用",
+    "groupTeacher": "教育用途",
+    "groupParentChildren": "与家人共用",
+    "groupManager": "工作用途"
 }

@@ -96,7 +96,7 @@
     "optional": "Optional",
     "needsTextPlaceholder": "Type your message here.",
     "leaderOnlyChallenges": "Only the group leader can create challenges",
-    "sendGift": "Send a Gift",
+    "sendGift": "Send Gift",
     "inviteFriends": "Invite Friends",
     "inviteByEmail": "Invite by Email",
     "inviteMembersHowTo": "Invite people via a valid email or 36-digit User ID. If an email isn't registered yet, we'll invite them to join Habitica.",
@@ -374,7 +374,7 @@
     "invitedToThisQuest": "You were invited to this Quest!",
     "createGroup": "Create a Group",
     "nameStar": "Name*",
-    "newGroupsBullet05": "Shared tasks will degrade in color if left incomplete to help track progress",
+    "newGroupsBullet05": "Shared tasks will degrade in colour if left incomplete to help track progress",
     "newGroupsBullet06": "The task status view allows you to quickly see which assignee has completed a task",
     "newGroupsBullet07": "Toggle the ability to display the shared tasks on your personal task board",
     "newGroupsBullet02": "Anyone can complete an unassigned task",
@@ -422,5 +422,9 @@
     "createGroupToday": "Create Your Group Today!",
     "createGroupTitle": "Create Group",
     "messageCopiedToClipboard": "Message copied to clipboard.",
-    "checkGroupPlanFAQ": "Check out the <a href='/static/faq#what-is-group-plan'>Group Plans FAQ</a> to learn how to get the most out of your shared task experience."
+    "checkGroupPlanFAQ": "Check out the <a href='/static/faq#what-is-group-plan'>Group Plans FAQ</a> to learn how to get the most out of your shared task experience.",
+    "groupParentChildren": "Using with my household",
+    "groupFriends": "Using with friends",
+    "groupManager": "Using for work",
+    "groupTeacher": "Using for education"
 }

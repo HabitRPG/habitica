@@ -241,5 +241,6 @@
     "titleCustomizations": "Customisations",
     "newMessage": "New Message",
     "targetUserNotExist": "Target User: '<%= userName %>' does not exist.",
-    "rememberToBeKind": "Please remember to be kind, respectful, and follow the <a href='/static/community-guidelines' target='_blank'>Community Guidelines</a>."
+    "rememberToBeKind": "Please remember to be kind, respectful, and follow the <a href='/static/community-guidelines' target='_blank'>Community Guidelines</a>.",
+    "gem": "Gem"
 }

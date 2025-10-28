@@ -257,5 +257,7 @@
     "userNameSuccess": "Username successfully changed",
     "addWebhook": "Add Webhook",
     "changeEmailDisclaimer": "This is the email address that you use to log in to Habitica, as well as receive notifications.",
-    "transaction_subscription_bonus": "<b>Subscription</b> bonus"
+    "transaction_subscription_bonus": "<b>Subscription</b> bonus",
+    "privacySettingsOverview": "Habitica uses cookies to analyse performance, handle support requests, and provide you with the best possible gamified experience. To do that, we need to request the following permissions. You can change these at any time from your account settings.",
+    "privacyOverview": "In today's world, it feels like every company is looking to profit from your data. This can make it difficult to find the right app to improve your habits. Habitica uses cookies that store data only to analyse performance, handle support requests, and provide you with the best possible gamified experience. You can change this at any time from your account settings."
 }

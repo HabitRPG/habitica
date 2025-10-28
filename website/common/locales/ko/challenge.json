@@ -96,5 +96,6 @@
     "wonChallengeDesc": "<%= challengeName %>의 우승자로 선정되었습니다! 우승은 업적에 기록됩니다.",
     "yourReward": "보상",
     "filters": "필터",
-    "removeTasks": "과제 삭제"
+    "removeTasks": "과제 삭제",
+    "deleteChallengeRefundDescription": "이 도전과제를 삭제 시 보석 보상을 환불 받으며, 도전과제는  참여과제판에 남아있게 됩니다."
 }

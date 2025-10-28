@@ -271,5 +271,7 @@
     "privacyOverview": "Heutzutage scheint jedes Unternehmen von deinen Daten profitieren zu wollen. Das kann es schwierig machen, die richtige App zur Verbesserung deiner Gewohnheiten zu finden. Habitica verwendet Cookies, die Daten nur zur Leistungsanalyse, zur Bearbeitung von Supportanfragen und zur Bereitstellung des bestmöglichen gamifizierten Erlebnisses speichern. Du kannst dies jederzeit in deinen Kontoeinstellungen ändern.",
     "privacySettingsOverview": "Habitica verwendet Cookies zur Leistungsanalyse, Bearbeitung von Supportanfragen und Bereitstellung des bestmöglichen gamifizierten Erlebnisses. Hierfür benötigen wir die folgenden Berechtigungen. Du kannst dies jederzeit in deinen Kontoeinstellungen ändern.",
     "performanceAnalytics": "Leistung und Analyse",
-    "usedForSupport": "Diese werden verwendet, um Benutzererfahrung, Leistung und Dienste unserer Websites und Apps zu verbessern. Diese Daten werden von unserem Support-Team für die Bearbeitung von Anfragen und Fehlermeldungen verwendet."
+    "usedForSupport": "Diese werden verwendet, um Benutzererfahrung, Leistung und Dienste unserer Websites und Apps zu verbessern. Diese Daten werden von unserem Support-Team für die Bearbeitung von Anfragen und Fehlermeldungen verwendet.",
+    "gpcWarning": "<a href='<%= url %>' target='_blank'>GPC</a> ist aktiv. Wenn du unten Tracking aktivierst, überschreibt es dies und sendet Daten an unsere Analytics Partner.",
+    "gpcPlusAnalytics": "<a href='<%= url %>' target='_blank'>GPC</a> ist aktiv. Du hast Tracking und dem Senden von Daten an unsere Analytics Partner zugestimmt."
 }

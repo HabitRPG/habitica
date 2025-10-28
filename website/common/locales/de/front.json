@@ -124,7 +124,7 @@
     "passwordReset": "Wenn wir Deine E-Mail-Adresse oder Deinen Benutzernamen kennen, wurden Anweisungen zum Passwort-Zurücksetzen dorthin verschickt.",
     "invalidLoginCredentialsLong": "Deine E-Mail-Adresse, deine Benutzername oder Passwort sind nicht korrekt. Bitte versuche es erneut oder wähle \"Passwort vergessen.\"",
     "invalidCredentials": "Es gibt kein Konto, das diese Anmeldedaten verwendet.",
-    "accountSuspended": "Dieser Account, Benutzer-ID \"<%= userId %>\", wurde gesperrt wegen Verletzung der Community-Richtlinien (https://habitica.com/static/community-guidelines) oder der Allgemeinen Geschäftsbedingungen (https://habitica.com/static/terms). Für genauere Angaben oder um die Aufgebung der Sperre zu erbitten, kontaktiere bitte unseren Community Manager unter <%= communityManagerEmail %> oder bitte Deine Eltern oder Erziehungsberechtigten ihm zu schreiben. Bitte nenne Deine @Benutzer-ID in der E-Mail.",
+    "accountSuspended": "Dieser Account \"<%= userId %>\", wurde gesperrt. Für weitere Informationen oder um Widerspruch einzulegen, sende bitte eine E-Mail an admin@habitica.com mit deinem Habitica-Benutzernamen oder User-ID.",
     "accountSuspendedTitle": "Dieser Account wurde suspendiert",
     "unsupportedNetwork": "Dieses Netzwerk wird aktuell nicht unterstützt.",
     "cantDetachSocial": "Der Account hat nur noch diese Authentifizierung, sie kann nicht getrennt werden.",

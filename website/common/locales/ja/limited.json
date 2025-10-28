@@ -251,7 +251,7 @@
     "plentyOfPotionsText": "コミュニティで人気の魔法のたまごがえしの薬10種を復活させます。コレクションを充実させるために、市場に行きましょう！",
     "fourForFreeText": "パーティーを盛り上げるために、パーティー・ローブ、ジェム20個、バースデー限定背景、さらにケープ、ショルダーガード、アイマスクのアイテム・セットをプレゼントします。",
     "winter2024NarwhalWizardMageSet": "イッカククジラの魔術使いセット (魔道士)",
-    "winter2024SnowyOwlRogueSet": "雪フクロウ (盗賊)",
+    "winter2024SnowyOwlRogueSet": "シロフクロウ (盗賊)",
     "winter2024FrozenHealerSet": "氷漬け (治療師)",
     "winter2024PeppermintBarkWarriorSet": "ペパーミントの樹皮セット (戦士)",
     "spring2024FluoriteWarriorSet": "ホタル石のセット（戦士）",
@@ -274,7 +274,7 @@
     "spring2025CrystalPointRogueSet": "水晶ポイントの盗賊セット",
     "spring2025PlumeriaHealerSet": "プルメリアの治療師セット",
     "spring2025MantisMageSet": "カマキリの魔導士セット",
-    "spring2025SunshineWarriorSet": "サンシャイン戦士セット",
+    "spring2025SunshineWarriorSet": "陽光の戦士セット",
     "summer2025ScallopWarriorSet": "ホタテ貝の戦士セット",
     "summer2025SquidRogueSet": "イカの盗賊セット",
     "summer2025SeaAngelHealerSet": "クリオネの治療師セット",
@@ -282,5 +282,5 @@
     "fall2025SasquatchWarriorSet": "サスクワッチの戦士セット",
     "fall2025SkeletonRogueSet": "ガイコツの盗賊セット",
     "fall2025KoboldHealerSet": "コボルドの治療師セット",
-    "fall2025MaskedGhostMageSet": "覆面をした幽霊の魔導士セット"
+    "fall2025MaskedGhostMageSet": "マスクお化けの魔導士セット"
 }

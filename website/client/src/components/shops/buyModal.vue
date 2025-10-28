@@ -269,7 +269,13 @@
 
     .modal-dialog {
       width: 448px;
+      max-width: calc(100vw - 20px);
       box-sizing: border-box;
+      display: flex;
+
+      @media (max-width: 468px) {
+        width: 100%;
+      }
     }
 
     .badge-dialog {
@@ -346,7 +352,23 @@
 
     .content {
       text-align: center;
-      width: 448px;
+      width: 100%;
+      max-width: 448px;
+      margin: 0 auto;
+
+      @media (max-width: 468px) {
+        max-width: 100%;
+      }
+    }
+
+    .modal-content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      @media (max-width: 300px) {
+        border-radius: 0;
+      }
     }
 
     .item-wrapper {
@@ -564,7 +586,7 @@
 
     .limitedTime {
       height: 32px;
-      width: 446px;
+      width: 100%;
       font-size: 0.75rem;
       margin: 24px 0 0 0;
       background-color: $purple-300;

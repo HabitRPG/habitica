@@ -2408,6 +2408,7 @@
     "weaponSpecialFall2023MageNotes": "這把閃亮法杖以水晶為核心，讓魔法從平凡中顯現。增加 <%= int %> 點智力。2023秋季限定版裝備。",
     "weaponSpecialFall2023HealerText": "原木大錘",
     "weaponSpecialFall2023HealerNotes": "通過緩慢而沉重的攻擊，這把粗糙的錘子能造成治療而非傷害。增加 <%= int %> 點智力。2023秋季限定版裝備。",
-    "moreArmoireGearAvailable": "在此之前，您可以在魔法衣櫥中找到 <%= armoireCount %> 件裝備！",
-    "moreArmoireGearComing": "魔法衣櫥也會每個月進新貨！"
+    "moreArmoireGearAvailable": "在那之前，你還可以在魔法衣櫥中找到<%= armoireCount %>件裝備！",
+    "moreArmoireGearComing": "魔法衣櫥也會每個月進新貨！",
+    "gearItemsCompleted": "你已擁有所有<%= klass %>裝備！新裝備會在季節性盛典期間推出。"
 }

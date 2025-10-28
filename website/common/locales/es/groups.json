@@ -422,5 +422,9 @@
     "readyToUpgrade": "¿Estás listo para Mejorar?",
     "interestedLearningMore": "¿Te gustaría saber más?",
     "checkGroupPlanFAQ": "Echa un vistazo a <a href='/static/faq#what-is-group-plan'>FAQ Planes Grupales</a> para saber cómo obtener el máximo de tu experiencia en tareas compartidas.",
-    "messageCopiedToClipboard": "Mensaje copiado en el portapapeles."
+    "messageCopiedToClipboard": "Mensaje copiado en el portapapeles.",
+    "groupFriends": "Usándolo con amigos",
+    "groupManager": "Usándolo para el trabajo",
+    "groupTeacher": "Usándolo para dar clase",
+    "groupParentChildren": "Usándolo con mi familia"
 }

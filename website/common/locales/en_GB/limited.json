@@ -204,7 +204,7 @@
     "limitedEdition": "Limited Edition",
     "anniversaryGryphatriceText": "The rare Jubilant Gryphatrice joins the birthday celebrations! Don't miss your chance to own this exclusive animated Pet.",
     "plentyOfPotions": "Plenty of Potions",
-    "plentyOfPotionsText": "We're bringing back 10 of the community's favorite Magic Hatching potions. Head over to The Market to fill out your collection!",
+    "plentyOfPotionsText": "We're bringing back 10 of the community's favourite Magic Hatching potions. Head over to The Market to fill out your collection!",
     "visitTheMarketButton": "Visit the Market",
     "fourForFree": "Four for Free",
     "summer2021ClownfishRogueSet": "Clownfish (Rogue)",
@@ -274,5 +274,13 @@
     "fall2024SpaceInvaderHealerSet": "Space Invader Set (Healer)",
     "fall2024BlackCatRogueSet": "Black Cat Set (Rogue)",
     "winter2025MooseWarriorSet": "Moose Warrior Set",
-    "winter2025StringLightsHealerSet": "String Lights Healer Set"
+    "winter2025StringLightsHealerSet": "String Lights Healer Set",
+    "fall2025SasquatchWarriorSet": "Sasquatch Warrior Set",
+    "fall2025SkeletonRogueSet": "Skeleton Rogue Set",
+    "fall2025KoboldHealerSet": "Kobold Healer Set",
+    "fall2025MaskedGhostMageSet": "Masked Ghost Mage Set",
+    "summer2025ScallopWarriorSet": "Scallop Warrior Set",
+    "summer2025SquidRogueSet": "Squid Rogue Set",
+    "summer2025SeaAngelHealerSet": "Sea Angel Healer Set",
+    "summer2025FairyWrasseMageSet": "Fairy Wrasse Mage Set"
 }

@@ -2,7 +2,7 @@
     "settings": "Postavke",
     "language": "Jezik",
     "americanEnglishGovern": "U slučaju nedosljednosti u prijevodu, koristi se američka engleska verzija.",
-    "helpWithTranslation": "Bi li htio/la pomoći s prevođenjem Habitice? Super! Onda posjeti <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">the Aspiring Linguists družinu</a>!",
+    "helpWithTranslation": "Jeste li zainteresirani za pomoć u prevođenju Habitice? Sjajno! Posjetite <a href=\"https://translate.habitica.com\">Habiticinu Weblate stranicu</a>!",
     "stickyHeader": "Ljepljivo zaglavlje",
     "newTaskEdit": "Stvori i odmah uredi nove zadatke",
     "reverseChatOrder": "Prikaži poruke u chatu obrnutim redom",
@@ -158,5 +158,11 @@
     "verifyUsernameVeteranPet": "Jedan od ovih veteranskih ljubimaca će te čekati nakon što potvrdiš!",
     "generalSettings": "Opće postavke",
     "siteData": "Podaci s web mjesta",
-    "taskSettings": "Postavke zadatka"
+    "taskSettings": "Postavke zadatka",
+    "confirmCancelChanges": "Jeste li sigurni? Izgubit ćete nespremljene promjene.",
+    "account": "Račun",
+    "loginMethods": "Načini Prijave",
+    "character": "Lik",
+    "siteLanguage": "Jezik Sučelja",
+    "showLevelUpModal": "Pri Stjecanju Razine"
 }

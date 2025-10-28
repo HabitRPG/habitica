@@ -422,5 +422,9 @@
     "createGroupTitle": "グループを作成する",
     "interestedLearningMore": "もっと知りたい？",
     "readyToUpgrade": "アップグレードしますか？",
-    "checkGroupPlanFAQ": "グループプランの機能をよりよく使う方法については<a href='/static/faq#what-is-group-plan'>よくある質問</a>をご覧ください。"
+    "checkGroupPlanFAQ": "グループプランの機能をよりよく使う方法については<a href='/static/faq#what-is-group-plan'>よくある質問</a>をご覧ください。",
+    "groupFriends": "友達と一緒に使用",
+    "groupManager": "仕事のために使用",
+    "groupTeacher": "教育のために使用",
+    "groupParentChildren": "家庭で使用"
 }
