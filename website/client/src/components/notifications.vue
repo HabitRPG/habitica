@@ -328,6 +328,8 @@ export default {
       alreadyReadNotification,
       nextCron: null,
       handledNotifications,
+      isInitialLoadComplete: false,
+      pendingRebirthNotification: null,
     };
   },
   computed: {
@@ -452,6 +454,18 @@ export default {
       if (!this.user.flags.verifiedUsername) return this.$root.$emit('bv::show::modal', 'verify-username');
 
       return this.runYesterDailies();
+    },
+    async showPendingRebirthModal () {
+      if (this.pendingRebirthNotification) {
+        this.playSound('Achievement_Unlocked');
+        this.$root.$emit('bv::show::modal', 'rebirth');
+
+        await axios.post('/api/v4/notifications/read', {
+          notificationIds: [this.pendingRebirthNotification.id],
+        });
+
+        this.pendingRebirthNotification = null;
+      }
     },
     showDeathModal () {
       this.playSound('Death');
@@ -661,6 +675,9 @@ export default {
         this.showLevelUpNotifications(this.user.stats.lvl);
       }
       this.handleUserNotifications(this.user.notifications);
+
+      this.isInitialLoadComplete = true;
+      this.showPendingRebirthModal();
     },
     async handleUserNotifications (after) {
       if (this.$store.state.isRunningYesterdailies) return;
@@ -700,8 +717,13 @@ export default {
             this.$root.$emit('habitica:won-challenge', notification);
             break;
           case 'REBIRTH_ACHIEVEMENT':
-            this.playSound('Achievement_Unlocked');
-            this.$root.$emit('bv::show::modal', 'rebirth');
+            if (!this.isInitialLoadComplete) {
+              this.pendingRebirthNotification = notification;
+              markAsRead = false;
+            } else {
+              this.playSound('Achievement_Unlocked');
+              this.$root.$emit('bv::show::modal', 'rebirth');
+            }
             break;
           case 'STREAK_ACHIEVEMENT':
             this.text(`${this.$t('streaks')}: ${this.user.achievements.streak}`, () => {
