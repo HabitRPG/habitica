@@ -1131,25 +1131,42 @@ api.inviteToGroup = {
 
     const results = [];
 
-    if (uuids) {
-      const uuidInvites = uuids.map(uuid => inviteByUUID(uuid, group, user, req, res));
-      const uuidResults = await Promise.all(uuidInvites);
-      results.push(...uuidResults);
-    }
+    if (!user.flags.chatShadowMuted) {
+      if (uuids) {
+        const uuidInvites = uuids.map(uuid => inviteByUUID(uuid, group, user, req, res));
+        const uuidResults = await Promise.all(uuidInvites);
+        results.push(...uuidResults);
+      }
 
-    if (emails) {
-      const emailInvites = emails.map(invite => inviteByEmail(invite, group, user, req, res));
-      user.invitesSent += emails.length;
-      await user.save();
-      const emailResults = await Promise.all(emailInvites);
-      results.push(...emailResults);
-    }
+      if (emails) {
+        const emailInvites = emails.map(invite => inviteByEmail(invite, group, user, req, res));
+        user.invitesSent += emails.length;
+        await user.save();
+        const emailResults = await Promise.all(emailInvites);
+        results.push(...emailResults);
+      }
 
-    if (usernames) {
-      const usernameInvites = usernames
-        .map(username => inviteByUserName(username, group, user, req, res));
-      const usernameResults = await Promise.all(usernameInvites);
-      results.push(...usernameResults);
+      if (usernames) {
+        const usernameInvites = usernames
+          .map(username => inviteByUserName(username, group, user, req, res));
+        const usernameResults = await Promise.all(usernameInvites);
+        results.push(...usernameResults);
+      }
+    } else {
+      const fakeCount = (uuids ? uuids.length : 0)
+        + (emails ? emails.length : 0)
+        + (usernames ? usernames.length : 0);
+      results.push(...new Array(fakeCount).fill({
+        id: group._id,
+        _id: group._id,
+        name: group.name,
+        inviter: user._id,
+      }));
+      if (emails) {
+        user.invitesSent += emails.length;
+        await user.save();
+        console.log('saved shadow muted user invite count');
+      }
     }
 
     res.respond(200, results);
