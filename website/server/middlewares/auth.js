@@ -148,10 +148,9 @@ export function authWithSession (req, res, next) {
 
 export function chatPrivilegesRequired () {
   return function chatPrivilegesRequiredHandler (req, res, next) {
-    if (!res || !res.locals || !res.locals.user) return next();
     const { user } = res.locals;
 
-    if (user.flags.chatBanned) {
+    if (user.flags.chatRevoked) {
       throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
     }
 
