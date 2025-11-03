@@ -152,7 +152,7 @@ export function chatPrivilegesRequired () {
     const { user } = res.locals;
 
     if (user.flags.chatBanned) {
-      return next(new NotAuthorized(res.t('chatPrivilegesRevoked')));
+      throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
     }
 
     return next();
