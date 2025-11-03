@@ -204,7 +204,7 @@ api.postChat = {
     }
 
     let flagCount = 0;
-    if (group.privacy === 'public' && user.flags.chatShadowMuted) {
+    if (user.flags.chatShadowMuted) {
       flagCount = common.constants.CHAT_FLAG_FROM_SHADOW_MUTE;
 
       // Email the mods

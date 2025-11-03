@@ -9,7 +9,7 @@ import {
 import {
   SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
 } from '../../../../../website/server/models/group';
-import { MAX_MESSAGE_LENGTH } from '../../../../../website/common/script/constants';
+import { MAX_MESSAGE_LENGTH, CHAT_FLAG_FROM_SHADOW_MUTE } from '../../../../../website/common/script/constants';
 import * as email from '../../../../../website/server/libs/email';
 
 describe('POST /chat', () => {
@@ -123,7 +123,7 @@ describe('POST /chat', () => {
       member.updateOne({ 'flags.chatShadowMuted': false });
     });
 
-    it('creates a chat with zero flagCount when sending a message to a private guild', async () => {
+    it('creates a chat with flagCount set when sending a message to a private guild', async () => {
       await member.updateOne({
         'flags.chatShadowMuted': true,
       });
@@ -131,10 +131,10 @@ describe('POST /chat', () => {
       const message = await member.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
 
       expect(message.message.id).to.exist;
-      expect(message.message.flagCount).to.eql(0);
+      expect(message.message.flagCount).to.eql(CHAT_FLAG_FROM_SHADOW_MUTE);
     });
 
-    it('creates a chat with zero flagCount when sending a message to a party', async () => {
+    it('creates a chat with flagCount set when sending a message to a party', async () => {
       const { group, members } = await createAndPopulateGroup({
         groupDetails: {
           name: 'Party',
@@ -153,7 +153,7 @@ describe('POST /chat', () => {
       const message = await userWithChatShadowMuted.post(`/groups/${group._id}/chat`, { message: testMessage });
 
       expect(message.message.id).to.exist;
-      expect(message.message.flagCount).to.eql(0);
+      expect(message.message.flagCount).to.eql(CHAT_FLAG_FROM_SHADOW_MUTE);
     });
   });
 
