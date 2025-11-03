@@ -1165,7 +1165,6 @@ api.inviteToGroup = {
       if (emails) {
         user.invitesSent += emails.length;
         await user.save();
-        console.log('saved shadow muted user invite count');
       }
     }
 

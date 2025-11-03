@@ -10,7 +10,7 @@ const INVITES_LIMIT = 100;
 const PARTY_LIMIT_MEMBERS = 30;
 const MAX_EMAIL_INVITES_BY_USER = 200;
 
-describe.only('Post /groups/:groupId/invite', () => {
+describe('Post /groups/:groupId/invite', () => {
   let inviter;
   let group;
   const groupName = 'Test Party';
