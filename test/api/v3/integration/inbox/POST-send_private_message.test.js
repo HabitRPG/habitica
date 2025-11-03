@@ -4,7 +4,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-describe('POST /members/send-private-message', () => {
+describe.only('POST /members/send-private-message', () => {
   let userToSendMessage;
   const messageToSend = 'Test *Private* Message';
   const unformattedMessage = 'Test Private Message';
@@ -43,7 +43,7 @@ describe('POST /members/send-private-message', () => {
     });
   });
 
-  it('returns error when to user has blocked the sender', async () => {
+  it('returns error when recipient has blocked the sender', async () => {
     const receiver = await generateUser({ 'inbox.blocks': [userToSendMessage._id] });
 
     await expect(userToSendMessage.post('/members/send-private-message', {
@@ -56,7 +56,7 @@ describe('POST /members/send-private-message', () => {
     });
   });
 
-  it('returns error when sender has blocked to user', async () => {
+  it('returns error when sender has blocked recipient', async () => {
     const receiver = await generateUser();
     const sender = await generateUser({ 'inbox.blocks': [receiver._id] });
 
@@ -70,7 +70,7 @@ describe('POST /members/send-private-message', () => {
     });
   });
 
-  it('returns error when to user has opted out of messaging', async () => {
+  it('returns error when recipient has opted out of messaging', async () => {
     const receiver = await generateUser({ 'inbox.optOut': true });
 
     await expect(userToSendMessage.post('/members/send-private-message', {
@@ -174,7 +174,7 @@ describe('POST /members/send-private-message', () => {
     expect(notification.data.excerpt).to.equal(messageExcerpt);
   });
 
-  it('allows admin to send when sender has blocked the admin', async () => {
+  it('allows admin to send when recipient has blocked the admin', async () => {
     userToSendMessage = await generateUser({
       'permissions.moderator': true,
     });
@@ -202,7 +202,7 @@ describe('POST /members/send-private-message', () => {
     expect(sendersMessageInSendersInbox).to.exist;
   });
 
-  it('allows admin to send when to user has opted out of messaging', async () => {
+  it('allows admin to send when recipient has opted out of messaging', async () => {
     userToSendMessage = await generateUser({
       'permissions.moderator': true,
     });
