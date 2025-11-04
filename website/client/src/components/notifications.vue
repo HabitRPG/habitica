@@ -726,7 +726,9 @@ export default {
             this.$root.$emit('habitica:won-challenge', notification);
             break;
           case 'REBIRTH_ACHIEVEMENT':
-            if (!this.isInitialLoadComplete) {
+            if (localStorage.getItem('show-rebirth-confirmation') === 'true') {
+              markAsRead = false;
+            } else if (!this.isInitialLoadComplete) {
               this.pendingRebirthNotification = notification;
               markAsRead = false;
             } else {
