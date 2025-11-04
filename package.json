@@ -105,8 +105,8 @@
     "start": "node --watch ./website/server/index.js",
     "start:simple": "node ./website/server/index.js",
     "debug": "node --watch --inspect ./website/server/index.js",
-    "mongo:dev": "run-rs -v 7.0.23 -l ubuntu2204 --keep --dbpath mongodb-data --number 1 --quiet",
-    "mongo:test": "run-rs -v 7.0.23 -l ubuntu2204 --keep --dbpath mongodb-data-testing --number 1 --quiet",
+    "mongo:dev": "run-rs -v 7.0.23 -l ubuntu2214 --keep --dbpath mongodb-data --number 1 --quiet",
+    "mongo:test": "run-rs -v 7.0.23 -l ubuntu2214 --keep --dbpath mongodb-data-testing --number 1 --quiet",
     "postinstall": "git config --global url.\"https://\".insteadOf git:// && gulp build && cd website/client && npm install",
     "apidoc": "gulp apidoc",
     "heroku-postbuild": ".heroku/report_deploy.sh"
