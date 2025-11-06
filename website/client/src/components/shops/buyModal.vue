@@ -877,7 +877,10 @@ export default {
       } else {
         const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';
         if (shouldConfirmPurchase) {
-          const confirmed = await this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy);
+          const confirmed = await this.confirmPurchase(
+            this.item.currency,
+            this.item.value * this.selectedAmountToBuy,
+          );
           if (!confirmed) {
             return;
           }

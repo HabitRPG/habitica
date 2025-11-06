@@ -516,7 +516,10 @@ export default {
       this.$emit('change', $event);
     },
     async buyItem () {
-      const confirmed = await this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy);
+      const confirmed = await this.confirmPurchase(
+        this.item.currency,
+        this.item.value * this.selectedAmountToBuy,
+      );
       if (!confirmed) {
         return;
       }
