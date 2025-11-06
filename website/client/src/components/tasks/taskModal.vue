@@ -1,6 +1,7 @@
 <template>
-  <b-modal
-    id="task-modal"
+  <div>
+    <b-modal
+      id="task-modal"
     :no-close-on-esc="true"
     :no-close-on-backdrop="true"
     size="sm"
@@ -606,7 +607,9 @@
         </div>
       </form>
     </div>
-  </b-modal>
+    </b-modal>
+    <deleteTaskConfirmModal />
+  </div>
 </template>
 
 <style lang="scss">
@@ -1050,6 +1053,7 @@ import chevronIcon from '@/assets/svg/chevron.svg?raw';
 import calendarIcon from '@/assets/svg/calendar.svg?raw';
 import gripIcon from '@/assets/svg/grip.svg?raw';
 import InformationIcon from '@/components/ui/informationIcon.vue';
+import deleteTaskConfirmModal from './deleteTaskConfirmModal.vue';
 
 export default {
   components: {
@@ -1061,6 +1065,7 @@ export default {
     selectTranslatedArray,
     toggleCheckbox,
     lockableLabel,
+    deleteTaskConfirmModal,
   },
   directives: {
     markdown: markdownDirective,
@@ -1305,9 +1310,15 @@ export default {
       }
       this.$root.$emit('bv::hide::modal', 'task-modal');
     },
-    destroy () {
+    async destroy () {
       const type = this.$t(this.task.type);
-      if (!window.confirm(this.$t('sureDeleteType', { type }))) return; // eslint-disable-line no-alert
+      const confirmed = await new Promise(resolve => {
+        this.$root.$emit('habitica:delete-task-confirm', {
+          message: this.$t('sureDeleteType', { type }),
+          resolve,
+        });
+      });
+      if (!confirmed) return;
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
       this.$root.$emit('bv::hide::modal', 'task-modal');

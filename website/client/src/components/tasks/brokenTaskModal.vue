@@ -1,10 +1,11 @@
 <template>
-  <b-modal
-    id="broken-task-modal"
-    title="Broken Challenge"
-    size="sm"
-    :hide-footer="true"
-  >
+  <div>
+    <b-modal
+      id="broken-task-modal"
+      title="Broken Challenge"
+      size="sm"
+      :hide-footer="true"
+    >
     <div
       v-if="brokenChallengeTask && brokenChallengeTask.challenge"
       class="modal-body"
@@ -64,7 +65,9 @@
         </div>
       </div>
     </div>
-  </b-modal>
+    </b-modal>
+    <deleteTaskConfirmModal />
+  </div>
 </template>
 
 <style scoped>
@@ -76,8 +79,12 @@
 <script>
 import { mapActions } from '@/libs/store';
 import notifications from '@/mixins/notifications';
+import deleteTaskConfirmModal from './deleteTaskConfirmModal.vue';
 
 export default {
+  components: {
+    deleteTaskConfirmModal,
+  },
   mixins: [notifications],
   data () {
     return {
@@ -122,8 +129,14 @@ export default {
       });
       this.close();
     },
-    removeTask () {
-      if (!window.confirm('Are you sure you want to delete this task?')) return; // eslint-disable-line no-alert
+    async removeTask () {
+      const confirmed = await new Promise(resolve => {
+        this.$root.$emit('habitica:delete-task-confirm', {
+          message: 'Are you sure you want to delete this task?',
+          resolve,
+        });
+      });
+      if (!confirmed) return;
       this.destroyTask(this.brokenChallengeTask);
       this.close();
     },

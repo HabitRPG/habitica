@@ -1,9 +1,10 @@
 <template>
-  <b-modal
-    id="buy-quest-modal"
-    :hide-header="true"
-    @change="onChange($event)"
-  >
+  <div>
+    <b-modal
+      id="buy-quest-modal"
+      :hide-header="true"
+      @change="onChange($event)"
+    >
     <span
       v-if="withPin"
       class="badge-dialog"
@@ -114,7 +115,9 @@
         :amount-needed="item.value"
       />
     </div>
-  </b-modal>
+    </b-modal>
+    <purchaseConfirmModal />
+  </div>
 </template>
 
 <style lang="scss">
@@ -434,6 +437,7 @@ import numberIncrement from '@/components/shared/numberIncrement';
 import questDialogContent from './questDialogContent';
 import QuestRewards from './questRewards';
 import CloseIcon from '../../shared/closeIcon';
+import purchaseConfirmModal from '../purchaseConfirmModal.vue';
 
 export default {
   components: {
@@ -444,6 +448,7 @@ export default {
     questDialogContent,
     CountdownBanner,
     numberIncrement,
+    purchaseConfirmModal,
   },
   mixins: [buyMixin, currencyMixin, notifications, numberInvalid],
   props: {
@@ -510,8 +515,9 @@ export default {
       this.selectedAmountToBuy = 1;
       this.$emit('change', $event);
     },
-    buyItem () {
-      if (!this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)) {
+    async buyItem () {
+      const confirmed = await this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy);
+      if (!confirmed) {
         return;
       }
       this.makeGenericPurchase(this.item, 'buyQuestModal', this.selectedAmountToBuy);

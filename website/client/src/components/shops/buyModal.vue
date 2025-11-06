@@ -1,9 +1,10 @@
 <template>
-  <b-modal
-    id="buy-modal"
-    :hide-header="true"
-    @change="onChange($event)"
-  >
+  <div>
+    <b-modal
+      id="buy-modal"
+      :hide-header="true"
+      @change="onChange($event)"
+    >
     <span
       v-if="withPin"
       class="badge-dialog"
@@ -226,7 +227,9 @@
         :amount-needed="item.value"
       />
     </div>
-  </b-modal>
+    </b-modal>
+    <purchaseConfirmModal />
+  </div>
 </template>
 
 <style lang="scss">
@@ -643,6 +646,7 @@ import EquipmentAttributesGrid from '../inventory/equipment/attributesGrid.vue';
 
 import Item from '@/components/inventory/item';
 import Avatar from '@/components/avatar';
+import purchaseConfirmModal from './purchaseConfirmModal.vue';
 
 const dropEggs = eggs.drops;
 const dropPotions = hatchingPotions.drops;
@@ -667,6 +671,7 @@ export default {
     PinBadge,
     CountdownBanner,
     numberIncrement,
+    purchaseConfirmModal,
   },
   mixins: [
     avatarEditorUtilities,
@@ -851,10 +856,15 @@ export default {
           - ownedMounts
           - ownedItems;
 
-        if (
-          petsRemaining < 0
-          && !window.confirm(this.$t('purchasePetItemConfirm', { itemText: this.item.text })) // eslint-disable-line no-alert
-        ) return;
+        if (petsRemaining < 0) {
+          const confirmed = await new Promise(resolve => {
+            this.$root.$emit('habitica:purchase-confirm', {
+              message: this.$t('purchasePetItemConfirm', { itemText: this.item.text }),
+              resolve,
+            });
+          });
+          if (!confirmed) return;
+        }
       }
 
       if (this.item.purchaseType === 'customization') {
@@ -866,11 +876,11 @@ export default {
         this.purchased(this.item.text);
       } else {
         const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';
-        if (
-          shouldConfirmPurchase
-          && !this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)
-        ) {
-          return;
+        if (shouldConfirmPurchase) {
+          const confirmed = await this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy);
+          if (!confirmed) {
+            return;
+          }
         }
         if (this.genericPurchase) {
           if (this.item.key === 'rebirth_orb') {
