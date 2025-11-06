@@ -5,228 +5,228 @@
       :hide-header="true"
       @change="onChange($event)"
     >
-    <span
-      v-if="withPin"
-      class="badge-dialog"
-      tabindex="0"
-      @click.prevent.stop="togglePinned()"
-      @keypress.enter.prevent.stop="togglePinned()"
-    >
-      <pin-badge
-        :pinned="isPinned"
-      />
-    </span>
-    <div>
       <span
-        class="svg-icon close-icon icon-16 color"
-        aria-hidden="true"
+        v-if="withPin"
+        class="badge-dialog"
         tabindex="0"
-        @click="hideDialog()"
-        @keypress.enter="hideDialog()"
-        v-html="icons.close"
-      ></span>
-    </div>
-    <div
-      v-if="item != null"
-      class="content"
-    >
-      <div class="inner-content">
-        <slot
-          name="item"
-          :item="item"
-        >
-          <div v-if="showAvatar">
-            <avatar
-              :show-visual-buffs="false"
-              :member="user"
-              :avatar-only="true"
-              :hide-class-badge="true"
-              :with-background="true"
-              :override-avatar-gear="getAvatarOverrides(item)"
-              :sprites-margin="'0px auto 0px -24px'"
+        @click.prevent.stop="togglePinned()"
+        @keypress.enter.prevent.stop="togglePinned()"
+      >
+        <pin-badge
+          :pinned="isPinned"
+        />
+      </span>
+      <div>
+        <span
+          class="svg-icon close-icon icon-16 color"
+          aria-hidden="true"
+          tabindex="0"
+          @click="hideDialog()"
+          @keypress.enter="hideDialog()"
+          v-html="icons.close"
+        ></span>
+      </div>
+      <div
+        v-if="item != null"
+        class="content"
+      >
+        <div class="inner-content">
+          <slot
+            name="item"
+            :item="item"
+          >
+            <div v-if="showAvatar">
+              <avatar
+                :show-visual-buffs="false"
+                :member="user"
+                :avatar-only="true"
+                :hide-class-badge="true"
+                :with-background="true"
+                :override-avatar-gear="getAvatarOverrides(item)"
+                :sprites-margin="'0px auto 0px -24px'"
+              />
+            </div>
+            <item
+              v-else-if="item.key === 'gem'"
+              class="flat bordered-item"
+              :item="item"
+              :item-content-class="item.class"
+              :show-popover="false"
             />
+            <item
+              v-else-if="item.key != 'gem'"
+              class="flat bordered-item"
+              :item="item"
+              :item-content-class="item.class"
+              :show-popover="false"
+            />
+          </slot>
+          <div
+            v-if="!showAvatar && user.items[item.purchaseType]"
+            class="owned"
+            :class="totalOwned"
+          >
+            <!-- eslint-disable-next-line max-len -->
+            <span class="owned-text">{{ $t('owned') }}: <span class="user-amount">{{ totalOwned }}</span></span>
           </div>
-          <item
-            v-else-if="item.key === 'gem'"
-            class="flat bordered-item"
+          <h4 class="title">
+            {{ itemText }}
+          </h4>
+          <div class="item-notes">
+            {{ itemNotes }}
+          </div>
+          <slot
+            name="additionalInfo"
             :item="item"
-            :item-content-class="item.class"
-            :show-popover="false"
-          />
-          <item
-            v-else-if="item.key != 'gem'"
-            class="flat bordered-item"
-            :item="item"
-            :item-content-class="item.class"
-            :show-popover="false"
-          />
-        </slot>
-        <div
-          v-if="!showAvatar && user.items[item.purchaseType]"
-          class="owned"
-          :class="totalOwned"
-        >
-          <!-- eslint-disable-next-line max-len -->
-          <span class="owned-text">{{ $t('owned') }}: <span class="user-amount">{{ totalOwned }}</span></span>
-        </div>
-        <h4 class="title">
-          {{ itemText }}
-        </h4>
-        <div class="item-notes">
-          {{ itemNotes }}
-        </div>
-        <slot
-          name="additionalInfo"
-          :item="item"
-        >
-          <equipmentAttributesGrid
-            v-if="showAttributesGrid"
-            class="attributesGrid"
-            :item="item"
-            :user="user"
-          />
-        </slot>
-        <div
-          v-if="item.value > 0 && !(item.key === 'gem' && gemsLeft < 1)"
-          class="purchase-amount"
-        >
-          <div class="item-cost justify-content-center my-3">
-            <span
-              class="cost d-flex mx-auto"
-              :class="getPriceClass()"
-            >
+          >
+            <equipmentAttributesGrid
+              v-if="showAttributesGrid"
+              class="attributesGrid"
+              :item="item"
+              :user="user"
+            />
+          </slot>
+          <div
+            v-if="item.value > 0 && !(item.key === 'gem' && gemsLeft < 1)"
+            class="purchase-amount"
+          >
+            <div class="item-cost justify-content-center my-3">
               <span
-                class="svg-icon icon-24 my-auto mr-1"
-                aria-hidden="true"
-                v-html="icons[getPriceClass()]"
+                class="cost d-flex mx-auto"
+                :class="getPriceClass()"
               >
+                <span
+                  class="svg-icon icon-24 my-auto mr-1"
+                  aria-hidden="true"
+                  v-html="icons[getPriceClass()]"
+                >
+                </span>
+                <span
+                  class="my-auto"
+                  :class="getPriceClass()"
+                >{{ item.value }}</span>
               </span>
-              <span
-                class="my-auto"
-                :class="getPriceClass()"
-              >{{ item.value }}</span>
-            </span>
-          </div>
+            </div>
 
-          <div
-            v-if="showAmountToBuy(item)"
-            class="how-many-to-buy"
-          >
-            {{ $t('howManyToBuy') }}
-          </div>
-          <div
-            v-if="showAmountToBuy(item)"
-          >
-            <number-increment
-              class="number-increment"
-              @updateQuantity="selectedAmountToBuy = $event"
-            />
             <div
-              :class="{'notEnough': notEnoughCurrency}"
-              class="total"
+              v-if="showAmountToBuy(item)"
+              class="how-many-to-buy"
             >
-              <span class="total-text">{{ $t('sendTotal') }}</span>
-              <span
-                class="svg-icon total icon-24"
-                aria-hidden="true"
-                v-html="icons[getPriceClass()]"
-              ></span>
-              <span
-                class="total-text"
-                :class="getPriceClass()"
-              >{{ item.value * selectedAmountToBuy }}</span>
+              {{ $t('howManyToBuy') }}
+            </div>
+            <div
+              v-if="showAmountToBuy(item)"
+            >
+              <number-increment
+                class="number-increment"
+                @updateQuantity="selectedAmountToBuy = $event"
+              />
+              <div
+                :class="{'notEnough': notEnoughCurrency}"
+                class="total"
+              >
+                <span class="total-text">{{ $t('sendTotal') }}</span>
+                <span
+                  class="svg-icon total icon-24"
+                  aria-hidden="true"
+                  v-html="icons[getPriceClass()]"
+                ></span>
+                <span
+                  class="total-text"
+                  :class="getPriceClass()"
+                >{{ item.value * selectedAmountToBuy }}</span>
+              </div>
             </div>
           </div>
+          <div
+            v-if="item.key === 'gem' && gemsLeft < 1"
+            class="no-more-gems"
+          >
+            {{ $t('notEnoughGemsToBuy') }}
+          </div>
+          <div
+            v-if="nonSubscriberHourglasses"
+            class="hourglass-nonsub mt-3"
+          >
+            {{ $t('mysticHourglassNeededNoSub') }}
+          </div>
+          <button
+            v-if="getPriceClass() === 'gems'
+              && !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
+            class="btn btn-primary mb-3"
+            @click="purchaseGems()"
+          >
+            {{ $t('purchaseGems') }}
+          </button>
+          <button
+            v-else-if="nonSubscriberHourglasses"
+            class="btn btn-primary"
+            @click="viewSubscriptions(item)"
+          >
+            {{ $t('viewSubscriptions') }}
+          </button>
+          <button
+            v-else-if="!(item.key === 'gem' && gemsLeft < 1)"
+            class="btn btn-primary"
+            :disabled="item.key === 'gem' && gemsLeft === 0 ||
+              attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid || item.locked ||
+              !preventHealthPotion ||
+              !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
+            :class="{'notEnough': !preventHealthPotion ||
+              !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}"
+            tabindex="0"
+            @click="buyItem()"
+          >
+            {{ $t('buyNow') }}
+          </button>
         </div>
-        <div
-          v-if="item.key === 'gem' && gemsLeft < 1"
-          class="no-more-gems"
-        >
-          {{ $t('notEnoughGemsToBuy') }}
-        </div>
-        <div
-          v-if="nonSubscriberHourglasses"
-          class="hourglass-nonsub mt-3"
-        >
-          {{ $t('mysticHourglassNeededNoSub') }}
-        </div>
-        <button
-          v-if="getPriceClass() === 'gems'
-            && !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
-          class="btn btn-primary mb-3"
-          @click="purchaseGems()"
-        >
-          {{ $t('purchaseGems') }}
-        </button>
-        <button
-          v-else-if="nonSubscriberHourglasses"
-          class="btn btn-primary"
-          @click="viewSubscriptions(item)"
-        >
-          {{ $t('viewSubscriptions') }}
-        </button>
-        <button
-          v-else-if="!(item.key === 'gem' && gemsLeft < 1)"
-          class="btn btn-primary"
-          :disabled="item.key === 'gem' && gemsLeft === 0 ||
-            attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid || item.locked ||
-            !preventHealthPotion ||
-            !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
-          :class="{'notEnough': !preventHealthPotion ||
-            !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}"
-          tabindex="0"
-          @click="buyItem()"
-        >
-          {{ $t('buyNow') }}
-        </button>
       </div>
-    </div>
-    <countdown-banner
-      v-if="item.end && item.owned == null"
-      :end-date="endDate"
-      class="limitedTime available"
-    />
-    <div
-      v-if="item.key === 'rebirth_orb' && item.value > 0 && user.stats.lvl >= 100"
-      class="free-rebirth d-flex align-items-center"
-    >
-      <div class="m-auto">
-        <span
-          class="svg-icon inline icon-16 mr-2 pt-015"
-          v-html="icons.whiteClock"
-        ></span>
-        <span v-html="$t('nextFreeRebirth', {days: nextFreeRebirth})"></span>
-      </div>
-    </div>
-    <div
-      v-if="item.key === 'gem'"
-      class="d-flex justify-content-center align-items-center"
-    >
-      <div
-        v-if="gemsLeft > 0"
-        class="gems-left d-flex justify-content-center align-items-center"
-      >
-        <strong>{{ $t('monthlyGems') }} &nbsp;</strong>
-        {{ gemsLeft }} / {{ totalGems }} {{ $t('gemsRemaining') }}
-      </div>
-      <div
-        v-if="gemsLeft === 0"
-        class="out-of-gems-banner d-flex justify-content-center align-items-center"
-      >
-        <strong>{{ $t('monthlyGems') }} &nbsp;</strong>
-        {{ gemsLeft }} / {{ totalGems }} {{ $t('gemsRemaining') }}
-      </div>
-    </div>
-    <div
-      slot="modal-footer"
-    >
-      <span class="user-balance ml-3 my-auto">{{ $t('yourBalance') }}</span>
-      <balanceInfo
-        class="mr-3"
-        :currency-needed="getPriceClass()"
-        :amount-needed="item.value"
+      <countdown-banner
+        v-if="item.end && item.owned == null"
+        :end-date="endDate"
+        class="limitedTime available"
       />
-    </div>
+      <div
+        v-if="item.key === 'rebirth_orb' && item.value > 0 && user.stats.lvl >= 100"
+        class="free-rebirth d-flex align-items-center"
+      >
+        <div class="m-auto">
+          <span
+            class="svg-icon inline icon-16 mr-2 pt-015"
+            v-html="icons.whiteClock"
+          ></span>
+          <span v-html="$t('nextFreeRebirth', {days: nextFreeRebirth})"></span>
+        </div>
+      </div>
+      <div
+        v-if="item.key === 'gem'"
+        class="d-flex justify-content-center align-items-center"
+      >
+        <div
+          v-if="gemsLeft > 0"
+          class="gems-left d-flex justify-content-center align-items-center"
+        >
+          <strong>{{ $t('monthlyGems') }} &nbsp;</strong>
+          {{ gemsLeft }} / {{ totalGems }} {{ $t('gemsRemaining') }}
+        </div>
+        <div
+          v-if="gemsLeft === 0"
+          class="out-of-gems-banner d-flex justify-content-center align-items-center"
+        >
+          <strong>{{ $t('monthlyGems') }} &nbsp;</strong>
+          {{ gemsLeft }} / {{ totalGems }} {{ $t('gemsRemaining') }}
+        </div>
+      </div>
+      <div
+        slot="modal-footer"
+      >
+        <span class="user-balance ml-3 my-auto">{{ $t('yourBalance') }}</span>
+        <balanceInfo
+          class="mr-3"
+          :currency-needed="getPriceClass()"
+          :amount-needed="item.value"
+        />
+      </div>
     </b-modal>
     <purchaseConfirmModal />
   </div>

@@ -15,8 +15,8 @@
       <router-view />
     </div>
     <div
-      id="bottom-background"
       v-if="loginFlow"
+      id="bottom-background"
       class="bg-purple-300"
     >
       <div class="seamless_mountains_demo_repeat"></div>
@@ -31,7 +31,10 @@
       id="bottom-wrap"
       class="purple-4"
     >
-      <div id="bottom-background" v-if="!loginFlow">
+      <div
+        v-if="!loginFlow"
+        id="bottom-background"
+      >
         <div class="seamless_mountains_demo_repeat"></div>
         <div class="midground_foreground_extended2"></div>
       </div>
