@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <b-modal
-      id="task-modal"
+  <b-modal
+    id="task-modal"
       :no-close-on-esc="true"
       :no-close-on-backdrop="true"
       size="sm"
@@ -607,9 +606,7 @@
           </div>
         </form>
       </div>
-    </b-modal>
-    <deleteTaskConfirmModal />
-  </div>
+  </b-modal>
 </template>
 
 <style lang="scss">
@@ -1053,7 +1050,6 @@ import chevronIcon from '@/assets/svg/chevron.svg?raw';
 import calendarIcon from '@/assets/svg/calendar.svg?raw';
 import gripIcon from '@/assets/svg/grip.svg?raw';
 import InformationIcon from '@/components/ui/informationIcon.vue';
-import deleteTaskConfirmModal from './deleteTaskConfirmModal.vue';
 
 export default {
   components: {
@@ -1065,7 +1061,6 @@ export default {
     selectTranslatedArray,
     toggleCheckbox,
     lockableLabel,
-    deleteTaskConfirmModal,
   },
   directives: {
     markdown: markdownDirective,

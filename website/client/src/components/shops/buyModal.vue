@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <b-modal
+  <b-modal
       id="buy-modal"
       :hide-header="true"
       @change="onChange($event)"
@@ -227,9 +226,7 @@
           :amount-needed="item.value"
         />
       </div>
-    </b-modal>
-    <purchaseConfirmModal />
-  </div>
+  </b-modal>
 </template>
 
 <style lang="scss">
@@ -646,7 +643,6 @@ import EquipmentAttributesGrid from '../inventory/equipment/attributesGrid.vue';
 
 import Item from '@/components/inventory/item';
 import Avatar from '@/components/avatar';
-import purchaseConfirmModal from './purchaseConfirmModal.vue';
 
 const dropEggs = eggs.drops;
 const dropPotions = hatchingPotions.drops;
@@ -671,7 +667,6 @@ export default {
     PinBadge,
     CountdownBanner,
     numberIncrement,
-    purchaseConfirmModal,
   },
   mixins: [
     avatarEditorUtilities,

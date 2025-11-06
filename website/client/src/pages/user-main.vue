@@ -14,6 +14,8 @@
     <bug-report-success-modal v-if="isUserLoaded" />
     <external-link-modal />
     <birthday-modal />
+    <purchase-confirm-modal v-if="isUserLoaded" />
+    <delete-task-confirm-modal v-if="isUserLoaded" />
     <template v-if="isUserLoaded">
       <privacy-banner />
       <chat-banner />
@@ -138,6 +140,8 @@ import paymentsSuccessModal from '@/components/payments/successModal';
 import subCancelModalConfirm from '@/components/payments/cancelModalConfirm';
 import subCanceledModal from '@/components/payments/canceledModal';
 import externalLinkModal from '@/components/externalLinkModal.vue';
+import purchaseConfirmModal from '@/components/shops/purchaseConfirmModal.vue';
+import deleteTaskConfirmModal from '@/components/tasks/deleteTaskConfirmModal.vue';
 
 import spellsMixin from '@/mixins/spells';
 import {
@@ -172,6 +176,8 @@ export default {
     bugReportModal,
     bugReportSuccessModal,
     externalLinkModal,
+    purchaseConfirmModal,
+    deleteTaskConfirmModal,
   },
   mixins: [notifications, spellsMixin],
   data () {

@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <b-modal
+  <b-modal
       id="buy-quest-modal"
       :hide-header="true"
       @change="onChange($event)"
@@ -115,9 +114,7 @@
           :amount-needed="item.value"
         />
       </div>
-    </b-modal>
-    <purchaseConfirmModal />
-  </div>
+  </b-modal>
 </template>
 
 <style lang="scss">
@@ -437,7 +434,6 @@ import numberIncrement from '@/components/shared/numberIncrement';
 import questDialogContent from './questDialogContent';
 import QuestRewards from './questRewards';
 import CloseIcon from '../../shared/closeIcon';
-import purchaseConfirmModal from '../purchaseConfirmModal.vue';
 
 export default {
   components: {
@@ -448,7 +444,6 @@ export default {
     questDialogContent,
     CountdownBanner,
     numberIncrement,
-    purchaseConfirmModal,
   },
   mixins: [buyMixin, currencyMixin, notifications, numberInvalid],
   props: {

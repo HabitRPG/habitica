@@ -1,11 +1,10 @@
 <template>
-  <div>
-    <b-modal
-      id="broken-task-modal"
-      title="Broken Challenge"
-      size="sm"
-      :hide-footer="true"
-    >
+  <b-modal
+    id="broken-task-modal"
+    title="Broken Challenge"
+    size="sm"
+    :hide-footer="true"
+  >
       <div
         v-if="brokenChallengeTask && brokenChallengeTask.challenge"
         class="modal-body"
@@ -65,9 +64,7 @@
           </div>
         </div>
       </div>
-    </b-modal>
-    <deleteTaskConfirmModal />
-  </div>
+  </b-modal>
 </template>
 
 <style scoped>
@@ -79,12 +76,8 @@
 <script>
 import { mapActions } from '@/libs/store';
 import notifications from '@/mixins/notifications';
-import deleteTaskConfirmModal from './deleteTaskConfirmModal.vue';
 
 export default {
-  components: {
-    deleteTaskConfirmModal,
-  },
   mixins: [notifications],
   data () {
     return {

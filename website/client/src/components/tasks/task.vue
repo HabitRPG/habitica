@@ -1,9 +1,8 @@
 <template>
-  <div>
-    <div
-      class="task-wrapper"
-      draggable
-    >
+  <div
+    class="task-wrapper"
+    draggable
+  >
       <div
         class="task transition"
         :class="[{
@@ -419,8 +418,6 @@
           :group="group"
         />
       </div>
-    </div>
-    <deleteTaskConfirmModal />
   </div>
 </template>
 
@@ -940,13 +937,11 @@ import scoreTask from '@/mixins/scoreTask';
 import sync from '@/mixins/sync';
 import approvalFooter from './approvalFooter';
 import MenuDropdown from '../ui/customMenuDropdown';
-import deleteTaskConfirmModal from './deleteTaskConfirmModal.vue';
 
 export default {
   components: {
     approvalFooter,
     MenuDropdown,
-    deleteTaskConfirmModal,
   },
   directives: {
     markdown: markdownDirective,
