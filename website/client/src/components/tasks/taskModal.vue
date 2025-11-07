@@ -383,6 +383,38 @@
           </div>
         </div>
         <div
+          v-if="showStatAssignment"
+          class="stat-assignment option mt-3"
+        >
+          <div class="form-group row">
+            <label
+              v-once
+              class="col-12 mb-1"
+            >{{ $t('assignedStat') }}</label>
+            <div class="col-12">
+              <div class="stat-selection-grid">
+                <div
+                  v-for="stat in ['str', 'con', 'int', 'per']"
+                  :key="stat"
+                  class="stat-card"
+                  :class="[
+                    { 'stat-card-selected': task.attribute === stat },
+                    task.attribute === stat ? cssClass('bg') : ''
+                  ]"
+                  @click="task.attribute = stat"
+                >
+                  <span
+                    class="stat-card-text"
+                    :class="task.attribute === stat ? cssClass('headings') : ''"
+                  >
+                    {{ $t(attributesStrings[stat]) }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
           v-if="task.type === 'habit' && !groupId"
           class="option mt-3"
         >
@@ -1024,6 +1056,44 @@
     color: $gray-200;
   }
 
+  .stat-assignment {
+    .stat-selection-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .stat-card {
+      border: 1px solid $gray-400;
+      border-radius: 8px;
+      padding: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      background-color: $white;
+
+      &:hover {
+        border-color: $gray-300;
+      }
+
+      &-selected {
+        border-color: transparent;
+      }
+
+      &-text {
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 1.71;
+        text-align: center;
+        color: $gray-50;
+        transition: color 0.2s ease;
+      }
+    }
+  }
+
 </style>
 
 <script>
@@ -1186,6 +1256,12 @@ export default {
     },
     selectedTags () {
       return this.getTagsFor(this.task);
+    },
+    showStatAssignment () {
+      return this.task.type !== 'reward'
+        && !this.groupId
+        && this.user.preferences.automaticAllocation === true
+        && this.user.preferences.allocationMode === 'taskbased';
     },
   },
   watch: {
