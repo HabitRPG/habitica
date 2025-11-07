@@ -30,7 +30,10 @@
             </div>
           </div>
           <div class="card-body">
-            <strong class="number" :class="stat">{{ totalStatPoints(stat) | floorWholeNumber }}</strong>
+            <strong
+              class="number"
+              :class="stat"
+            >{{ totalStatPoints(stat) | floorWholeNumber }}</strong>
             <div class="stats-divider"></div>
             <ul class="bonus-stats">
               <li>
@@ -40,7 +43,9 @@
               <li>
                 <strong>{{ $t('equipment') }}:</strong>
                 <span :class="{ 'positive-stat': statsComputed.gearBonus[stat] !== 0 }">
-                  {{ statsComputed.gearBonus[stat] !== 0 ? '+' : '' }}{{ statsComputed.gearBonus[stat] }}
+                  {{ statsComputed.gearBonus[stat] !== 0 ? '+' : '' }}{{
+                    statsComputed.gearBonus[stat]
+                  }}
                 </span>
               </li>
               <li>
@@ -50,7 +55,9 @@
               <li>
                 <strong>{{ $t('buffs') }}:</strong>
                 <span :class="{ 'positive-stat': user.stats.buffs[stat] !== 0 }">
-                  {{ user.stats.buffs[stat] !== 0 ? '+' : '' }}{{ user.stats.buffs[stat] }}
+                  {{ user.stats.buffs[stat] !== 0 ? '+' : '' }}{{
+                    user.stats.buffs[stat]
+                  }}
                 </span>
               </li>
             </ul>
