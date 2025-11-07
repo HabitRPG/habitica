@@ -14,10 +14,10 @@
       <div
         v-for="(statInfo, stat) in stats"
         :key="stat"
-        class="col-12 col-md-6"
+        class="col-12 col-md-3"
       >
-        <div class="row col-12 stats-column">
-          <div class="col-12 col-md-6 attribute-label">
+        <div class="stats-card">
+          <div class="card-header" :class="stat">
             <span
               class="hint"
               :popover-title="$t(statInfo.title)"
@@ -25,15 +25,13 @@
               :popover="$t(statInfo.popover)"
               popover-trigger="mouseenter"
             ></span>
-            <div
-              class="stat-title"
-              :class="stat"
-            >
+            <div class="stat-title">
               {{ $t(statInfo.title) }}
             </div>
-            <strong class="number">{{ totalStatPoints(stat) | floorWholeNumber }}</strong>
           </div>
-          <div class="col-12 col-md-6">
+          <div class="card-body">
+            <strong class="number" :class="stat">{{ totalStatPoints(stat) | floorWholeNumber }}</strong>
+            <div class="stats-divider"></div>
             <ul class="bonus-stats">
               <li>
                 <strong>{{ $t('level') }}:</strong>
@@ -41,11 +39,9 @@
               </li>
               <li>
                 <strong>{{ $t('equipment') }}:</strong>
-                <span>{{ statsComputed.gearBonus[stat] }}</span>
-              </li>
-              <li>
-                <strong>{{ $t('class') }}:</strong>
-                <span>{{ statsComputed.classBonus[stat] }}</span>
+                <span :class="{ 'positive-stat': statsComputed.gearBonus[stat] !== 0 }">
+                  {{ statsComputed.gearBonus[stat] !== 0 ? '+' : '' }}{{ statsComputed.gearBonus[stat] }}
+                </span>
               </li>
               <li>
                 <strong>{{ $t('allocated') }}:</strong>
@@ -53,7 +49,9 @@
               </li>
               <li>
                 <strong>{{ $t('buffs') }}:</strong>
-                <span>{{ user.stats.buffs[stat] }}</span>
+                <span :class="{ 'positive-stat': user.stats.buffs[stat] !== 0 }">
+                  {{ user.stats.buffs[stat] !== 0 ? '+' : '' }}{{ user.stats.buffs[stat] }}
+                </span>
               </li>
             </ul>
           </div>
@@ -62,71 +60,132 @@
     </div>
     <div
       v-if="showAllocation"
-      class="stat-allocation-info"
-    >
-      <p>{{ $t('statAllocationInfo') }}</p>
-    </div>
-    <div
-      v-if="showAllocation"
       id="allocation"
     >
       <div class="row title-row">
-        <div class="col-12 col-md-6">
+        <div class="col-12">
           <h3
             v-if="userLevel100Plus"
             v-once
             v-html="$t('noMoreAllocate')"
           ></h3>
-          <div
-            class="points-allocation-header"
-          >
-            <h3>
-              {{ $t('pointsAvailable') }}
+          <div class="points-allocation-header">
+            <h2>
+              {{ $t('statPoints') }}
               <div
                 v-if="user.stats.points || userLevel100Plus"
                 class="counter badge badge-pill"
               >
-                {{ pointsRemaining }}
+                {{ pointsRemaining }} {{ $t('pointsAvailable') }}
               </div>
-            </h3>
-            <div class="auto-allocate-toggle">
-              <toggle-switch
-                v-model="user.preferences.automaticAllocation"
-                :label="$t('autoAllocate')"
-                @change="setAutoAllocate()"
-              />
+            </h2>
+          </div>
+        </div>
+      </div>
+      <div class="stat-allocation-info">
+        <p>{{ $t('statAllocationInfo') }}</p>
+      </div>
+      <div class="row allocation-boxes-row">
+        <div
+          v-for="(statInfo, stat) in allocateStatsList"
+          :key="stat"
+          class="col-12 col-md-3 allocation-box-col"
+        >
+          <div class="allocation-card">
+            <div class="allocation-card-content">
+              <div class="allocation-card-title" :class="stat">
+                {{ $t(stats[stat].title) }}
+              </div>
+              <div class="allocation-card-value">
+                {{ totalAllocatedStats(stat) }}
+              </div>
+            </div>
+            <div class="allocation-card-arrows">
+              <div
+                class="allocation-arrow allocation-arrow-up"
+                :class="{ disabled: user.stats.points === 0 }"
+                @click="user.stats.points > 0 ? allocate(stat) : null"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 14 9"
+                  width="14"
+                  height="9"
+                >
+                  <path
+                    fill="none"
+                    fill-rule="evenodd"
+                    :stroke="user.stats.points > 0 ? '#A5A1AC' : '#C3C0C7'"
+                    stroke-width="2.5"
+                    d="M13 1L7 7 1 1"
+                  ></path>
+                </svg>
+              </div>
+              <div
+                class="allocation-arrow allocation-arrow-down"
+                :class="{ disabled: user.stats.points === 0 }"
+                @click="user.stats.points > 0 ? deallocate(stat) : null"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 14 9"
+                  width="14"
+                  height="9"
+                >
+                  <path
+                    fill="none"
+                    fill-rule="evenodd"
+                    :stroke="user.stats.points > 0 ? '#A5A1AC' : '#C3C0C7'"
+                    stroke-width="2.5"
+                    d="M13 1L7 7 1 1"
+                  ></path>
+                </svg>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+      <div class="row allocation-controls-row">
+        <div class="col-12 col-md-6 auto-allocate-section">
+          <div class="auto-allocate-toggle">
+            <toggle-switch
+              v-model="user.preferences.automaticAllocation"
+              :label="$t('autoAllocate')"
+              @change="setAutoAllocate()"
+            />
+          </div>
+        </div>
         <div
-          class="col-12 col-md-6 allocation-dropdown-container"
+          class="col-12 col-md-6 allocation-dropdown-section"
           :class="{'disabled': !user.preferences.automaticAllocation}"
         >
-          <div
-            class="task-allocation-box"
-            @click="user.preferences.automaticAllocation ? toggleAllocationDropdown() : null"
-          >
-            <span class="task-allocation-text">{{ allocationModeLabel }}</span>
+          <span class="allocation-method-label">{{ $t('allocationMethod') }}</span>
+          <div class="allocation-dropdown-container">
             <div
-              class="dropdown-chevron"
-              :class="{rotated: showAllocationDropdown}"
+              class="task-allocation-box"
+              @click="user.preferences.automaticAllocation ? toggleAllocationDropdown() : null"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 14 9"
-                width="14"
-                height="9"
+              <span class="task-allocation-text">{{ allocationModeLabel }}</span>
+              <div
+                class="dropdown-chevron"
+                :class="{rotated: showAllocationDropdown}"
               >
-                <path
-                  fill="none"
-                  fill-rule="evenodd"
-                  stroke="#A5A1AC"
-                  stroke-width="2.5"
-                  d="M13 1L7 7 1 1"
-                ></path>
-              </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 14 9"
+                  width="14"
+                  height="9"
+                >
+                  <path
+                    fill="none"
+                    fill-rule="evenodd"
+                    stroke="#A5A1AC"
+                    stroke-width="2.5"
+                    d="M13 1L7 7 1 1"
+                  ></path>
+                </svg>
+              </div>
             </div>
-          </div>
           <div v-if="showAllocationDropdown" class="allocation-dropdown">
             <div
               class="allocation-option"
@@ -159,37 +218,6 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div
-          v-for="(statInfo, stat) in allocateStatsList"
-          :key="stat"
-          class="col-12 col-md-3"
-        >
-          <div class="box white row col-12">
-            <div class="col-9 text-nowrap">
-              <div :class="stat">
-                {{ $t(stats[stat].title) }}
-              </div>
-              <div class="number">
-                {{ totalAllocatedStats(stat) }}
-              </div>
-              <div class="points">
-                {{ $t('pts') }}
-              </div>
-            </div>
-            <div class="col-3 arrow-container">
-              <div
-                v-if="user.stats.points > 0"
-                class="triangle-up"
-                @click="allocate(stat)"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 12">
-                  <path fill="#A5A1AC" d="M10 0l10 12H0z"></path>
-                </svg>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -547,6 +575,20 @@ export default {
         console.error('Error allocating stat point:', error);
       }
     },
+    async deallocate (stat) {
+      if (this.user.stats[stat] === 0) return;
+
+      try {
+        const stats = {};
+        stats[stat] = -1;
+        const response = await axios.post('/api/v3/user/allocate-bulk', { stats });
+        if (response.data && response.data.data) {
+          this.$store.state.user.data.stats = response.data.data;
+        }
+      } catch (error) {
+        console.error('Error deallocating stat point:', error);
+      }
+    },
     allocateNow () {
       autoAllocate(this.user);
     },
@@ -582,48 +624,79 @@ export default {
     }
   }
 
-  .stats-column {
-    border-radius: 2px;
-    background-color: #ffffff;
-    padding: .5em;
-    margin-bottom: 1em;
+  #attributes {
+    &.row {
+      margin-left: -0.5em;
+      margin-right: -0.5em;
+    }
 
-    ul {
-      list-style-type: none;
-
-      li strong {
-        margin-right: .3em;
-      }
+    .col-md-3 {
+      padding-left: 0.5em;
+      padding-right: 0.5em;
     }
   }
 
-  .stat-title {
-    text-transform: uppercase;
-    font-family: Roboto;
-    font-weight: 700;
-    font-size: 12px;
-    line-height: 16px;
-    letter-spacing: 0px;
-    margin-top: 26px;
-    padding-bottom: 4px;
-    border-bottom: 1px dashed;
-    display: inline-block;
+  .stats-card {
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
+    margin-bottom: 0.5em;
+    overflow: hidden;
   }
 
-  .str {
-    color: #f74e52;
+  .card-header {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    .hint {
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &.str {
+      background-color: #f74e52;
+    }
+
+    &.int {
+      background-color: #2995cd;
+    }
+
+    &.con {
+      background-color: #ffa623;
+    }
+
+    &.per {
+      background-color: #4f2a93;
+    }
+
+    .stat-title {
+      text-transform: capitalize;
+      font-family: Roboto;
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0px;
+      color: #ffffff;
+    }
   }
 
-  .int {
-    color: #2995cd;
+  .card-body {
+    padding: 1em 1em 0.5em 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .con {
-    color: #ffa623;
-  }
-
-  .per {
-    color: #4f2a93;
+  .stats-divider {
+    width: calc(100% + 2em);
+    height: 1px;
+    background-color: #d3d2d5;
+    margin: 0.75em -1em;
   }
 
   #allocation {
@@ -645,11 +718,27 @@ export default {
     }
 
     .points-allocation-header {
+      h2 {
+        font-family: Roboto;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 24px;
+        letter-spacing: 0px;
+        color: $gray-10;
+        margin: 0;
+        display: inline-block;
+      }
+    }
+
+    .allocation-controls-row {
+      margin-top: 1.5em;
+      margin-bottom: 1em;
+      align-items: center;
+    }
+
+    .auto-allocate-section {
       display: flex;
-      align-items: baseline;
-      gap: 1em;
-      height: 40px;
-      transition: all 0.3s ease-in-out;
+      justify-content: flex-start;
     }
 
     .auto-allocate-toggle {
@@ -689,20 +778,35 @@ export default {
       }
 
       ::v-deep .toggle-switch-inner:before {
-        background-color: #9A62FF;
+        background-color: #1CA372;
       }
     }
 
-    .allocation-dropdown-container {
-      position: relative;
+    .allocation-dropdown-section {
       display: flex;
-      align-items: baseline;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1em;
 
       &.disabled {
         opacity: 0.5;
         pointer-events: none;
         cursor: not-allowed;
       }
+    }
+
+    .allocation-method-label {
+      font-family: Roboto;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 20px;
+      letter-spacing: 0px;
+      color: $gray-10;
+      white-space: nowrap;
+    }
+
+    .allocation-dropdown-container {
+      position: relative;
     }
 
     @keyframes slideInFromRight {
@@ -721,8 +825,10 @@ export default {
       top: -0.25em;
       left: 0.5em;
       color: #fff;
-      background-color: $orange-50;
+      background-color: #1CA372;
       box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
+      padding-left: 1em;
+      padding-right: 1em;
     }
 
     .task-allocation-box {
@@ -736,7 +842,7 @@ export default {
       padding-bottom: 10px;
       box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
       cursor: pointer;
-      width: 100%;
+      width: 289px;
     }
 
     .task-allocation-text {
@@ -824,109 +930,141 @@ export default {
       margin: 2em 0;
     }
 
-    .str, .int, .con, .per {
+    .allocation-boxes-row {
+      margin-left: -0.375em;
+      margin-right: -0.375em;
+    }
+
+    .allocation-box-col {
+      padding-left: 0.375em;
+      padding-right: 0.375em;
+    }
+
+    .allocation-card {
+      background: #FFFFFF;
+      border: 1px solid #C3C0C7;
+      border-radius: 8px;
+      height: 76px;
+      width: 100%;
+      padding: 8px 12px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.04);
+      user-select: none;
+    }
+
+    .allocation-card-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      flex: 1;
+      gap: 2px;
+    }
+
+    .allocation-card-title {
       font-family: Roboto;
       font-weight: 700;
       font-size: 12px;
       line-height: 16px;
       letter-spacing: 0px;
-      text-transform: uppercase;
-      margin-top: 26px;
-      padding-bottom: 4px;
-      border-bottom: 1px dashed;
-      display: block;
-      width: fit-content;
-      width: -moz-fit-content;
+      text-transform: capitalize;
+
+      &.str {
+        color: #f74e52;
+      }
+
+      &.int {
+        color: #2995cd;
+      }
+
+      &.con {
+        color: #ffa623;
+      }
+
+      &.per {
+        color: #4f2a93;
+      }
     }
 
-    .box {
-      width: 148px;
-      height: 84px;
-      padding: .5em;
-      margin: 0 auto;
+    .allocation-card-value {
+      font-family: Roboto;
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 32px;
+      letter-spacing: 0px;
+      color: $gray-100;
+    }
 
-      div {
-        margin-top: 0;
+    .allocation-card-arrows {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-left: 12px;
+      flex-shrink: 0;
+      justify-content: center;
+    }
+
+    .allocation-arrow {
+      width: 14px;
+      height: 9px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        width: 14px;
+        height: 9px;
+        display: block;
       }
 
-      .number {
-        font-family: Roboto;
-        font-weight: 400;
-        font-size: 40px;
-        line-height: 48px;
-        letter-spacing: 0px;
-        text-align: left;
-        color: $gray-100;
-        display: inline-block;
-        vertical-align: baseline;
+      &:not(.disabled):hover {
+        opacity: 0.6;
       }
 
-      .points {
-        display: inline-block;
-        font-family: Roboto;
-        font-weight: 700;
-        font-size: 12px;
-        line-height: 20px;
-        letter-spacing: 0px;
-        text-align: left;
-        color: $gray-200;
-        margin-left: 0.5em;
-        vertical-align: baseline;
-        text-transform: uppercase;
+      &.disabled {
+        cursor: not-allowed;
       }
+    }
 
-      .arrow-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .triangle-up {
-        width: 21px !important;
-        height: 13px !important;
-        min-width: 21px !important;
-        min-height: 13px !important;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        svg {
-          width: 21px !important;
-          height: 13px !important;
-          min-width: 21px !important;
-          min-height: 13px !important;
-        }
-      }
-
-      .triangle-up:hover {
-        opacity: 0.8;
-      }
+    .allocation-arrow-up {
+      transform: rotate(180deg);
     }
   }
 
   #attributes {
     .number {
-      font-size: 64px;
+      font-size: 48px;
       font-weight: bold;
-      color: #686274;
       display: block;
-    }
-
-    .attribute-label {
       text-align: center;
-    }
+      margin-bottom: 0;
 
-    .stat-title {
-      display: inline-block;
+      &.str {
+        color: #f74e52;
+      }
+
+      &.int {
+        color: #2995cd;
+      }
+
+      &.con {
+        color: #ffa623;
+      }
+
+      &.per {
+        color: #4f2a93;
+      }
     }
 
     .bonus-stats {
-      border-left: 1px solid $gray-500;
-      margin-top: 8px;
-      margin-bottom: 8px;
-      padding-left: 1em;
-      padding-top: 10px;
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      width: 100%;
 
       li {
         font-family: Roboto;
@@ -938,30 +1076,38 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-right: 1em;
+        padding: 0.25em 0;
 
         strong {
           font-weight: 700;
           color: $gray-200;
+          padding-left: 0.5em;
+        }
+
+        span {
+          padding-right: 0.5em;
+        }
+
+        .positive-stat {
+          color: #1CA372;
+          font-weight: 600;
         }
       }
     }
   }
 
   .stat-allocation-info {
-    margin-top: 3em;
-    margin-bottom: 0.5em;
-    padding-top: 2em;
-    padding-bottom: 0.25em;
-    text-align: center;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    text-align: left;
 
     p {
       font-family: Roboto;
       font-weight: 400;
-      font-size: 12px;
-      line-height: 16px;
+      font-size: 14px;
+      line-height: 24px;
       letter-spacing: 0px;
-      color: $gray-100;
+      color: $gray-50;
       margin: 0;
     }
   }
@@ -1052,13 +1198,35 @@ export default {
     }
 
   @media (max-width: 850px) {
-    #stats .col-md-6 {
+    #stats .col-md-3 {
       flex: none;
       max-width: 100%;
     }
+
+    #allocation {
+      .allocation-box-col {
+        margin-bottom: 0.75em;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      .allocation-controls-row {
+        .col-md-6 {
+          flex: none;
+          max-width: 100%;
+          margin-bottom: 1em;
+        }
+
+        .allocation-dropdown-section {
+          justify-content: flex-start;
+        }
+      }
+    }
   }
   @media(max-width: 990px) {
-    .modal-body #stats .col-md-6 {
+    .modal-body #stats .col-md-3 {
       flex: none;
       max-width: 100%;
     }
@@ -1067,15 +1235,23 @@ export default {
       margin-bottom: 30px;
     }
     #allocation {
-      .box {
-        width: 100%;
-        height: 100%;
-        .col-9 {
-          padding: 0;
-          margin: 0;
+      .allocation-box-col {
+        margin-bottom: 0.75em;
+
+        &:last-child {
+          margin-bottom: 0;
         }
-        .col-9 div:first-child {
-          font-size: 12px;
+      }
+
+      .allocation-controls-row {
+        .col-md-6 {
+          flex: none;
+          max-width: 100%;
+          margin-bottom: 1em;
+        }
+
+        .allocation-dropdown-section {
+          justify-content: flex-start;
         }
       }
     }
