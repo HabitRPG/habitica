@@ -25,6 +25,15 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
   extractAndValidateParams (user) {
     const item = content.armoire;
 
+    // Check for cooldown period to prevent rapid purchases
+    const now = new Date();
+    const lastPurchaseTime = user.flags.lastArmoirePurchase ? new Date(user.flags.lastArmoirePurchase) : null;
+    const COOLDOWN_MILLISECONDS = 2000; // 2 second cooldown to prevent rapid purchases
+    
+    if (lastPurchaseTime && (now - lastPurchaseTime) < COOLDOWN_MILLISECONDS) {
+      throw new NotAuthorized(this.i18n('armoirePurchaseTooFast'));
+    }
+
     this.canUserPurchase(user, item);
   }
 
@@ -50,6 +59,9 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
     }
 
     this.subtractCurrency(user, item);
+
+    // Set the last armoire purchase time to prevent rapid purchases
+    user.flags.lastArmoirePurchase = new Date();
 
     let { message } = result;
     const { armoireResp } = result;

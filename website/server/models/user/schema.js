@@ -338,6 +338,7 @@ export const UserSchema = new Schema({
     armoireEnabled: { $type: Boolean, default: true },
     armoireOpened: { $type: Boolean, default: false },
     armoireEmpty: { $type: Boolean, default: false },
+    lastArmoirePurchase: { $type: Date },
     cardReceived: { $type: Boolean, default: false },
     warnedLowHealth: { $type: Boolean, default: false },
     verifiedUsername: { $type: Boolean, default: false },
