@@ -320,6 +320,7 @@ export const UserSchema = new Schema({
       $type: Schema.Types.Mixed,
       default: () => ({}),
     },
+    lastArmoirePurchase: Date,
     chatRevoked: Boolean,
     chatShadowMuted: Boolean,
     // Used to track the status of recapture emails sent to each user,

@@ -16,6 +16,7 @@ import updateStats from '../../fns/updateStats';
 
 const YIELD_EQUIPMENT_THRESHOLD = 0.6;
 const YIELD_FOOD_THRESHOLD = 0.8;
+const ARMOIRE_COOLDOWN_MS = 2000; // 2 seconds cooldown
 
 export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
   multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
@@ -24,6 +25,16 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
 
   extractAndValidateParams (user) {
     const item = content.armoire;
+
+    // Check cooldown to prevent rapid purchases
+    const lastPurchase = user.flags.lastArmoirePurchase;
+    if (lastPurchase) {
+      const now = Date.now();
+      const timeSinceLastPurchase = now - new Date(lastPurchase).getTime();
+      if (timeSinceLastPurchase < ARMOIRE_COOLDOWN_MS) {
+        throw new NotAuthorized(this.i18n('armoirePurchaseTooFast'));
+      }
+    }
 
     this.canUserPurchase(user, item);
   }
@@ -50,6 +61,9 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
     }
 
     this.subtractCurrency(user, item);
+
+    // Update the last armoire purchase time to prevent rapid purchases
+    user.flags.lastArmoirePurchase = new Date();
 
     let { message } = result;
     const { armoireResp } = result;

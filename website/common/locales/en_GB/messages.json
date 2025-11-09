@@ -30,6 +30,7 @@
     "armoireEquipment": "<%= image %> You found a piece of rare Equipment in the Armoire: <%= dropText %>! Awesome!",
     "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropText %>. What's that doing in here?",
     "armoireExp": "You wrestle with the Armoire and gain Experience. Take that!",
+    "armoirePurchaseTooFast": "Please wait a moment before purchasing from the Enchanted Armoire again.",
     "messageInsufficientGems": "Not enough gems!",
     "messageGroupAlreadyInParty": "Already in a party, try refreshing.",
     "messageGroupOnlyLeaderCanUpdate": "Only the group leader can update the group!",
