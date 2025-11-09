@@ -296,14 +296,6 @@
             </router-link>
             <div class="topbar-dropdown">
               <router-link
-                v-if="user.permissions.fullAccess ||
-                  user.permissions.userSupport || user.permissions.newsPoster"
-                class="topbar-dropdown-item dropdown-item"
-                :to="{name: 'adminPanel'}"
-              >
-                Admin Panel
-              </router-link>
-              <router-link
                 class="topbar-dropdown-item dropdown-item"
                 :to="{name: 'faq'}"
               >
@@ -334,11 +326,61 @@
                 href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
                 target="_blank"
               >{{ $t('requestFeature') }}</a>
-              <a
+            </div>
+          </li>
+          <li
+            v-if="hasElevatedPrivileges"
+            class="topbar-item droppable"
+            :class="{
+              'active': $route.path.startsWith('/admin')}"
+          >
+            <div
+              class="chevron rotate"
+              @click="dropdownMobile($event)"
+            >
+              <div
+                v-once
+                class="chevron-icon-down"
+                v-html="icons.chevronDown"
+              ></div>
+            </div>
+            <router-link
+              v-if="hasPermission(user, 'userSupport')"
+              class="nav-link"
+              :to="{name: 'adminPanel'}"
+            >
+              {{ $t('admin') }}
+            </router-link>
+            <a
+              v-else
+              href="#"
+              class="nav-link"
+            >
+              {{ $t('admin') }}
+            </a>
+            <div class="topbar-dropdown">
+              <router-link
+                v-if="hasPermission(user, 'userSupport')"
                 class="topbar-dropdown-item dropdown-item"
-                href="https://habitica.fandom.com/wiki/Habitica_Wiki"
+                :to="{name: 'adminPanel'}"
+              >
+                {{ $t("adminPanel") }}
+              </router-link>
+              <router-link
+                v-if="hasPermission(user, 'accessControl')"
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'blockers'}"
+              >
+                {{ $t("siteBlockers") }}
+              </router-link>
+              <a
+                v-if="hasPermission(user, 'news')"
+                class="topbar-dropdown-item dropdown-item"
                 target="_blank"
-              >{{ $t('wiki') }}</a>
+                href="https://panel.habitica.com"
+              >
+                {{ $t('newsroom') }}
+              </a>
             </div>
           </li>
         </b-navbar-nav>
@@ -354,13 +396,15 @@
             ></div>
             <span>{{ userHourglasses }}</span>
           </div>
-          <div class="item-with-icon gem">
+          <div
+            class="item-with-icon gem"
+            @click.prevent="showBuyGemsModal()"
+          >
             <a
               v-b-tooltip.hover.bottom="$t('gems')"
               class="top-menu-icon svg-icon gem mr-2"
               :aria-label="$t('gems')"
               href="#buy-gems"
-              @click.prevent="showBuyGemsModal()"
               v-html="icons.gem"
             ></a>
             <span>{{ userGems }}</span>
@@ -405,9 +449,9 @@ body.modal-open #habitica-menu {
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/utils.scss';
-  @import '~@/assets/scss/variables.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/utils.scss';
+  @import '@/assets/scss/variables.scss';
 
   .menu-toggle {
     border: none;
@@ -420,7 +464,7 @@ body.modal-open #habitica-menu {
 
   .topbar {
     z-index: 1080;
-    background: $purple-100 url(~@/assets/svg/for-css/bits.svg) right top no-repeat;
+    background: $purple-100 url(@/assets/svg/for-css/bits.svg) right top no-repeat;
     min-height: 56px;
     box-shadow: 0 1px 2px 0 rgba($black, 0.24);
 
@@ -743,12 +787,12 @@ body.modal-open #habitica-menu {
 import { mapState, mapGetters } from '@/libs/store';
 import { goToModForm } from '@/libs/modform';
 
-import gemIcon from '@/assets/svg/gem.svg';
-import goldIcon from '@/assets/svg/gold.svg';
-import syncIcon from '@/assets/svg/sync.svg';
-import svgHourglasses from '@/assets/svg/hourglass.svg';
-import chevronDownIcon from '@/assets/svg/chevron-down.svg';
-import melior from '@/assets/svg/melior.svg';
+import gemIcon from '@/assets/svg/gem.svg?raw';
+import goldIcon from '@/assets/svg/gold.svg?raw';
+import syncIcon from '@/assets/svg/sync.svg?raw';
+import svgHourglasses from '@/assets/svg/hourglass.svg?raw';
+import chevronDownIcon from '@/assets/svg/chevron-down.svg?raw';
+import melior from '@/assets/svg/melior.svg?raw';
 
 import creatorIntro from '../creatorIntro';
 import notificationMenu from './notificationsDropdown';
@@ -760,6 +804,7 @@ import selectUserModal from '@/components/payments/selectUserModal';
 import sync from '@/mixins/sync';
 import userDropdown from './userDropdown';
 import reportBug from '@/mixins/reportBug.js';
+import { userStateMixin } from '../../mixins/userState';
 
 export default {
   components: {
@@ -772,7 +817,7 @@ export default {
     selectUserModal,
     userDropdown,
   },
-  mixins: [sync, reportBug],
+  mixins: [sync, reportBug, userStateMixin],
   data () {
     return {
       isUserDropdownOpen: false,
@@ -804,6 +849,12 @@ export default {
         name: 'groupPlanDetailTaskInformation',
         params: { groupId: this.groupPlans[0]._id },
       };
+    },
+    hasElevatedPrivileges () {
+      return this.user.permissions.fullAccess
+        || this.user.permissions.userSupport
+        || this.user.permissions.accessControl
+        || this.user.permissions.news;
     },
   },
   async mounted () {

@@ -1,5 +1,6 @@
 import get from 'lodash/get';
 import each from 'lodash/each';
+import pick from 'lodash/pick';
 import i18n from '../../i18n';
 import content from '../../content/index';
 import {
@@ -36,6 +37,7 @@ export default async function buyMysterySet (user, req = {}, analytics) {
 
   if (analytics) {
     analytics.track('buy', {
+      user: pick(user, ['preferences', 'registeredThrough']),
       uuid: user._id,
       itemKey: mysterySet.key,
       itemType: 'Subscriber Gear',

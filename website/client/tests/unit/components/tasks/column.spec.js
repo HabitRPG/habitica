@@ -1,3 +1,6 @@
+import {
+  describe, expect, test, beforeEach,
+} from 'vitest';
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import TaskColumn from '@/components/tasks/column.vue';
 import Store from '@/libs/store';
@@ -41,7 +44,7 @@ describe('Task Column', () => {
     });
   }
 
-  it('returns a vue instance', () => {
+  test('returns a vue instance', () => {
     wrapper = makeWrapper();
     expect(wrapper.isVueInstance()).to.be.true;
   });
@@ -51,11 +54,11 @@ describe('Task Column', () => {
       wrapper = makeWrapper();
     });
 
-    it('defaults isUser to false', () => {
+    test('defaults isUser to false', () => {
       expect(wrapper.vm.isUser).to.be.false;
     });
 
-    it('passes isUser to component instance', () => {
+    test('passes isUser to component instance', () => {
       wrapper.setProps({ isUser: false });
 
       expect(wrapper.vm.isUser).to.be.false;
@@ -106,7 +109,7 @@ describe('Task Column', () => {
       wrapper = makeWrapper({ store });
     });
 
-    it('returns task list from props for group-plan', () => {
+    test('returns task list from props for group-plan', () => {
       wrapper.setProps({ taskListOverride });
 
       wrapper.vm.taskList.forEach((el, i) => {
@@ -120,7 +123,7 @@ describe('Task Column', () => {
       });
     });
 
-    it('returns task list from store for user', () => {
+    test('returns task list from store for user', () => {
       wrapper.setProps({ isUser: true, taskListOverride });
 
       wrapper.vm.taskList.forEach((el, i) => {
@@ -142,7 +145,7 @@ describe('Task Column', () => {
         ];
       });
 
-      it('returns all tasks if no tag is given', () => {
+      test('returns all tasks if no tag is given', () => {
         const returnedTasks = wrapper.vm.filterByTagList(tasks);
         expect(returnedTasks).to.have.lengthOf(tasks.length);
         tasks.forEach((task, i) => {
@@ -150,7 +153,7 @@ describe('Task Column', () => {
         });
       });
 
-      it('returns tasks for given single tag', () => {
+      test('returns tasks for given single tag', () => {
         const returnedTasks = wrapper.vm.filterByTagList(tasks, [3]);
 
         expect(returnedTasks).to.have.lengthOf(3);
@@ -159,7 +162,7 @@ describe('Task Column', () => {
         expect(returnedTasks[2]).to.eq(tasks[3]);
       });
 
-      it('returns tasks for given multiple tags', () => {
+      test('returns tasks for given multiple tags', () => {
         const returnedTasks = wrapper.vm.filterByTagList(tasks, [2, 3]);
 
         expect(returnedTasks).to.have.lengthOf(1);
@@ -201,7 +204,7 @@ describe('Task Column', () => {
         ];
       });
 
-      it('returns all tasks for empty search term', () => {
+      test('returns all tasks for empty search term', () => {
         const returnedTasks = wrapper.vm.filterBySearchText(tasks);
         expect(returnedTasks).to.have.lengthOf(tasks.length);
         tasks.forEach((task, i) => {
@@ -209,19 +212,19 @@ describe('Task Column', () => {
         });
       });
 
-      it('returns tasks for search term in title /i', () => {
+      test('returns tasks for search term in title /i', () => {
         ['Title', 'TITLE', 'title', 'tItLe'].forEach(term => {
           expect(wrapper.vm.filterBySearchText(tasks, term)[0]).to.eq(tasks[2]);
         });
       });
 
-      it('returns tasks for search term in note /i', () => {
+      test('returns tasks for search term in note /i', () => {
         ['Note', 'NOTE', 'note', 'nOtE'].forEach(term => {
           expect(wrapper.vm.filterBySearchText(tasks, term)[0]).to.eq(tasks[3]);
         });
       });
 
-      it('returns tasks for search term in checklist title /i', () => {
+      test('returns tasks for search term in checklist title /i', () => {
         ['Check', 'CHECK', 'check', 'cHeCK'].forEach(term => {
           const returnedTasks = wrapper.vm.filterBySearchText(tasks, term);
 

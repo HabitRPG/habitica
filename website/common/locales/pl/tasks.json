@@ -135,5 +135,8 @@
     "resetCounter": "Zresetuj Licznik",
     "taskSummary": "Podsumowanie <%= type %>",
     "scoreUp": "Zwiększ statystykę",
-    "scoreDown": "Zmniejsz statystykę"
+    "scoreDown": "Zmniejsz statystykę",
+    "taskAlias": "Alias Zadania",
+    "taskAliasPopover": "Ten alias zadania może być użyty przez zewnętrzne integracje. Wspierane są jedynie myślniki, podkreślenia i znaki alfanumeryczne. Alias zadania musi być unikalny wśród wszystkich Twoich zadań.",
+    "taskAliasPlaceholder": "wprowadź alias zadania tutaj"
 }

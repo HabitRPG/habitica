@@ -49,7 +49,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .no-challenge-section {
     padding: 2em;
@@ -84,7 +84,7 @@ import markdownDirective from '@/directives/markdown';
 import externalLinks from '../../mixins/externalLinks';
 
 import challengeItem from './challengeItem';
-import challengeIcon from '@/assets/svg/challenge.svg';
+import challengeIcon from '@/assets/svg/challenge.svg?raw';
 
 export default {
   components: {

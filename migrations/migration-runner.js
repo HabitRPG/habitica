@@ -6,11 +6,11 @@ require('@babel/register'); // eslint-disable-line import/no-extraneous-dependen
 function setUpServer () {
   const nconf = require('nconf'); // eslint-disable-line global-require, no-unused-vars
   const mongoose = require('mongoose'); // eslint-disable-line global-require, no-unused-vars
-  const setupNconf = require('../website/server/libs/setupNconf'); // eslint-disable-line global-require
+  const setupNconf = require('../website/server/libs/setupNconf').default; // eslint-disable-line global-require
 
   setupNconf();
 
-  // We require src/server and npt src/index because
+  // We require src/server and not src/index because
   // 1. nconf is already setup
   // 2. we don't need clustering
   require('../website/server/server'); // eslint-disable-line global-require

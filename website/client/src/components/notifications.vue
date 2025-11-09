@@ -64,7 +64,7 @@
       top: -55px;
       width: 48px;
       height: 51px;
-      background-image: url('~@/assets/images/justin_textbox.png');
+      background-image: url('@/assets/images/justin_textbox.png');
     }
   }
 
@@ -328,6 +328,8 @@ export default {
       alreadyReadNotification,
       nextCron: null,
       handledNotifications,
+      isInitialLoadComplete: false,
+      pendingRebirthNotification: null,
     };
   },
   computed: {
@@ -453,6 +455,18 @@ export default {
 
       return this.runYesterDailies();
     },
+    async showPendingRebirthModal () {
+      if (this.pendingRebirthNotification) {
+        this.playSound('Achievement_Unlocked');
+        this.$root.$emit('bv::show::modal', 'rebirth');
+
+        await axios.post('/api/v4/notifications/read', {
+          notificationIds: [this.pendingRebirthNotification.id],
+        });
+
+        this.pendingRebirthNotification = null;
+      }
+    },
     showDeathModal () {
       this.playSound('Death');
       this.$root.$emit('bv::show::modal', 'death');
@@ -529,7 +543,7 @@ export default {
 
       // List of prompts for user on changes.
       // Sounds like we may need a refactor here, but it is clean for now
-      if (!this.user.flags.welcomed && !this.$route.name.includes('groupPlan')) {
+      if (!this.user.flags.welcomed && !this.$route?.name.includes('groupPlan')) {
         if (this.$store.state.avatarEditorOptions) {
           this.$store.state.avatarEditorOptions.editingUser = false;
         }
@@ -661,6 +675,18 @@ export default {
         this.showLevelUpNotifications(this.user.stats.lvl);
       }
       this.handleUserNotifications(this.user.notifications);
+
+      this.isInitialLoadComplete = true;
+
+      const hasRebirthConfirmationFlag = localStorage.getItem('show-rebirth-confirmation') === 'true';
+
+      if (hasRebirthConfirmationFlag) {
+        localStorage.removeItem('show-rebirth-confirmation');
+        this.playSound('Achievement_Unlocked');
+        this.$root.$emit('bv::show::modal', 'rebirth');
+      } else {
+        this.showPendingRebirthModal();
+      }
     },
     async handleUserNotifications (after) {
       if (this.$store.state.isRunningYesterdailies) return;
@@ -700,8 +726,15 @@ export default {
             this.$root.$emit('habitica:won-challenge', notification);
             break;
           case 'REBIRTH_ACHIEVEMENT':
-            this.playSound('Achievement_Unlocked');
-            this.$root.$emit('bv::show::modal', 'rebirth');
+            if (localStorage.getItem('show-rebirth-confirmation') === 'true') {
+              markAsRead = false;
+            } else if (!this.isInitialLoadComplete) {
+              this.pendingRebirthNotification = notification;
+              markAsRead = false;
+            } else {
+              this.playSound('Achievement_Unlocked');
+              this.$root.$emit('bv::show::modal', 'rebirth');
+            }
             break;
           case 'STREAK_ACHIEVEMENT':
             this.text(`${this.$t('streaks')}: ${this.user.achievements.streak}`, () => {

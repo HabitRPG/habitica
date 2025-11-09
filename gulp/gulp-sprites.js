@@ -64,6 +64,15 @@ function filterFile (file) {
   if (file.relative.indexOf('icon_background') === 0) {
     return false;
   }
+  if (file.relative.indexOf('notif_') === 0) {
+    return false;
+  }
+  if (file.relative.indexOf('quest_') === 0) {
+    return false;
+  }
+  if (file.relative.indexOf('inventory_quest_') === 0) {
+    return false;
+  }
   return true;
 }
 

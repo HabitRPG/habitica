@@ -3,6 +3,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import compact from 'lodash/compact';
 import forEach from 'lodash/forEach';
 import keys from 'lodash/keys';
+import pick from 'lodash/pick';
 import remove from 'lodash/remove';
 import validator from 'validator';
 import {
@@ -207,11 +208,7 @@ async function getTasks (req, res, options = {}) {
       query.type = 'todo';
       query.completed = false; // Exclude completed todos
     } else if (type === 'completedTodos' || type === '_allCompletedTodos') { // _allCompletedTodos is currently in BETA and is likely to be removed in future
-      limit = 30;
-
-      if (type === '_allCompletedTodos') {
-        limit = 0; // no limit
-      }
+      limit = 0; // no limit, the 30/90 days of data for subscribers is handled during cron
 
       query.type = 'todo';
       query.completed = true;
@@ -237,7 +234,7 @@ async function getTasks (req, res, options = {}) {
     } else {
       query.type = type.slice(0, -1); // removing the final "s"
     }
-  } else {
+  } else if (!challenge) {
     query.$and = [{
       $or: [ // Exclude completed todos
         { type: 'todo', completed: false },
@@ -519,6 +516,7 @@ async function scoreTask (user, task, direction, req, res) {
       role = 'member';
     }
     res.analytics.track('team task scored', {
+      user: pick(user, ['preferences', 'registeredThrough']),
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',

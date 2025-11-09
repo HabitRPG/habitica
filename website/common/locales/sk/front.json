@@ -1,6 +1,5 @@
 {
     "FAQ": "FAQ",
-    "termsAndAgreement": "Kliknutím na tlačidlo nižšie potvrduzjete, že ste si prečítali a súhlasíte s <a href='/static/terms'>Podmienkami služby</a> a <a href='/static/privacy'>Ochranou osobných údajov</a>.",
     "chores": "Každodenná práca okolo domu",
     "clearBrowserData": "Prečisti si prehliadač",
     "communityExtensions": "Doplnky a Rozšírenia",
@@ -133,7 +132,7 @@
     "invalidReqParams": "Neplatné požadované parametre.",
     "memberIdRequired": "\"member\" musí byť platné UUID.",
     "heroIdRequired": "\"heroId\" musí byť platné UUID.",
-    "cannotFulfillReq": "Tvoja požiadavka nemôže byť splnená.  Pokiaľ táto chyba pretrváva, napíš nám na email admin@habitica.com.",
+    "cannotFulfillReq": "Tvoja požiadavka nemôže byť splnená. Pokiaľ táto chyba pretrváva, napíš nám na email admin@habitica.com.",
     "modelNotFound": "Tento model neexistuje.",
     "signUpWithSocial": "Sign up with <%= social %>",
     "loginWithSocial": "Log in with <%= social %>",

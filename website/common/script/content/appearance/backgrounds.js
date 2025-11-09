@@ -635,6 +635,45 @@ const backgrounds = {
   backgrounds102024: {
     surrounded_by_ghosts: { },
   },
+  backgrounds112024: {
+    castle_hall_with_hearth: { },
+  },
+  backgrounds122024: {
+    first_snow_forest: { },
+  },
+  backgrounds012025: {
+    winter_landscape_with_cabin: { },
+  },
+  backgrounds022025: {
+    old_fashioned_tea_shop: { },
+  },
+  backgrounds032025: {
+    mountain_scene_with_blossoms: { },
+  },
+  backgrounds042025: {
+    garden_with_flower_beds: { },
+  },
+  backgrounds052025: {
+    trail_through_a_forest: { },
+  },
+  backgrounds062025: {
+    summer_seashore: { },
+  },
+  backgrounds072025: {
+    sirens_lair: { },
+  },
+  backgrounds082025: {
+    sunny_street_with_shops: { },
+  },
+  backgrounds092025: {
+    autumn_swamp: { },
+  },
+  backgrounds102025: {
+    inside_forest_witchs_cottage: { },
+  },
+  backgrounds112025: {
+    castle_keep_with_banners: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,

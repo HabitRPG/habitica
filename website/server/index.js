@@ -9,7 +9,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const cluster = require('cluster');
 
-const setupNconf = require('./libs/setupNconf');
+const setupNconf = require('./libs/setupNconf').default;
 
 // Initialize configuration BEFORE anything
 setupNconf();

@@ -5,7 +5,7 @@
     "groupBy": "<%= type %> Farkına Göre Gruplandır",
     "classBonus": "(Bu eşya, karakter sınıfın ile uyumlu olduğu için Nitelik Değerleri 1.5 katına çıkar.)",
     "classArmor": "Sınıf Zırhı",
-    "featuredset": "Öne Çıkan Set <%= name %>",
+    "featuredset": "Öne Çıkan Set: <%= name %>",
     "mysterySets": "Gizemli Setler",
     "gearNotOwned": "Bu eşyaya sahip değilsin.",
     "noGearItemsOfType": "Bunların hiçbirine sahip değilsin.",
@@ -1723,5 +1723,8 @@
     "weaponSpecialSummer2019RogueNotes": "Bu antik ve güçlü silah deniz altındaki her savaşı kazanmanıza yardım edecek. Gücü <%= str %> arttırır. Sınırlı Sürüm 2019 Yaz Ekipmanı.",
     "weaponSpecialSummer2019RogueText": "Antika Çapa",
     "weaponSpecialSpring2019HealerText": "İlkbahar Şarkısı",
-    "weaponSpecialSummer2019HealerText": "Baloncuk Asası"
+    "weaponSpecialSummer2019HealerText": "Baloncuk Asası",
+    "gearItemsCompleted": "Tüm <%= klass %> ekipmanlarına sahipsiniz! Yeni ekipmanlar, mevsimsel Galalar sırasında yayımlanır.",
+    "moreArmoireGearAvailable": "O zamana kadar, Büyülü Gardırop'ta bulunacak <%= armoireCount %> parça ekipman var!",
+    "moreArmoireGearComing": "Büyülü Gardırop her ay yeni stok alır!"
 }

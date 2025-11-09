@@ -15,7 +15,7 @@
     "messageMissingEggPotion": "Anda tidak memiliki telur atau ramuan tersebut",
     "messageInvalidEggPotionCombo": "Kamu tidak dapaat menetaskan Telur Peliharaan Misi dengan Ramuan Penetas Ajaib! Coba telur lainya.",
     "messageAlreadyPet": "Anda telah memiliki peliharaan tersebut. Cobalah tetaskan kombinasi yang berbeda!",
-    "messageHatched": "Telur Anda telah ditetaskan! Kunjungi Kandang untuk memakaikan perlengkapan kepada peliharaan Anda.",
+    "messageHatched": "Telur Anda telah menetas! Kunjungi Pets and Mounts untuk memakaikan perlengkapan kepada peliharaan Anda.",
     "messageNotEnoughGold": "Anda tidak memiliki cukup Gold",
     "messageTwoHandedEquip": "Menggunakan <%= twoHandedText %> membutuhkan dua tangan, jadi <%= offHandedText %> telah dilepaskan.",
     "messageTwoHandedUnequip": "Menggunakan <%= twoHandedText %> membutuhkan dua tangan, jadi benda tersebut dilepaskan saat kamu menggunakan <%= offHandedText %>.",
@@ -46,7 +46,6 @@
     "messageNotAbleToBuyInBulk": "Item ini tidak dapat dibeli dalam jumlah lebih dari 1.",
     "notificationsRequired": "Id notifikasi diperlukan.",
     "unallocatedStatsPoints": "Kamu punya <span class=\"notification-bold-blue\"><%= points %>Poin Atribut yang belum teralokasi</span>",
-    "beginningOfConversation": "Ini permulaan percakapanmu dengan <%= userName %>.",
     "messageDeletedUser": "Maaf ya, pengguna ini sudah menghapus akunnya.",
     "messageMissingDisplayName": "Nama tampilan tidak ada.",
     "canDeleteNow": "Sekarang kamu dapat menghapus pesan.",
@@ -55,7 +54,7 @@
     "messagePetMountUnEquipped": "Peliharaan dan Tunggangan dilepaskan.",
     "messageBackgroundUnEquipped": "Latar Belakang dilepaskan.",
     "messageAllUnEquipped": "Semuanya dilepaskan.",
-    "beginningOfConversationReminder": "Ingatlah untuk sopan, menghargai, dan mengikuti Pedoman Komunitas!",
     "reportedMessage": "Kamu telah melaporkan pesan ini ke moderator.",
-    "newsPostNotFound": "Tulisan Berita tidak ditemukan atau kamu tidak punya akses."
+    "newsPostNotFound": "Tulisan Berita tidak ditemukan atau kamu tidak punya akses.",
+    "featureRetired": "Fitur ini tidak lagi didukung."
 }

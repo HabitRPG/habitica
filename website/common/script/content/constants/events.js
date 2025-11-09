@@ -50,8 +50,13 @@ export const REPEATING_EVENTS = {
     end: new Date('1970-03-16T03:59-04:00'),
     foodSeason: 'Pie',
   },
+  aprilFools: {
+    start: new Date('1970-04-01T04:00-04:00'),
+    end: new Date('1970-04-02T03:59-04:00'),
+    aprilFools: 'Cryptid',
+  },
   aprilFoolsResale: {
-    start: new Date('1970-04-07T04:00-04:00'),
+    start: new Date('1970-04-03T04:00-04:00'),
     end: new Date('1970-05-01T03:59-04:00'),
     content: [
       {
@@ -65,6 +70,7 @@ export const REPEATING_EVENTS = {
       {
         type: 'premiumHatchingPotions',
         items: [
+          'Cryptid',
           'Veggie',
           'TeaShop',
         ],
@@ -77,14 +83,14 @@ export const REPEATING_EVENTS = {
     foodSeason: 'Cake',
   },
   fallGemSale: {
-    start: new Date('1970-09-23T04:00-04:00'),
-    end: new Date('1970-09-27T23:59-04:00'),
+    start: new Date('1970-08-27T04:00-04:00'),
+    end: new Date('1970-09-03T23:59-04:00'),
     event: 'fall_extra_gems',
     gemsPromo,
   },
   spookyGemSale: {
-    start: new Date('1970-10-28T04:00-04:00'),
-    end: new Date('1970-11-01T23:59-04:00'),
+    start: new Date('1970-10-27T04:00-04:00'),
+    end: new Date('1970-10-31T23:59-04:00'),
     event: 'spooky_extra_gems',
     gemsPromo,
   },
@@ -103,8 +109,8 @@ export const REPEATING_EVENTS = {
     foodSeason: 'Pie',
   },
   giftOneGetOne: {
-    start: new Date('1970-12-19T04:00-05:00'),
-    end: new Date('1970-01-06T23:59-05:00'),
+    start: new Date('1970-12-18T04:00-05:00'),
+    end: new Date('1970-01-05T23:59-05:00'),
     promo: 'g1g1',
   },
 };
@@ -146,7 +152,6 @@ export const EVENTS = {
     start: '2024-04-09T08:00-04:00',
     end: '2024-04-30T23:59-04:00',
   },
-
   aprilFools2024: {
     start: '2024-04-01T00:00-04:00',
     end: '2024-04-02T08:00-04:00',

@@ -102,7 +102,7 @@
   }
 
   .left-hearts {
-    background-image: url('~@/assets/images/world-boss/left-hearts@3x.png');
+    background-image: url('@/assets/images/world-boss/left-hearts@3x.png');
   }
 
   .quest_dysheartener_notification, .phobia_dysheartener_notification {
@@ -116,12 +116,12 @@
   }
 
   .quest_dysheartener_notification {
-    background-image: url('~@/assets/images/world-boss/mantis-static-notification@3x.png');
+    background-image: url('@/assets/images/world-boss/mantis-static-notification@3x.png');
   }
 
   .phobia_dysheartener_notification {
     display: none;
-    background-image: url('~@/assets/images/world-boss/heart-translucent-shadow-notification@3x.png');
+    background-image: url('@/assets/images/world-boss/heart-translucent-shadow-notification@3x.png');
   }
 
   .health-bar {
@@ -173,8 +173,8 @@ import * as quests from '@/../../common/script/content/quests';
 import { mapState } from '@/libs/store';
 import BaseNotification from './base';
 
-import health from '@/assets/svg/health.svg';
-import sword from '@/assets/svg/sword.svg';
+import health from '@/assets/svg/health.svg?raw';
+import sword from '@/assets/svg/sword.svg?raw';
 import { worldStateMixin } from '@/mixins/worldState';
 
 export default {

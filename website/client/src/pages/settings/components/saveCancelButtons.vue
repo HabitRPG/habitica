@@ -5,7 +5,7 @@
   >
     <button
       v-if="!hideSave"
-      class="btn btn-save"
+      class="btn btn-save mb-2"
       :class="primaryButtonColor ?? 'btn-primary'"
       type="submit"
       :disabled="disableSave"
@@ -60,9 +60,5 @@ export default {
   &:not(.no-padding) {
     margin-top: 1.5rem;
   }
-}
-
-.btn-save {
-  margin-bottom: 1rem;
 }
 </style>

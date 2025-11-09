@@ -18,7 +18,7 @@ describe('Shop Featured Items', () => {
     });
 
     it('contains the current premium hatching potions', () => {
-      clock = Sinon.useFakeTimers(new Date('2024-04-08'));
+      clock = Sinon.useFakeTimers(new Date('2024-04-09'));
       const items = featuredItems.market();
       expect(_.find(items, item => item.path === 'premiumHatchingPotions.Porcelain')).to.exist;
     });

@@ -66,16 +66,13 @@
             class="nav-link"
           >{{ $t('presskit') }}</a>
         </router-link>
-        <router-link
-          class="nav-item"
-          tag="li"
-          to="/static/contact"
-        >
+        <li class="nav-item">
           <a
             v-once
             class="nav-link"
+            href="mailto:admin@habitica.com"
           >{{ $t('contactUs') }}</a>
-        </router-link>
+        </li>
       </ul>
       <ul
         v-else
@@ -137,7 +134,7 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .habitica-logo {
     height: 64px;
@@ -152,12 +149,15 @@
   }
 
   .btn-primary.pull-right {
-    height: 2.5em;
+    line-height: 2.25;
     margin: auto 0px auto auto;
+    &:focus, :active {
+      border: 2px solid $purple-400;
+    }
   }
 
   nav.navbar {
-    background: $purple-100 url(~@/assets/svg/for-css/bits.svg) right no-repeat;
+    background: $purple-100 url(@/assets/svg/for-css/bits.svg) right no-repeat;
     padding-left: 24px;
     padding-right: 12.5px;
     height: 56px;
@@ -271,9 +271,9 @@
 </style>
 
 <script>
-import habiticaLogo from '@/assets/svg/logo-horizontal.svg';
-import purpleLogo from '@/assets/svg/logo-horizontal-purple.svg';
-import melior from '@/assets/svg/melior.svg';
+import habiticaLogo from '@/assets/svg/logo-horizontal.svg?raw';
+import purpleLogo from '@/assets/svg/logo-horizontal-purple.svg?raw';
+import melior from '@/assets/svg/melior.svg?raw';
 
 export default {
   data () {

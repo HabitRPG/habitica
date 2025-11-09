@@ -1,1 +1,1 @@
-export const NotFoundPage = () => import(/* webpackChunkName: "not-found" */'@/components/404');
+export const NotFoundPage = () => import('@/components/404');

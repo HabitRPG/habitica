@@ -8,7 +8,7 @@
     "rebirthOrb": "Use uma Orbe de Renascimento para recomeçar tudo outra vez depois de alcançar o nível <%= level %>.",
     "rebirthOrb100": "Use uma Orbe de Renascimento para recomeçar tudo outra vez depois de alcançar nível 100 ou mais.",
     "rebirthOrbNoLevel": "Utilizou uma Orbe de Renascimento para começar tudo de novo.",
-    "rebirthPop": "Recomece instantaneamente o seu personagem como um Guerreiro de Nível 1, mantendo, no entanto, conquistas, colecionáveis e equipamento. As suas tarefas e o historial das mesmas irá manter-se, mas serão reinicializadas para amarelo. Os seus combos serão removidos exceto em tarefas de desafio. O seu Ouro, Experiência, Mana e efeitos de todas as suas Habilidades serão removidos. Tudo isto terá efeito imediato. Para mais informações, veja a página de wiki sobre <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe de Renascimento</a>.",
+    "rebirthPop": "Recomece instantaneamente o seu personagem como um Guerreiro de Nível 1, mantendo, no entanto, conquistas, colecionáveis e equipamento. As suas tarefas e o historial das mesmas irá manter-se, mas serão reinicializadas para amarelo. Os seus combos serão removidos exceto em tarefas de desafio. O seu Ouro, Experiência, Mana e efeitos de todas as suas Habilidades serão removidos. Tudo isto terá efeito imediato.",
     "rebirthName": "Orbe do Renascimento",
     "rebirthComplete": "Renasceste!",
     "nextFreeRebirth": "<strong><%= days %> dias</strong> até Orbe de Renascimento <strong>GRÁTIS</strong>"

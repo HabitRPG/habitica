@@ -1,14 +1,15 @@
+import { describe, expect, test } from 'vitest';
 import Vue from 'vue';
 import DrawerComponent from '@/components/ui/drawer.vue';
 
 describe('DrawerComponent', () => {
-  it('sets the correct default data', () => {
+  test('sets the correct default data', () => {
     expect(DrawerComponent.data).to.be.a('function');
     const defaultData = DrawerComponent.data();
     expect(defaultData.isOpened).to.be.true;
   });
 
-  it('renders the correct title', () => {
+  test('renders the correct title', () => {
     const Ctor = Vue.extend(DrawerComponent);
     const vm = new Ctor({
       propsData: {

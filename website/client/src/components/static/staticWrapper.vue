@@ -2,7 +2,7 @@
   <div>
     <chat-banner />
     <static-header
-      v-if="showContentWrap"
+      v-if="showContentWrap && !loginFlow"
       :class="{
         'home-header': ['home', 'front'].indexOf($route.name) !== -1,
         'white-header': $route.name === 'plans'
@@ -15,17 +15,23 @@
       <router-view />
     </div>
     <div
+      id="bottom-background"
+      v-if="loginFlow"
+      class="bg-purple-300"
+    >
+      <div class="seamless_mountains_demo_repeat"></div>
+      <div class="midground_foreground_extended2"></div>
+    </div>
+    <app-footer
       v-if="showContentWrap"
       :id="footerId"
-    >
-      <app-footer />
-    </div>
+    />
     <div
       v-if="showContentWrap && footerId"
       id="bottom-wrap"
       class="purple-4"
     >
-      <div id="bottom-background">
+      <div id="bottom-background" v-if="!loginFlow">
         <div class="seamless_mountains_demo_repeat"></div>
         <div class="midground_foreground_extended2"></div>
       </div>
@@ -34,7 +40,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .home-header {
     background: $purple-300 !important;
@@ -135,7 +141,7 @@
         }
       }
 
-      .twitter svg {
+      .bluesky svg {
         background-color: $purple-50;
         fill: $purple-500;
         &:hover {
@@ -211,7 +217,7 @@
 
     &.groups-bg {
       background-color: $white;
-      background-image: url('../../assets/images/group-plans-static/top.svg');
+      background-image: url('../../assets/images/group-plans-static/top.svg?raw');
       background-repeat: no-repeat;
       background-position-y: 56px;
     }
@@ -231,7 +237,7 @@
     position: relative;
 
     .seamless_mountains_demo_repeat {
-      background-image: url('~@/assets/images/auth/seamless_mountains_demo.png');
+      background-image: url('@/assets/images/auth/seamless_mountains_demo.png');
       background-repeat: repeat-x;
       width: 100%;
       height: 300px;
@@ -241,7 +247,7 @@
     }
 
     .midground_foreground_extended2 {
-      background-image: url('~@/assets/images/auth/midground_foreground_extended2.png');
+      background-image: url('@/assets/images/auth/midground_foreground_extended2.png');
       position: relative;
       width: 1500px;
       max-width: 100%;
@@ -263,12 +269,15 @@ export default {
     StaticHeader,
   },
   computed: {
-    showContentWrap () {
-      return this.$route.name !== 'news';
-    },
     footerId () {
       if (this.$route.name === 'plans') return null;
       return 'purple-footer';
+    },
+    loginFlow () {
+      return ['login', 'register', 'username'].indexOf(this.$route.name) !== -1;
+    },
+    showContentWrap () {
+      return this.$route.name !== 'news';
     },
   },
 };

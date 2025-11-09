@@ -74,10 +74,14 @@ shops.getMarketCategories = function getMarket (user, language) {
   const matchers = getScheduleMatchingGroup('premiumHatchingPotions');
   premiumHatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
     .filter(hp => hp.limited
-      && (matchers.match(hp.key) || (hp.questPotion === true && hp.canBuy(user))))
+      && (matchers.match(hp.key)
+        || (hp.questPotion === true && hp.canBuy(user))))
     .map(premiumHatchingPotion => {
       if (premiumHatchingPotion.questPotion) {
         return getItemInfo(user, 'premiumHatchingPotion', premiumHatchingPotion, officialPinnedItems, language);
+      }
+      if (premiumHatchingPotion.wacky) {
+        return getItemInfo(user, 'premiumHatchingPotion', premiumHatchingPotion, officialPinnedItems, language, matchers);
       }
       return getItemInfo(user, 'premiumHatchingPotion', premiumHatchingPotion, officialPinnedItems, language, matchers);
     }), 'key');

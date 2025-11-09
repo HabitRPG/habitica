@@ -13,7 +13,7 @@
     >
       <img
         class="onboarding-complete-banner d-block"
-        src="~@/assets/images/onboarding-complete-banner@2x.png"
+        src="@/assets/images/onboarding-complete-banner@2x.png"
       >
       <h3 v-once>
         {{ $t('onboardingComplete') }}
@@ -36,7 +36,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .onboarding-complete-content {
   text-align: center;
@@ -71,7 +71,7 @@ export default {
   props: ['notification', 'canRemove'],
   methods: {
     action () {
-      this.$router.push({ name: 'achievements' });
+      this.$router.push(`/profile/${this.$store.state.user.data._id}#achievements`);
     },
   },
 };

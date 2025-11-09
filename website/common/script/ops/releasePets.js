@@ -1,3 +1,4 @@
+import pick from 'lodash/pick';
 import content from '../content/index';
 import { beastMasterProgress } from '../count';
 import i18n from '../i18n';
@@ -43,6 +44,7 @@ export default function releasePets (user, req = {}, analytics) {
 
   if (analytics) {
     analytics.track('release pets', {
+      user: pick(user, ['preferences', 'registeredThrough']),
       uuid: user._id,
       currency: 'Gems',
       gemCost: 4,

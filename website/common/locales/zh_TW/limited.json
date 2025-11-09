@@ -189,7 +189,7 @@
     "fall2021HeadlessWarriorSet": "無頭（戰士）",
     "fall2021BrainEaterMageSet": "食腦者（法師）",
     "fall2021FlameSummonerHealerSet": "火炎召喚師（補師）",
-    "gemSaleHow": "在<%= eventStartMonth %> <%= eventStartOrdinal %>和<%= eventEndOrdinal %>之間，像往常一樣購買任何寶石捆綁包，您的帳號將獲得促銷返利。這些多出來的寶石可用於購買、贈送或攢下來等之後的新品！",
+    "gemSaleHow": "在<%= eventStartMonth %> <%= eventStartOrdinal %>和<%= eventEndOrdinal %>期間，像往常一樣購買任何寶石組合包，你的帳戶將獲得促銷的寶石。這些多出來的寶石可用於購買、贈送或攢下來等之後的新品！",
     "fall2022KappaRogueSet": "河童（盜賊）",
     "fall2022OrcWarriorSet": "獸人（戰士）",
     "fall2022HarpyMageSet": "鷹身女妖（法師）",

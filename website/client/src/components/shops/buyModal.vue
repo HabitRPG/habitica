@@ -230,8 +230,8 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/mixins.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/mixins.scss';
 
   #buy-modal {
     @include centeredModal();
@@ -269,7 +269,13 @@
 
     .modal-dialog {
       width: 448px;
+      max-width: calc(100vw - 20px);
       box-sizing: border-box;
+      display: flex;
+
+      @media (max-width: 468px) {
+        width: 100%;
+      }
     }
 
     .badge-dialog {
@@ -346,7 +352,23 @@
 
     .content {
       text-align: center;
-      width: 448px;
+      width: 100%;
+      max-width: 448px;
+      margin: 0 auto;
+
+      @media (max-width: 468px) {
+        max-width: 100%;
+      }
+    }
+
+    .modal-content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      @media (max-width: 300px) {
+        border-radius: 0;
+      }
     }
 
     .item-wrapper {
@@ -378,7 +400,7 @@
         height: 40px;
         border-radius: 2px;
         background-color: $white;
-        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+        box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
         margin-right: 24px;
 
         input {
@@ -462,17 +484,17 @@
 
       &.gems {
         color: $green-10;
-        background-color: rgba(36, 204, 143, 0.15);
+        background-color: rgba($green-100, 0.15);
       }
 
       &.gold {
         color: $yellow-5;
-        background-color: rgba(255, 190, 93, 0.15);
+        background-color: rgba($yellow-100, 0.15);
       }
 
       &.hourglasses {
         color: $hourglass-color;
-        background-color: rgba(41, 149, 205, 0.15);
+        background-color: rgba($blue-10, 0.15);
       }
     }
 
@@ -516,11 +538,16 @@
 
     button.btn.btn-primary {
       margin-top: 16px;
-      padding: 4px 16px;
-      height: 32px;
+      padding: 2px 12px;
+      line-height: 1.714;
 
       &:focus {
-        border: 2px solid black;
+        border: 2px solid $purple-400;
+      }
+
+      &:active {
+        border: 2px solid $purple-400 !important;
+        box-shadow:none;
       }
     }
 
@@ -559,7 +586,7 @@
 
     .limitedTime {
       height: 32px;
-      width: 446px;
+      width: 100%;
       font-size: 0.75rem;
       margin: 24px 0 0 0;
       background-color: $purple-300;
@@ -571,7 +598,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .hourglass-nonsub {
     color: $yellow-5;
@@ -593,14 +620,14 @@ import numberInvalid from '@/mixins/numberInvalid';
 import spellsMixin from '@/mixins/spells';
 import sync from '@/mixins/sync';
 
-import svgClose from '@/assets/svg/close.svg';
-import svgGold from '@/assets/svg/gold.svg';
-import svgGem from '@/assets/svg/gem.svg';
-import svgHourglasses from '@/assets/svg/hourglass.svg';
-import svgClock from '@/assets/svg/clock.svg';
-import svgWhiteClock from '@/assets/svg/clock-white.svg';
-import svgPositive from '@/assets/svg/positive.svg';
-import svgNegative from '@/assets/svg/negative.svg';
+import svgClose from '@/assets/svg/close.svg?raw';
+import svgGold from '@/assets/svg/gold.svg?raw';
+import svgGem from '@/assets/svg/gem.svg?raw';
+import svgHourglasses from '@/assets/svg/hourglass.svg?raw';
+import svgClock from '@/assets/svg/clock.svg?raw';
+import svgWhiteClock from '@/assets/svg/clock-white.svg?raw';
+import svgPositive from '@/assets/svg/positive.svg?raw';
+import svgNegative from '@/assets/svg/negative.svg?raw';
 
 import BalanceInfo from './balanceInfo.vue';
 import PinBadge from '@/components/ui/pinBadge';
@@ -846,8 +873,13 @@ export default {
           return;
         }
         if (this.genericPurchase) {
-          this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
-          await this.purchased(this.item.text);
+          if (this.item.key === 'rebirth_orb') {
+            localStorage.setItem('show-rebirth-confirmation', 'true');
+          }
+          await this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
+          if (this.item.key !== 'rebirth_orb') {
+            await this.purchased(this.item.text);
+          }
         }
       }
 

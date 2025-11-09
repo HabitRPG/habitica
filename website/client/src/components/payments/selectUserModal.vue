@@ -71,7 +71,6 @@
           id="selectUser"
           v-model="userSearchTerm"
           :is-valid="foundUser._id"
-
           :placeholder="$t('usernameOrUserId')"
           :invalid-issues="userInputInvalidIssues"
         />
@@ -138,7 +137,7 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/mixins.scss';
+@import '@/assets/scss/mixins.scss';
 
 #select-user-modal {
   .modal-content {
@@ -173,7 +172,7 @@
 </style>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 a:not([href]) {
 
@@ -188,7 +187,7 @@ a:not([href]) {
 }
 
 .g1g1 {
-  background-image: url('~@/assets/images/g1g1-send.png');
+  background-image: url('@/assets/images/g1g1-send.png');
   background-size: 446px 152px;
   width: 446px;
   height: 152px;
@@ -298,8 +297,8 @@ import find from 'lodash/find';
 import isUUID from 'validator/es/lib/isUUID';
 import moment from 'moment';
 import { mapState } from '@/libs/store';
-import closeIcon from '@/assets/svg/close.svg';
-import bigGiftIcon from '@/assets/svg/big-gift.svg';
+import closeIcon from '@/assets/svg/close.svg?raw';
+import bigGiftIcon from '@/assets/svg/big-gift.svg?raw';
 import ValidatedTextInput from '@/components/ui/validatedTextInput.vue';
 
 export default {
@@ -318,6 +317,7 @@ export default {
   computed: {
     ...mapState({
       currentEventList: 'worldState.data.currentEventList',
+      user: 'user.data',
     }),
     currentEvent () {
       return find(this.currentEventList, event => Boolean(event.gemsPromo) || Boolean(event.promo));
@@ -399,6 +399,8 @@ export default {
       this.foundUser = result;
     }, 500),
     selectUser () {
+      this.foundUser.g1g1 = this.currentEvent?.promo === 'g1g1'
+        && this.foundUser._id !== this.user._id;
       this.$root.$emit('habitica::send-gift', this.foundUser);
       this.close();
     },

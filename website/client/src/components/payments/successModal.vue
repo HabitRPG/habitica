@@ -59,6 +59,12 @@
         <template v-if="paymentData.paymentType === 'gift-subscription'">
           <div>
             <span
+              v-if="paymentData.g1g1"
+              v-html="$t('paymentYouSentSubscriptionG1G1', {
+                name: paymentData.giftReceiver, months: paymentData.subscription.months})"
+            ></span>
+            <span
+              v-else
               v-html="$t('paymentYouSentSubscription', {
                 name: paymentData.giftReceiver, months: paymentData.subscription.months})"
             ></span>
@@ -191,9 +197,7 @@
         <select-translated-array
           :items="[
             'groupParentChildren',
-            'groupCouple',
             'groupFriends',
-            'groupCoworkers',
             'groupManager',
             'groupTeacher'
           ]"
@@ -216,7 +220,7 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 #payments-success-modal {
   .modal-md {
@@ -409,16 +413,16 @@
 </style>
 
 <style lang="scss">
-  @import '~@/assets/scss/mixins.scss';
+  @import '@/assets/scss/mixins.scss';
 
 </style>
 
 <script>
 // icons
 import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
-import checkIcon from '@/assets/svg/check.svg';
-import gemIcon from '@/assets/svg/gem.svg';
-import closeIcon from '@/assets/svg/close.svg';
+import checkIcon from '@/assets/svg/check.svg?raw';
+import gemIcon from '@/assets/svg/gem.svg?raw';
+import closeIcon from '@/assets/svg/close.svg?raw';
 
 // components
 import { mapState } from '@/libs/store';

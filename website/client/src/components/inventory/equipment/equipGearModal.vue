@@ -73,8 +73,8 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/mixins.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/mixins.scss';
 
   #equipgear-modal {
     @include centeredModal();
@@ -182,13 +182,13 @@
 import { getClassName } from '@/../../common/script/libs/getClassName';
 import { mapState } from '@/libs/store';
 
-import svgClose from '@/assets/svg/close.svg';
-import svgWarrior from '@/assets/svg/warrior.svg';
-import svgWizard from '@/assets/svg/wizard.svg';
-import svgRogue from '@/assets/svg/rogue.svg';
-import svgHealer from '@/assets/svg/healer.svg';
-import svgEquipIcon from '@/assets/svg/equip.svg';
-import svgUnEquipIcon from '@/assets/svg/unequip.svg';
+import svgClose from '@/assets/svg/close.svg?raw';
+import svgWarrior from '@/assets/svg/warrior.svg?raw';
+import svgWizard from '@/assets/svg/wizard.svg?raw';
+import svgRogue from '@/assets/svg/rogue.svg?raw';
+import svgHealer from '@/assets/svg/healer.svg?raw';
+import svgEquipIcon from '@/assets/svg/equip.svg?raw';
+import svgUnEquipIcon from '@/assets/svg/unequip.svg?raw';
 
 import Avatar from '@/components/avatar';
 import attributesGrid from '@/components/inventory/equipment/attributesGrid.vue';

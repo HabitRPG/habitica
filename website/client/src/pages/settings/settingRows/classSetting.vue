@@ -66,6 +66,7 @@
           <your-balance
             :amount-needed="amountNeeded"
             currency-needed="gems"
+            class="d-flex align-items-center"
           />
         </div>
       </td>
@@ -74,7 +75,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 input {
   margin-right: 2rem;
@@ -161,7 +162,7 @@ import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import { GenericUserPreferencesMixin } from '../components/genericUserPreferencesMixin';
 import YourBalance from '@/pages/settings/components/yourBalance.vue';
 import GemPrice from '@/components/shops/gemPrice.vue';
-import checkIcon from '@/assets/svg/check.svg';
+import checkIcon from '@/assets/svg/check.svg?raw';
 import ClassIconLabel from '@/pages/settings/components/classIconLabel.vue';
 
 export default {

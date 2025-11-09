@@ -66,5 +66,5 @@
     "rageAttack": "Rage Attack:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
     "rageStrikes": "Rage Strikes",
-    "hatchingPotionQuests": "Výpravy za kúzelnými elixírmi"
+    "hatchingPotionQuests": "Výpravy za kúzelnými liahoxírmi"
 }

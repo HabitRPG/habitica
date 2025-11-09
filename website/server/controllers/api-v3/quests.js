@@ -1,4 +1,7 @@
-import _ from 'lodash';
+import each from 'lodash/each';
+import every from 'lodash/every';
+import isBoolean from 'lodash/isBoolean';
+import pick from 'lodash/pick';
 import { authWithHeaders } from '../../middlewares/auth';
 import { getAnalyticsServiceByEnvironment } from '../../libs/analyticsService';
 import {
@@ -19,6 +22,7 @@ import common from '../../../common';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import { apiError } from '../../libs/apiError';
 import { questActivityWebhook } from '../../libs/webhook';
+import { model as UserHistory } from '../../models/userHistory';
 
 const analytics = getAnalyticsServiceByEnvironment();
 
@@ -27,7 +31,7 @@ const questScrolls = common.content.quests;
 function canStartQuestAutomatically (group) {
   // If all members are either true (accepted) or false (rejected) return true
   // If any member is null/undefined (undecided) return false
-  return _.every(group.quest.members, _.isBoolean);
+  return every(group.quest.members, isBoolean);
 }
 
 /**
@@ -103,7 +107,7 @@ api.inviteToQuest = {
       },
     }).exec();
 
-    _.each(members, member => {
+    each(members, member => {
       group.quest.members[member._id] = null;
     });
 
@@ -120,9 +124,12 @@ api.inviteToQuest = {
 
     // send out invites
     const inviterVars = getUserInfo(user, ['name', 'email']);
-    const membersToEmail = members.filter(async member => {
+    const membersToEmail = [];
+
+    for (const member of members) {
       // send push notifications while filtering members before sending emails
       if (member.preferences.pushNotifications.invitedQuest !== false) {
+        // eslint-disable-next-line no-await-in-loop
         await sendPushNotification(
           member,
           {
@@ -141,8 +148,11 @@ api.inviteToQuest = {
         quest,
       });
 
-      return member.preferences.emailNotifications.invitedQuest !== false;
-    });
+      if (member.preferences.emailNotifications.invitedQuest !== false) {
+        membersToEmail.push(member);
+      }
+    }
+
     sendTxnEmail(membersToEmail, `invite-${quest.boss ? 'boss' : 'collection'}-quest`, [
       { name: 'QUEST_NAME', content: quest.text() },
       { name: 'INVITER', content: inviterVars.name },
@@ -158,14 +168,18 @@ api.inviteToQuest = {
 
     // track that the inviting user has accepted the quest
     analytics.track('quest', {
-      category: 'behavior',
-      owner: true,
-      response: 'accept',
-      gaLabel: 'accept',
-      questName: questKey,
+      user: pick(user, ['preferences', 'registeredThrough']),
       uuid: user._id,
+      category: 'behavior',
       headers: req.headers,
+      owner: true,
+      questName: questKey,
+      response: 'accept',
     });
+
+    await UserHistory.beginUserHistoryUpdate(user._id, req.headers)
+      .withQuestInviteResponse(group.quest.key, 'invite')
+      .commit();
   },
 };
 
@@ -219,14 +233,18 @@ api.acceptQuest = {
 
     // track that a user has accepted the quest
     analytics.track('quest', {
+      user: pick(user, ['preferences', 'registeredThrough']),
       category: 'behavior',
       owner: false,
       response: 'accept',
-      gaLabel: 'accept',
       questName: group.quest.key,
       uuid: user._id,
       headers: req.headers,
     });
+
+    await UserHistory.beginUserHistoryUpdate(user._id, req.headers)
+      .withQuestInviteResponse(group.quest.key, 'accept')
+      .commit();
   },
 };
 
@@ -280,14 +298,18 @@ api.rejectQuest = {
     res.respond(200, savedGroup.quest);
 
     analytics.track('quest', {
+      user: pick(user, ['preferences', 'registeredThrough']),
       category: 'behavior',
       owner: false,
       response: 'reject',
-      gaLabel: 'reject',
       questName: group.quest.key,
       uuid: user._id,
       headers: req.headers,
     });
+
+    await UserHistory.beginUserHistoryUpdate(user._id, req.headers)
+      .withQuestInviteResponse(group.quest.key, 'reject')
+      .commit();
   },
 };
 
@@ -340,10 +362,10 @@ api.forceStart = {
     res.respond(200, savedGroup.quest);
 
     analytics.track('quest', {
+      user: pick(user, ['preferences', 'registeredThrough']),
       category: 'behavior',
       owner: user._id === group.quest.leader,
       response: 'force-start',
-      gaLabel: 'force-start',
       questName: group.quest.key,
       uuid: user._id,
       headers: req.headers,
@@ -393,13 +415,14 @@ api.cancelQuest = {
     }
     if (group.quest.active) throw new NotAuthorized(res.t('cantCancelActiveQuest'));
 
-    const questName = questScrolls[group.quest.key].text('en');
+    const questKey = group.quest.key;
+    const questName = questScrolls[questKey].text('en');
     const newChatMessage = await group.sendChat({
       message: `\`${user.profile.name} cancelled the party quest ${questName}.\``,
       info: {
         type: 'quest_cancel',
         user: user.profile.name,
-        quest: group.quest.key,
+        quest: questKey,
       },
     });
 
@@ -416,6 +439,15 @@ api.cancelQuest = {
     ]);
 
     res.respond(200, savedGroup.quest);
+
+    await UserHistory.beginUserHistoryUpdate(user._id, req.headers)
+      .withQuestInviteResponse(questKey, 'cancel')
+      .commit();
+    if (group.quest.leader !== user._id) {
+      await UserHistory.beginUserHistoryUpdate(group.quest.leader, req.headers)
+        .withQuestInviteResponse(questKey, 'cancelByLeader')
+        .commit();
+    }
   },
 };
 
@@ -455,13 +487,14 @@ api.abortQuest = {
     if (!group.quest.active) throw new NotFound(res.t('noActiveQuestToAbort'));
     if (user._id !== group.leader && user._id !== group.quest.leader) throw new NotAuthorized(res.t('onlyLeaderAbortQuest'));
 
-    const questName = questScrolls[group.quest.key].text('en');
+    const questKey = group.quest.key;
+    const questName = questScrolls[questKey].text('en');
     const newChatMessage = await group.sendChat({
       message: `\`${common.i18n.t('chatQuestAborted', { username: user.profile.name, questName }, 'en')}\``,
       info: {
         type: 'quest_abort',
         user: user.profile.name,
-        quest: group.quest.key,
+        quest: questKey,
       },
     });
     await newChatMessage.save();
@@ -474,7 +507,7 @@ api.abortQuest = {
       _id: group.quest.leader,
     }, {
       $inc: {
-        [`items.quests.${group.quest.key}`]: 1, // give back the quest to the quest leader
+        [`items.quests.${questKey}`]: 1, // give back the quest to the quest leader
       },
     }).exec();
 
@@ -484,6 +517,15 @@ api.abortQuest = {
     const [groupSaved] = await Promise.all([group.save(), memberUpdates, questLeaderUpdate]);
 
     res.respond(200, groupSaved.quest);
+
+    await UserHistory.beginUserHistoryUpdate(user._id, req.headers)
+      .withQuestInviteResponse(questKey, 'abort')
+      .commit();
+    if (group.quest.leader !== user._id) {
+      await UserHistory.beginUserHistoryUpdate(group.quest.leader, req.headers)
+        .withQuestInviteResponse(questKey, 'abortByLeader')
+        .commit();
+    }
   },
 };
 
@@ -531,6 +573,10 @@ api.leaveQuest = {
     ]);
 
     res.respond(200, savedGroup.quest);
+
+    await UserHistory.beginUserHistoryUpdate(user._id, req.headers)
+      .withQuestInviteResponse(group.quest.key, 'leave')
+      .commit();
   },
 };
 

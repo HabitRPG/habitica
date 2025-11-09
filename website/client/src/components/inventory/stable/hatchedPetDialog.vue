@@ -46,8 +46,8 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/mixins.scss';
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/mixins.scss';
+  @import '@/assets/scss/colors.scss';
 
   #hatchedPet-modal {
     @include centeredModal();
@@ -103,7 +103,7 @@
 
 <script>
 import markdownDirective from '@/directives/markdown';
-import svgClose from '@/assets/svg/close.svg';
+import svgClose from '@/assets/svg/close.svg?raw';
 import Sprite from '@/components/ui/sprite';
 
 export default {

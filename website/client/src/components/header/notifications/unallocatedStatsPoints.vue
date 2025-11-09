@@ -27,7 +27,7 @@
 
 <script>
 import BaseNotification from './base';
-import sparklesIcon from '@/assets/svg/sparkles.svg';
+import sparklesIcon from '@/assets/svg/sparkles.svg?raw';
 
 export default {
   components: {
@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     action () {
-      this.$router.push({ name: 'stats' });
+      this.$router.push(`/profile/${this.$store.state.user.data._id}#stats`);
     },
   },
 };

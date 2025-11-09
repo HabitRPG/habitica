@@ -35,7 +35,7 @@
 </template>
 
 <style scoped lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .number-increment {
     padding-bottom: 0px;
@@ -102,10 +102,10 @@
 
 <script>
 // icons
-import svgGem from '@/assets/svg/gem.svg';
-import svgGold from '@/assets/svg/gold.svg';
-import svgPositive from '@/assets/svg/positive.svg';
-import svgNegative from '@/assets/svg/negative.svg';
+import svgGem from '@/assets/svg/gem.svg?raw';
+import svgGold from '@/assets/svg/gold.svg?raw';
+import svgPositive from '@/assets/svg/positive.svg?raw';
+import svgNegative from '@/assets/svg/negative.svg?raw';
 
 export default {
   data () {

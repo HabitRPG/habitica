@@ -98,8 +98,8 @@
   </b-modal>
 </template>
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/mixins.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/mixins.scss';
 
   #sell-modal {
     @include centeredModal();
@@ -111,6 +111,22 @@
 
     .modal-dialog {
       width: 448px;
+      max-width: calc(100vw - 20px);
+      display: flex;
+
+      @media (max-width: 468px) {
+        width: 100%;
+      }
+    }
+
+    .modal-content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      @media (max-width: 300px) {
+        border-radius: 0;
+      }
     }
 
     .modal-body {
@@ -297,11 +313,16 @@
 
     button.btn.btn-primary {
       margin-top: 16px;
-      padding: 4px 16px;
-      height: 32px;
+      padding: 2px 12px;
+      line-height: 1.714;
 
       &:focus {
-        border: 2px solid black;
+        border: 2px solid $purple-400;
+      }
+
+      &:active {
+        border: 2px solid $purple-400;
+        box-shadow: none;
       }
 
       .balance {
@@ -317,11 +338,11 @@
   </style>
 
 <script>
-import svgClose from '@/assets/svg/close.svg';
-import svgGold from '@/assets/svg/gold.svg';
-import svgGem from '@/assets/svg/gem.svg';
-import svgPositive from '@/assets/svg/positive.svg';
-import svgNegative from '@/assets/svg/negative.svg';
+import svgClose from '@/assets/svg/close.svg?raw';
+import svgGold from '@/assets/svg/gold.svg?raw';
+import svgGem from '@/assets/svg/gem.svg?raw';
+import svgPositive from '@/assets/svg/positive.svg?raw';
+import svgNegative from '@/assets/svg/negative.svg?raw';
 
 import BalanceInfo from '../balanceInfo.vue';
 import Item from '@/components/inventory/item';

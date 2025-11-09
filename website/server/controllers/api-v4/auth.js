@@ -4,6 +4,7 @@ import {
 import * as authLib from '../../libs/auth';
 import { model as User } from '../../models/user';
 import { verifyUsername } from '../../libs/user/validation';
+import { isRestrictedEmailDomain } from '../../libs/auth/utils';
 
 const api = {};
 
@@ -80,6 +81,51 @@ api.registerLocal = {
   url: '/user/auth/local/register',
   async handler (req, res) {
     await authLib.registerLocal(req, res, { isV3: false });
+  },
+};
+
+/**
+ * @api {put} /api/v4/user/auth/check-email Check if email is used
+ * @apiDescription Check if the email is already used by another user
+ * @apiName CheckEmail
+ * @apiGroup User
+ *
+ * @apiParam (Body) {String} email The checked email address.
+ *
+ * @apiSuccess {String} data.email The checked email address
+ * @apiSuccess {Boolean} data.valid True if available, false if in use
+ */
+api.checkEmail = {
+  method: 'POST',
+  url: '/user/auth/check-email',
+  async handler (req, res) {
+    req.checkBody({
+      email: {
+        notEmpty: { errorMessage: res.t('missingEmail') },
+      },
+    });
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const lowercaseEmail = req.body.email.toLowerCase();
+    if (isRestrictedEmailDomain(lowercaseEmail)) {
+      return res.respond(200, {
+        valid: false,
+        email: req.body.email,
+        error: res.t('cannotFulfillReq'),
+      });
+    }
+
+    const emailAlreadyInUse = await User.findOne({
+      'auth.local.email': lowercaseEmail,
+    }).select({ _id: 1 }).lean().exec();
+
+    if (emailAlreadyInUse) {
+      return res.respond(200, { valid: false, email: req.body.email, error: res.t('cannotFulfillReq') });
+    }
+
+    return res.respond(200, { valid: true, email: req.body.email });
   },
 };
 

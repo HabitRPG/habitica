@@ -61,13 +61,13 @@ input, textarea, input.form-control, textarea.form-control {
 
   &.input-valid {
     padding-right: 27px;
-    background-image: url(~@/assets/svg/for-css/check.svg);
+    background-image: url(@/assets/svg/for-css/check.svg);
     background-size: 1rem;
   }
 
   &.input-invalid {
     padding-right: 40px;
-    background-image: url(~@/assets/svg/for-css/alert.svg);
+    background-image: url(@/assets/svg/for-css/alert.svg);
     background-size: 16px 16px;
     border-color: $red-100 !important;
   }
@@ -239,7 +239,7 @@ $bg-disabled-control: $gray-10;
     &:checked~.custom-control-label::after {
       width: 18px;
       height: 18px;
-      background-image: url(~@/assets/svg/for-css/checkbox-white.svg);
+      background-image: url(@/assets/svg/for-css/checkbox-white.svg);
       background-size: 13px 10px;
     }
 

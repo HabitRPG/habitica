@@ -55,7 +55,6 @@
     "APIToken": "API token (toto je heslo - přečti si upozornění nahoře!)",
     "showAPIToken": "Ukázat API Token",
     "hideAPIToken": "Skrýt API Token",
-    "APITokenWarning": "Jestli potřebuješ nový API Token (např., pokud jsi jej omylem sdílel), napiš email na <%= hrefTechAssistanceEmail %> obsahující tvé Uživatelské ID a aktuální Token. Jakmile se Token resetuje, budeš potřebovat znovu autorizovat vše pomocí odhlášení se ze stránky a mobilní appky, a poté poskytnout nový Token jakémukoliv jinému Habitica nástroji, který používáš.",
     "thirdPartyApps": "Programy třetí strany",
     "resetDo": "Udělej to, zresetuj můj účet!",
     "resetComplete": "Reset dokončen!",

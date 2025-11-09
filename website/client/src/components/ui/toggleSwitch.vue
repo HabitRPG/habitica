@@ -26,12 +26,17 @@
           :checked="isChecked"
           :value="value"
           @change="handleChange"
+          :disabled="disabled"
         >
         <label
           class="toggle-switch-label"
           :for="toggleId"
+          :class="{ disabled }"
         >
-          <span class="toggle-switch-inner"></span>
+          <span
+            class="toggle-switch-inner"
+          >
+          </span>
           <span
             class="toggle-switch-switch"
             tabindex="0"
@@ -56,7 +61,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .toggle-switch-outer {
     display: flex;
@@ -121,6 +126,14 @@
     text-align: right;
   }
 
+  .disabled {
+    cursor: auto;
+
+    .toggle-switch-inner:before, .toggle-switch-inner:after {
+      opacity: 0.5;
+    }
+  }
+
   .toggle-switch-switch {
     box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
     display: block;
@@ -156,7 +169,7 @@
 </style>
 
 <script>
-import svgInformation from '@/assets/svg/information.svg';
+import svgInformation from '@/assets/svg/information.svg?raw';
 
 export default {
   model: {
@@ -180,6 +193,10 @@ export default {
     },
     hoverText: {
       type: String,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   data () {

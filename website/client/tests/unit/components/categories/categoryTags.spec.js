@@ -1,3 +1,6 @@
+import {
+  describe, expect, test, beforeEach,
+} from 'vitest';
 import { mount } from '@vue/test-utils';
 import Vue from 'vue';
 
@@ -20,7 +23,7 @@ describe('Category Tags', () => {
     });
   });
 
-  it('displays a category', () => {
+  test('displays a category', () => {
     wrapper.setProps({
       categories: [
         {
@@ -34,7 +37,7 @@ describe('Category Tags', () => {
     });
   });
 
-  it('displays a habitica official in purple', () => {
+  test('displays a habitica official in purple', () => {
     wrapper.setProps({
       categories: [
         {
@@ -46,7 +49,7 @@ describe('Category Tags', () => {
     expect(wrapper.find('.category-label').text()).to.eq('habitica_official');
   });
 
-  it('displays owner label', () => {
+  test('displays owner label', () => {
     wrapper.setProps({
       owner: true,
     });
@@ -54,7 +57,7 @@ describe('Category Tags', () => {
     expect(wrapper.find('.category-label').text()).to.eq('owned');
   });
 
-  it('displays member label', () => {
+  test('displays member label', () => {
     wrapper.setProps({
       member: true,
     });
@@ -62,7 +65,7 @@ describe('Category Tags', () => {
     expect(wrapper.find('.category-label').text()).to.eq('joined');
   });
 
-  it('displays additional content at the end', () => {
+  test('displays additional content at the end', () => {
     expect(wrapper.find('p').text()).to.eq('This is a slot.');
   });
 });

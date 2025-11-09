@@ -98,5 +98,16 @@
     "yourReward": "Tu Recompensa",
     "removeTasks": "Eliminar Tareas",
     "messageChallengeFlagOfficial": "Los desafíos oficiales no se pueden reportar.",
-    "messageChallengeFlagAlreadyReported": "Ya has reportado este Desafío."
+    "messageChallengeFlagAlreadyReported": "Ya has reportado este Desafío.",
+    "whyReportingChallengePlaceholder": "Motivo de reporte",
+    "cannotClose": "Este Desafío no puede ser cerrado porque uno o más jugadores lo reportaron como inapropiado. Un miembro del staff te contactará pronto con instrucciones. Si pasan más de 48 horas y no te contactamos, por favor envía un email a admin@habitica.com para ayudarte.",
+    "cannotClone": "Este Desafío no puede ser clonado porque uno o más jugadores lo han reportado como inapropiado. Un miembro del Equipo te contactará próximamente con instrucciones. Si pasan más de 48 horas sin ser contactado, por favor envía un email a admin@habitica.com por más ayuda.",
+    "flaggedAndHidden": "Desafío marcado y oculto",
+    "resetFlagCount": "Reiniciar mis marcadores",
+    "cannotMakeChallenge": "No puedes crear un Desafío público porque tu cuenta no tiene los privilegios de chat necesarios. Por favor ponte en contacto con admin@habitica.com para más información.",
+    "flaggedNotHidden": "Desafío marcado una vez, No esta oculto",
+    "whyReportingChallenge": "Por qué estas reportando este Desafío?",
+    "abuseFlagModalBodyChallenge": "Deberías solo reportar un Desafío que viola las <%= firstLinkStart %>Directrices de la Comunidad<%= linkEnd %> y/o los <%= secondLinkStart %>Términos de Servicio<%= linkEnd %>. Envíar un reporte falso es una violación a las Directrices de la Comunidad.",
+    "resetFlags": "Reiniciar marcadores",
+    "deleteChallengeRefundDescription": "Si eliminas este Desafío, recuperarás las Gemas de la recompensa y las tareas del Desafío permanecerán en los listados de tareas de los participantes."
 }

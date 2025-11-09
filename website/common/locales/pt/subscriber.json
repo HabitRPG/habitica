@@ -2,7 +2,7 @@
     "subscription": "Subscrição",
     "subscriptions": "Subscrições",
     "sendGems": "Enviar Gemas",
-    "buyGemsGold": "Comprar Gemas com Ouro",
+    "buyGemsGold": "Gemas Mensais Grátis",
     "mustSubscribeToPurchaseGems": "Deve subscrever para comprar gemas com ouro",
     "reachedGoldToGemCapQuantity": "A quantidade <%= quantity %> pedida por você excede o valor máximo de conversão de Ouro => Gemas de <%= convCap %> para este mês. Temos este valor para evitar abusos. O limite reinicializa-se nos primeiros três dias de cada mês. Obrigado por se inscrever!",
     "mysteryItem": "Itens mensais exclusivos",
@@ -144,8 +144,8 @@
     "mysterySet202203": "Conjunto Libélula Destemida",
     "howManyGemsPurchase": "Quantas Gemas você gostaria de comprar?",
     "howManyGemsSend": "Quantas Gemas você gostaria de enviar?",
-    "needToPurchaseGems": "Precisa de comprar Gemas como presente?",
-    "wantToSendOwnGems": "Quer mandar suas próprias Gemas?",
+    "needToPurchaseGems": "Precisa comprar Gemas como presente?",
+    "wantToSendOwnGems": "Quer enviar as suas próprias Gemas?",
     "mysterySet201907": "Conjunto Amigo da Praia",
     "giftASubscription": "Presenteie uma Assinatura",
     "organization": "Organização",
@@ -160,5 +160,9 @@
     "mysterySet201908": "Conjunto Fauno Descomprometido",
     "mysterySet201909": "Conjunto Bolota Afável",
     "mysterySet201910": "Conjunto Chama Misteriosa",
-    "cancelSubInfoGoogle": "Vá para a seção \"Conta\" > \"Assinaturas\" do aplicativo Google Play Store para cancelar sua assinatura ou para ver a data de término da sua assinatura, caso você já a tenha cancelado. Esta tela não consegue mostrar se sua assinatura foi cancelada."
+    "cancelSubInfoGoogle": "Vá para a seção \"Conta\" > \"Assinaturas\" do aplicativo Google Play Store para cancelar sua assinatura ou para ver a data de término da sua assinatura, caso você já a tenha cancelado. Esta tela não consegue mostrar se sua assinatura foi cancelada.",
+    "cancelSubInfoApple": "Por favor siga as <a href=\"https://support.apple.com/pt-pt/HT202039\">instruções oficiais da Apple</a> para cancelar a sua subscrição ou para ver a data de cancelamento da sua subscrição caso já a tenha cancelado. Este ecrã não permite mostrar-lhe se a sua subscrição foi cancelada.",
+    "mysterySet201911": "Kit do Encantador de Cristais",
+    "mysterySet201912": "Traje da Duende Polar",
+    "mysterySet202001": "Conjunto da Raposa Fabulosa"
 }

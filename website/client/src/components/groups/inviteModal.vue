@@ -75,7 +75,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   a:not([href]) {
     font-size: 16px;
@@ -126,7 +126,7 @@ import isEmail from 'validator/es/lib/isEmail';
 import isUUID from 'validator/es/lib/isUUID';
 import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
-import positiveIcon from '@/assets/svg/positive.svg';
+import positiveIcon from '@/assets/svg/positive.svg?raw';
 
 const INVITE_DEFAULTS = { text: '', error: null, valid: null };
 

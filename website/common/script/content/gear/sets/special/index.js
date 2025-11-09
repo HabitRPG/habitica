@@ -779,6 +779,54 @@ const armor = {
   fall2024Rogue: {
     set: 'fall2024BlackCatRogueSet',
   },
+  winter2025Warrior: {
+    set: 'winter2025MooseWarriorSet',
+  },
+  winter2025Mage: {
+    set: 'winter2025AuroraMageSet',
+  },
+  winter2025Healer: {
+    set: 'winter2025StringLightsHealerSet',
+  },
+  winter2025Rogue: {
+    set: 'winter2025SnowRogueSet',
+  },
+  spring2025Warrior: {
+    set: 'spring2025SunshineWarriorSet',
+  },
+  spring2025Rogue: {
+    set: 'spring2025CrystalPointRogueSet',
+  },
+  spring2025Healer: {
+    set: 'spring2025PlumeriaHealerSet',
+  },
+  spring2025Mage: {
+    set: 'spring2025MantisMageSet',
+  },
+  summer2025Warrior: {
+    set: 'summer2025ScallopWarriorSet',
+  },
+  summer2025Rogue: {
+    set: 'summer2025SquidRogueSet',
+  },
+  summer2025Healer: {
+    set: 'summer2025SeaAngelHealerSet',
+  },
+  summer2025Mage: {
+    set: 'summer2025FairyWrasseMageSet',
+  },
+  fall2025Warrior: {
+    set: 'fall2025SasquatchWarriorSet',
+  },
+  fall2025Mage: {
+    set: 'fall2025MaskedGhostMageSet',
+  },
+  fall2025Healer: {
+    set: 'fall2025KoboldHealerSet',
+  },
+  fall2025Rogue: {
+    set: 'fall2025SkeletonRogueSet',
+  },
 };
 
 const armorStats = {
@@ -1868,6 +1916,54 @@ const head = {
   fall2024Rogue: {
     set: 'fall2024BlackCatRogueSet',
   },
+  winter2025Warrior: {
+    set: 'winter2025MooseWarriorSet',
+  },
+  winter2025Mage: {
+    set: 'winter2025AuroraMageSet',
+  },
+  winter2025Healer: {
+    set: 'winter2025StringLightsHealerSet',
+  },
+  winter2025Rogue: {
+    set: 'winter2025SnowRogueSet',
+  },
+  spring2025Warrior: {
+    set: 'spring2025SunshineWarriorSet',
+  },
+  spring2025Rogue: {
+    set: 'spring2025CrystalPointRogueSet',
+  },
+  spring2025Healer: {
+    set: 'spring2025PlumeriaHealerSet',
+  },
+  spring2025Mage: {
+    set: 'spring2025MantisMageSet',
+  },
+  summer2025Warrior: {
+    set: 'summer2025ScallopWarriorSet',
+  },
+  summer2025Rogue: {
+    set: 'summer2025SquidRogueSet',
+  },
+  summer2025Healer: {
+    set: 'summer2025SeaAngelHealerSet',
+  },
+  summer2025Mage: {
+    set: 'summer2025FairyWrasseMageSet',
+  },
+  fall2025Warrior: {
+    set: 'fall2025SasquatchWarriorSet',
+  },
+  fall2025Mage: {
+    set: 'fall2025MaskedGhostMageSet',
+  },
+  fall2025Healer: {
+    set: 'fall2025KoboldHealerSet',
+  },
+  fall2025Rogue: {
+    set: 'fall2025SkeletonRogueSet',
+  },
 };
 
 const headStats = {
@@ -2558,6 +2654,46 @@ const shield = {
   fall2024Rogue: {
     set: 'fall2024BlackCatRogueSet',
   },
+  winter2025Warrior: {
+    set: 'winter2025MooseWarriorSet',
+  },
+  winter2025Healer: {
+    set: 'winter2025StringLightsHealerSet',
+  },
+  winter2025Rogue: {
+    set: 'winter2025SnowRogueSet',
+  },
+  spring2025Warrior: {
+    set: 'spring2025SunshineWarriorSet',
+  },
+  spring2025Rogue: {
+    set: 'spring2025CrystalPointRogueSet',
+    text: t('shieldSpecialSpring2025RogueText'),
+    notes: t('shieldSpecialSpring2025RogueNotes', { str: 8 }),
+  },
+  spring2025Healer: {
+    set: 'spring2025PlumeriaHealerSet',
+  },
+  summer2025Warrior: {
+    set: 'summer2025ScallopWarriorSet',
+  },
+  summer2025Rogue: {
+    set: 'summer2025SquidRogueSet',
+    notes: t('shieldSpecialSummer2025RogueNotes', { str: 8 }),
+  },
+  summer2025Healer: {
+    set: 'summer2025SeaAngelHealerSet',
+  },
+  fall2025Warrior: {
+    set: 'fall2025SasquatchWarriorSet',
+  },
+  fall2025Healer: {
+    set: 'fall2025KoboldHealerSet',
+  },
+  fall2025Rogue: {
+    set: 'fall2025SkeletonRogueSet',
+    notes: t('shieldSpecialFall2025RogueNotes', { str: 8 }),
+  },
 };
 
 const shieldStats = {
@@ -3236,6 +3372,54 @@ const weapon = {
   },
   fall2024Rogue: {
     set: 'fall2024BlackCatRogueSet',
+  },
+  winter2025Warrior: {
+    set: 'winter2025MooseWarriorSet',
+  },
+  winter2025Mage: {
+    set: 'winter2025AuroraMageSet',
+  },
+  winter2025Healer: {
+    set: 'winter2025StringLightsHealerSet',
+  },
+  winter2025Rogue: {
+    set: 'winter2025SnowRogueSet',
+  },
+  spring2025Warrior: {
+    set: 'spring2025SunshineWarriorSet',
+  },
+  spring2025Rogue: {
+    set: 'spring2025CrystalPointRogueSet',
+  },
+  spring2025Healer: {
+    set: 'spring2025PlumeriaHealerSet',
+  },
+  spring2025Mage: {
+    set: 'spring2025MantisMageSet',
+  },
+  summer2025Warrior: {
+    set: 'summer2025ScallopWarriorSet',
+  },
+  summer2025Rogue: {
+    set: 'summer2025SquidRogueSet',
+  },
+  summer2025Healer: {
+    set: 'summer2025SeaAngelHealerSet',
+  },
+  summer2025Mage: {
+    set: 'summer2025FairyWrasseMageSet',
+  },
+  fall2025Warrior: {
+    set: 'fall2025SasquatchWarriorSet',
+  },
+  fall2025Mage: {
+    set: 'fall2025MaskedGhostMageSet',
+  },
+  fall2025Healer: {
+    set: 'fall2025KoboldHealerSet',
+  },
+  fall2025Rogue: {
+    set: 'fall2025SkeletonRogueSet',
   },
 };
 

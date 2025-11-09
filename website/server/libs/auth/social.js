@@ -1,6 +1,7 @@
+import pick from 'lodash/pick';
 import passport from 'passport';
 import common from '../../../common';
-import { BadRequest, NotAuthorized } from '../errors';
+import { BadRequest, NotAuthorized, NotFound } from '../errors';
 import logger from '../logger';
 import {
   generateUsername,
@@ -10,6 +11,7 @@ import { appleProfile } from './apple';
 import { model as User } from '../../models/user';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../email';
+import { apiError } from '../apiError';
 
 function _passportProfile (network, accessToken) {
   return new Promise((resolve, reject) => {
@@ -33,14 +35,14 @@ export async function socialEmailToLocal (user) {
       { 'auth.local.email': socialEmail },
       { _id: 1 },
     ).exec();
-    if (!conflictingUser) return socialEmail;
+    if (!conflictingUser) return socialEmail.toLowerCase();
   }
   return undefined;
 }
 
 export async function loginSocial (req, res) { // eslint-disable-line import/prefer-default-export
   let existingUser = res.locals.user;
-  const { network } = req.body;
+  const { network, allowRegister = true, username = generateUsername() } = req.body;
 
   const isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS
     .find(supportedNetwork => supportedNetwork.key === network);
@@ -67,10 +69,10 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     }
     if (!user.auth.local.email) {
       user.auth.local.email = await socialEmailToLocal(user);
-      if (user.auth.local.email) {
-        await user.save();
-      }
     }
+    // Force the updated timestampt to update, so that we know they logged in
+    user.auth.timestamps.updated = new Date();
+    await user.save();
     return loginRes(user, req, res);
   }
 
@@ -83,6 +85,19 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     existingUser = await User.findOne({ 'auth.local.email': email }).exec();
   }
 
+  if (!allowRegister && !existingUser) {
+    if (network === 'apple') {
+      return res.status(200).send({
+        message: res.t('userNotFound'),
+        id_token: profile.idToken,
+      });
+    }
+    if (email) {
+      throw new NotFound(`${apiError('socialFlowUserNotFound')} ${email}`);
+    }
+    throw new NotFound(res.t('userNotFound'));
+  }
+
   if (existingUser) {
     existingUser.auth[network] = {
       id: profile.id,
@@ -90,8 +105,6 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     };
     user = existingUser;
   } else {
-    const generatedUsername = generateUsername();
-
     user = {
       auth: {
         [network]: {
@@ -99,8 +112,8 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
           emails: profile.emails,
         },
         local: {
-          username: generatedUsername,
-          lowerCaseUsername: generatedUsername,
+          username,
+          lowerCaseUsername: username.toLowerCase(),
           email,
         },
       },
@@ -145,12 +158,11 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
 
   if (!existingUser) {
     res.analytics.track('register', {
+      user: pick(savedUser, ['preferences', 'registeredThrough']),
+      uuid: savedUser._id,
       category: 'acquisition',
       type: network,
-      gaLabel: network,
-      uuid: savedUser._id,
       headers: req.headers,
-      user: savedUser,
     });
   }
 

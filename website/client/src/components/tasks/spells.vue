@@ -9,8 +9,8 @@
         <div class="spell-border">
           <div class="mana">
             <Sprite
-            class="img"
-              :imageName="`shop_${spell.key}`"
+              class="img"
+              :image-name="`shop_${spell.key}`"
             />
           </div>
         </div>
@@ -76,8 +76,8 @@
                 >
                   <div class="details">
                     <Sprite
-              :imageName="`shop_${skill.key}`"
-            />
+                      :image-name="`shop_${skill.key}`"
+                    />
                   </div>
                   <div
                     v-if="user.stats.lvl < skill.lvl"
@@ -111,7 +111,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .drawer-wrapper {
   width: 100vw;
@@ -394,7 +394,7 @@ import spellsMixin from '@/mixins/spells';
 import Drawer from '@/components/ui/drawer';
 import MouseMoveDirective from '@/directives/mouseposition.directive';
 
-import mana from '@/assets/svg/mana.svg';
+import mana from '@/assets/svg/mana.svg?raw';
 import {
   CONSTANTS,
   setLocalSetting,

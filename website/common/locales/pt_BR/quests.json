@@ -11,7 +11,7 @@
     "completed": "Completo!",
     "rewardsAllParticipants": "Recompensas para Todos os Participantes da Missão",
     "rewardsQuestOwner": "Recompensas Adicionais para o Dono da Missão",
-    "inviteParty": "Convidar grupo para Missão",
+    "inviteParty": "Convidar Grupo para Missão",
     "questInvitation": "Convite de Missão: ",
     "invitedToQuest": "Você recebeu um convite para a Missão <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Perguntar depois",

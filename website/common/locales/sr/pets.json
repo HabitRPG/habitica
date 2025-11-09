@@ -1,5 +1,5 @@
 {
-    "stable": "Stable",
+    "stable": "Štala",
     "pets": "Zveri",
     "activePet": "Active Pet",
     "noActivePet": "No Active Pet",
@@ -18,7 +18,7 @@
     "veteranLion": "Lav veteran",
     "veteranBear": "Medved veteran",
     "veteranFox": "Lisica veteran",
-    "cerberusPup": "Kerberovo kuče",
+    "cerberusPup": "Kerberovo štene",
     "hydra": "Hidra",
     "mantisShrimp": "Ustonožac",
     "mammoth": "Čupavi mamut",
@@ -26,10 +26,10 @@
     "royalPurpleGryphon": "Kraljevski Ljubičasti Grifon",
     "phoenix": "Feniks",
     "magicalBee": "Magična Pčela",
-    "hopefulHippogriffPet": "Hopeful Hippogriff",
-    "hopefulHippogriffMount": "Hopeful Hippogriff",
-    "royalPurpleJackalope": "Royal Purple Jackalope",
-    "invisibleAether": "Invisible Aether",
+    "hopefulHippogriffPet": "Hipogrif nade",
+    "hopefulHippogriffMount": "Hipogrif nade",
+    "royalPurpleJackalope": "Kraljevski ljubičasti zec jelen",
+    "invisibleAether": "Nevidljivi prostor",
     "potion": "<%= potionType %> napitak",
     "egg": "<%= eggType %> jaje",
     "eggs": "Jaja",
@@ -105,5 +105,7 @@
     "notEnoughMounts": "You have not collected enough mounts",
     "notEnoughPetsMounts": "You have not collected enough pets and mounts",
     "wackyPets": "Šašavi ljubimci",
-    "notEnoughFood": "Nemate dovoljno hrane"
+    "notEnoughFood": "Nemate dovoljno hrane",
+    "veteranCactus": "Kaktus veteran",
+    "veteranDragon": "Zmaj veteran"
 }

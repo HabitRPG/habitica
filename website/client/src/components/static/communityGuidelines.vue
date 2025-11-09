@@ -7,7 +7,7 @@
       {{ $t('commGuideHeadingWelcome') }}
     </h2>
     <img
-      src="~@/assets/images/community-guidelines/intro.png"
+      src="@/assets/images/community-guidelines/intro.png"
       class="mb-3"
     >
     <p v-html="$t('commGuidePara001')"></p>
@@ -19,7 +19,7 @@
     <p v-html="$t('commGuidePara015')"></p>
     <p v-html="$t('commGuidePara016')"></p>
     <div class="media align-items-center">
-      <img src="~@/assets/images/community-guidelines/publicSpaces.png">
+      <img src="@/assets/images/community-guidelines/publicSpaces.png">
     </div>
     <ul>
       <li><strong>{{ $t('commGuideList01A') }}</strong></li>
@@ -47,7 +47,7 @@
       {{ $t('commGuideHeadingInfractions') }}
     </h3>
     <img
-      src="~@/assets/images/community-guidelines/infractions.png"
+      src="@/assets/images/community-guidelines/infractions.png"
       class="mb-3"
     >
     <p v-html="$t('commGuidePara050')"></p>
@@ -79,7 +79,7 @@
       {{ $t('commGuideHeadingConsequences') }}
     </h3>
     <p v-html="$t('commGuidePara059')"></p>
-    <img src="~@/assets/images/community-guidelines/consequences.png">
+    <img src="@/assets/images/community-guidelines/consequences.png">
     <h4>{{ $t('commGuideHeadingSevereConsequences') }}</h4>
     <ul>
       <li v-html="$t('commGuideList09A')"></li>
@@ -104,7 +104,7 @@
       {{ $t('commGuideHeadingRestoration') }}
     </h3>
     <img
-      src="~@/assets/images/community-guidelines/restoration.png"
+      src="@/assets/images/community-guidelines/restoration.png"
       class="mb-3"
     >
     <p v-html="$t('commGuidePara061')"></p>
@@ -115,14 +115,14 @@
     <p v-html="$t('commGuidePara007')"></p>
     <p v-html="$t('commGuidePara009')"></p>
     <img
-      src="~@/assets/images/community-guidelines/staff.png"
+      src="@/assets/images/community-guidelines/staff.png"
       class="mb-3"
     >
     <ul>
       <li>
-        {{ $t('commGuideAKA', {habitName: 'heyeilatan', realName: 'Natalie'}) }}
-        ({{ $t('commGuideOnGitHub', {gitHubName: 'CuriousMagpie'}) }})
-        - Web Developer
+        {{ $t('commGuideAKA', {habitName: 'Viirus', realName: 'Phillip'}) }}
+        ({{ $t('commGuideOnGitHub', {gitHubName: 'phillipthelen'}) }})
+        - Developer
       </li>
       <li>
         {{ $t('commGuideAKA', {habitName: 'redphoenix', realName: 'Vicky'}) }}
@@ -134,10 +134,6 @@
         - Art, Community Management, Many Hats
       </li>
       <li>
-        {{ $t('commGuideAKA', {habitName: 'SabreCat', realName: 'Sabe'}) }}
-        - Web Developer
-      </li>
-      <li>
         {{ $t('commGuideAKA', {habitName: 'Apollo', realName: 'Tressley'}) }}
         - Designer
       </li>
@@ -146,8 +142,12 @@
         - Mobile Designer
       </li>
       <li>
-        {{ $t('commGuideAKA', {habitName: 'Viirus', realName: 'Phillip'}) }}
-        - Mobile Developer
+        {{ $t('commGuideAKA', {habitName: 'SabreCat', realName: 'Kalista'}) }}
+        - Web Developer
+      </li>
+      <li>
+        {{ $t('commGuideAKA', {habitName: 'fizself', realName: 'Hafiz'}) }}
+        - Developer
       </li>
     </ul>
     <p v-html="$t('commGuidePara013')"></p>
@@ -156,7 +156,7 @@
       <em>
         Lemoness, lefnire, Slappybag, litenull, Shaner, Bobbyroberts99, wc8,
         Breadstrings, Megan, Blade, Daniel the Bard, deilann, shanaqui, Nakonana,
-        Dewines, Alys, Fox_town, MaybeSteveRogers, and Cantras.
+        Dewines, Alys, Fox_town, MaybeSteveRogers, Cantras, and heyeilatan.
       </em>
     </p>
     <h2 id="final">

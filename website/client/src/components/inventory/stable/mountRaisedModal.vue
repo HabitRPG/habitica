@@ -14,7 +14,7 @@
         <div class="pet-background">
           <Sprite
             class="mount"
-            :image-name="`Mount_Icon_${mount.key}`"
+            :image-name="`stable_Mount_Icon_${mount.key}`"
           />
         </div>
         <h4 class="title">
@@ -36,8 +36,8 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/mixins.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/mixins.scss';
 
   #mount-raised-modal {
     @include centeredModal();
@@ -66,6 +66,7 @@
 
     .mount {
       margin: 0 auto;
+      margin-top: 22px;
     }
 
     .dialog-header {

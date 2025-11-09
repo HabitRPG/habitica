@@ -40,10 +40,10 @@
     "backerTier": "资助人等级",
     "playerTiers": "贡献者等级",
     "tier": "层级",
-    "conRewardsURL": "https://habitica.fandom.com/zh/wiki/贡献者的福利",
+    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#贡献者奖励",
     "surveysSingle": "通过填写调查问卷或协助大型测试，帮助 Habitica 发展壮大。谢谢你！",
     "surveysMultiple": "曾<%= count %>次通过填写调查问卷或协助大型测试，帮助Habitica发展壮大。谢谢你！",
     "blurbHallPatrons": "这里是赞助者殿堂，我们在此纪念Kickstarter众筹时支持Habitica的冒险家们。我们感谢他们帮助我们让Habitica得以实现！",
-    "blurbHallContributors": "这里是贡献者殿堂，我们在此纪念在开源项目中对Habitica做出贡献的人们。无论是代码、艺术、音乐、写作，或者只是有所帮助，他们都能得到<a href='https://habitica.fandom.com/zh/wiki/贡献者的福利' target='_blank'> 宝石、专属装备</a>以及 <a href='https://habitica.fandom.com/zh/wiki/贡献者头衔' target='_blank'>尊贵头衔</a>。您也可以为Habitica做出贡献！<a href='https://habitica.fandom.com/zh/wiki/对Habitica做出贡献' target='_blank'>点击此处了解更多信息。</a>",
+    "blurbHallContributors": "这里是贡献者殿堂，我们在此纪念在开源项目中对Habitica做出贡献的人们。无论是代码、艺术、音乐、写作，或者只是有所帮助，他们都能得到<a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards' target='_blank'>宝石、专属装备</a>以及<a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tiers' target='_blank'>尊贵头衔</a>。你也可以为Habitica做出贡献！<a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica' target='_blank'>点击此处了解更多信息。</a>",
     "noPrivAccess": "你没有必要的权限。"
 }

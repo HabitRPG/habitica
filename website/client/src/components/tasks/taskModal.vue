@@ -35,7 +35,7 @@
           </button>
           <button
             class="btn btn-secondary d-flex align-items-center justify-content-center"
-            :class="{disabled: !canSave}"
+            :class="{'btn-disabled': !canSave}"
             type="button"
             @click="submit()"
           >
@@ -86,7 +86,7 @@
           >
             <a
               target="_blank"
-              href="https://habitica.fandom.com/wiki/Markdown_Cheat_Sheet"
+              href="https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica"
               :class="cssClass('headings')"
             >{{ $t('markdownHelpLink') }}</a>
           </small>
@@ -162,13 +162,13 @@
             >
               <div
                 class="habit-option-icon svg-icon no-transition"
-                :class="task.up ? '' : 'disabled'"
+                :class="task.up ? '' : 'icon-disabled'"
                 v-html="icons.positive"
               ></div>
             </div>
             <div
               class="habit-option-label no-transition"
-              :class="task.up ? cssClass('icon') : 'disabled'"
+              :class="task.up ? cssClass('icon') : 'label-disabled'"
             >
               {{ $t('positive') }}
             </div>
@@ -188,13 +188,13 @@
             >
               <div
                 class="habit-option-icon no-transition svg-icon negative mx-auto"
-                :class="task.down ? '' : 'disabled'"
+                :class="task.down ? '' : 'icon-disabled'"
                 v-html="icons.negative"
               ></div>
             </div>
             <div
               class="habit-option-label no-transition"
-              :class="task.down ? cssClass('icon') : 'disabled'"
+              :class="task.down ? cssClass('icon') : 'label-disabled'"
             >
               {{ $t('negative') }}
             </div>
@@ -592,7 +592,7 @@
           <button
             class="btn btn-primary btn-footer
             d-flex align-items-center justify-content-center"
-            :class="{disabled: !canSave}"
+            :class="{'btn-disabled': !canSave}"
             type="button"
             @click="submit()"
           >
@@ -610,7 +610,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   #task-modal {
     a:not(.dropdown-item) {
@@ -651,9 +651,9 @@
 
     input, textarea {
       transition-property: border-color, box-shadow, color, background;
-      background-color: rgba(255, 255, 255, 0.5);
+      background-color: rgba($white, 0.5);
       &:focus:not(:disabled), &:active:not(:disabled), &:hover:not(:disabled) {
-        background-color: rgba(255, 255, 255, 0.75);
+        background-color: rgba($white, 0.75);
       }
     }
 
@@ -810,11 +810,7 @@
         margin-right: 16px;
         color: $blue-10;
       }
-
-      .btn-footer {
-        height: 2rem;
-      }
-    }
+  }
 
     .weekday-check {
       margin-left: 0px;
@@ -884,6 +880,26 @@
         margin-bottom: 0;
       }
     }
+
+    .btn-disabled {
+      background-color: $white;
+      border: 2px solid transparent;
+      color: $gray-200;
+      line-height: 1.714;
+      box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.12), 0px 1px 2px 0px rgba(26, 24, 29, 0.24);
+      cursor: not-allowed;
+      opacity: 0.6;
+
+      &:focus {
+        background-color: $white;
+        border: 2px solid $purple-400;
+        box-shadow: none;
+      }
+
+      &:active {
+        box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.12), 0px 1px 2px 0px rgba(26, 24, 29, 0.24);
+      }
+    }
   }
 
   @media only screen and (max-width: 768px) {
@@ -898,7 +914,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .gold {
     width: 1rem;
@@ -934,7 +950,7 @@
       height: 10px;
       color: $white;
 
-      &.disabled {
+      &.icon-disabled {
         color: $gray-200;
       }
 
@@ -948,7 +964,7 @@
       font-weight: bold;
       text-align: center;
 
-      &.disabled {
+      &.label-disabled {
         color: $gray-100;
         font-weight: normal;
       }
@@ -1004,7 +1020,7 @@
     border: 0;
   }
 
-  .disabled .input-group-text {
+  .input-group-outer.disabled .input-group-text {
     color: $gray-200;
   }
 
@@ -1025,14 +1041,14 @@ import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
 
 import syncTask from '../../mixins/syncTask';
 
-import positiveIcon from '@/assets/svg/positive.svg';
-import negativeIcon from '@/assets/svg/negative.svg';
-import streakIcon from '@/assets/svg/streak.svg';
-import deleteIcon from '@/assets/svg/delete.svg';
-import goldIcon from '@/assets/svg/gold.svg';
-import chevronIcon from '@/assets/svg/chevron.svg';
-import calendarIcon from '@/assets/svg/calendar.svg';
-import gripIcon from '@/assets/svg/grip.svg';
+import positiveIcon from '@/assets/svg/positive.svg?raw';
+import negativeIcon from '@/assets/svg/negative.svg?raw';
+import streakIcon from '@/assets/svg/streak.svg?raw';
+import deleteIcon from '@/assets/svg/delete.svg?raw';
+import goldIcon from '@/assets/svg/gold.svg?raw';
+import chevronIcon from '@/assets/svg/chevron.svg?raw';
+import calendarIcon from '@/assets/svg/calendar.svg?raw';
+import gripIcon from '@/assets/svg/grip.svg?raw';
 import InformationIcon from '@/components/ui/informationIcon.vue';
 
 export default {

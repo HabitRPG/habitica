@@ -1,5 +1,6 @@
 import validator from 'validator';
 import moment from 'moment';
+import pick from 'lodash/pick';
 import sortBy from 'lodash/sortBy';
 import nconf from 'nconf';
 import {
@@ -121,13 +122,15 @@ api.loginLocal = {
     // convert the hashed password to bcrypt from sha1
     if (user.auth.local.passwordHashMethod === 'sha1') {
       await passwordUtils.convertToBcrypt(user, password);
-      await user.save();
     }
+    // Force the updated timestamp to update, so that we know they logged in
+    user.auth.timestamps.updated = new Date();
+    await user.save();
 
     res.analytics.track('login', {
-      category: 'behaviour',
+      user: pick(user, ['preferences', 'registeredThrough']),
+      category: 'behavior',
       type: 'local',
-      gaLabel: 'local',
       uuid: user._id,
       headers: req.headers,
     });
@@ -151,13 +154,14 @@ api.loginSocial = {
 // Called by apple for web authentication.
 api.redirectApple = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    optional: true,
-  })],
+  middlewares: [],
   url: '/user/auth/apple',
   async handler (req, res) {
     if (req.body.id_token) {
       req.body.network = 'apple';
+      if (!req.body.allowRegister) {
+        req.body.allowRegister = false;
+      }
       return loginSocial(req, res);
     }
     let url = `/static/apple-redirect?code=${req.body.code}`;
@@ -181,6 +185,8 @@ api.loginApple = {
   url: '/user/auth/apple',
   async handler (req, res) {
     req.body.network = 'apple';
+    req.body.allowRegister = req.query.allowRegister === 'true';
+    req.body.username = req.query.username;
     return loginSocial(req, res);
   },
 };
@@ -271,7 +277,7 @@ api.updateUsername = {
  * @apiParam (Body) {String} newPassword The new password
  * @apiParam (Body) {String} confirmPassword New password confirmation
  *
- * @apiSuccess {Object} data An empty object
+ * @apiSuccess {String} data.apiToken The new apiToken
  * */
 api.updatePassword = {
   method: 'PUT',
@@ -316,9 +322,14 @@ api.updatePassword = {
 
     // set new password and make sure it's using bcrypt for hashing
     await passwordUtils.convertToBcrypt(user, newPassword);
+
+    user.apiToken = common.uuid();
+
     await user.save();
 
-    res.respond(200, {});
+    res.respond(200, {
+      apiToken: user.apiToken,
+    });
   },
 };
 
@@ -350,6 +361,7 @@ api.resetPassword = {
       { 'auth.local.email': email }, // Prefer to reset password for local auth
       { auth: 1 },
     ).exec();
+
     if (!user) { // If no local auth with that email...
       const potentialUsers = await User.find(
         {
@@ -486,6 +498,9 @@ api.resetPasswordSetNewOne = {
     await passwordUtils.convertToBcrypt(user, String(newPassword));
     user.auth.local.passwordResetCode = undefined; // Reset saved password reset code
     if (!user.auth.local.email) user.auth.local.email = await socialEmailToLocal(user);
+
+    user.apiToken = common.uuid();
+
     await user.save();
 
     return res.respond(200, {}, res.t('passwordChangeSuccess'));

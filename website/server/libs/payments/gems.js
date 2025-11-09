@@ -1,4 +1,5 @@
 import find from 'lodash/find';
+import pick from 'lodash/pick';
 import { getAnalyticsServiceByEnvironment } from '../analyticsService';
 import { getCurrentEventList } from '../worldState'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
@@ -114,6 +115,7 @@ export async function buyGems (data) {
   if (!data.gift) txnEmail(data.user, 'donation');
 
   analytics.trackPurchase({
+    user: pick(data.user, ['preferences', 'registeredThrough']),
     uuid: data.user._id,
     itemPurchased: 'Gems',
     sku: `${data.paymentMethod.toLowerCase()}-checkout`,

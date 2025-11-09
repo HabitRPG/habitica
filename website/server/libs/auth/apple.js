@@ -48,5 +48,6 @@ export async function appleProfile (req) {
     id: verifiedPayload.sub,
     emails: [{ value: verifiedPayload.email }],
     name: verifiedPayload.name || req.body.name || req.query.name,
+    idToken,
   };
 }

@@ -59,7 +59,7 @@
     "loginIncentiveQuest": "¡Para desbloquear esta misión, entra en Habitica durante <%= count %> días distintos!",
     "loginReward": "Registros: <%= count %>",
     "questBundles": "Packs de Misiones en Descuento",
-    "noQuestToStart": "¡Echale un ojo a la <a href=\"<%= questShop %>\">Tienda de Misiones</a>  para encontrar nuevas Misiones!",
+    "noQuestToStart": "¡Echale un ojo a la <a href=\"<%= questShop %>\">Tienda de Misiones</a> para encontrar nuevas Misiones!",
     "pendingDamage": "<%= damage %> daño pendiente",
     "pendingDamageLabel": "daño pendiente",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Salud",

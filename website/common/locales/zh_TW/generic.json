@@ -212,5 +212,11 @@
     "submitBugReport": "提交問題回報",
     "reportSent": "問題回報已傳送！",
     "reportSentDescription": "我們會盡早給予回覆一旦我們的團隊有機會去找尋問題來源。感謝您回報錯誤及問題。",
-    "emptyReportBugMessage": "錯誤報告已遺失"
+    "emptyReportBugMessage": "錯誤報告已遺失",
+    "titleCustomizations": "客製化",
+    "blockPlayer": "封鎖玩家",
+    "reportPlayer": "檢舉玩家",
+    "unblockPlayer": "解除封鎖玩家",
+    "adminTools": "管理工具",
+    "viewAdminPanel": "查看管理面板"
 }

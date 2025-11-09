@@ -7,7 +7,7 @@ export function setup () { // eslint-disable-line import/prefer-default-export
   // Added here to make sure the listener is registered before the script can be executed
   window.onAmazonLoginReady = () => {
     store.state.isAmazonReady = true;
-    window.amazon.Login.setClientId(process.env.AMAZON_PAYMENTS_CLIENT_ID);
+    window.amazon.Login.setClientId(import.meta.env.AMAZON_PAYMENTS_CLIENT_ID);
   };
 
   // Load the scripts
@@ -17,7 +17,7 @@ export function setup () { // eslint-disable-line import/prefer-default-export
   let firstScript = document.getElementsByTagName('script')[0];
   amazonScript.type = 'text/javascript';
   amazonScript.async = true;
-  amazonScript.src = `https://static-na.payments-amazon.com/OffAmazonPayments/us/${(process.env.AMAZON_PAYMENTS_MODE === 'sandbox' ? 'sandbox/' : '')}js/Widgets.js`;
+  amazonScript.src = `https://static-na.payments-amazon.com/OffAmazonPayments/us/${(import.meta.env.AMAZON_PAYMENTS_MODE === 'sandbox' ? 'sandbox/' : '')}js/Widgets.js`;
   firstScript.parentNode.insertBefore(amazonScript, firstScript);
 
   // Stripe

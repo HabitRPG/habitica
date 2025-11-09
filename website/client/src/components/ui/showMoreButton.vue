@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .btn-show-more {
     height: 2rem;

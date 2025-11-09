@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import find from 'lodash/find';
+import includes from 'lodash/includes';
+import pick from 'lodash/pick';
 
 import { encrypt } from '../encryption';
 import { sendNotification as sendPushNotification } from '../pushNotifications';
@@ -58,11 +60,11 @@ function sendInviteEmail (userToInvite, groupLabel, group, inviter) {
 function inviteUserToGuild (userToInvite, group, inviter, publicGuild, res) {
   const uuid = userToInvite._id;
 
-  if (_.includes(userToInvite.guilds, group._id)) {
+  if (includes(userToInvite.guilds, group._id)) {
     throw new NotAuthorized(res.t('userAlreadyInGroup', { userId: uuid, username: userToInvite.profile.name }));
   }
 
-  if (_.find(userToInvite.invitations.guilds, { id: group._id })) {
+  if (find(userToInvite.invitations.guilds, { id: group._id })) {
     throw new NotAuthorized(res.t('userAlreadyInvitedToGroup', { userId: uuid, username: userToInvite.profile.name }));
   }
 
@@ -82,7 +84,7 @@ async function inviteUserToParty (userToInvite, group, inviter, res) {
   const uuid = userToInvite._id;
 
   // Do not add to invitations.parties array if the user is already invited to that party
-  if (_.find(userToInvite.invitations.parties, { id: group._id })) {
+  if (find(userToInvite.invitations.parties, { id: group._id })) {
     throw new NotAuthorized(res.t('userAlreadyPendingInvitation', { userId: uuid, username: userToInvite.profile.name }));
   }
 
@@ -142,9 +144,10 @@ async function inviteByUUID (uuid, group, inviter, req, res) {
   }
 
   const analyticsObject = {
+    user: pick(inviter, ['preferences', 'registeredThrough']),
+    uuid: inviter._id,
     hitType: 'event',
     category: 'behavior',
-    uuid: inviter._id,
     invitee: uuid,
     groupId: group._id,
     groupType: group.type,
@@ -189,7 +192,7 @@ async function inviteByEmail (invite, group, inviter, req, res) {
       sentAt: Date.now(), // so we can let it expire
       cancelledPlan,
     });
-    const link = `/static/home?groupInvite=${encrypt(groupQueryString)}`;
+    const link = `/register?groupInvite=${encrypt(groupQueryString)}`;
 
     const variables = [
       { name: 'LINK', content: link },
@@ -206,9 +209,10 @@ async function inviteByEmail (invite, group, inviter, req, res) {
     if (!userIsUnsubscribed) sendTxnEmail(invite, `invite-friend${groupLabel}`, variables);
 
     const analyticsObject = {
+      user: pick(inviter, ['preferences', 'registeredThrough']),
+      uuid: inviter._id,
       hitType: 'event',
       category: 'behavior',
-      uuid: inviter._id,
       invitee: 'email',
       groupId: group._id,
       groupType: group.type,
@@ -243,9 +247,10 @@ async function inviteByUserName (username, group, inviter, req, res) {
   }
 
   const analyticsObject = {
+    user: pick(inviter, ['preferences', 'registeredThrough']),
+    uuid: inviter._id,
     hitType: 'event',
     category: 'behavior',
-    uuid: inviter._id,
     invitee: userToInvite._id,
     groupId: group._id,
     groupType: group.type,

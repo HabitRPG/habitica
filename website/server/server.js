@@ -10,7 +10,7 @@ import './libs/i18n';
 import attachMiddlewares from './middlewares/index';
 
 // Load config files
-import './libs/setupMongoose';
+import connectToMongoDB from './libs/mongoose';
 import './libs/setupPassport';
 import './libs/setupFirebase';
 
@@ -18,6 +18,8 @@ import './libs/setupFirebase';
 import './models/challenge';
 import './models/group';
 import './models/user';
+
+connectToMongoDB();
 
 const server = http.createServer();
 const app = express();

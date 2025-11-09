@@ -21,11 +21,9 @@
     >
       <draggable
         v-model="checklist"
-        :options="{
-          handle: '.grippy',
-          filter: '.task-dropdown',
-          disabled: disabled,
-        }"
+        handle=".grippy"
+        filter=".task-dropdown"
+        :disabled="disabled"
         @update="updateChecklist"
       >
         <div
@@ -101,10 +99,10 @@
 import draggable from 'vuedraggable';
 import { v4 as uuid } from 'uuid';
 
-import positiveIcon from '@/assets/svg/positive.svg';
-import deleteIcon from '@/assets/svg/delete.svg';
-import chevronIcon from '@/assets/svg/chevron.svg';
-import gripIcon from '@/assets/svg/grip.svg';
+import positiveIcon from '@/assets/svg/positive.svg?raw';
+import deleteIcon from '@/assets/svg/delete.svg?raw';
+import chevronIcon from '@/assets/svg/chevron.svg?raw';
+import gripIcon from '@/assets/svg/grip.svg?raw';
 import checkbox from '@/components/ui/checkbox';
 import lockableLabel from './lockableLabel';
 
@@ -186,7 +184,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .checklist-component {
 

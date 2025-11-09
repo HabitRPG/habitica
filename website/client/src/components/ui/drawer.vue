@@ -43,7 +43,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .drawer-container {
     z-index: 19;
@@ -60,6 +60,18 @@
       // 236px is the width of the .standard-sidebar
       left: calc((100% + 236px - 978px) / 2);
       right: 0%;
+    }
+
+    @media screen and (max-width: 575px) {
+      max-width: none;
+      left: 3%;
+      right: 3%;
+    }
+
+    .message {
+      @media screen and (max-width: 450px) {
+        width: 100%;
+        }
     }
   }
 
@@ -117,6 +129,12 @@
     padding-top: 6px;
     padding-left: 24px;
     padding-right: 24px;
+
+    a {
+      line-height: 1.33;
+      color: $gray-500;
+      font-weight: normal;
+    }
   }
 
   .drawer-tab {
@@ -136,7 +154,7 @@
       color: $white !important;
       text-decoration: none !important;
       border-bottom: 2px solid transparent;
-      padding: 0.5rem;
+      padding: 8px;
 
       &-active, &:hover {
         color: $white !important;
@@ -157,17 +175,19 @@
   }
 
   .drawer-slider {
-    padding: 12px 0 0 8px;
+    padding: 0;
     white-space: nowrap;
     position: relative;
+    width: 100%;
 
     & .message {
       display: flex;
       align-items: center;
       justify-content: center;
+      margin: auto;
 
       top: calc(50% - 30px);
-      left: 24px;
+      left: 0;
       right: 0;
       position: absolute;
 
@@ -190,8 +210,8 @@
 </style>
 
 <script>
-import expandIcon from '@/assets/svg/expand.svg';
-import minimizeIcon from '@/assets/svg/minimize.svg';
+import expandIcon from '@/assets/svg/expand.svg?raw';
+import minimizeIcon from '@/assets/svg/minimize.svg?raw';
 
 export default {
   props: {

@@ -1,6 +1,9 @@
 // TODO these files need to refactored.
 
-import _ from 'lodash';
+import defaults from 'lodash/defaults';
+import each from 'lodash/each';
+import find from 'lodash/find';
+import pick from 'lodash/pick';
 import moment from 'moment';
 
 import { getAnalyticsServiceByEnvironment } from '../analyticsService';
@@ -30,7 +33,7 @@ const analytics = getAnalyticsServiceByEnvironment();
 
 function _findMysteryItems (user, dateMoment) {
   const pushedItems = [];
-  _.each(shared.content.gear.flat, item => {
+  each(shared.content.gear.flat, item => {
     if (
       item.klass === 'mystery'
         && shared.content.mystery[item.mystery]
@@ -155,10 +158,6 @@ async function prepareSubscriptionValues (data) {
 
   const { plan } = recipient.purchased;
 
-  if (isNewSubscription) {
-    plan.perkMonthCount = 0;
-  }
-
   if (data.gift || !autoRenews) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;
@@ -204,18 +203,11 @@ async function prepareSubscriptionValues (data) {
       owner: data.user._id,
     });
 
-    // allow non-override if a plan was previously used
-    if (!plan.gemsBought) {
-      plan.gemsBought = 0;
-    }
-
-    if (!plan.dateCreated) {
-      plan.dateCreated = today;
-    }
-
-    if (!plan.mysteryItems) {
-      plan.mysteryItems = [];
-    }
+    defaults(plan, {
+      gemsBought: 0,
+      dateCreated: today,
+      mysteryItems: [],
+    });
 
     if (data.subscriptionId) {
       plan.subscriptionId = data.subscriptionId;
@@ -251,22 +243,6 @@ async function createSubscription (data) {
     emailType,
     isNewSubscription,
   } = await prepareSubscriptionValues(data);
-
-  // Block sub perks
-  if (months > 1 && (!data.gift || !isNewSubscription)) {
-    if (!data.gift && !groupId) {
-      plan.consecutive.offset = block.months;
-    }
-  } else if (months === 1) {
-    plan.consecutive.offset = 0;
-  }
-  if (months > 1 || data.gift) {
-    await plan.incrementPerkCounterAndReward(recipient._id, months);
-  } else {
-    // Make sure the perkMonthCount field is initialized.
-    await plan.incrementPerkCounterAndReward(recipient._id, 0);
-  }
-
   if (recipient !== group) {
     recipient.items.pets['Jackalope-RoyalPurple'] = 5;
     recipient.markModified('items.pets');
@@ -276,6 +252,23 @@ async function createSubscription (data) {
   // @TODO: Create a factory pattern for use cases
   if (!data.gift && data.customerId !== paymentConstants.GROUP_PLAN_CUSTOMER_ID) {
     txnEmail(data.user, emailType);
+  }
+
+  if (months > 0) {
+    if (block.months === 12) {
+      recipient.purchased.plan.consecutive.gemCapExtra = 26;
+    }
+    const { lastHourglassReceived } = recipient.purchased.plan.consecutive;
+
+    if (block.months === 12 && autoRenews && !data.gift
+      && !recipient.purchased.plan.hourglassPromoReceived) {
+      recipient.purchased.plan.hourglassPromoReceived = new Date();
+      await plan.updateHourglasses(recipient._id, 12, 'subscription_bonus');
+    }
+    if (isNewSubscription
+      && (lastHourglassReceived === null || lastHourglassReceived === undefined || !moment().isSame(lastHourglassReceived, 'month'))) {
+      await plan.updateHourglasses(recipient._id, 1, 'subscription_perks');
+    }
   }
 
   if (!group && !data.promo) data.user.purchased.txnCount += 1;
@@ -349,7 +342,7 @@ async function createSubscription (data) {
     // Only send push notifications if sending to a user other than yourself
     if (data.gift.member._id !== data.user._id) {
       const currentEventList = getCurrentEventList();
-      const currentEvent = _.find(currentEventList, event => Boolean(event.promo));
+      const currentEvent = find(currentEventList, event => Boolean(event.promo));
       if (currentEvent && currentEvent.promo === 'g1g1') {
         const promoData = {
           user: data.user,
@@ -472,9 +465,8 @@ async function cancelSubscription (data) {
 
   analytics.track(cancelType, {
     uuid: data.user._id,
+    user: pick(data.user, ['preferences', 'registeredThrough']),
     groupId,
-    gaCategory: 'commerce',
-    gaLabel: data.paymentMethod,
     paymentMethod: data.paymentMethod,
     headers: data.headers,
   });

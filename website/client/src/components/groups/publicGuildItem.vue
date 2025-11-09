@@ -109,7 +109,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .card-link {
     color: #4E4A57 !important;
@@ -218,10 +218,10 @@ import { mapState } from '@/libs/store';
 import categoryTags from '../categories/categoryTags';
 import groupUtilities from '@/mixins/groupsUtilities';
 import markdown from '@/directives/markdown';
-import gemIcon from '@/assets/svg/gem.svg';
-import goldGuildBadgeIcon from '@/assets/svg/gold-guild-badge-large.svg';
-import silverGuildBadgeIcon from '@/assets/svg/silver-guild-badge-large.svg';
-import bronzeGuildBadgeIcon from '@/assets/svg/bronze-guild-badge-large.svg';
+import gemIcon from '@/assets/svg/gem.svg?raw';
+import goldGuildBadgeIcon from '@/assets/svg/gold-guild-badge-large.svg?raw';
+import silverGuildBadgeIcon from '@/assets/svg/silver-guild-badge-large.svg?raw';
+import bronzeGuildBadgeIcon from '@/assets/svg/bronze-guild-badge-large.svg?raw';
 
 export default {
   directives: {

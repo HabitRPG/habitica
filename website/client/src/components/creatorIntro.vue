@@ -5,7 +5,7 @@
     :size="editing ? 'lg' : 'md'"
     :hide-header="true"
     :hide-footer="true"
-    :modal-class="{'page-2':modalPage > 1 && !editing}"
+    :modal-class="{'page-2': !editing}"
     :no-close-on-esc="!editing"
     :no-close-on-backdrop="!editing"
   >
@@ -13,20 +13,6 @@
       v-if="editing"
       @close="close()"
     />
-    <div
-      v-if="modalPage === 1 && !editing"
-      class="section row welcome-section"
-    >
-      <div class="col-6 offset-3 text-center">
-        <h3 v-once>
-          {{ $t('welcomeTo') }}
-        </h3>
-        <div
-          class="svg-icon logo"
-          v-html="icons.logoPurple"
-        ></div>
-      </div>
-    </div>
     <h2
       v-if="editing"
       class="text-center pt-2 mt-4 mb-4"
@@ -34,7 +20,6 @@
       {{ $t('editAvatar') }}
     </h2>
     <div
-      v-if="modalPage > 1"
       class="avatar-section d-flex justify-content-center"
       :class="{'page-2': modalPage === 2}"
     >
@@ -433,8 +418,7 @@
     </div>
     <div
       v-if="!editing"
-      class="section d-flex justify-content-center justin-outer-section"
-      :class="{top: modalPage > 1}"
+      class="section d-flex justify-content-center justin-outer-section top"
     >
       <div class="justin-section d-flex align-items-center">
         <div class="featured-label">
@@ -459,17 +443,8 @@
             class="corner-decoration"
             :style="{bottom: '-2px', left: '-2px'}"
           ></div>
-          <div v-if="modalPage === 1">
-            <p
-              v-once
-              v-html="$t('justinIntroMessage1')"
-            ></p>
-            <p v-once>
-              {{ $t('justinIntroMessageUsername') }}
-            </p>
-          </div>
           <div v-if="modalPage === 2">
-            <p>{{ $t('justinIntroMessageAppearance') }}</p>
+            <p v-html="$t('justinIntroMessage1')"></p>
           </div>
           <div v-if="modalPage === 3">
             <p v-once>
@@ -484,25 +459,12 @@
       </div>
     </div>
     <div
-      v-if="modalPage === 1"
-      class="section mr-5 ml-5 first-page-footer"
-    >
-      <username-form
-        :avatar-intro="true"
-        @usernameConfirmed="modalPage += 1"
-      />
-      <div
-        class="small text-center"
-        v-html="$t('usernameTOSRequirements')"
-      ></div>
-    </div>
-    <div
-      v-if="!editing && !(modalPage === 1)"
+      v-if="!editing"
       class="section container footer"
     >
       <div class="footer-left">
         <div
-          v-if="modalPage > 1"
+          v-if="modalPage > 2"
           class="prev-outer"
           @click="prev()"
         >
@@ -519,10 +481,6 @@
         </div>
       </div>
       <div class="footer-center text-center circles">
-        <div
-          class="circle"
-          :class="{active: modalPage === 1}"
-        ></div>
         <div
           class="circle"
           :class="{active: modalPage === 2}"
@@ -572,7 +530,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   $dialogMarginTop: 56px;
   $userCreationBgHeight:  105px;
@@ -671,7 +629,7 @@
     }
 
     .user-creation-bg {
-      background-image: url('~@/assets/creator/creator-hills-bg.png');
+      background-image: url('@/assets/creator/creator-hills-bg.png');
       height: $userCreationBgHeight;
       width: 219px;
       margin: 0 auto;
@@ -991,7 +949,6 @@ import forEach from 'lodash/forEach';
 import content from '@/../../common/script/content/index';
 import { mapState } from '@/libs/store';
 import avatar from './avatar';
-import usernameForm from './settings/usernameForm';
 import guide from '@/mixins/guide';
 import notifications from '@/mixins/notifications';
 import customizeBanner from './avatarModal/customize-banner';
@@ -1001,18 +958,18 @@ import hairSettings from './avatarModal/hair-settings';
 import extraSettings from './avatarModal/extra-settings';
 import closeX from './ui/closeX';
 
-import logoPurple from '@/assets/svg/logo-purple.svg';
-import bodyIcon from '@/assets/svg/body.svg';
-import accessoriesIcon from '@/assets/svg/accessories.svg';
-import skinIcon from '@/assets/svg/skin.svg';
-import hairIcon from '@/assets/svg/hair.svg';
-import backgroundsIcon from '@/assets/svg/backgrounds.svg';
-import gem from '@/assets/svg/gem.svg';
-import hourglass from '@/assets/svg/hourglass.svg';
-import gold from '@/assets/svg/gold.svg';
-import arrowRight from '@/assets/svg/arrow_right.svg';
-import arrowLeft from '@/assets/svg/arrow_left.svg';
-import svgClose from '@/assets/svg/close.svg';
+import logoPurple from '@/assets/svg/logo-purple.svg?raw';
+import bodyIcon from '@/assets/svg/body.svg?raw';
+import accessoriesIcon from '@/assets/svg/accessories.svg?raw';
+import skinIcon from '@/assets/svg/skin.svg?raw';
+import hairIcon from '@/assets/svg/hair.svg?raw';
+import backgroundsIcon from '@/assets/svg/backgrounds.svg?raw';
+import gem from '@/assets/svg/gem.svg?raw';
+import hourglass from '@/assets/svg/hourglass.svg?raw';
+import gold from '@/assets/svg/gold.svg?raw';
+import arrowRight from '@/assets/svg/arrow_right.svg?raw';
+import arrowLeft from '@/assets/svg/arrow_left.svg?raw';
+import svgClose from '@/assets/svg/close.svg?raw';
 import { avatarEditorUtilities } from '../mixins/avatarEditUtilities';
 import Sprite from './ui/sprite';
 
@@ -1025,7 +982,6 @@ export default {
     extraSettings,
     hairSettings,
     skinSettings,
-    usernameForm,
     Sprite,
   },
   mixins: [guide, notifications, avatarEditorUtilities],
@@ -1053,7 +1009,7 @@ export default {
         arrowLeft,
         close: svgClose,
       }),
-      modalPage: 1,
+      modalPage: 2,
       activeTopPage: 'body',
       activeSubPage: 'size',
       taskCategories: [],

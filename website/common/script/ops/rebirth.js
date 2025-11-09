@@ -1,4 +1,5 @@
 import each from 'lodash/each';
+import pick from 'lodash/pick';
 import i18n from '../i18n';
 import { capByLevel } from '../statHelpers';
 import { MAX_LEVEL } from '../constants';
@@ -22,6 +23,7 @@ export default async function rebirth (user, tasks = [], req = {}, analytics) {
 
   const analyticsData = {
     uuid: user._id,
+    user: pick(user, ['preferences', 'registeredThrough']),
     category: 'behavior',
   };
 

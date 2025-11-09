@@ -135,5 +135,6 @@
     "editTagsText": "Editar Tags",
     "taskSummary": "<%= type %> Resumo",
     "scoreUp": "Pontuação",
-    "scoreDown": "Pontuação baixa"
+    "scoreDown": "Pontuação baixa",
+    "taskAlias": "Nome da Tarefa"
 }

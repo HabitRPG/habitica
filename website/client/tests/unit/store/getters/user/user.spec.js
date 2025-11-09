@@ -1,10 +1,11 @@
+import { describe, expect, test } from 'vitest';
 import {
   data, gems, buffs, preferences, tasksOrder,
 } from '@/store/getters/user';
 
-context('user getters', () => {
+describe('user getters', () => {
   describe('data', () => {
-    it('returns the user\'s data', () => {
+    test('returns the user\'s data', () => {
       expect(data({
         state: {
           user: {
@@ -18,7 +19,7 @@ context('user getters', () => {
   });
 
   describe('gems', () => {
-    it('returns the user\'s gems', () => {
+    test('returns the user\'s gems', () => {
       expect(gems({
         state: {
           user: {
@@ -30,7 +31,7 @@ context('user getters', () => {
   });
 
   describe('buffs', () => {
-    it('returns the user\'s buffs', () => {
+    test('returns the user\'s buffs', () => {
       expect(buffs({
         state: {
           user: {
@@ -46,7 +47,7 @@ context('user getters', () => {
   });
 
   describe('preferences', () => {
-    it('returns the user\'s preferences', () => {
+    test('returns the user\'s preferences', () => {
       expect(preferences({
         state: {
           user: {
@@ -60,7 +61,7 @@ context('user getters', () => {
   });
 
   describe('tasksOrder', () => {
-    it('returns the user\'s tasksOrder', () => {
+    test('returns the user\'s tasksOrder', () => {
       expect(tasksOrder({
         state: {
           user: {

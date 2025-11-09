@@ -1,6 +1,6 @@
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
-import { assign } from 'lodash';
+import assign from 'lodash/assign';
 import t from './translation';
 import datedMemoize from '../fns/datedMemoize';
 import { filterReleased } from './is_released';
@@ -127,6 +127,16 @@ const premium = {
   },
   RoseGold: {},
   Koi: {},
+  Gingerbread: {},
+  Jade: {
+    questPotion: true,
+    canBuy: hasQuestAchievementFunction('jade'),
+  },
+  Balloon: {},
+  Opal: {
+    questPotion: true,
+    canBuy: hasQuestAchievementFunction('opal'),
+  },
 };
 
 const wacky = {
@@ -144,6 +154,7 @@ const wacky = {
     questPotion: true,
     canBuy: hasQuestAchievementFunction('fungi'),
   },
+  Cryptid: {},
 };
 
 each(drops, (pot, key) => {
@@ -184,10 +195,10 @@ each(wacky, (pot, key) => {
     key,
     value: 2,
     text: t(`hatchingPotion${key}`),
-    notes: t('hatchingPotionNotes', {
+    notes: t('wackyPotionNotes', {
       potText: t(`hatchingPotion${key}`),
     }),
-    _addlNotes: t('premiumPotionUnlimitedNotes'),
+    _addlNotes: t('wackyPotionAddlNotes'),
     premium: false,
     limited: true,
     wacky: true,

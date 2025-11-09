@@ -3,7 +3,7 @@
     v-if="member.preferences"
     class="avatar"
     :style="{width, height, paddingTop}"
-    :class="backgroundClass"
+    :class="topLevelClassList"
     @click.prevent="castEnd()"
   >
     <div
@@ -55,7 +55,11 @@
         <span :class="[getGearClass('eyewear'), specialMountClass]"></span>
         <span :class="[getGearClass('head'), specialMountClass]"></span>
         <span :class="[getGearClass('headAccessory'), specialMountClass]"></span>
-        <span :class="['hair_flower_' + member.preferences.hair.flower, specialMountClass]"></span>
+        <span
+          :class="[
+            'hair_flower_' + member.preferences.hair.flower, specialMountClass
+          ]"
+        ></span>
         <span
           v-if="!hideGear('shield')"
           :class="[getGearClass('shield'), specialMountClass]"
@@ -63,6 +67,7 @@
         <span
           v-if="!hideGear('weapon')"
           :class="[getGearClass('weapon'), specialMountClass]"
+          class="weapon"
         ></span>
       </template>
       <!-- Resting-->
@@ -92,19 +97,27 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .avatar {
     width: 141px;
-    height: 147px;
     image-rendering: pixelated;
     position: relative;
     cursor: pointer;
+
+    &.centered-avatar {
+      margin: 0 auto;
+    }
+
+    // resetting the additional padding
+    margin-bottom: -0.5rem !important;
   }
 
   .character-sprites {
     width: 90px;
     height: 90px;
+
+    display: inline-flex;
   }
 
   .character-sprites span {
@@ -123,15 +136,38 @@
   .invert {
     filter: invert(100%);
   }
+
+  .debug {
+    border: 1px solid red;
+
+    .character-sprites {
+      border: 1px solid blue;
+    }
+
+    .weapon {
+      border: 1px solid green;
+    }
+
+    span {
+      border: 1px solid yellow;
+    }
+  }
 </style>
 
 <script>
-import some from 'lodash/some';
 import moment from 'moment';
 import { mapState } from '@/libs/store';
 import foolPet from '../mixins/foolPet';
 
 import ClassBadge from '@/components/members/classBadge';
+
+/**
+ * TODO replace avatarOnly with multiple options like
+ *    - showMount
+ *    - showPet
+ *    - showBackground
+ *    - showWeapons
+ */
 
 export default {
   components: {
@@ -139,6 +175,10 @@ export default {
   },
   mixins: [foolPet],
   props: {
+    debugMode: {
+      type: Boolean,
+      default: false,
+    },
     member: {
       type: Object,
       required: true,
@@ -156,14 +196,21 @@ export default {
     },
     overrideAvatarGear: {
       type: Object,
+      default (data) {
+        return data;
+      },
     },
     width: {
-      type: Number,
-      default: 140,
+      type: String,
+      default: '141px',
     },
     height: {
-      type: Number,
-      default: 147,
+      type: String,
+      default: '147px',
+    },
+    centerAvatar: {
+      type: Boolean,
+      default: false,
     },
     spritesMargin: {
       type: String,
@@ -171,8 +218,13 @@ export default {
     },
     overrideTopPadding: {
       type: String,
+      default: null,
     },
     showVisualBuffs: {
+      type: Boolean,
+      default: true,
+    },
+    showWeapon: {
       type: Boolean,
       default: true,
     },
@@ -203,6 +255,19 @@ export default {
       }
 
       return val;
+    },
+    topLevelClassList () {
+      const classes = [this.backgroundClass];
+
+      if (this.debugMode) {
+        classes.push('debug');
+      }
+
+      if (this.centerAvatar) {
+        classes.push('centered-avatar');
+      }
+
+      return classes.join(' ');
     },
     backgroundClass () {
       if (this.member) {
@@ -256,11 +321,10 @@ export default {
       return null;
     },
     petClass () {
-      if (some(
-        this.currentEventList,
-        event => moment().isBetween(event.start, event.end) && event.aprilFools && event.aprilFools === 'Fungi',
-      )) {
-        return this.foolPet(this.member.items.currentPet);
+      const foolEvent = this.currentEventList?.find(event => event.aprilFools && moment()
+        .isBetween(event.start, event.end));
+      if (foolEvent) {
+        return this.foolPet(this.member.items.currentPet, foolEvent.aprilFools);
       }
       if (this.member?.items.currentPet) return `Pet-${this.member.items.currentPet}`;
       return '';
@@ -290,6 +354,10 @@ export default {
     },
     hideGear (gearType) {
       if (!this.member) return true;
+      if (!this.showWeapon) {
+        return true;
+      }
+
       if (gearType === 'weapon') {
         const equippedWeapon = this.member.items.gear[this.costumeClass][gearType];
 

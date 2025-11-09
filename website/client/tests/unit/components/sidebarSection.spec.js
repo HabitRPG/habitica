@@ -1,3 +1,6 @@
+import {
+  describe, expect, test, beforeEach,
+} from 'vitest';
 import { mount } from '@vue/test-utils';
 
 import SidebarSection from '@/components/sidebarSection.vue';
@@ -16,21 +19,21 @@ describe('Sidebar Section', () => {
     });
   });
 
-  it('displays title', () => {
+  test('displays title', () => {
     expect(wrapper.find('h3').text()).to.eq('Hello World');
   });
 
-  it('displays contents', () => {
+  test('displays contents', () => {
     expect(wrapper.find('.section-body').find('p').text()).to.eq('This is a test.');
   });
 
-  it('displays tooltip icon', () => {
+  test('displays tooltip icon', () => {
     expect(wrapper.contains('.section-info')).to.eq(false);
     wrapper.setProps({ tooltip: 'This is a test' });
     expect(wrapper.contains('.section-info')).to.eq(true);
   });
 
-  it('hides contents', () => {
+  test('hides contents', () => {
     expect(wrapper.find('.section-body').element.style.display).to.not.eq('none');
     wrapper.find('[role="button"').trigger('click');
     expect(wrapper.find('.section-body').element.style.display).to.eq('none');
@@ -38,7 +41,7 @@ describe('Sidebar Section', () => {
     expect(wrapper.find('.section-body').element.style.display).to.not.eq('none');
   });
 
-  it('can hide contents by default', () => {
+  test('can hide contents by default', () => {
     wrapper = mount(SidebarSection, {
       propsData: {
         title: 'Hello World',

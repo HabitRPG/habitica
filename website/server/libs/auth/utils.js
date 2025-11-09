@@ -4,6 +4,7 @@ import url from 'url';
 
 import { NotAuthorized } from '../errors';
 
+export const RESTRICTED_EMAIL_DOMAINS = Object.freeze(['habitica.com', 'habitrpg.com']);
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
 const translator = shortid('0123456789abcdefghijklmnopqrstuvwxyz');
 
@@ -16,7 +17,11 @@ export function loginRes (user, req, res) {
   if (user.auth.blocked) {
     throw new NotAuthorized(res.t(
       'accountSuspended',
-      { communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id },
+      {
+        communityManagerEmail: COMMUNITY_MANAGER_EMAIL,
+        userId: user._id,
+        username: user.auth.local.username,
+      },
     ));
   }
   const urlPath = url.parse(req.url).pathname;
@@ -32,4 +37,10 @@ export function loginRes (user, req, res) {
     username: user.auth.local.username,
   };
   return res.respond(200, responseData);
+}
+
+export function isRestrictedEmailDomain (email) {
+  if (!email) return false;
+  const domain = email.toLowerCase().split('@')[1];
+  return RESTRICTED_EMAIL_DOMAINS.includes(domain);
 }

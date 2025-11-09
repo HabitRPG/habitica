@@ -3,6 +3,7 @@ import isFunction from 'lodash/isFunction';
 import min from 'lodash/min';
 import reduce from 'lodash/reduce';
 import filter from 'lodash/filter';
+import pick from 'lodash/pick';
 import pickBy from 'lodash/pickBy';
 import size from 'lodash/size';
 import moment from 'moment';
@@ -159,6 +160,7 @@ export default function randomDrop (user, options, req = {}, analytics) {
 
     if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
       analytics.track('dropped item', {
+        user: pick(user, ['preferences', 'registeredThrough']),
         uuid: user._id,
         itemKey: drop.key,
         category: 'behavior',

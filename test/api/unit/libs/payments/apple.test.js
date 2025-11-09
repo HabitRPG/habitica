@@ -12,11 +12,33 @@ const { i18n } = common;
 describe('Apple Payments', () => {
   const subKey = 'basic_3mo';
 
+  let iapSetupStub;
+  let iapValidateStub;
+  let iapIsValidatedStub;
+  let iapIsCanceledStub;
+  let iapIsExpiredStub;
+  let paymentBuySkuStub;
+  let iapGetPurchaseDataStub;
+  let validateGiftMessageStub;
+  let paymentsCreateSubscritionStub;
+
+  beforeEach(() => {
+    iapSetupStub = sinon.stub(iap, 'setup').resolves();
+    iapValidateStub = sinon.stub(iap, 'validate').resolves({});
+  });
+
+  afterEach(() => {
+    iap.setup.restore();
+    iap.validate.restore();
+    iap.isValidated.restore();
+    iap.isExpired.restore();
+    iap.isCanceled.restore();
+    iap.getPurchaseData.restore();
+  });
+
   describe('verifyPurchase', () => {
     let sku; let user; let token; let receipt; let
       headers;
-    let iapSetupStub; let iapValidateStub; let iapIsValidatedStub; let paymentBuySkuStub; let
-      iapGetPurchaseDataStub; let validateGiftMessageStub;
 
     beforeEach(() => {
       token = 'testToken';
@@ -25,13 +47,9 @@ describe('Apple Payments', () => {
       receipt = `{"token": "${token}", "productId": "${sku}"}`;
       headers = {};
 
-      iapSetupStub = sinon.stub(iap, 'setup')
-        .resolves();
-      iapValidateStub = sinon.stub(iap, 'validate')
-        .resolves({});
       iapIsValidatedStub = sinon.stub(iap, 'isValidated').returns(true);
-      sinon.stub(iap, 'isExpired').returns(false);
-      sinon.stub(iap, 'isCanceled').returns(false);
+      iapIsCanceledStub = sinon.stub(iap, 'isCanceled').returns(false);
+      iapIsExpiredStub = sinon.stub(iap, 'isExpired').returns(false);
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
         .returns([{
           productId: 'com.habitrpg.ios.Habitica.21gems',
@@ -42,12 +60,6 @@ describe('Apple Payments', () => {
     });
 
     afterEach(() => {
-      iap.setup.restore();
-      iap.validate.restore();
-      iap.isValidated.restore();
-      iap.isExpired.restore();
-      iap.isCanceled.restore();
-      iap.getPurchaseData.restore();
       payments.buySkuItem.restore();
       gems.validateGiftMessage.restore();
     });
@@ -209,9 +221,6 @@ describe('Apple Payments', () => {
   describe('subscribe', () => {
     let sub; let sku; let user; let token; let receipt; let headers; let
       nextPaymentProcessing;
-    let iapSetupStub; let iapValidateStub; let iapIsValidatedStub;
-    let paymentsCreateSubscritionStub; let
-      iapGetPurchaseDataStub;
 
     beforeEach(() => {
       sub = common.content.subscriptionBlocks[subKey];
@@ -223,12 +232,10 @@ describe('Apple Payments', () => {
       nextPaymentProcessing = moment.utc().add({ days: 2 });
       user = new User();
 
-      iapSetupStub = sinon.stub(iap, 'setup')
-        .resolves();
-      iapValidateStub = sinon.stub(iap, 'validate')
-        .resolves({});
       iapIsValidatedStub = sinon.stub(iap, 'isValidated')
         .returns(true);
+      iapIsCanceledStub = sinon.stub(iap, 'isCanceled').returns(false);
+      iapIsExpiredStub = sinon.stub(iap, 'isExpired').returns(false);
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
         .returns([{
           expirationDate: moment.utc().subtract({ day: 1 }).toDate(),
@@ -250,10 +257,6 @@ describe('Apple Payments', () => {
     });
 
     afterEach(() => {
-      iap.setup.restore();
-      iap.validate.restore();
-      iap.isValidated.restore();
-      iap.getPurchaseData.restore();
       if (payments.createSubscription.restore) payments.createSubscription.restore();
     });
 
@@ -267,6 +270,29 @@ describe('Apple Payments', () => {
           httpCode: 401,
           name: 'NotAuthorized',
           message: applePayments.constants.RESPONSE_INVALID_RECEIPT,
+        });
+    });
+
+    it('should throw an error if no active subscription is found', async () => {
+      iap.isCanceled.restore();
+      iapIsCanceledStub = sinon.stub(iap, 'isCanceled')
+        .returns(true);
+
+      iap.getPurchaseData.restore();
+      iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
+        .returns([{
+          expirationDate: moment.utc().add({ day: -2 }).toDate(),
+          purchaseDate: new Date(),
+          productId: 'subscription1month',
+          transactionId: token,
+          originalTransactionId: token,
+        }]);
+
+      await expect(applePayments.subscribe(user, receipt, headers, nextPaymentProcessing))
+        .to.eventually.be.rejected.and.to.eql({
+          httpCode: 401,
+          name: 'NotAuthorized',
+          message: applePayments.constants.RESPONSE_NO_ITEM_PURCHASED,
         });
     });
 
@@ -574,8 +600,7 @@ describe('Apple Payments', () => {
   describe('cancelSubscribe ', () => {
     let user; let token; let receipt; let headers; let customerId; let
       expirationDate;
-    let iapSetupStub; let iapValidateStub; let iapIsValidatedStub; let iapGetPurchaseDataStub; let
-      paymentCancelSubscriptionSpy;
+    let paymentCancelSubscriptionSpy;
 
     beforeEach(async () => {
       token = 'test-token';
@@ -584,8 +609,7 @@ describe('Apple Payments', () => {
       customerId = 'test-customerId';
       expirationDate = moment.utc();
 
-      iapSetupStub = sinon.stub(iap, 'setup')
-        .resolves();
+      iapValidateStub.restore();
       iapValidateStub = sinon.stub(iap, 'validate')
         .resolves({
           expirationDate,
@@ -593,8 +617,8 @@ describe('Apple Payments', () => {
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
         .returns([{ expirationDate: expirationDate.toDate() }]);
       iapIsValidatedStub = sinon.stub(iap, 'isValidated').returns(true);
-      sinon.stub(iap, 'isCanceled').returns(false);
-      sinon.stub(iap, 'isExpired').returns(true);
+      iapIsCanceledStub = sinon.stub(iap, 'isCanceled').returns(false);
+      iapIsExpiredStub = sinon.stub(iap, 'isExpired').returns(true);
       user = new User();
       user.profile.name = 'sender';
       user.purchased.plan.paymentMethod = applePayments.constants.PAYMENT_METHOD_APPLE;
@@ -606,13 +630,7 @@ describe('Apple Payments', () => {
     });
 
     afterEach(() => {
-      iap.setup.restore();
-      iap.validate.restore();
-      iap.isValidated.restore();
-      iap.isExpired.restore();
-      iap.isCanceled.restore();
-      iap.getPurchaseData.restore();
-      payments.cancelSubscription.restore();
+      paymentCancelSubscriptionSpy.restore();
     });
 
     it('should throw an error if we are missing a subscription', async () => {
@@ -695,6 +713,8 @@ describe('Apple Payments', () => {
       expect(iapIsValidatedStub).to.be.calledWith({
         expirationDate,
       });
+      expect(iapIsCanceledStub).to.be.calledOnce;
+      expect(iapIsExpiredStub).to.be.calledOnce;
       expect(iapGetPurchaseDataStub).to.be.calledOnce;
 
       expect(paymentCancelSubscriptionSpy).to.be.calledOnce;

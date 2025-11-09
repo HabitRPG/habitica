@@ -3,11 +3,12 @@ module.exports = {
   root: true,
   env: {
     node: true,
+    es2021: true,
   },
   extends: [
     'habitrpg/lib/vue',
   ],
-  ignorePatterns: ['dist/', 'node_modules/'],
+  ignorePatterns: ['dist/', 'node_modules/', '*.d.ts'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -38,8 +39,5 @@ module.exports = {
     'vue/component-tags-order': ['warn', {
       order: ['template', 'style', 'script'],
     }],
-  },
-  parserOptions: {
-    parser: 'babel-eslint',
   },
 };

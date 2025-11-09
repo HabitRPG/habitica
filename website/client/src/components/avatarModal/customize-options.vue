@@ -5,8 +5,8 @@
   >
     <div
       v-for="option in items"
-      :key="option.key"
       :id="option.imageName"
+      :key="option.key"
       class="outer-option-background"
       :class="{
         premium: Boolean(option.gem),
@@ -28,23 +28,22 @@
           v-if="!option.none"
           class="sprite"
           :prefix="option.isGear ? 'shop' : 'icon'"
-          :imageName="option.imageName"
           :image-name="option.imageName"
         />
-          <div
-            v-else
-            class="redline-outer"
-          >
-            <div class="redline"></div>
-          </div>
+        <div
+          v-else
+          class="redline-outer"
+        >
+          <div class="redline"></div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import gem from '@/assets/svg/gem.svg';
-import gold from '@/assets/svg/gold.svg';
+import gem from '@/assets/svg/gem.svg?raw';
+import gold from '@/assets/svg/gold.svg?raw';
 import { avatarEditorUtilities } from '../../mixins/avatarEditUtilities';
 import Sprite from '@/components/ui/sprite.vue';
 
@@ -73,7 +72,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .customize-options {
     width: 100%;

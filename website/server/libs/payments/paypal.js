@@ -223,6 +223,51 @@ api.subscribeSuccess = async function subscribeSuccess (options = {}) {
   });
 };
 
+api.getSubscriptionPaymentDetails = async function getSubscriptionPaymentDetails (options = {}) {
+  const { user, groupId } = options;
+  let customerId;
+  if (groupId) {
+    const groupFields = basicGroupFields.concat(' purchased');
+    const group = await Group.getGroup({
+      user, groupId, populateLeader: false, groupFields,
+    });
+
+    if (!group) {
+      throw new NotFound(i18n.t('groupNotFound'));
+    }
+
+    if (group.leader !== user._id) {
+      throw new NotAuthorized(i18n.t('onlyGroupLeaderCanManageSubscription'));
+    }
+    customerId = group.purchased.plan.customerId;
+  } else {
+    customerId = user.purchased.plan.customerId;
+  }
+  if (!customerId) throw new NotAuthorized(i18n.t('missingSubscription'));
+
+  const customer = await this.paypalBillingAgreementGet(customerId);
+  if (!customer) throw new NotFound(i18n.t('subscriptionNotFound'));
+
+  console.log('PayPal subscription details:', customer);
+  return {
+    customerId: customer.id,
+    originalPurchaseDate: customer.start_date,
+    expirationDate: customer.agreement_details.ended_at
+      ? customer.agreement_details.ended_at
+      : null,
+    nextPaymentDate: customer.agreement_details.next_billing_date
+      ? customer.agreement_details.next_billing_date
+      : null,
+    lastPaymentDate: customer.agreement_details.last_payment_date
+      ? customer.agreement_details.last_payment_date
+      : null,
+    productId: customer.description,
+    transactionId: customer.id,
+    isCanceled: customer.agreement_details.state === 'Inactive',
+    failedPayments: customer.agreement_details.failed_payment_count,
+  };
+};
+
 /**
  * Cancel a PayPal Subscription
  *

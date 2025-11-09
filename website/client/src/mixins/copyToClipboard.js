@@ -1,7 +1,7 @@
-import notifications from './notifications';
+import { NotificationMixins } from './notifications';
 
-export default {
-  mixins: [notifications],
+export const CopyToClipboardMixin = {
+  mixins: [NotificationMixins],
   methods: {
     async mixinCopyToClipboard (valueToCopy, notificationToShow = null) {
       if (navigator.clipboard) {
@@ -21,3 +21,5 @@ export default {
     },
   },
 };
+
+export default CopyToClipboardMixin;

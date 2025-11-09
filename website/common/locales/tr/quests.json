@@ -90,5 +90,7 @@
     "chatItemQuestFinish": "Tüm öğeler bulundu! Takım ödüllerini aldı.",
     "backToSelection": "Görev seçimine geri dön",
     "chatQuestCancelled": "<%= username %> ,<%= questName %> parti görevini iptal etti.",
-    "chatBossDamage": "<%= username %> <%= bossName %> 'a <%= userDamage %> hasar vurdu. <%= bossName %> takıma <%= bossDamage %> hasar vurdu."
+    "chatBossDamage": "<%= username %> <%= bossName %> 'a <%= userDamage %> hasar vurdu. <%= bossName %> takıma <%= bossDamage %> hasar vurdu.",
+    "chatBossDontAttack": "<%= username %> saldırarak <%= bossName %>'e <%= userDamage %> hasar verir. <%= bossName %> saldırmaz, çünkü bakım sonrası bazı hataların olduğunu kabul eder ve kimseye haksız yere zarar vermek istemez. Ancak yakında öfkesine devam edecektir!",
+    "tavernBossTired": "<%= bossName %> <%= rageName %> gücünü serbest bırakmaya çalışır ama çok yorgundur."
 }

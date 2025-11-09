@@ -21,7 +21,7 @@
 </style>
 
 <script>
-import informationIcon from '@/assets/svg/information.svg';
+import informationIcon from '@/assets/svg/information.svg?raw';
 
 export default {
   name: 'InformationIcon',

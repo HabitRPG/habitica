@@ -134,5 +134,7 @@
     "supportHabitica": "Podržite Habitica",
     "subCanceledTitle": "Pretplata otkazana",
     "organization": "Organizacija",
-    "giftASubscription": "Pokloni pretplatu"
+    "giftASubscription": "Pokloni pretplatu",
+    "howManyGemsPurchase": "Koliko gemova bi voleo da kupiš?",
+    "howManyGemsSend": "Koliko Dragulja bi voleo da pošalješ?"
 }

@@ -1,9 +1,12 @@
+import {
+  describe, expect, test, beforeEach,
+} from 'vitest';
 import Vue from 'vue';
 import commoni18n from '@/../../common/script/i18n';
 import i18n from '@/libs/i18n';
 
 describe('i18n plugin', () => {
-  before(() => {
+  beforeEach(() => {
     Vue.use(i18n, {
       i18nData: {
         strings: {
@@ -13,11 +16,11 @@ describe('i18n plugin', () => {
     });
   });
 
-  it('adds $t to Vue.prototype', () => {
+  test('adds $t to Vue.prototype', () => {
     expect(Vue.prototype.$t).to.exist;
   });
 
-  it('$t is a proxy for common/i18n.t', () => {
+  test('$t is a proxy for common/i18n.t', () => {
     const result = (new Vue()).$t('reportBug');
     expect(result).to.equal(commoni18n.t('reportBug'));
     expect(result).to.equal('Report a Bug');

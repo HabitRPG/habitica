@@ -1,7 +1,8 @@
+import { describe, expect, test } from 'vitest';
 import generateStore from '@/store';
 
 describe('getTagsFor getter', () => {
-  it('returns the tags for a task', () => {
+  test('returns the tags for a task', () => {
     const store = generateStore();
     store.state.user.data = {
       tags: [

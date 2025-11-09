@@ -20,7 +20,10 @@
               class="gear box"
               :class="{white: isUsed(equippedItems, key)}"
             >
-              <Sprite v-if="isUsed(equippedItems, key)" :image-name="`shop_${equippedItems[key]}`"/>
+              <Sprite
+                v-if="isUsed(equippedItems, key)"
+                :image-name="`shop_${equippedItems[key]}`"
+              />
             </div>
             <b-popover
               v-if="label !== 'skip'
@@ -66,7 +69,10 @@
               class="gear box"
               :class="{white: isUsed(costumeItems, key)}"
             >
-            <Sprite v-if="isUsed(costumeItems, key)" :image-name="`shop_${costumeItems[key]}`"/>
+              <Sprite
+                v-if="isUsed(costumeItems, key)"
+                :image-name="`shop_${costumeItems[key]}`"
+              />
             </div>
             <!-- Show background on 8th tile rather than a piece of equipment.-->
             <div
@@ -523,7 +529,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   #stats {
     .box div {

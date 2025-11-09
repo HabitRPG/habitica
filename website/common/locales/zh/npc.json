@@ -5,10 +5,8 @@
     "welcomeTo": "欢迎来到",
     "welcomeBack": "欢迎回来！",
     "justin": "Justin",
-    "justinIntroMessage1": "你好！你一定是新来的。我叫<strong>Justin</strong>，是你在Habitca的向导。",
+    "justinIntroMessage1": "新面孔呀！我是<strong>Justin</strong>，你的Habitica专属导游。你希望拥有怎样的外观？别担心，之后还能修改。",
     "justinIntroMessage3": "很好！现在，在整个旅程中，你对什么感兴趣？",
-    "justinIntroMessageUsername": "在开始之前，让我们先弄清楚该如何称呼你。下面是我为你生成的昵称和用户名。选好昵称和用户名后，我们就可以开始创建头像了！",
-    "justinIntroMessageAppearance": "那么，你想要什么样的外观呢？别担心，这些之后都可以更改。",
     "introTour": "我们到了！我根据你的兴趣为你填写了一些任务，这样你就可以马上开始了。点击任务以编辑或添加新任务，以适应你的日常生活！",
     "prev": "上一页",
     "next": "继续",
@@ -61,7 +59,7 @@
     "featuredQuests": "精选副本！",
     "cannotBuyItem": "你不能购买此物品。",
     "mustPurchaseToSet": "必须购买 <%= val %>以用在<%= key %>上。",
-    "typeRequired": "类型是必填项",
+    "typeRequired": "类型必填",
     "positiveAmountRequired": "需要数量为正",
     "notAccteptedType": "类型必须在 [宠物蛋，孵化药水，魔法孵化药水，食物，副本，装备] 中",
     "contentKeyNotFound": "内容 <%= type %> 未找到键值",
@@ -117,7 +115,7 @@
     "paymentCanceledDisputes": "我们已将取消确认发送至您的电子邮箱。如果您没有看到该邮件，请联系我们，以防日后出现账务纠纷。",
     "paymentAutoRenew": "此订阅在被取消前会自动续订。你可以在设置里取消订阅。",
     "cannotUnpinItem": "你不能取消该物品的钉选。",
-    "paymentSubBillingWithMethod": "您将每 <strong><%= months %>个月</strong>通过<strong><%= paymentMethod %></strong>支付 <strong>$<%= amount %></strong> 美元的订阅费用。",
+    "paymentSubBillingWithMethod": "您将每 <strong><%= months %>个月</strong>通过<strong><%= paymentMethod %></strong>支付 <strong>$<%= amount %></strong> 美元的订阅费用",
     "invalidUnlockSet": "此套装是无效的，无法解锁。",
     "nGemsGift": "<%= nGems %> 颗宝石（赠品）",
     "nMonthsSubscriptionGift": "<%= nMonths %>个月订阅（赠品）",
@@ -131,5 +129,6 @@
     "groupsPaymentAutoRenew": "此订阅在被取消前会自动续订。你可以在团队账单选项卡中取消订阅。",
     "sellItems": "出售物品",
     "customizationsShopText": "想要换换风格？你来对地方了！看看这儿最新的时令装扮吧。",
-    "notAvailable": "该物品目前无法使用。"
+    "notAvailable": "该物品目前无法使用。",
+    "paymentYouSentSubscriptionG1G1": "您已赠送<strong><%- name %></strong><br>为期<%= months %>个月的Habitica订阅，在我们的 “赠一得一 ”促销活动中，您的账户已使用了相同的订阅！"
 }

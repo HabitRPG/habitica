@@ -20,7 +20,7 @@
     "veteranFox": "將領狐狸",
     "cerberusPup": "三頭地獄幼犬",
     "hydra": "三頭蛇",
-    "mantisShrimp": "瀨尿蝦",
+    "mantisShrimp": "蝦蛄",
     "mammoth": "蓬蓬長毛象",
     "orca": "逆戟鯨",
     "royalPurpleGryphon": "紫禦獅鷲",
@@ -110,5 +110,7 @@
     "invalidAmount": "食物數量無效，必須為正整數",
     "tooMuchFood": "你正在餵寵物過多食物，行動已取消",
     "notEnoughFood": "你沒有足夠的食物",
-    "jubilantGryphatrice": "節慶獅鷲"
+    "jubilantGryphatrice": "節慶獅鷲",
+    "veteranCactus": "將領仙人掌",
+    "veteranDragon": "將領龍"
 }

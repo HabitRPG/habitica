@@ -1,7 +1,7 @@
 <template>
   <img
-    class="pixel-art"
     v-if="imageName && imageName !== ''"
+    class="pixel-art"
     :src="imageUrl()"
   >
 </template>

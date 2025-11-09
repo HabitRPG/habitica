@@ -108,5 +108,6 @@
     "resetFlags": "Reset Flags",
     "cannotClose": "This Challenge cannot be closed because one or more players have reported it as inappropriate. A staff members will contact you shortly with instructions. If over 48 hours have passed and you have not heard from them, please email admin@habitica.com for assistance.",
     "abuseFlagModalBodyChallenge": "You should only report a Challenge that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Submitting a false report is a violation of Habitica's Community Guidelines.",
-    "cannotMakeChallenge": "You are unable to create public Challenges as your account currently does not have chat privileges. Please contact admin@habitica.com for more information."
+    "cannotMakeChallenge": "You are unable to create public Challenges as your account currently does not have chat privileges. Please contact admin@habitica.com for more information.",
+    "deleteChallengeRefundDescription": "If you delete this Challenge, you will be refunded the Gem prize and the Challenge tasks will remain on the participants' task boards."
 }

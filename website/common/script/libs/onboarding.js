@@ -1,3 +1,5 @@
+import pick from 'lodash/pick';
+
 export function hasCompletedOnboarding (user) {
   return (
     user.achievements.createdTask === true
@@ -19,6 +21,7 @@ export function checkOnboardingStatus (user, req, analytics) {
     user.addNotification('ONBOARDING_COMPLETE');
     if (analytics) {
       analytics.track('onboarding complete', {
+        user: pick(user, ['preferences', 'registeredThrough']),
         uuid: user._id,
         hitType: 'event',
         category: 'behavior',

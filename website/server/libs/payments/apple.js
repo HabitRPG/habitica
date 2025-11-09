@@ -74,7 +74,7 @@ api.verifyPurchase = async function verifyPurchase (options) {
   return appleRes;
 };
 
-api.subscribe = async function subscribe (user, receipt, headers, nextPaymentProcessing) {
+async function findSubscriptionPurchase (receipt, onlyActive = true) {
   await iap.setup();
 
   const appleRes = await iap.validate(iap.APPLE, receipt);
@@ -85,18 +85,56 @@ api.subscribe = async function subscribe (user, receipt, headers, nextPaymentPro
   if (purchaseDataList.length === 0) {
     throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
   }
-
   let purchase;
   let newestDate;
 
   for (const purchaseData of purchaseDataList) {
-    const datePurchased = new Date(Number(purchaseData.purchaseDate));
-    const dateTerminated = new Date(Number(purchaseData.expirationDate));
-    if ((!newestDate || datePurchased > newestDate) && dateTerminated > new Date()) {
-      purchase = purchaseData;
-      newestDate = datePurchased;
+    let datePurchased;
+    if (purchaseData.purchaseDate instanceof Date) {
+      datePurchased = purchaseData.purchaseDate;
+    } else {
+      datePurchased = new Date(Number(purchaseData.purchaseDateMs || purchaseData.purchaseDate));
+    }
+    const dateTerminated = new Date(Number(purchaseData.expirationDate || 0));
+    if ((!newestDate || datePurchased > newestDate)) {
+      if (!onlyActive || dateTerminated > new Date()) {
+        purchase = purchaseData;
+        newestDate = datePurchased;
+      }
     }
   }
+  if (!purchase) {
+    throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
+  }
+  return {
+    purchase,
+    isCanceled: iap.isCanceled(purchase),
+    isExpired: iap.isExpired(purchase),
+    expirationDate: new Date(Number(purchase.expirationDate)),
+  };
+}
+
+api.getSubscriptionPaymentDetails = async function getDetails (userId, subscriptionPlan) {
+  if (!subscriptionPlan || !subscriptionPlan.additionalData) {
+    throw new NotAuthorized(shared.i18n.t('missingSubscription'));
+  }
+  const details = await findSubscriptionPurchase(subscriptionPlan.additionalData);
+  return {
+    customerId: details.purchase.originalTransactionId || details.purchase.transactionId,
+    purchaseDate: new Date(Number(details.purchase.purchaseDateMs)),
+    originalPurchaseDate: new Date(Number(details.purchase.originalPurchaseDateMs)),
+    expirationDate: details.isCanceled || details.isExpired ? details.expirationDate : null,
+    nextPaymentDate: details.isCanceled || details.isExpired ? null : details.expirationDate,
+    productId: details.purchase.productId,
+    transactionId: details.purchase.transactionId,
+    isCanceled: details.isCanceled,
+    isExpired: details.isExpired,
+  };
+};
+
+api.subscribe = async function subscribe (user, receipt, headers, nextPaymentProcessing) {
+  const details = await findSubscriptionPurchase(receipt);
+  const { purchase } = details;
 
   let subCode;
   switch (purchase.productId) { // eslint-disable-line default-case
@@ -250,37 +288,17 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
 
 api.cancelSubscribe = async function cancelSubscribe (user, headers) {
   const { plan } = user.purchased;
-
   if (plan.paymentMethod !== api.constants.PAYMENT_METHOD_APPLE) throw new NotAuthorized(shared.i18n.t('missingSubscription'));
 
-  await iap.setup();
-
   try {
-    const appleRes = await iap.validate(iap.APPLE, plan.additionalData);
-
-    const isValidated = iap.isValidated(appleRes);
-    if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
-
-    const purchases = iap.getPurchaseData(appleRes);
-    if (purchases.length === 0) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
-    let newestDate;
-    let newestPurchase;
-
-    for (const purchaseData of purchases) {
-      const datePurchased = new Date(Number(purchaseData.purchaseDate));
-      if (!newestDate || datePurchased > newestDate) {
-        newestDate = datePurchased;
-        newestPurchase = purchaseData;
-      }
-    }
-
-    if (!iap.isCanceled(newestPurchase) && !iap.isExpired(newestPurchase)) {
+    const details = await findSubscriptionPurchase(plan.additionalData, false);
+    if (!details.isCanceled && !details.isExpired) {
       throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
     }
 
     await payments.cancelSubscription({
       user,
-      nextBill: new Date(Number(newestPurchase.expirationDate)),
+      nextBill: new Date(Number(details.expirationDate)),
       paymentMethod: this.constants.PAYMENT_METHOD_APPLE,
       headers,
     });

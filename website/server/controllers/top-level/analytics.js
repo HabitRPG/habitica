@@ -1,3 +1,4 @@
+import pick from 'lodash/pick';
 import {
   NotAuthorized,
 } from '../../libs/errors';
@@ -19,7 +20,7 @@ api.trackEvent = {
   method: 'POST',
   url: '/analytics/track/:eventName',
   // we authenticate these requests to make sure they actually came from a real user
-  middlewares: [authWithHeaders({ optional: true })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     // As of now only web can track events using this route
     if (req.headers['x-client'] !== 'habitica-web') {
@@ -30,11 +31,10 @@ api.trackEvent = {
     const eventProperties = req.body;
 
     res.analytics.track(req.params.eventName, {
-      uuid: user ? user._id : null,
+      user: pick(user, ['preferences', 'registeredThrough']),
+      uuid: user._id,
       headers: req.headers,
-      category: 'behaviour',
-      gaLabel: 'local',
-      // hitType: 'event', sent from the client
+      category: 'behavior',
       ...eventProperties,
     });
 

@@ -13,7 +13,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
   .claim-top-message {
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;

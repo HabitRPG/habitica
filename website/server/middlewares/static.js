@@ -17,6 +17,7 @@ export default function staticMiddleware (expressApp) {
   expressApp.use('/static/css', express.static(`${BASE_DIR}/website/client/dist/static/css`, { maxAge: ONE_YEAR }));
   expressApp.use('/static/svg', express.static(`${BASE_DIR}/website/client/dist/static/svg`, { maxAge: ONE_YEAR }));
   expressApp.use('/static/img', express.static(`${BASE_DIR}/website/client/dist/static/img`, { maxAge: ONE_YEAR }));
+  expressApp.use('/assets', express.static(`${BASE_DIR}/website/client/dist/assets`, { maxAge: ONE_YEAR }));
 
   /* Expose other static files (audio, emails images, ...)
      These files are not processed by Webpack but they change very rarely.

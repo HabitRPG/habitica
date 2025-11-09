@@ -1,3 +1,6 @@
+import {
+  describe, expect, test, beforeEach,
+} from 'vitest';
 import { createLocalVue } from '@vue/test-utils';
 import { TAVERN_ID } from '@/../../common/script/constants';
 import groupsUtilities from '@/mixins/groupsUtilities';
@@ -11,7 +14,7 @@ describe('Groups Utilities Mixin', () => {
   let instance;
   let user;
 
-  before(() => {
+  beforeEach(() => {
     instance = new LocalVue({
       store: generateStore(),
       mixins: [groupsUtilities],
@@ -27,38 +30,38 @@ describe('Groups Utilities Mixin', () => {
   });
 
   describe('isMemberOfGroup', () => {
-    it('registers as a method', () => {
+    test('registers as a method', () => {
       expect(instance.isMemberOfGroup).to.exist;
     });
 
-    it('returns true when the group is the Tavern', () => {
+    test('returns true when the group is the Tavern', () => {
       expect(instance.isMemberOfGroup(user, {
         _id: TAVERN_ID,
       })).to.equal(true);
     });
 
-    it('returns true when the group is the user\'s party', () => {
+    test('returns true when the group is the user\'s party', () => {
       expect(instance.isMemberOfGroup(user, {
         type: 'party',
         _id: user.party._id,
       })).to.equal(true);
     });
 
-    it('returns false when the group is not the user\'s party', () => {
+    test('returns false when the group is not the user\'s party', () => {
       expect(instance.isMemberOfGroup(user, {
         type: 'party',
         _id: 'not my party',
       })).to.equal(false);
     });
 
-    it('returns true when the group is not a guild of which the user is a member', () => {
+    test('returns true when the group is not a guild of which the user is a member', () => {
       expect(instance.isMemberOfGroup(user, {
         type: 'guild',
         _id: user.guilds[0],
       })).to.equal(true);
     });
 
-    it('returns false when the group is not a guild of which the user is a member', () => {
+    test('returns false when the group is not a guild of which the user is a member', () => {
       expect(instance.isMemberOfGroup(user, {
         type: 'guild',
         _id: 'not my guild',
@@ -70,7 +73,7 @@ describe('Groups Utilities Mixin', () => {
     let testGroup;
     let testGroup2;
 
-    before(() => {
+    beforeEach(() => {
       testGroup = {
         type: 'guild',
         _id: user.guilds[0],
@@ -103,55 +106,55 @@ describe('Groups Utilities Mixin', () => {
       };
     });
 
-    it('returns true with no filter and no search', () => {
+    test('returns true with no filter and no search', () => {
       const filter = {};
       const search = '';
       expect(instance.filterGuild(testGroup, filter, search, user)).to.equal(true);
     });
 
-    it('returns false with no filter and one search word not matching against any of the guild name, summary, and description', () => {
+    test('returns false with no filter and one search word not matching against any of the guild name, summary, and description', () => {
       const filter = {};
       const search = '3d';
       expect(instance.filterGuild(testGroup, filter, search, user)).to.equal(false);
     });
 
-    it('returns true with no filter and one search word matched successfully against guild name', () => {
+    test('returns true with no filter and one search word matched successfully against guild name', () => {
       const filter = {};
       const search = 'vow';
       expect(instance.filterGuild(testGroup, filter, search, user)).to.equal(true);
     });
 
-    it('returns true with no filter and one search word matched successfully against guild summary', () => {
+    test('returns true with no filter and one search word matched successfully against guild summary', () => {
       const filter = {};
       const search = 'test';
       expect(instance.filterGuild(testGroup, filter, search, user)).to.equal(true);
     });
 
-    it('returns true with no filter and one search word matched successfully against guild description', () => {
+    test('returns true with no filter and one search word matched successfully against guild description', () => {
       const filter = {};
       const search = 'dum';
       expect(instance.filterGuild(testGroup, filter, search, user)).to.equal(true);
     });
 
-    it('returns true with no filter and two search words with two spaces in between matched successfully against guild name', () => {
+    test('returns true with no filter and two search words with two spaces in between matched successfully against guild name', () => {
       const filter = {};
       const search = 'cad  test';
       expect(instance.filterGuild(testGroup2, filter, search, user)).to.equal(true);
     });
 
-    it('returns true with no filter and two search words with two spaces in between matched successfully against guild summary', () => {
+    test('returns true with no filter and two search words with two spaces in between matched successfully against guild summary', () => {
       const filter = {};
       const search = 'cad  3d';
       expect(instance.filterGuild(testGroup2, filter, search, user)).to.equal(true);
     });
 
-    it('returns true with no filter and two search words with two spaces in between matched successfully against guild description', () => {
+    test('returns true with no filter and two search words with two spaces in between matched successfully against guild description', () => {
       const filter = {};
       const search = 'my  dummy';
       expect(instance.filterGuild(testGroup2, filter, search, user)).to.equal(true);
     });
 
-    it('returns false with no search word and one filter category that does not match against any guild categories', () => {
+    test('returns false with no search word and one filter category that does not match against any guild categories', () => {
       const filter = {
         categories: ['academics'],
       };
@@ -159,7 +162,7 @@ describe('Groups Utilities Mixin', () => {
       expect(instance.filterGuild(testGroup, filter, search, user)).to.equal(false);
     });
 
-    it('returns true with no search word and one filter category that matches successfully against any guild categories', () => {
+    test('returns true with no search word and one filter category that matches successfully against any guild categories', () => {
       const filter = {
         categories: ['hobbies_occupations'],
       };
@@ -167,7 +170,7 @@ describe('Groups Utilities Mixin', () => {
       expect(instance.filterGuild(testGroup, filter, search, user)).to.equal(true);
     });
 
-    it('returns false with no search word and one filter role that does not match against guild role', () => {
+    test('returns false with no search word and one filter role that does not match against guild role', () => {
       const filter = {
         roles: ['guild_leader'],
       };
@@ -175,7 +178,7 @@ describe('Groups Utilities Mixin', () => {
       expect(instance.filterGuild(testGroup, filter, search, user)).to.equal(false);
     });
 
-    it('returns true with no search word and one filter role that matches successfully against guild role', () => {
+    test('returns true with no search word and one filter role that matches successfully against guild role', () => {
       const filter = {
         roles: ['member'],
       };
@@ -183,7 +186,7 @@ describe('Groups Utilities Mixin', () => {
       expect(instance.filterGuild(testGroup, filter, search, user)).to.equal(true);
     });
 
-    it('returns true with no search word and filter size silver tier that matches against a guild size of 1000, the max guild size belonging to silver tier', () => {
+    test('returns true with no search word and filter size silver tier that matches against a guild size of 1000, the max guild size belonging to silver tier', () => {
       const filter = {
         guildSize: 'gold_tier',
       };
@@ -191,7 +194,7 @@ describe('Groups Utilities Mixin', () => {
       expect(instance.filterGuild(testGroup, filter, search, user)).to.equal(true);
     });
 
-    it('returns true with no search word and filter size bronze tier that matches against a guild size of 100, the max guild size belonging to bronze tier', () => {
+    test('returns true with no search word and filter size bronze tier that matches against a guild size of 100, the max guild size belonging to bronze tier', () => {
       const filter = {
         guildSize: 'silver_tier',
       };
@@ -199,7 +202,7 @@ describe('Groups Utilities Mixin', () => {
       expect(instance.filterGuild(testGroup2, filter, search, user)).to.equal(true);
     });
 
-    it('returns false with no search word and filter category that matches successfully against one guild category and filter role that does not match against guild role', () => {
+    test('returns false with no search word and filter category that matches successfully against one guild category and filter role that does not match against guild role', () => {
       const filter = {
         categories: ['hobbies_occupations'],
         roles: ['guild_leader'],
@@ -208,7 +211,7 @@ describe('Groups Utilities Mixin', () => {
       expect(instance.filterGuild(testGroup, filter, search, user)).to.equal(false);
     });
 
-    it('returns true with no search word and filter category that matches successfully against one guild category and filter role that matches successfully against guild role', () => {
+    test('returns true with no search word and filter category that matches successfully against one guild category and filter role that matches successfully against guild role', () => {
       const filter = {
         categories: ['hobbies_occupations'],
         roles: ['guild_leader'],
@@ -217,7 +220,7 @@ describe('Groups Utilities Mixin', () => {
       expect(instance.filterGuild(testGroup2, filter, search, user)).to.equal(true);
     });
 
-    it('returns false with one search word that does not match against guild name and one filter category that matches successfully against guild categories', () => {
+    test('returns false with one search word that does not match against guild name and one filter category that matches successfully against guild categories', () => {
       const filter = {
         categories: ['hobbies_occupations'],
       };
@@ -225,7 +228,7 @@ describe('Groups Utilities Mixin', () => {
       expect(instance.filterGuild(testGroup, filter, search, user)).to.equal(false);
     });
 
-    it('returns true with one search word that matches against guild name and one filter role that matches successfully against guild role', () => {
+    test('returns true with one search word that matches against guild name and one filter role that matches successfully against guild role', () => {
       const filter = {
         categories: ['hobbies_occupations'],
       };

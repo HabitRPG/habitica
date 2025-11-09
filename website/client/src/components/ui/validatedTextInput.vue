@@ -20,6 +20,7 @@
         }"
       >
         <input
+          ref="textInput"
           :value="value"
           class="form-control"
           :type="inputType"
@@ -29,19 +30,23 @@
           }"
           :readonly="readonly"
           :aria-readonly="readonly"
+          autocomplete="off"
 
           :placeholder="placeholder"
           @keyup="handleChange"
+          @keyup.enter="$emit('enter')"
           @blur="$emit('blur')"
         >
       </div>
-      <div
-        v-for="issue in invalidIssues"
-        :key="issue"
-        class="input-error"
-      >
-        {{ issue }} &nbsp;
-      </div>
+      <template v-if="!hideErrorLine">
+        <div
+          v-for="issue in invalidIssues"
+          :key="issue"
+          class="input-error"
+        >
+          {{ issue }} &nbsp;
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -85,6 +90,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    hideErrorLine: {
+      type: Boolean,
+      default: false,
+    },
   },
   data () {
     return {
@@ -107,6 +116,9 @@ export default {
       this.wasChanged = true;
       this.$emit('update:value', value);
     },
+    focus () {
+      this.$refs.textInput.focus();
+    },
   },
 };
 </script>
@@ -126,6 +138,14 @@ export default {
 
 .form-group {
   margin-bottom: 0;
+}
+
+/* this removes safari "save username" UI, we only search for one, we dont want to save it */
+input::-webkit-contacts-auto-fill-button,
+input::-webkit-credentials-auto-fill-button {
+  visibility: hidden;
+  position: absolute;
+  right: 0;
 }
 
 </style>
