@@ -116,6 +116,14 @@
         </li>
       </ul>
       <button
+        class="theme-toggle"
+        :title="isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+        @click="toggleTheme"
+      >
+        <span v-if="isDarkMode">🌞</span>
+        <span v-else>🌙</span>
+      </button>
+      <button
         v-if="$route.name !== 'home'"
         class="btn btn-primary pull-right"
         @click="playButtonClick()"
@@ -157,11 +165,12 @@
   }
 
   nav.navbar {
-    background: $purple-100 url(@/assets/svg/for-css/bits.svg) right no-repeat;
+    background: var(--header-bg) url(@/assets/svg/for-css/bits.svg) right no-repeat;
     padding-left: 24px;
     padding-right: 12.5px;
     height: 56px;
     box-shadow: 0 1px 2px 0 rgba($black, 0.24);
+    transition: background 0.3s ease;
   }
 
   .navbar-header {
@@ -268,6 +277,28 @@
       margin: 4px auto 0px auto;
     }
   }
+
+  .theme-toggle {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px 12px;
+    margin-right: 12px;
+    margin-left: auto;
+    transition: transform 0.2s ease;
+    line-height: 1;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:focus {
+      outline: 2px solid $purple-400;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+  }
 </style>
 
 <script>
@@ -283,7 +314,11 @@ export default {
         purpleLogo,
         melior,
       }),
+      isDarkMode: localStorage.getItem('habitica-theme') === 'dark',
     };
+  },
+  mounted () {
+    this.applyTheme();
   },
   computed: {
     isUserLoggedIn () {
@@ -304,6 +339,16 @@ export default {
       document.querySelector('#level-up-anywhere').scrollIntoView({
         behavior: 'smooth',
       });
+    },
+    toggleTheme () {
+      this.isDarkMode = !this.isDarkMode;
+      const newTheme = this.isDarkMode ? 'dark' : 'light';
+      localStorage.setItem('habitica-theme', newTheme);
+      this.applyTheme();
+    },
+    applyTheme () {
+      const theme = this.isDarkMode ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', theme);
     },
   },
 };

@@ -1,0 +1,148 @@
+// Theme Variables for Dark/Light Mode Toggle
+// These CSS custom properties enable dynamic theming
+
+/* Light Theme (Default) */
+:root,
+:root[data-theme='light'] {
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F9F9F9;
+  --bg-tertiary: #EDECEE;
+  
+  --text-primary: #1A181D;
+  --text-secondary: #878190;
+  --text-muted: #A5A1AC;
+  
+  --border-color: #C3C0C7;
+  --shadow-color: rgba(26, 24, 29, 0.16);
+  
+  --header-bg: #D5CAFF;
+  --header-text: #432874;
+  
+  --card-bg: #FFFFFF;
+  --card-border: #E1E0E3;
+  
+  --input-bg: #FFFFFF;
+  --input-border: #C3C0C7;
+  --input-text: #1A181D;
+}
+
+/* Dark Theme */
+:root[data-theme='dark'] {
+  --bg-primary: #34313A;
+  --bg-secondary: #1A181D;
+  --bg-tertiary: #4E4A57;
+  
+  --text-primary: #FFFFFF;
+  --text-secondary: #E1E0E3;
+  --text-muted: #C3C0C7;
+  
+  --border-color: #686274;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  
+  --header-bg: #271B3D;
+  --header-text: #FFFFFF;
+  
+  --card-bg: #4E4A57;
+  --card-border: #686274;
+  
+  --input-bg: #4E4A57;
+  --input-border: #686274;
+  --input-text: #FFFFFF;
+}
+
+/* Apply theme variables to common elements */
+body {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html {
+  background-color: var(--bg-primary) !important;
+}
+
+// Main app container
+#app {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+// All main containers
+.container,
+.container-fluid {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+// Static wrapper and all sections
+.static-wrapper,
+section,
+main,
+.content {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+// Update header to use theme variable
+#app-header {
+  background: var(--header-bg) !important;
+  transition: background 0.3s ease;
+}
+
+// Static header (navbar)
+nav.navbar {
+  background: var(--header-bg) !important;
+  transition: background 0.3s ease;
+}
+
+.navbar-inverse {
+  background: var(--header-bg) !important;
+}
+
+// Cards and panels
+.card,
+.panel {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+// Modals
+.modal-content {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Inputs and text areas
+input,
+textarea,
+select {
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--input-text);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+// Secondary backgrounds
+.bg-light {
+  background-color: var(--bg-secondary) !important;
+}
+
+// Text colors
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+// Borders
+.border {
+  border-color: var(--border-color) !important;
+}
+
+// Shadows
+.shadow,
+.shadow-sm,
+.shadow-lg {
+  box-shadow: 0 0.125rem 0.25rem var(--shadow-color) !important;
+}

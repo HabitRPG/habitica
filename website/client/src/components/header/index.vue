@@ -18,6 +18,14 @@
         :disable-name-styling="true"
         class="mr-3"
       />
+      <button
+        class="theme-toggle"
+        :title="isDarkMode ? $t('switchToLightMode') : $t('switchToDarkMode')"
+        @click="toggleTheme"
+      >
+        <span v-if="isDarkMode">🌞</span>
+        <span v-else>🌙</span>
+      </button>
       <div
         v-if="hasParty"
         class="view-party d-none d-md-flex align-items-center"
@@ -80,10 +88,11 @@
     padding-left: 24px;
     padding-top: 9px;
     padding-bottom: 8px;
-    background: $purple-50;
+    background: var(--header-bg) !important;
     color: $header-color;
     flex-wrap: nowrap;
     position: relative;
+    transition: background 0.3s ease;
   }
 
   .hide-header {
@@ -101,7 +110,8 @@
     padding-right: 40px;
     padding-left: 10px;
     height: calc(100% - 9px);
-    background-image: linear-gradient(to right, rgba($purple-50, 0), $purple-50);
+    background-image: linear-gradient(to right, transparent, var(--header-bg));
+    transition: background-image 0.3s ease;
   }
 
   .no-party {
@@ -117,6 +127,46 @@
 
     .btn {
       margin-top: 16px;
+    }
+  }
+
+  .theme-toggle {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px 12px;
+    margin-right: 12px;
+    transition: all 0.2s ease;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    height: 48px;
+    z-index: 100;
+    position: relative;
+
+    &:hover {
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &:focus {
+      outline: 2px solid $purple-400;
+      outline-offset: 2px;
+      border-radius: 8px;
+    }
+
+    span {
+      display: block;
+      line-height: 1;
     }
   }
 </style>
@@ -150,6 +200,7 @@ export default {
       group: {},
       members: [],
       membersLoaded: false,
+      isDarkMode: localStorage.getItem('habitica-theme') === 'dark',
     };
   },
   computed: {
@@ -219,6 +270,9 @@ export default {
       this.inviteModalGroupType = group.type === 'guild' ? 'Guild' : 'Party';
       this.$root.$emit('bv::show::modal', 'invite-modal');
     });
+
+    // Apply theme on mount
+    this.applyTheme();
   },
   beforeDestroy () {
     this.$root.$off('inviteModal::inviteToGroup');
@@ -281,6 +335,19 @@ export default {
       if (this.currentWidth !== $event.width) {
         this.currentWidth = $event.width;
       }
+    },
+    toggleTheme () {
+      this.isDarkMode = !this.isDarkMode;
+      const newTheme = this.isDarkMode ? 'dark' : 'light';
+      localStorage.setItem('habitica-theme', newTheme);
+      this.applyTheme();
+      console.log('Theme toggled to:', newTheme);
+    },
+    applyTheme () {
+      const theme = this.isDarkMode ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+      console.log('Applied theme:', theme, 'to documentElement');
+      console.log('Current data-theme attribute:', document.documentElement.getAttribute('data-theme'));
     },
   },
 };
