@@ -99,7 +99,11 @@ function _calculateReverseDelta (task, direction) {
 
 function _gainMP (user, val) {
   val *= user._tmp.crit || 1; // eslint-disable-line no-param-reassign
-  user.stats.mp += Math.ceil(val);
+  if (val < 0) {
+    user.stats.mp += Math.floor(val);
+  } else {
+    user.stats.mp += Math.ceil(val);
+  }
 
   if (user.stats.mp >= statsComputed(user).maxMP) user.stats.mp = statsComputed(user).maxMP;
   if (user.stats.mp < 0) {
