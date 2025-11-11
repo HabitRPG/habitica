@@ -143,6 +143,17 @@ schema.statics.cleanupCorruptData = function cleanupCorruptNotificationsData (no
     return false;
   });
 
+  // Remove duplicate STREAK_ACHIEVEMENT notifications
+  // Fixes issue #13325 - Users receiving duplicate streak achievement notifications
+  // Deduplicates by keeping only the first occurrence of STREAK_ACHIEVEMENT notification
+  filteredNotifications = _.uniqWith(filteredNotifications, (val, otherVal) => {
+    if (val.type === 'STREAK_ACHIEVEMENT' && val.type === otherVal.type) {
+      // If both are streak achievements, they are duplicates
+      return true;
+    }
+    return false;
+  });
+
   return filteredNotifications;
 };
 
