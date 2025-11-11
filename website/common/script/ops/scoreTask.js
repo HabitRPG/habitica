@@ -51,8 +51,10 @@ function _calculateDelta (task, direction, cron) {
       nextDelta *= 1 + reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
     }
   }
-
-  return nextDelta;
+  if (nextDelta < 0) {
+    return Math.floor(nextDelta);
+  }
+  return Math.ceil(nextDelta);
 }
 
 // Approximates the reverse delta for the task value
@@ -89,12 +91,15 @@ function _calculateReverseDelta (task, direction) {
     nextDelta *= 1 + reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
   }
 
-  return nextDelta;
+  if (nextDelta < 0) {
+    return Math.floor(nextDelta);
+  }
+  return Math.ceil(nextDelta);
 }
 
 function _gainMP (user, val) {
   val *= user._tmp.crit || 1; // eslint-disable-line no-param-reassign
-  user.stats.mp += val;
+  user.stats.mp += Math.ceil(val);
 
   if (user.stats.mp >= statsComputed(user).maxMP) user.stats.mp = statsComputed(user).maxMP;
   if (user.stats.mp < 0) {
@@ -111,7 +116,7 @@ function _subtractPoints (user, task, stats, delta) {
   if (conBonus < 0.1) conBonus = 0.1;
 
   const hpMod = delta * conBonus * task.priority * 2; // constant 2 multiplier for better results
-  stats.hp += Math.round(hpMod * 10) / 10; // round to 1dp
+  stats.hp += Math.round(hpMod); // round to 0dp
   return stats.hp;
 }
 
@@ -128,12 +133,12 @@ function _addPoints (user, task, stats, direction, delta) {
   // ===== PERCEPTION =====
   // TODO Increases Gold gained from tasks by .3% per point.
   const perBonus = 1 + statsComputed(user).per * 0.02;
-  const gpMod = delta * task.priority * _crit * perBonus;
+  const gpMod = Math.ceil(delta * task.priority * _crit * perBonus);
 
   if (task.streak) {
     const currStreak = direction === 'down' ? task.streak - 1 : task.streak;
     const streakBonus = currStreak / 100 + 1; // eg, 1-day streak is 1.01, 2-day is 1.02, etc
-    const afterStreak = gpMod * streakBonus;
+    const afterStreak = Math.ceil(gpMod * streakBonus);
     if (currStreak > 0 && gpMod > 0) {
       // keep this on-hand for later, so we can notify streak-bonus
       user._tmp.streakBonus = afterStreak - gpMod;
@@ -183,7 +188,10 @@ function _changeTaskValue (user, task, direction, times, cron) {
     addToDelta += nextDelta;
   });
 
-  return addToDelta;
+  if (addToDelta < 0) {
+    return Math.floor(addToDelta);
+  }
+  return Math.ceil(addToDelta);
 }
 
 function _updateCounter (task, direction, times) {

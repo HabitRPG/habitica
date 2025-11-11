@@ -134,10 +134,10 @@
                   ></div>
                   {{
                     (Math.ceil(parseFloat(group.quest.progress.hp) * 100) / 100)
-                      | localizeNumber(user.preferences.language, { toFixed:2 })
+                      | localizeNumber(user.preferences.language, { toFixed: 0 })
                   }} / {{
                     parseFloat(questData.boss.hp)
-                      | localizeNumber(user.preferences.language, { toFixed:2 })
+                      | localizeNumber(user.preferences.language, { toFixed: 0 })
                   }}
                   <strong>HP</strong>
 
@@ -160,7 +160,7 @@
                   {{
                     (user.party.quest.progress.up || 0)
                       | floor(10)
-                      | localizeNumber(user.preferences.language, { toFixed:1 })
+                      | localizeNumber(user.preferences.language, { toFixed: 0 })
                   }}
                   {{ $t('pendingDamageLabel') }}
                 </span>
@@ -198,7 +198,7 @@
                     class="float-left"
                   >{{ $t('rage') }} {{
                     parseFloat(group.quest.progress.rage)
-                      | localizeNumber(user.preferences.language, { toFixed: 2 })
+                      | localizeNumber(user.preferences.language, { toFixed: 0 })
                   }} / {{
                     questData.boss.rage.value
                       | localizeNumber(user.preferences.language)
