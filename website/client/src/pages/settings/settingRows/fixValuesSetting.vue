@@ -260,6 +260,9 @@ export default {
         } else if (this.restoreValues[stat] > MAX_FIELD_HARD_CAP) {
           this.restoreValues[stat] = MAX_FIELD_HARD_CAP;
           valid = false;
+        } else if (!Number.isInteger(this.restoreValues[stat])) {
+          this.restoreValues[stat] = Math.floor(this.restoreValues[stat]);
+          valid = false;
         }
       }
 
