@@ -1272,7 +1272,6 @@
 <script>
 import axios from 'axios';
 import moment from 'moment';
-import isNumber from 'lodash/isNumber';
 import Datepicker from '@/components/ui/datepicker';
 import toggleCheckbox from '@/components/ui/toggleCheckbox';
 import markdownDirective from '@/directives/markdown';

@@ -51,7 +51,7 @@ function _calculateDelta (task, direction, cron) {
       nextDelta *= 1 + reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
     }
   }
-  if (nextDelta < 0) {
+  if (nextDelta > -1 && nextDelta < 0) {
     return Math.floor(nextDelta);
   }
   return Math.ceil(nextDelta);
