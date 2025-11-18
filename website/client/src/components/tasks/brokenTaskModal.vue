@@ -84,6 +84,22 @@ export default {
       brokenChallengeTask: {},
     };
   },
+  computed: {
+    brokenChallengeTaskCount () {
+      if (!this.brokenChallengeTask.challenge?.id) return 0;
+      const challengeId = this.brokenChallengeTask.challenge.id;
+      const tasksData = this.$store.state.tasks.data;
+      let count = 0;
+      ['habits', 'dailys', 'todos', 'rewards'].forEach(type => {
+        if (tasksData[type]) {
+          count += tasksData[type].filter(
+            t => t.challenge && t.challenge.id === challengeId,
+          ).length;
+        }
+      });
+      return count;
+    },
+  },
   mounted () {
     this.$root.$on('handle-broken-task', task => {
       this.brokenChallengeTask = { ...task };
@@ -101,6 +117,20 @@ export default {
     }),
     async unlink (keepOption) {
       if (keepOption.indexOf('-all') !== -1) {
+        if (keepOption === 'remove-all') {
+          const count = this.brokenChallengeTaskCount;
+          const confirmed = await new Promise(resolve => {
+            this.$root.$emit('habitica:delete-task-confirm', {
+              title: count === 1 ? this.$t('deleteTask') : this.$t('deleteXTasks', { count }),
+              description: this.$t('brokenChallengeTaskCount', { count }),
+              message: this.$t('confirmDeleteTasks'),
+              buttonText: count === 1 ? this.$t('deleteTask') : this.$t('deleteXTasks', { count }),
+              resolve,
+            });
+          });
+          if (!confirmed) return;
+        }
+
         await this.unlinkAllTasks({
           challengeId: this.brokenChallengeTask.challenge.id,
           keep: keepOption,

@@ -1310,6 +1310,7 @@ export default {
       const confirmed = await new Promise(resolve => {
         this.$root.$emit('habitica:delete-task-confirm', {
           message: this.$t('sureDeleteType', { type }),
+          taskType: type,
           resolve,
         });
       });
