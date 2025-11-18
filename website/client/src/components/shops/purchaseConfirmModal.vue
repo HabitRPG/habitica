@@ -7,7 +7,7 @@
     centered
   >
     <div class="modal-content-wrapper">
-      <div class="top-bar" />
+      <div class="top-bar"></div>
       <div class="modal-body-content">
         <div
           class="currency-chip"
@@ -16,7 +16,7 @@
           <span
             class="svg-icon icon-24"
             v-html="icons[currency]"
-          />
+          ></span>
           <span class="cost-value">{{ cost }}</span>
         </div>
         <h2 class="modal-title">

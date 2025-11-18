@@ -7,12 +7,12 @@
     centered
   >
     <div class="modal-content-wrapper">
-      <div class="top-bar" />
+      <div class="top-bar"></div>
       <div class="modal-body-content">
         <div
           class="icon-wrapper"
           v-html="icons.warningIcon"
-        />
+        ></div>
         <h2 class="modal-title">
           {{ displayTitle }}
         </h2>
