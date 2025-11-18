@@ -60,7 +60,7 @@ export async function getUserInbox (user, optionParams = getUserInboxDefaultOpti
       .limit(PM_PER_PAGE);
   } else {
     // Limit for legacy calls that are not paginated to prevent database issues
-    query = query.limit(200);
+    query = query.limit(400);
   }
 
   const messages = (await query.lean().exec()).map(msgObj => {
