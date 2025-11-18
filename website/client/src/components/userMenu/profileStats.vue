@@ -975,7 +975,7 @@ export default {
     .allocation-card-divider {
       width: 1px;
       background-color: #C3C0C7;
-      margin: -8px 8px -8px 22px;
+      margin: -8px 0 -8px 22px;
       flex-shrink: 0;
       align-self: stretch;
     }
@@ -985,7 +985,8 @@ export default {
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      width: 40px;
+      flex: 1;
+      min-width: 40px;
     }
 
     .allocation-arrow {
