@@ -855,6 +855,8 @@ export default {
           const confirmed = await new Promise(resolve => {
             this.$root.$emit('habitica:purchase-confirm', {
               message: this.$t('purchasePetItemConfirm', { itemText: this.item.text }),
+              currency: this.item.currency,
+              cost: this.item.value * this.selectedAmountToBuy,
               resolve,
             });
           });

@@ -43,6 +43,8 @@ export default {
       return new Promise(resolve => {
         this.$root.$emit('habitica:purchase-confirm', {
           message: this.$t(purchaseForKey, { cost }),
+          currency,
+          cost,
           resolve,
         });
       });
