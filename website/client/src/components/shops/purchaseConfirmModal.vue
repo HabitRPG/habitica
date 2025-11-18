@@ -121,7 +121,6 @@ export default {
 .top-bar {
   height: 8px;
   background-color: $purple-300;
-  border-radius: 8px 8px 0 0;
 }
 
 .modal-body-content {
