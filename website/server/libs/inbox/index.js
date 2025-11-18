@@ -31,7 +31,7 @@ export async function sentMessage (sender, receiver, message, translate) {
 
   return messageSent;
 }
-const PM_PER_PAGE = 10;
+const PM_PER_PAGE = 50;
 
 const getUserInboxDefaultOptions = {
   asArray: true,
