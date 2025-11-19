@@ -145,63 +145,25 @@
           class="allocation-dropdown-container"
           :class="{'disabled': !user.preferences.automaticAllocation}"
         >
-            <div
-              class="task-allocation-box"
-              @click="user.preferences.automaticAllocation ? toggleAllocationDropdown() : null"
-            >
-              <span class="task-allocation-text">{{ allocationModeLabel }}</span>
-              <div
-                class="dropdown-chevron"
-                :class="{rotated: showAllocationDropdown}"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 14 9"
-                  width="14"
-                  height="9"
-                >
-                  <path
-                    fill="none"
-                    fill-rule="evenodd"
-                    stroke="#A5A1AC"
-                    stroke-width="2.5"
-                    d="M13 1L7 7 1 1"
-                  ></path>
-                </svg>
+          <select-list
+            :items="allocationModes"
+            :value="user.preferences.allocationMode || 'flat'"
+            :disabled="!user.preferences.automaticAllocation"
+            key-prop="key"
+            active-key-prop="key"
+            @select="setAllocationMode($event.key)"
+          >
+            <template #item="{ item, button }">
+              <div class="allocation-option-content">
+                <span class="option-text">
+                  {{ $t(button ? getAllocationModeLabel(item) : item.label) }}
+                </span>
+                <span v-if="!button && item.description" class="option-description">
+                  {{ $t(item.description) }}
+                </span>
               </div>
-            </div>
-          <div v-if="showAllocationDropdown" class="allocation-dropdown">
-            <div
-              class="allocation-option"
-              :class="{ selected: user.preferences.allocationMode === 'flat' }"
-              @click="setAllocationMode('flat')"
-            >
-              <div class="option-content">
-                <span class="option-text">{{ $t('evenAllocation') }}</span>
-                <span class="option-description">{{ $t('evenAllocationPop') }}</span>
-              </div>
-            </div>
-            <div
-              class="allocation-option"
-              :class="{ selected: user.preferences.allocationMode === 'classbased' }"
-              @click="setAllocationMode('classbased')"
-            >
-              <div class="option-content">
-                <span class="option-text">{{ $t('classAllocation') }}</span>
-                <span class="option-description">{{ $t('classAllocationPop') }}</span>
-              </div>
-            </div>
-            <div
-              class="allocation-option"
-              :class="{ selected: user.preferences.allocationMode === 'taskbased' }"
-              @click="setAllocationMode('taskbased')"
-            >
-              <div class="option-content">
-                <span class="option-text">{{ $t('taskAllocation') }}</span>
-                <span class="option-description">{{ $t('taskAllocationPop') }}</span>
-              </div>
-            </div>
-          </div>
+            </template>
+          </select-list>
         </div>
       </div>
       <div class="allocation-divider"></div>
@@ -401,6 +363,7 @@ import { mapState } from '@/libs/store';
 import attributesGrid from '@/components/inventory/equipment/attributesGrid';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 import Sprite from '@/components/ui/sprite';
+import selectList from '@/components/ui/selectList';
 
 const DROP_ANIMALS = keys(Content.pets);
 const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
@@ -409,11 +372,16 @@ export default {
     toggleSwitch,
     attributesGrid,
     Sprite,
+    selectList,
   },
   props: ['user', 'showAllocation'],
   data () {
     return {
-      showAllocationDropdown: false,
+      allocationModes: [
+        { key: 'flat', label: 'evenAllocation', description: 'evenAllocationPop' },
+        { key: 'classbased', label: 'classAllocation', description: 'classAllocationPop' },
+        { key: 'taskbased', label: 'taskAllocation', description: 'taskAllocationPop' },
+      ],
       equipTypes: {
         eyewear: this.$t('eyewear'),
         head: this.$t('headgearCapitalized'),
@@ -473,21 +441,6 @@ export default {
     pointsRemaining () {
       return this.user.stats.points;
     },
-    allocationModeLabel () {
-      const mode = this.user.preferences.allocationMode || 'flat';
-      if (mode === 'flat') return this.$t('evenAllocation');
-      if (mode === 'classbased') return this.$t('classAllocation');
-      if (mode === 'taskbased') return this.$t('taskAllocation');
-      return this.$t('evenAllocation');
-    },
-    allocationModeTooltip () {
-      const mode = this.user.preferences.allocationMode || 'flat';
-      if (mode === 'flat') return this.$t('evenAllocationPop');
-      if (mode === 'classbased') return this.$t('classAllocationPop');
-      if (mode === 'taskbased') return this.$t('taskAllocationPop');
-      return this.$t('evenAllocationPop');
-    },
-
   },
   methods: {
     isUsed (items, key) {
@@ -569,15 +522,15 @@ export default {
 
       this.$store.dispatch('user:set', settings);
     },
-    toggleAllocationDropdown () {
-      this.showAllocationDropdown = !this.showAllocationDropdown;
-    },
     setAllocationMode (mode) {
       const settings = {
         'preferences.allocationMode': mode,
       };
       this.$store.dispatch('user:set', settings);
-      this.showAllocationDropdown = false;
+    },
+    getAllocationModeLabel (key) {
+      const mode = this.allocationModes.find(m => m.key === key);
+      return mode ? mode.label : 'evenAllocation';
     },
   },
 };
@@ -664,7 +617,7 @@ export default {
   }
 
   .card-body {
-    padding: 1em 1em 0.5em 1em;
+    padding: 0.375em 1em 0.375em 1em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -674,7 +627,7 @@ export default {
     width: calc(100% + 2em);
     height: 1px;
     background-color: #d3d2d5;
-    margin: 0.75em -1em;
+    margin: 0.375em -1em;
   }
 
   #allocation {
@@ -721,6 +674,7 @@ export default {
       display: inline-flex;
       align-items: baseline;
       transition: all 0.3s ease-in-out;
+      transform: translateY(2px);
 
       ::v-deep .toggle-switch-outer {
         align-items: baseline;
@@ -766,6 +720,7 @@ export default {
       letter-spacing: 0px;
       color: $gray-10;
       white-space: nowrap;
+      transform: translateY(2px);
     }
 
     .allocation-dropdown-container {
@@ -778,16 +733,83 @@ export default {
         pointer-events: none;
         cursor: not-allowed;
       }
-    }
 
-    @keyframes slideInFromRight {
-      from {
-        opacity: 0;
-        transform: translateX(20px);
+      .select-list {
+        width: 100%;
+
+        ::v-deep > div {
+          position: relative;
+          width: 100%;
+        }
+
+        ::v-deep .dropdown {
+          width: 100%;
+        }
+
+        ::v-deep .dropdown-toggle {
+          width: 100%;
+          background-color: #FFFFFF;
+          border-radius: 4px;
+          padding: 10px 16px;
+          box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
+          border: none;
+          text-align: left;
+
+          &::after {
+            color: #A5A1AC;
+          }
+        }
+
+        ::v-deep .dropdown-menu {
+          min-width: 100%;
+          width: 100%;
+          border-radius: 4px;
+          box-shadow: 0 2px 8px 0 rgba(26, 24, 29, 0.2);
+          padding: 24px 0;
+          margin-top: 8px;
+          top: 100% !important;
+        }
+
+        ::v-deep .selectListItem {
+          margin-bottom: 8px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+
+        ::v-deep .selectListItem .dropdown-item {
+          padding: 12px 16px !important;
+          height: auto !important;
+          white-space: normal;
+          word-wrap: break-word;
+        }
       }
-      to {
-        opacity: 1;
-        transform: translateX(0);
+
+      .allocation-option-content {
+        display: block;
+        width: 100%;
+
+        .option-text {
+          display: block;
+          font-family: Roboto;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 20px;
+          letter-spacing: 0px;
+          color: $gray-50;
+          margin-bottom: 4px;
+        }
+
+        .option-description {
+          display: block;
+          font-family: Roboto;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 16px;
+          letter-spacing: 0px;
+          color: $gray-200;
+        }
       }
     }
 
@@ -800,102 +822,7 @@ export default {
       padding-left: 1em;
       padding-right: 1em;
       box-shadow: none;
-    }
-
-    .task-allocation-box {
-      background-color: #FFFFFF;
-      border-radius: 4px;
-      display: flex;
-      align-items: baseline;
-      padding-left: 16px;
-      padding-right: 16px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
-      cursor: pointer;
-      width: 100%;
-    }
-
-    .task-allocation-text {
-      font-family: Roboto;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 20px;
-      letter-spacing: 0px;
-      color: $gray-50;
-      flex: 1;
-      display: inline-block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .dropdown-chevron {
-      margin-left: 8px;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      transition: transform 0.2s;
-      align-self: center;
-
-      &.rotated {
-        transform: rotate(180deg);
-      }
-    }
-
-    .allocation-dropdown {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background-color: #FFFFFF;
-      border-radius: 4px;
-      box-shadow: 0 2px 8px 0 rgba(26, 24, 29, 0.2);
-      margin-top: 4px;
-      padding: 8px 0;
-      z-index: 10;
-      min-width: 100%;
-    }
-
-    .allocation-option {
-      padding: 12px 16px;
-      display: flex;
-      align-items: flex-start;
-      cursor: pointer;
-      transition: background-color 0.2s;
-
-      &:hover {
-        background-color: #F9F9F9;
-      }
-
-      &.selected {
-        background-color: #F4F3F6;
-      }
-
-      .option-content {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        width: 100%;
-      }
-
-      .option-text {
-        font-family: Roboto;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 20px;
-        letter-spacing: 0px;
-        color: $gray-50;
-      }
-
-      .option-description {
-        font-family: Roboto;
-        font-weight: 400;
-        font-size: 12px;
-        line-height: 16px;
-        letter-spacing: 0px;
-        color: $gray-200;
-      }
+      font-family: Roboto, sans-serif;
     }
 
     .allocation-divider {
@@ -924,9 +851,9 @@ export default {
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
       box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.04);
       user-select: none;
+      position: relative;
     }
 
     .allocation-card-content {
@@ -975,18 +902,20 @@ export default {
     .allocation-card-divider {
       width: 1px;
       background-color: #C3C0C7;
-      margin: -8px 0 -8px 22px;
-      flex-shrink: 0;
-      align-self: stretch;
+      position: absolute;
+      right: 52px;
+      top: 0;
+      bottom: 0;
     }
 
     .allocation-card-arrows {
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
-      flex: 1;
-      min-width: 40px;
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     .allocation-arrow {
@@ -1054,7 +983,7 @@ export default {
 
     .bonus-stats {
       list-style-type: none;
-      padding: 0;
+      padding: 0.5em 0 0.25em 0;
       margin: 0;
       width: 100%;
 
@@ -1272,4 +1201,76 @@ export default {
       }
     }
   }
+</style>
+
+<style lang="scss">
+@import '@/assets/scss/colors.scss';
+
+.allocation-dropdown-container {
+  position: relative;
+  z-index: 1050;
+
+  .select-list {
+    transform: translateY(2px);
+
+    .dropdown-toggle {
+      display: flex;
+      align-items: center;
+
+      .allocation-option-content {
+        transform: translateY(1px);
+      }
+    }
+
+    .dropdown-menu {
+      min-width: 100%;
+      width: 100%;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px 0 rgba(26, 24, 29, 0.2);
+      padding: 24px 16px;
+      margin-top: 4px;
+    }
+
+    .selectListItem {
+      margin-bottom: 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .selectListItem .dropdown-item {
+      padding: 0 !important;
+      height: auto !important;
+      white-space: normal;
+      word-wrap: break-word;
+    }
+  }
+
+  .allocation-option-content {
+    display: block;
+    width: 100%;
+
+    .option-text {
+      display: block;
+      font-family: Roboto;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0px;
+      color: $gray-50;
+      margin-bottom: 4px;
+    }
+
+    .option-description {
+      display: block;
+      font-family: Roboto;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0px;
+      color: $gray-200;
+    }
+  }
+}
 </style>
