@@ -80,6 +80,7 @@ api.getChat = {
     const { user } = res.locals;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
+    req.checkQuery('before').optional().isUUID();
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
