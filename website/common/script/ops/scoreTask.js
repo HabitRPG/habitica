@@ -51,10 +51,8 @@ function _calculateDelta (task, direction, cron) {
       nextDelta *= 1 + reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
     }
   }
-  if (nextDelta > -1 && nextDelta < 0) {
-    return Math.floor(nextDelta);
-  }
-  return Math.ceil(nextDelta);
+
+  return nextDelta;
 }
 
 // Approximates the reverse delta for the task value
@@ -91,10 +89,7 @@ function _calculateReverseDelta (task, direction) {
     nextDelta *= 1 + reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
   }
 
-  if (nextDelta < 0) {
-    return Math.floor(nextDelta);
-  }
-  return Math.ceil(nextDelta);
+  return nextDelta;
 }
 
 function _gainMP (user, val) {
@@ -137,20 +132,20 @@ function _addPoints (user, task, stats, direction, delta) {
   // ===== PERCEPTION =====
   // TODO Increases Gold gained from tasks by .3% per point.
   const perBonus = 1 + statsComputed(user).per * 0.02;
-  const gpMod = Math.ceil(delta * task.priority * _crit * perBonus);
+  const gpMod = delta * task.priority * _crit * perBonus;
 
   if (task.streak) {
     const currStreak = direction === 'down' ? task.streak - 1 : task.streak;
     const streakBonus = currStreak / 100 + 1; // eg, 1-day streak is 1.01, 2-day is 1.02, etc
-    const afterStreak = Math.ceil(gpMod * streakBonus);
+    const afterStreak = gpMod * streakBonus;
     if (currStreak > 0 && gpMod > 0) {
       // keep this on-hand for later, so we can notify streak-bonus
       user._tmp.streakBonus = afterStreak - gpMod;
     }
 
-    stats.gp += afterStreak;
+    stats.gp += Math.round(afterStreak);
   } else {
-    stats.gp += gpMod;
+    stats.gp += Math.round(gpMod);
   }
 }
 
