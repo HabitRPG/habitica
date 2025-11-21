@@ -74,7 +74,7 @@
             <h2>
               {{ $t('statPoints') }}
               <div
-                v-if="user.stats.points || userLevel100Plus"
+                v-if="user.stats.points > 0"
                 class="counter badge badge-pill"
               >
                 {{ pointsRemaining }} {{ $t('pointsAvailable') }}
@@ -779,7 +779,7 @@ export default {
         }
 
         ::v-deep .selectListItem .dropdown-item {
-          padding: 12px 16px !important;
+          padding: 0 16px !important;
           height: auto !important;
           white-space: normal;
           word-wrap: break-word;
@@ -1227,7 +1227,7 @@ export default {
       width: 100%;
       border-radius: 4px;
       box-shadow: 0 2px 8px 0 rgba(26, 24, 29, 0.2);
-      padding: 24px 16px;
+      padding: 24px 0;
       margin-top: 4px;
     }
 
@@ -1240,7 +1240,7 @@ export default {
     }
 
     .selectListItem .dropdown-item {
-      padding: 0 !important;
+      padding: 0 16px !important;
       height: auto !important;
       white-space: normal;
       word-wrap: break-word;
