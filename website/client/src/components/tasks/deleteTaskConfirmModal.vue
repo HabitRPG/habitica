@@ -200,7 +200,6 @@ export default {
   gap: 8px;
 }
 
-
 .btn-cancel {
   background: none;
   border: none;
