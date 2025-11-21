@@ -27,7 +27,7 @@
         </p>
         <div class="button-wrapper">
           <button
-            class="btn-confirm"
+            class="btn btn-danger"
             @click="confirm()"
           >
             {{ buttonText }}
@@ -157,7 +157,7 @@ export default {
   margin-top: 16px;
   margin-bottom: 0;
   color: $maroon-100;
-  font-family: Roboto, sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
   font-weight: 700;
   font-size: 20px;
   text-align: center;
@@ -200,24 +200,6 @@ export default {
   gap: 8px;
 }
 
-.btn-confirm {
-  height: 32px;
-  padding: 0 12px;
-  background-color: $maroon-100;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-family: Roboto, sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 24px;
-  letter-spacing: 0;
-  cursor: pointer;
-
-  &:hover {
-    background-color: $maroon-50;
-  }
-}
 
 .btn-cancel {
   background: none;

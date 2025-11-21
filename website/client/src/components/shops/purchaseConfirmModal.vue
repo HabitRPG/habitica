@@ -27,7 +27,7 @@
         </p>
         <div class="button-wrapper">
           <button
-            class="btn-confirm"
+            class="btn btn-primary"
             @click="confirm()"
           >
             {{ $t('confirm') }}
@@ -161,7 +161,7 @@ export default {
   margin-top: 16px;
   margin-bottom: 0;
   color: $purple-300;
-  font-family: Roboto, sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
   font-weight: 700;
   font-size: 20px;
   text-align: center;
@@ -188,24 +188,6 @@ export default {
   gap: 8px;
 }
 
-.btn-confirm {
-  height: 32px;
-  padding: 0 12px;
-  background-color: $purple-300;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-family: Roboto, sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 24px;
-  letter-spacing: 0;
-  cursor: pointer;
-
-  &:hover {
-    background-color: darken($purple-300, 10%);
-  }
-}
 
 .btn-cancel {
   background: none;

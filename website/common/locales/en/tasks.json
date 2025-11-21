@@ -89,7 +89,7 @@
   "fortify": "Fortify",
   "fortifyComplete": "Fortify complete!",
   "deleteTaskType": "Delete this <%= type %>",
-  "sureDeleteType": "Are you sure you want to delete <%= type %>?",
+  "sureDeleteType": "Are you sure you want to delete this task?",
   "streakCoins": "Streak Bonus!",
   "taskToTop": "To top",
   "taskToBottom": "To bottom",
