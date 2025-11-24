@@ -35,12 +35,29 @@ function _hashUUID (uuid) {
 }
 
 function _anonymizeProperties (properties) {
-  return properties.map(userProp => {
-    if (typeof userProp === 'string' && validator.isEmail(userProp)) {
-      return _hashUUID(userProp);
-    }
-    return userProp;
-  });
+  if (Array.isArray(properties)) {
+    return properties.map(userProp => {
+      if (typeof userProp === 'string' && validator.isEmail(userProp)) {
+        return _hashUUID(userProp);
+      }
+      return userProp;
+    });
+  }
+  if (typeof properties === 'object' && properties !== null) {
+    const anonymizedProps = {};
+    Object.keys(properties).forEach(key => {
+      const value = properties[key];
+      if (typeof value === 'string' && validator.isEmail(value)) {
+        anonymizedProps[key] = _hashUUID(value);
+      } else if (typeof value === 'object' && value !== null) {
+        anonymizedProps[key] = _anonymizeProperties(value);
+      } else {
+        anonymizedProps[key] = value;
+      }
+    });
+    return anonymizedProps;
+  }
+  return properties;
 }
 
 function _lookUpItemName (itemKey) {
