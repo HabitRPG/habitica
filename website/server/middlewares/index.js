@@ -68,7 +68,19 @@ export default function attachMiddlewares (app, server) {
   // See https://helmetjs.github.io/ for the list of headers enabled by default
   app.use(helmet({
     // New middlewares added by default in Helmet 4 are disabled
-    contentSecurityPolicy: false, // @TODO implement
+    contentSecurityPolicy: {
+      directives: {
+        imgSrc: null,
+        scriptSrc: [
+          '\'self\'',
+          'cloudfront.loggly.com',
+          'js.stripe.com',
+          'm.stripe.network',
+          'static-na.payments-amazon.com',
+        ],
+        upgradeInsecureRequests: IS_PROD ? [] : null,
+      },
+    },
     expectCt: false,
     permittedCrossDomainPolicies: false,
     referrerPolicy: false,
