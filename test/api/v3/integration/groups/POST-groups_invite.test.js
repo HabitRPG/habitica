@@ -61,6 +61,24 @@ describe('Post /groups/:groupId/invite', () => {
         });
     });
 
+    it('fakes sending an invite if user is shadow muted', async () => {
+      const inviterMuted = await inviter.updateOne({ 'flags.chatShadowMuted': true });
+      const userToInvite = await generateUser();
+
+      const response = await inviterMuted.post(`/groups/${group._id}/invite`, {
+        usernames: [userToInvite.auth.local.lowerCaseUsername],
+      });
+      expect(response).to.be.an('Array');
+      expect(response[0]).to.have.all.keys(['_id', 'id', 'name', 'inviter']);
+      expect(response[0]._id).to.be.a('String');
+      expect(response[0].id).to.eql(group._id);
+      expect(response[0].name).to.eql(groupName);
+      expect(response[0].inviter).to.eql(inviter._id);
+
+      await expect(userToInvite.get('/user'))
+        .to.eventually.not.have.nested.property('invitations.parties[0].id', group._id);
+    });
+
     it('invites a user to a group by username', async () => {
       const userToInvite = await generateUser();
 
@@ -209,6 +227,24 @@ describe('Post /groups/:groupId/invite', () => {
         });
     });
 
+    it('fakes sending an invite if user is shadow muted', async () => {
+      const inviterMuted = await inviter.updateOne({ 'flags.chatShadowMuted': true });
+      const userToInvite = await generateUser();
+
+      const response = await inviterMuted.post(`/groups/${group._id}/invite`, {
+        uuids: [userToInvite._id],
+      });
+      expect(response).to.be.an('Array');
+      expect(response[0]).to.have.all.keys(['_id', 'id', 'name', 'inviter']);
+      expect(response[0]._id).to.be.a('String');
+      expect(response[0].id).to.eql(group._id);
+      expect(response[0].name).to.eql(groupName);
+      expect(response[0].inviter).to.eql(inviter._id);
+
+      await expect(userToInvite.get('/user'))
+        .to.eventually.not.have.nested.property('invitations.parties[0].id', group._id);
+    });
+
     it('invites a user to a group by uuid', async () => {
       const userToInvite = await generateUser();
 
@@ -279,6 +315,19 @@ describe('Post /groups/:groupId/invite', () => {
           error: 'NotAuthorized',
           message: t('chatPrivilegesRevoked'),
         });
+    });
+
+    it('fakes sending invite when inviter is shadow muted', async () => {
+      const inviterMuted = await inviter.updateOne({ 'flags.chatShadowMuted': true });
+      const res = await inviterMuted.post(`/groups/${group._id}/invite`, {
+        emails: [testInvite],
+        inviter: 'inviter name',
+      });
+
+      const updatedUser = await inviterMuted.sync();
+
+      expect(res).to.exist;
+      expect(updatedUser.invitesSent).to.eql(1);
     });
 
     it('returns an error when invite is missing an email', async () => {
@@ -403,6 +452,19 @@ describe('Post /groups/:groupId/invite', () => {
           error: 'BadRequest',
           message: t('canOnlyInviteMaxInvites', { maxInvites: INVITES_LIMIT }),
         });
+    });
+
+    it('fakes sending an invite if user is shadow muted', async () => {
+      const inviterMuted = await inviter.updateOne({ 'flags.chatShadowMuted': true });
+      const newUser = await generateUser();
+      const invite = await inviterMuted.post(`/groups/${group._id}/invite`, {
+        uuids: [newUser._id],
+        emails: [{ name: 'test', email: 'test@habitica.com' }],
+      });
+      const invitedUser = await newUser.get('/user');
+
+      expect(invitedUser.invitations.parties[0]).to.not.exist;
+      expect(invite).to.exist;
     });
 
     it('invites users to a group by uuid and email', async () => {

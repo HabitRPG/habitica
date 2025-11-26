@@ -3,30 +3,36 @@ import { getUserInfo, sendTxn as sendTxnEmail } from '../email'; // eslint-disab
 import { sendNotification as sendPushNotification } from '../pushNotifications';
 
 export async function sentMessage (sender, receiver, message, translate) {
-  const messageSent = await sender.sendMessage(receiver, { receiverMsg: message });
+  const fakeSending = sender.flags.chatShadowMuted;
+  const messageSent = await sender.sendMessage(receiver, {
+    receiverMsg: message,
+    fakeSending,
+  });
   const senderName = getUserInfo(sender, ['name']).name;
 
-  if (receiver.preferences.emailNotifications.newPM !== false) {
-    sendTxnEmail(receiver, 'new-pm', [
-      { name: 'SENDER', content: senderName },
-    ]);
-  }
+  if (!fakeSending) {
+    if (receiver.preferences.emailNotifications.newPM !== false) {
+      sendTxnEmail(receiver, 'new-pm', [
+        { name: 'SENDER', content: senderName },
+      ]);
+    }
 
-  if (receiver.preferences.pushNotifications.newPM !== false && messageSent.unformattedText) {
-    await sendPushNotification(
-      receiver,
-      {
-        title: translate(
-          'newPMNotificationTitle',
-          { name: getUserInfo(sender, ['name']).name },
-          receiver.preferences.language,
-        ),
-        message: messageSent.unformattedText,
-        identifier: 'newPM',
-        category: 'newPM',
-        payload: { replyTo: sender._id, senderName, message: messageSent.unformattedText },
-      },
-    );
+    if (receiver.preferences.pushNotifications.newPM !== false && messageSent.unformattedText) {
+      await sendPushNotification(
+        receiver,
+        {
+          title: translate(
+            'newPMNotificationTitle',
+            { name: getUserInfo(sender, ['name']).name },
+            receiver.preferences.language,
+          ),
+          message: messageSent.unformattedText,
+          identifier: 'newPM',
+          category: 'newPM',
+          payload: { replyTo: sender._id, senderName, message: messageSent.unformattedText },
+        },
+      );
+    }
   }
 
   return messageSent;

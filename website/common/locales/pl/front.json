@@ -186,5 +186,6 @@
     "enterValidEmail": "Wprowadź prawidłowy adres email.",
     "minPasswordLengthLogin": "Twoje hasło ma co najmniej 8 znaków.",
     "whatToCallYou": "Jak chcesz, by się do ciebie zwracać?",
-    "acceptPrivacyTOS": "Potwierdzasz, że masz co najmniej 18 lat oraz że przeczytałeś i zgadzasz się na nasze <a href='/static/terms' target='_blank'>Warunki Użytkowania</a> i <a href='/static/privacy' target='_blank'>Politykę Prywatności</a>"
+    "acceptPrivacyTOS": "Potwierdzasz, że masz co najmniej 18 lat oraz że przeczytałeś i zgadzasz się na nasze <a href='/static/terms' target='_blank'>Warunki Użytkowania</a> i <a href='/static/privacy' target='_blank'>Politykę Prywatności</a>",
+    "missingClientHeader": "Brak x-client headers."
 }

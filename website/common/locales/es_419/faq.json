@@ -15,7 +15,7 @@
     "faqQuestion29": "¿Cómo recupero HP?",
     "webFaqAnswer29": "Puedes recuperar 15 HP comprando una Poción de Salud en tu columna de Recompensas por 25 de oro. Además, siempre recuperarás HP completo cuando subas de nivel!",
     "faqQuestion30": "¿Qué pasa cuando me quedo sin HP?",
-    "webFaqAnswer30": "Si tu HP llega a cero, perderás un nivel, todo tu oro y una pieza de equipo que podrás volver a comprar.",
+    "webFaqAnswer30": "Si tus Puntos de Vida descienden por debajo de cero, perderás un nivel, el punto de atributo de ese nivel, todas tus monedas de oro y una pieza aleatoria de Equipo que, podrás volver a adquirir recomprándola. Puedes reconstruir lo logrado completando tareas y subiendo de nivel otra vez.",
     "faqQuestion31": "¿Por qué perdí HP al interactuar con una tarea que no es negativa?",
     "webFaqAnswer31": "Si completas una tarea y pierdes HP cuando no deberías, es porque hubo un retraso mientras el servidor sincronizaba los cambios hechos en otras plataformas. Por ejemplo, si usas oro, maná o pierdes HP en la aplicación móvil y luego completas una tarea en el sitio web, el servidor simplemente está confirmando que todo esté sincronizado.",
     "faqQuestion32": "¿Cómo puedo elegir una clase?",
@@ -243,5 +243,7 @@
     "subscriptionDetail40": "Soy suscriptor, ¿cuándo recibiré mi primer Reloj de arena místico normal y el aumento del tope de gemas del nuevo calendario?",
     "subscriptionDetail450": "Dado que los Relojes de arena místicos y el aumento del tope de gemas son ahora un beneficio mensual, la compra de varias suscripciones de regalos no otorgará más beneficios a la vez.",
     "subscriptionDetail480": "Estos cambios solo afectan a los relojes de arena místicos y a las gemas de abonado. Todas las demás ventajas seguirán siendo las mismas.",
-    "subscriptionPara3": "Esperamos que este nuevo calendario sea más predecible, permita un mayor acceso a las increíbles existencias de artículos de la Tienda de los Viajeros en el Tiempo y ofrezca aún más motivación para progresar en tus tareas cada mes!"
+    "subscriptionPara3": "Esperamos que este nuevo calendario sea más predecible, permita un mayor acceso a las increíbles existencias de artículos de la Tienda de los Viajeros en el Tiempo y ofrezca aún más motivación para progresar en tus tareas cada mes!",
+    "faqQuestion68": "Cómo puedo evitar perder puntos de vida?",
+    "webFaqAnswer68": "Si sueles perder vida con frecuencia, prueba alguno de los siguientes consejos:\n\n- Pausa tus Tareas Diarias. El botón “Pausar Daño” en los Ajustes evitará que pierdas vida por las Tareas Diarias no completadas.\n- Ajusta el horario de tus Tareas Diarias. Al ajustarlas como nunca pendientes, puedes completarlas solo por loas recompensas sin riesgo a perder PV.\n- Intenta usar las habilidades de tu clase:\n- Los Pícaros pueden lanzar Sigilo para evitar daño de las Tareas Diarias no completadas\n- Los Guerreros pueden lanzar Golpe Brutal para reducir el color rojo y así también reducir el daño causado por las no completadas\n- Los Sanadores pueden lanzar Claridad Abrasadora para reducir el color rojo y así también reducir el daño por las no completadas"
 }

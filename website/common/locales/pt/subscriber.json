@@ -160,5 +160,9 @@
     "mysterySet201908": "Conjunto Fauno Descomprometido",
     "mysterySet201909": "Conjunto Bolota Afável",
     "mysterySet201910": "Conjunto Chama Misteriosa",
-    "cancelSubInfoGoogle": "Vá para a seção \"Conta\" > \"Assinaturas\" do aplicativo Google Play Store para cancelar sua assinatura ou para ver a data de término da sua assinatura, caso você já a tenha cancelado. Esta tela não consegue mostrar se sua assinatura foi cancelada."
+    "cancelSubInfoGoogle": "Vá para a seção \"Conta\" > \"Assinaturas\" do aplicativo Google Play Store para cancelar sua assinatura ou para ver a data de término da sua assinatura, caso você já a tenha cancelado. Esta tela não consegue mostrar se sua assinatura foi cancelada.",
+    "cancelSubInfoApple": "Por favor siga as <a href=\"https://support.apple.com/pt-pt/HT202039\">instruções oficiais da Apple</a> para cancelar a sua subscrição ou para ver a data de cancelamento da sua subscrição caso já a tenha cancelado. Este ecrã não permite mostrar-lhe se a sua subscrição foi cancelada.",
+    "mysterySet201911": "Kit do Encantador de Cristais",
+    "mysterySet201912": "Traje da Duende Polar",
+    "mysterySet202001": "Conjunto da Raposa Fabulosa"
 }

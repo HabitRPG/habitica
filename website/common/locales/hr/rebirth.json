@@ -1,15 +1,15 @@
 {
     "rebirthNew": "Preporod: Nova Pustolovina dostupna!",
-    "rebirthUnlock": "Otključali ste Preporod! Ova posebna stavka Trgovine omogućuje Vam da započnete novu igru na razini 1, zadržavajući pritom svoje zadatke, postignuća, ljubimce i drugo. Upotrijebite je da udahnete novi život Habitici ako smatrate da ste postigli sve, ili da iskusite nove značajke svježim očima početnika!",
+    "rebirthUnlock": "Otključali ste Preporod! Ova posebna stavka Dućana omogućava Vam da započnete novu igru na razini 1, zadržavajući pritom svoje zadatke, postignuća, ljubimce i drugo. Upotrijebite je da udahnete novi život Habitici ako smatrate da ste postigli sve, ili da iskusite nove značajke svježim očima početnika!",
     "rebirthAchievement": "Započeli ste novu pustolovinu! Ovo je Vaš Preporod <%= number %>, a najviša Razina koju ste dosegnuli je <%= level %>. Da biste nastavili skupljati ovo Postignuće, započnite svoju sljedeću novu pustolovinu kada dosegnute još višu Razinu!",
     "rebirthAchievement100": "Započeli ste novu pustolovinu! Ovo je Vaš Preporod <%= number %>, a najviša Razina koju ste dosegli je 100 ili viša. Da biste nastavili skupljati ovo Postignuće, započnite svoju sljedeću novu pustolovinu kada dosegnute barem 100!",
     "rebirthBegan": "Započeli Novu Pustolovinu",
     "rebirthText": "Započeli <%= rebirths %> Novih Pustolovina",
-    "rebirthOrb": "Upotrijebili su Kuglu Preporoda da započne ispočetka nakon što su dosegli Razinu <%= level %>.",
-    "rebirthOrb100": "Upotrijebili su Kuglu Preporoda da započne ispočetka nakon što je dosegli Razinu 100 ili višu.",
-    "rebirthOrbNoLevel": "Upotrijebili su Kuglu Preporoda da započnu ispočetka.",
-    "rebirthPop": "Odmah ponovno pokrenite svog lika kao Ratnika Razina 1, zadržavajući postignuća, kolekcionarske predmete i opremu. Vaši zadaci i njihova povijest će ostati, ali će biti vraćeni na žutu boju. Vaši nizovi će biti uklonjeni, osim s zadataka koji pripadaju aktivnim Izazovima i Grupnim planovima. Vaše Zlato, Iskustvo, Mana i učinci svih Vještina će biti uklonjeni. Sve ovo stupa na snagu odmah.",
-    "rebirthName": "Kugla Preporoda",
+    "rebirthOrb": "Upotrijebili su Kuglu Ponovnog Rođenja da započnu ispočetka nakon što su dosegli Razinu <%= level %>.",
+    "rebirthOrb100": "Upotrijebili su Kuglu Ponovnog Rođenja da započnu ispočetka nakon što su dosegli Razinu 100 ili višu.",
+    "rebirthOrbNoLevel": "Upotrijebili Kuglu Ponovnog Rođenja da započnu ispočetka.",
+    "rebirthPop": "Odmah ponovno pokrenite svog lika kao Ratnika Razine 1, zadržavajući postignuća, kolekcionarske predmete i opremu. Vaši zadaci i njihova povijest će ostati, ali će biti vraćeni na žutu boju. Vaši nizovi će biti uklonjeni, osim s zadataka koji pripadaju aktivnim Izazovima i Grupnim planovima. Vaše Zlato, Iskustvo, Mana i učinci svih Vještina će biti uklonjeni. Sve ovo stupa na snagu odmah.",
+    "rebirthName": "Kugla Ponovnog Rođenja",
     "rebirthComplete": "Preporođeni ste!",
-    "nextFreeRebirth": "<strong><%= dana %> dana</strong> do <strong>BESPLATNE</strong> Kugle ponovnog Rođenja"
+    "nextFreeRebirth": "<strong><%= days %> dana</strong> do <strong>BESPLATNE</strong> Kugle Ponovnog Rođenja"
 }

@@ -268,5 +268,6 @@
     "requiredToRun": "ウェブサイトやアプリが適切に機能するために必要なCookieです。",
     "strictlyNecessary": "厳密に必要",
     "alwaysActive": "常にアクティブ",
-    "performanceAnalytics": "パフォーマンスと分析"
+    "performanceAnalytics": "パフォーマンスと分析",
+    "privacySettingsOverview": "Habiticaはパフォーマンス分析、サポートリクエストの処理、そして最高なゲーム体験を提供するためにCookieを使用しています。そのため、次の権利の許可が必要です。この権利はアカウント設定からいつでも変更することができます。"
 }

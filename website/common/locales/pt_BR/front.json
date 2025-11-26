@@ -124,7 +124,7 @@
     "passwordReset": "Se nós tivermos seu e-mail ou nome de usuário nos nossos arquivos, as instruções para mudar sua senha já foram mandadas para o seu e-mail.",
     "invalidLoginCredentialsLong": "Seu e-mail, nome de usuário ou senha estão incorretos. Tente novamente ou selecione \"Esqueceu sua senha?\"",
     "invalidCredentials": "Não há uma conta associada a esses dados.",
-    "accountSuspended": "Sua conta, @<%= username %> foi bloqueada. Para informação adicional, ou para solicitar uma apelação, mande um email para admin@habitica.com com seu nome de usuário Habitica ou ID de Usuário.",
+    "accountSuspended": "Sua conta, @<%= username %> foi bloqueada. Para informação adicional, ou para solicitar uma apelação, mande um e-mail para admin@habitica.com, com seu nome de usuário Habitica ou ID de Usuário.",
     "accountSuspendedTitle": "Conta suspensa",
     "unsupportedNetwork": "Esta rede social não é suportada atualmente.",
     "cantDetachSocial": "A conta não possui outro método de autenticação; não é possível desconectar este método de autenticação.",

@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import get from 'lodash/get';
 import sinon from 'sinon';
 import moment from 'moment';
+import { v4 as uuid } from 'uuid';
 import { authWithHeaders } from '../../middlewares/auth';
 import ensureDevelopmentMode from '../../middlewares/ensureDevelopmentMode';
 import ensureTimeTravelMode from '../../middlewares/ensureTimeTravelMode';
@@ -11,6 +12,7 @@ import {
   model as Group,
   // basicFields as basicGroupFields,
 } from '../../models/group';
+import { chatModel as Chat } from '../../models/message';
 import connectToMongoDB from '../../libs/mongoose';
 
 const { content } = common;
@@ -308,6 +310,50 @@ api.timeTravelAdjust = {
     res.respond(200, {
       time: new Date(),
     });
+  },
+};
+
+api.seedPartyChat = {
+  method: 'POST',
+  url: '/debug/seed-party-chat',
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+    const messageCount = req.body.messageCount || 450;
+
+    if (!user.party._id) {
+      throw new BadRequest('You are not in a party.');
+    }
+
+    const party = await Group.findOne({ _id: user.party._id, type: 'party' }).exec();
+    if (!party) {
+      throw new BadRequest('Party not found.');
+    }
+
+    const messages = [];
+    const baseTimestamp = Date.now();
+
+    for (let i = 1; i <= messageCount; i += 1) {
+      const id = uuid();
+      messages.push({
+        _id: id,
+        id,
+        groupId: party._id,
+        text: `#${i}`,
+        unformattedText: `#${i}`,
+        timestamp: new Date(baseTimestamp - (messageCount - i) * 1000),
+        likes: {},
+        flags: {},
+        flagCount: 0,
+        uuid: 'system',
+        user: 'System',
+        client: 'debug-seed',
+      });
+    }
+
+    await Chat.insertMany(messages);
+
+    res.respond(200, { messageCount });
   },
 };
 

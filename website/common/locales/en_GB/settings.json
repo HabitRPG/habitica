@@ -259,5 +259,16 @@
     "changeEmailDisclaimer": "This is the email address that you use to log in to Habitica, as well as receive notifications.",
     "transaction_subscription_bonus": "<b>Subscription</b> bonus",
     "privacySettingsOverview": "Habitica uses cookies to analyse performance, handle support requests, and provide you with the best possible gamified experience. To do that, we need to request the following permissions. You can change these at any time from your account settings.",
-    "privacyOverview": "In today's world, it feels like every company is looking to profit from your data. This can make it difficult to find the right app to improve your habits. Habitica uses cookies that store data only to analyse performance, handle support requests, and provide you with the best possible gamified experience. You can change this at any time from your account settings."
+    "privacyOverview": "In today's world, it feels like every company is looking to profit from your data. This can make it difficult to find the right app to improve your habits. Habitica uses cookies that store data only to analyse performance, handle support requests, and provide you with the best possible gamified experience. You can change this at any time from your account settings.",
+    "acceptAllCookies": "Accept All Cookies",
+    "denyNonEssentialCookies": "Deny Non-Essential Cookies",
+    "managePrivacyPreferences": "Manage Your Privacy Preferences",
+    "yourPrivacyPreferences": "Your Privacy Preferences",
+    "strictlyNecessary": "Strictly Necessary",
+    "alwaysActive": "Always Active",
+    "requiredToRun": "These are required by our website and apps to run at their best.",
+    "performanceAnalytics": "Performance and Analytics",
+    "usedForSupport": "These are used to improve the user experience, performance, and services of our website and apps. This data is used by our support team when handling requests and bug reports.",
+    "savePreferences": "Save Preferences",
+    "habiticaPrivacyPolicy": "Habitica's Privacy Policy"
 }

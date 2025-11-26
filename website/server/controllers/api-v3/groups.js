@@ -9,7 +9,7 @@ import pick from 'lodash/pick';
 import uniqBy from 'lodash/uniqBy';
 import nconf from 'nconf';
 import moment from 'moment';
-import { authWithHeaders } from '../../middlewares/auth';
+import { authWithHeaders, chatPrivilegesRequired } from '../../middlewares/auth';
 import {
   model as Group,
   basicFields as basicGroupFields,
@@ -97,8 +97,6 @@ const api = {};
  * @apiError (401) {NotAuthorized} messageInsufficientGems User does not have enough gems (4)
  * @apiError (401) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
  * @apiError (401) {NotAuthorized} messageGroupAlreadyInParty
- * @apiError (401) {NotAuthorized} chatPrivilegesRevoked You cannot do this because your chat
-                                                         privileges have been removed...
  *
  * @apiSuccess (201) {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
  *
@@ -1099,11 +1097,9 @@ api.removeGroupMember = {
 api.inviteToGroup = {
   method: 'POST',
   url: '/groups/:groupId/invite',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), chatPrivilegesRequired()],
   async handler (req, res) {
     const { user } = res.locals;
-
-    if (user.flags.chatRevoked) throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
@@ -1131,25 +1127,41 @@ api.inviteToGroup = {
 
     const results = [];
 
-    if (uuids) {
-      const uuidInvites = uuids.map(uuid => inviteByUUID(uuid, group, user, req, res));
-      const uuidResults = await Promise.all(uuidInvites);
-      results.push(...uuidResults);
-    }
+    if (!user.flags.chatShadowMuted) {
+      if (uuids) {
+        const uuidInvites = uuids.map(uuid => inviteByUUID(uuid, group, user, req, res));
+        const uuidResults = await Promise.all(uuidInvites);
+        results.push(...uuidResults);
+      }
 
-    if (emails) {
-      const emailInvites = emails.map(invite => inviteByEmail(invite, group, user, req, res));
-      user.invitesSent += emails.length;
-      await user.save();
-      const emailResults = await Promise.all(emailInvites);
-      results.push(...emailResults);
-    }
+      if (emails) {
+        const emailInvites = emails.map(invite => inviteByEmail(invite, group, user, req, res));
+        user.invitesSent += emails.length;
+        await user.save();
+        const emailResults = await Promise.all(emailInvites);
+        results.push(...emailResults);
+      }
 
-    if (usernames) {
-      const usernameInvites = usernames
-        .map(username => inviteByUserName(username, group, user, req, res));
-      const usernameResults = await Promise.all(usernameInvites);
-      results.push(...usernameResults);
+      if (usernames) {
+        const usernameInvites = usernames
+          .map(username => inviteByUserName(username, group, user, req, res));
+        const usernameResults = await Promise.all(usernameInvites);
+        results.push(...usernameResults);
+      }
+    } else {
+      const fakeCount = (uuids ? uuids.length : 0)
+        + (emails ? emails.length : 0)
+        + (usernames ? usernames.length : 0);
+      results.push(...new Array(fakeCount).fill({
+        id: group._id,
+        _id: group._id,
+        name: group.name,
+        inviter: user._id,
+      }));
+      if (emails) {
+        user.invitesSent += emails.length;
+        await user.save();
+      }
     }
 
     res.respond(200, results);

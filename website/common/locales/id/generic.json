@@ -25,7 +25,7 @@
     "user": "Pengguna",
     "market": "Pasar",
     "newSubscriberItem": "Kamu punya <span class=\"notification-bold-blue\">Item Misterius</span> baru",
-    "subscriberItemText": "Setiap bulan, pelanggan menerima item misterius. Tersedia setiap awal bulan. Lihat halaman wiki 'Mystery Item' untuk informasi lebih lanjut.",
+    "subscriberItemText": "Pelanggan akan menerima satu set perlengkapan misteri setiap awal bulan!",
     "all": "Semua",
     "none": "Tidak ada",
     "more": "<%= count %> lagi",

@@ -132,12 +132,12 @@
     "invalidReqParams": "Неверные параметры запроса.",
     "memberIdRequired": "«member» должен быть действительным UUID.",
     "heroIdRequired": "«heroId» должен быть действительным UUID.",
-    "cannotFulfillReq": "Ваш запрос не может быть выполнен. Если ошибка будет повторяться, свяжитесь с администратором admin@habitica.com.",
+    "cannotFulfillReq": "Пожалуйста, введите корректный адрес электронной почты. Если ошибка не исчезнет, напишите нам по адресу admin@habitica.com.",
     "modelNotFound": "Эта модель не существует.",
-    "signUpWithSocial": "Зарегистрироваться с помощью <%= social %>",
+    "signUpWithSocial": "Продолжить через <%= social %>",
     "loginWithSocial": "Войти с помощью <%= social %>",
     "confirmPassword": "Подтвердите пароль",
-    "usernameLimitations": "Имя пользователя должно быть длиной от 1 до 20 символов, содержащее буквы от a до z, цифры от 0 до 9, дефисы или подчеркивания и не может содержать запрещенные слова.",
+    "usernameLimitations": "Имя пользователя можно изменить в любое время. Оно должно содержать от 1 до 20 символов: только латинские буквы (a-z), цифры (0-9), дефисы и знаки подчеркивания.",
     "usernamePlaceholder": "например, HabitRabbit",
     "emailPlaceholder": "например, gryphon@example.com",
     "passwordPlaceholder": "например, ***********",
@@ -183,5 +183,9 @@
     "marketing3Lead1Title": "Приложения для Android и iOS",
     "marketing4Lead3Button": "Начните сегодня",
     "minPasswordLengthLogin": "Ваш пароль должен содержать как минимум 8 символов.",
-    "missingClientHeader": "Отсутствует информация о клиенте."
+    "missingClientHeader": "Отсутствует информация о клиенте.",
+    "enterValidEmail": "Введите корректный адрес электронной почты.",
+    "whatToCallYou": "Как к вам обращаться?",
+    "acceptPrivacyTOS": "Вы подтверждаете, что вам исполнилось 18 лет, а также что вы прочитали и согласны с нашими <a href='/static/terms' target='_blank'>Условиями использования</a> и <a href='/static/privacy' target='_blank'>Политикой конфиденциальности</a>",
+    "emailBlockedRegistration": "Этот адрес электронной почты заблокирован для регистрации. Если вы считаете, что это ошибка, свяжитесь с нами по адресу admin@habitica.com."
 }

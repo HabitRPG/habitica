@@ -396,6 +396,10 @@
               class="btn btn-secondary"
               @click="makeAdmin()"
             >Make Admin</a>
+            <a
+              class="btn btn-secondary"
+              @click="seedPartyChat()"
+            >Send 450 Party Chat Messages</a>
           </div>
         </div>
       </div>
@@ -1003,6 +1007,14 @@ export default {
       // @TODO: Notification.text('You are now an admin!
       // Reload the website then go to Help > Admin Panel to set contributor level, etc.');
       // @TODO: sync()
+    },
+    async seedPartyChat () {
+      try {
+        await axios.post('/api/v4/debug/seed-party-chat', { messageCount: 450 });
+        window.alert('Successfully sent 450 messages to your party chat!'); // eslint-disable-line no-alert
+      } catch (e) {
+        window.alert(e.response?.data?.message || 'Error sending party chat messages'); // eslint-disable-line no-alert
+      }
     },
     donate () {
       this.$root.$emit('bv::show::modal', 'buy-gems', { alreadyTracked: true });

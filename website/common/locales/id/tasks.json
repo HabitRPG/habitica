@@ -135,5 +135,6 @@
     "pressEnterToAddTag": "Tekan Enter untuk menambahkan penanda: '<%= tagName %>'",
     "taskSummary": "Ringkasan <%= type %>",
     "scoreDown": "Kalah",
-    "scoreUp": "Menang"
+    "scoreUp": "Menang",
+    "taskAlias": "Tugas Alias"
 }

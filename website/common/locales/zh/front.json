@@ -132,7 +132,7 @@
     "invalidReqParams": "无效的请求参数。",
     "memberIdRequired": "“member”必须是一个有效的UUID。",
     "heroIdRequired": "“heroId”必须是一个有效的UUID。",
-    "cannotFulfillReq": "请输入一个有效的电子邮箱地址。如果这个错误仍然存在请给admin@habitica.com发邮件。",
+    "cannotFulfillReq": "此邮箱地址已被占用。请尝试登录或使用另一个邮箱地址注册。如需帮助，请通过邮件联系admin@habitica.com。",
     "modelNotFound": "该模型不存在。",
     "signUpWithSocial": "使用<%= social %>继续",
     "loginWithSocial": "使用<%= social %>登录",

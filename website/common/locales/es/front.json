@@ -132,7 +132,7 @@
     "invalidReqParams": "Parámetros de solicitud no válidos.",
     "memberIdRequired": "\"member\" debe ser una UUID válida.",
     "heroIdRequired": "\"herold\" debe ser una UUID válida.",
-    "cannotFulfillReq": "Por favor introduce una dirección de correo electrónico válida. Manda un email a admin@habitica.com si el error persiste.",
+    "cannotFulfillReq": "Está dirección de correo electrónico ya está en uso. Puedes conectarte por medio de ella o usar otra dirección de correo para registrarte. Si necesitas ayuda, por favor contacta con admin@habitica.com.",
     "modelNotFound": "Este modelo no existe.",
     "signUpWithSocial": "Continuar con <%= social %>",
     "loginWithSocial": "Conectarse con <%= social %>",

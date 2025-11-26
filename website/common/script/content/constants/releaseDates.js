@@ -26,6 +26,9 @@ export const ARMOIRE_RELEASE_DATES = {
   orangeLoungewear: { year: 2025, month: 9 },
   blackHairbow: { year: 2025, month: 10 },
   blacksmith: { year: 2025, month: 11 },
+  musicalInstrumentTwo: { year: 2025, month: 12 },
+  loneCowpoke: { year: 2026, month: 1 },
+  prettyInPink: { year: 2026, month: 2 },
 };
 
 export const EGGS_RELEASE_DATES = {

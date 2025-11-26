@@ -43,7 +43,7 @@ describe('POST /members/send-private-message', () => {
     });
   });
 
-  it('returns error when to user has blocked the sender', async () => {
+  it('returns error when recipient has blocked the sender', async () => {
     const receiver = await generateUser({ 'inbox.blocks': [userToSendMessage._id] });
 
     await expect(userToSendMessage.post('/members/send-private-message', {
@@ -56,7 +56,7 @@ describe('POST /members/send-private-message', () => {
     });
   });
 
-  it('returns error when sender has blocked to user', async () => {
+  it('returns error when sender has blocked recipient', async () => {
     const receiver = await generateUser();
     const sender = await generateUser({ 'inbox.blocks': [receiver._id] });
 
@@ -70,7 +70,7 @@ describe('POST /members/send-private-message', () => {
     });
   });
 
-  it('returns error when to user has opted out of messaging', async () => {
+  it('returns error when recipient has opted out of messaging', async () => {
     const receiver = await generateUser({ 'inbox.optOut': true });
 
     await expect(userToSendMessage.post('/members/send-private-message', {
@@ -174,7 +174,7 @@ describe('POST /members/send-private-message', () => {
     expect(notification.data.excerpt).to.equal(messageExcerpt);
   });
 
-  it('allows admin to send when sender has blocked the admin', async () => {
+  it('allows admin to send when recipient has blocked the admin', async () => {
     userToSendMessage = await generateUser({
       'permissions.moderator': true,
     });
@@ -202,7 +202,7 @@ describe('POST /members/send-private-message', () => {
     expect(sendersMessageInSendersInbox).to.exist;
   });
 
-  it('allows admin to send when to user has opted out of messaging', async () => {
+  it('allows admin to send when recipient has opted out of messaging', async () => {
     userToSendMessage = await generateUser({
       'permissions.moderator': true,
     });
@@ -228,5 +228,59 @@ describe('POST /members/send-private-message', () => {
 
     expect(sendersMessageInReceiversInbox).to.exist;
     expect(sendersMessageInSendersInbox).to.exist;
+  });
+
+  describe('sender is shadow muted', () => {
+    beforeEach(async () => {
+      userToSendMessage = await generateUser({
+        'flags.chatShadowMuted': true,
+      });
+    });
+
+    it('does not save the message in the receiver inbox', async () => {
+      const receiver = await generateUser();
+
+      const response = await userToSendMessage.post('/members/send-private-message', {
+        message: messageToSend,
+        toUserId: receiver._id,
+      });
+
+      expect(response.message.uuid).to.equal(receiver._id);
+
+      const updatedReceiver = await receiver.get('/user');
+      const updatedSender = await userToSendMessage.get('/user');
+
+      const sendersMessageInReceiversInbox = _.find(
+        updatedReceiver.inbox.messages,
+        message => message.uuid === userToSendMessage._id && message.text === messageToSend,
+      );
+
+      const sendersMessageInSendersInbox = _.find(
+        updatedSender.inbox.messages,
+        message => message.uuid === receiver._id && message.text === messageToSend,
+      );
+
+      expect(sendersMessageInReceiversInbox).to.not.exist;
+      expect(sendersMessageInSendersInbox).to.exist;
+    });
+
+    it('does not save the message message twice if recipient is sender', async () => {
+      const response = await userToSendMessage.post('/members/send-private-message', {
+        message: messageToSend,
+        toUserId: userToSendMessage._id,
+      });
+
+      expect(response.message.uuid).to.equal(userToSendMessage._id);
+
+      const updatedSender = await userToSendMessage.get('/user');
+
+      const sendersMessageInSendersInbox = _.find(
+        updatedSender.inbox.messages,
+        message => message.uuid === userToSendMessage._id && message.text === messageToSend,
+      );
+
+      expect(sendersMessageInSendersInbox).to.exist;
+      expect(Object.keys(updatedSender.inbox.messages).length).to.equal(1);
+    });
   });
 });

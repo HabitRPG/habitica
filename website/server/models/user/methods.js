@@ -123,6 +123,7 @@ schema.methods.getObjectionsToInteraction = function getObjectionsToInteraction 
 schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, options) {
   const sender = this;
   const senderMsg = options.senderMsg || options.receiverMsg;
+  const { fakeSending } = options;
   // whether to save users after sending the message, defaults to true
   const saveUsers = options.save !== false;
 
@@ -165,7 +166,7 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
   // Do not add the message twice when sending it to yourself
   let newSenderMessage;
 
-  if (!sendingToYourself) {
+  if (!sendingToYourself || fakeSending) {
     newSenderMessage = new Inbox({
       sent: true,
       ownerId: sender._id,
@@ -175,12 +176,13 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
     setUserStyles(newSenderMessage, sender);
   }
 
-  const promises = [newReceiverMessage.save()];
-  if (!sendingToYourself) promises.push(newSenderMessage.save());
+  const promises = [];
+  if (!fakeSending) promises.push(newReceiverMessage.save());
+  if (!sendingToYourself || fakeSending) promises.push(newSenderMessage.save());
 
   if (saveUsers) {
     promises.push(sender.save());
-    if (!sendingToYourself) promises.push(userToReceiveMessage.save());
+    if (!sendingToYourself && !fakeSending) promises.push(userToReceiveMessage.save());
   }
 
   await Promise.all(promises);

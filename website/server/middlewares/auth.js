@@ -145,3 +145,15 @@ export function authWithSession (req, res, next) {
     })
     .catch(next);
 }
+
+export function chatPrivilegesRequired () {
+  return function chatPrivilegesRequiredHandler (req, res, next) {
+    const { user } = res.locals;
+
+    if (user.flags.chatRevoked) {
+      throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
+    }
+
+    return next();
+  };
+}

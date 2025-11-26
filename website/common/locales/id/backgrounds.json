@@ -759,7 +759,7 @@
     "backgroundSnowyTempleNotes": "Memandangi pemandangan kuil bersalju.",
     "backgroundWinterLakeWithSwansText": "Danau Musim Dingin dengan Angsa",
     "backgroundWinterLakeWithSwansNotes": "Menikmati pemandangan danau musim dingin dengan angsa.",
-    "eventBackgrounds": "Latar belakang Event",
+    "eventBackgrounds": "Latar belakang acara",
     "backgroundBirthdayBashText": "Pesta Ulang Tahun",
     "backgroundBirthdayBashNotes": "Habitica mengadakan pesta ulang tahun, dan semua orang diundang!",
     "backgrounds032023": "SET 106: Dirilis Maret 2023",
@@ -909,5 +909,17 @@
     "backgroundTrailThroughAForestNotes": "Berjalan-jalan di Jalan setapak menembus hutan.",
     "backgrounds072025": "SET 134: Dirilis Juli 2025",
     "backgroundSirensLairText": "Sarang Siren",
-    "backgroundSirensLairNotes": "Tantangan untuk menyelam ke dalam Sarang Siren."
+    "backgroundSirensLairNotes": "Tantangan untuk menyelam ke dalam Sarang Siren.",
+    "backgrounds082025": "SET 135: Dirilis Agustus 2025",
+    "backgroundSunnyStreetWithShopsText": "Jalan yang Cerah dengan Toko-Toko",
+    "backgroundSunnyStreetWithShopsNotes": "Nikmatilah pandangan dan suara dari Jalan yang cerah dengan Toko-Toko.",
+    "backgrounds092025": "SET 136: Dirilis September 2025",
+    "backgroundAutumnSwampText": "Rawa Musim Gugur",
+    "backgroundAutumnSwampNotes": "Rasakan Rawa Musim Gugur yang menghantui.",
+    "backgrounds102025": "SET 137: Dirilis Oktober 2025",
+    "backgroundInsideForestWitchsCottageText": "Pondok Hutan sang Penyihir",
+    "backgroundInsideForestWitchsCottageNotes": "Membuat mantra didalam Pondok Hutan sang Penyihir.",
+    "backgrounds112025": "SET 138: Dirilis November 2025",
+    "backgroundCastleKeepWithBannersText": "Lorong Istana dengan Bendera",
+    "backgroundCastleKeepWithBannersNotes": "Bernyanyi cerita perbuatan heroik dalam Lorong Istana dengan Bendera."
 }

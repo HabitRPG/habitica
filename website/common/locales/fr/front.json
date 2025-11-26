@@ -132,7 +132,7 @@
     "invalidReqParams": "Paramètres de la requête invalides.",
     "memberIdRequired": "\"member\" doit être un UUID valide.",
     "heroIdRequired": "\"heroId\" doit être un UUID valide.",
-    "cannotFulfillReq": "Merci d'entrer une adresse email valide. Contactez admin@habitica.com si cette erreur persiste",
+    "cannotFulfillReq": "Cette adresse mail est déjà utilisée. Essayez de vous connecter avec celle-ci ou d'entrer une nouvelle adresse mail pour vous enregistrer. Si vous rencontrez des difficultés, merci de nous contacter à admin@habitica.com.",
     "modelNotFound": "Ce modèle n'existe pas.",
     "signUpWithSocial": "Continuer via <%= social %>",
     "loginWithSocial": "Connexion via <%= social %>",

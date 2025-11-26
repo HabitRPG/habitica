@@ -183,5 +183,8 @@
     "marketing3Lead1Title": "Android & iOS apps",
     "marketing4Lead3Button": "Get Started Today",
     "missingClientHeader": "Missing x-client headers.",
-    "emailBlockedRegistration": "This E-Mail is blocked from registration. If you think this is a mistake, please contact us at admin@habitica.com."
+    "emailBlockedRegistration": "This E-Mail is blocked from registration. If you think this is a mistake, please contact us at admin@habitica.com.",
+    "minPasswordLengthLogin": "Your password is at least 8 characters long.",
+    "enterValidEmail": "Please enter a valid email address.",
+    "whatToCallYou": "What should we call you?"
 }

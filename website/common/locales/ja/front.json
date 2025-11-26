@@ -132,7 +132,7 @@
     "invalidReqParams": "要求パラメータが不正です。",
     "memberIdRequired": "\"member\" の UUID が無効です。",
     "heroIdRequired": "\"heroId\" の UUID が無効です。",
-    "cannotFulfillReq": "有効なメールアドレスを入力してください。エラーが続く場合は、admin@habitica.com にメールしてください。",
+    "cannotFulfillReq": "このメールアドレスは既に使用されています。ログインをしてみるか、別のメールアドレスで登録してください。サポートが必要な場合は admin@habitica.com へメールしてください。",
     "modelNotFound": "このモデルは存在しません。",
     "signUpWithSocial": "<%= social %>で実行する",
     "loginWithSocial": "<%= social %>でログインする",

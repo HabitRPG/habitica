@@ -3262,7 +3262,7 @@
     "armorArmoireSillyOrangeTuxedoNotes": "你的专属每日西装。增加<%= con %>点体质。魔法宝箱：滑稽西装套装（1/2）。",
     "armorArmoireSillierBlueTuxedoNotes": "穿上这套独特装扮营造氛围感。增加<%= str %>点力量。魔法宝箱：逗趣西装套装（1/2）。",
     "armorArmoireSnowyFluffTrimmedCoatNotes": "当第一片雪花飘落时，这件大衣不仅能保暖御寒，更能让你完美融入雪景。优雅滑行于冰面之上！增加力量、智力各<%= attrs %>点。魔法宝箱：雪地猎手帽子套装（2/2）。",
-    "headSpecialWinter2025MageText": "极光帽子",
+    "headSpecialWinter2025MageText": "极光头饰",
     "headSpecialWinter2025MageNotes": "这顶帽子不仅仅是一顶时尚礼帽，它让你看起来就像北极光本身一样。增加 <%= per %>点感知。2024-2025冬季限定版装备。",
     "headSpecialWinter2025RogueNotes": "这帽子里肯定有什么魔法，毕竟它把你变成了一个雪人。注意不要让兔子靠近你的胡萝卜鼻子。增加 <%= per %>点感知。 2024-2025冬季限定版装备。",
     "headSpecialSpring2025WarriorNotes": "这顶闪亮头盔顶部的标志看起来既像太阳的轨迹，也像一个可以用作春季大扫除的刷子。增加<%= str %>点力量。2025春季限定版装备。",
