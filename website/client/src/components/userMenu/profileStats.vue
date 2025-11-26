@@ -1207,8 +1207,6 @@ export default {
 @import '@/assets/scss/colors.scss';
 
 .selectListItem .dropdown-item:hover .option-text {
-  font-weight: 700 !important;
-  line-height: 24px !important;
   color: $purple-300 !important;
 }
 
