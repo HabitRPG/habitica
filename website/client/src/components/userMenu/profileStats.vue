@@ -795,7 +795,7 @@ export default {
           font-family: Roboto;
           font-weight: 400;
           font-size: 14px;
-          line-height: 20px;
+          line-height: 24px;
           letter-spacing: 0px;
           color: $gray-50;
           margin-bottom: 4px;
@@ -1206,6 +1206,12 @@ export default {
 <style lang="scss">
 @import '@/assets/scss/colors.scss';
 
+.selectListItem .dropdown-item:hover .option-text {
+  font-weight: 700 !important;
+  line-height: 24px !important;
+  color: $purple-300 !important;
+}
+
 .allocation-dropdown-container {
   position: relative;
   z-index: 1050;
@@ -1227,7 +1233,7 @@ export default {
       width: 100%;
       border-radius: 4px;
       box-shadow: 0 2px 8px 0 rgba(26, 24, 29, 0.2);
-      padding: 24px 0;
+      padding: 12px 0;
       margin-top: 4px;
     }
 
@@ -1240,7 +1246,7 @@ export default {
     }
 
     .selectListItem .dropdown-item {
-      padding: 0 16px !important;
+      padding: 8px 16px !important;
       height: auto !important;
       white-space: normal;
       word-wrap: break-word;
@@ -1256,7 +1262,7 @@ export default {
       font-family: Roboto;
       font-weight: 400;
       font-size: 14px;
-      line-height: 20px;
+      line-height: 24px;
       letter-spacing: 0px;
       color: $gray-50;
       margin-bottom: 4px;
