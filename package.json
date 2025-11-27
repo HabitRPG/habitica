@@ -108,6 +108,7 @@
     "mongo:dev:rs": "run-rs -v 7.0.23 -l ubuntu2214 --keep --dbpath mongodb-data-rs --number 1 --quiet",
     "mongo:test:rs": "run-rs -v 7.0.23 -l ubuntu2214 --keep --dbpath mongodb-data-rs-testing --number 1 --quiet",
     "mongo:dev:docker": "docker compose -f docker-compose.mongo-local.yml up",
+    "mongo:test:docker": "docker compose -f docker-compose.mongo-test-local.yml up",
     "mongo:test": "node scripts/start-local-mongo.mjs --test-db",
     "postinstall": "git config --global url.\"https://\".insteadOf git:// && gulp build && cd website/client && npm install",
     "apidoc": "gulp apidoc",
