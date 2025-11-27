@@ -409,6 +409,12 @@
       <div class="d-flex flex-column align-items-center mt-3">
         <div
           v-once
+          class="small gray-100 w-50 text-center mb-5"
+        >
+          {{ $t('subscriptionBillingFYI') }}
+        </div>
+        <div
+          v-once
           class="svg-icon svg-gift-box mb-2"
           v-html="icons.giftBox"
         >
@@ -631,7 +637,7 @@
     background-color: $purple-400;
     height: 1px;
     width: 50%;
-    max-width: 432px;
+    max-width: 417px;
   }
 
   .purple-gradient {
@@ -652,6 +658,12 @@
     border-radius: 50%;
     margin: 0 auto;
     margin-bottom: 16px;
+  }
+
+  .small {
+    font-size: 12px;
+    line-height: 1.67;
+    max-width: 874px;
   }
 
   .stats-card {

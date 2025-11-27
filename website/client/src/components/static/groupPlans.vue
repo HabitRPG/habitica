@@ -45,6 +45,9 @@
           <p class="gray-200">
             {{ $t('billedMonthly') }}
           </p>
+          <small class="gray-200">
+            {{ $t('groupPlanBillingFYI') }}
+          </small>
         </div>
         <div class="top-right"></div>
         <div class="d-flex justify-content-between align-items-middle w-100 gap-72 mb-100">
@@ -114,6 +117,9 @@
             <p class="gray-200">
               {{ $t('billedMonthly') }}
             </p>
+            <small class="gray-200">
+              {{ $t('groupPlanBillingFYI') }}
+            </small>
           </div>
           <div class="bot-right"></div>
         </div>
@@ -172,6 +178,11 @@
     color: $gray-100;
     font-size: 20px;
     line-height: 28px;
+  }
+
+  small {
+    font-size: 12px;
+    line-height: 1.67;
   }
 
   // Major layout elements

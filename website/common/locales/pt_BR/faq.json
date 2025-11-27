@@ -16,7 +16,7 @@
     "faqQuestion29": "Como recupero pontos de Vida?",
     "webFaqAnswer29": "Você pode recuperar 15 Pontos de Vida comprando uma Poção de Vida na seção de Recompensas por 25 Ouros. Além disso, você sempre recuperará todos os seus Pontos de Vida ao subir de nível!",
     "faqQuestion30": "O que acontece quando fico sem Pontos de Vida?",
-    "webFaqAnswer30": "Se seus Pontos de Vida chegarem a zero, você perderá um nível, todo o seu Ouro e uma peça de Equipamento que pode ser recomprada.",
+    "webFaqAnswer30": "Se seus Pontos de Vida chegarem a zero, você perderá um nível, todo o seu ouro e uma peça de equipamento que pode ser recomprada. Você pode recomprar seus itens completando tarefas e subindo de nível novamente.",
     "faqQuestion31": "Por que perdi Pontos de Vida ao interagir com uma tarefa não negativa?",
     "webFaqAnswer31": "Se você completar uma tarefa e perder Pontos de Vida quando não deveria, você encontrou um atraso enquanto o servidor está sincronizando as alterações feitas em outras plataformas. Por exemplo, se você usar Ouro, Mana ou perder Pontos de Vida no aplicativo para celular e depois completar uma tarefa no site, o servidor está apenas confirmando que tudo está sincronizado.",
     "faqQuestion32": "Como eu posso escolher uma classe?",
@@ -243,5 +243,7 @@
     "subscriptionDetail48": "Haverá alguma mudança em outros benefícios da assinatura, como os Conjuntos de Equipamento Misteriosos?",
     "subscriptionDetail480": "Essas mudanças afetam apenas Ampulhetas Místicas e Gemas de assinantes. Todos os outros benefícios permanecerão os mesmos.",
     "subscriptionPara2": "Caso tenha alguma dúvida que não esteja nas respostas acima, você pode entrar em contato com nossa equipe pelo e-mail <%= mailto %>.",
-    "subscriptionPara3": "Esperamos que esse novo cronograma seja mais previsível, permita mais acesso ao incrível estoque de itens na Loja dos Viajantes do Tempo e dê ainda mais motivação para progredir em suas tarefas a cada mês!"
+    "subscriptionPara3": "Esperamos que esse novo cronograma seja mais previsível, permita mais acesso ao incrível estoque de itens na Loja dos Viajantes do Tempo e dê ainda mais motivação para progredir em suas tarefas a cada mês!",
+    "faqQuestion68": "Como eu evito perder Pontos de Vida?",
+    "webFaqAnswer68": "Se você estiver perdendo muitos Pontos de Vida, tente algumas dicas:\n\n- Pause suas diárias. O botão \"Pausar dano\" nas configuras irá prevenir você de perder Pontos de Vida por perder diárias.\n- Ajuste melhor os horários de seus afazeres. Ao configurar sem data específica, você ainda pode completar elas para receber recompensas sem risco de perder Pontos de Vida.\n- Tente usar suas habilidades de classe:\n\t- Ladinos podem usar Furtividade para prevenir danos por diárias não feitas\n\t- Guerreiros podem usar Golpe Brutal para reduzir a cor vermelha em diárias, reduzindo assim o dano de diárias não feitas\n\t- Curandeiros podem usar Brilho Intenso para reduzir cores vermelhas em diárias, abaixando o dano caso não cumpram"
 }

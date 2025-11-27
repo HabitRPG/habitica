@@ -267,5 +267,20 @@
     "fall2024FieryImpWarriorSet": "Conjunto Diabrete Ardente (Guerreiro)",
     "fall2024BlackCatRogueSet": "Conjunto Gato Preto (Ladino)",
     "winter2025MooseWarriorSet": "Conjunto Guerreiro Alce",
-    "winter2025AuroraMageSet": "Conjunto de Mago Aurora"
+    "winter2025AuroraMageSet": "Conjunto de Mago Aurora",
+    "fall2025SasquatchWarriorSet": "Conjunto de Guerreiro Pé Grande",
+    "fall2025SkeletonRogueSet": "Conjunto de Ladino Esqueleto",
+    "fall2025KoboldHealerSet": "Conjunto de Curandeiro Kobold",
+    "fall2025MaskedGhostMageSet": "Conjunto de Mago Fantasma Mascarado",
+    "gemSaleLimitationsText": "Esta promoção apenas se aplica durante o tempo limitado do evento. Este evento começa em <%= eventStartMonth %> <%= eventStartOrdinal %> às <%= eventStartTime %> <%= timeZone %> and will end on <%= eventEndMonth %> <%= eventEndOrdinal %> at <%= eventEndTime %> <%= timeZone %>. A promoção apenas está disponível ao comprar Gemas para você mesmo.",
+    "winter2025StringLightsHealerSet": "Conjunto do Curandeiro de Luz de Corda",
+    "winter2025SnowRogueSet": "Conjunto do Ladino da Neve",
+    "spring2025SunshineWarriorSet": "Conjunto do Guerreiro de Luz Solar",
+    "spring2025CrystalPointRogueSet": "Conjunto do Ladino da Ponta do Cristal",
+    "spring2025PlumeriaHealerSet": "Conjunto de Curandeiro Plumeria",
+    "spring2025MantisMageSet": "Conjunto de Mago Louva-a-deus",
+    "summer2025ScallopWarriorSet": "Conjunto do Guerreiro da Concha",
+    "summer2025SquidRogueSet": "Conjunto de Ladino Lula",
+    "summer2025SeaAngelHealerSet": "Conjunto de Curandeiro Anjo do Oceano",
+    "summer2025FairyWrasseMageSet": "Conjunto de Mago Fada-Donzela"
 }

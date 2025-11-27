@@ -557,6 +557,18 @@ const armor = {
     con: 11,
     set: 'blacksmith',
   },
+  loneCowpokeOutfit: {
+    con: 10,
+    set: 'loneCowpoke',
+  },
+};
+
+const back = {
+  harpsichord: {
+    int: 6,
+    per: 6,
+    set: 'musicalInstrumentTwo',
+  },
 };
 
 const body = {
@@ -1140,6 +1152,10 @@ const head = {
     per: 11,
     set: 'blacksmith',
   },
+  loneCowpokeHat: {
+    per: 10,
+    set: 'loneCowpoke',
+  },
 };
 
 const shield = {
@@ -1517,6 +1533,18 @@ const shield = {
     int: 8,
     per: 8,
     set: 'orangeLoungewear',
+  },
+  doubleBass: {
+    con: 6,
+    str: 6,
+    set: 'musicalInstrumentTwo',
+  },
+  prettyPinkGiftBox: {
+    con: 2,
+    int: 2,
+    per: 2,
+    str: 2,
+    set: 'prettyInPink',
   },
 };
 
@@ -2037,12 +2065,25 @@ const weapon = {
     str: 11,
     set: 'blacksmith',
   },
+  bambooFlute: {
+    con: 6,
+    int: 6,
+    set: 'musicalInstrumentTwo',
+  },
+  prettyPinkParasol: {
+    con: 2,
+    int: 2,
+    per: 2,
+    str: 2,
+    set: 'prettyInPink',
+  },
 };
 
 const releaseDay = 7;
 
 forEach({
   armor,
+  back,
   body,
   eyewear,
   head,
@@ -2101,34 +2142,38 @@ function updateReleased (type) {
   return returnType;
 }
 
-const memoizedUpdatReleased = memoize(updateReleased);
+const memoizedUpdateReleased = memoize(updateReleased);
 
 export default {
   get armor () {
-    return memoizedUpdatReleased({ identifier: 'armor', memoizeConfig: true }, armor);
+    return memoizedUpdateReleased({ identifier: 'armor', memoizeConfig: true }, armor);
+  },
+  get back () {
+    return memoizedUpdateReleased({ identifier: 'back', memoizeConfig: true }, back);
   },
   get body () {
-    return memoizedUpdatReleased({ identifier: 'body', memoizeConfig: true }, body);
+    return memoizedUpdateReleased({ identifier: 'body', memoizeConfig: true }, body);
   },
   get eyewear () {
-    return memoizedUpdatReleased({ identifier: 'eyewear', memoizeConfig: true }, eyewear);
+    return memoizedUpdateReleased({ identifier: 'eyewear', memoizeConfig: true }, eyewear);
   },
   get head () {
-    return memoizedUpdatReleased({ identifier: 'head', memoizeConfig: true }, head);
+    return memoizedUpdateReleased({ identifier: 'head', memoizeConfig: true }, head);
   },
   get headAccessory () {
-    return memoizedUpdatReleased({ identifier: 'headAccessory', memoizeConfig: true }, headAccessory);
+    return memoizedUpdateReleased({ identifier: 'headAccessory', memoizeConfig: true }, headAccessory);
   },
   get shield () {
-    return memoizedUpdatReleased({ identifier: 'shield', memoizeConfig: true }, shield);
+    return memoizedUpdateReleased({ identifier: 'shield', memoizeConfig: true }, shield);
   },
   get weapon () {
-    return memoizedUpdatReleased({ identifier: 'weapon', memoizeConfig: true }, weapon);
+    return memoizedUpdateReleased({ identifier: 'weapon', memoizeConfig: true }, weapon);
   },
   // convenience method for tests mostly. Not used in the app
   get all () {
     const items = [];
     items.push(...Object.values(this.armor));
+    items.push(...Object.values(this.back));
     items.push(...Object.values(this.body));
     items.push(...Object.values(this.eyewear));
     items.push(...Object.values(this.head));

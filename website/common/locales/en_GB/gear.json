@@ -2554,5 +2554,7 @@
     "weaponMystery202201Text": "Midnight Confetti Cannon",
     "weaponMystery202111Text": "Chronomancer's Staff",
     "weaponMystery202111Notes": "Shape the flow of time with this mysterious and powerful staff. Confers no benefit. November 2021 Subscriber Item.",
-    "weaponMystery202212Text": "Glacial Wand"
+    "weaponMystery202212Text": "Glacial Wand",
+    "weaponSpecialWinter2024MageNotes": "Thanks to a generous, magical narwhal that sensed your great abilities, you have been gifted a tusk that lets you sense changes happening around you. Increases Intelligence by <%= int %>. Limited Edition Winter 2023-2024 Gear.",
+    "weaponSpecialSpring2024RogueNotes": "Challenges that are as hard as ice can be sliced into smaller pieces. Increases Strength by <%= str %>. Limited Edition Spring 2024 Gear."
 }

@@ -426,5 +426,7 @@
   "tavernDiscontinuedLinks": "Read more about the <a href='/static/faq/tavern-and-guilds'>Tavern and Guild Service Discontinuation</a> or head back to the <a href='/'>homepage</a>.",
   "chatSunsetWarning": "⚠️ <strong>Habitica Guilds and Tavern chat will be discontinued on 8/8/2023.</strong> <a href='/static/faq/tavern-and-guilds'>Click here</a> to read more about this change.",
   "interestedLearningMore": "Interested in Learning More?",
-  "checkGroupPlanFAQ": "Check out the <a href='/static/faq#what-is-group-plan'>Group Plans FAQ</a> to learn how to get the most out of your shared task experience."
+  "checkGroupPlanFAQ": "Check out the <a href='/static/faq#what-is-group-plan'>Group Plans FAQ</a> to learn how to get the most out of your shared task experience.",
+  "groupPlanBillingFYI": "Group Plan subscriptions automatically renew unless you cancel at least 24 hours before the end of your current period. You can cancel from the Group Billing tab of your Group Plan. You will be charged within 24 hours before your subscription renews, based on the number of members in your Group Plan at that time. If you add members between payment periods, you'll see an additional prorated charge for their benefits at your next billing cycle.",
+  "groupPlanBillingFYIShort": "Group Plan subscriptions automatically renew unless you cancel at least 24 hours before the end of your current period. You will be charged within 24 hours before your subscription renews, based on the number of members in your Group Plan at that time. If you add members between payment periods, you'll see an additional prorated charge for their benefits at your next billing cycle."
 }

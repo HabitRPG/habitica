@@ -24,12 +24,12 @@
     "invalidEmail": "Se requiere una dirección de correo electrónico válida para restablecer la contraseña.",
     "login": "Iniciar Sesión",
     "logout": "Cerrar Sesión",
-    "marketing1Header": "Mejora tus Hábitos Jugando",
-    "marketing1Lead1Title": "Tu Vida, el Juego de Rol",
-    "marketing1Lead1": "Habitica es un videojuego que te ayuda a mejorar tus hábitos en la vida real. \"Ludifica\" tu vida convirtiendo todas tus tareas (Hábitos, Diarias, y Pendientes) en pequeños monstruos que tienes que vencer. Mientras mejor lo hagas, más progresarás en el juego. Si incumples algo en la vida real, tu personaje empezará a sufrir las consecuencias en el juego.",
+    "marketing1Header": "Mejora tus Hábitos un paso a la vez!",
+    "marketing1Lead1Title": "Integra tu vida al juego",
+    "marketing1Lead1": "Habitica es la aplicación perfecta para aquellos que les cuesta completar su lista de tareas pendientes. Usamos mecánicas conocidas en los juegos como recompensar con monedas de Oro, Experiencia, y artículos, para ayudarte a sentirte productivo y fortalecer tu sentido de logro cuando completes tus tareas. Cuando mejor y más eficazmente logres tu tareas, más progresarás en el juego.",
     "marketing1Lead2Title": "Obtén Equipamiento Genial",
-    "marketing1Lead2": "Mejora tus hábitos para mejorar tu personaje. ¡Luce el genial equipamiento que has ganado!",
-    "marketing1Lead3Title": "Encuentra Premios Aleatorios",
+    "marketing1Lead2": "Colecciona espadas, armaduras, y mucho más con el Oro que vas a obtener por completar tus tareas. Con cientos de piezas que coleccionar y que seleccionar, nunca se te acabarán las combinaciones a probar. ¡Optimiza tus estadísticas, mejora tu estilo, o ambas! ",
+    "marketing1Lead3Title": "Sé recompensado por tu esfuerzo",
     "marketing1Lead3": "Para algunos, es el juego lo que los motiva: un sistema llamado \"recompensas estocásticas\". Habitica acoge todos los estilos de reforzamiento y castigo: positivo, negativo, predecible y aleatorio.",
     "marketing2Header": "Compite con tus amigos, únete a grupos de interés",
     "marketing2Lead1Title": "Productividad Social",
@@ -174,5 +174,8 @@
     "learnMore": "Aprende Más",
     "minPasswordLength": "La contraseña debe contener 8 caracteres o más.",
     "communityInstagram": "Instagram",
-    "footerProduct": "Producto"
+    "footerProduct": "Producto",
+    "incorrectResetPhrase": "Por favor, escribe <%= magicWord %> en mayúsculas para reiniciar tu cuenta.",
+    "marketing3Lead1Title": "Aplicaciones para Android e iOS",
+    "enterValidEmail": "Por favor, ingresa un correo electrónico válido."
 }

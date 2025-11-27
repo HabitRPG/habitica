@@ -57,12 +57,16 @@
       >
         {{ $t('subUpdateCard') }}
       </div>
-      <div
-        v-if="!group.purchased.plan.dateTerminated"
-        class="btn btn-sm btn-danger"
-        @click="cancelSubscriptionConfirm({group: group})"
-      >
-        {{ $t('cancelGroupSub') }}
+      <div v-if="!group.purchased.plan.dateTerminated">
+        <div class="small gray-50 mb-3" v-once>
+          {{ $t('groupPlanBillingFYIShort') }}
+        </div>
+        <div
+          class="btn btn-sm btn-danger"
+          @click="cancelSubscriptionConfirm({group: group})"
+        >
+          {{ $t('cancelGroupSub') }}
+        </div>
       </div>
     </div>
   </div>

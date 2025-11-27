@@ -180,6 +180,9 @@
     "mysterySet202509": "Windswept Wanderer Set",
     "mysterySet202510": "Gliding Ghoul Set",
     "mysterySet202511": "Frost Warrior Set",
+    "mysterySet202512": "Cookie Champion Set",
+    "mysterySet202601": "Winter's Aegis Set",
+    "mysterySet202602": "Sakura Fox Set",
     "mysterySet301404": "Steampunk Standard Set",
     "mysterySet301405": "Steampunk Accessories Set",
     "mysterySet301703": "Peacock Steampunk Set",
@@ -269,5 +272,6 @@
     "unlockNGemsGift": "They'll unlock <strong><%= count %> Gems</strong> per month in the Market",
     "earn2GemsGift": "They'll earn <strong>+2 Gems</strong> every month they're subscribed",
     "maxGemCapGift": "They'll have the max <strong>Gem Cap</strong>",
-    "subscribeAgainContinueHourglasses": "Subscribe again to continue receiving Mystic Hourglasses"
+    "subscribeAgainContinueHourglasses": "Subscribe again to continue receiving Mystic Hourglasses",
+    "subscriptionBillingFYI": "Subscriptions automatically renew unless you cancel at least 24 hours before the end of the current period. You can manage your subscription from the Subscription tab in settings. Your account will be charged within 24 hours of your renewal date, at the same price you initially paid."
 }

@@ -256,5 +256,22 @@
     "baileyAnnouncement": "Último Anúncio da Bailey",
     "showRaisePetModal": "Ao cuidar de um Mascote para virar Montaria",
     "resetTextSocial": "Se você tiver certeza absoluta, digite <b>\"<%= magicWord %>\"</b> na caixa de texto abaixo.",
-    "APITokenDisclaimer": "<b>Seu API Token é como uma senha; não o compartilhe publicamente.</b> Ocasionalmente, você poderá ser solicitado a informar seu ID de Usuário, mas nunca publique seu API Token onde outras pessoas possam vê-lo, inclusive no GitHub.<br><br><b>Se precisar de um novo API Token</b> (por exemplo, se você o compartilhou acidentalmente), pode alterar sua senha para redefini-la. Após a redefinição, você precisará efetuar login novamente em quaisquer outros dispositivos em que use o Habitica e fornecer o novo API Token para ferramentas de terceiros que você possa usar."
+    "APITokenDisclaimer": "<b>Seu API Token é como uma senha; não o compartilhe publicamente.</b> Ocasionalmente, você poderá ser solicitado a informar seu ID de Usuário, mas nunca publique seu API Token onde outras pessoas possam vê-lo, inclusive no GitHub.<br><br><b>Se precisar de um novo API Token</b> (por exemplo, se você o compartilhou acidentalmente), pode alterar sua senha para redefini-la. Após a redefinição, você precisará efetuar login novamente em quaisquer outros dispositivos em que use o Habitica e fornecer o novo API Token para ferramentas de terceiros que você possa usar.",
+    "privacyOverview": "No mundo atual, parece que todas as empresas querem lucrar com seus dados. Isso pode dificultar a busca pelo aplicativo certo para melhorar seus hábitos. O Habitica usa cookies que armazenam dados apenas para analisar o desempenho, lidar com solicitações de suporte e proporcionar a melhor experiência gamificada possível. Você pode alterar isso a qualquer momento nas configurações da sua conta.",
+    "acceptAllCookies": "Aceitar Todos os Cookies",
+    "managePrivacyPreferences": "Gerencie Suas Preferências de Privacidade",
+    "yourPrivacyPreferences": "Suas Preferências de Privacidade",
+    "learnMorePrivacy": "Para saber mais, leia nossa <a href='/static/privacy' target='_blank'>Política de Privacidade</a>.",
+    "strictlyNecessary": "Estritamente necessário",
+    "alwaysActive": "Sempre Ativo",
+    "requiredToRun": "Estes são necessários para que nosso site e aplicativos funcionem da melhor maneira possível.",
+    "performanceAnalytics": "Desempenho e Análises",
+    "savePreferences": "Salvar Preferências",
+    "habiticaPrivacyPolicy": "Política de Privacidade do Habitica",
+    "transaction_subscription_bonus": "Bônus de <b>assinante</b>",
+    "gpcWarning": "O <a href='<%= url %>' target='_blank'>GPC</a> está ativado. Ativar o rastreamento abaixo irá substituir essa configuração e enviar os dados para nossos parceiros de análise.",
+    "gpcPlusAnalytics": "O <a href='<%= url %>' target='_blank'>GPC</a> está ativado. Você optou por permitir o rastreamento e o envio de dados para nossos parceiros de análise.",
+    "denyNonEssentialCookies": "Negar Cookies Não-Essenciais",
+    "privacySettingsOverview": "O Habitica usa cookies para analisar o desempenho, processar pedidos de suporte e proporcionar a melhor experiência gamificada possível. Para isso, precisamos solicitar as seguintes permissões. Você pode alterá-las a qualquer momento nas configurações da sua conta.",
+    "usedForSupport": "Estes são usados para melhorar a experiência do usuário, o desempenho e os serviços do nosso site e aplicativos. Nossa equipe de suporte utiliza essas informações para lidar com solicitações e relatórios de erros."
 }
