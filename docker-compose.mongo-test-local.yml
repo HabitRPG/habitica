@@ -15,7 +15,7 @@ services:
       - "27017:27017"
     restart: "unless-stopped"
     volumes:
-      - "./mongodb-data-docker:/data/db"
+      - "./mongodb-data-docker-testing:/data/db"
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs" ]
   mongoinit:
     image: "mongo:7.0"
