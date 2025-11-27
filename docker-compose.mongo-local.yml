@@ -1,6 +1,5 @@
 # big thanks to https://pakisan.github.io/posts/docker-compose-mongodb-single-node-replica-set/ <3
 
-version: "3.9"
 networks:
   mongodb-network:
     name: "mongodb-network"
@@ -16,7 +15,7 @@ services:
       - "27017:27017"
     restart: "unless-stopped"
     volumes:
-      - "./mongodb-data:/data/db"
+      - "./mongodb-docker-data:/data/db"
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs" ]
   mongoinit:
     image: "mongo:7.0"
@@ -28,10 +27,9 @@ services:
       - mongodb-network
 
     command: >
-      mongosh --host mongodb:27017 --eval "rs.initiate({
-       _id: \"rs\",
-       members: [
-         {_id: 0, host: \"mongodb\"}
-       ]
-      })"
-
+      bash -c "
+       until mongosh --host mongodb:27017 --eval 'db.adminCommand({ping:1})' >/dev/null 2>&1; do
+         sleep 1
+       done
+       mongosh --host mongodb:27017 --eval 'try { rs.initiate({_id: \"rs\", members:[{_id:0, host: \"mongodb:27017\"}]}); } catch(e) { print(\"rs.initiate skipped or failed: \" + e); }'
+       "
