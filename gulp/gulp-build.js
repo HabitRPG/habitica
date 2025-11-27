@@ -5,8 +5,8 @@ import path from 'path';
 import babel from 'gulp-babel';
 import os from 'os';
 import fs from 'fs';
-/* import spawn from 'cross-spawn'; // eslint-disable-line import/no-extraneous-dependencies
-import clean from 'rimraf'; */
+import spawn from 'cross-spawn';
+import clean from 'rimraf';
 
 gulp.task('build:babel:server', () => gulp.src('website/server/**/*.js')
   .pipe(babel())
@@ -35,7 +35,7 @@ gulp.task('build:prod', gulp.series(
 // When used on windows `run-rs` must first be run without the `--keep` option
 // in order to be setup correctly, afterwards it can be used.
 
-const MONGO_PATH = path.join(__dirname, '/../mongodb-data/');
+const MONGO_PATH = path.join(__dirname, '/../mongodb-data-rs/');
 
 gulp.task('build:prepare-mongo', async () => {
   if (fs.existsSync(MONGO_PATH)) {
@@ -51,7 +51,7 @@ gulp.task('build:prepare-mongo', async () => {
   console.log('MongoDB data folder is missing, setting up.'); // eslint-disable-line no-console
 
   // use run-rs without --keep, kill it as soon as the replica set starts
-  /* const runRsProcess = spawn('node', ['../scripts/start-local-mongo.mjs --build-db']);
+  const runRsProcess = spawn('npm', ['run', 'mongo:dev:rs']);
 
   for await (const chunk of runRsProcess.stdout) {
     const stringChunk = chunk.toString();
@@ -79,8 +79,6 @@ gulp.task('build:prepare-mongo', async () => {
 
     throw new Error(`Error running run-rs: ${error}`);
   }
-
-   */
 });
 
 gulp.task('build:dev', gulp.series(
