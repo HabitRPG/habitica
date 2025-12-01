@@ -1128,8 +1128,6 @@
   .input-group-outer.disabled .input-group-text {
     color: $gray-200;
   }
-
-
 </style>
 
 <script>
