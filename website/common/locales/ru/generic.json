@@ -67,8 +67,8 @@
     "error": "Ошибка",
     "menu": "Меню",
     "notifications": "Уведомления",
-    "noNotifications": "Вы все вспомнили!",
-    "noNotificationsText": "Феи уведомлений вам тихо рукоплещут! Отлично сработано!",
+    "noNotifications": "Вы всё просмотрели!",
+    "noNotificationsText": "Феи уведомлений аплодируют вам! Отличная работа!",
     "clear": "Очистить",
     "audioTheme": "Аудио тема",
     "audioTheme_off": "Выкл.",
@@ -190,7 +190,7 @@
     "messages": "Сообщения",
     "emptyMessagesLine1": "У вас нет новых сообщений",
     "emptyMessagesLine2": "Отправьте сообщение, чтобы начать разговор с вашей командой или другим игроком Habitica",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> отправил вам сообщение",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> отправил(а) вам сообщение",
     "letsgo": "Начнем!",
     "selected": "Выбрано",
     "howManyToBuy": "Сколько вы хотите купить?",
@@ -241,6 +241,6 @@
     "whyReportingPlayerPlaceholder": "Причина жалобы",
     "playerReportModalBody": "Вы должны сообщать только об игроках, нарушающих <%= firstLinkStart %>Правила сообщества<%= linkEnd %> и/или <%= secondLinkStart %>Условия использования<%= linkEnd %>. Отправка ложного сообщения является нарушением Правил сообщества Habitica.",
     "rememberToBeKind": "Пожалуйста, помните, что нужно быть добрыми, уважительными и следовать <a href='/static/community-guidelines' target='_blank'>Правилам сообщества</a>.",
-    "targetUserNotExist": "Выбранный пользователь: '<%=имя пользователя %>' не существует.",
+    "targetUserNotExist": "Выбранный пользователь '<%= userName %>' не существует.",
     "gem": "Самоцвет"
 }
