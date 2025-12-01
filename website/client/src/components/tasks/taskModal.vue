@@ -392,24 +392,31 @@
               class="col-12 mb-1"
             >{{ $t('assignedStat') }}</label>
             <div class="col-12">
-              <div class="stat-selection-grid">
-                <div
-                  v-for="stat in ['str', 'con', 'int', 'per']"
-                  :key="stat"
-                  class="stat-card"
-                  :class="[
-                    { 'stat-card-selected': task.attribute === stat },
-                    task.attribute === stat ? cssClass('bg') : ''
-                  ]"
-                  @click="task.attribute = stat"
+              <div class="stat-dropdown-container">
+                <select-list
+                  :items="statOptions"
+                  :value="task.attribute"
+                  key-prop="key"
+                  active-key-prop="key"
+                  @select="task.attribute = $event.key"
                 >
-                  <span
-                    class="stat-card-text"
-                    :class="task.attribute === stat ? cssClass('headings') : ''"
-                  >
-                    {{ $t(attributesStrings[stat]) }}
-                  </span>
-                </div>
+                  <template #item="{ item, button }">
+                    <div class="stat-option-content">
+                      <span
+                        class="stat-option-title"
+                        :class="item.key"
+                      >
+                        {{ $t(item.label) }}
+                      </span>
+                      <span
+                        v-if="!button"
+                        class="stat-option-description"
+                      >
+                        {{ $t(item.description) }}
+                      </span>
+                    </div>
+                  </template>
+                </select-list>
               </div>
             </div>
           </div>
@@ -943,6 +950,72 @@
   .streak-addon path {
     fill: $gray-200;
   }
+
+  .stat-dropdown-container {
+    .select-list {
+      .selectListItem {
+        margin-bottom: 8px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      .selectListItem .dropdown-item {
+        padding: 8px 16px !important;
+        height: auto !important;
+        white-space: normal;
+        word-wrap: break-word;
+
+        &:hover,
+        &:focus {
+          background-color: #D5C8FF;
+        }
+      }
+    }
+
+    .stat-option-content {
+      display: block;
+      width: 100%;
+
+      .stat-option-title {
+        display: block;
+        font-family: Roboto;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 24px;
+        letter-spacing: 0%;
+        text-transform: capitalize;
+        margin-bottom: 4px;
+
+        &.str {
+          color: #f74e52;
+        }
+
+        &.int {
+          color: #2995cd;
+        }
+
+        &.con {
+          color: #ffa623;
+        }
+
+        &.per {
+          color: #4f2a93;
+        }
+      }
+
+      .stat-option-description {
+        display: block;
+        font-family: Roboto;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0%;
+        color: $gray-200;
+      }
+    }
+  }
 </style>
 
 <style lang="scss" scoped>
@@ -1056,43 +1129,6 @@
     color: $gray-200;
   }
 
-  .stat-assignment {
-    .stat-selection-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .stat-card {
-      border: 1px solid $gray-400;
-      border-radius: 8px;
-      padding: 16px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-      background-color: $white;
-
-      &:hover {
-        border-color: $gray-300;
-      }
-
-      &-selected {
-        border-color: transparent;
-      }
-
-      &-text {
-        font-size: 14px;
-        font-weight: bold;
-        line-height: 1.71;
-        text-align: center;
-        color: $gray-50;
-        transition: color 0.2s ease;
-      }
-    }
-  }
 
 </style>
 
@@ -1108,6 +1144,7 @@ import SelectMulti from './modal-controls/selectMulti';
 import selectDifficulty from '@/components/tasks/modal-controls/selectDifficulty';
 import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
+import selectList from '@/components/ui/selectList';
 
 import syncTask from '../../mixins/syncTask';
 
@@ -1131,6 +1168,7 @@ export default {
     selectTranslatedArray,
     toggleCheckbox,
     lockableLabel,
+    selectList,
   },
   directives: {
     markdown: markdownDirective,
@@ -1164,6 +1202,12 @@ export default {
         con: 'constitution',
         per: 'perception',
       },
+      statOptions: [
+        { key: 'str', label: 'strength', description: 'strTaskText' },
+        { key: 'int', label: 'intelligence', description: 'intTaskText' },
+        { key: 'con', label: 'constitution', description: 'conTaskText' },
+        { key: 'per', label: 'perception', description: 'perTaskText' },
+      ],
       calendarHighlights: { dates: [new Date()] },
     };
   },
