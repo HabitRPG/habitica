@@ -37,6 +37,7 @@ export async function sentMessage (sender, receiver, message, translate) {
 
   return messageSent;
 }
+// Paginate per every 50
 const PM_PER_PAGE = 50;
 const MAX_PM_COUNT = 400;
 
