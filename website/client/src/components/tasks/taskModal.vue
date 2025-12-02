@@ -954,7 +954,7 @@
   .stat-dropdown-container {
     .select-list {
       .selectListItem {
-        margin-bottom: 8px;
+        margin-bottom: 0;
 
         &:last-child {
           margin-bottom: 0;
@@ -969,7 +969,23 @@
 
         &:hover,
         &:focus {
-          background-color: #D5C8FF;
+          background-color: rgba($purple-600, 0.25) !important;
+        }
+      }
+
+      .dropdown-toggle {
+        display: flex;
+        align-items: center;
+
+        .stat-option-content {
+          display: flex;
+          align-items: center;
+
+          .stat-option-title {
+            font-weight: normal;
+            color: $gray-50;
+            margin-bottom: 0;
+          }
         }
       }
     }
@@ -983,25 +999,24 @@
         font-family: Roboto;
         font-weight: 700;
         font-size: 14px;
-        line-height: 24px;
-        letter-spacing: 0%;
+        line-height: 1.71;
         text-transform: capitalize;
         margin-bottom: 4px;
 
         &.str {
-          color: #f74e52;
+          color: $maroon-100;
         }
 
         &.int {
-          color: #2995cd;
+          color: $blue-50;
         }
 
         &.con {
-          color: #ffa623;
+          color: $yellow-5;
         }
 
         &.per {
-          color: #4f2a93;
+          color: $purple-300;
         }
       }
 
@@ -1011,8 +1026,8 @@
         font-weight: 400;
         font-size: 12px;
         line-height: 16px;
-        letter-spacing: 0%;
-        color: $gray-200;
+        color: $gray-100;
+        margin-bottom: 0;
       }
     }
   }

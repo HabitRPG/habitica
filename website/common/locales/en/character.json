@@ -97,7 +97,7 @@
   "conTaskText": "Reduces damage taken from missed Dailies and negative Habits. Does not reduce damage from bosses.",
   "perception": "Perception",
   "perText": "Perception increases how much Gold you earn, and once you've unlocked the Market, increases the chance of finding items when scoring tasks.",
-  "perTaskText": "Increases drop chance when completing tasks, daily drop cap, streak bonuses, and Gold earned from tasks.",
+  "perTaskText": "Increases item drop chance, daily item drop cap, task streak bonuses, and Gold earned when completing tasks.",
   "intelligence": "Intelligence",
   "intText": "Intelligence increases how much Experience you earn, and once you've unlocked Classes, determines your maximum Mana available for class abilities.",
   "intTaskText": "Increases Exp earned from tasks. Also increases your mana cap and mana regeneration rate.",
