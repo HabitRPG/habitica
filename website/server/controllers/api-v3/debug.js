@@ -12,7 +12,7 @@ import {
   model as Group,
   // basicFields as basicGroupFields,
 } from '../../models/group';
-import { chatModel as Chat } from '../../models/message';
+import { chatModel as Chat, inboxModel as Inbox } from '../../models/message';
 import connectToMongoDB from '../../libs/mongoose';
 
 const { content } = common;
@@ -319,7 +319,11 @@ api.seedPartyChat = {
   middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
-    const messageCount = req.body.messageCount || 450;
+    const messageCount = Number(req.body.messageCount);
+
+    if (!Number.isInteger(messageCount) || messageCount < 1) {
+      throw new BadRequest('messageCount must be a positive integer.');
+    }
 
     if (!user.party._id) {
       throw new BadRequest('You are not in a party.');
@@ -352,6 +356,46 @@ api.seedPartyChat = {
     }
 
     await Chat.insertMany(messages);
+
+    res.respond(200, { messageCount });
+  },
+};
+
+api.seedInbox = {
+  method: 'POST',
+  url: '/debug/seed-inbox',
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+    const messageCount = Number(req.body.messageCount);
+
+    if (!Number.isInteger(messageCount) || messageCount < 1) {
+      throw new BadRequest('messageCount must be a positive integer.');
+    }
+
+    const messages = [];
+    const baseTimestamp = Date.now();
+
+    for (let i = 1; i <= messageCount; i += 1) {
+      const id = uuid();
+      messages.push({
+        _id: id,
+        id,
+        ownerId: user._id,
+        uuid: 'system',
+        user: 'System',
+        text: `#${i}`,
+        unformattedText: `#${i}`,
+        timestamp: new Date(baseTimestamp - (messageCount - i) * 1000),
+        likes: {},
+        flags: {},
+        flagCount: 0,
+        sent: false,
+        client: 'debug-seed',
+      });
+    }
+
+    await Inbox.insertMany(messages);
 
     res.respond(200, { messageCount });
   },
