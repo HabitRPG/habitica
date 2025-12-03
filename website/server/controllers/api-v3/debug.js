@@ -361,6 +361,7 @@ api.seedPartyChat = {
   },
 };
 
+// Messaging ourselves for testing
 api.seedInbox = {
   method: 'POST',
   url: '/debug/seed-inbox',
