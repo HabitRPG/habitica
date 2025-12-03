@@ -382,15 +382,15 @@ api.seedInbox = {
         _id: id,
         id,
         ownerId: user._id,
-        uuid: 'system',
-        user: 'System',
+        uuid: user._id,
+        user: user.profile.name,
         text: `#${i}`,
         unformattedText: `#${i}`,
         timestamp: new Date(baseTimestamp - (messageCount - i) * 1000),
         likes: {},
         flags: {},
         flagCount: 0,
-        sent: false,
+        sent: true,
         client: 'debug-seed',
       });
     }
