@@ -206,6 +206,12 @@
               </button>
             </div>
             <div
+              v-once
+              class="small text-center mb-4"
+            >
+              {{ $t('subscriptionBillingFYIShort') }}
+            </div>
+            <div
               v-if="purchasedPlanExtraMonthsDetails.months > 0"
               class="extra-months green-10 py-2 px-3 mb-4"
               v-html="$t('purchasedPlanExtraMonths',
@@ -409,6 +415,7 @@
       <div class="d-flex flex-column align-items-center mt-3">
         <div
           v-once
+          v-if="!hasSubscription"
           class="small gray-100 w-50 text-center mb-5"
         >
           {{ $t('subscriptionBillingFYI') }}
