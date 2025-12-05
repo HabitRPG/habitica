@@ -141,6 +141,20 @@
                   <div
                     class="dropdown-item"
                     tabindex="0"
+                    @click="duplicateTask"
+                    @keypress.enter="duplicateTask"
+                  >
+                    <span class="dropdown-icon-item">
+                      <span
+                        class="svg-icon inline copy-icon"
+                        v-html="icons.copy"
+                      ></span>
+                      <span class="text">Duplicar</span>
+                    </span>
+                  </div>
+                  <div
+                    class="dropdown-item"
+                    tabindex="0"
                     @click="moveToTop"
                     @keypress.enter="moveToTop"
                   >
@@ -745,6 +759,11 @@
     height: 16px;
   }
 
+  .svg-icon.copy-icon {
+    width: 16px;
+    height: 16px;
+  }
+
   .svg-icon.push-to-top, .svg-icon.push-to-bottom {
     width: 10px;
     height: 11px;
@@ -929,12 +948,14 @@ import editIcon from '@/assets/svg/edit.svg?raw';
 import topIcon from '@/assets/svg/top.svg?raw';
 import bottomIcon from '@/assets/svg/bottom.svg?raw';
 import deleteIcon from '@/assets/svg/delete.svg?raw';
+import copyIcon from '@/assets/svg/copy.svg?raw';
 import checklistIcon from '@/assets/svg/checklist.svg?raw';
 import lockIcon from '@/assets/svg/lock.svg?raw';
 import menuIcon from '@/assets/svg/menu.svg?raw';
 import markdownDirective from '@/directives/markdown';
 import scoreTask from '@/mixins/scoreTask';
 import sync from '@/mixins/sync';
+import notifications from '@/mixins/notifications';
 import approvalFooter from './approvalFooter';
 import MenuDropdown from '../ui/customMenuDropdown';
 
@@ -946,7 +967,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  mixins: [scoreTask, sync],
+  mixins: [scoreTask, sync, notifications],
   // @TODO: maybe we should store the group on state?
   props: {
     task: {},
@@ -974,6 +995,7 @@ export default {
         check: checkIcon,
         checklist: checklistIcon,
         delete: deleteIcon,
+        copy: copyIcon,
         edit: editIcon,
         top: topIcon,
         bottom: bottomIcon,
@@ -1123,6 +1145,7 @@ export default {
       scoreChecklistItem: 'tasks:scoreChecklistItem',
       collapseChecklist: 'tasks:collapseChecklist',
       destroyTask: 'tasks:destroy',
+      createTask: 'tasks:create',
     }),
     toggleChecklistItem (item) {
       if (this.castingSpell) return;
@@ -1214,6 +1237,58 @@ export default {
     handleBrokenTask (task) {
       if (this.$store.state.isRunningYesterdailies) return;
       this.$root.$emit('handle-broken-task', task);
+    },
+    async duplicateTask () {
+      if (this.$store.state.isRunningYesterdailies) return;
+      
+      console.log('Duplicating task:', this.task);
+      
+      const taskCopy = {
+        type: this.task.type,
+        text: `${this.task.text} (Cópia)`,
+        notes: this.task.notes || '',
+        tags: this.task.tags ? [...this.task.tags] : [],
+        priority: this.task.priority || 1,
+        attribute: this.task.attribute || 'str',
+      };
+
+      if (this.task.checklist && this.task.checklist.length > 0) {
+        taskCopy.checklist = this.task.checklist.map(item => ({
+          text: item.text,
+          completed: false,
+        }));
+      }
+
+      if (this.task.type === 'habit') {
+        taskCopy.up = this.task.up !== false;
+        taskCopy.down = this.task.down !== false;
+      } else if (this.task.type === 'daily') {
+        taskCopy.frequency = this.task.frequency || 'daily';
+        taskCopy.everyX = this.task.everyX || 1;
+        taskCopy.repeat = this.task.repeat ? { ...this.task.repeat } : {};
+        if (this.task.startDate) {
+          taskCopy.startDate = this.task.startDate;
+        }
+      } else if (this.task.type === 'todo') {
+        if (this.task.date) {
+          taskCopy.date = this.task.date;
+        }
+      } else if (this.task.type === 'reward') {
+        taskCopy.value = this.task.value || 10;
+      }
+
+      console.log('Task copy to create:', taskCopy);
+
+      try {
+        const result = await this.createTask(taskCopy);
+        console.log('Task creation result:', result);
+        this.text('Task duplicada com sucesso!');
+        
+        await this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true });
+      } catch (error) {
+        console.error('Erro ao duplicar task:', error);
+        this.error('Erro ao duplicar task');
+      }
     },
   },
 };
