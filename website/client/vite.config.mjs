@@ -128,6 +128,8 @@ export default defineConfig({
   },
   base: '/',
   server: {
+    host: '0.0.0.0',
+    port: 8080,
     headers: { 'Cache-Control': 'no-store' },
     proxy: {
       // proxy all requests to the server at IP:PORT as specified in the top-level config
