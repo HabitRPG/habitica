@@ -359,6 +359,13 @@ api.createChallengeTasks = {
  *                                                            only the 30 most recently completed.
  * @apiParam (Query) [dueDate] type Optional date to use for computing the nextDue field
  *                                  for each returned task.
+ * @apiParam (Query) {String="all","today","week","month"} [scheduledFilter] Optional filter for
+ *                                                            scheduled todos by date range.
+ *                                                            Only applies when type is "todos".
+ *                                                            "today" returns todos due today,
+ *                                                            "week" returns todos due in the next 7 days,
+ *                                                            "month" returns todos due in the next month.
+ *                                                            Default is no date filtering.
  *
  * @apiSuccess {Array} data An array of tasks
  *
@@ -395,14 +402,15 @@ api.getUserTasks = {
     const types = Tasks.tasksTypes.map(type => `${type}s`);
     types.push('completedTodos', '_allCompletedTodos'); // _allCompletedTodos is currently in BETA and is likely to be removed in future
     req.checkQuery('type', res.t('invalidTasksTypeExtra')).optional().isIn(types);
+    req.checkQuery('scheduledFilter', 'Invalid scheduled filter').optional().isIn(['all', 'today', 'week', 'month']);
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     const { user } = res.locals;
-    const { dueDate } = req.query;
+    const { dueDate, scheduledFilter } = req.query;
 
-    const tasks = await getTasks(req, res, { user, dueDate });
+    const tasks = await getTasks(req, res, { user, dueDate, scheduledFilter });
     return res.respond(200, tasks);
   },
 };

@@ -151,6 +151,7 @@ async function getTasks (req, res, options = {}) {
     challenge,
     group,
     dueDate,
+    scheduledFilter,
   } = options;
 
   let query;
@@ -207,6 +208,30 @@ async function getTasks (req, res, options = {}) {
     if (type === 'todos') {
       query.type = 'todo';
       query.completed = false; // Exclude completed todos
+      // Add grouping to filter tasks by date ranges
+      if (scheduledFilter && scheduledFilter !== 'all') {
+        const now = moment().startOf('day');
+        let startDate;
+        let endDate;
+        
+        if (scheduledFilter === 'today') {
+          startDate = now.toDate();
+          endDate = now.clone().endOf('day').toDate();
+        } else if (scheduledFilter === 'week') {
+          startDate = now.toDate();
+          endDate = now.clone().add(7, 'days').endOf('day').toDate();
+        } else if (scheduledFilter === 'month') {
+          startDate = now.toDate();
+          endDate = now.clone().add(1, 'month').endOf('day').toDate();
+        }
+        
+        if (startDate && endDate) {
+          query.date = {
+            $gte: startDate,
+            $lte: endDate,
+          };
+        }
+      }
     } else if (type === 'completedTodos' || type === '_allCompletedTodos') { // _allCompletedTodos is currently in BETA and is likely to be removed in future
       limit = 0; // no limit, the 30/90 days of data for subscribers is handled during cron
 
