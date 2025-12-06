@@ -198,8 +198,8 @@ export function shouldDo (day, dailyTask, options = {}) {
           const calcDate = recurDate.clone();
           calcDate.day(daysOfTheWeek[0]);
 
-          const startDateWeek = Math.ceil(moment(startDate).date() / 7);
-          let calcDateWeek = Math.ceil(calcDate.date() / 7);
+          const startDateWeek = Math.ceil(moment(startDate).date() / 7) - 1;
+          let calcDateWeek = Math.ceil(calcDate.date() / 7) - 1;
 
           // adjust week since weeks will rollover to other months
           if (calcDate.month() < recurDate.month()) calcDate.add(1, 'weeks');
@@ -207,7 +207,7 @@ export function shouldDo (day, dailyTask, options = {}) {
           else if (calcDateWeek > startDateWeek) calcDate.subtract(1, 'weeks');
           else if (calcDateWeek < startDateWeek) calcDate.add(1, 'weeks');
 
-          calcDateWeek = Math.ceil(calcDate.date() / 7);
+          calcDateWeek = Math.ceil(calcDate.date() / 7) - 1;
 
           if (
             calcDate >= startOfDayWithCDSTime
