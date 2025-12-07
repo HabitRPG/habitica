@@ -234,7 +234,6 @@ async function getTasks (req, res, options = {}) {
       query.type = 'todo';
       query.completed = false; // Exclude completed todos
       applyScheduledFilter(query);
-      logger.info('Filtering todos', { scheduledFilter, query });
     } else if (type === 'completedTodos' || type === '_allCompletedTodos') { // _allCompletedTodos is currently in BETA and is likely to be removed in future
       limit = 0; // no limit, the 30/90 days of data for subscribers is handled during cron
 
@@ -272,11 +271,9 @@ async function getTasks (req, res, options = {}) {
         { type: { $in: ['habit', 'daily', 'reward'] } },
       ],
     }];
-    logger.info('Fetching all tasks', { scheduledFilter, query });
   }
 
   const mQuery = Tasks.Task.find(query);
-  logger.info('Final MongoDB query', { query });
   if (limit) mQuery.limit(limit);
   if (sort) mQuery.sort(sort);
 
