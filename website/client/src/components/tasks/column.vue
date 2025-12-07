@@ -43,7 +43,10 @@
             class="filter small-text scheduled-dropdown"
             :class="{active: activeFilter.label === 'scheduled'}"
           >
-            <span @click="toggleScheduledDropdown">
+            <span
+              class="scheduled-dropdown-toggle"
+              @click="toggleScheduledDropdown"
+            >
               {{ $t('scheduled') + ': ' + $t(scheduledSubfilter) }}
             </span>
             <div
@@ -331,8 +334,29 @@
   .scheduled-dropdown {
     position: relative;
 
-    span {
+    .scheduled-dropdown-toggle {
       cursor: pointer;
+      display: inline-block;
+      padding-right: 14px;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 5px solid $gray-100;
+        transition: border-top-color 0.2s ease;
+      }
+    }
+
+    &.active .scheduled-dropdown-toggle::after {
+      border-top-color: $purple-50;
     }
 
     .scheduled-dropdown-menu {
