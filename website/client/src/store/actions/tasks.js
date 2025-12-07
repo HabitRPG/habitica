@@ -7,10 +7,16 @@ import * as Analytics from '@/libs/analytics';
 import { CONSTANTS, getLocalSetting, setLocalSetting } from '@/libs/userlocalManager';
 
 export function fetchUserTasks (store, options = {}) {
+  // Add scheduledFilter status to URL
+  let url = '/api/v4/tasks/user';
+  if (options.scheduledFilter) {
+    url += `?scheduledFilter=${options.scheduledFilter}`;
+  }
+  
   return loadAsyncResource({
     store,
     path: 'tasks',
-    url: '/api/v4/tasks/user',
+    url,
     deserialize (response) {
       // Wait for the user to be loaded before deserializing
       // because user.tasksOrder is necessary
