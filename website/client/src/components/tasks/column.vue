@@ -63,13 +63,13 @@
                 class="dropdown-option"
                 @click="setScheduledSubfilter('week')"
               >
-                {{ $t('thisWeek') }}
+                {{ $t('week') }}
               </div>
               <div
                 class="dropdown-option"
                 @click="setScheduledSubfilter('month')"
               >
-                {{ $t('thisMonth') }}
+                {{ $t('month') }}
               </div>
               <div
                 class="dropdown-option"
@@ -778,13 +778,15 @@ export default {
         await this.createGroupTasks({ groupId: this.group.id, tasks });
         this.sync();
       } else {
-        await this.createTask(tasks);
-        // Refetch if on scheduled tab to apply the filter
+        // If on scheduled tab, refetch after creation to apply backend filter
         if (this.type === 'todo' && this.activeFilter.label === 'scheduled') {
+          await this.createTask(tasks);
           await this.$store.dispatch('tasks:fetchUserTasks', { 
             forceLoad: true,
             scheduledFilter: this.scheduledSubfilter,
           });
+        } else {
+          await this.createTask(tasks);
         }
       }
       this.$refs.quickAdd.blur();
