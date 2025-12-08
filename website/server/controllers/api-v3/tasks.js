@@ -357,7 +357,7 @@ api.createChallengeTasks = {
  *                                                            requested separately.
  *                                                            The "completedTodos" type returns
  *                                                            only the 30 most recently completed.
- * @apiParam (Query) [dueDate] type Optional date to use for computing the nextDue field
+ * @apiParam (Query) {Date} [dueDate] type Optional date to use for computing the nextDue field
  *                                  for each returned task.
  * @apiParam (Query) {String="all","today","week","month"} [scheduledFilter] Optional filter for
  *                                                            scheduled todos by date range.

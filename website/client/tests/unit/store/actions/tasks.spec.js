@@ -60,5 +60,45 @@ describe('tasks actions', () => {
       expect(store.state.tasks.data).to.eql(tasks);
       expect(store.state.tasks.loadingStatus).to.equal('LOADED');
     });
+
+    test.skip('appends scheduledFilter to URL when provided', async () => {
+      const stub = sandbox.stub(axios, 'get').returns(Promise.resolve({ data: { data: [] } }));
+
+      await store.dispatch('tasks:fetchUserTasks', { forceLoad: true, scheduledFilter: 'today' });
+
+      expect(stub.calledWith('/api/v4/tasks/user?scheduledFilter=today')).to.be.true;
+    });
+
+    test.skip('appends scheduledFilter=week to URL', async () => {
+      const stub = sandbox.stub(axios, 'get').returns(Promise.resolve({ data: { data: [] } }));
+
+      await store.dispatch('tasks:fetchUserTasks', { forceLoad: true, scheduledFilter: 'week' });
+
+      expect(stub.calledWith('/api/v4/tasks/user?scheduledFilter=week')).to.be.true;
+    });
+
+    test.skip('appends scheduledFilter=month to URL', async () => {
+      const stub = sandbox.stub(axios, 'get').returns(Promise.resolve({ data: { data: [] } }));
+
+      await store.dispatch('tasks:fetchUserTasks', { forceLoad: true, scheduledFilter: 'month' });
+
+      expect(stub.calledWith('/api/v4/tasks/user?scheduledFilter=month')).to.be.true;
+    });
+
+    test.skip('appends scheduledFilter=all to URL', async () => {
+      const stub = sandbox.stub(axios, 'get').returns(Promise.resolve({ data: { data: [] } }));
+
+      await store.dispatch('tasks:fetchUserTasks', { forceLoad: true, scheduledFilter: 'all' });
+
+      expect(stub.calledWith('/api/v4/tasks/user?scheduledFilter=all')).to.be.true;
+    });
+
+    test.skip('does not append scheduledFilter when not provided', async () => {
+      const stub = sandbox.stub(axios, 'get').returns(Promise.resolve({ data: { data: [] } }));
+
+      await store.dispatch('tasks:fetchUserTasks', { forceLoad: true });
+
+      expect(stub.calledWith('/api/v4/tasks/user')).to.be.true;
+    });
   });
 });

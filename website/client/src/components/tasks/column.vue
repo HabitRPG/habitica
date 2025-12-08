@@ -625,6 +625,16 @@ export default {
       this.loadCompletedTodos();
     });
     this.handleExternalLinks();
+
+    // Add click-outside handler for scheduled dropdown
+    this.handleClickOutside = event => {
+      if (!this.scheduledDropdownOpen) return;
+      const dropdown = this.$el.querySelector('.scheduled-dropdown');
+      if (dropdown && !dropdown.contains(event.target)) {
+        this.scheduledDropdownOpen = false;
+      }
+    };
+    document.addEventListener('click', this.handleClickOutside);
   },
   updated () {
     this.handleExternalLinks();
@@ -633,6 +643,11 @@ export default {
     this.$root.$off('buyModal::boughtItem');
     if (this.type !== 'todo') return;
     this.$root.$off(EVENTS.RESYNC_COMPLETED);
+    
+    // Remove click-outside handler
+    if (this.handleClickOutside) {
+      document.removeEventListener('click', this.handleClickOutside);
+    }
   },
   methods: {
     ...mapActions({

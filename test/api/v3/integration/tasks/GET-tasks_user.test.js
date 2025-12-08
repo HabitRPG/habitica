@@ -204,4 +204,105 @@ describe('GET /tasks/user', () => {
     const dailys2 = await user.get(`/tasks/user?type=dailys&dueDate=${yesterday}`);
     expect(dailys2[0].isDue).to.be.false;
   });
+
+  context('scheduledFilter parameter', () => {
+    it('returns only today\'s todos when scheduledFilter=today', async () => {
+      const today = moment().startOf('day').toDate();
+      const tomorrow = moment().startOf('day').add(1, 'days').toDate();
+      const nextWeek = moment().startOf('day').add(8, 'days').toDate();
+
+      await user.post('/tasks/user', [
+        { text: 'todo due today', type: 'todo', date: today },
+        { text: 'todo due tomorrow', type: 'todo', date: tomorrow },
+        { text: 'todo due next week', type: 'todo', date: nextWeek },
+        { text: 'todo with no date', type: 'todo' },
+      ]);
+
+      const todos = await user.get('/tasks/user?type=todos&scheduledFilter=today');
+      const todayTodos = todos.filter(t => t.text.includes('todo due'));
+      
+      expect(todayTodos.length).to.equal(1);
+      expect(todayTodos[0].text).to.equal('todo due today');
+    });
+
+    it('returns this week\'s todos when scheduledFilter=week', async () => {
+      const today = moment().startOf('day').toDate();
+      const inThreeDays = moment().startOf('day').add(3, 'days').toDate();
+      const nextWeek = moment().startOf('day').add(8, 'days').toDate();
+
+      await user.post('/tasks/user', [
+        { text: 'todo due today', type: 'todo', date: today },
+        { text: 'todo due in 3 days', type: 'todo', date: inThreeDays },
+        { text: 'todo due next week', type: 'todo', date: nextWeek },
+        { text: 'todo with no date', type: 'todo' },
+      ]);
+
+      const todos = await user.get('/tasks/user?type=todos&scheduledFilter=week');
+      const weekTodos = todos.filter(t => t.text.includes('todo due'));
+      
+      expect(weekTodos.length).to.equal(2);
+      expect(weekTodos.some(t => t.text === 'todo due today')).to.be.true;
+      expect(weekTodos.some(t => t.text === 'todo due in 3 days')).to.be.true;
+    });
+
+    it('returns this month\'s todos when scheduledFilter=month', async () => {
+      const today = moment().startOf('day').toDate();
+      const inTwoWeeks = moment().startOf('day').add(14, 'days').toDate();
+      const nextMonth = moment().startOf('day').add(35, 'days').toDate();
+
+      await user.post('/tasks/user', [
+        { text: 'todo due today', type: 'todo', date: today },
+        { text: 'todo due in 2 weeks', type: 'todo', date: inTwoWeeks },
+        { text: 'todo due next month', type: 'todo', date: nextMonth },
+        { text: 'todo with no date', type: 'todo' },
+      ]);
+
+      const todos = await user.get('/tasks/user?type=todos&scheduledFilter=month');
+      const monthTodos = todos.filter(t => t.text.includes('todo due'));
+      
+      expect(monthTodos.length).to.equal(2);
+      expect(monthTodos.some(t => t.text === 'todo due today')).to.be.true;
+      expect(monthTodos.some(t => t.text === 'todo due in 2 weeks')).to.be.true;
+    });
+
+    it('returns all dated todos when scheduledFilter=all', async () => {
+      const today = moment().startOf('day').toDate();
+      const nextWeek = moment().startOf('day').add(8, 'days').toDate();
+      const nextMonth = moment().startOf('day').add(35, 'days').toDate();
+
+      await user.post('/tasks/user', [
+        { text: 'todo due today', type: 'todo', date: today },
+        { text: 'todo due next week', type: 'todo', date: nextWeek },
+        { text: 'todo due next month', type: 'todo', date: nextMonth },
+        { text: 'todo with no date', type: 'todo' },
+      ]);
+
+      const todos = await user.get('/tasks/user?type=todos&scheduledFilter=all');
+      const allDatedTodos = todos.filter(t => t.text.includes('todo due'));
+      
+      expect(allDatedTodos.length).to.equal(3);
+    });
+
+    it('excludes todos with no date regardless of filter', async () => {
+      const today = moment().startOf('day').toDate();
+
+      await user.post('/tasks/user', [
+        { text: 'todo due today', type: 'todo', date: today },
+        { text: 'todo with no date 1', type: 'todo' },
+        { text: 'todo with no date 2', type: 'todo' },
+      ]);
+
+      const todayTodos = await user.get('/tasks/user?type=todos&scheduledFilter=today');
+      const weekTodos = await user.get('/tasks/user?type=todos&scheduledFilter=week');
+      const monthTodos = await user.get('/tasks/user?type=todos&scheduledFilter=month');
+      const allTodos = await user.get('/tasks/user?type=todos&scheduledFilter=all');
+
+      const hasUndatedTodo = list => list.some(t => t.text.includes('no date'));
+      
+      expect(hasUndatedTodo(todayTodos)).to.be.false;
+      expect(hasUndatedTodo(weekTodos)).to.be.false;
+      expect(hasUndatedTodo(monthTodos)).to.be.false;
+      expect(hasUndatedTodo(allTodos)).to.be.false;
+    });
+  });
 });
