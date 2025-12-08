@@ -221,9 +221,10 @@ async function getTasks (req, res, options = {}) {
         queryObj.date = {
           $gte: startDate,
           $lte: endDate,
-          $exists: true,
         };
       }
+    } else if (scheduledFilter === 'all') {
+      queryObj.date = { $exists: true };
     }
   };
 

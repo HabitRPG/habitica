@@ -829,6 +829,14 @@ export default {
         const propertyToUpdate = `preferences.tasks.activeFilter.${type}`;
         this.$store.dispatch('user:set', { [propertyToUpdate]: filter });
       }
+      // If the scheduled filter is activated for todos, fetch scheduled tasks
+      if (type === 'todo' && filter === 'scheduled') {
+        const scheduledFilter = this.scheduledSubfilter || 'all';
+        this.$store.dispatch('tasks:fetchUserTasks', {
+          forceLoad: true,
+          scheduledFilter,
+        });
+      }
     },
     toggleScheduledDropdown () {
       this.scheduledDropdownOpen = !this.scheduledDropdownOpen;
