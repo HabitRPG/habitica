@@ -266,7 +266,7 @@ async function getTasks (req, res, options = {}) {
     applyScheduledFilter(todoQuery);
     
     query.$and = [{
-      $or: [ // Exclude todos that are completed / outside of range
+      $or: [ // Exclude todos that are completed (with optional date filtering)
         todoQuery,
         { type: { $in: ['habit', 'daily', 'reward'] } },
       ],
