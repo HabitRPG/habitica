@@ -58,8 +58,6 @@
   "complete": "Done",
   "complete2": "Complete",
   "today": "Today",
-  "thisWeek": "This Week",
-  "thisMonth": "This Month",
   "tomorrow": "Tomorrow",
   "dueIn": "Due <%= dueIn %>",
   "due": "Due",
