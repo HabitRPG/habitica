@@ -1116,6 +1116,119 @@ describe('shouldDo', () => {
         });
       });
     });
+
+    context('nextDue with correct week index', () => {
+      beforeEach(() => {
+        options.nextDue = true;
+        dailyTask.repeat = {
+          su: false,
+          s: false,
+          f: false,
+          th: false,
+          w: false,
+          t: false,
+          m: false,
+        };
+        dailyTask.everyX = 1;
+        dailyTask.frequency = 'monthly';
+      });
+
+      it('returns correct next due dates for 1st Monday of month', () => {
+        // January 2, 2017 is the 1st Monday (week index 0)
+        const startDate = moment('2017-01-02');
+        dailyTask.startDate = startDate.toDate();
+        dailyTask.weeksOfMonth = [0]; // 0-indexed: 1st week
+        dailyTask.repeat.m = true;
+        day = startDate.toDate();
+
+        const nextDueDates = shouldDo(day, dailyTask, options);
+
+        expect(nextDueDates.length).to.be.greaterThan(0);
+        // February 6, 2017 is the 1st Monday
+        expect(moment(nextDueDates[0]).date()).to.equal(6);
+        expect(moment(nextDueDates[0]).month()).to.equal(1); // February
+        // March 6, 2017 is the 1st Monday
+        expect(moment(nextDueDates[1]).date()).to.equal(6);
+        expect(moment(nextDueDates[1]).month()).to.equal(2); // March
+      });
+
+      it('returns correct next due dates for 4th Monday of month', () => {
+        // January 23, 2017 is the 4th Monday (week index 3)
+        const startDate = moment('2017-01-23');
+        dailyTask.startDate = startDate.toDate();
+        dailyTask.weeksOfMonth = [3]; // 0-indexed: 4th week
+        dailyTask.repeat.m = true;
+        day = startDate.toDate();
+
+        const nextDueDates = shouldDo(day, dailyTask, options);
+
+        expect(nextDueDates.length).to.be.greaterThan(0);
+        // February 27, 2017 is the 4th Monday
+        expect(moment(nextDueDates[0]).date()).to.equal(27);
+        expect(moment(nextDueDates[0]).month()).to.equal(1); // February
+        // March 27, 2017 is the 4th Monday
+        expect(moment(nextDueDates[1]).date()).to.equal(27);
+        expect(moment(nextDueDates[1]).month()).to.equal(2); // March
+      });
+
+      it('returns correct next due dates for 2nd Friday of month', () => {
+        // January 13, 2017 is the 2nd Friday (week index 1)
+        const startDate = moment('2017-01-13');
+        dailyTask.startDate = startDate.toDate();
+        dailyTask.weeksOfMonth = [1]; // 0-indexed: 2nd week
+        dailyTask.repeat.f = true;
+        day = startDate.toDate();
+
+        const nextDueDates = shouldDo(day, dailyTask, options);
+
+        expect(nextDueDates.length).to.be.greaterThan(0);
+        // February 10, 2017 is the 2nd Friday
+        expect(moment(nextDueDates[0]).date()).to.equal(10);
+        expect(moment(nextDueDates[0]).month()).to.equal(1); // February
+      });
+
+      it('returns correct next due dates for 3rd Thursday with everyX=2', () => {
+        // January 19, 2017 is the 3rd Thursday (week index 2)
+        const startDate = moment('2017-01-19');
+        dailyTask.startDate = startDate.toDate();
+        dailyTask.weeksOfMonth = [2]; // 0-indexed: 3rd week
+        dailyTask.repeat.th = true;
+        dailyTask.everyX = 2;
+        day = startDate.toDate();
+
+        const nextDueDates = shouldDo(day, dailyTask, options);
+
+        expect(nextDueDates.length).to.be.greaterThan(0);
+        // March 16, 2017 is the 3rd Thursday (2 months later)
+        expect(moment(nextDueDates[0]).date()).to.equal(16);
+        expect(moment(nextDueDates[0]).month()).to.equal(2); // March
+        // May 18, 2017 is the 3rd Thursday (4 months later)
+        expect(moment(nextDueDates[1]).date()).to.equal(18);
+        expect(moment(nextDueDates[1]).month()).to.equal(4); // May
+      });
+
+      it('returns correct next due dates for 5th Monday of month', () => {
+        // May 29, 2017 is a Monday in the 5th week (week index 4)
+        const startDate = moment('2017-05-29');
+        dailyTask.startDate = startDate.toDate();
+        dailyTask.weeksOfMonth = [4]; // 0-indexed: 5th week
+        dailyTask.repeat.m = true;
+        day = startDate.toDate();
+
+        const nextDueDates = shouldDo(day, dailyTask, options);
+
+        expect(nextDueDates.length).to.be.greaterThan(0);
+        // Verify all returned dates are Mondays
+        // Note: Not all months have a 5th Monday, so the algorithm correctly returns
+        // the last Monday in months that don't have a 5th occurrence
+        nextDueDates.forEach(dueDate => {
+          expect(moment(dueDate).day()).to.equal(1); // Monday
+          // Verify it's either the 5th Monday (week index 4) or the last Monday if 5th doesn't exist
+          const weekIndex = Math.ceil(moment(dueDate).date() / 7) - 1;
+          expect(weekIndex).to.be.gte(3); // At least 4th Monday, could be 5th
+        });
+      });
+    });
   });
 
   context('Every X Years', () => {
