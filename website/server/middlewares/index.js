@@ -70,13 +70,29 @@ export default function attachMiddlewares (app, server) {
     // New middlewares added by default in Helmet 4 are disabled
     contentSecurityPolicy: {
       directives: {
-        imgSrc: null,
+        defaultSrc: [
+          '*.habitica.com',
+          '*.amazon.com',
+          '*.amazonaws.com',
+          '*.loggly.com',
+          '*.payments-amazon.com',
+          '*.stripe.com',
+          '*.stripe.network',
+        ],
+        imgSrc: [
+          '*',
+          'data:',
+        ],
         scriptSrc: [
-          '\'self\'',
-          'cloudfront.loggly.com',
-          'js.stripe.com',
-          'm.stripe.network',
-          'static-na.payments-amazon.com',
+          '\'unsafe-eval\'',
+          '\'unsafe-inline\'',
+          '*.habitica.com',
+          '*.amazon.com',
+          '*.amazonaws.com',
+          '*.loggly.com',
+          '*.payments-amazon.com',
+          '*.stripe.com',
+          '*.stripe.network',
         ],
         upgradeInsecureRequests: IS_PROD ? [] : null,
       },
