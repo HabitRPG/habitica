@@ -13,7 +13,7 @@ const api = {};
  * @apiName ReadNotification
  * @apiGroup Notification
  *
- * @apiParam (Path) {UUID} notificationId
+ * @apiParam (Path) {UUID} notificationId Required. ID of the notification to mark as read.
  *
  * @apiSuccess {Object} data user.notifications
  */
