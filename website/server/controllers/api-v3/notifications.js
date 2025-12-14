@@ -95,9 +95,9 @@ api.readNotifications = {
 
 /**
  * @api {post} /api/v3/notifications/:notificationId/see Mark one notification as seen
- * @apiDescription Mark a notification as seen.
- * Different from marking them as read in that the notification isn't
- * removed but the `seen` field is set to `true`.
+ * @apiDescription Marks a notification as seen without removing it.
+ * Unlike "read" notifications, seen notifications remain in the user's
+ * notification list with the `seen` field set to true.
  * @apiName SeeNotification
  * @apiGroup Notification
  *
@@ -105,6 +105,7 @@ api.readNotifications = {
  *
  * @apiSuccess {Object} data The modified notification
  */
+
 api.seeNotification = {
   method: 'POST',
   url: '/notifications/:notificationId/see',
