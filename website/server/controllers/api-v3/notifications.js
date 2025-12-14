@@ -55,7 +55,7 @@ api.readNotification = {
  * @apiName ReadNotifications
  * @apiGroup Notification
  *
- * @apiSuccess {Object} data user.notifications
+ * @apiSuccess {Object[]} data Array of remaining user notifications
  */
 api.readNotifications = {
   method: 'POST',
