@@ -5,7 +5,7 @@ networks:
 services:
   mongodb:
     image: "mongo:7.0"
-    container_name: "habitica-mongodb-test"
+    container_name: "habitica-mongodb-only"
     networks:
       - mongodb-network
     hostname: "mongodb"
@@ -13,7 +13,7 @@ services:
       - "27017:27017"
     restart: "unless-stopped"
     volumes:
-      - "./mongodb-data-docker-testing:/data/db"
+      - "./mongodb-data-docker:/data/db"
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs" ]
     healthcheck:
       test: echo "try { rs.status() } catch (err) { rs.initiate() }" | mongosh --port 27017 --quiet

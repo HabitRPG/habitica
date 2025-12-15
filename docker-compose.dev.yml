@@ -34,9 +34,17 @@ services:
       - .:/usr/src/habitica
       - /usr/src/habitica/node_modules
   mongo:
-    image: mongo:7.0
-    restart: unless-stopped
-    command: ["--replSet", "rs", "--bind_ip_all", "--port", "27017"]
+    image: "mongo:7.0"
+    container_name: "habitica-mongodb"
+    networks:
+      - habitica
+    hostname: "mongodb"
+    ports:
+      - "27017:27017"
+    restart: "unless-stopped"
+    volumes:
+      - "./mongodb-data-docker:/data/db"
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs" ]
     healthcheck:
       test: echo "try { rs.status() } catch (err) { rs.initiate() }" | mongosh --port 27017 --quiet
       interval: 10s
@@ -44,10 +52,7 @@ services:
       start_period: 0s
       start_interval: 1s
       retries: 30
-    networks:
-      - habitica
-    ports:
-      - "27017:27017"
+
 networks:
   habitica:
     driver: bridge
