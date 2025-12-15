@@ -189,6 +189,7 @@
             >
             </p>
             <div
+              v-if="paymentMethodLogo.icon"
               class="svg svg-icon mb-4"
               :class="paymentMethodLogo.class"
               v-html="paymentMethodLogo.icon"
@@ -204,6 +205,13 @@
               >
                 <div>{{ $t('subUpdateCard') }}</div>
               </button>
+            </div>
+            <div
+              v-once
+              v-if="!hasGroupPlan"
+              class="small text-center mb-4"
+            >
+              {{ $t('subscriptionBillingFYIShort') }}
             </div>
             <div
               v-if="purchasedPlanExtraMonthsDetails.months > 0"
@@ -409,6 +417,7 @@
       <div class="d-flex flex-column align-items-center mt-3">
         <div
           v-once
+          v-if="!hasSubscription"
           class="small gray-100 w-50 text-center mb-5"
         >
           {{ $t('subscriptionBillingFYI') }}

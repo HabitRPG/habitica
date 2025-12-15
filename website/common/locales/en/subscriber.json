@@ -273,5 +273,6 @@
     "earn2GemsGift": "They'll earn <strong>+2 Gems</strong> every month they're subscribed",
     "maxGemCapGift": "They'll have the max <strong>Gem Cap</strong>",
     "subscribeAgainContinueHourglasses": "Subscribe again to continue receiving Mystic Hourglasses",
-    "subscriptionBillingFYI": "Subscriptions automatically renew unless you cancel at least 24 hours before the end of the current period. You can manage your subscription from the Subscription tab in settings. Your account will be charged within 24 hours of your renewal date, at the same price you initially paid."
+    "subscriptionBillingFYI": "Subscriptions automatically renew unless you cancel at least 24 hours before the end of the current period. You can manage your subscription from the Subscription tab in settings. Your account will be charged within 24 hours of your renewal date, at the same price you initially paid.",
+    "subscriptionBillingFYIShort": "Subscriptions automatically renew unless you cancel at least 24 hours before the end of the current period. Your account will be charged within 24 hours of your renewal date, at the same price you initially paid."
 }
