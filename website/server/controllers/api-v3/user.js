@@ -23,6 +23,7 @@ import {
   getUserInfo,
   sendTxn,
 } from '../../libs/email';
+import sendJob from '../../libs/worker';
 import * as inboxLib from '../../libs/inbox';
 import * as userLib from '../../libs/user';
 import { model as UserHistory } from '../../models/userHistory';
@@ -299,21 +300,6 @@ api.deleteUser = {
       throw new NotAuthorized(res.t('cannotDeleteActiveAccount'));
     }
 
-    const types = ['party', 'guilds'];
-    const groupFields = basicGroupFields.concat(' leader memberCount purchased');
-
-    const groupsUserIsMemberOf = await Group.getGroups({ user, types, groupFields });
-
-    const groupLeavePromises = groupsUserIsMemberOf.map(group => group.leave(user, 'remove-all'));
-
-    await Promise.all(groupLeavePromises);
-
-    await Tasks.Task.deleteMany({
-      userId: user._id,
-    }).exec();
-
-    await user.deleteOne();
-
     if (feedback) {
       sendTxn({ email: TECH_ASSISTANCE_EMAIL }, 'admin-feedback', [
         { name: 'PROFILE_NAME', content: user.profile.name },
@@ -325,11 +311,12 @@ api.deleteUser = {
       ]);
     }
 
-    res.analytics.track('account delete', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
+    sendJob('delete-user', {
+      data: {
+        userId: user._id,
+        deleteAccount: true,
+        deleteAmplitude: true,
+      },
     });
 
     res.respond(200, {});
