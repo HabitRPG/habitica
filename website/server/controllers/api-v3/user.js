@@ -300,6 +300,15 @@ api.deleteUser = {
       throw new NotAuthorized(res.t('cannotDeleteActiveAccount'));
     }
 
+    const types = ['party', 'guilds'];
+    const groupFields = basicGroupFields.concat(' leader memberCount purchased');
+
+    const groupsUserIsMemberOf = await Group.getGroups({ user, types, groupFields });
+
+    const groupLeavePromises = groupsUserIsMemberOf.map(group => group.leave(user, 'remove-all'));
+
+    await Promise.all(groupLeavePromises);
+
     if (feedback) {
       sendTxn({ email: TECH_ASSISTANCE_EMAIL }, 'admin-feedback', [
         { name: 'PROFILE_NAME', content: user.profile.name },
