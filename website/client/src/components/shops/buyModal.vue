@@ -893,8 +893,8 @@ export default {
     purchaseGems () {
       this.$root.$emit('bv::show::modal', 'buy-gems');
     },
-    togglePinned () {
-      this.isPinned = this.$store.dispatch('user:togglePinnedItem', { type: this.item.pinType, path: this.item.path });
+    async togglePinned () {
+      this.isPinned = await this.$store.dispatch('user:togglePinnedItem', { type: this.item.pinType, path: this.item.path });
 
       if (!this.isPinned) {
         this.text(this.$t('unpinnedItem', { item: this.item.text }));
