@@ -104,7 +104,6 @@
     "client:build": "cd website/client && npm run build",
     "client:unit": "cd website/client && npm run test:unit",
     "start": "node --watch ./website/server/index.js",
-    "start:simple": "node ./website/server/index.js",
     "debug": "node --watch --inspect ./website/server/index.js",
     "docker:aio": "docker compose -f docker-compose.yml up",
     "docker:mongo:dev": "docker compose -f docker-compose.mongo-only.yml up",
