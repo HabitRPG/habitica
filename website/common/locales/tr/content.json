@@ -179,8 +179,8 @@
     "questEggAlligatorText": "Timsah",
     "questEggAlligatorMountText": "Timsah",
     "questEggAlligatorAdjective": "cingöz bir",
-    "questEggVelociraptorText": "Velociraptor",
-    "questEggVelociraptorMountText": "Velociraptor",
+    "questEggVelociraptorText": "Velosiraptor",
+    "questEggVelociraptorMountText": "Velosiraptor",
     "questEggVelociraptorAdjective": "Zeki",
     "eggNotes": "Bir kuluçka iksiri bulup bu yumurtanın üzerine döktüğünde yumurtadan <%= eggAdjective(locale) %> <%= eggText(locale) %> çıkacak.",
     "hatchingPotionBase": "Sıradan",
@@ -399,5 +399,16 @@
     "questEggOtterMountText": "Su samuru",
     "questEggOtterAdjective": "hain",
     "hatchingPotionJade": "Yeşim taşı",
-    "questEggOtterText": "Su samuru"
+    "questEggOtterText": "Su samuru",
+    "questEggAlpacaText": "Alpaka",
+    "questEggAlpacaMountText": "Alpaka",
+    "questEggAlpacaAdjective": "aşırı dolu",
+    "hatchingPotionBalloon": "Balon",
+    "hatchingPotionCryptid": "Kriptozit",
+    "wackyPotionNotes": "Bunu bir yumurtanın üstüne dök, bir Çılgın <%= potText(locale) %> olarak yumurtadan çıkacak.",
+    "wackyPotionAddlNotes": "Bineklere yükseltilemez veya Görev Evcil Hayvanı yumurtalarında kullanılamaz.",
+    "questEggPlatypusText": "Ornitorenk",
+    "questEggPlatypusMountText": "Ornitorenk",
+    "questEggPlatypusAdjective": "bir mükemmeliyetçi",
+    "hatchingPotionOpal": "Opal"
 }

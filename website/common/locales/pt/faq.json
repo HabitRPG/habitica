@@ -15,10 +15,10 @@
     "faqQuestion29": "Como eu recupero vida(HP)?",
     "webFaqAnswer29": "Você pode recuperar 15 HP comprando uma \"Poção de Saúde\" na sua coluna \"Recompensas\" por 25 Ouro. Além disso, você sempre recuperará toda sua vida ao subir de nível!",
     "faqQuestion30": "O que acontece quando eu fico sem vida(HP)?",
-    "webFaqAnswer30": "Se o seu HP chegar a zero, você perderá um nível, todo o seu ouro e um equipamento que pode ser recomprado.",
+    "webFaqAnswer30": "If your HP reaches zero, you'll lose one level, that level's stat point, all of your Gold, and a piece of equipment that can be repurchased. You can rebuild by completing tasks and leveling up again.",
     "faqQuestion31": "Por que perdi vida(HP) ao interagir com uma tarefa não negativa?",
     "webFaqAnswer31": "Se você concluir uma tarefa e perder HP quando não deveria, você encontrará um atraso enquanto o servidor sincroniza as alterações feitas em outras plataformas. Por exemplo, se você usar Ouro, Mana ou perder HP no aplicativo móvel e depois concluir uma tarefa no site, o servidor simplesmente confirmará que tudo está sincronizado.",
-    "faqQuestion32": "Quando posso escolher uma classe?",
+    "faqQuestion32": "Como posso escolher uma classe?",
     "webFaqAnswer32": "Existem quatro classes no Habitica: Guerreiro, Mago, Ladino e Curandeiro. Todos os jogadores começam na classe Guerreiro até atingirem o nível 10. Ao atingir o nível 10, você terá a escolha entre selecionar uma nova classe ou continuar como Guerreiro.\n\nCada classe possui equipamentos e habilidades diferentes. Se não quiser escolher uma classe, você pode selecionar \"Cancelar\". Se você optar por não participar, poderá ativar o Sistema de Classes em Configurações mais tarde.",
     "faqQuestion33": "O que é a barra azul que aparece após o nível 10?",
     "webFaqAnswer33": "Depois de desbloquear o sistema de classes, você também desbloqueia habilidades que exigem \"Mana\" para serem conjuradas. Mana é determinada pela sua estatística de INT e pode ser ajustada por \"Habilidades\" e \"Equipamentos\".",
@@ -92,5 +92,10 @@
     "faqQuestion66": "Qual é a diferença entre as tarefas partilhadas do Plano de Grupo e as do Desafio?",
     "sunsetFaqPara1": "Devido a vários fatores, incluindo mudanças em como a nossa base de jogadores interage com Habitica e novos regulamentos de conteúdo, estamos a tomar a difícil decisão de descontinuar os serviços da Taverna e da Guilda no dia <strong>8 de agosto, 2033</strong>.",
     "faqQuestion58": "Como eu filtro a lista e membros que estão procurando por um Grupo?",
-    "webFaqAnswer56": "Para cancelar um convite pendente em dispositivos móveis:\n1. Quando estiver vendo seu Grupo, desça até o final da lista de membros\n2. Encontre o jogador cujo convite você queira cancelar e selecione o botão \"Cancelar convite\".\n\nPara cancelar um convite pendente no site:\n1. Vá para a lista de membros do Grupo e mude para a aba de \"Convites\"\n2. Passe o mouse sobre o jogador que deseja cancelar o convite\n3. Clique nos três pontos e escolha \"Cancelar convite\""
+    "webFaqAnswer56": "Para cancelar um convite pendente em dispositivos móveis:\n1. Quando estiver vendo seu Grupo, desça até o final da lista de membros\n2. Encontre o jogador cujo convite você queira cancelar e selecione o botão \"Cancelar convite\".\n\nPara cancelar um convite pendente no site:\n1. Vá para a lista de membros do Grupo e mude para a aba de \"Convites\"\n2. Passe o mouse sobre o jogador que deseja cancelar o convite\n3. Clique nos três pontos e escolha \"Cancelar convite\"",
+    "faqQuestion67": "Quais são as classes em Habitica?",
+    "faqQuestion68": "Como posso evitar perder HP?",
+    "faqQuestion61": "Os outros membros do Plano de Grupo podem criar tarefas?",
+    "faqQuestion65": "Os planos de grupo são suportados nos aplicativos móveis?",
+    "sunsetFaqPara6": "O serviço para a Tabernas, bem como guildas públicas e privadas, será encerrado e esses espaços serão removidos do Habitica em <strong>8 de Agosto de 2023</strong>."
 }

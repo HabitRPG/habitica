@@ -672,7 +672,7 @@ export default {
 
       this.login();
     },
-    async forgotPasswordLink () {
+    forgotPasswordLink: debounce(async function forgotPassLink () {
       if (!this.username) {
         window.alert(this.$t('missingEmail')); // eslint-disable-line no-alert
         return;
@@ -683,7 +683,7 @@ export default {
       });
 
       window.alert(this.$t('newPassSent')); // eslint-disable-line no-alert
-    },
+    }, 500),
     async resetPasswordSetNewOneLink () {
       if (!this.password) {
         window.alert(this.$t('missingNewPassword')); // eslint-disable-line no-alert

@@ -426,5 +426,7 @@
     "groupFriends": "Utilisation avec des ami·e·s",
     "groupTeacher": "Utilisation pour les études",
     "groupManager": "Utilisation pour le travail",
-    "groupParentChildren": "Utilisation dans mon foyer"
+    "groupParentChildren": "Utilisation dans mon foyer",
+    "groupPlanBillingFYI": "Les abonnements à l'Offre de Groupe se renouvellent automatiquement, à moins que vous ne résiliiez au moins 24 heures avant l'échéance de la période en cours. Vous pouvez résilier depuis l'onglet Facturation de votre Offre de Groupe. Un prélèvement aura lieu 24 heures avant le renouvellement de votre abonnement, en fonction du nombre de membres présent·e·s dans votre Offre de Groupe au moment de la facturation. Si vous ajoutez de nouve·aux·lles membres pendant la période de facturation, vous recevrez des frais proratisés lors des prochains paiements.",
+    "groupPlanBillingFYIShort": "Les abonnements à l'Offre de Groupe se renouvellent automatiquement, à moins que vous ne résiliiez au moins 24 heures avant l'échéance de la période en cours. Un prélèvement aura lieu 24 heures avant le renouvellement de votre abonnement, en fonction du nombre de membres présent·e·s dans votre Offre de Groupe au moment de la facturation. Si vous ajoutez de nouve·aux·lles membres pendant la période de facturation, vous recevrez des frais proratisés lors des prochains paiements."
 }

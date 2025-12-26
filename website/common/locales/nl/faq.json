@@ -102,5 +102,17 @@
     "webFaqAnswer49": "Als je Habitica samen met anderen wilt beleven maar geen andere spelers kent, is het zoeken naar een groep je beste optie! Als je al andere spelers kent die in een groep zitten, kun je je @gebruikersnaam met hen delen om uitgenodigd te worden. Je kunt ook een nieuwe groep maken en hen uitnodigen met hun @gebruikersnaam of e-mailadres.\n\nOm een groep te maken of te zoeken, selecteer je “Groep” in het navigatiemenu en kies je vervolgens de optie die voor jou werkt.",
     "faqQuestion50": "Hoe werkt het zoeken naar een groep?",
     "webFaqAnswer50": "Nadat je “Zoek naar een groep” hebt geselecteerd, word je toegevoegd aan een lijst met spelers die zich bij een groep willen aansluiten. Groepsleiders kunnen deze lijst bekijken en uitnodigingen versturen. Zodra je een uitnodiging ontvangt, kun je deze via je meldingen accepteren om lid te worden van de groep van jouw keuze!\n\nJe kunt meerdere uitnodigingen voor verschillende groepen krijgen. Je kunt echter maar lid zijn van één groep tegelijk.",
-    "faqQuestion51": "Hoe lang kan ik naar een groep zoeken nadat ik me op de lijst heb gezet?"
+    "faqQuestion51": "Hoe lang kan ik naar een groep zoeken nadat ik me op de lijst heb gezet?",
+    "webFaqAnswer51": "Je zal in de lijst blijven tot je een uitnodiging voor een gezelschap accepteert of niet inlogt voor 7 dagen, welke dan ook eerst komt. Als je terug inlogt na 7 dagen inactief te zijn zullen we je automatisch weer aan de lijst toevoegen zolang je geen lopende uitnodiging hebt.",
+    "faqQuestion52": "Kan ik stoppen met zoeken naar een gezelschap?",
+    "webFaqAnswer52": "Als je geen groep meer wilt vinden, kan je op elk moment stoppen met zoeken.\n\nOm te stoppen met zoeken naar een groep op de mobiele apps:\n*In het menu, selecteer \"Groep\" en tik op \"verlaat\" aan de onderkant van het scherm.\n\nOm te stoppen met zoeken naar een groep op Habitica's website:\n*Selecteer \"Groep\" in de navigatie en tik op \"verlaat\" in de pop-up.",
+    "faqQuestion53": "Ik heb een groep, hoe vind ik meer leden?",
+    "faqQuestion54": "Hoe veel leden kan ik uitnodigen voor mijn groep?",
+    "faqQuestion55": "Kan ik iemand uitnodigen die ik al ken?",
+    "faqQuestion56": "Hoe annuleer ik een openstaande uitnodiging voor mijn groep?",
+    "faqQuestion57": "Hoe stop ik ongewenste uitnodigingen?",
+    "faqQuestion58": "Hoe filter ik de lijst van leden die zoeken naar een groep?",
+    "webFaqAnswer58": "Op dit moment is er nog geen manier om de lijst van leden die zoeken naar een groep te filteren. We hebben echter wel plannen om filters te introduceren in de toekomst, zoals klasse, niveau en taal.",
+    "groupPlan": "Groepsabbonementen",
+    "faqQuestion59": "Wat is een Groepsplan?"
 }

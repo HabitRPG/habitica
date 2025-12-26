@@ -491,6 +491,9 @@ export default {
   },
   methods: {
     mapProfileLinksToModal () {
+      if (!this.$refs?.markdownContainer) {
+        return;
+      }
       const links = this.$refs.markdownContainer.getElementsByTagName('a');
       for (let i = 0; i < links.length; i += 1) {
         let link = links[i].pathname;

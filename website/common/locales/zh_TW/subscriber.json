@@ -21,7 +21,7 @@
     "subGemName": "訂閱者寶石",
     "maxBuyGems": "你已掃光這個月能得到的所有寶石。寶石將在每個月開始的三天內進貨。感謝訂閱！",
     "timeTravelers": "時空旅行者",
-    "timeTravelersPopoverNoSubMobile": "訂閱者每月會收到一個神秘沙漏來在時空穿越者的店舖裏使用！",
+    "timeTravelersPopoverNoSubMobile": "訂閱者每月會收到一個可用於時間旅行者商店的神秘沙漏！",
     "timeTravelersPopover": "你的神秘沙漏開啟了我們的時空傳送門！選擇你希望我們從過去或未來帶來之物吧。",
     "mysterySetNotFound": "找不到神秘裝備，或是已經擁有。",
     "mysteryItemIsEmpty": "神秘裝備是空的",
@@ -243,9 +243,10 @@
     "oneMonthGift": "為期一個月",
     "nMonthsGift": "為期<%= months %>個月",
     "unlockNGemsGift": "每個月他們在市場將解鎖<strong><%= count %>寶石</strong>",
-    "unlockNGems": "每個月在市場解鎖 <strong><%= count %>寶石</strong>",
-    "earn2Gems": "每個月訂閱會得到<strong>+2寶石</strong>",
+    "unlockNGems": "在市場中每月可解鎖 <strong><%= count %> 顆寶石</strong>",
+    "earn2Gems": "訂閱期間每月可額外獲得<strong>+ 2 顆寶石</strong>",
     "monthlyGemsLabel": "每月寶石",
     "mysterySet202506": "陽光閃耀套裝",
-    "monthlyGems": "每月寶石:"
+    "monthlyGems": "每月寶石:",
+    "maxGemCap": "立即達到<strong>寶石解鎖上限</strong>"
 }

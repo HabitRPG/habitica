@@ -426,5 +426,7 @@
     "groupFriends": "Usándolo con amigos",
     "groupManager": "Usándolo para el trabajo",
     "groupTeacher": "Usándolo para dar clase",
-    "groupParentChildren": "Usándolo con mi familia"
+    "groupParentChildren": "Usándolo con mi familia",
+    "groupPlanBillingFYI": "Las suscripciones de Planes de Grupo se renuevan automáticamente a no ser que la canceles al menos 24 horas antes del fin del periodo en curso. Puedes cancelarla desde la pestaña Facturación de Grupo en tu Plan de Grupo. Se te cargará dentro de las 24 horas en las que renueva la suscripción y basado en el número de miembros de tu grupo en el Plan de Grupo en ese mismo momento. Si añades miembros entre períodos de pago, habrá un cargo adicional prorrateado por los beneficios obtenidos en tu siguiente ciclo de facturación.",
+    "groupPlanBillingFYIShort": "Las suscripciones de Plan de Grupo se renuevan automáticamente a no ser que se cancelen 24 horas antes del fin del periodo actual. Se te cargará dentro de las 24 horas antes de la renovación de la suscripción, basado en el número de miembros de tu Plan de Grupo en ese mismo momento. Si añades miembros entre períodos de pago, se te aplicará un pago adicional prorrateado por los beneficios obtenidos en tu siguiente ciclo de facturación."
 }

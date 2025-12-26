@@ -218,7 +218,7 @@
     "bannedPlayer": "Bu oyuncu banlandı.",
     "demo": "Demo",
     "reportDescriptionText": "Ekran görüntüleri veya Javascript konsol hatalarını ekleyin, eğer faydalıysa.",
-    "leaveHabiticaText": "Habitica, HabitRPG tarafından sahip olunmayan veya işletilmeyen herhangi bir bağlantılı web sitesinin içeriğinden sorumlu değildir.\n<br>Lütfen bu web sitelerinin uygulamalarının, Habitica’nın topluluk kurallarından farklılık gösterebileceğini unutmayın.",
+    "leaveHabiticaText": "Habitica, HabitRPG tarafından sahip olunmayan veya işletilmeyen herhangi bir bağlantılı web sitesinin içeriğinden sorumlu değildir. <br>Lütfen bu web sitelerinin uygulamalarının, Habitica’nın topluluk kurallarından farklılık gösterebileceğini unutmayın.",
     "reportDescription": "Açıklama",
     "reportBugHeaderDescribe": "Lütfen yaşadığınız hatayı açıklayın, ekibimiz size geri dönecektir.",
     "reportEmailText": "Bu yalnızca hata raporuyla ilgili olarak sizinle iletişime geçmek için kullanılacaktır.",
@@ -241,5 +241,6 @@
     "submitQuestion": "Soruyu Gönder",
     "newMessage": "Yeni Mesaj",
     "targetUserNotExist": "Hedef Kullanıcı: '<%= userName %>' mevcut değil.",
-    "rememberToBeKind": "Lütfen nazik, saygılı olun ve <a href='/static/community-guidelines' target='_blank'>Topluluk Kurallarına</a> uyun."
+    "rememberToBeKind": "Lütfen nazik, saygılı olun ve <a href='/static/community-guidelines' target='_blank'>Topluluk Kurallarına</a> uyun.",
+    "gem": "Mücevher"
 }

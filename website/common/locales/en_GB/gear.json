@@ -144,7 +144,7 @@
     "weaponSpecialFallMageText": "Magic Broom",
     "weaponSpecialFallMageNotes": "This enchanted broom flies faster than a dragon! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2014 Autumn Gear.",
     "weaponSpecialFallHealerText": "Scarab Wand",
-    "weaponSpecialFallHealerNotes": "The scarab on this wand protects and heals its wielder. Increases Intelligence by <%= int %>. Limited Edition 2014 Autumn Gear.",
+    "weaponSpecialFallHealerNotes": "The scarab on this wand protects and heals its wielder. Increases Intelligence by <%= int %>. Limited Edition Autumn Gear 2014.",
     "weaponSpecialWinter2015RogueText": "Ice Spike",
     "weaponSpecialWinter2015RogueNotes": "You truly, definitely, absolutely just picked these up off of the ground. Increases Strength by <%= str %>. Limited Edition 2014-2015 Winter Gear.",
     "weaponSpecialWinter2015WarriorText": "Gumdrop Sword",

@@ -11,12 +11,12 @@
     <privacy-banner
       class="privacy-banner"
     />
-    <div class="bg-purple-300 white">
+    <div class="bg-purple-300 white pt-5">
       <div>
         <div
           id="intro-signup"
         >
-          <div class="d-flex justify-content-center">
+          <div class="d-flex justify-content-center pb-5 mb-5">
             <div class="w-33 mr-5 mt-5">
               <img
                 src="@/assets/images/home/home-main@3x.png"

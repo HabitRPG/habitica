@@ -426,5 +426,7 @@
     "groupTeacher": "Nutzung in der Bildung",
     "groupParentChildren": "Nutzung mit der Familie",
     "groupManager": "Nutzung für die Arbeit",
-    "groupFriends": "Nutzung mit Freunden"
+    "groupFriends": "Nutzung mit Freunden",
+    "groupPlanBillingFYIShort": "Gruppenpläne verlängern sich automatisch, sofern du sie nicht mindestens 24 Stunden vor Ablauf des aktuellen Zeitraums kündigst. Die Abbuchung erfolgt innerhalb von 24 Stunden vor der Verlängerung deines Abos, basierend auf der Anzahl der Mitglieder in deinem Gruppenplan zu diesem Zeitpunkt. Wenn du zwischen den Abrechnungszeiträumen Mitglieder hinzufügst, wird dir deren Leistung anteilig in deinem nächsten Abrechnungszeitraum in Rechnung gestellt.",
+    "groupPlanBillingFYI": "Gruppenpläne verlängern sich automatisch, sofern du sie nicht mindestens 24 Stunden vor Ablauf des aktuellen Zeitraums kündigst. Die Kündigung kann über den Tab „Gruppen-Abrechnung“ deines Gruppenplans erfolgen. Die Abbuchung erfolgt innerhalb von 24 Stunden vor der Verlängerung deines Abos, basierend auf der Anzahl der Mitglieder in deinem Gruppenplan zu diesem Zeitpunkt. Wenn du zwischen den Abrechnungszeiträumen Mitglieder hinzufügst, wird dir deren Leistung anteilig in deinem nächsten Abrechnungszeitraum in Rechnung gestellt."
 }
