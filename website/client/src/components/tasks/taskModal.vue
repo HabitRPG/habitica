@@ -1,611 +1,611 @@
 <template>
   <b-modal
     id="task-modal"
-      :no-close-on-esc="true"
-      :no-close-on-backdrop="true"
-      size="sm"
-      :hide-footer="true"
-      @hidden="onClose()"
-      @show="syncTask()"
-      @shown="focusInput()"
+    :no-close-on-esc="true"
+    :no-close-on-backdrop="true"
+    size="sm"
+    :hide-footer="true"
+    @hidden="onClose()"
+    @show="syncTask()"
+    @shown="focusInput()"
+  >
+    <div
+      v-if="task"
+      slot="modal-header"
+      class="task-modal-header p-4"
+      :class="cssClass('bg')"
     >
-      <div
-        v-if="task"
-        slot="modal-header"
-        class="task-modal-header p-4"
-        :class="cssClass('bg')"
-      >
-        <div class="d-flex align-items-center mb-3">
-          <h2
-            class="my-auto"
-            :class="cssClass('headings')"
-          >
-            {{ title }}
-          </h2>
-          <div
-            class="ml-auto d-flex align-items-center"
-          >
-            <button
-              class="cancel-task-btn mr-3"
-              :class="cssClass('headings')"
-              type="button"
-              @click="cancel()"
-            >
-              {{ $t('cancel') }}
-            </button>
-            <button
-              class="btn btn-secondary d-flex align-items-center justify-content-center"
-              :class="{'btn-disabled': !canSave}"
-              type="button"
-              @click="submit()"
-            >
-              <div
-                v-if="purpose === 'edit'"
-                class="m-auto"
-              >
-                {{ $t('save') }}
-              </div>
-              <div
-                v-if="purpose === 'create'"
-                class="m-auto"
-              >
-                {{ $t('create') }}
-              </div>
-            </button>
-          </div>
-        </div>
-        <div class="form-group">
-          <lockable-label
-            :class-override="cssClass('headings')"
-            :locked="challengeAccessRequired"
-            :text="`${$t('text')}*`"
-          />
-          <input
-            ref="inputToFocus"
-            v-model="task.text"
-            class="form-control input-title"
-            :class="cssClass('input')"
-            type="text"
-            required="required"
-            spellcheck="true"
-            :disabled="challengeAccessRequired"
-            :placeholder="$t('addATitle')"
-          >
-        </div>
+      <div class="d-flex align-items-center mb-3">
+        <h2
+          class="my-auto"
+          :class="cssClass('headings')"
+        >
+          {{ title }}
+        </h2>
         <div
-          class="form-group mb-0"
+          class="ml-auto d-flex align-items-center"
         >
-          <div class="d-flex">
-            <lockable-label
-              class="mr-auto"
-              :class-override="cssClass('headings')"
-              :text="`${$t('notes')}`"
-            />
-            <small
-              class="my-1"
-            >
-              <a
-                target="_blank"
-                href="https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica"
-                :class="cssClass('headings')"
-              >{{ $t('markdownHelpLink') }}</a>
-            </small>
-          </div>
-          <textarea
-            v-model="task.notes"
-            class="form-control input-notes"
-            :class="cssClass('input')"
-            :placeholder="$t('addNotes')"
-          ></textarea>
-        </div>
-      </div>
-      <div
-        v-if="task"
-        class="task-modal-content px-4"
-        :class="cssClass('content')"
-      >
-        <form
-          @submit.stop.prevent="submit()"
-        >
-          <div
-            v-if="task.type === 'reward'"
-            class="option mt-3"
+          <button
+            class="cancel-task-btn mr-3"
+            :class="cssClass('headings')"
+            type="button"
+            @click="cancel()"
           >
-            <div class="form-group">
-              <label
-                v-once
-                class="mb-1"
-              >{{ $t('cost') }}</label>
-              <div class="input-group">
-                <div class="input-group-prepend input-group-icon align-items-center">
-                  <div
-                    class="svg-icon gold"
-                    v-html="icons.gold"
-                  ></div>
-                </div>
-                <input
-                  v-model="task.value"
-                  class="form-control"
-                  type="number"
-                  required="required"
-                  placeholder="Enter a Value"
-                  step="0.01"
-                  min="0"
-                >
-              </div>
-            </div>
-          </div>
-          <div
-            v-if="checklistEnabled"
-            class="option mt-3"
-          >
-            <checklist
-              :items.sync="task.checklist"
-            />
-          </div>
-          <div
-            v-if="task.type === 'habit'"
-            class="d-flex justify-content-center mt-3"
-          >
-            <button
-              type="button"
-              class="habit-option-container no-transition
-              d-flex flex-column justify-content-center align-items-center"
-              :class="!task.up ? cssClass('habit-control-disabled') : ''"
-              :disabled="challengeAccessRequired"
-              @click="toggleUpDirection()"
-            >
-              <div
-                class="habit-option-button no-transition
-                d-flex justify-content-center align-items-center mb-2"
-                :class="task.up ? cssClass('bg') : ''"
-              >
-                <div
-                  class="habit-option-icon svg-icon no-transition"
-                  :class="task.up ? '' : 'icon-disabled'"
-                  v-html="icons.positive"
-                ></div>
-              </div>
-              <div
-                class="habit-option-label no-transition"
-                :class="task.up ? cssClass('icon') : 'label-disabled'"
-              >
-                {{ $t('positive') }}
-              </div>
-            </button>
-            <button
-              type="button"
-              class="habit-option-container no-transition
-              d-flex flex-column justify-content-center align-items-center"
-              :class="!task.down ? cssClass('habit-control-disabled') : ''"
-              :disabled="challengeAccessRequired"
-              @click="toggleDownDirection()"
-            >
-              <div
-                class="habit-option-button no-transition
-                d-flex justify-content-center align-items-center mb-2"
-                :class="task.down ? cssClass('bg') : ''"
-              >
-                <div
-                  class="habit-option-icon no-transition svg-icon negative mx-auto"
-                  :class="task.down ? '' : 'icon-disabled'"
-                  v-html="icons.negative"
-                ></div>
-              </div>
-              <div
-                class="habit-option-label no-transition"
-                :class="task.down ? cssClass('icon') : 'label-disabled'"
-              >
-                {{ $t('negative') }}
-              </div>
-            </button>
-          </div>
-          <template
-            v-if="task.type !== 'reward'"
-          >
-            <div class="d-flex mt-3 align-items-center">
-              <lockable-label
-                :locked="challengeAccessRequired"
-                :text="$t('difficulty')"
-              />
-              <information-icon
-                tooltip-id="difficultyHelp"
-                :tooltip="$t('difficultyHelp')"
-              />
-            </div>
-            <select-difficulty
-              :value="task.priority"
-              :disabled="challengeAccessRequired"
-              @select="setDifficulty($event)"
-            />
-          </template>
-          <div
-            v-if="task.type === 'todo' && (!challengeAccessRequired || task.date)"
-            class="option mt-3"
-          >
-            <div class="form-group">
-              <lockable-label
-                :locked="challengeAccessRequired"
-                :text="$t('dueDate')"
-              />
-              <datepicker
-                :date.sync="task.date"
-                :disabled="challengeAccessRequired"
-                :highlighted="calendarHighlights"
-                :clear-button="true"
-              />
-            </div>
-          </div>
-          <div
-            v-if="task.type === 'daily'"
-            class="option mt-3"
-          >
-            <div class="form-group">
-              <lockable-label
-                :locked="challengeAccessRequired"
-                :text="$t('startDate')"
-              />
-              <datepicker
-                :date.sync="task.startDate"
-                :disabled="challengeAccessRequired"
-                :highlighted="calendarHighlights"
-              />
-            </div>
-          </div>
-          <div
-            v-if="task.type === 'daily'"
-            class="option mt-3"
-          >
-            <div class="form-group">
-              <lockable-label
-                :locked="challengeAccessRequired"
-                :text="$t('repeats')"
-              />
-              <select-translated-array
-                :disabled="challengeAccessRequired"
-                :items="['daily', 'weekly', 'monthly', 'yearly']"
-                :value="task.frequency"
-                @select="task.frequency = $event"
-              />
-            </div>
-          </div>
-          <div
-            v-if="task.type === 'daily'"
-            class="option mt-3"
-          >
-            <div class="form-group">
-              <lockable-label
-                :locked="challengeAccessRequired"
-                :text="$t('repeatEvery')"
-              />
-              <div
-                class="input-group-outer"
-                :class="{disabled: challengeAccessRequired}"
-              >
-                <div class="input-group">
-                  <input
-                    v-model="task.everyX"
-                    class="form-control"
-                    type="number"
-                    min="0"
-                    max="9999"
-                    required="required"
-                    :disabled="challengeAccessRequired"
-                  >
-                </div>
-                <div class="input-group-spaced input-group-text">
-                  {{ repeatSuffix }}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            v-if="task.type === 'daily' && task.frequency === 'weekly'"
-            class="option mt-3"
-          >
-            <div class="form-group">
-              <lockable-label
-                :locked="challengeAccessRequired"
-                :text="$t('repeatOn')"
-              />
-              <div class="toggle-group">
-                <toggle-checkbox
-                  v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']"
-                  :key="dayNumber"
-                  :tab-index="dayNumber"
-                  :checked.sync="task.repeat[day]"
-                  :disabled="challengeAccessRequired"
-                  :text="weekdaysMin(dayNumber)"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            v-if="task.type === 'daily' && task.frequency === 'monthly'"
-            class="option mt-3"
-          >
-            <label
-              v-once
-              class="d-block mb-1"
-            >{{ $t('repeatOn') }}</label>
-            <div class="form-radio">
-              <div class="custom-control custom-radio custom-control-inline">
-                <input
-                  id="repeat-dayOfMonth"
-                  v-model="repeatsOn"
-                  class="custom-control-input"
-                  type="radio"
-                  value="dayOfMonth"
-                  name="repeatsOn"
-                >
-                <label
-                  class="custom-control-label"
-                  for="repeat-dayOfMonth"
-                >{{ $t('dayOfMonth') }}</label>
-              </div>
-              <div class="custom-control custom-radio custom-control-inline">
-                <input
-                  id="repeat-dayOfWeek"
-                  v-model="repeatsOn"
-                  class="custom-control-input"
-                  type="radio"
-                  value="dayOfWeek"
-                  name="repeatsOn"
-                >
-                <label
-                  class="custom-control-label"
-                  for="repeat-dayOfWeek"
-                >{{ $t('dayOfWeek') }}</label>
-              </div>
-            </div>
-          </div>
-          <div
-            v-if="!groupId"
-            class="tags-select option mt-3"
-          >
-            <div class="tags-inline form-group row">
-              <label
-                v-once
-                class="col-12 mb-1"
-              >{{ $t('tags') }}</label>
-              <div class="col-12">
-                <select-multi
-                  ref="selectTag"
-                  :selected-items="task.tags"
-                  :all-items="user.tags"
-                  :add-new="true"
-                  :empty-message="$t('addTags')"
-                  :search-placeholder="$t('enterTag')"
-                  @changed="task.tags = $event"
-                  @addNew="addTag"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            v-if="task.type === 'habit' && !groupId"
-            class="option mt-3"
-          >
-            <div class="form-group">
-              <lockable-label
-                :locked="challengeAccessRequired"
-                :text="$t('resetCounter')"
-              />
-              <select-translated-array
-                :disabled="challengeAccessRequired"
-                :items="['daily', 'weekly', 'monthly']"
-                :value="task.frequency"
-                @select="task.frequency = $event"
-              />
-            </div>
-          </div>
-          <div
-            v-if="groupId"
-            class="option group-options mt-3"
-          >
-            <div class="form-group row mt-3 mb-3">
-              <label
-                v-once
-                class="col-10 mb-1"
-              >{{ $t('assignTo') }}</label>
-              <a
-                v-if="assignedMembers.length > 0"
-                class="col-2 text-right mt-1"
-                @click="clearAssignments"
-              >
-                {{ $t('clear') }}
-              </a>
-              <div class="col-12">
-                <select-multi
-                  ref="assignMembers"
-                  :all-items="membersNameAndId"
-                  :empty-message="$t('unassigned')"
-                  :pill-invert="true"
-                  :search-placeholder="$t('chooseTeamMember')"
-                  :selected-items="assignedMembers"
-                  @toggle="toggleAssignment($event)"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            v-if="advancedSettingsAvailable"
-            class="advanced-settings mt-3"
+            {{ $t('cancel') }}
+          </button>
+          <button
+            class="btn btn-secondary d-flex align-items-center justify-content-center"
+            :class="{'btn-disabled': !canSave}"
+            type="button"
+            @click="submit()"
           >
             <div
-              class="advanced-settings-toggle d-flex justify-content-between align-items-center"
-              @click="showAdvancedOptions = !showAdvancedOptions"
+              v-if="purpose === 'edit'"
+              class="m-auto"
             >
-              <h3>{{ $t('advancedSettings') }}</h3>
-              <div class="toggle-up">
-                <div
-                  class="svg-icon"
-                  :class="{'toggle-open': showAdvancedOptions}"
-                  v-html="icons.chevron"
-                ></div>
-              </div>
+              {{ $t('save') }}
             </div>
-            <b-collapse
-              id="advancedOptionsCollapse"
-              v-model="showAdvancedOptions"
-            >
-              <div>
-                <div
-                  v-if="advancedSettingsShowRestoreStreak"
-                  class="option mt-3"
-                >
-                  <div class="form-group">
-                    <label
-                      v-once
-                      class="mb-1"
-                    >{{ $t('restoreStreak') }}</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend streak-addon input-group-icon">
-                        <div
-                          v-once
-                          class="svg-icon"
-                          v-html="icons.streak"
-                        ></div>
-                      </div>
-                      <input
-                        v-model="task.streak"
-                        class="form-control"
-                        type="number"
-                        min="0"
-                        required="required"
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div
-                  v-if="advancedSettingsShowAdjustCounter"
-                  class="option mt-3"
-                >
-                  <div class="form-group">
-                    <label
-                      v-once
-                      class="mb-1"
-                    >{{ $t('adjustCounter') }}</label>
-                    <div
-                      class="row streak-inputs"
-                      :class="{'both': task.up && task.down}"
-                    >
-                      <div
-                        v-if="task.up"
-                        class="positive"
-                        :class="{'col-6': task.down, 'col-12': !task.down}"
-                      >
-                        <div class="input-group">
-                          <div class="input-group-prepend positive-addon input-group-icon">
-                            <div
-                              v-once
-                              class="svg-icon"
-                              v-html="icons.positive"
-                            ></div>
-                          </div>
-                          <input
-                            v-model="task.counterUp"
-                            class="form-control"
-                            type="number"
-                            min="0"
-                            required="required"
-                          >
-                        </div>
-                      </div>
-                      <div
-                        v-if="task.down"
-                        class="negative"
-                        :class="{'col-6': task.up, 'col-12': !task.up}"
-                      >
-                        <div class="input-group">
-                          <div class="input-group-prepend negative-addon input-group-icon">
-                            <div
-                              v-once
-                              class="svg-icon"
-                              v-html="icons.negative"
-                            ></div>
-                          </div>
-                          <input
-                            v-model="task.counterDown"
-                            class="form-control"
-                            type="number"
-                            min="0"
-                            required="required"
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  v-if="advancedSettingsShowTaskAlias"
-                  class="option mt-3"
-                >
-                  <div class="form-group">
-                    <label
-                      v-once
-                      class="mb-1"
-                    >{{ $t('taskAlias') }}
-
-                      <information-icon
-                        tooltip-id="taskAlias"
-                        :tooltip="$t('taskAliasPopover')"
-                      />
-                    </label>
-                    <div class="input-group">
-                      <input
-                        v-model="task.alias"
-                        class="form-control"
-                        :placeholder="$t('taskAliasPlaceholder')"
-                        type="text"
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </b-collapse>
-          </div>
-          <div
-            v-if="purpose !== 'create' && !challengeAccessRequired"
-            class="d-flex justify-content-center mt-4 mb-4"
-          >
-            <button
-              class="delete-task-btn d-flex"
-              type="button"
-              @click="destroy()"
-            >
-              <div
-                v-once
-                class="svg-icon"
-                v-html="icons.destroy"
-              ></div>
-              <span class="delete-text mt-1">
-                {{ $t('deleteTaskType', { type: $t(task.type) }) }}
-              </span>
-            </button>
-          </div>
-          <div
-            v-if="purpose === 'create'"
-            slot="modal-footer"
-            class="task-modal-footer d-flex justify-content-center align-items-center mt-4 mb-4"
-          >
-            <button
-              class="btn btn-primary btn-footer
-            d-flex align-items-center justify-content-center"
-              :class="{'btn-disabled': !canSave}"
-              type="button"
-              @click="submit()"
+            <div
+              v-if="purpose === 'create'"
+              class="m-auto"
             >
               {{ $t('create') }}
-            </button>
-          </div>
-          <div
-            v-else
-            class="task-modal-footer mt-4"
-          >
-          </div>
-        </form>
+            </div>
+          </button>
+        </div>
       </div>
+      <div class="form-group">
+        <lockable-label
+          :class-override="cssClass('headings')"
+          :locked="challengeAccessRequired"
+          :text="`${$t('text')}*`"
+        />
+        <input
+          ref="inputToFocus"
+          v-model="task.text"
+          class="form-control input-title"
+          :class="cssClass('input')"
+          type="text"
+          required="required"
+          spellcheck="true"
+          :disabled="challengeAccessRequired"
+          :placeholder="$t('addATitle')"
+        >
+      </div>
+      <div
+        class="form-group mb-0"
+      >
+        <div class="d-flex">
+          <lockable-label
+            class="mr-auto"
+            :class-override="cssClass('headings')"
+            :text="`${$t('notes')}`"
+          />
+          <small
+            class="my-1"
+          >
+            <a
+              target="_blank"
+              href="https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica"
+              :class="cssClass('headings')"
+            >{{ $t('markdownHelpLink') }}</a>
+          </small>
+        </div>
+        <textarea
+          v-model="task.notes"
+          class="form-control input-notes"
+          :class="cssClass('input')"
+          :placeholder="$t('addNotes')"
+        ></textarea>
+      </div>
+    </div>
+    <div
+      v-if="task"
+      class="task-modal-content px-4"
+      :class="cssClass('content')"
+    >
+      <form
+        @submit.stop.prevent="submit()"
+      >
+        <div
+          v-if="task.type === 'reward'"
+          class="option mt-3"
+        >
+          <div class="form-group">
+            <label
+              v-once
+              class="mb-1"
+            >{{ $t('cost') }}</label>
+            <div class="input-group">
+              <div class="input-group-prepend input-group-icon align-items-center">
+                <div
+                  class="svg-icon gold"
+                  v-html="icons.gold"
+                ></div>
+              </div>
+              <input
+                v-model="task.value"
+                class="form-control"
+                type="number"
+                required="required"
+                placeholder="Enter a Value"
+                step="0.01"
+                min="0"
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          v-if="checklistEnabled"
+          class="option mt-3"
+        >
+          <checklist
+            :items.sync="task.checklist"
+          />
+        </div>
+        <div
+          v-if="task.type === 'habit'"
+          class="d-flex justify-content-center mt-3"
+        >
+          <button
+            type="button"
+            class="habit-option-container no-transition
+            d-flex flex-column justify-content-center align-items-center"
+            :class="!task.up ? cssClass('habit-control-disabled') : ''"
+            :disabled="challengeAccessRequired"
+            @click="toggleUpDirection()"
+          >
+            <div
+              class="habit-option-button no-transition
+              d-flex justify-content-center align-items-center mb-2"
+              :class="task.up ? cssClass('bg') : ''"
+            >
+              <div
+                class="habit-option-icon svg-icon no-transition"
+                :class="task.up ? '' : 'icon-disabled'"
+                v-html="icons.positive"
+              ></div>
+            </div>
+            <div
+              class="habit-option-label no-transition"
+              :class="task.up ? cssClass('icon') : 'label-disabled'"
+            >
+              {{ $t('positive') }}
+            </div>
+          </button>
+          <button
+            type="button"
+            class="habit-option-container no-transition
+            d-flex flex-column justify-content-center align-items-center"
+            :class="!task.down ? cssClass('habit-control-disabled') : ''"
+            :disabled="challengeAccessRequired"
+            @click="toggleDownDirection()"
+          >
+            <div
+              class="habit-option-button no-transition
+              d-flex justify-content-center align-items-center mb-2"
+              :class="task.down ? cssClass('bg') : ''"
+            >
+              <div
+                class="habit-option-icon no-transition svg-icon negative mx-auto"
+                :class="task.down ? '' : 'icon-disabled'"
+                v-html="icons.negative"
+              ></div>
+            </div>
+            <div
+              class="habit-option-label no-transition"
+              :class="task.down ? cssClass('icon') : 'label-disabled'"
+            >
+              {{ $t('negative') }}
+            </div>
+          </button>
+        </div>
+        <template
+          v-if="task.type !== 'reward'"
+        >
+          <div class="d-flex mt-3 align-items-center">
+            <lockable-label
+              :locked="challengeAccessRequired"
+              :text="$t('difficulty')"
+            />
+            <information-icon
+              tooltip-id="difficultyHelp"
+              :tooltip="$t('difficultyHelp')"
+            />
+          </div>
+          <select-difficulty
+            :value="task.priority"
+            :disabled="challengeAccessRequired"
+            @select="setDifficulty($event)"
+          />
+        </template>
+        <div
+          v-if="task.type === 'todo' && (!challengeAccessRequired || task.date)"
+          class="option mt-3"
+        >
+          <div class="form-group">
+            <lockable-label
+              :locked="challengeAccessRequired"
+              :text="$t('dueDate')"
+            />
+            <datepicker
+              :date.sync="task.date"
+              :disabled="challengeAccessRequired"
+              :highlighted="calendarHighlights"
+              :clear-button="true"
+            />
+          </div>
+        </div>
+        <div
+          v-if="task.type === 'daily'"
+          class="option mt-3"
+        >
+          <div class="form-group">
+            <lockable-label
+              :locked="challengeAccessRequired"
+              :text="$t('startDate')"
+            />
+            <datepicker
+              :date.sync="task.startDate"
+              :disabled="challengeAccessRequired"
+              :highlighted="calendarHighlights"
+            />
+          </div>
+        </div>
+        <div
+          v-if="task.type === 'daily'"
+          class="option mt-3"
+        >
+          <div class="form-group">
+            <lockable-label
+              :locked="challengeAccessRequired"
+              :text="$t('repeats')"
+            />
+            <select-translated-array
+              :disabled="challengeAccessRequired"
+              :items="['daily', 'weekly', 'monthly', 'yearly']"
+              :value="task.frequency"
+              @select="task.frequency = $event"
+            />
+          </div>
+        </div>
+        <div
+          v-if="task.type === 'daily'"
+          class="option mt-3"
+        >
+          <div class="form-group">
+            <lockable-label
+              :locked="challengeAccessRequired"
+              :text="$t('repeatEvery')"
+            />
+            <div
+              class="input-group-outer"
+              :class="{disabled: challengeAccessRequired}"
+            >
+              <div class="input-group">
+                <input
+                  v-model="task.everyX"
+                  class="form-control"
+                  type="number"
+                  min="0"
+                  max="9999"
+                  required="required"
+                  :disabled="challengeAccessRequired"
+                >
+              </div>
+              <div class="input-group-spaced input-group-text">
+                {{ repeatSuffix }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          v-if="task.type === 'daily' && task.frequency === 'weekly'"
+          class="option mt-3"
+        >
+          <div class="form-group">
+            <lockable-label
+              :locked="challengeAccessRequired"
+              :text="$t('repeatOn')"
+            />
+            <div class="toggle-group">
+              <toggle-checkbox
+                v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']"
+                :key="dayNumber"
+                :tab-index="dayNumber"
+                :checked.sync="task.repeat[day]"
+                :disabled="challengeAccessRequired"
+                :text="weekdaysMin(dayNumber)"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          v-if="task.type === 'daily' && task.frequency === 'monthly'"
+          class="option mt-3"
+        >
+          <label
+            v-once
+            class="d-block mb-1"
+          >{{ $t('repeatOn') }}</label>
+          <div class="form-radio">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input
+                id="repeat-dayOfMonth"
+                v-model="repeatsOn"
+                class="custom-control-input"
+                type="radio"
+                value="dayOfMonth"
+                name="repeatsOn"
+              >
+              <label
+                class="custom-control-label"
+                for="repeat-dayOfMonth"
+              >{{ $t('dayOfMonth') }}</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input
+                id="repeat-dayOfWeek"
+                v-model="repeatsOn"
+                class="custom-control-input"
+                type="radio"
+                value="dayOfWeek"
+                name="repeatsOn"
+              >
+              <label
+                class="custom-control-label"
+                for="repeat-dayOfWeek"
+              >{{ $t('dayOfWeek') }}</label>
+            </div>
+          </div>
+        </div>
+        <div
+          v-if="!groupId"
+          class="tags-select option mt-3"
+        >
+          <div class="tags-inline form-group row">
+            <label
+              v-once
+              class="col-12 mb-1"
+            >{{ $t('tags') }}</label>
+            <div class="col-12">
+              <select-multi
+                ref="selectTag"
+                :selected-items="task.tags"
+                :all-items="user.tags"
+                :add-new="true"
+                :empty-message="$t('addTags')"
+                :search-placeholder="$t('enterTag')"
+                @changed="task.tags = $event"
+                @addNew="addTag"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          v-if="task.type === 'habit' && !groupId"
+          class="option mt-3"
+        >
+          <div class="form-group">
+            <lockable-label
+              :locked="challengeAccessRequired"
+              :text="$t('resetCounter')"
+            />
+            <select-translated-array
+              :disabled="challengeAccessRequired"
+              :items="['daily', 'weekly', 'monthly']"
+              :value="task.frequency"
+              @select="task.frequency = $event"
+            />
+          </div>
+        </div>
+        <div
+          v-if="groupId"
+          class="option group-options mt-3"
+        >
+          <div class="form-group row mt-3 mb-3">
+            <label
+              v-once
+              class="col-10 mb-1"
+            >{{ $t('assignTo') }}</label>
+            <a
+              v-if="assignedMembers.length > 0"
+              class="col-2 text-right mt-1"
+              @click="clearAssignments"
+            >
+              {{ $t('clear') }}
+            </a>
+            <div class="col-12">
+              <select-multi
+                ref="assignMembers"
+                :all-items="membersNameAndId"
+                :empty-message="$t('unassigned')"
+                :pill-invert="true"
+                :search-placeholder="$t('chooseTeamMember')"
+                :selected-items="assignedMembers"
+                @toggle="toggleAssignment($event)"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          v-if="advancedSettingsAvailable"
+          class="advanced-settings mt-3"
+        >
+          <div
+            class="advanced-settings-toggle d-flex justify-content-between align-items-center"
+            @click="showAdvancedOptions = !showAdvancedOptions"
+          >
+            <h3>{{ $t('advancedSettings') }}</h3>
+            <div class="toggle-up">
+              <div
+                class="svg-icon"
+                :class="{'toggle-open': showAdvancedOptions}"
+                v-html="icons.chevron"
+              ></div>
+            </div>
+          </div>
+          <b-collapse
+            id="advancedOptionsCollapse"
+            v-model="showAdvancedOptions"
+          >
+            <div>
+              <div
+                v-if="advancedSettingsShowRestoreStreak"
+                class="option mt-3"
+              >
+                <div class="form-group">
+                  <label
+                    v-once
+                    class="mb-1"
+                  >{{ $t('restoreStreak') }}</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend streak-addon input-group-icon">
+                      <div
+                        v-once
+                        class="svg-icon"
+                        v-html="icons.streak"
+                      ></div>
+                    </div>
+                    <input
+                      v-model="task.streak"
+                      class="form-control"
+                      type="number"
+                      min="0"
+                      required="required"
+                    >
+                  </div>
+                </div>
+              </div>
+              <div
+                v-if="advancedSettingsShowAdjustCounter"
+                class="option mt-3"
+              >
+                <div class="form-group">
+                  <label
+                    v-once
+                    class="mb-1"
+                  >{{ $t('adjustCounter') }}</label>
+                  <div
+                    class="row streak-inputs"
+                    :class="{'both': task.up && task.down}"
+                  >
+                    <div
+                      v-if="task.up"
+                      class="positive"
+                      :class="{'col-6': task.down, 'col-12': !task.down}"
+                    >
+                      <div class="input-group">
+                        <div class="input-group-prepend positive-addon input-group-icon">
+                          <div
+                            v-once
+                            class="svg-icon"
+                            v-html="icons.positive"
+                          ></div>
+                        </div>
+                        <input
+                          v-model="task.counterUp"
+                          class="form-control"
+                          type="number"
+                          min="0"
+                          required="required"
+                        >
+                      </div>
+                    </div>
+                    <div
+                      v-if="task.down"
+                      class="negative"
+                      :class="{'col-6': task.up, 'col-12': !task.up}"
+                    >
+                      <div class="input-group">
+                        <div class="input-group-prepend negative-addon input-group-icon">
+                          <div
+                            v-once
+                            class="svg-icon"
+                            v-html="icons.negative"
+                          ></div>
+                        </div>
+                        <input
+                          v-model="task.counterDown"
+                          class="form-control"
+                          type="number"
+                          min="0"
+                          required="required"
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                v-if="advancedSettingsShowTaskAlias"
+                class="option mt-3"
+              >
+                <div class="form-group">
+                  <label
+                    v-once
+                    class="mb-1"
+                  >{{ $t('taskAlias') }}
+
+                    <information-icon
+                      tooltip-id="taskAlias"
+                      :tooltip="$t('taskAliasPopover')"
+                    />
+                  </label>
+                  <div class="input-group">
+                    <input
+                      v-model="task.alias"
+                      class="form-control"
+                      :placeholder="$t('taskAliasPlaceholder')"
+                      type="text"
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </b-collapse>
+        </div>
+        <div
+          v-if="purpose !== 'create' && !challengeAccessRequired"
+          class="d-flex justify-content-center mt-4 mb-4"
+        >
+          <button
+            class="delete-task-btn d-flex"
+            type="button"
+            @click="destroy()"
+          >
+            <div
+              v-once
+              class="svg-icon"
+              v-html="icons.destroy"
+            ></div>
+            <span class="delete-text mt-1">
+              {{ $t('deleteTaskType', { type: $t(task.type) }) }}
+            </span>
+          </button>
+        </div>
+        <div
+          v-if="purpose === 'create'"
+          slot="modal-footer"
+          class="task-modal-footer d-flex justify-content-center align-items-center mt-4 mb-4"
+        >
+          <button
+            class="btn btn-primary btn-footer
+          d-flex align-items-center justify-content-center"
+            :class="{'btn-disabled': !canSave}"
+            type="button"
+            @click="submit()"
+          >
+            {{ $t('create') }}
+          </button>
+        </div>
+        <div
+          v-else
+          class="task-modal-footer mt-4"
+        >
+        </div>
+      </form>
+    </div>
   </b-modal>
 </template>
 

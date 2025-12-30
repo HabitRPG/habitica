@@ -1,119 +1,119 @@
 <template>
   <b-modal
-      id="buy-quest-modal"
-      :hide-header="true"
-      @change="onChange($event)"
+    id="buy-quest-modal"
+    :hide-header="true"
+    @change="onChange($event)"
+  >
+    <span
+      v-if="withPin"
+      class="badge-dialog"
+      @click.prevent.stop="togglePinned()"
     >
-      <span
-        v-if="withPin"
-        class="badge-dialog"
-        @click.prevent.stop="togglePinned()"
-      >
-        <pin-badge
-          :pinned="isPinned"
-        />
-      </span>
-      <div class="dialog-close">
-        <close-icon @click="hideDialog()" />
-      </div>
-      <h2 class="text-center textCondensed">
-        {{ $t('questDetails') }}
-      </h2>
-      <div
-        v-if="item != null"
-        class="content"
-      >
-        <div class="inner-content">
-          <questDialogContent
-            :item="item"
-            :abbreviated="true"
-          />
-          <div
-            v-if="item.addlNotes"
-            class="mx-4 mb-3"
-          >
-            {{ item.addlNotes }}
-          </div>
-          <quest-rewards :quest="item" />
-          <div
-            v-if="!item.locked"
-            class="purchase-amount"
-          >
-            <div class="item-cost">
-              <span
-                class="cost"
-                :class="priceType"
-              >
-                <span
-                  class="svg-icon inline icon-24"
-                  aria-hidden="true"
-                  v-html="icons[priceType]"
-                >
-                </span>
-                <span
-                  :class="priceType"
-                >{{ item.value }}</span>
-              </span>
-            </div>
-            <div class="how-many-to-buy">
-              <strong>{{ $t('howManyToBuy') }}</strong>
-            </div>
-            <div>
-              <number-increment
-                @updateQuantity="selectedAmountToBuy = $event"
-              />
-            </div>
-            <div class="total-row">
-              <span class="total-text">
-                {{ $t('sendTotal') }}
-              </span>
-              <span
-                class="svg-icon inline icon-20"
-                aria-hidden="true"
-                v-html="currencyIcon"
-              ></span>
-              <span
-                class="total"
-                :class="priceType"
-              >{{ item.value * selectedAmountToBuy }}</span>
-            </div>
-          </div>
-          <button
-            v-if="priceType === 'gems'
-              && !enoughCurrency(priceType, item.value * selectedAmountToBuy)
-              && !item.locked"
-            class="btn btn-primary mb-3"
-            @click="purchaseGems()"
-          >
-            {{ $t('purchaseGems') }}
-          </button>
-          <button
-            v-else
-            class="btn btn-primary mb-4"
-            :class="{'notEnough': !enoughCurrency(priceType, item.value * selectedAmountToBuy)}"
-            :disabled="numberInvalid"
-            @click="buyItem()"
-          >
-            {{ $t('buyNow') }}
-          </button>
-        </div>
-      </div>
-      <countdown-banner
-        v-if="item.end"
-        :end-date="endDate"
+      <pin-badge
+        :pinned="isPinned"
       />
-      <div
-        slot="modal-footer"
-        class="clearfix"
-      >
-        <span class="balance float-left">{{ $t('yourBalance') }}</span>
-        <balanceInfo
-          class="float-right"
-          :with-hourglass="priceType === 'hourglasses'"
-          :currency-needed="priceType"
-          :amount-needed="item.value"
+    </span>
+    <div class="dialog-close">
+      <close-icon @click="hideDialog()" />
+    </div>
+    <h2 class="text-center textCondensed">
+      {{ $t('questDetails') }}
+    </h2>
+    <div
+      v-if="item != null"
+      class="content"
+    >
+      <div class="inner-content">
+        <questDialogContent
+          :item="item"
+          :abbreviated="true"
         />
+        <div
+          v-if="item.addlNotes"
+          class="mx-4 mb-3"
+        >
+          {{ item.addlNotes }}
+        </div>
+        <quest-rewards :quest="item" />
+        <div
+          v-if="!item.locked"
+          class="purchase-amount"
+        >
+          <div class="item-cost">
+            <span
+              class="cost"
+              :class="priceType"
+            >
+              <span
+                class="svg-icon inline icon-24"
+                aria-hidden="true"
+                v-html="icons[priceType]"
+              >
+              </span>
+              <span
+                :class="priceType"
+              >{{ item.value }}</span>
+            </span>
+          </div>
+          <div class="how-many-to-buy">
+            <strong>{{ $t('howManyToBuy') }}</strong>
+          </div>
+          <div>
+            <number-increment
+              @updateQuantity="selectedAmountToBuy = $event"
+            />
+          </div>
+          <div class="total-row">
+            <span class="total-text">
+              {{ $t('sendTotal') }}
+            </span>
+            <span
+              class="svg-icon inline icon-20"
+              aria-hidden="true"
+              v-html="currencyIcon"
+            ></span>
+            <span
+              class="total"
+              :class="priceType"
+            >{{ item.value * selectedAmountToBuy }}</span>
+          </div>
+        </div>
+        <button
+          v-if="priceType === 'gems'
+            && !enoughCurrency(priceType, item.value * selectedAmountToBuy)
+            && !item.locked"
+          class="btn btn-primary mb-3"
+          @click="purchaseGems()"
+        >
+          {{ $t('purchaseGems') }}
+        </button>
+        <button
+          v-else
+          class="btn btn-primary mb-4"
+          :class="{'notEnough': !enoughCurrency(priceType, item.value * selectedAmountToBuy)}"
+          :disabled="numberInvalid"
+          @click="buyItem()"
+        >
+          {{ $t('buyNow') }}
+        </button>
       </div>
+    </div>
+    <countdown-banner
+      v-if="item.end"
+      :end-date="endDate"
+    />
+    <div
+      slot="modal-footer"
+      class="clearfix"
+    >
+      <span class="balance float-left">{{ $t('yourBalance') }}</span>
+      <balanceInfo
+        class="float-right"
+        :with-hourglass="priceType === 'hourglasses'"
+        :currency-needed="priceType"
+        :amount-needed="item.value"
+      />
+    </div>
   </b-modal>
 </template>
 
