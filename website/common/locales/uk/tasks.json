@@ -124,7 +124,6 @@
     "pressEnterToAddTag": "Натисніть Enter, щоб додати тег: '<%= tagName %>'",
     "enterTag": "Введіть тег",
     "addTags": "Додати теги...",
-    "sureDeleteType": "Ви дійсно хочете видалити <%= type %>?",
     "deleteTaskType": "Видалити <%= type %>",
     "tomorrow": "Завтра",
     "addNotes": "Додайте нотатки",

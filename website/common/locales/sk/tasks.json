@@ -124,7 +124,6 @@
     "pressEnterToAddTag": "Stlač enter, aby si vložil/a štítok: '<%= tagName %>'",
     "enterTag": "Vložiť štítok",
     "addTags": "Pridať štítky...",
-    "sureDeleteType": "Chceš tento/túto <%= type %> naozaj zmazať?",
     "deleteTaskType": "Zmazať tento/túto <%= type %>",
     "tomorrow": "Zajtra",
     "addNotes": "Pridať poznámky",

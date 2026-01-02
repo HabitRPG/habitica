@@ -2,7 +2,6 @@
     "challenge": "Mücadele",
     "challengeDetails": "Mücadeleler oyuncuların bir grup bağlantılı görevler tamamlayarak yarışıp ve ödül kazandığı topluluk etkinlikleridir.",
     "brokenChaLink": "Bozulmuş Mücadele Bağlantısı",
-    "brokenTask": "Bozulmuş Mücadele Bağlantısı: bu görev bir mücadelenin parçasıydı ama o mücadeleden silindi. Ne yapmak istersin?",
     "keepIt": "Sakla",
     "removeIt": "Sil",
     "brokenChallenge": "Bozulmuş Mücadele Bağlantısı: bu görev bir mücadelenin parçasıydı ama mücadele (ya da grup) silindi. Kimsesiz işler ile ne yapmak istersin?",

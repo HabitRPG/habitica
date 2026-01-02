@@ -126,7 +126,6 @@
     "pressEnterToAddTag": "Druk op Enter om het label toe te voegen: '<%= tagName %>'",
     "enterTag": "Voer een label in",
     "addTags": "Voeg labels toe...",
-    "sureDeleteType": "Weet je zeker dat je deze <%= type %> wilt verwijderen?",
     "deleteTaskType": "Verwijder deze <%= type %>",
     "tomorrow": "Morgen",
     "counter": "Teller",

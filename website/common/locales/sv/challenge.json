@@ -2,7 +2,6 @@
     "challenge": "Utmaning",
     "challengeDetails": "Utmaningar är gemenskapsevangemang där spelare tävlar och vinner belöningar genom att slutföra en grupp av relaterade uppgifter.",
     "brokenChaLink": "Länken till utmaningen är trasig",
-    "brokenTask": "Länken till utmaningen är trasig: den här uppgiften var en del av en utmaning, men den har tagits bort från den. Vad vill du göra?",
     "keepIt": "Behåll den",
     "removeIt": "Ta bort den",
     "brokenChallenge": "Länken till utmaningen är trasig: den här uppgiften var en del av en utmaning, men utmaningen (eller gruppen) har tagits bort. Vad vill du göra med de kvarblivna uppgifterna?",

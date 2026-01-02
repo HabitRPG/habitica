@@ -129,7 +129,6 @@
     "adjustCounter": "כוונון המונה",
     "editTagsText": "עריכת תגיות",
     "deleteTaskType": "מחיקת ה<%= type %>",
-    "sureDeleteType": "למחוק את ה<%= type %>?",
     "enterTag": "נא לציין תגית",
     "pressEnterToAddTag": "נא לציין תגית להוספה: \"<%= type %>\"",
     "resetCounter": "איפוס המונה"

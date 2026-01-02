@@ -125,7 +125,6 @@
     "enterTag": "Etiket gir",
     "addTags": "Etiket ekle...",
     "deleteTaskType": "Bu <%= type %>'ı sil",
-    "sureDeleteType": "Bu <%= type %>'ı silmek istediğine emin misin?",
     "tomorrow": "Yarın",
     "addNotes": "Not ekle",
     "addATitle": "Başlık ekle",

@@ -121,7 +121,6 @@
     "yesterDailiesCallToAction": "Comincia la mia nuova giornata!",
     "sessionOutdated": "La tua sessione è obsoleta. Ricarica la pagina o sincronizza.",
     "errorTemporaryItem": "Questo oggetto è temporaneo e non può essere aggiunto alla Lista dei Desideri.",
-    "sureDeleteType": "Sei sicuro di voler eliminare questo <%= type %>?",
     "deleteTaskType": "Elimina questo <%= type %>",
     "addNotes": "Aggiungi nota",
     "addATitle": "Aggiungi un titolo",

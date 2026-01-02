@@ -123,7 +123,6 @@
     "errorTemporaryItem": "此项目为临时项目，不能被钉选。",
     "addNotes": "添加注释",
     "addATitle": "添加一个标题",
-    "sureDeleteType": "你确定要删除<%= type %>吗？",
     "deleteTaskType": "删除<%= type %>",
     "pressEnterToAddTag": "按回车键添加标签：“<%= tagName %>”",
     "enterTag": "输入标签",

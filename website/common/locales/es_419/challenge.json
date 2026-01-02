@@ -2,7 +2,6 @@
     "challenge": "Desafío",
     "challengeDetails": "Los desafíos son eventos de la comunidad en los cuales los jugadores compiten y ganan premios completando un conjunto de tareas relacionadas.",
     "brokenChaLink": "Enlace al Desafío roto",
-    "brokenTask": "Enlace al Desafío roto: esta tarea era parte de un desafío pero ha sido eliminada del mismo. ¿Qué deseas hacer?",
     "keepIt": "Conservarla",
     "removeIt": "Eliminarla",
     "brokenChallenge": "Enlace al Desafío roto: esta tarea era parte de un desafío pero el desafío (o grupo) ha sido eliminado. ¿Qué hacemos con las tareas huérfanas?",

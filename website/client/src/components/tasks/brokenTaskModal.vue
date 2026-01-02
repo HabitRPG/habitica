@@ -14,7 +14,7 @@
       <div class="modal-body-content">
         <div
           class="icon-wrapper"
-          v-html="icons.warningIcon"
+          v-html="icons.alertIcon"
         ></div>
         <h2 class="modal-title">
           {{ modalTitle }}
@@ -92,6 +92,10 @@
   ::v-deep svg {
     width: 48px;
     height: 48px;
+
+    path {
+      fill: #DE3F3F;
+    }
   }
 }
 
@@ -147,7 +151,7 @@
 <script>
 import { mapActions } from '@/libs/store';
 import notifications from '@/mixins/notifications';
-import warningIcon from '@/assets/svg/warning_icon.svg?raw';
+import alertIcon from '@/assets/svg/for-css/alert.svg?raw';
 
 export default {
   mixins: [notifications],
@@ -155,7 +159,7 @@ export default {
     return {
       brokenChallengeTask: {},
       icons: Object.freeze({
-        warningIcon,
+        alertIcon,
       }),
     };
   },
