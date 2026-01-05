@@ -71,7 +71,6 @@ export default function attachMiddlewares (app, server) {
     contentSecurityPolicy: {
       directives: {
         defaultSrc: [
-          '\'unsafe-eval\'',
           '*.habitica.com',
           '*.amazon.com',
           '*.amazonaws.com',
@@ -85,6 +84,7 @@ export default function attachMiddlewares (app, server) {
           'data:',
         ],
         scriptSrc: [
+          '\'unsafe-eval\'',
           '\'unsafe-inline\'',
           '*.habitica.com',
           '*.amazon.com',
