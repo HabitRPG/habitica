@@ -13,6 +13,7 @@ import {
 } from '../../../website/common/script/libs/errors';
 import crit from '../../../website/common/script/fns/crit';
 import shared from '../../../website/common/script';
+import cloneDeep from 'lodash/cloneDeep';
 
 const EPSILON = 0.0001; // negligible distance between datapoints
 
@@ -53,6 +54,27 @@ describe('shared.ops.scoreTask', () => {
 
   beforeEach(() => {
     ref = beforeAfter();
+  });
+
+  it.only('summary of outcomes for a variety of task values', () => {
+    sandbox.stub(crit, 'crit').returns(1.5);
+    const taskWorst = generateTodo({ userId: ref.afterUser._id, text: 'worst', value: -21 });
+    const taskWorse = generateTodo({ userId: ref.afterUser._id, text: 'worse', value: -11 });
+    const taskBad = generateTodo({ userId: ref.afterUser._id, text: 'bad', value: -2 });
+    const taskNeutral = generateTodo({ userId: ref.afterUser._id, text: 'neutral', value: 0 });
+    const taskGood = generateTodo({ userId: ref.afterUser._id, text: 'good', value: 4 });
+    const taskBetter = generateTodo({ userId: ref.afterUser._id, text: 'better', value: 9 });
+    const taskBest = generateTodo({ userId: ref.afterUser._id, text: 'best', value: 11 });
+    [taskWorst, taskWorse, taskBad, taskNeutral, taskGood, taskBetter, taskBest].forEach(task => {
+      ref.afterUser.stats.exp = 0;
+      ref.afterUser.stats.gp = 0;
+      const valueDelta = scoreTask({ user: ref.afterUser, task: task });
+      console.log(`${task.text}: Experience ${ref.afterUser.stats.exp}
+        Gold ${ref.afterUser.stats.gp}
+        Task Value Delta ${valueDelta}
+      `);
+    });
+    crit.crit.restore();
   });
 
   it('throws an error when scoring a reward if user does not have enough gold', done => {
