@@ -126,7 +126,6 @@
     "pressEnterToAddTag": "Klicka enter för att lägga till etiketten: '<%= tagName %>'",
     "enterTag": "Ange en etikett",
     "addTags": "Lägg till etiketter...",
-    "sureDeleteType": "Är du säker på att du vill radera <%= type %>?",
     "deleteTaskType": "Radera <%= type %>",
     "tomorrow": "Imorgon",
     "resetCounter": "Återställ räknare",

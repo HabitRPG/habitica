@@ -134,7 +134,6 @@
     "tomorrow": "Holnap",
     "editTagsText": "Címkék szerkesztése",
     "deleteTaskType": "Töröld ezt: <%= type %>",
-    "sureDeleteType": "Biztosan törlöd ezt: <%= type %>?",
     "scoreUp": "Pontszám növelése",
     "scoreDown": "Pontszám csökkentése",
     "taskAliasPlaceholder": "ide-jön-a-feladat-fedőneved",

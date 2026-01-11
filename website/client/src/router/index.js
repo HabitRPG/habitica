@@ -11,7 +11,6 @@ import { DEPRECATED_ROUTES } from '@/router/deprecated-routes';
 
 // NOTE: when adding a page make sure to implement the `common:setTitle` action
 
-const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'@/components/auth/registerLoginReset');
 const Logout = () => import(/* webpackChunkName: "auth" */'@/components/auth/logout');
 
 // Hall
@@ -79,11 +78,6 @@ const router = new VueRouter({
   // in the route component to set a specific subtitle for the page.
   routes: [
     { name: 'logout', path: '/logout', component: Logout },
-    {
-      name: 'resetPassword', path: '/reset-password', component: RegisterLoginReset, meta: { requiresLogin: false },
-    }, {
-      name: 'forgotPassword', path: '/forgot-password', component: RegisterLoginReset, meta: { requiresLogin: false },
-    },
     { name: 'tasks', path: '/', component: UserTasks },
     {
       name: 'userProfile',

@@ -2,7 +2,6 @@
     "challenge": "Udfordring",
     "challengeDetails": "Udfordringer er fællesskabsevents, i hvilke spillere konkurrerer og vinder belønninger ved at fuldføre en gruppe relaterede opgaver.",
     "brokenChaLink": "Defekt udfordringslink",
-    "brokenTask": "Defekt udfordringslink: denne opgave var en del af en udfordring, men er blevet fjernet fra den. Hvad vil du gøre?",
     "keepIt": "Behold den",
     "removeIt": "Fjern den",
     "brokenChallenge": "Defekt udfordringslink: denne opgave var en del af en udfordring, men udfordringen (eller gruppen) er blevet fjernet. Hvad vil du gøre med de gruppeløse opgaver?",

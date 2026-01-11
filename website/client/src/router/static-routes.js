@@ -58,6 +58,9 @@ export const STATIC_ROUTES = {
       name: 'features', path: 'features', component: FeaturesPage, meta: { requiresLogin: false },
     },
     {
+      name: 'forgotPassword', path: '/forgot-password', component: RegisterLoginReset, meta: { requiresLogin: false },
+    },
+    {
       name: 'front', path: 'front', component: HomePage, meta: { requiresLogin: false },
     },
     {
@@ -89,6 +92,9 @@ export const STATIC_ROUTES = {
     },
     {
       name: 'register', path: '/register', component: RegisterLoginReset, meta: { requiresLogin: false },
+    },
+    {
+      name: 'resetPassword', path: '/reset-password', component: RegisterLoginReset, meta: { requiresLogin: false },
     },
     {
       name: 'terms', path: 'terms', component: TermsPage, meta: { requiresLogin: false },

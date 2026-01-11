@@ -128,7 +128,6 @@
     "adjustCounter": "횟수 조정",
     "counter": "횟수",
     "resetCounter": "횟수 초기화",
-    "sureDeleteType": "<%= type %>을(를) 정말로 삭제할까요?",
     "tomorrow": "내일",
     "deleteTaskType": "<%= type %> 삭제"
 }

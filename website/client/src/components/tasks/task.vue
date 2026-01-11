@@ -1177,9 +1177,16 @@ export default {
     moveToBottom () {
       this.$emit('moveTo', this.task, 'bottom');
     },
-    destroy () {
+    async destroy () {
       const type = this.$t(this.task.type);
-      if (!window.confirm(this.$t('sureDeleteType', { type }))) return; // eslint-disable-line no-alert
+      const confirmed = await new Promise(resolve => {
+        this.$root.$emit('habitica:delete-task-confirm', {
+          message: this.$t('sureDeleteType', { type }),
+          taskType: type,
+          resolve,
+        });
+      });
+      if (!confirmed) return;
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
     },

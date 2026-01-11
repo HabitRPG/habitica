@@ -150,14 +150,14 @@
           <button
             type="button"
             class="habit-option-container no-transition
-              d-flex flex-column justify-content-center align-items-center"
+            d-flex flex-column justify-content-center align-items-center"
             :class="!task.up ? cssClass('habit-control-disabled') : ''"
             :disabled="challengeAccessRequired"
             @click="toggleUpDirection()"
           >
             <div
               class="habit-option-button no-transition
-                d-flex justify-content-center align-items-center mb-2"
+              d-flex justify-content-center align-items-center mb-2"
               :class="task.up ? cssClass('bg') : ''"
             >
               <div
@@ -176,14 +176,14 @@
           <button
             type="button"
             class="habit-option-container no-transition
-              d-flex flex-column justify-content-center align-items-center"
+            d-flex flex-column justify-content-center align-items-center"
             :class="!task.down ? cssClass('habit-control-disabled') : ''"
             :disabled="challengeAccessRequired"
             @click="toggleDownDirection()"
           >
             <div
               class="habit-option-button no-transition
-                d-flex justify-content-center align-items-center mb-2"
+              d-flex justify-content-center align-items-center mb-2"
               :class="task.down ? cssClass('bg') : ''"
             >
               <div
@@ -379,6 +379,45 @@
                 @changed="task.tags = $event"
                 @addNew="addTag"
               />
+            </div>
+          </div>
+        </div>
+        <div
+          v-if="showStatAssignment"
+          class="stat-assignment option mt-3"
+        >
+          <div class="form-group row">
+            <label
+              v-once
+              class="col-12 mb-1"
+            >{{ $t('assignedStat') }}</label>
+            <div class="col-12">
+              <div class="stat-dropdown-container">
+                <select-list
+                  :items="statOptions"
+                  :value="task.attribute"
+                  key-prop="key"
+                  active-key-prop="key"
+                  @select="task.attribute = $event.key"
+                >
+                  <template #item="{ item, button }">
+                    <div class="stat-option-content">
+                      <span
+                        class="stat-option-title"
+                        :class="item.key"
+                      >
+                        {{ $t(item.label) }}
+                      </span>
+                      <span
+                        v-if="!button"
+                        class="stat-option-description"
+                      >
+                        {{ $t(item.description) }}
+                      </span>
+                    </div>
+                  </template>
+                </select-list>
+              </div>
             </div>
           </div>
         </div>
@@ -591,7 +630,7 @@
         >
           <button
             class="btn btn-primary btn-footer
-            d-flex align-items-center justify-content-center"
+          d-flex align-items-center justify-content-center"
             :class="{'btn-disabled': !canSave}"
             type="button"
             @click="submit()"
@@ -911,6 +950,87 @@
   .streak-addon path {
     fill: $gray-200;
   }
+
+  .stat-dropdown-container {
+    .select-list {
+      .selectListItem {
+        margin-bottom: 0;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      .selectListItem .dropdown-item {
+        padding: 8px 16px !important;
+        height: auto !important;
+        white-space: normal;
+        word-wrap: break-word;
+
+        &:hover,
+        &:focus {
+          background-color: rgba($purple-600, 0.25) !important;
+        }
+      }
+
+      .dropdown-toggle {
+        display: flex;
+        align-items: center;
+
+        .stat-option-content {
+          display: flex;
+          align-items: center;
+
+          .stat-option-title {
+            font-weight: normal;
+            color: $gray-50;
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    .stat-option-content {
+      display: block;
+      width: 100%;
+
+      .stat-option-title {
+        display: block;
+        font-family: Roboto;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 1.71;
+        text-transform: capitalize;
+        margin-bottom: 4px;
+
+        &.str {
+          color: $maroon-100;
+        }
+
+        &.int {
+          color: $blue-50;
+        }
+
+        &.con {
+          color: $yellow-5;
+        }
+
+        &.per {
+          color: $purple-300;
+        }
+      }
+
+      .stat-option-description {
+        display: block;
+        font-family: Roboto;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        color: $gray-100;
+        margin-bottom: 0;
+      }
+    }
+  }
 </style>
 
 <style lang="scss" scoped>
@@ -1023,7 +1143,6 @@
   .input-group-outer.disabled .input-group-text {
     color: $gray-200;
   }
-
 </style>
 
 <script>
@@ -1038,6 +1157,7 @@ import SelectMulti from './modal-controls/selectMulti';
 import selectDifficulty from '@/components/tasks/modal-controls/selectDifficulty';
 import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
+import selectList from '@/components/ui/selectList';
 
 import syncTask from '../../mixins/syncTask';
 
@@ -1061,6 +1181,7 @@ export default {
     selectTranslatedArray,
     toggleCheckbox,
     lockableLabel,
+    selectList,
   },
   directives: {
     markdown: markdownDirective,
@@ -1094,6 +1215,12 @@ export default {
         con: 'constitution',
         per: 'perception',
       },
+      statOptions: [
+        { key: 'str', label: 'strength', description: 'strTaskText' },
+        { key: 'int', label: 'intelligence', description: 'intTaskText' },
+        { key: 'con', label: 'constitution', description: 'conTaskText' },
+        { key: 'per', label: 'perception', description: 'perTaskText' },
+      ],
       calendarHighlights: { dates: [new Date()] },
     };
   },
@@ -1186,6 +1313,12 @@ export default {
     },
     selectedTags () {
       return this.getTagsFor(this.task);
+    },
+    showStatAssignment () {
+      return this.task.type !== 'reward'
+        && !this.groupId
+        && this.user.preferences.automaticAllocation === true
+        && this.user.preferences.allocationMode === 'taskbased';
     },
   },
   watch: {
@@ -1305,9 +1438,16 @@ export default {
       }
       this.$root.$emit('bv::hide::modal', 'task-modal');
     },
-    destroy () {
+    async destroy () {
       const type = this.$t(this.task.type);
-      if (!window.confirm(this.$t('sureDeleteType', { type }))) return; // eslint-disable-line no-alert
+      const confirmed = await new Promise(resolve => {
+        this.$root.$emit('habitica:delete-task-confirm', {
+          message: this.$t('sureDeleteType', { type }),
+          taskType: type,
+          resolve,
+        });
+      });
+      if (!confirmed) return;
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
       this.$root.$emit('bv::hide::modal', 'task-modal');

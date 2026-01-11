@@ -121,7 +121,6 @@
     "yesterDailiesCallToAction": "Začít můj nový den!",
     "sessionOutdated": "Tvá relace je zastaralá. Prosím, zkus ji obnovit nebo synchronizovat.",
     "errorTemporaryItem": "Tento předmět je dočasný a nemůže být připnut.",
-    "sureDeleteType": "Chceš tento <%= type %> opravdu smazat?",
     "deleteTaskType": "Tento <%= type %> smazat",
     "addNotes": "Přidej poznámky",
     "addATitle": "Přidej název",

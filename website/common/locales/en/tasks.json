@@ -89,7 +89,7 @@
   "fortify": "Fortify",
   "fortifyComplete": "Fortify complete!",
   "deleteTaskType": "Delete this <%= type %>",
-  "sureDeleteType": "Are you sure you want to delete this <%= type %>?",
+  "sureDeleteType": "Are you sure you want to delete this task?",
   "streakCoins": "Streak Bonus!",
   "taskToTop": "To top",
   "taskToBottom": "To bottom",
@@ -138,5 +138,10 @@
   "pressEnterToAddTag": "Press Enter to add tag: '<%= tagName %>'",
   "taskSummary": "<%= type %> Summary",
   "scoreUp": "Score up",
-  "scoreDown": "Score down"
+  "scoreDown": "Score down",
+  "deleteType": "Delete <%= type %>",
+  "deleteTask": "Delete Task",
+  "deleteXTasks": "Delete <%= count %> Tasks",
+  "brokenChallengeTaskCount": "This is one of <%= count %> tasks that are part of a Challenge that no longer exists.",
+  "confirmDeleteTasks": "Would you like to delete the tasks?"
 }

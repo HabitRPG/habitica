@@ -126,7 +126,6 @@
     "pressEnterToAddTag": "Apasă Enter pentru a adăuga eticheta: '<%= tagName %>'",
     "enterTag": "Scrie o etichetă",
     "addTags": "Adaugă etichete...",
-    "sureDeleteType": "Ești sigur că vrei să ștergi <%= type %>?",
     "deleteTaskType": "Șterge <%= type %>",
     "tomorrow": "Mâine"
 }

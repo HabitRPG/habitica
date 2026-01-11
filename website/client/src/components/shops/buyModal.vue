@@ -851,10 +851,17 @@ export default {
           - ownedMounts
           - ownedItems;
 
-        if (
-          petsRemaining < 0
-          && !window.confirm(this.$t('purchasePetItemConfirm', { itemText: this.item.text })) // eslint-disable-line no-alert
-        ) return;
+        if (petsRemaining < 0) {
+          const confirmed = await new Promise(resolve => {
+            this.$root.$emit('habitica:purchase-confirm', {
+              message: this.$t('purchasePetItemConfirm', { itemText: this.item.text }),
+              currency: this.item.currency,
+              cost: this.item.value * this.selectedAmountToBuy,
+              resolve,
+            });
+          });
+          if (!confirmed) return;
+        }
       }
 
       if (this.item.purchaseType === 'customization') {
@@ -866,11 +873,14 @@ export default {
         this.purchased(this.item.text);
       } else {
         const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';
-        if (
-          shouldConfirmPurchase
-          && !this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)
-        ) {
-          return;
+        if (shouldConfirmPurchase) {
+          const confirmed = await this.confirmPurchase(
+            this.item.currency,
+            this.item.value * this.selectedAmountToBuy,
+          );
+          if (!confirmed) {
+            return;
+          }
         }
         if (this.genericPurchase) {
           if (this.item.key === 'rebirth_orb') {

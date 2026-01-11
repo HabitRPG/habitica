@@ -311,7 +311,7 @@
         <input
           id="passwordInput"
           v-model="password"
-          class="form-control input-with-error"
+          class="form-control dark input-with-error"
           type="password"
           :placeholder="$t('password')"
           :class="{'input-invalid': passwordInvalid, 'input-valid': passwordValid}"
@@ -323,7 +323,7 @@
           {{ $t('minPasswordLength') }}
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group mb-4">
         <label
           v-once
           for="confirmPasswordInput"
@@ -331,7 +331,7 @@
         <input
           id="confirmPasswordInput"
           v-model="passwordConfirm"
-          class="form-control input-with-error"
+          class="form-control dark input-with-error"
           type="password"
           :placeholder="$t('confirmPasswordPlaceholder')"
           :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
@@ -344,13 +344,14 @@
         </div>
       </div>
       <div class="text-center">
-        <div
-          class="btn btn-info"
-          :enabled="!resetPasswordSetNewOneData.hasError"
+        <button
+          class="btn btn-info w-100"
+          :disabled="!password || !passwordConfirm
+            || password !== passwordConfirm || resetPasswordSetNewOneData.hasError"
           @click="resetPasswordSetNewOneLink()"
         >
           {{ $t('setNewPass') }}
-        </div>
+        </button>
       </div>
     </form>
   </div>

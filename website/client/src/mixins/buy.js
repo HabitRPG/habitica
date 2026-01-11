@@ -39,7 +39,15 @@ export default {
       };
 
       const purchaseForKey = currencyToPurchaseForKey[currency];
-      return window.confirm(this.$t(purchaseForKey, { cost })); // eslint-disable-line no-alert
+
+      return new Promise(resolve => {
+        this.$root.$emit('habitica:purchase-confirm', {
+          message: this.$t(purchaseForKey, { cost }),
+          currency,
+          cost,
+          resolve,
+        });
+      });
     },
   },
 };

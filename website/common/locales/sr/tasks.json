@@ -131,6 +131,5 @@
     "resetCounter": "Resetuj Brojač",
     "tomorrow": "Sutra",
     "deleteTaskType": "Obriši ovo <%= type %>",
-    "enterTag": "Unesi oznaku",
-    "sureDeleteType": "Da li si siguran da želiš da obrišeš ovo <%= type %>?"
+    "enterTag": "Unesi oznaku"
 }

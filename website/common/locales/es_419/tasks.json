@@ -124,7 +124,6 @@
     "pressEnterToAddTag": "Presiona Enter para añadir etiqueta: '<%= tagName %>'",
     "enterTag": "Ingresar una etiqueta",
     "addTags": "Añadir etiquetas...",
-    "sureDeleteType": "¿Estás seguro de querer eliminar este/a <%= type %>?",
     "deleteTaskType": "Eliminar <%= type %>",
     "tomorrow": "Mañana",
     "addNotes": "Añadir notas",

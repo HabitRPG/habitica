@@ -121,7 +121,6 @@
     "yesterDailiesCallToAction": "Započni novi dan!",
     "sessionOutdated": "Vaša sesija je istekla. Molimo vas da osvježite ili sinkronizirate.",
     "errorTemporaryItem": "Ovaj artikl je privremen i ne može se zakačiti.",
-    "sureDeleteType": "Jeste li sigurni da želite izbrisati ovo <%= type%>?",
     "addTags": "Dodaj oznake...",
     "pressEnterToAddTag": "Pritisnite Enter za dodavanje oznake: '<%= tagName %>'",
     "addATitle": "Dodaj naslov",

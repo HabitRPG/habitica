@@ -2,7 +2,6 @@
     "challenge": "Kihívás",
     "challengeDetails": "A kihívások olyan közösségi események, ahol a játékosok egymáshoz kötődő feladatokat teljesítenek és díjakat nyernek.",
     "brokenChaLink": "Érvénytelen kihívás link",
-    "brokenTask": "Érvénytelen kihívás link: ez a feladat egy kihívás része volt, de eltávolították belőle. Mit szeretnél tenni?",
     "keepIt": "Megtartom",
     "removeIt": "Eltávolítom",
     "brokenChallenge": "Érvénytelen kihívás link: ez a feladat egy kihívás része volt, de a kihívást (vagy a csoportot) törölték. Mit tegyünk a megmaradó feladatokkal?",
