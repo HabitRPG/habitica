@@ -88,7 +88,6 @@
     "success": "Success!",
     "classGear": "Klassutrustning",
     "classGearText": "Grattis till att du valt en klass! Jag har lagt till ett nytt grundläggande vapen till ditt förråd. Ta en titt nedan för att utrusta den!",
-    "autoAllocate": "Dela ut automatiskt",
     "spells": "Färdigheter",
     "skillsTitle": "<%= classStr %> Färdigheter",
     "toDo": "Att Göra",

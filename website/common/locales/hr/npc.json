@@ -88,7 +88,6 @@
     "success": "Uspjeh!",
     "classGear": "Oprema Klase",
     "classGearText": "Čestitke na odabiru klase! Dodao sam vam novo osnovno oružje u vaš inventar. Pogledajte ispod kako bi ga opremili!",
-    "autoAllocate": "Automatska Raspodjela",
     "spells": "Vještine",
     "skillsTitle": "<%= classStr %> Vještine",
     "toDo": "Obaveza",

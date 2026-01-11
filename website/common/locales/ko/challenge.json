@@ -77,7 +77,7 @@
     "shortNamePlaceholder": "도전을 식별하기 위해 어떤 짧은 태그를 추가할까요?",
     "updateChallenge": "도전 업데이트",
     "haveNoChallenges": "이 그룹은 도전을 가지고 있지 않습니다",
-    "loadMore": "더 읽기",
+    "loadMore": "더보기",
     "exportChallengeCsv": "도전 내보내기",
     "editingChallenge": "도전 수정하기",
     "nameRequired": "이름이 필요합니다",
@@ -96,5 +96,11 @@
     "yourReward": "보상",
     "filters": "필터",
     "removeTasks": "과제 삭제",
-    "deleteChallengeRefundDescription": "이 도전 과제를 삭제하면 보상에 사용된 보석은 환불되지만, 참가자들의 도전 과제 목록은 그대로 유지됩니다."
+    "deleteChallengeRefundDescription": "이 도전 과제를 삭제하면 보상에 사용된 보석은 환불되지만, 참가자들의 도전 과제 목록은 그대로 유지됩니다.",
+    "resetFlagCount": "플래그 수 리셋",
+    "whyReportingChallenge": "왜 이 챌린지를 보고하셨나요?",
+    "whyReportingChallengePlaceholder": "보고의 이유",
+    "messageChallengeFlagOfficial": "공식 도전 과제는 신고가 불가능합니다.",
+    "messageChallengeFlagAlreadyReported": "이 도전을 이미 신고하셨습니다.",
+    "flaggedAndHidden": "도전 플래그 세우고 숨기기"
 }

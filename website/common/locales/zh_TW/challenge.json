@@ -102,5 +102,6 @@
     "whyReportingChallengePlaceholder": "回報原因",
     "cannotClone": "此挑戰賽無法複製，因為有一位或多位玩家報告此挑戰賽不適當。工作人員將很快與您聯絡並提供指示。如果超過 48 小時，您仍未收到他們的回覆，請寄電子郵件至 admin@habitica.com 以尋求協助。",
     "whyReportingChallenge": "為何要回報這項挑戰？",
-    "cannotMakeChallenge": "您無法建立公開挑戰，因為您的帳號目前沒有聊天權限。請聯絡 admin@habitica.com 取得更多資訊。"
+    "cannotMakeChallenge": "您無法建立公開挑戰，因為您的帳號目前沒有聊天權限。請聯絡 admin@habitica.com 取得更多資訊。",
+    "deleteChallengeRefundDescription": "如果你刪除此挑戰，寶石獎勵將會退還給你，而挑戰任務會保留在參與者的任務清單上。"
 }

@@ -88,7 +88,6 @@
     "success": "Berhasil!",
     "classGear": "Perlengkapan Pekerjaan",
     "classGearText": "Selamat atas pilihan pekerjaanmu! Saya telah menambahkan senjata dasarmu ke dalam inventorimu. Coba lihat di bawah untuk menggunakannya!",
-    "autoAllocate": "Alokasi Otomatis",
     "spells": "Kemampuan",
     "skillsTitle": "Kemampuan",
     "toDo": "To-Do",
@@ -97,7 +96,7 @@
     "tourPartyPage": "Selamat datang di Party barumu! Kamu bisa mengundang pemain lain ke Party-mu dengan nama pengguna, email, atau dari daftar pemain yang mencari Party untuk mendapatkan Gulungan Misi Basi-List eksklusif.<br/><br/> Pilih <a href='/static/faq#parties'>FAQ</a> dari menu dropdown Bantuan untuk mempelajari selengkapnya tentang cara kerja Party.",
     "tourChallengesPage": "Tantangan adalah daftar tugas bertema yang dibuat oleh pengguna lain! Bergabung dalam tantangan akan memberi tugas kepada akunmu. Berlombalah dengan yang lain untuk dapat hadiah permata!",
     "tourMarketPage": "Mulai dari Level 3, kamu akan dapat telur dan ramuan penetas secara acak setiap kali kamu menyelesaikan tugas. Mereka akan muncul disini - gunakan untuk menetaskan telur! Kamu juga bisa beli barang-barang di Pasar.",
-    "tourHallPage": "Selamat datang di Aula para Pahlawan, untuk menghormati para kontributor open-source Habitica. Baik melalui kode, karya seni, musik, tulisan, atau bahkan hanya sekadar bantuan, mereka telah mendapatkan Permata, perlengkapan eksklusif dan titel kebanggaan. Kamu bisa berkontribusi pada Habitica juga!",
+    "tourHallPage": "Selamat datang di Aula para Pahlawan, untuk menghormati para kontributor open-source Habitica. Baik melalui kode, karya seni, musik, tulisan, atau bahkan hanya sekadar bantuan, mereka telah mendapatkan Permata, Perlengkapan eksklusif dan titel kebanggaan. Kamu bisa berkontribusi untuk Habitica juga!",
     "tourPetsPage": "Selamat datang di Kandang! Setiap kali kamu menyelesaikan sebuah tugas, kamu memiliki kesempatan untuk mendapatkan Telur atau Ramuan Penetas secara acak. Peliharaan yang kamu tetaskan akan muncul disini! Klik gambar Peliharaan untuk menambahkannya pada Avatarmu. Beri mereka makan dan mereka akan tumbuh menjadi Tunggangan yang gagah.",
     "tourMountsPage": "Setelah kamu memberi makan yang cukup untuk mengubahnya menjadi tunggangan, dia akan muncul disini. Klik pada tunggangan untuk menungganginya!",
     "tourEquipmentPage": "Ini adalah di mana Perlengkapanmu disimpan! Perlengkapan Perangmu akan memengaruhi Atribut-mu. Jika kamu ingin avatar-mu menampilkan Perlengkapan tertentu tanpa mengubah Atribut-mu, klik \"Gunakan Kostum.\"",
@@ -119,7 +118,7 @@
     "limitedAvailabilityMinutes": "Tersedia sampai <%= minutes %> menit <%= seconds %> detik",
     "nGems": "<%= nGems %> Permata",
     "nMonthsSubscriptionGift": "<%= nMonths %> Bulan Berlangganan (Hadiah)",
-    "paymentSubBillingWithMethod": "Langganan-mu akan ditagih <strong>$<%= amount %></strong> setiap <strong><%= months %> bulan</strong> melalui <strong><%= paymentMethod %></strong>.",
+    "paymentSubBillingWithMethod": "Langganan-mu akan ditagih <strong>$<%= amount %></strong> setiap <strong><%= months %> bulan</strong> melalui <strong><%= paymentMethod %></strong>",
     "groupsPaymentAutoRenew": "Langganan ini akan diperpanjang secara otomatis hingga dibatalkan. Jika perlu membatalkan, kamu dapat melakukannya dari tab Penagihan Grup.",
     "limitedAvailabilityDays": "Tersedia sampai <%= days %> hari <%= hours %> jam <%= minutes %> menit",
     "helpSupportHabitica": "Bantu Dukung Habitica",
@@ -129,5 +128,6 @@
     "limitedAvailabilityHours": "Tersedia sampai <%= hours %> jam <%= minutes %> menit",
     "paymentAutoRenew": "Langganan ini akan diperpanjang secara otomatis hingga dibatalkan. Jika kamu perlu membatalkan langganan ini, kamu dapat melakukannya dari pengaturan.",
     "notAvailable": "Barang ini tidak tersedia.",
-    "customizationsShopText": "Mau ganti gaya? Anda datang ke tempat yang tepat! Kami menawarkan tampilan terkini sesuai musim."
+    "customizationsShopText": "Mau ganti gaya? Anda datang ke tempat yang tepat! Kami menawarkan tampilan terkini sesuai musim.",
+    "paymentYouSentSubscriptionG1G1": "Kamu mengirimkan <strong><%- name %></strong><br> a <%= months %> bulan langganan Habitica, dan langganan yang sama telah dipakai pada akunmu menggunakan promisi kami, Beli Satu Gratis Satu!"
 }

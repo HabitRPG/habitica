@@ -88,7 +88,6 @@
     "success": "Succes!",
     "classGear": "Klasseudstyr",
     "classGearText": "Tillykke med at vælge klasse! Jeg har tilføjet dit nye basisudstyr til dit inventar. Tag et kig forneden og tag det på!",
-    "autoAllocate": "Tildel automatisk",
     "spells": "Evner",
     "skillsTitle": "<%= classStr %> Evner",
     "toDo": "To Do",

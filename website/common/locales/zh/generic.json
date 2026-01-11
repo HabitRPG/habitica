@@ -242,5 +242,6 @@
     "newMessage": "新信息",
     "targetUserNotExist": "目标用户：'<%= userName %>'不存在。",
     "rememberToBeKind": "请谨记友善、尊重他人，并遵守<a href='/static/community-guidelines' target='_blank'>社区准则</a>。",
-    "gem": "宝石"
+    "gem": "宝石",
+    "confirmPurchase": "确认购买"
 }

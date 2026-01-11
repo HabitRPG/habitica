@@ -4,8 +4,8 @@
     "brokenChaLink": "Link de Desafio quebrado",
     "keepIt": "Mantê-la",
     "removeIt": "Removê-la",
-    "brokenChallenge": "Link de Desafio quebrado: esta tarefa fazia parte de um desafio, mas o desafio (ou grupo) foi excluído. O que deseja fazer com as tarefas órfãs?",
-    "challengeCompleted": "Esse desafio foi concluído e o(a) vencedor(a) foi <span class=\"badge\"><%- user %></span>! O que deseja fazer com as tarefas do desafio que ficaram?",
+    "brokenChallenge": "Link de Desafio Quebrado",
+    "challengeCompleted": "Desafio Concluído!",
     "unsubChallenge": "Link de Desafio quebrado: essa tarefa era parte de um desafio, mas você saiu do desafio. O que deseja fazer com as tarefas órfãs?",
     "challenges": "Desafios",
     "endDate": "Termina",
@@ -108,5 +108,9 @@
     "resetFlags": "Redefinir sinalizadores",
     "cannotMakeChallenge": "Você não pode criar Desafios públicos, pois sua conta atualmente não tem privilégios de bate-papo. Entre em contato com admin@habitica.com para mais informações.",
     "messageChallengeFlagOfficial": "Desafios Oficiais não podem ser reportados.",
-    "deleteChallengeRefundDescription": "Se você excluir este Desafio, o prêmio em gema será reembolsado e as tarefas do Desafio permanecerão nos painéis de tarefas dos participantes."
+    "deleteChallengeRefundDescription": "Se você excluir este Desafio, o prêmio em gema será reembolsado e as tarefas do Desafio permanecerão nos painéis de tarefas dos participantes.",
+    "brokenTaskDescription": "Essa tarefa era parte de um desafio, mas foi removida dele. O que gostaria de fazer?",
+    "challengeCompletedDescription": "O vencedor foi <%- user %>! O que fazer com as tarefas abandonadas?",
+    "brokenChallengeDescription": "Essa tarefa fazia parte de um desafio, mas o desafio (ou grupo) foi excluído. O que deseja fazer com as tarefas abandonadas?",
+    "brokenTask": "Link de Desafio quebrado"
 }

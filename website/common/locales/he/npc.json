@@ -88,7 +88,6 @@
     "success": "הצלחה!",
     "classGear": "ציוד מקצוע",
     "classGearText": "",
-    "autoAllocate": "חלוקה אוטומטית",
     "spells": "יכולות",
     "skillsTitle": "<%= classStr %> יכולות",
     "toDo": "משימה",

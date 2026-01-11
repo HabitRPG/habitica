@@ -88,7 +88,6 @@
     "success": "Success!",
     "classGear": "Equipamento da Classe",
     "classGearText": "Parabéns por ter escolhido uma classe! Eu adicionei sua nova arma básica no seu inventário. Dê uma olhada abaixo para equipá-lo!",
-    "autoAllocate": "Distribuição Automática",
     "spells": "Habilidades",
     "skillsTitle": "<%= classStr %> Habilidades",
     "toDo": "Afazeres",

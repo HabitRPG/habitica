@@ -134,7 +134,7 @@
     "winterPromoGiftDetails1": "Apenas até o dia 6 de Janeiro, quando você presentear alguém com uma assinatura, vai ganhar uma assinatura idêntica gratuitamente!",
     "winterPromoGiftDetails2": "Por favor, note que se você ou a outra pessoa presenteada já tiver uma assinatura ativa, a nova será iniciada somente depois que a assinatura atual tiver sido cancelada ou expirada. Agradecemos muito pelo seu apoio! <3",
     "discountBundle": "pacote",
-    "g1g1Announcement": "A promoção <strong>\"Presenteie uma assinatura e ganhe outra grátis\"</strong> está acontecendo agora!",
+    "g1g1Announcement": "A promoção <strong>“Presenteie com uma assinatura e ganhe outra grátis”</strong> está no ar. Aproveite agora!",
     "g1g1Details": "Dê de presente uma assinatura para um(a) amigo(a) através do perfil dele(a) e você receberá a mesma assinatura de graça!",
     "spring2019OrchidWarriorSet": "Orquídea (Guerreiro)",
     "spring2019AmberMageSet": "Âmbar (Mago)",
@@ -169,7 +169,7 @@
     "winter2021WinterMoonMageSet": "Lua de Inverno (Mago)",
     "winter2021ArcticExplorerHealerSet": "Explorador(a) do Ártico (Curandeiro)",
     "limitations": "Limitações",
-    "g1g1Event": "A promoção Presenteie uma, Ganhe outra está acontecento agora mesmo!",
+    "g1g1Event": "A promoção “Presenteie com uma assinatura e ganhe outra grátis” está no ar!",
     "g1g1": "Presenteie uma, Ganhe outra",
     "g1g1Returning": "Em homenagem à estação, nós trouxemos de volta uma promoção muito especial. Agora quando você der uma assinatura de presente, receberá uma idêntica de volta!",
     "winter2021HollyIvyRogueSet": "Azevinho e Hera (Ladino)",
@@ -279,8 +279,12 @@
     "spring2025CrystalPointRogueSet": "Conjunto do Ladino da Ponta do Cristal",
     "spring2025PlumeriaHealerSet": "Conjunto de Curandeiro Plumeria",
     "spring2025MantisMageSet": "Conjunto de Mago Louva-a-deus",
-    "summer2025ScallopWarriorSet": "Conjunto do Guerreiro da Concha",
+    "summer2025ScallopWarriorSet": "Conjunto de Guerreiro de Concha",
     "summer2025SquidRogueSet": "Conjunto de Ladino Lula",
     "summer2025SeaAngelHealerSet": "Conjunto de Curandeiro Anjo do Oceano",
-    "summer2025FairyWrasseMageSet": "Conjunto de Mago Fada-Donzela"
+    "summer2025FairyWrasseMageSet": "Conjunto de Mago Fada-Donzela",
+    "winter2026RimeReaperWarriorSet": "Conjunto Guerreiro Ceifador de Gelo",
+    "winter2026SkiRogueSet": "Conjunto Ski Rogue",
+    "winter2026PolarBearHealerSet": "Conjunto de Curandeiro Urso Polar",
+    "winter2026MidwinterCandleMageSet": "Conjunto de Mago Velas do Inverno"
 }

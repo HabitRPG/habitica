@@ -426,5 +426,7 @@
     "groupFriends": "Usando com meus amigos",
     "groupTeacher": "Usando para educação",
     "groupParentChildren": "Usando com meus familiares",
-    "groupManager": "Usando para trabalho"
+    "groupManager": "Usando para trabalho",
+    "groupPlanBillingFYI": "As assinaturas do Plano de Grupo são renovadas automaticamente, a menos que você cancele pelo menos 24 horas antes do término do período atual. Você pode cancelar na aba \"Faturamento do Grupo\" do seu Plano de Grupo. A cobrança será feita em até 24 horas antes da renovação da sua assinatura, com base no número de membros do seu Plano de Grupo naquele momento. Se você adicionar membros entre os períodos de pagamento, verá uma cobrança proporcional adicional pelos benefícios deles no seu próximo ciclo de faturamento.",
+    "groupPlanBillingFYIShort": "As assinaturas do Plano de Grupo são renovadas automaticamente, a menos que você cancele pelo menos 24 horas antes do término do período atual. A cobrança será feita em até 24 horas antes da renovação da sua assinatura, com base no número de membros do seu Plano de Grupo naquele momento. Se você adicionar membros entre os períodos de pagamento, será cobrada uma taxa adicional proporcional pelos benefícios deles no seu próximo ciclo de faturamento."
 }

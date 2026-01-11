@@ -88,7 +88,6 @@
     "success": "成功！",
     "classGear": "职业装备",
     "classGearText": "恭喜你选择了一个职业！我已经将你的基本武器添加到了你的库存中。查看下方来装备它吧！",
-    "autoAllocate": "自动分配",
     "spells": "技能",
     "skillsTitle": "<%= classStr %>技能",
     "toDo": "待办事项",

@@ -2329,7 +2329,7 @@
     "bodyArmoireClownsBowtieNotes": "Una buena pajarita no es ninguna broma, incluso para un payaso. Aumenta la fuerza, inteligencia, constitución y percepción en <%= attrs %> cada uno. Armario Encantado: conjunto de payaso (artículo 5 de 5).",
     "shieldArmoireChocolateFoodNotes": "A todo el mundo le gusta el chocolate, pero a unas mascotas más que a otras... Aumenta la inteligencia en <%= int %>. Armario Encantado: conjunto de comida para mascotas (artículo 8 de 10).",
     "shieldArmoireBagpipesText": "Gaitas",
-    "headAccessoryMystery202004Notes": "Se mueven un poco si detectan el aroma de las flores, ¡utilízalas para encontrar un bonito jardín! No otorga ningún beneficio. Artículo de suscriptor de abril 2020.",
+    "headAccessoryMystery202004Notes": "Se mueven un poco si detectan el aroma de las flores —¡utilízalas para encontrar un bonito jardín! No otorga ningún beneficio. Artículo de suscriptor de abril 2020.",
     "shieldArmoireLifeBuoyText": "Boya salvavidas",
     "shieldArmoirePiratesCompanionNotes": "Perfecto si quieres matar a hablar a tus enemigos, porque este loro nunca se calla. ¡Quizás también te recuerde tus tareas! Aumenta la percepción en <%= per %>. Armario Encantado: conjunto pirata (artículo 3 de 3).",
     "headAccessoryMystery202109Notes": "Capta el aroma de las flores en la brisa o la esencia del cambio en el viento. No otorga ningún beneficio. Artículo de suscriptor de septiembre 2021.",
@@ -3487,5 +3487,13 @@
     "headMystery202602Notes": " Tu percepción de los sonidos será tan aguzada debido a estas orejas, que podrás escuchar no solo una mano aplaudiendo sola, si no también el florecimiento de las hermosas florecillas cuando la primavera se vaya acercando, florecilla. No otorga ningún beneficio. Artículo de Suscriptor Febrero 2026.",
     "headArmoireLoneCowpokeHatText": "Sombrero de Vaquero Solitario",
     "shieldSpecialWinter2026WarriorText": "Escudo Escarcha",
-    "shieldSpecialWinter2026HealerText": "Explosión Estelar"
+    "shieldSpecialWinter2026HealerText": "Explosión Estelar",
+    "shieldArmoirePrettyPinkGiftBoxNotes": "¿Es este regalo para un buen amigo? ¿Un familiar apreciado? ¿Tu amor verdadero? ¿Un admirador secreto, mi tessssorooo? Sea para quien sea estará encantado de tenerlo, mejor que en los bolsillos de ese sucio hobbit preciossssso mío. Aumenta todas las estadisticas en <%= attrs %>. Armario Encantado: Conjunto Hermosa en Rosa (Artículo 2 de 2)",
+    "backMystery202601Notes": "Este sello concede a quien lo usa el control de los elementos en la estación del frío y la escarcha, imbuido en el corazón de la disformidad. No otorga ningún beneficio. Artículo de Suscriptor Enero 2026.",
+    "backMystery202602Notes": "Estas esponjosas colas son del color del cerezo en flor, ¡un recordatorio de que la primavera siempre llega! No otorga ningún beneficio. Artículo de Suscriptor Febrero 2026.",
+    "shieldArmoirePrettyPinkGiftBoxText": "Hermoso Regalo Rosa",
+    "backMystery202601Text": "Símbolo Invernal",
+    "backMystery202602Text": "Las Cinco Colas de Sakura",
+    "backArmoireHarpsichordText": "Clavicémbalo",
+    "backArmoireHarpsichordNotes": "¡Duing! ¡Ding! Reúne a tu equipo ya sea para un almuerzo campestre o un picnic, algo totalmente diferente a lo anterior, y una vez allí deleita sus pabellones auditivos mientras interpretas Highway to Hell en tu clavicémbalo. Aumenta la Percepción y la Inteligencia en <%= attrs %> cada uno.Armario Encantado: Conjunto Instrumentos Musicales 2 (Artículo 1 de 3)"
 }

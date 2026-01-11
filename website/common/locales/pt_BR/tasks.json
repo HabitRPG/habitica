@@ -137,5 +137,11 @@
     "scoreUp": "Pontuação positiva",
     "taskAlias": "Nome de Tarefa",
     "taskAliasPopover": "Este nome de tarefa pode ser usado para integração com terceiros. Apenas traços, sublinhados e caracteres alfanum[ericos são permitidos. O nome da tarefa precisa ser único entre suas tarefas.",
-    "taskAliasPlaceholder": "seu-nome-de-tarefa-aqui"
+    "taskAliasPlaceholder": "seu-nome-de-tarefa-aqui",
+    "deleteTask": "Excluir Tarefa",
+    "confirmDeleteTasks": "Você gostaria de excluir as tarefas?",
+    "deleteType": "Excluir <%= type %>",
+    "brokenChallengeTaskCount": "Essa é uma das <%= count %> tarefas que fazem parte de um Desafio que não existe mais.",
+    "deleteXTasks": "Excluir <%= count %> Tarefas",
+    "sureDeleteType": "Você tem certeza que deseja deletar essa tarefa?"
 }

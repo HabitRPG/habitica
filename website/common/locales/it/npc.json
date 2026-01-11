@@ -88,7 +88,6 @@
     "success": "Successo!",
     "classGear": "Equipaggiamento per Classi",
     "classGearText": "Congratulazioni per la scelta della classe! Ho aggiunto la tua nuova arma di base al tuo inventario. Dai un'occhiata giù per equipaggiarla!",
-    "autoAllocate": "Assegnazione automatica dei punti",
     "spells": "Abilità",
     "skillsTitle": "<%= classStr %> Abilità",
     "toDo": "Cosa da Fare",

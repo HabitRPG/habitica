@@ -1,7 +1,7 @@
 {
     "communityGuidelinesWarning": "請記得您的暱稱、個人檔案照片和內容皆須遵守<a href='https://habitica.com/static/community-guidelines' target='_blank'>社群守則</a>（比如說：不允許猥褻行為、不允許成人議題、不允許汙辱他人等等）。如果您不確定某些事有沒有合乎規範，歡迎寫信到<%= hrefBlankCommunityManagerEmail %>！",
     "profile": "個人檔案",
-    "avatar": "自訂角色",
+    "avatar": "自訂頭像",
     "editAvatar": "自訂角色",
     "noDescription": "此Habitica玩家尚未新增介紹。",
     "noPhoto": "此Habitica玩家尚未新增相片。",

@@ -88,7 +88,6 @@
     "success": "Success!",
     "classGear": "Výzbroj povolania",
     "classGearText": "Congratulations on choosing a class! I've added your new basic weapon to your inventory. Take a look below to equip it!",
-    "autoAllocate": "Automatické prideľovanie",
     "spells": "Skills",
     "skillsTitle": "<%= classStr %> Schopnosti",
     "toDo": "Úlohy",

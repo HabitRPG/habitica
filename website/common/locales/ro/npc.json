@@ -88,7 +88,6 @@
     "success": "Success!",
     "classGear": "Echipament de clasă",
     "classGearText": "Congratulations on choosing a class! I've added your new basic weapon to your inventory. Take a look below to equip it!",
-    "autoAllocate": "Alocare automată",
     "spells": "Skills",
     "skillsTitle": "<%= classStr %> Aptitudini",
     "toDo": "Sarcină",

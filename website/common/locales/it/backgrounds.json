@@ -747,7 +747,7 @@
     "backgroundSnowyVillageNotes": "Ammira un Villaggio Innevato.",
     "backgrounds012023": "SET 104: Rilasciato a gennaio 2023",
     "backgroundRimeIceText": "Brinata Scintillante",
-    "backgroundRimeIceNotes": "Ammira una Brinata Scintillante.",
+    "backgroundRimeIceNotes": "Ammira la Brina scintillante.",
     "backgroundSnowyTempleText": "Templio Innevato",
     "backgroundSnowyTempleNotes": "Osserva un Tempio Sereno Innevato.",
     "backgroundWinterLakeWithSwansText": "Lago Invernale con i Cigni",
@@ -925,5 +925,10 @@
     "backgrounds122025": "SET 139: Rilasciato Dicembre 2025",
     "backgroundNighttimeStreetWithShopsText": "Via Notturna con Negozi",
     "backgroundNighttimeStreetWithShopsNotes": "Apprezza il luccichio confortevole di una Via Notturna con Negozi.",
-    "backgrounds012026": "SET 140: Rilasciato Gennaio 2026"
+    "backgrounds012026": "SET 140: Rilasciato Gennaio 2026",
+    "backgroundWinterDesertWithSaguarosText": "Deserto Invernale con Cactus Giganti",
+    "backgroundWinterDesertWithSaguarosNotes": "Respira l'aria frizzante di un Deserto Invernale con Cactus Giganti.",
+    "backgrounds022026": "SET 141: Rilasciato Febbraio 2026",
+    "backgroundElegantPalaceText": "Palazzo Elegante",
+    "backgroundElegantPalaceNotes": "Ammira le sale piene di colori di un Elegante Palazzo."
 }

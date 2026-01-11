@@ -88,7 +88,6 @@
     "success": "Success!",
     "classGear": "Klassespecifieke Uitrusting",
     "classGearText": "Gefeliciteerd met je gekozen Klasse! Ik heb je nieuwe standaardwapen in je Inventaris gestopt. Neem hieronder een kijkje om het te dragen!",
-    "autoAllocate": "Automatische verdeling",
     "spells": "Vaardigheden",
     "skillsTitle": "<%= classStr %> Vaardigheden",
     "toDo": "To Do",

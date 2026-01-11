@@ -426,5 +426,7 @@
     "groupParentChildren": "Using with my household",
     "groupFriends": "Using with friends",
     "groupManager": "Using for work",
-    "groupTeacher": "Using for education"
+    "groupTeacher": "Using for education",
+    "groupPlanBillingFYI": "Group Plan subscriptions will automatically renew unless you cancel at least 24 hours before the end of your current period. You can cancel from the Group Billing tab of your Group Plan. You will be charged within 24 hours before your subscription renews, based on the number of members in your Group Plan at that time. If you add members between payment periods, you will see an additional pro-rated charge for their benefits in your next billing cycle.",
+    "groupPlanBillingFYIShort": "Group Plan subscriptions will automatically renew unless you cancel at least 24 hours before the end of your current period. You can cancel from the Group Billing tab of your Group Plan. You will be charged within 24 hours before your subscription renews, based on the number of members in your Group Plan at that time. If you add members between payment periods, you will see an additional pro-rated charge for their benefits in your next billing cycle."
 }

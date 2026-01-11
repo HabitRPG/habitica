@@ -3444,5 +3444,8 @@
     "weaponSpecialWinter2026WarriorNotes": "Sensen helfen beim Schneiden, Ernten und beim Abdecken großer Bereiche - alles Dinge, die du beim Verfeinern von Aufgabenlisten brauchst. Erhöht Stärke um <%= str %>. Limitierte Ausgabe Winterausrüstung 2025-2026.",
     "weaponSpecialWinter2026RogueText": "Skistock",
     "weaponSpecialWinter2026RogueNotes": "Stistöcke helfen dir dabei, Balance, Stabilität und Timing zu wahren - alles Dinge, die du brauchst, um wirklich produktiv zu sein. Erhöht Stärke um <%= str %>. Limitierte Ausgabe Winterausrüstung 2025-2026.",
-    "weaponSpecialWinter2026HealerText": "Polarstab"
+    "weaponSpecialWinter2026HealerText": "Polarstab",
+    "weaponSpecialWinter2026HealerNotes": "Stäbe dienen als Stütze, Stabilitätshilfe und zur Richtungsfindung - alles Dinge, die dir beim Bezwingen einer Aufgabenliste wirklich helfen. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe Winterausrüstung 2025-2026.",
+    "weaponSpecialWinter2026MageNotes": "Kandelaber helfen, indem sie mehrere Kerzen gleichzeitig halten - folge diesem Beispiel, wenn du das nächste Mal multitasken musst. Erhöht Intelligenz um <%= int %> und Wahrnehmung um <%= per %>. Limitierte Ausgabe Winterausrüstung 2025-2026.",
+    "weaponSpecialWinter2026MageText": "Kandelaber Stab"
 }

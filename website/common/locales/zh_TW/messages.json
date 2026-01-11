@@ -55,5 +55,6 @@
     "messageCostumeUnEquipped": "服飾已卸下。",
     "messageBattleGearUnEquipped": "戰鬥裝備已卸下。",
     "messageAllUnEquipped": "所有項目已卸下。",
-    "messageBackgroundUnEquipped": "背景已卸下。"
+    "messageBackgroundUnEquipped": "背景已卸下。",
+    "featureRetired": "此功能已不再支援。"
 }

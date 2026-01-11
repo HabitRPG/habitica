@@ -88,7 +88,6 @@
     "success": "成功しました！",
     "classGear": "クラス アイテム",
     "classGearText": "クラスの選択おめでとう！　あなたの新しい基本武器を所持品に加えました。下をのぞいて装備してみてください！",
-    "autoAllocate": "自動割り当て",
     "spells": "スキル",
     "skillsTitle": "<%= classStr %>スキル",
     "toDo": "To Do",

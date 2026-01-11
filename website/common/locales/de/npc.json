@@ -88,7 +88,6 @@
     "success": "Erfolg!",
     "classGear": "Klassenausrüstung",
     "classGearText": "Glückwunsch zur Wahl Deiner Klasse! Ich habe Deine neue Basiswaffe dem Inventar hinzugefügt. Schaue sie Dir unten an, um sie auszurüsten!",
-    "autoAllocate": "Automatische Verteilung",
     "spells": "Fertigkeiten",
     "skillsTitle": "<%= classStr %> Fertigkeiten",
     "toDo": "To-Do",

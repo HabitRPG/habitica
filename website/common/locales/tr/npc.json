@@ -88,7 +88,6 @@
     "success": "Başarılı!",
     "classGear": "Sınıf Ekipmanı",
     "classGearText": "Bir sınıf seçtiğin için tebrikler! Yeni sıradan silahını envanterine koydum. Giymek için aşağıya göz at!",
-    "autoAllocate": "Otomatik Dağıt",
     "spells": "Yetenekler",
     "skillsTitle": "<%= classStr %> Yetenekleri",
     "toDo": "Yapılacaklar",

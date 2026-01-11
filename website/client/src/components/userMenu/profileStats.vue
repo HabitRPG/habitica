@@ -156,7 +156,7 @@
             <template #item="{ item, button }">
               <div class="allocation-option-content">
                 <span class="option-text">
-                  {{ $t(button ? getAllocationModeLabel(item) : item.label) }}
+                  {{ $t(item.label) }}
                 </span>
                 <span v-if="!button && item.description" class="option-description">
                   {{ $t(item.description) }}

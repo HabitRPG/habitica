@@ -88,7 +88,6 @@
     "success": "Úspěch!",
     "classGear": "Vybavení pro tvé povolání",
     "classGearText": "Gratuluji k vybrání povolání! Přidal jsem ti základní zbraň do tvého inventáře. Podívej se dolů a vybav se!",
-    "autoAllocate": "Připisovat automaticky",
     "spells": "Dovednosti",
     "skillsTitle": "<%= classStr %> Dovednosti",
     "toDo": "úkol",

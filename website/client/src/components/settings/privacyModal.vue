@@ -105,7 +105,7 @@ export default {
   },
   data () {
     return {
-      privacyConsent: true,
+      privacyConsent: false,
     };
   },
   methods: {

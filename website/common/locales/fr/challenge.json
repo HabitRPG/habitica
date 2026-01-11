@@ -4,8 +4,8 @@
     "brokenChaLink": "Lien de défi cassé",
     "keepIt": "La garder",
     "removeIt": "La supprimer",
-    "brokenChallenge": "Lien de défi cassé : cette tâche faisait partie d'un défi mais le défi (ou le groupe) a été supprimé. Que faire des tâches orphelines ?",
-    "challengeCompleted": "Ce défi est terminé et le gagnant est <span class=\"badge\"><%- user %></span> ! Que faire des tâches orphelines ?",
+    "brokenChallenge": "Lien Inexistant vers Défi",
+    "challengeCompleted": "Défi Relevé !",
     "unsubChallenge": "Lien de défi cassé : cette tâche faisait partie d'un défi mais n'y participez plus. Que faire des tâches orphelines ?",
     "challenges": "Défis",
     "endDate": "Prend fin le",
@@ -108,5 +108,9 @@
     "resetFlags": "Réinitialiser les Signalements",
     "cannotMakeChallenge": "Vous ne pouvez pas créer de Défis publics car votre compte n'a pour le moment pas les accès aux discussions. Merci de contacter admin@habitica.com pour plus d'informations.",
     "messageChallengeFlagOfficial": "Les Défis Officiels ne peuvent pas être signalés.",
-    "deleteChallengeRefundDescription": "Si vous supprimez ce Défi, les Gemmes investies vous seront restituées et les Tâches du Défis ne disparaîtront pas des Tâches des participant·e·s."
+    "deleteChallengeRefundDescription": "Si vous supprimez ce Défi, les Gemmes investies vous seront restituées et les Tâches du Défis ne disparaîtront pas des Tâches des participant·e·s.",
+    "challengeCompletedDescription": "<%- user %> a remporté le Défi ! Que souhaitez-vous faire des tâches restantes ?",
+    "brokenTaskDescription": "Cette tâche faisait partie d'un défi mais en a été supprimé. Que souhaitez-vous faire ?",
+    "brokenChallengeDescription": "Cette tâche faisait partie d'un défi mais celui-ci (ou le groupe) a été supprimé. Que souhaitez-vous faire des tâches restantes ?",
+    "brokenTask": "Lien Inexistant vers Défi"
 }

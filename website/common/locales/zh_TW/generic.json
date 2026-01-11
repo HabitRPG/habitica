@@ -218,5 +218,8 @@
     "reportPlayer": "檢舉玩家",
     "unblockPlayer": "解除封鎖玩家",
     "adminTools": "管理工具",
-    "viewAdminPanel": "查看管理面板"
+    "viewAdminPanel": "查看管理面板",
+    "gem": "寶石",
+    "allNotifications": "所有通知",
+    "general": "一般"
 }

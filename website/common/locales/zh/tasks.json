@@ -137,5 +137,11 @@
     "scoreDown": "分数下降",
     "taskAlias": "任务别名",
     "taskAliasPopover": "该任务别名可在与第三方集成时使用。仅支持破折号、下划线和字母数字字符。任务别名在所有任务中必须是唯一的。",
-    "taskAliasPlaceholder": "-你的任务别名在此-"
+    "taskAliasPlaceholder": "-你的任务别名在此-",
+    "deleteTask": "删除任务",
+    "deleteXTasks": "删除<%= count %>项任务",
+    "brokenChallengeTaskCount": "这项任务是某个已经失效的挑战中的 <%= count %> 项任务之一。",
+    "confirmDeleteTasks": "你要删除这些任务吗？",
+    "deleteType": "删除 <%= type %>",
+    "sureDeleteType": "确定要删除这项任务吗？"
 }

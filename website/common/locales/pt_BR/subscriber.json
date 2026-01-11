@@ -2,12 +2,12 @@
     "subscription": "Assinatura",
     "subscriptions": "Assinaturas",
     "sendGems": "Enviar Gemas",
-    "buyGemsGold": "Gemas grátis mensais",
+    "buyGemsGold": "Gemas Mensais Gratuitas",
     "mustSubscribeToPurchaseGems": "É necessário ser assinante para comprar gemas com ouro",
     "reachedGoldToGemCapQuantity": "Seu pedido de <%= quantity %> Gemas ultrapassa o limite que você pode comprar para este mês (<%= convCap %>). O limite fica disponível nos três primeiros dias de cada mês. Obrigado por assinar!",
     "mysteryItem": "Itens mensais exclusivos",
     "mysteryItemText": "A cada mês você receberá um item cosmético único para o seu personagem! Além disso, para cada três meses de assinatura consecutivos, os Viajantes do Tempo Misteriosos te darão acesso a itens cosméticos do passado (e do futuro!).",
-    "exclusiveJackalopePet": "Mascote especial",
+    "exclusiveJackalopePet": "Mascote Especial",
     "giftSubscription": "Deseja presentear os benefícios de uma assinatura para outra pessoa?",
     "giftSubscriptionText4": "Obrigado por ajudar o Habitica!",
     "groupPlans": "Planos de Times",
@@ -269,5 +269,10 @@
     "unlockNGemsGift": "Eles desbloquearão <strong><%= count %> Gemas</strong> por mês no Mercado",
     "earn2GemsGift": "Eles ganharão <strong>+2 Gemas</strong> por mês que forem assinantes",
     "unlockNGems": "Desbloqueie <strong><%= count %> Gemas</strong> por mês no Mercado",
-    "mysterySet202505": "Conjunto Borboleta Crescente"
+    "mysterySet202505": "Conjunto Borboleta Crescente",
+    "mysterySet202512": "Conjunto do Campeão Biscoito",
+    "subscriptionBillingFYI": "As assinaturas são renovadas automaticamente, a menos que você as cancele pelo menos 24 horas antes do término do período atual. Você pode gerenciar sua assinatura na aba \"Assinaturas\" nas configurações. Sua conta será cobrada em até 24 horas após a data de renovação, pelo mesmo preço pago inicialmente.",
+    "subscriptionBillingFYIShort": "As assinaturas são renovadas automaticamente, a menos que você as cancele pelo menos 24 horas antes do término do período atual. Sua conta será cobrada em até 24 horas após a data de renovação, pelo mesmo preço pago inicialmente.",
+    "mysterySet202601": "Conjunto Égide de Inverno",
+    "mysterySet202602": "Conjunto Raposa de Sakura"
 }

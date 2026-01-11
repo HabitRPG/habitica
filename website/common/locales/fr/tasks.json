@@ -137,5 +137,11 @@
     "scoreDown": "Diminuer le score",
     "taskAliasPlaceholder": "votre-alias-de-tâche-ici",
     "taskAlias": "Alias de Tâche",
-    "taskAliasPopover": "Cet alias de tâche peut être utilisé en joignant une intégration d'équipe-tierce. Seuls les tiret, les tirets du bas, et les caractères alphanumériques sont utilisables. L'alias de tâche doit être unique parmi toutes vos tâches."
+    "taskAliasPopover": "Cet alias de tâche peut être utilisé en joignant une intégration d'équipe-tierce. Seuls les tiret, les tirets du bas, et les caractères alphanumériques sont utilisables. L'alias de tâche doit être unique parmi toutes vos tâches.",
+    "deleteTask": "Supprimer la Tâche",
+    "confirmDeleteTasks": "Souhaitez-vous supprimer ces tâches ?",
+    "deleteType": "Supprimer <%= type %>",
+    "deleteXTasks": "Supprimer <%= count %> Tâches",
+    "brokenChallengeTaskCount": "C'est une des <%= count %> tâches qui font partie d'un Défi qui n'existe plus.",
+    "sureDeleteType": "Êtes vous sûr·e de vouloir supprimer cette tâche ?"
 }

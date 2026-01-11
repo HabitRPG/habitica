@@ -109,5 +109,7 @@
     "wackyPets": "Wacky Pets",
     "invalidAmount": "Cantitatea nevalidă de mâncare, trebuie să fie un număr întreg pozitiv",
     "tooMuchFood": "Încercați să hrăniți prea multă mâncare animalului dvs. de companie, acțiune anulată",
-    "notEnoughFood": "Nu ai suficientă mâncare"
+    "notEnoughFood": "Nu ai suficientă mâncare",
+    "veteranCactus": "Cactus Veteran",
+    "veteranDragon": "Dragon Veteran"
 }
