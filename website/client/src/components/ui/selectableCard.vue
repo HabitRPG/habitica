@@ -27,7 +27,7 @@
   border-radius: 8px;
   padding: 16px;
   cursor: pointer;
-  box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.12), 0px 1px 2px 0px rgba(26, 24, 29, 0.24);
+  box-shadow: 0px 1px 2px 0px rgba(26, 24, 29, 0.08);
 
   &:hover {
     box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);

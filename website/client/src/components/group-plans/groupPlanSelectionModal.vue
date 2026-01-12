@@ -218,7 +218,8 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding-left: 48px;
+  padding-left: 32px;
+  padding-right: 8px;
 }
 
 .option-info {
@@ -338,6 +339,8 @@
   color: $gray-100;
   text-align: center;
   margin-top: 16px;
+  margin-left: 24px;
+  margin-right: 24px;
 }
 </style>
 
@@ -447,12 +450,13 @@ export default {
     continueFlow () {
       if (!this.selectedOption) return;
 
+      const selection = this.selectedOption;
       this.close();
 
-      if (this.selectedOption === 'new') {
+      if (selection === 'new') {
         this.$root.$emit('bv::show::modal', 'create-group');
       } else {
-        this.stripeGroup({ group: this.selectedOption, upgrade: true });
+        this.stripeGroup({ group: selection, upgrade: true });
       }
     },
     close () {
