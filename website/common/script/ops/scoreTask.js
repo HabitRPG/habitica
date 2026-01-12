@@ -143,9 +143,9 @@ function _addPoints (user, task, stats, direction, delta) {
       user._tmp.streakBonus = afterStreak - gpMod;
     }
 
-    stats.gp += Math.round(afterStreak);
+    stats.gp += Math.ceil(afterStreak);
   } else {
-    stats.gp += Math.round(gpMod);
+    stats.gp += Math.ceil(gpMod);
   }
 }
 
@@ -179,18 +179,15 @@ function _changeTaskValue (user, task, direction, times, cron) {
         }
 
         if (!user._tmp.quest) user._tmp.quest = {};
-        user._tmp.quest.progressDelta = user.party.quest.progress.up - prevProgress;
+        user._tmp.quest.progressDelta = Math.ceil(user.party.quest.progress.up - prevProgress);
       }
-      task.value += nextDelta;
+      task.value = Math.ceil(task.value + nextDelta);
     }
 
     addToDelta += nextDelta;
   });
 
-  if (addToDelta < 0) {
-    return Math.floor(addToDelta);
-  }
-  return Math.ceil(addToDelta);
+  return addToDelta;
 }
 
 function _updateCounter (task, direction, times) {
