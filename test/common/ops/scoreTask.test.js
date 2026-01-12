@@ -56,7 +56,7 @@ describe('shared.ops.scoreTask', () => {
     ref = beforeAfter();
   });
 
-  it.only('summary of outcomes for a variety of task values', () => {
+  it.only('bennies from upscoring a variety of task values', () => {
     sandbox.stub(crit, 'crit').returns(1.5);
     const taskWorst = generateTodo({ userId: ref.afterUser._id, text: 'worst', value: -21 });
     const taskWorse = generateTodo({ userId: ref.afterUser._id, text: 'worse', value: -11 });
@@ -69,10 +69,28 @@ describe('shared.ops.scoreTask', () => {
       ref.afterUser.stats.exp = 0;
       ref.afterUser.stats.gp = 0;
       const valueDelta = scoreTask({ user: ref.afterUser, task: task });
-      console.log(`${task.text}: Experience ${ref.afterUser.stats.exp}
-        Gold ${ref.afterUser.stats.gp}
-        Task Value Delta ${valueDelta}
-      `);
+      console.log(
+        `${task.text}: user.stats.exp +${ref.afterUser.stats.exp},
+        user.stats.gp +${ref.afterUser.stats.gp},
+        task.value +${valueDelta}`
+      );
+    });
+    crit.crit.restore();
+  });
+
+  it.only('hp loss from downscoring a variety of task values', () => {
+    sandbox.stub(crit, 'crit').returns(1.5);
+    const taskWorst = generateHabit({ userId: ref.afterUser._id, text: 'worst', value: -21 });
+    const taskWorse = generateHabit({ userId: ref.afterUser._id, text: 'worse', value: -11 });
+    const taskBad = generateHabit({ userId: ref.afterUser._id, text: 'bad', value: -2 });
+    const taskNeutral = generateHabit({ userId: ref.afterUser._id, text: 'neutral', value: 0 });
+    const taskGood = generateHabit({ userId: ref.afterUser._id, text: 'good', value: 4 });
+    const taskBetter = generateHabit({ userId: ref.afterUser._id, text: 'better', value: 9 });
+    const taskBest = generateHabit({ userId: ref.afterUser._id, text: 'best', value: 11 });
+    [taskWorst, taskWorse, taskBad, taskNeutral, taskGood, taskBetter, taskBest].forEach(task => {
+      ref.afterUser.stats.hp = 50;
+      scoreTask({ user: ref.afterUser, task, direction: 'down' });
+      console.log(`${task.text}: user.stats.hp ${ref.afterUser.stats.hp - 50}`);
     });
     crit.crit.restore();
   });
