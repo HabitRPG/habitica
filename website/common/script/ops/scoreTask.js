@@ -115,7 +115,11 @@ function _subtractPoints (user, task, stats, delta) {
   if (conBonus < 0.1) conBonus = 0.1;
 
   const hpMod = delta * conBonus * task.priority * 2; // constant 2 multiplier for better results
-  stats.hp += Math.round(hpMod); // round to 0dp
+  if (hpMod > -1) {
+    stats.hp -= 1;
+  } else {
+    stats.hp += Math.ceil(hpMod); // round to 0dp
+  }
   return stats.hp;
 }
 
