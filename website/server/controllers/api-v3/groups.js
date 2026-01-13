@@ -371,6 +371,10 @@ api.getGroups = {
       filters.$or.push({ description: searchQuery });
     }
 
+    if (req.query.includeExpiredPlans === 'true') {
+      filters.includeExpiredPlans = true;
+    }
+
     const results = await Group.getGroups({
       user,
       types,

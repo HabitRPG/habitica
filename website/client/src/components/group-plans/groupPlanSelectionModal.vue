@@ -393,6 +393,8 @@ export default {
     ...mapState({ user: 'user.data' }),
     upgradeableGuilds () {
       return this.userGuilds.filter(group => {
+        const leaderId = group.leader?._id || group.leader;
+        if (leaderId !== this.user._id) return false;
         const plan = group.purchased?.plan;
         if (!plan?.customerId) return false;
         if (this.activeGroupPlanIds.includes(group._id)) return false;
@@ -421,7 +423,7 @@ export default {
 
       try {
         const [guildsResponse, partyResponse] = await Promise.all([
-          axios.get('/api/v4/groups', { params: { type: 'guilds' } }),
+          axios.get('/api/v4/groups', { params: { type: 'guilds', includeExpiredPlans: 'true' } }),
           axios.get('/api/v4/groups/party').catch(() => ({ data: { data: null } })),
         ]);
 
