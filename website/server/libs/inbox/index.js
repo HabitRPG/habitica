@@ -1,6 +1,6 @@
 import { mapInboxMessage, inboxModel } from '../../models/message';
 import { getUserInfo, sendTxn as sendTxnEmail } from '../email'; // eslint-disable-line import/no-cycle
-import { sendNotification as sendPushNotification } from '../pushNotifications';
+import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
 
 export async function sentMessage (sender, receiver, message, translate) {
   const fakeSending = sender.flags.chatShadowMuted;
