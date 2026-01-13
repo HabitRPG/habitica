@@ -159,8 +159,8 @@ schema.plugin(baseModel, {
     if (plainObj.purchased) {
       plainObj.purchased.active = originalDoc.hasActiveGroupPlan();
       // Expose non-sensitive plan info for upgrade flow
-      const plan = originalDoc.purchased?.plan;
-      if (plan?.customerId) {
+      const plan = originalDoc.purchased && originalDoc.purchased.plan;
+      if (plan && plan.customerId) {
         plainObj.purchased.wasUpgraded = true;
         if (plan.dateTerminated) {
           plainObj.purchased.dateTerminated = plan.dateTerminated;
