@@ -158,7 +158,6 @@ schema.plugin(baseModel, {
   toJSONTransform (plainObj, originalDoc) {
     if (plainObj.purchased) {
       plainObj.purchased.active = originalDoc.hasActiveGroupPlan();
-      // Expose non-sensitive plan info for upgrade flow
       const plan = originalDoc.purchased && originalDoc.purchased.plan;
       if (plan && plan.customerId) {
         plainObj.purchased.wasUpgraded = true;
