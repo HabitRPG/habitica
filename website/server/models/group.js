@@ -156,7 +156,17 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'bannedWordsAllowed', 'challengeCount', 'tasksOrder', 'purchased', 'managers'],
   private: ['purchased.plan'],
   toJSONTransform (plainObj, originalDoc) {
-    if (plainObj.purchased) plainObj.purchased.active = originalDoc.hasActiveGroupPlan();
+    if (plainObj.purchased) {
+      plainObj.purchased.active = originalDoc.hasActiveGroupPlan();
+      // Expose non-sensitive plan info for upgrade flow
+      const plan = originalDoc.purchased?.plan;
+      if (plan?.customerId) {
+        plainObj.purchased.wasUpgraded = true;
+        if (plan.dateTerminated) {
+          plainObj.purchased.dateTerminated = plan.dateTerminated;
+        }
+      }
+    }
   },
 });
 

@@ -395,11 +395,11 @@ export default {
       return this.userGuilds.filter(group => {
         const leaderId = group.leader?._id || group.leader;
         if (leaderId !== this.user._id) return false;
-        const plan = group.purchased?.plan;
-        if (!plan?.customerId) return false;
+        const purchased = group.purchased;
+        if (!purchased?.wasUpgraded) return false;
         if (this.activeGroupPlanIds.includes(group._id)) return false;
-        if (!plan.dateTerminated) return false;
-        return new Date(plan.dateTerminated) < new Date();
+        if (!purchased.dateTerminated) return false;
+        return new Date(purchased.dateTerminated) < new Date();
       });
     },
     upgradeableParty () {
