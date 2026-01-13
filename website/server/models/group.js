@@ -309,13 +309,16 @@ schema.statics.getGroups = async function getGroups (options = {}) {
           privacy: 'private',
           _id: { $in: user.guilds },
           'purchased.plan.customerId': { $exists: true },
-          $or: [
+        };
+        if (!filters.includeExpiredPlans) {
+          query.$or = [
             { 'purchased.plan.dateTerminated': null },
             { 'purchased.plan.dateTerminated': { $exists: false } },
             { 'purchased.plan.dateTerminated': { $gt: new Date() } },
-          ],
-        };
-        _.assign(query, filters);
+          ];
+        }
+        const filtersWithoutCustom = _.omit(filters, ['includeExpiredPlans']);
+        _.assign(query, filtersWithoutCustom);
         const privateGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) privateGuildsQuery.populate('leader', nameFields);
         privateGuildsQuery.sort(sort);
