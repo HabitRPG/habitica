@@ -334,8 +334,12 @@ api.getGroups = {
       throw new BadRequest(apiError('guildsOnlyPaginate'));
     }
 
-    const groupFields = basicGroupFields.concat(' description memberCount balance leaderOnly');
+    let groupFields = basicGroupFields.concat(' description memberCount balance leaderOnly');
     const sort = '-memberCount';
+
+    if (req.query.includeExpiredPlans === 'true') {
+      groupFields = groupFields.concat(' purchased');
+    }
 
     const filters = {};
     if (req.query.categories) {
