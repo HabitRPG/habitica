@@ -430,7 +430,7 @@ export default {
         this.userGuilds = guildsResponse.data.data || [];
         this.userParty = partyResponse.data.data;
 
-        await this.$store.dispatch('guilds:getGroupPlans');
+        await this.$store.dispatch('guilds:getGroupPlans', true);
         const groupPlans = this.$store.state.groupPlans?.data || [];
         this.activeGroupPlanIds = groupPlans.map(g => g._id);
       } catch (e) {
