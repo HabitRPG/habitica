@@ -56,7 +56,7 @@
     border-style: solid;
     border-width: 48px 48px 0 0;
     border-color: $purple-300 transparent transparent transparent;
-    border-radius: 8px 0 0 0;
+    border-radius: 6px 0 0 0;
   }
 
   .check-icon {

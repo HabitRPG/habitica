@@ -438,6 +438,16 @@ export default {
       }
 
       this.loading = false;
+
+      this.$nextTick(() => {
+        if (this.upgradeableGuilds.length > 0) {
+          this.selectedOption = this.upgradeableGuilds[0];
+        } else if (this.upgradeableParty) {
+          this.selectedOption = this.upgradeableParty;
+        } else {
+          this.selectedOption = 'new';
+        }
+      });
     },
     selectOption (option) {
       this.selectedOption = option;
