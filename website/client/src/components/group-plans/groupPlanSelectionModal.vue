@@ -58,7 +58,7 @@
                 {{ group.name }}
               </div>
               <div class="option-members">
-                {{ $t('membersCount', { count: group.memberCount }) }}
+                {{ formatMemberCount(group.memberCount) }}
               </div>
               <div class="option-label previously-upgraded">
                 <div
@@ -86,7 +86,7 @@
                 {{ upgradeableParty.name }}
               </div>
               <div class="option-members">
-                {{ $t('membersCount', { count: upgradeableParty.memberCount }) }}
+                {{ formatMemberCount(upgradeableParty.memberCount) }}
               </div>
               <div class="option-label your-party">
                 <div
@@ -458,6 +458,9 @@ export default {
     },
     calculatePrice (memberCount) {
       return this.basePrice + (this.perMemberPrice * (memberCount - 1));
+    },
+    formatMemberCount (count) {
+      return count === 1 ? this.$t('oneMember') : this.$t('membersCount', { count });
     },
     continueFlow () {
       if (!this.selectedOption) return;
