@@ -437,5 +437,6 @@
   "inviteOthersForAdditional": "Invite others to your Group for an additional",
   "perMember": "per member",
   "additionalMembersProrated": "Additional members invited during the month will be added to the next billing cycle's total as a pro-rated charge.",
+  "oneMember": "1 member",
   "membersCount": "<%= count %> members"
 }
