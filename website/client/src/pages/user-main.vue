@@ -295,6 +295,10 @@ export default {
         appState = JSON.parse(appState);
         if (appState.paymentCompleted) {
           removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+          if (appState.paymentType === 'groupPlan') {
+            this.$store.state.upgradingGroup = {};
+            this.$store.dispatch('guilds:getGroupPlans', true);
+          }
           this.$root.$emit('habitica:payment-success', appState);
         }
       }
