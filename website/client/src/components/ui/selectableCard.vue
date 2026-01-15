@@ -61,10 +61,10 @@
 
   .check-icon {
     position: absolute;
-    top: 10px;
+    top: 8px;
     left: 8px;
-    width: 12px;
-    height: 10px;
+    width: 16px;
+    height: 16px;
     color: $white;
   }
 }

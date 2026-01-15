@@ -95,7 +95,20 @@
                   {{ $t('pendingCount', { count: partyPendingInviteCount }) }}
                 </span>
               </div>
-              <div class="option-label your-party">
+              <div
+                v-if="isPartyPreviouslyUpgraded"
+                class="option-label previously-upgraded"
+              >
+                <div
+                  class="svg-icon sparkle-icon"
+                  v-html="icons.sparkles"
+                ></div>
+                {{ $t('previouslyUpgradedGroup') }}
+              </div>
+              <div
+                v-else
+                class="option-label your-party"
+              >
                 <div
                   class="svg-icon member-icon"
                   v-html="icons.member"
@@ -476,6 +489,13 @@ export default {
     },
     hasUpgradeableGroups () {
       return this.upgradeableGuilds.length > 0 || this.upgradeableParty !== null;
+    },
+    isPartyPreviouslyUpgraded () {
+      if (!this.userParty) return false;
+      const purchased = this.userParty.purchased;
+      if (!purchased?.wasUpgraded) return false;
+      if (!purchased.dateTerminated) return false;
+      return new Date(purchased.dateTerminated) < new Date();
     },
   },
   methods: {
