@@ -123,11 +123,11 @@
 </style>
 
 <style lang="scss">
-  .badge-pin:not(.pinned) {
+  .market .badge-pin:not(.pinned) {
     display: none;
   }
 
-  .item:hover .badge-pin {
+  .market .item:hover .badge-pin {
     display: block;
   }
 </style>
