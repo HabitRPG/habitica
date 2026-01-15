@@ -153,6 +153,10 @@ async function prepareSubscriptionValues (data) {
     groupId = group._id;
     recipient.purchased.plan.quantity = data.sub.quantity;
 
+    if (group.type === 'party') {
+      await group.removeGroupInvitations();
+    }
+
     await addSubscriptionToGroupUsers(group);
   }
 

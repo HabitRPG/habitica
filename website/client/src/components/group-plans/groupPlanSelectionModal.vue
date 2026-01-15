@@ -77,6 +77,7 @@
         <selectable-card
           v-if="upgradeableParty"
           class="option-card"
+          :class="{ 'has-pending-warning': partyPendingInviteCount > 0 }"
           :selected="isSelected(upgradeableParty)"
           @click="selectOption(upgradeableParty)"
         >
@@ -87,6 +88,12 @@
               </div>
               <div class="option-members">
                 {{ formatMemberCount(upgradeableParty.memberCount) }}
+                <span
+                  v-if="partyPendingInviteCount > 0"
+                  class="pending-count"
+                >
+                  {{ $t('pendingCount', { count: partyPendingInviteCount }) }}
+                </span>
               </div>
               <div class="option-label your-party">
                 <div
@@ -99,6 +106,16 @@
             <div class="option-price">
               ${{ calculatePrice(upgradeableParty.memberCount) }}.00/mo
             </div>
+          </div>
+          <div
+            v-if="partyPendingInviteCount > 0"
+            class="pending-warning-banner"
+          >
+            <div
+              class="svg-icon alert-icon"
+              v-html="icons.alert"
+            ></div>
+            <span class="warning-text">{{ $t('upgradeCancelsPendingInvites') }}</span>
           </div>
         </selectable-card>
 
@@ -214,6 +231,39 @@
   }
 }
 
+.pending-warning-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  background-color: $yellow-50;
+  border-radius: 0 0 6px 6px;
+  margin: 16px -16px 0 -16px;
+  gap: 4px;
+
+  .selected & {
+    margin: 15px -15px 0 -15px;
+  }
+
+  .alert-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+
+    ::v-deep path {
+      fill: $gray-10;
+    }
+  }
+
+  .warning-text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: $gray-10;
+  }
+}
+
 .option-content {
   display: flex;
   justify-content: space-between;
@@ -241,6 +291,11 @@
   line-height: 16px;
   color: $gray-100;
   margin-bottom: 8px;
+
+  .pending-count {
+    font-weight: 700;
+    color: $yellow-5;
+  }
 }
 
 .option-label {
@@ -358,6 +413,10 @@
   .modal-body {
     padding: 0;
   }
+
+  .option-card.has-pending-warning.selectable-card {
+    padding-bottom: 0;
+  }
 }
 </style>
 
@@ -368,6 +427,7 @@ import { mapState } from '@/libs/store';
 import SelectableCard from '@/components/ui/selectableCard.vue';
 import svgSparkles from '@/assets/svg/sparkles.svg?raw';
 import svgMember from '@/assets/svg/member-icon.svg?raw';
+import svgAlert from '@/assets/svg/for-css/alert.svg?raw';
 
 export default {
   components: {
@@ -386,7 +446,9 @@ export default {
       icons: Object.freeze({
         sparkles: svgSparkles,
         member: svgMember,
+        alert: svgAlert,
       }),
+      partyPendingInviteCount: 0,
     };
   },
   computed: {
@@ -420,6 +482,7 @@ export default {
     async loadData () {
       this.loading = true;
       this.selectedOption = null;
+      this.partyPendingInviteCount = 0;
 
       try {
         const [guildsResponse, partyResponse] = await Promise.all([
@@ -429,6 +492,15 @@ export default {
 
         this.userGuilds = guildsResponse.data.data || [];
         this.userParty = partyResponse.data.data;
+
+        if (this.userParty) {
+          try {
+            const invitesResponse = await axios.get(`/api/v4/groups/${this.userParty._id}/invites`);
+            this.partyPendingInviteCount = invitesResponse.data.data?.length || 0;
+          } catch (e) {
+            this.partyPendingInviteCount = 0;
+          }
+        }
 
         await this.$store.dispatch('guilds:getGroupPlans', true);
         const groupPlans = this.$store.state.groupPlans?.data || [];
