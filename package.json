@@ -48,6 +48,7 @@
     "lodash": "^4.17.21",
     "merge-stream": "^2.0.0",
     "method-override": "^3.0.0",
+    "micromustache": "^8.0.3",
     "moment": "^2.29.4",
     "moment-recur": "git://github.com/HabitRPG/moment-recur.git#d3e8e6da0806f13b74dd2e4d7d9053e6a63db119",
     "mongoose": "^8.9.5",
