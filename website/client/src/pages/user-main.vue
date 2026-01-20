@@ -149,7 +149,6 @@ import {
   getLocalSetting,
   removeLocalSetting,
 } from '@/libs/userlocalManager';
-import i18n from '../libs/i18n';
 
 const bugReportModal = () => import('@/components/bugReportModal');
 const bugReportSuccessModal = () => import('@/components/bugReportSuccessModal');
@@ -365,7 +364,7 @@ export default {
         '/api/v4/i18n/content',
         {
           language: this.user.preferences.language,
-        },  
+        },
       );
       const i18nData = window && window['habitica-i18n'];
       i18nData.strings = { ...i18nData.strings, ...contentTranslations.data };
@@ -389,7 +388,7 @@ export default {
         },
       );
       return this.loadContentTranslations();
-    }
+    },
   },
 };
 </script>
