@@ -33,6 +33,14 @@ gulp.task('cache:content', done => {
   }
 });
 
+function safeMkdir (path) {
+  try {
+    fs.mkdirSync(path);
+  } catch (err) {
+    if (err.code !== 'EEXIST') throw err;
+  }
+}
+
 gulp.task('cache:i18n', done => {
   // Requiring at runtime because these files access `common`
   // code which in production works only if transpiled so after
@@ -41,12 +49,10 @@ gulp.task('cache:i18n', done => {
   const { langCodes } = require('../website/server/libs/i18n'); // eslint-disable-line global-require
 
   try {
-    // create the cache folder (if it doesn't exist)
-    try {
-      fs.mkdirSync(BROWSER_SCRIPT_CACHE_PATH);
-    } catch (err) {
-      if (err.code !== 'EEXIST') throw err;
-    }
+    // create the cache folders (if they doesn't exist)
+    safeMkdir(BROWSER_SCRIPT_CACHE_PATH);
+    safeMkdir(`${BROWSER_SCRIPT_CACHE_PATH}core/`);
+    safeMkdir(`${BROWSER_SCRIPT_CACHE_PATH}content/`);
 
     // create and save the i18n browser script for each language
     langCodes.forEach(languageCode => {
