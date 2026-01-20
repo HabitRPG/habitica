@@ -1,7 +1,7 @@
 import { model as User } from '../models/user';
 import common from '../../common';
 import {
-  translations,
+  coreTranslations,
 } from '../libs/i18n';
 import {
   getLanguageFromUser,
@@ -21,7 +21,7 @@ export function attachTranslateFunction (req, res, next) {
 export function getUserLanguage (req, res, next) {
   // In case the language is specified in the request url, use intersection
   if (req.query.lang) {
-    req.language = translations[req.query.lang] ? req.query.lang : 'en';
+    req.language = coreTranslations[req.query.lang] ? req.query.lang : 'en';
     return next();
   }
 

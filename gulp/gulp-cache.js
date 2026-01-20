@@ -37,7 +37,7 @@ gulp.task('cache:i18n', done => {
   // Requiring at runtime because these files access `common`
   // code which in production works only if transpiled so after
   // gulp build:babel:common has run
-  const { BROWSER_SCRIPT_CACHE_PATH, geti18nBrowserScript } = require('../website/server/libs/i18n'); // eslint-disable-line global-require
+  const { BROWSER_SCRIPT_CACHE_PATH, geti18nCoreBrowserScript, geti18nContentBrowserScript } = require('../website/server/libs/i18n'); // eslint-disable-line global-require
   const { langCodes } = require('../website/server/libs/i18n'); // eslint-disable-line global-require
 
   try {
@@ -51,8 +51,13 @@ gulp.task('cache:i18n', done => {
     // create and save the i18n browser script for each language
     langCodes.forEach(languageCode => {
       fs.writeFileSync(
-        `${BROWSER_SCRIPT_CACHE_PATH}${languageCode}.js`,
-        geti18nBrowserScript(languageCode),
+        `${BROWSER_SCRIPT_CACHE_PATH}core/${languageCode}.js`,
+        geti18nCoreBrowserScript(languageCode),
+        'utf8',
+      );
+      fs.writeFileSync(
+        `${BROWSER_SCRIPT_CACHE_PATH}content/${languageCode}.js`,
+        geti18nContentBrowserScript(languageCode),
         'utf8',
       );
     });
