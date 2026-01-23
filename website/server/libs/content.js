@@ -39,6 +39,22 @@ let CACHED_HASHES = [
 
 ];
 
+// Load existing cached hashes
+try {
+  const files = fs.readdirSync(CONTENT_CACHE_PATH);
+  files.forEach(file => {
+    if (file.endsWith('.json')) {
+      const fileName = file.substring(0, file.length - 5);
+      CACHED_HASHES.push(fileName);
+    }
+  });
+  if (CACHED_HASHES.length > 0) {
+    CACHED_DATE = new Date();
+  }
+} catch (err) {
+  // Folder does not exist yet
+}
+
 function walkContent (obj, lang, removedKeys = {}) {
   _.each(obj, (item, key, source) => {
     if (key in removedKeys && removedKeys[key] === true) {
