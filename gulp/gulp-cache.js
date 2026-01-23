@@ -6,8 +6,20 @@ gulp.task('cache:content', done => {
   // Requiring at runtime because these files access `common`
   // code which in production works only if transpiled so after
   // gulp build:babel:common has run
-  const { CONTENT_CACHE_PATH, getLocalizedContentResponse } = require('../website/server/libs/content'); // eslint-disable-line global-require
+  const {
+    CONTENT_CACHE_PATH,
+    getLocalizedContentResponse,
+    IOS_FILTER,
+    ANDROID_FILTER,
+    buildFilterObject,
+    hashForFilter,
+  } = require('../website/server/libs/content'); // eslint-disable-line global-require
   const { langCodes } = require('../website/server/libs/i18n'); // eslint-disable-line global-require
+
+  const iosHash = hashForFilter(IOS_FILTER);
+  const iosFilterObj = buildFilterObject(IOS_FILTER);
+  const androidHash = hashForFilter(ANDROID_FILTER);
+  const androidFilterObj = buildFilterObject(ANDROID_FILTER);
 
   try {
     // create the cache folder (if it doesn't exist)
@@ -24,6 +36,18 @@ gulp.task('cache:content', done => {
       fs.writeFileSync(
         `${CONTENT_CACHE_PATH}${langCode}.json`,
         getLocalizedContentResponse(langCode),
+        'utf8',
+      );
+
+      fs.writeFileSync(
+        `${CONTENT_CACHE_PATH}${langCode}${iosHash}.json`,
+        getLocalizedContentResponse(langCode, iosFilterObj),
+        'utf8',
+      );
+
+      fs.writeFileSync(
+        `${CONTENT_CACHE_PATH}${langCode}${androidHash}.json`,
+        getLocalizedContentResponse(langCode, androidFilterObj),
         'utf8',
       );
     });
