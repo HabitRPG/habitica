@@ -8,11 +8,13 @@ import {
 
 const IS_PROD = nconf.get('IS_PROD');
 const MAINTENANCE_MODE = nconf.get('MAINTENANCE_MODE');
+const MIN_POOL_SIZE = nconf.get('MONGODB_MIN_POOL_SIZE');
 const POOL_SIZE = nconf.get('MONGODB_POOL_SIZE');
 const SOCKET_TIMEOUT = nconf.get('MONGODB_SOCKET_TIMEOUT');
 
 const mongooseOptions = getDefaultConnectionOptions();
 
+if (MIN_POOL_SIZE) mongooseOptions.minPoolSize = Number(MIN_POOL_SIZE);
 if (POOL_SIZE) mongooseOptions.maxPoolSize = Number(POOL_SIZE);
 if (SOCKET_TIMEOUT) mongooseOptions.socketTimeoutMS = Number(SOCKET_TIMEOUT);
 
