@@ -17,6 +17,14 @@ setupNconf();
 // Initialize @google-cloud/trace-agent
 require('./libs/gcpTraceAgent');
 
+const heapdump = require('heapdump');
+
+process.on('SIGUSR2', function () {
+  const filename = `/tmp/heapdump-${Date.now()}.heapsnapshot`;
+  heapdump.writeSnapshot(filename);
+  console.log('Heap snapshot written to', filename);
+});
+
 const logger = require('./libs/logger').default;
 
 const { ENABLE_CLUSTER, CORES } = require('./libs/config');
