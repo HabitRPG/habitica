@@ -84,8 +84,6 @@ export default function attachMiddlewares (app, server) {
           'data:',
         ],
         scriptSrc: [
-          '\'unsafe-eval\'',
-          '\'unsafe-inline\'',
           '*.habitica.com',
           '*.amazon.com',
           '*.amazonaws.com',
