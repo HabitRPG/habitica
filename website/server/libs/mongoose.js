@@ -5,6 +5,7 @@ import {
   getDevelopmentConnectionUrl,
   getDefaultConnectionOptions,
 } from './mongodb';
+import SERVER_STATUS from './serverStatus';
 
 const IS_PROD = nconf.get('IS_PROD');
 const MAINTENANCE_MODE = nconf.get('MAINTENANCE_MODE');
@@ -26,6 +27,7 @@ export default async function connectToMongoDB () {
   if (MAINTENANCE_MODE !== 'true') {
     return mongoose.connect(connectionUrl, mongooseOptions).then(() => {
       logger.info('Connected with Mongoose.');
+      SERVER_STATUS.MONGODB = true;
     });
   }
   return null;

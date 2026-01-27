@@ -18,6 +18,7 @@ import './libs/setupFirebase';
 import './models/challenge';
 import './models/group';
 import './models/user';
+import SERVER_STATUS from './libs/serverStatus';
 
 connectToMongoDB();
 
@@ -31,6 +32,7 @@ attachMiddlewares(app, server);
 server.on('request', app);
 server.listen(app.get('port'), () => {
   logger.info(`Express server listening on port ${app.get('port')}`);
+  SERVER_STATUS.EXPRESS = true;
 });
 
 export default server;
