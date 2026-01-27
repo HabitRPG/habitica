@@ -288,14 +288,16 @@ export default async function unlock (user, req = {}, analytics) {
   if (isFullSet) {
     paths.forEach(pathPart => purchaseItem(pathPart, setType, user));
 
-    if (isBackground) {
-      paths.forEach(pathPart => {
+    paths.forEach(pathPart => {
+      if (isBackground) {
         const [key, value] = splitPathItem(pathPart);
         const backgroundContent = content.backgroundsFlat[value];
         const itemInfo = getItemInfo(user, key, backgroundContent);
         removeItemByPath(user, itemInfo.path);
-      });
-    }
+      } else {
+        removeItemByPath(user, path);
+      }
+    });
   } else {
     const [key, value] = splitPathItem(path);
 
@@ -309,6 +311,8 @@ export default async function unlock (user, req = {}, analytics) {
         const backgroundContent = content.backgroundsFlat[value];
         const itemInfo = getItemInfo(user, 'background', backgroundContent);
         removeItemByPath(user, itemInfo.path);
+      } else {
+        removeItemByPath(user, path);
       }
     }
   }

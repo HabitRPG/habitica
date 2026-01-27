@@ -82,8 +82,8 @@
     "paymentMethods": "Şu yöntemi kullanarak satın al",
     "paymentSuccessful": "Ödemen başarıyla gerçekleşti!",
     "paymentYouReceived": "Ganimetin:",
-    "paymentYouSentGems": "<strong><%- name %></strong> adlı kişiye gönderilen:",
-    "paymentYouSentSubscription": "<strong><%- name %></strong><br> için <%= months %> aylık bir Habitica aboneliği gönderdiniz.",
+    "paymentYouSentGems": "<strong><%= name %></strong> adlı kişiye gönderilen:",
+    "paymentYouSentSubscription": "<strong><%= name %></strong><br> için <%= months %> aylık bir Habitica aboneliği gönderdiniz.",
     "paymentSubBilling": "Aboneliğin için her <strong><%= months %></strong> ayda bir <strong><%= amount %></strong>$ ücretlendirileceksin.",
     "success": "Başarılı!",
     "classGear": "Sınıf Ekipmanı",
@@ -129,5 +129,5 @@
     "cannotUnpinItem": "Bu öğenin sabitlenmesi kaldırılamaz.",
     "invalidUnlockSet": "Bu öğe seti geçersizdir ve kilidi açılamaz.",
     "nMonthsSubscriptionGift": "<%= nMonths %> Ay Abonelik (Hediye)",
-    "paymentYouSentSubscriptionG1G1": "<strong><%- name %></strong><br> isimli kişiye <%= months %> aylık Habitica aboneliği gönderdin ve aynı abonelik, Hediye Bir Al, Bir Bedava kampanyamız kapsamında senin hesabına da uygulandı!"
+    "paymentYouSentSubscriptionG1G1": "<strong><%= name %></strong><br> isimli kişiye <%= months %> aylık Habitica aboneliği gönderdin ve aynı abonelik, Hediye Bir Al, Bir Bedava kampanyamız kapsamında senin hesabına da uygulandı!"
 }

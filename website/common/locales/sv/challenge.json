@@ -5,7 +5,7 @@
     "keepIt": "Behåll den",
     "removeIt": "Ta bort den",
     "brokenChallenge": "Länken till utmaningen är trasig: den här uppgiften var en del av en utmaning, men utmaningen (eller gruppen) har tagits bort. Vad vill du göra med de kvarblivna uppgifterna?",
-    "challengeCompleted": "Den här utmaningen är avslutad, och vinnaren blev <span class=\"badge\"><%- user %></span>! Vad vill du göra med de kvarvarande uppgifterna?",
+    "challengeCompleted": "Den här utmaningen är avslutad, och vinnaren blev <span class=\"badge\"><%= user %></span>! Vad vill du göra med de kvarvarande uppgifterna?",
     "unsubChallenge": "Länken till utmaningen är trasig: den här uppgiften var en del av en utmaning som du inte längre är med i. Vad vill du göra med de kvarblivna uppgifterna?",
     "challenges": "Utmaningar",
     "endDate": "Avslutas",

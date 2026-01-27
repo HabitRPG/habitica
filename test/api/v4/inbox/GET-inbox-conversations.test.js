@@ -66,7 +66,7 @@ describe('GET /inbox/conversations', () => {
   it('returns five messages when using page-query ', async () => {
     const promises = [];
 
-    for (let i = 0; i < 10; i += 1) {
+    for (let i = 0; i < 50; i += 1) {
       promises.push(user.post('/members/send-private-message', {
         toUserId: user.id,
         message: 'fourth',

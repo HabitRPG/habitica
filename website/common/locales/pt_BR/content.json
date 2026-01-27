@@ -182,7 +182,7 @@
     "questEggVelociraptorText": "Velociraptor",
     "questEggVelociraptorMountText": "Velociraptor",
     "questEggVelociraptorAdjective": "um inteligente",
-    "eggNotes": "Ache uma poção de eclosão e use-a neste ovo e ele chocará como <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
+    "eggNotes": "Ache uma poção de eclosão e use-a neste ovo e ele chocará como <%= eggAdjective %> <%= eggText %>.",
     "hatchingPotionBase": " ",
     "hatchingPotionWhite": "das Neves",
     "hatchingPotionDesert": "do Deserto",
@@ -211,7 +211,7 @@
     "hatchingPotionGlow": "que Brilha-no-Escuro",
     "hatchingPotionFrost": "da Geada",
     "hatchingPotionIcySnow": "do Gelo de Nevasca",
-    "hatchingPotionNotes": "Use-a em um ovo e ele chocará como um Mascote <%= potText(locale) %>.",
+    "hatchingPotionNotes": "Use-a em um ovo e ele chocará como um Mascote <%= potText %>.",
     "foodMeat": "Carne",
     "foodMeatThe": "a Carne",
     "foodMeatA": "Carne",
@@ -409,6 +409,6 @@
     "questEggAlpacaText": "Alpaca",
     "questEggAlpacaMountText": "Alpaca",
     "questEggAlpacaAdjective": "Um superlotado",
-    "wackyPotionNotes": "Despeje isso em um ovo e ele chocará como um animal de estimação Maluco <%= potText(locale) %>.",
+    "wackyPotionNotes": "Despeje isso em um ovo e ele chocará como um animal de estimação Maluco <%= potText %>.",
     "wackyPotionAddlNotes": "Não pode ser convertido a Montaria ou usado em Ovos de Mascotes de missão."
 }

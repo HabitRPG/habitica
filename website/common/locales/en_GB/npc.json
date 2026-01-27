@@ -82,8 +82,8 @@
     "paymentMethods": "Purchase using",
     "paymentSuccessful": "Your payment was successful!",
     "paymentYouReceived": "You received:",
-    "paymentYouSentGems": "You sent <strong><%- name %></strong>:",
-    "paymentYouSentSubscription": "You sent <strong><%- name %></strong><br> a <%= months %> month(s) Habitica subscription.",
+    "paymentYouSentGems": "You sent <strong><%= name %></strong>:",
+    "paymentYouSentSubscription": "You sent <strong><%= name %></strong><br> a <%= months %> month(s) Habitica subscription.",
     "paymentSubBilling": "Your subscription will be billed <strong>$<%= amount %></strong> every <strong><%= months %> months</strong>.",
     "success": "Success!",
     "classGear": "Class Gear",
@@ -129,5 +129,5 @@
     "sellItems": "Sell Items",
     "customizationsShopText": "Want to change up your style? You came to the right place! We stock the freshest looks to fit the season.",
     "notAvailable": "This item isn't available.",
-    "paymentYouSentSubscriptionG1G1": "You sent <strong><%- name %></strong><br> a <%= months %> month Habitica subscription, and the same subscription was applied to your account for our Gift One Get One promotion!"
+    "paymentYouSentSubscriptionG1G1": "You sent <strong><%= name %></strong><br> a <%= months %> month Habitica subscription, and the same subscription was applied to your account for our Gift One Get One promotion!"
 }

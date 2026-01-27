@@ -82,8 +82,8 @@
     "paymentMethods": "付款方式",
     "paymentSuccessful": "購買成功！",
     "paymentYouReceived": "你收到了：",
-    "paymentYouSentGems": "你送給<strong><%- name %></strong>了：",
-    "paymentYouSentSubscription": "您已贈送<strong><%- name %></strong><br>為期<%= months %>個月的Habitica訂閱。",
+    "paymentYouSentGems": "你送給<strong><%= name %></strong>了：",
+    "paymentYouSentSubscription": "您已贈送<strong><%= name %></strong><br>為期<%= months %>個月的Habitica訂閱。",
     "paymentSubBilling": "您的訂閱費用為每<strong><%= months %>月</strong><strong><%= amount %>美元</strong>。",
     "success": "成功！",
     "classGear": "職業裝備",
@@ -129,5 +129,5 @@
     "customizationsShopText": "想要變換造型？你來對地方了！我們備有當季最時尚的款式。",
     "notAvailable": "此項目無法使用。",
     "sellItems": "販賣商品",
-    "paymentYouSentSubscriptionG1G1": "您已贈送為期 <%= months %> 個月的 Habitica 訂閱給<strong><%- name %></strong><br>！因為現在有「送一得一」的促銷活動，相同的訂閱也已套用至您的帳號！"
+    "paymentYouSentSubscriptionG1G1": "您已贈送為期 <%= months %> 個月的 Habitica 訂閱給<strong><%= name %></strong><br>！因為現在有「送一得一」的促銷活動，相同的訂閱也已套用至您的帳號！"
 }

@@ -1757,7 +1757,7 @@
     "weaponArmoireHappyBannerText": "Bandeira Feliz",
     "weaponArmoireFiddlersBowNotes": "Você pode obter música de qualquer coisa com isso! ...Um violino pode funcionar melhor, no entanto. Aumenta a força em <%= str %>. Armário Encantado: Conjunto de Violinistas (Item 3 de 4).",
     "weaponArmoireLivelyMatchNotes": "Enquanto estiver segurando isso, com certeza desperta o interesse de alguém! Aumenta a força em <%= str %>. Armário Encantado: Conjunto do Fabricante de Fósforos (Item 3 de 4).",
-    "weaponArmoireAlchemistsDistillerNotes": "Purifique metais e outros compostos mágicos com este instrumento de latão brilhante. Aumenta a força em <% = str %> e a inteligência em <%= int %>. Armário Encantado: Conjunto Alquimista (Item 3 de 4).",
+    "weaponArmoireAlchemistsDistillerNotes": "Purifique metais e outros compostos mágicos com este instrumento de latão brilhante. Aumenta a força em <%= str %> e a inteligência em <%= int %>. Armário Encantado: Conjunto Alquimista (Item 3 de 4).",
     "weaponArmoireHappyBannerNotes": "O \"H\" é de Happy ou Habitica? Você escolhe! Aumenta a percepção em <%= per %>. Armário Encantado: Conjunto de Feliz Aniversário (Item 3 de 4).",
     "weaponArmoireLivelyMatchText": "Uma Partida Animada",
     "weaponSpecialSpring2020MageText": "Chuviscos",

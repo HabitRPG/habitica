@@ -190,7 +190,7 @@
     "messages": "Messaggi",
     "emptyMessagesLine1": "Non hai alcun messaggio",
     "emptyMessagesLine2": "Invia un messaggio per iniziare una conversazione con i membri della tua Squadra o con un altro giocatore di Habitica",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> ti ha scritto un messaggio",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> ti ha scritto un messaggio",
     "letsgo": "Andiamo!",
     "selected": "Selezionato",
     "howManyToBuy": "Quanti vorresti comprarne?",

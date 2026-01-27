@@ -64,6 +64,8 @@ function textContainsBannedSlur (message) {
  *
  * @apiParam (Path) {String} groupId The group _id ('party' for the user party and
  *                                   'habitrpg' for tavern are accepted).
+ * @apiParam (Query) {Number} [limit=50] The number of messages to fetch (max 400).
+ * @apiParam (Query) {String} [before] Fetch messages older than this message ID.
  *
  * @apiSuccess {Array} data An array of <a href='https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js#L51' target='_blank'>chat messages</a>
  *
@@ -78,18 +80,21 @@ api.getChat = {
     const { user } = res.locals;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
+    req.checkQuery('before').optional().isUUID();
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     const { groupId } = req.params;
+    const limit = req.query.limit ? Math.min(parseInt(req.query.limit, 10), 400) : 50;
+    const { before } = req.query;
     const group = await Group.getGroup({ user, groupId, fields: 'chat privacy' });
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.privacy === 'public') {
       throw new BadRequest(res.t('featureRetired'));
     }
 
-    const groupChat = await Group.toJSONCleanChat(group, user);
+    const groupChat = await Group.toJSONCleanChat(group, user, { limit, before });
     res.respond(200, groupChat.chat);
   },
 };

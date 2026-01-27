@@ -65,6 +65,7 @@ export function authWithHeaders (options = {}) {
     const apiToken = req.header('x-api-key');
     const client = req.header('x-client');
     const optional = options.optional || false;
+    const leanUser = options.leanUser || false;
 
     if (ENFORCE_CLIENT_HEADER && !client) {
       return next(new BadRequest(res.t('missingClientHeader')));
@@ -83,7 +84,11 @@ export function authWithHeaders (options = {}) {
       fields = `${fields} apiToken`;
     }
 
-    const findPromise = fields ? User.findOne(userQuery).select(fields) : User.findOne(userQuery);
+    let findPromise = fields ? User.findOne(userQuery).select(fields) : User.findOne(userQuery);
+
+    if (leanUser) {
+      findPromise = findPromise.lean();
+    }
 
     return findPromise
       .exec()

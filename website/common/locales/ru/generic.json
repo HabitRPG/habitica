@@ -190,7 +190,7 @@
     "messages": "Сообщения",
     "emptyMessagesLine1": "У вас нет новых сообщений",
     "emptyMessagesLine2": "Отправьте сообщение, чтобы начать разговор с вашей командой или другим игроком Habitica",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> отправил вам сообщение",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> отправил вам сообщение",
     "letsgo": "Начнем!",
     "selected": "Выбрано",
     "howManyToBuy": "Сколько вы хотите купить?",

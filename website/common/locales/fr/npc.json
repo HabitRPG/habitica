@@ -82,8 +82,8 @@
     "paymentMethods": "Moyens de paiement",
     "paymentSuccessful": "Le paiement a été réalisé !",
     "paymentYouReceived": "Vous avez reçu :",
-    "paymentYouSentGems": "Vous avez envoyé à <strong><%- name %></strong> :",
-    "paymentYouSentSubscription": "Vous avez envoyé à <strong><%- name %></strong><br> un abonnement de <%= months %> mois sur Habitica.",
+    "paymentYouSentGems": "Vous avez envoyé à <strong><%= name %></strong> :",
+    "paymentYouSentSubscription": "Vous avez envoyé à <strong><%= name %></strong><br> un abonnement de <%= months %> mois sur Habitica.",
     "paymentSubBilling": "Votre abonnement sera débité de <strong><%= amount %>$</strong> chaque <strong><%= months %> mois</strong>.",
     "success": "Victoire !",
     "classGear": "Équipement de classe",
@@ -129,5 +129,5 @@
     "sellItems": "Vendre des objets",
     "notAvailable": "Cet objet n'est pas disponible.",
     "customizationsShopText": "Vous voulez changer de style ? Vous êtes au bon endroit ! Nous fournissons des tenues de saison branchées.",
-    "paymentYouSentSubscriptionG1G1": "Vous avez offert une abonnement Habitica de <%= months %> mois à <strong><%- name %></strong><br>, et vous profiterez du même abonnement sur votre compte grâce à l'offre Offrez-en Un Recevez-en Un !"
+    "paymentYouSentSubscriptionG1G1": "Vous avez offert une abonnement Habitica de <%= months %> mois à <strong><%= name %></strong><br>, et vous profiterez du même abonnement sur votre compte grâce à l'offre Offrez-en Un Recevez-en Un !"
 }

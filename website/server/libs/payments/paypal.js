@@ -6,6 +6,7 @@ import _ from 'lodash';
 import paypalIpn from 'pp-ipn';
 import paypal from 'paypal-rest-sdk';
 import cc from 'coupon-code';
+import logger from '../logger';
 import shared from '../../../common';
 import payments from './payments'; // eslint-disable-line import/no-cycle
 import { getGemsBlock, validateGiftMessage } from './gems'; // eslint-disable-line import/no-cycle
@@ -213,6 +214,7 @@ api.subscribeSuccess = async function subscribeSuccess (options = {}) {
     user, groupId, block, headers, token,
   } = options;
   const result = await this.paypalBillingAgreementExecute(token, {});
+  logger.info('PayPal Subscription', { state: result.state, details: result.agreement_details });
   await payments.createSubscription({
     user,
     groupId,

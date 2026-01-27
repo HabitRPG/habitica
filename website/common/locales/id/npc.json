@@ -82,8 +82,8 @@
     "paymentMethods": "Bayar menggunakan",
     "paymentSuccessful": "Pembayaranmu berhasil!",
     "paymentYouReceived": "Kamu menerima:",
-    "paymentYouSentGems": "Kamu mengirimkan <strong><%- name %></strong>:",
-    "paymentYouSentSubscription": "Kamu mengirimkan <strong><%- name %></strong> langganan Habitica selama <%= months %> bulan.",
+    "paymentYouSentGems": "Kamu mengirimkan <strong><%= name %></strong>:",
+    "paymentYouSentSubscription": "Kamu mengirimkan <strong><%= name %></strong> langganan Habitica selama <%= months %> bulan.",
     "paymentSubBilling": "Berlanggananmu akan ditagih<strong>$<%= amount %></strong> tiap <strong><%= months %> bulan</strong>.",
     "success": "Berhasil!",
     "classGear": "Perlengkapan Pekerjaan",
@@ -129,5 +129,5 @@
     "paymentAutoRenew": "Langganan ini akan diperpanjang secara otomatis hingga dibatalkan. Jika kamu perlu membatalkan langganan ini, kamu dapat melakukannya dari pengaturan.",
     "notAvailable": "Barang ini tidak tersedia.",
     "customizationsShopText": "Mau ganti gaya? Anda datang ke tempat yang tepat! Kami menawarkan tampilan terkini sesuai musim.",
-    "paymentYouSentSubscriptionG1G1": "Kamu mengirimkan <strong><%- name %></strong><br> a <%= months %> bulan langganan Habitica, dan langganan yang sama telah dipakai pada akunmu menggunakan promisi kami, Beli Satu Gratis Satu!"
+    "paymentYouSentSubscriptionG1G1": "Kamu mengirimkan <strong><%= name %></strong><br> a <%= months %> bulan langganan Habitica, dan langganan yang sama telah dipakai pada akunmu menggunakan promisi kami, Beli Satu Gratis Satu!"
 }

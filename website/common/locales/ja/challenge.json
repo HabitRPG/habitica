@@ -5,7 +5,7 @@
     "keepIt": "このまま残す",
     "removeIt": "消す",
     "brokenChallenge": "チャレンジのリンク切れ：このタスクはもともとチャレンジの一部でしたが、チャレンジ（もしくはグループ）が削除されました。残されたタスクはどうしますか？",
-    "challengeCompleted": "チャレンジ終了です！<span class=\"badge\"><%- user %></span>が優勝しました！残ったタスクはどうしますか？",
+    "challengeCompleted": "チャレンジ終了です！<span class=\"badge\"><%= user %></span>が優勝しました！残ったタスクはどうしますか？",
     "unsubChallenge": "チャレンジのリンク切れ：このタスクはもともとチャレンジの一部でしたが、あなたがチャレンジ登録を取り消しました。残されたタスクはどうしますか？",
     "challenges": "チャレンジ",
     "endDate": "終了日",

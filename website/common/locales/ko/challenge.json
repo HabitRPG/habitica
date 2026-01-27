@@ -5,7 +5,7 @@
     "keepIt": "유지",
     "removeIt": "삭제",
     "brokenChallenge": "삭제된 도전 링크: 이 과제는 도전의 일부였으나 그 도전 (또는 그룹)이 삭제되었습니다. 따로 남겨진 이 과제를 어떻게 하시겠습니까?",
-    "challengeCompleted": "도전이 끝났습니다. 도전 우승자는 <span class=\"badge\"><%- user %></span> 입니다! 남아있는 과제를 어떻게 하시겠습니까?",
+    "challengeCompleted": "도전이 끝났습니다. 도전 우승자는 <span class=\"badge\"><%= user %></span> 입니다! 남아있는 과제를 어떻게 하시겠습니까?",
     "unsubChallenge": "삭제된 도전 링크: 이 과제는 도전의 일부였으나 도전이 중지되었습니다. 따로 남겨진 이 과제를 어떻게 하시겠습니까?",
     "challenges": "도전",
     "endDate": "끝",

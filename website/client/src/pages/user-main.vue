@@ -268,7 +268,6 @@ export default {
       this.$store.dispatch('user:fetch'),
       this.$store.dispatch('tasks:fetchUserTasks'),
     ]).then(() => {
-      this.$store.state.isUserLoaded = true;
       let analyticsConsent = localStorage.getItem('analyticsConsent');
       if (analyticsConsent !== null) {
         analyticsConsent = analyticsConsent === 'true';
@@ -276,31 +275,11 @@ export default {
           this.$store.dispatch('user:set', { 'preferences.analyticsConsent': analyticsConsent });
         }
       }
-      if (window && window['habitica-i18n']) {
-        if (this.user.preferences.language === window['habitica-i18n'].language.code) {
-          return null;
-        }
-      }
-      if (window && window['habitica-i18n']) {
-        if (this.user.preferences.language === window['habitica-i18n'].language.code) {
-          return null;
-        }
-      }
+
       Analytics.updateUser();
-      return axios.get(
-        '/api/v4/i18n/browser-script',
-        {
-          language: this.user.preferences.language,
-          headers: {
-            'Cache-Control': 'no-cache',
-            Pragma: 'no-cache',
-            Expires: '0',
-          },
-        },
-      );
+      return this.loadAllTranslations();
     }).then(() => {
-      const i18nData = window && window['habitica-i18n'];
-      this.$loadLocale(i18nData);
+      this.$store.state.isUserLoaded = true;
       this.hideLoadingScreen();
 
       // Adjust the timezone offset
@@ -379,6 +358,36 @@ export default {
     },
     hideLoadingScreen () {
       this.loading = false;
+    },
+    async loadContentTranslations () {
+      const contentTranslations = await axios.get(
+        '/api/v4/i18n/content',
+        {
+          language: this.user.preferences.language,
+        },
+      );
+      const i18nData = window && window['habitica-i18n'];
+      i18nData.strings = { ...i18nData.strings, ...contentTranslations.data };
+      this.$loadLocale(i18nData);
+    },
+    async loadAllTranslations () {
+      if (window && window['habitica-i18n']) {
+        if (this.user.preferences.language === window['habitica-i18n'].language.code) {
+          return this.loadContentTranslations();
+        }
+      }
+      await axios.get(
+        '/api/v4/i18n/core',
+        {
+          language: this.user.preferences.language,
+          headers: {
+            'Cache-Control': 'no-cache',
+            Pragma: 'no-cache',
+            Expires: '0',
+          },
+        },
+      );
+      return this.loadContentTranslations();
     },
   },
 };

@@ -287,7 +287,7 @@
   "questEggPlatypusMountText": "Platypus",
   "questEggPlatypusAdjective": "a perfectionist",
 
-  "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
+  "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective %> <%= eggText %>.",
 
   "hatchingPotionBase": "Base",
   "hatchingPotionWhite": "White",
@@ -357,9 +357,9 @@
   "hatchingPotionCryptid": "Cryptid",
   "hatchingPotionOpal": "Opal",
 
-  "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> Pet.",
+  "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText %> Pet.",
   "premiumPotionUnlimitedNotes": "Not usable on Quest Pet eggs.",
-  "wackyPotionNotes": "Pour this on an egg, and it will hatch as a Wacky <%= potText(locale) %> Pet.",
+  "wackyPotionNotes": "Pour this on an egg, and it will hatch as a Wacky <%= potText %> Pet.",
   "wackyPotionAddlNotes": "Cannot be raised to Mounts or used on Quest Pet eggs.",
 
   "foodMeat": "Meat",

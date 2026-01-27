@@ -3,7 +3,7 @@
     "dontDespair": "Não se desespere!",
     "deathPenaltyDetails": "Você perdeu um Nível, seu Ouro e um Equipamento, mas você pode recuperar tudo isso com trabalho duro! Boa sorte -- você vai se sair bem.",
     "refillHealthTryAgain": "Restaurar Vida e tentar novamente",
-    "dyingOftenTips": "Isto está acontecendo com frequência? <a href='https://habitica.fandom.com/pt-br/wiki/Death_Mechanics#Estrat.C3.A9gias_para_permanecer_vivo' target='_blank'>Aqui estão algumas dicas!</a>",
+    "dyingOftenTips": "Isto está acontecendo com frequência? <a href='/static/faq#prevent-damage' target='_blank'>Aqui estão algumas dicas!</a>",
     "losingHealthWarning": "Cuidado - Você está perdendo Vida!",
     "losingHealthWarning2": "Não deixe sua Vida chegar à zero! Se o fizer, você irá perder um nível, seu ouro e um equipamento.",
     "toRegainHealth": "Para recuperar Vida:",

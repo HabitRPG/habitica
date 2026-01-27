@@ -82,8 +82,8 @@
     "paymentMethods": "Fizetés ezzel:",
     "paymentSuccessful": "A fizetés sikeres volt!",
     "paymentYouReceived": "A következőhöz jutottál hozzá:",
-    "paymentYouSentGems": "<strong><%- name %></strong> felhasználónak küldtél:",
-    "paymentYouSentSubscription": "Elküldtél <strong><%- name %></strong> felhasználónak<br> egy <%= months %> hónapos Habitica előfizetést.",
+    "paymentYouSentGems": "<strong><%= name %></strong> felhasználónak küldtél:",
+    "paymentYouSentSubscription": "Elküldtél <strong><%= name %></strong> felhasználónak<br> egy <%= months %> hónapos Habitica előfizetést.",
     "paymentSubBilling": "Az előfizetésed díja <strong>$<%= amount %></strong> lesz minden <strong><%= months %> hónapban</strong>.",
     "success": "Sikeres!",
     "classGear": "Kaszt felszerelés",
@@ -129,5 +129,5 @@
     "limitedAvailabilityDays": "Elérhető még: <%= days %> nap <%= hours %> ó <%= minutes %> p",
     "limitedAvailabilityHours": "Elérhető még: <%= hours %> ó <%= minutes %> p",
     "limitedAvailabilityMinutes": "Elérhető még: <%= minutes %>p <%= seconds %>mp",
-    "paymentYouSentSubscriptionG1G1": "Elküldtél <strong><%- name %></strong> felhasználónak<br> egy <%= months %> hónapos Habitica előfizetést, és ugyanez az előfizetés a fiókodhoz is hozzá lett adva az „Vegyél egyet, ajándékozz egyet” akció keretében!"
+    "paymentYouSentSubscriptionG1G1": "Elküldtél <strong><%= name %></strong> felhasználónak<br> egy <%= months %> hónapos Habitica előfizetést, és ugyanez az előfizetés a fiókodhoz is hozzá lett adva az „Vegyél egyet, ajándékozz egyet” akció keretében!"
 }
