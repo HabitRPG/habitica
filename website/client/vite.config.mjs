@@ -122,7 +122,7 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        experimentalMinChunkSize: 2000
+        experimentalMinChunkSize: 20000
       }
     }
   },
