@@ -367,14 +367,14 @@ schema.methods.getUtcOffset = function getUtcOffset () {
   return common.fns.getUtcOffset(this);
 };
 
-schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
+schema.statics.daysUserHasMissed = function daysUserHasMissed (user, now, req = {}) {
   // If the user's timezone has changed (due to travel or daylight savings),
   // cron can be triggered twice in one day, so we check for that and use
   // both timezones to work out if cron should run.
   // CDS = Custom Day Start time.
-  let timezoneUtcOffsetFromUserPrefs = this.getUtcOffset();
-  const timezoneUtcOffsetAtLastCron = Number.isFinite(this.preferences.timezoneOffsetAtLastCron)
-    ? -this.preferences.timezoneOffsetAtLastCron
+  let timezoneUtcOffsetFromUserPrefs = common.fns.getUtcOffset(user);
+  const timezoneUtcOffsetAtLastCron = Number.isFinite(user.preferences.timezoneOffsetAtLastCron)
+    ? -user.preferences.timezoneOffsetAtLastCron
     : timezoneUtcOffsetFromUserPrefs;
 
   let timezoneUtcOffsetFromBrowser = typeof req.header === 'function' && -Number(req.header('x-user-timezoneoffset'));
@@ -386,16 +386,16 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
   if (timezoneUtcOffsetFromBrowser !== timezoneUtcOffsetFromUserPrefs) {
     // The user's browser has just told Habitica that the user's timezone has
     // changed so store and use the new zone.
-    this.preferences.timezoneOffset = -timezoneUtcOffsetFromBrowser;
+    user.preferences.timezoneOffset = -timezoneUtcOffsetFromBrowser;
     timezoneUtcOffsetFromUserPrefs = timezoneUtcOffsetFromBrowser;
   }
 
-  let lastCronTime = this.lastCron;
-  if (this.auth.timestamps.loggedIn < lastCronTime) {
-    lastCronTime = this.auth.timestamps.loggedIn;
+  let lastCronTime = user.lastCron;
+  if (user.auth.timestamps.loggedIn < lastCronTime) {
+    lastCronTime = user.auth.timestamps.loggedIn;
   }
   // How many days have we missed using the user's current timezone:
-  let daysMissed = daysSince(lastCronTime, defaults({ now }, this.preferences));
+  let daysMissed = daysSince(lastCronTime, defaults({ now }, user.preferences));
 
   if (timezoneUtcOffsetAtLastCron !== timezoneUtcOffsetFromUserPrefs) {
     // Give the user extra time based on the difference in timezones
@@ -410,7 +410,7 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
     const daysMissedOldZone = daysSince(lastCronTime, defaults({
       now,
       timezoneUtcOffsetOverride: timezoneUtcOffsetAtLastCron,
-    }, this.preferences));
+    }, user.preferences));
 
     if (timezoneUtcOffsetAtLastCron > timezoneUtcOffsetFromUserPrefs) {
       // The timezone change was in the unsafe direction.
@@ -472,6 +472,10 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
   }
 
   return { daysMissed, timezoneUtcOffsetFromUserPrefs };
+};
+
+schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
+  return schema.statics.daysUserHasMissed(this, now, req);
 };
 
 async function getUserGroupData (user) {
