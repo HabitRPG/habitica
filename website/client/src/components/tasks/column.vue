@@ -496,18 +496,7 @@ export default {
         return this.taskList.length;
       }
       if (this.type === "daily") {
-        if (this.activeFilter.label === "due") {
-          return this.taskList.length;
-        }
-        if (this.activeFilter.label === "all") {
-          return this.taskList.reduce(
-            (count, t) =>
-              !t.completed && shouldDo(new Date(), t, this.getUserPreferences)
-                ? count + 1
-                : count,
-            0,
-          );
-        }
+        return this.taskList.length;
       }
       if (this.type === "habit") {
         return this.taskList.length;
