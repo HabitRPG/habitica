@@ -1,7 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep';
 import forEach from 'lodash/forEach';
 import isFunction from 'lodash/isFunction';
-import pick from 'lodash/pick';
 import nconf from 'nconf';
 import get from 'lodash/get';
 import { authWithHeaders } from '../../middlewares/auth';
