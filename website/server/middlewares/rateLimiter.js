@@ -48,8 +48,12 @@ if (RATE_LIMITER_ENABLED) {
       enable_offline_queue: false,
     });
 
-    redisClient.once('connect', () => {
+    redisClient.on('ready', () => {
       SERVER_STATUS.REDIS = true;
+    });
+
+    redisClient.on('reconnecting', () => {
+      SERVER_STATUS.REDIS = false;
     });
 
     redisClient.on('error', error => {
