@@ -388,7 +388,7 @@ api.getUserAnonymized = {
         { type: { $in: ['habit', 'daily', 'reward'] } },
       ],
     };
-    const tasks = await Tasks.Task.find(query).exec();
+    const tasks = await Tasks.Task.find(query).lean().exec();
 
     forEach(tasks, task => {
       task.text = 'task text';

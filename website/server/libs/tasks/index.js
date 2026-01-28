@@ -173,7 +173,7 @@ async function getTasks (req, res, options = {}) {
           ],
         },
         { _id: 1 },
-      ).exec();
+      ).lean().exec();
     }
     if (upgradedGroups.length > 0) {
       for (const upgradedGroup of upgradedGroups) {

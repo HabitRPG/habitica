@@ -45,7 +45,7 @@ api.exportUserHistory = {
     const tasks = await Tasks.Task.find({
       userId: user._id,
       type: { $in: ['habit', 'daily'] },
-    }).exec();
+    }).lean().exec();
 
     const output = [
       ['Task Name', 'Task ID', 'Task Type', 'Date', 'Value'],
@@ -84,7 +84,7 @@ async function _getUserDataForExport (user) {
   const [tasks, messages] = await Promise.all([
     Tasks.Task.find({
       userId: user._id,
-    }).exec(),
+    }).lean().exec(),
 
     inboxLib.getUserInbox(user, { asArray: false }),
   ]);
@@ -92,7 +92,6 @@ async function _getUserDataForExport (user) {
   userData.inbox.messages = messages;
 
   _(tasks)
-    .map(task => task.toJSON())
     .groupBy(task => task.type)
     .forEach((tasksPerType, taskType) => {
       userData.tasks[`${taskType}s`] = tasksPerType;

@@ -22,7 +22,7 @@ async function usersMapByConversations (users) {
     stats: 1,
     flags: 1,
     inbox: 1,
-  }).exec();
+  }).lean().exec();
 
   for (const usr of loadedUsers) {
     const loadedUserConversation = {
