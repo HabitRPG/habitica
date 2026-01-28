@@ -492,7 +492,7 @@ export default {
       // 0 means the badge will not be shown
       // It is shown for the all and due views of dailies
       // and for the active and scheduled views of todos.
-      if (this.type === "todo" && this.activeFilter.label !== "complete2") {
+      if (this.type === "todo") {
         return this.taskList.length;
       }
       if (this.type === "daily") {
