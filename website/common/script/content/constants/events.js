@@ -52,7 +52,7 @@ export const REPEATING_EVENTS = {
     foodSeason: 'Pie',
   },
   aprilFools: {
-    start: new Date('1970-01-01T04:00-04:00'),
+    start: new Date('1970-04-01T04:00-04:00'),
     end: new Date('1970-04-02T03:59-04:00'),
     aprilFools: makeSubstitutionMap('Cryptid'),
   },
