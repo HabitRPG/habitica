@@ -184,10 +184,8 @@ export default {
     imageName () {
       const foolEvent = this.currentEventList?.find(event => moment()
         .isBetween(event.start, event.end) && event.aprilFools);
-      if (this.isOwned() && foolEvent) {
-        if (this.isSpecial()) return `stable_${this.foolPet(this.item.key, foolEvent.aprilFools)}`;
-        const petString = `${this.item.eggKey}-${this.item.key}`;
-        return `stable_${this.foolPet(petString, foolEvent.aprilFools)}`;
+      if (this.isOwned() && foolEvent && foolEvent.aprilFools.pets) {
+        return `stable_${this.foolPet(`Pet-${this.item.key}`, foolEvent.aprilFools.pets)}`;
       }
 
       if (this.isOwned() || (this.mountOwned() && this.isHatchable())) {
