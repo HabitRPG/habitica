@@ -54,7 +54,7 @@ export const REPEATING_EVENTS = {
   aprilFools: {
     start: new Date('1970-04-01T04:00-04:00'),
     end: new Date('1970-04-02T03:59-04:00'),
-    aprilFools: makeSubstitutionMap('Cryptid'),
+    spriteSubstitutions: makeSubstitutionMap('Cryptid'),
   },
   aprilFoolsResale: {
     start: new Date('1970-04-03T04:00-04:00'),

@@ -321,10 +321,10 @@ export default {
       return null;
     },
     petClass () {
-      const foolEvent = this.currentEventList?.find(event => event.aprilFools && moment()
+      const substitutionEvent = this.currentEventList?.find(event => event.spriteSubstitutions && moment()
         .isBetween(event.start, event.end));
-      if (foolEvent && foolEvent.aprilFools.pets) {
-        return this.foolPet(`Pet-${this.member.items.currentPet}`, foolEvent.aprilFools.pets);
+      if (substitutionEvent && substitutionEvent.spriteSubstitutions.pets) {
+        return this.foolPet(`Pet-${this.member.items.currentPet}`, substitutionEvent.spriteSubstitutions.pets);
       }
       if (this.member?.items.currentPet) return `Pet-${this.member.items.currentPet}`;
       return '';
