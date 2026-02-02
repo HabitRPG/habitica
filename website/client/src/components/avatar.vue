@@ -321,10 +321,11 @@ export default {
       return null;
     },
     petClass () {
-      const substitutionEvent = this.currentEventList?.find(event => event.spriteSubstitutions && moment()
-        .isBetween(event.start, event.end));
+      const substitutionEvent = this.currentEventList?.find(event => event.spriteSubstitutions
+        && moment().isBetween(event.start, event.end));
       if (substitutionEvent && substitutionEvent.spriteSubstitutions.pets) {
-        return this.foolPet(`Pet-${this.member.items.currentPet}`, substitutionEvent.spriteSubstitutions.pets);
+        return this.foolPet(`Pet-${this.member.items.currentPet}`,
+          substitutionEvent.spriteSubstitutions.pets);
       }
       if (this.member?.items.currentPet) return `Pet-${this.member.items.currentPet}`;
       return '';
