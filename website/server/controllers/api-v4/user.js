@@ -66,7 +66,7 @@ const RESET_CONFIRMATION = 'RESET';
  */
 api.getUser = {
   method: 'GET',
-  middlewares: [authWithHeaders({ leanUser: true })],
+  middlewares: [authWithHeaders()],
   url: '/user',
   async handler (req, res) {
     await userLib.get(req, res, { isV3: false });
