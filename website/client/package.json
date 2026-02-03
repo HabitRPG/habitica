@@ -60,8 +60,6 @@
     "jsdom": "^26.0.0",
     "mocha": "^11.1.0",
     "playwright": "^1.50.1",
-    "terser-webpack-plugin": "^5.3.10",
-    "vitest": "^3.0.5",
-    "webpack": "^5.94.0"
+    "vitest": "^3.0.5"
   }
 }

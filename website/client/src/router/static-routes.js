@@ -21,8 +21,8 @@ const NewsPage = () => import('@/components/static/newStuff');
 const OverviewPage = () => import('@/components/static/overview');
 const PressKitPage = () => import('@/components/static/pressKit');
 const PrivacyPage = () => import('@/components/static/privacy');
-const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'@/components/auth/registerLoginReset');
-const RegisterUsername = () => import(/* webpackChunkName: "auth" */'@/components/auth/registerUsername');
+const RegisterLoginReset = () => import('@/components/auth/registerLoginReset');
+const RegisterUsername = () => import('@/components/auth/registerUsername');
 const SubscriptionBenefitsFaq = () => import('@/components/static/subscriptionBenefitsFaq');
 const TermsPage = () => import('@/components/static/terms');
 

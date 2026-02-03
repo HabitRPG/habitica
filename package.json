@@ -76,7 +76,6 @@
     "useragent": "^2.1.9",
     "uuid": "^9.0.0",
     "validator": "^13.11.0",
-    "webpack-bundle-analyzer": "^4.10.2",
     "winston": "^3.10.0",
     "winston-loggly-bulk": "^3.3.0",
     "xml2js": "^0.6.2"
