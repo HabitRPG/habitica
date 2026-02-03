@@ -447,12 +447,12 @@ schema.statics.daysUserHasMissed = function daysUserHasMissed (user, now, req = 
         const timezoneOffsetDiff = timezoneUtcOffsetFromUserPrefs - timezoneUtcOffsetAtLastCron;
         // e.g., for dangerous zone change: -300 - -240 = -60 or 600 - 660= -60
 
-        this.lastCron = moment(lastCronTime).subtract(timezoneOffsetDiff, 'minutes');
+        user.lastCron = moment(lastCronTime).subtract(timezoneOffsetDiff, 'minutes');
         // NB: We don't change this.auth.timestamps.loggedin so that will still record
         // the time that the previous cron actually ran.
         // From now on we can ignore the old timezone:
         // This is still timezoneOffset for backwards compatibility reasons.
-        this.preferences.timezoneOffsetAtLastCron = -timezoneUtcOffsetAtLastCron;
+        user.preferences.timezoneOffsetAtLastCron = -timezoneUtcOffsetAtLastCron;
       } else {
         // Both old and new timezones indicate that cron should
         // NOT run.
