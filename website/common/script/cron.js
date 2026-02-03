@@ -193,27 +193,27 @@ export function shouldDo (day, dailyTask, options = {}) {
 
       if (options.nextDue) {
         const filteredDates = [];
-        for (let i = 1; filteredDates.length < 6; i += 1) {
-          const recurDate = moment(startDate).add(dailyTask.everyX * i, 'months');
-          const calcDate = recurDate.clone();
-          calcDate.day(daysOfTheWeek[0]);
+        const maxIteration = 48 //Searching for 3 years
+        const startDateWeek = Math.ceil(moment(startDate).date() / 7);
 
-          const startDateWeek = Math.ceil(moment(startDate).date() / 7);
-          let calcDateWeek = Math.ceil(calcDate.date() / 7);
+        for (let i = 1; filteredDates.length < 6 && i <= maxIteration; i += 1) {
+          const recurDate = moment(startDate).add(
+            dailyTask.everyX * i,
+            'months',
+          );
 
-          // adjust week since weeks will rollover to other months
+          const calcDate = moment(recurDate)
+            .startOf('month')
+            .day(daysOfTheWeek[0]);
           if (calcDate.month() < recurDate.month()) calcDate.add(1, 'weeks');
-          else if (calcDate.month() > recurDate.month()) calcDate.subtract(1, 'weeks');
-          else if (calcDateWeek > startDateWeek) calcDate.subtract(1, 'weeks');
-          else if (calcDateWeek < startDateWeek) calcDate.add(1, 'weeks');
 
-          calcDateWeek = Math.ceil(calcDate.date() / 7);
+          calcDate.add(startDateWeek - 1,'weeks')
 
           if (
-            calcDate >= startOfDayWithCDSTime
-            && calcDateWeek === startDateWeek
-            && calcDate.month() === recurDate.month()
-          ) filteredDates.push(calcDate);
+            calcDate >= startOfDayWithCDSTime &&
+            calcDate.month() === recurDate.month()
+          )
+            filteredDates.push(calcDate);
         }
         return filteredDates;
       }
