@@ -9,8 +9,8 @@ const SWAPS = [
   'Cryptid',
 ];
 
-export function getMatchingSwap () {
-  const year = new Date().getFullYear();
+export function getMatchingSwap (date = new Date()) {
+  const year = date.getFullYear();
   const diff = year - 2020;
   return SWAPS[diff % SWAPS.length];
 }

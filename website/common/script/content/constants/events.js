@@ -1,6 +1,6 @@
 /* eslint-disable key-spacing */
 import moment from 'moment';
-import { getMatchingSwap, makeSubstitutionMap} from './april_fools';
+import { getMatchingSwap, makeSubstitutionMap } from './aprilFools';
 
 // gem block: number of gems
 const gemsPromo = {
