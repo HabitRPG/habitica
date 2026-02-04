@@ -1,6 +1,21 @@
 import eggs from '../eggs';
 
-export default function makeSubstitutionMap (swappedPotion) {
+const SWAPS = [
+  'Veggie',
+  'Dessert',
+  'VirtualPet',
+  'TeaShop',
+  'Fungi',
+  'Cryptid',
+];
+
+export function getMatchingSwap () {
+  const year = new Date().getFullYear();
+  const diff = year - 2020;
+  return SWAPS[diff % SWAPS.length];
+}
+
+export function makeSubstitutionMap (swappedPotion) {
   const substitutions = {
     pets: {
       'Pet-Wolf-': `Pet-Wolf-${swappedPotion}`,

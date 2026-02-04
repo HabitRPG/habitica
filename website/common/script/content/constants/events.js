@@ -1,6 +1,6 @@
 /* eslint-disable key-spacing */
 import moment from 'moment';
-import makeSubstitutionMap from './april_fools';
+import { getMatchingSwap, makeSubstitutionMap} from './april_fools';
 
 // gem block: number of gems
 const gemsPromo = {
@@ -54,7 +54,7 @@ export const REPEATING_EVENTS = {
   aprilFools: {
     start: new Date('1970-04-01T04:00-04:00'),
     end: new Date('1970-04-02T03:59-04:00'),
-    spriteSubstitutions: makeSubstitutionMap('Cryptid'),
+    spriteSubstitutions: makeSubstitutionMap(getMatchingSwap()),
   },
   aprilFoolsResale: {
     start: new Date('1970-04-03T04:00-04:00'),
