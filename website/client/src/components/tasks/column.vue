@@ -348,7 +348,6 @@
 import throttle from 'lodash/throttle';
 import isEmpty from 'lodash/isEmpty';
 import draggable from 'vuedraggable';
-import { shouldDo } from '@/../../common/script/cron';
 import inAppRewards from '@/../../common/script/libs/inAppRewards';
 import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import Task from './task';
