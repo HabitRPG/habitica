@@ -20,32 +20,37 @@ const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
 const USER_FIELDS_ALWAYS_LOADED = ['_id', '_v', 'notifications', 'preferences', 'auth', 'flags', 'permissions'];
 
 function getUserFields (options, req) {
+  const excluded = options.userFieldsToExclude || [];
+  const included = options.userFieldsToInclude || [];
+  const urlPath = url.parse(req.url).pathname;
+  if (urlPath === '/user') {
+    const { userFields } = req.query;
+    if (userFields || urlPath !== '/user') {
+      for (const field of userFields.split(',')) {
+        
+        if (field[0] === '-') {
+          excluded.push(field.slice(1));
+        } else {
+          included.push(field);
+        }
+      }
+    }
+  }
+  console.log(excluded, included);
   // A list of user fields that aren't needed for the route and are not loaded from the db.
   // Must be an array
-  if (options.userFieldsToExclude) {
-    return options.userFieldsToExclude
+  if (excluded.length > 0) {
+    return excluded
       .filter(field => !USER_FIELDS_ALWAYS_LOADED
         .find(fieldToInclude => field.startsWith(fieldToInclude)))
       .map(field => `-${field}`) // -${field} means exclude ${field} in mongodb
       .join(' ');
   }
 
-  if (options.userFieldsToInclude) {
-    return options.userFieldsToInclude.concat(USER_FIELDS_ALWAYS_LOADED).join(' ');
+  if (included.length > 0) {
+    return included.concat(USER_FIELDS_ALWAYS_LOADED).join(' ');
   }
-
-  // Allows GET requests to /user to specify a list
-  // of user fields to return instead of the entire doc
-  const urlPath = url.parse(req.url).pathname;
-  const { userFields } = req.query;
-  if (!userFields || urlPath !== '/user') return '';
-
-  let userFieldOptions = userFields.split(',');
-  if (userFieldOptions.length === 0) return '';
-
-  userFieldOptions = userFieldOptions.filter(field => USER_FIELDS_ALWAYS_LOADED.indexOf(field.split('.')[0]) === -1);
-
-  return userFieldOptions.concat(USER_FIELDS_ALWAYS_LOADED).join(' ');
+  return '';
 }
 
 // Make sure stackdriver traces are storing the user id
@@ -83,8 +88,8 @@ export function authWithHeaders (options = {}) {
     if (fields && fields.indexOf('apiToken') === -1 && fields.indexOf('-') === -1) {
       fields = `${fields} apiToken`;
     }
-
-    let findPromise = fields ? User.findOne(userQuery).select(fields) : User.findOne(userQuery);
+    console.log(fields);
+    let findPromise = (fields && fields.length > 0) ? User.findOne(userQuery).select(fields) : User.findOne(userQuery);
 
     if (leanUser) {
       findPromise = findPromise.lean();
