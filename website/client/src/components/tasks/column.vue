@@ -482,19 +482,10 @@ export default {
       return this.$t('addATask', { type });
     },
     badgeCount () {
-      // 0 means the badge will not be shown
-      // It is shown for the all and due views of dailies
-      // and for the active and scheduled views of todos.
-      if (this.type === 'habit'){
-        return this.taskList.length
+      if (this.type === 'reward') {
+        return 0;
       }
-      if (this.type === 'todo') {
-        return this.taskList.length;
-      } if (this.type === 'daily') {
-          return this.taskList.length;
-      }
-
-      return 0;
+      return this.taskList.length;
     },
   },
   watch: {
