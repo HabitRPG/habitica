@@ -151,6 +151,7 @@ async function getTasks (req, res, options = {}) {
     challenge,
     group,
     dueDate,
+    history = true,
   } = options;
 
   let query;
@@ -243,7 +244,11 @@ async function getTasks (req, res, options = {}) {
     }];
   }
 
-  const mQuery = Tasks.Task.find(query);
+  const projection = {};
+  if (!history) {
+    projection.history = 0;
+  }
+  const mQuery = Tasks.Task.find(query, projection);
   if (limit) mQuery.limit(limit);
   if (sort) mQuery.sort(sort);
 
