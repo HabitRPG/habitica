@@ -83,7 +83,7 @@
     "allocatePerPop": "Tilføj et point til Opfattelse",
     "allocateInt": "Point tilføjet til Intelligens:",
     "allocateIntPop": "Tilføj et point til Intelligens",
-    "noMoreAllocate": "Nu hvor du har nået niveau 100, vil du ikke optjene flere Egenskabspoint. Du kan fortsætte, eller starte et nyt eventyr fra niveau 1 ved at bruge <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Genfødselskuglen</a>!",
+    "noMoreAllocate": "Nu hvor du har nået niveau 100, vil du ikke optjene flere Egenskabspoint. Du kan fortsætte, eller starte et nyt eventyr fra niveau 1 ved at bruge<a href='/shops/market'>Genfødselskugle</a>.",
     "stats": "Egenskaber",
     "strength": "Styrke",
     "strText": "Styrke forøger chancen for tilfældige \"fuldtræffere\" og giver et boost til Guld, Erfaring, og chancen for at finde genstande fra dem. Det hjælper også med at påføre bossmonstre skade.",
@@ -183,5 +183,10 @@
     "chatCastSpellParty": "<%= username %> kaster <%= spell %> for holdet.",
     "notEnoughGold": "Ikke nok guld.",
     "purchasePetItemConfirm": "Dette køb vil overskride det antal genstande du skal bruge for at klække alle mulige <%= itemText %> Kæledyr. Er du sikker?",
-    "purchaseForGold": "Køb for <%= cost %> Guld?"
+    "purchaseForGold": "Køb for <%= cost %> Guld?",
+    "skins": "Hudfarve",
+    "titleFacialHair": "Ansigts hår",
+    "titleHaircolor": "Hårfarve",
+    "titleHairbase": "Hår stil",
+    "strTaskText": "Øg chancen for fuldtræffer slag og skade ved at færdiggøre opgaver. Dette øger også skade mod missions monstrene."
 }

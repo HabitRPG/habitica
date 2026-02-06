@@ -1,20 +1,11 @@
 import nconf from 'nconf';
 import { langCodes } from '../../libs/i18n';
-import { serveContent } from '../../libs/content';
+import { serveContent, ANDROID_FILTER, IOS_FILTER } from '../../libs/content';
 import { authWithHeaders } from '../../middlewares/auth';
 
 const IS_PROD = nconf.get('IS_PROD');
 
 const api = {};
-
-const MOBILE_FILTER = ['achievements', 'questSeriesAchievements', 'animalColorAchievements', 'animalSetAchievements',
-  'stableAchievements', 'bundles', 'loginIncentives', 'pets', 'premiumPets', 'specialPets', 'questPets',
-  'wackyPets', 'mounts', 'premiumMounts,specialMounts,questMounts', 'events', 'dropEggs', 'questEggs', 'dropHatchingPotions',
-  'premiumHatchingPotions', 'wackyHatchingPotions', 'backgroundsFlat', 'questsByLevel', 'gear.tree', 'tasksByCategory',
-  'userDefaults', 'timeTravelStable', 'gearTypes', 'cardTypes'];
-
-const ANDROID_FILTER = [...MOBILE_FILTER, 'appearances.background'].join(',');
-const IOS_FILTER = [...MOBILE_FILTER, 'backgrounds'].join(',');
 
 /**
  * @api {get} /api/v3/content Get all available content objects

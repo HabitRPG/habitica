@@ -182,7 +182,7 @@
     "questEggVelociraptorText": "Велоцираптор",
     "questEggVelociraptorMountText": "Велоцираптор",
     "questEggVelociraptorAdjective": "розумний",
-    "eggNotes": "Знайдіть інкубаційне зілля, аби вилити на це яйце, і з нього вилупиться <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
+    "eggNotes": "Знайдіть інкубаційне зілля, аби вилити на це яйце, і з нього вилупиться <%= eggAdjective %> <%= eggText %>.",
     "hatchingPotionBase": "Звичайний",
     "hatchingPotionWhite": "Білий",
     "hatchingPotionDesert": "Пустельний",
@@ -211,7 +211,7 @@
     "hatchingPotionGlow": "В-темряві-сяючий",
     "hatchingPotionFrost": "Морозний",
     "hatchingPotionIcySnow": "Крижаний сніг",
-    "hatchingPotionNotes": "Вилийте це на яйце, і з нього вилупиться улюбленець, типу \"<%= potText(locale) %>\".",
+    "hatchingPotionNotes": "Вилийте це на яйце, і з нього вилупиться улюбленець, типу \"<%= potText %>\".",
     "foodMeat": "М'ясо",
     "foodMeatThe": "М'ясо",
     "foodMeatA": "М'ясо",
@@ -404,7 +404,7 @@
     "questEggOtterMountText": "видра",
     "questEggOtterAdjective": "підступний",
     "hatchingPotionCryptid": "Містичний",
-    "wackyPotionNotes": "Вилийте це на яйце, і з нього вилупиться Дивний улюбленець, типу \"<%= potText(locale) %>\".",
+    "wackyPotionNotes": "Вилийте це на яйце, і з нього вилупиться Дивний улюбленець, типу \"<%= potText %>\".",
     "wackyPotionAddlNotes": "Не може бути використано на яйцях з Квестовими улюбленцями.",
     "hatchingPotionBalloon": "Надувний"
 }

@@ -190,7 +190,7 @@
     "messages": "Messages",
     "emptyMessagesLine1": "메시지가 없습니다",
     "emptyMessagesLine2": "유저의 프로필에 들어가 \"메시지\" 버튼을 눌러서 유저에게 새로운 메시지를 보낼 수 있습니다.",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sent you a message",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> sent you a message",
     "letsgo": "Let's Go!",
     "selected": "Selected",
     "howManyToBuy": "얼마나 사시겠습니까?",

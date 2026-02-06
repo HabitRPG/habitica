@@ -254,7 +254,7 @@
     "changePasswordDisclaimer": "Senhas devem ter 8 caracteres ou mais. Alterar a sua senha fará com que você saia de outros dispositivos e ferramentas de terceiros que você pode usar.",
     "contentRelease": "Lançamentos de Conteúdo + Eventos",
     "baileyAnnouncement": "Último Anúncio da Bailey",
-    "showRaisePetModal": "Ao cuidar de um Mascote para virar Montaria",
+    "showRaisePetModal": "Ao evoluir um pet para montaria",
     "resetTextSocial": "Se você tiver certeza absoluta, digite <b>\"<%= magicWord %>\"</b> na caixa de texto abaixo.",
     "APITokenDisclaimer": "<b>Seu API Token é como uma senha; não o compartilhe publicamente.</b> Ocasionalmente, você poderá ser solicitado a informar seu ID de Usuário, mas nunca publique seu API Token onde outras pessoas possam vê-lo, inclusive no GitHub.<br><br><b>Se precisar de um novo API Token</b> (por exemplo, se você o compartilhou acidentalmente), pode alterar sua senha para redefini-la. Após a redefinição, você precisará efetuar login novamente em quaisquer outros dispositivos em que use o Habitica e fornecer o novo API Token para ferramentas de terceiros que você possa usar.",
     "privacyOverview": "No mundo atual, parece que todas as empresas querem lucrar com seus dados. Isso pode dificultar a busca pelo aplicativo certo para melhorar seus hábitos. O Habitica usa cookies que armazenam dados apenas para analisar o desempenho, lidar com solicitações de suporte e proporcionar a melhor experiência gamificada possível. Você pode alterar isso a qualquer momento nas configurações da sua conta.",

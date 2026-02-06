@@ -270,5 +270,6 @@
     "requiredToRun": "Te są wymagane przez naszą stronę i aplikację, aby działać w pełni sprawnie.",
     "usedForSupport": "Te są używane, aby poprawić user experience, wydajność oraz serwisy na naszej stronie i w aplikacjach. Te dane są używane przez nas zespół wsparcia podczas obsługiwania zapytań i zgłoszeń błędów.",
     "privacySettingsOverview": "Habitica używa plików cookies w celach analizy wydajności, rozpatrywania zgłoszeń wsparcia i aby zapewnić Ci jak najlepsze wrażenia z gry. W tym celu potrzebujemy następujących pozwoleń. Możesz je zmienić w dowolnym momencie z poziomu ustawień konta.",
-    "transaction_create_bank_challenge": "<b>Stworzono</b> bankowe wyzwanie"
+    "transaction_create_bank_challenge": "<b>Stworzono</b> bankowe wyzwanie",
+    "resetDetail4": "Stracisz całe swoje wyposażenie poza tajemniczymi przedmiotami abonenta i darmowymi przedmiotami upamiętniającymi. Będziesz móc odkupić usunięte przedmioty, jak również całe wyposażenie z edycji limitowanych (musisz mieć poprawną klasę aby odkupić wyposażenie dla danej klasy)."
 }

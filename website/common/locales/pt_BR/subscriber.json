@@ -260,7 +260,7 @@
     "giftSubscriptionLeadText": "Escolha abaixo a assinatura que você gostaria de presentear! Esta compra não será renovada automaticamente.",
     "oneMonthGift": "Por 1 mês",
     "recurringNMonthly": "Recorrente a cada <%= length %> meses",
-    "subscriptionChangeAnnouncement": "<strong>Os benefícios da Assinatura e a forma como são enviados mudarão em 19 de novembro.</strong> <%= linkStart %>Clique aqui</a> para saber mais sobre essa mudança.",
+    "subscriptionChangeAnnouncement": "<strong>Os benefícios da Assinatura e a forma como são enviados mudarão em 19 de Novembro.</strong> <%= linkStart %>Clique aqui</a> para saber mais sobre essa mudança.",
     "popular": "Popular",
     "maxGemCapGift": "Eles terão o máximo <strong>Limite de Gemas</strong>",
     "maxGemCap": "Inicie instantaneamente no <strong>limite máximo de Gemas</strong>",

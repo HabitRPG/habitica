@@ -422,6 +422,32 @@
                 class="btn btn-secondary"
                 @click="makeAdmin()"
               >Make Admin</a>
+              <div class="d-flex align-items-center mt-2">
+                <input
+                  v-model.number="partyChatCount"
+                  type="number"
+                  min="1"
+                  class="form-control form-control-sm mr-2"
+                  style="width: 80px;"
+                >
+                <a
+                  class="btn btn-secondary"
+                  @click="seedPartyChat()"
+                >Send Party Chat Messages</a>
+              </div>
+              <div class="d-flex align-items-center mt-2">
+                <input
+                  v-model.number="inboxCount"
+                  type="number"
+                  min="1"
+                  class="form-control form-control-sm mr-2"
+                  style="width: 80px;"
+                >
+                <a
+                  class="btn btn-secondary"
+                  @click="seedInbox()"
+                >Send Inbox Messages</a>
+              </div>
             </div>
           </div>
         </div>
@@ -796,6 +822,8 @@ export default {
       DEBUG_ENABLED,
       TIME_TRAVEL_ENABLED,
       lastTimeJump: null,
+      partyChatCount: 450,
+      inboxCount: 450,
     };
   },
   computed: {
@@ -913,6 +941,35 @@ export default {
       // @TODO: Notification.text('You are now an admin!
       // Reload the website then go to Help > Admin Panel to set contributor level, etc.');
       // @TODO: sync()
+    },
+    async seedPartyChat () {
+      try {
+        const count = this.partyChatCount;
+        if (!Number.isInteger(count) || count < 1) {
+          window.alert('Please enter a positive integer'); // eslint-disable-line no-alert
+          return;
+        }
+        await axios.post('/api/v4/debug/seed-party-chat', { messageCount: count });
+        window.alert(`Successfully sent ${count} messages to your party chat!`); // eslint-disable-line no-alert
+      } catch (e) {
+        window.alert(e.response?.data?.message || 'Error sending party chat messages'); // eslint-disable-line no-alert
+      }
+    },
+    async seedInbox () {
+      try {
+        const count = this.inboxCount;
+        if (!Number.isInteger(count) || count < 1) {
+          window.alert('Please enter a positive integer'); // eslint-disable-line no-alert
+          return;
+        }
+        await axios.post('/api/v4/debug/seed-inbox', { messageCount: count });
+        window.alert(`Successfully sent ${count} messages to your inbox!`); // eslint-disable-line no-alert
+      } catch (e) {
+        window.alert(e.response?.data?.message || 'Error sending inbox messages'); // eslint-disable-line no-alert
+      }
+    },
+    donate () {
+      this.$root.$emit('bv::show::modal', 'buy-gems', { alreadyTracked: true });
     },
     showBailey () {
       this.$root.$emit('bv::show::modal', 'new-stuff');

@@ -3,7 +3,7 @@ import Vue from 'vue';
 import * as Analytics from '@/libs/analytics';
 
 export async function getChat (store, payload) {
-  const response = await axios.get(`/api/v4/groups/${payload.groupId}/chat`);
+  const response = await axios.get(`/api/v4/groups/${payload.groupId}/chat?limit=400`);
 
   return response.data.data;
 }

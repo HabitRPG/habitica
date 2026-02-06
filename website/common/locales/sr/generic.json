@@ -190,7 +190,7 @@
     "messages": "Poruke",
     "emptyMessagesLine1": "Nemate novih poruka",
     "emptyMessagesLine2": "Kako biste poslali poruku drugom korisniku, uđite na njihov profil i kliknite dugme \"Poruka\".",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sent you a message",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> sent you a message",
     "letsgo": "Let's Go!",
     "selected": "Selektovano",
     "howManyToBuy": "How many would you like to buy?",

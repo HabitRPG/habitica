@@ -679,7 +679,7 @@ import NotificationMixins from '@/mixins/notifications';
 
 // extract to a shared path
 const CONVERSATIONS_PER_PAGE = 10;
-const PM_PER_PAGE = 10;
+const PM_PER_PAGE = 50;
 
 const UI_STATES = Object.freeze({
   LOADING: 'LOADING',

@@ -22,7 +22,7 @@
     "webFaqAnswer28": "Yes! The “Pause Damage” button can be found in Settings. It will prevent you from losing HP for missed Dailies. This is helpful if you are on holiday, need a rest, or for any other reason you might need a break. If you are participating in a Quest, your own pending progress will be paused, but you will still take damage from your Party member’s missed Dailies.\n\nTo pause specific Dailies, you can edit the scheduling to make it due every 0 days until you’re ready to restart it.",
     "webFaqAnswer29": "You can recover 15 HP by purchasing a Health Potion from your Rewards column for 25 Gold. Additionally, you will always recover full HP when you level up!",
     "faqQuestion30": "What happens when I run out of HP?",
-    "webFaqAnswer30": "If your HP reaches zero, you’ll lose one level, all of your Gold, and a piece of Equipment that can be repurchased.",
+    "webFaqAnswer30": "If your HP reaches zero, you'll lose one level, that level's stat point, all of your Gold, and a piece of equipment that can be repurchased. You can rebuild by completing tasks and levelling up again.",
     "faqQuestion31": "Why did I lose HP when interacting with a non-negative task?",
     "webFaqAnswer31": "If you complete a task and lose HP when you shouldn’t have, you encountered a delay while the server was syncing changes made on other platforms. For example, if you use Gold, Mana, or lose HP on the mobile app and then complete a task on the website, the server is simply confirming everything is in sync.",
     "faqQuestion32": "How can I choose a class?",

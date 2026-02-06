@@ -82,7 +82,7 @@
     "paymentMethods": "רכשו באמצעות",
     "paymentSuccessful": "התשלום נעשה בהצלחה!",
     "paymentYouReceived": "קיבלת:",
-    "paymentYouSentGems": "שלחת <strong><%- name %></strong>:",
+    "paymentYouSentGems": "שלחת <strong><%= name %></strong>:",
     "paymentYouSentSubscription": "",
     "paymentSubBilling": "",
     "success": "הצלחה!",

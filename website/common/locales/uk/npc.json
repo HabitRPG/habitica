@@ -82,8 +82,8 @@
     "paymentMethods": "Придбати за допомогою",
     "paymentSuccessful": "Ваш платіж пройшов успішно!",
     "paymentYouReceived": "Ви отримали:",
-    "paymentYouSentGems": "Ви надіслали <strong><%- name %></strong>:",
-    "paymentYouSentSubscription": "Ви надіслали <strong><%- name %></strong><br> <%= months %>-міс. підписки на Habitica.",
+    "paymentYouSentGems": "Ви надіслали <strong><%= name %></strong>:",
+    "paymentYouSentSubscription": "Ви надіслали <strong><%= name %></strong><br> <%= months %>-міс. підписки на Habitica.",
     "paymentSubBilling": "Ваша підписка буде оплачуватись <strong>$<%= amount %></strong> кожні <strong><%= months %> міс.</strong>.",
     "success": "Успішно!",
     "classGear": "Класове спорядження",
@@ -129,5 +129,5 @@
     "sellItems": "Продати предмети",
     "notAvailable": "Цей предмет недоступний.",
     "customizationsShopText": "Хочете змінити ваш стиль? Ви прийшли в потрібне місце! Ми пропонуємо найновіші образи, що підійдуть до цього сезону.",
-    "paymentYouSentSubscriptionG1G1": "Ви надіслали <strong><%- name %></strong><br> підписку Habitica на <%= months %> місяць(-ів), і таку ж підписку було застосовано до вашого акаунту в рамках нашої акції «Даруй підписку - лови підписку»!"
+    "paymentYouSentSubscriptionG1G1": "Ви надіслали <strong><%= name %></strong><br> підписку Habitica на <%= months %> місяць(-ів), і таку ж підписку було застосовано до вашого акаунту в рамках нашої акції «Даруй підписку - лови підписку»!"
 }

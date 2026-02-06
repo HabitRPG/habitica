@@ -190,7 +190,7 @@
     "messages": "Üzenetek",
     "emptyMessagesLine1": "Nincsenek üzeneteid",
     "emptyMessagesLine2": "Küldj üzenetet, hogy beszélgetést kezdeményezz a csapattársaiddal vagy egy másik Habitica játékossal",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> üzenetet küldött neked",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> üzenetet küldött neked",
     "letsgo": "Gyerünk!",
     "selected": "Kiválasztva",
     "howManyToBuy": "Hány darabot szeretnél vásárolni?",

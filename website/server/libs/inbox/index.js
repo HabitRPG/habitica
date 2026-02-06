@@ -37,7 +37,9 @@ export async function sentMessage (sender, receiver, message, translate) {
 
   return messageSent;
 }
-const PM_PER_PAGE = 10;
+// Paginate per every 50
+const PM_PER_PAGE = 50;
+const MAX_PM_COUNT = 400;
 
 const getUserInboxDefaultOptions = {
   asArray: true,
@@ -61,12 +63,18 @@ export async function getUserInbox (user, optionParams = getUserInboxDefaultOpti
     .sort({ timestamp: -1 });
 
   if (typeof options.page !== 'undefined') {
+    const page = Number(options.page);
+    const skip = PM_PER_PAGE * page;
+    if (skip >= MAX_PM_COUNT) {
+      return options.asArray ? [] : {};
+    }
+    const remainingAllowed = MAX_PM_COUNT - skip;
+    const limit = Math.min(PM_PER_PAGE, remainingAllowed);
     query = query
-      .skip(PM_PER_PAGE * Number(options.page))
-      .limit(PM_PER_PAGE);
+      .skip(skip)
+      .limit(limit);
   } else {
-    // Limit for legacy calls that are not paginated to prevent database issues
-    query = query.limit(200);
+    query = query.limit(MAX_PM_COUNT);
   }
 
   const messages = (await query.lean().exec()).map(msgObj => {

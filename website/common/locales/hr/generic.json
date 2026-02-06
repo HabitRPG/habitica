@@ -190,7 +190,7 @@
     "messages": "Poruke",
     "emptyMessagesLine1": "Nemate novih poruka",
     "emptyMessagesLine2": "Pošaljite poruku da započnete razgovor sa članovima vaše Grupe ili drugim Habitica igračem",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> su vam poslali poruku",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> su vam poslali poruku",
     "letsgo": "Idemo!",
     "selected": "Odabrano",
     "howManyToBuy": "Koliko biste željeli kupiti?",

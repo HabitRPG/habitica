@@ -4,8 +4,8 @@
     "brokenChaLink": "Tautan Tantangan Rusak",
     "keepIt": "Simpan",
     "removeIt": "Hapus",
-    "brokenChallenge": "Tautan Tantangan Rusak: tugas ini sebelumnya merupakan bagian dari sebuah tantangan, tapi tantangan tersebut (atau grup) sudah dihapus. Apa yang akan kamu lakukan kepada tugas tak bertuan ini?",
-    "challengeCompleted": "Tantangan ini telah diselesaikan, dan pemenangnya adalah <span class=\"badge\"><%- user %></span>! Apa yang akan dilakukan dengan tugas yang tertinggal?",
+    "brokenChallenge": "Tautan Tantangan Rusak",
+    "challengeCompleted": "Tantangan Selesai!",
     "unsubChallenge": "Tautan Tantangan Rusak: tugas ini sebelumnya merupakan bagian dari sebuah tantangan, tapi kamu sudah tidak melakukan tantangannya. Apa yang akan kamu lakukan?",
     "challenges": "Tantangan",
     "endDate": "Berakhir",
@@ -108,5 +108,9 @@
     "deleteChallengeRefundDescription": "Jika kamu menghapus Tantangan ini, hadiah Permata akan dikembalikan dan tugas Tantangan akan tetap berada di papan tugas para peserta.",
     "whyReportingChallenge": "Mengapa kamu melapor Tantangan ini?",
     "cannotClose": "Tantangan ini tidak dapat ditutup karena satu atau lebih pemain telah melaporkannya sebagai tidak pantas. Anggota staf akan segera menghubungimu dengan instruksi lebih lanjut. Jika lebih dari 48 jam telah berlalu dan kamu belum menerima kabar dari mereka, silakan kirim email ke admin@habitica.com untuk mendapatkan bantuan.",
-    "resetFlags": "Atur ulang Tanda"
+    "resetFlags": "Atur ulang Tanda",
+    "challengeCompletedDescription": "Pemenangnya <%= user %>! Apa yang harus dilakukan dengan tugas yang tidak lagi terhubung?",
+    "brokenTaskDescription": "Tugas ini bagian dari sebuah Tantangan, tetapi telah dihapus. Apa yang ingin kamu lakukan?",
+    "brokenChallengeDescription": "Tugas ini bagian dari sebuah tantangan, tetapi tantangan (atau grup) telah dihapus. Apa yang harus dilakukan dengan tugas yang tidak lagi terhubung?",
+    "brokenTask": "Tautan Tantangan Rusak"
 }

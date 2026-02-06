@@ -5,7 +5,7 @@
     "keepIt": "Megtartom",
     "removeIt": "Eltávolítom",
     "brokenChallenge": "Érvénytelen kihívás link: ez a feladat egy kihívás része volt, de a kihívást (vagy a csoportot) törölték. Mit tegyünk a megmaradó feladatokkal?",
-    "challengeCompleted": "Ez a kihívás befejeződött és a győztes <span class=\"badge\"><%- user %></span> lett! Mit tegyünk a megmaradó feladatokkal?",
+    "challengeCompleted": "Ez a kihívás befejeződött és a győztes <span class=\"badge\"><%= user %></span> lett! Mit tegyünk a megmaradó feladatokkal?",
     "unsubChallenge": "Érvénytelen kihívás link: ez a feladat egy kihívás része volt, de leiratkoztál róla. Mit tegyünk a megmaradó feladatokkal?",
     "challenges": "Kihívások",
     "endDate": "Vége",

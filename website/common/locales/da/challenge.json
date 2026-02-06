@@ -5,7 +5,7 @@
     "keepIt": "Behold den",
     "removeIt": "Fjern den",
     "brokenChallenge": "Defekt udfordringslink: denne opgave var en del af en udfordring, men udfordringen (eller gruppen) er blevet fjernet. Hvad vil du gøre med de gruppeløse opgaver?",
-    "challengeCompleted": "Denne udfordring er afsluttet, og vinderen blev <span class=\"badge\"><%- user %></span>! Hvad vil du gøre med de gruppeløse opgaver?",
+    "challengeCompleted": "Denne udfordring er afsluttet, og vinderen blev <span class=\"badge\"><%= user %></span>! Hvad vil du gøre med de gruppeløse opgaver?",
     "unsubChallenge": "Defekt Udfordringslink: denne opgave var en del af en udfordring, som du ikke længere abonnerer på. Hvad vil du gøre med de gruppeløse opgaver?",
     "challenges": "Udfordringer",
     "endDate": "Afsluttes",

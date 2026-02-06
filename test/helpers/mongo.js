@@ -21,6 +21,7 @@ export async function getProperty (collectionName, id, path) {
 // Specifically helpful for the GET /groups tests,
 // resets the db to an empty state and creates a tavern document
 export async function resetHabiticaDB () {
+  console.info('Resetting Habitica DB');
   const groups = mongoose.connection.db.collection('groups');
   const users = mongoose.connection.db.collection('users');
   return mongoose.connection.dropDatabase()

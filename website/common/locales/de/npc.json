@@ -82,8 +82,8 @@
     "paymentMethods": "Kauf mit",
     "paymentSuccessful": "Die Zahlung war erfolgreich!",
     "paymentYouReceived": "Du hast erhalten:",
-    "paymentYouSentGems": "Du hast <strong><%- name %></strong> geschickt:",
-    "paymentYouSentSubscription": "Du hast <strong><%- name %></strong><br> ein <%= months %>-Monate-Abo für Habitica geschickt.",
+    "paymentYouSentGems": "Du hast <strong><%= name %></strong> geschickt:",
+    "paymentYouSentSubscription": "Du hast <strong><%= name %></strong><br> ein <%= months %>-Monate-Abo für Habitica geschickt.",
     "paymentSubBilling": "Dein Abonnement wird mit <strong>$<%= amount %></strong> alle <strong><%= months %> Monate</strong> verrechnet.",
     "success": "Erfolg!",
     "classGear": "Klassenausrüstung",
@@ -129,5 +129,5 @@
     "sellItems": "Items verkaufen",
     "customizationsShopText": "Willst du deinen Style ändern? Hier bist du richtig! Wir haben die frischesten Looks, passend zur Saison, auf Lager.",
     "notAvailable": "Dieser Gegenstand ist nicht verfügbar.",
-    "paymentYouSentSubscriptionG1G1": "Du hast <strong><%- name %></strong><br> ein <%= months %>-Monat(e)-Abo für Habitica geschickt und dasselbe Abo wurde deinem Account im Zuge der \"Schenk' Eins, Bekomm' Eins\"-Aktion gutgeschrieben!"
+    "paymentYouSentSubscriptionG1G1": "Du hast <strong><%= name %></strong><br> ein <%= months %>-Monat(e)-Abo für Habitica geschickt und dasselbe Abo wurde deinem Account im Zuge der \"Schenk' Eins, Bekomm' Eins\"-Aktion gutgeschrieben!"
 }

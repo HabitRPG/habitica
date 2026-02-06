@@ -135,7 +135,13 @@
     "taskSummary": "Podsumowanie <%= type %>",
     "scoreUp": "Zwiększ statystykę",
     "scoreDown": "Zmniejsz statystykę",
-    "taskAlias": "Alias Zadania",
+    "taskAlias": "Alias zadania",
     "taskAliasPopover": "Ten alias zadania może być użyty przez zewnętrzne integracje. Wspierane są jedynie myślniki, podkreślenia i znaki alfanumeryczne. Alias zadania musi być unikalny wśród wszystkich Twoich zadań.",
-    "taskAliasPlaceholder": "wprowadź alias zadania tutaj"
+    "taskAliasPlaceholder": "wprowadź alias zadania tutaj",
+    "deleteTask": "Usuń zadanie",
+    "deleteType": "Usuń<%= type %>",
+    "deleteXTasks": "Usuń<%= count %>zadań",
+    "confirmDeleteTasks": "Czy chcesz usunąć zadania?",
+    "brokenChallengeTaskCount": "To zadanie jest jednym z<%= count %>zadań, które były częścią Wyzwania, które już nie istnieje.",
+    "sureDeleteType": "Czy na pewno chcesz usunąć to zadanie?"
 }
