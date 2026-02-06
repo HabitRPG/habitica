@@ -39,7 +39,7 @@
     "gulp-filter": "^7.0.0",
     "gulp-imagemin": "^7.1.0",
     "gulp.spritesmith": "^6.13.0",
-    "habitica-markdown": "git+https://github.com/HabitRPG/habitica-markdown.git#fiz/emojis-update",
+    "habitica-markdown": "github:HabitRPG/habitica-markdown#fiz/emojis-update",
     "heapdump": "^0.3.15",
     "helmet": "^4.6.0",
     "in-app-purchase": "^1.11.3",
