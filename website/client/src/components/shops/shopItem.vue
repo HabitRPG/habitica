@@ -69,7 +69,7 @@
       </div>
     </div>
     <b-popover
-      v-if="showPopover"
+      v-if="shouldShowPopover"
       ref="popover"
       :target="itemId"
       triggers="hover focus"
@@ -335,9 +335,13 @@ export default {
       }),
       timer: '',
       limitedString: '',
+      isMobile: typeof window !== 'undefined' && window.innerWidth < 768,
     };
   },
   computed: {
+    shouldShowPopover () {
+      return this.showPopover && !this.isMobile;
+    },
     showNotes () {
       if (['armoire', 'potion'].indexOf(this.item.path) > -1) return true;
       return false;
@@ -359,9 +363,11 @@ export default {
         this.$refs.popover.$emit('disable');
       }
     });
+    window.addEventListener('resize', this.handleResize);
   },
   beforeDestroy () {
     this.cancelAutoUpdate();
+    window.removeEventListener('resize', this.handleResize);
   },
   methods: {
     click () {
@@ -413,6 +419,9 @@ export default {
     },
     cancelAutoUpdate () {
       clearInterval(this.timer);
+    },
+    handleResize () {
+      this.isMobile = window.innerWidth < 768;
     },
   },
 };
