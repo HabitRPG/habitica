@@ -862,6 +862,56 @@ function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
   }
 }
 
+function _userHasModeratorPermission(user)
+{
+  return user.hasPermission('moderator');
+}
+
+function _doesMemberBelongToParty(memberToRemove, group)
+{
+  return memberToRemove.party._id === group._id;
+}
+
+function _doesMemberBelongToGuild(memberToRemove, group)
+{
+  return memberToRemove.guilds.indexOf(group._id) !== -1;
+}
+
+function _isMemberInvitedToParty(memberToRemove, group)
+{
+  return find(memberToRemove.invitations.parties, {id: group._id});
+}
+
+function _isMemberInvitedToGuild(memberToRemove, group)
+{
+  return findIndex(memberToRemove.invitations.guilds, {id: group._id}) !== -1;
+}
+
+function _isMemberAGroupQuestOwner(group, member)
+{
+  return Boolean(group.quest) && group.quest.leader === member._id;
+}
+
+function _removeUserGuildInvitation(member, group)
+{
+  removeFromArray(member.invitations.guilds, {id: group._id});
+}
+
+function _removeUserPartyInvitation(member, group)
+{
+  removeFromArray(member.invitations.parties, {id: group._id});
+  member.invitations.party = member.invitations.parties.length > 0
+    ? member.invitations.parties[member.invitations.parties.length - 1]
+    : {};
+  member.markModified('invitations.party');
+}
+
+function _removeGroupQuestMember(group, memberToRemove)
+{
+  delete group.quest.members[memberToRemove._id];
+  group.markModified('quest.members');
+}
+
 /**
  * @api {post} /api/v3/groups/:groupId/removeMember/:memberId Remove a member from a group
  * @apiName RemoveGroupMember
@@ -902,96 +952,112 @@ api.removeGroupMember = {
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
-    const optionalMembership = Boolean(user.hasPermission('moderator'));
+
+    const requestDataToRemoveMember = {
+      groupId: req.params.groupId,
+      memberId: req.params.memberId,
+    }
+    if (user._id === requestDataToRemoveMember.memberId)
+    {
+      throw new NotAuthorized(res.t('memberCannotRemoveYourself'));
+    }
+
+    const isUserWithModeratorPermission = _userHasModeratorPermission(user);
+
     const group = await Group.getGroup({
-      user, groupId: req.params.groupId, optionalMembership, fields: '-chat',
+      user, groupId: req.params.groupId, optionalMembership: isUserWithModeratorPermission, fields: '-chat'
     }); // Do not fetch chat
 
-    if (!group) throw new NotFound(res.t('groupNotFound'));
-
-    const uuid = req.params.memberId;
-
-    if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
-    if (group.leader !== user._id && !user.hasPermission('moderator')) throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
-
-    if (group.leader === uuid && user.hasPermission('moderator')) throw new NotAuthorized(res.t('cannotRemoveCurrentLeader'));
-
-    if (user._id === uuid) throw new NotAuthorized(res.t('memberCannotRemoveYourself'));
-
-    const member = await User.findOne({ _id: uuid }).exec();
-
-    // We're removing the user from a guild or a party? is the user invited only?
-    let isInGroup;
-    if (member.party._id === group._id) {
-      isInGroup = 'party';
-    } else if (member.guilds.indexOf(group._id) !== -1) {
-      isInGroup = 'guild';
+    if (!group)
+    {
+      throw new NotFound(res.t('groupNotFound'));
+    }
+    if (!group.isUserALeader(user._id))
+    {
+      if (group.isParty())
+      {
+        throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
+      }
+      if (!isUserWithModeratorPermission)
+      {
+        throw new NotAuthorized(res.t('onlyLeaderCanRemoveMember'));
+      }
+    }
+    if (group.isUserALeader(requestDataToRemoveMember.memberId) && isUserWithModeratorPermission)
+    {
+      throw new NotAuthorized(res.t('cannotRemoveCurrentLeader'));
     }
 
-    let isInvited;
-    if (find(member.invitations.parties, { id: group._id })) {
-      isInvited = 'party';
-    } else if (findIndex(member.invitations.guilds, { id: group._id }) !== -1) {
-      isInvited = 'guild';
-    }
+    const memberToRemove = await User.findOne({_id: requestDataToRemoveMember.memberId}).exec();
+    const memberBelongsToParty = _doesMemberBelongToParty(memberToRemove, group);
+    const memberBelongsToGuild = _doesMemberBelongToGuild(memberToRemove, group);
+    const isMemberInGroup = memberBelongsToParty || memberBelongsToGuild;
 
-    if (isInGroup) {
-      // For parties we count the number of members from the database to get the correct value.
-      // See #12275 on why this is necessary and only done for parties.
-      if (group.type === 'party') {
-        const currentMembers = await group.getMemberCount();
-        group.memberCount = currentMembers - 1;
-      } else {
-        group.memberCount -= 1;
-      }
+    const isMemberInvitedToParty = _isMemberInvitedToParty(memberToRemove, group);
+    const isMemberInvitedToGuild = _isMemberInvitedToGuild(memberToRemove, group);
+    const isMemberInvited = isMemberInvitedToParty || isMemberInvitedToGuild;
 
-      if (group.quest && group.quest.leader === member._id) {
-        throw new NotAuthorized(res.t('cannotRemoveQuestOwner'));
-      } else if (group.quest && group.quest.members) {
-        // remove member from quest
-        delete group.quest.members[member._id];
-        group.markModified('quest.members');
-      }
-
-      if (isInGroup === 'guild') {
-        removeFromArray(member.guilds, group._id);
-      }
-      if (isInGroup === 'party') {
-        member.party._id = undefined; // TODO remove quest information too? Use group.leave()?
-      }
-
-      removeMessagesFromMember(member, group._id);
-
-      if (group.quest && group.quest.active && group.quest.leader === member._id) {
-        member.items.quests[group.quest.key] += 1;
-        member.markModified('items.quests');
-      }
-    } else if (isInvited) {
-      if (isInvited === 'guild') {
-        removeFromArray(member.invitations.guilds, { id: group._id });
-      }
-      if (isInvited === 'party') {
-        removeFromArray(member.invitations.parties, { id: group._id });
-        member.invitations.party = member.invitations.parties.length > 0
-          ? member.invitations.parties[member.invitations.parties.length - 1]
-          : {};
-        member.markModified('invitations.party');
-      }
-    } else {
+    if (!isMemberInGroup && !isMemberInvited)
+    {
       throw new NotFound(res.t('groupMemberNotFound'));
     }
+    let dbWritePromises = []
+    if (isMemberInGroup)
+    {
+      if (_isMemberAGroupQuestOwner(group, memberToRemove))
+      {
+        throw new NotAuthorized(res.t('cannotRemoveQuestOwner'));
+      }
+      else if (group.questIncludesUser(memberToRemove._id))
+      {
+        _removeGroupQuestMember(group, memberToRemove);
+      }
 
-    const message = req.query.message || req.body.message;
-    _sendMessageToRemoved(group, member, message, isInGroup);
+      if (memberBelongsToGuild)
+      {
+        removeFromArray(memberToRemove.guilds, group._id);
+      }
+      if (memberBelongsToParty)
+      {
+        memberToRemove.party._id = undefined; // TODO remove quest information too? Use group.leave()?
+      }
 
+      removeMessagesFromMember(memberToRemove, group._id);
+
+      if (group.quest && group.quest.active && group.quest.leader === memberToRemove._id)
+      {
+        memberToRemove.items.quests[group.quest.key] += 1;
+        memberToRemove.markModified('items.quests');
+      }
+
+      dbWritePromises.push(Group.updateOne(
+        { _id: group._id },
+        { $inc: { memberCount: -1 } }
+      ));
+    }
+    else
+    {
+      if (isMemberInvitedToGuild)
+      {
+        _removeUserGuildInvitation(memberToRemove, group);
+      }
+      if (isMemberInvitedToParty)
+      {
+        _removeUserPartyInvitation(memberToRemove, group);
+      }
+    }
     await Promise.all([
-      member.save(),
-      group.save(),
+      ...dbWritePromises,
+      memberToRemove.save(),
+      group.save()
     ]);
 
-    if (isInGroup && group.hasNotCancelled()) {
+    const message = req.query.message || req.body.message;
+    _sendMessageToRemoved(group, memberToRemove, message, isMemberInGroup);
+
+    if (isMemberInGroup && group.hasNotCancelled()) {
       await group.updateGroupPlan(true);
-      await payments.cancelGroupSubscriptionForUser(member, group, true);
+      await payments.cancelGroupSubscriptionForUser(memberToRemove, group, true);
     }
 
     res.respond(200, {});

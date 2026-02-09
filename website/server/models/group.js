@@ -1665,6 +1665,21 @@ schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember)
   }
 };
 
+schema.methods.isUserALeader = function isUserALeader(userId)
+{
+  return this.leader === userId
+}
+
+schema.methods.isParty = function isParty()
+{
+  return this.type === 'party';
+}
+
+schema.methods.questIncludesUser = function questIncludesUser(userId)
+{
+  return Boolean(this.quest?.members && userId in this.quest.members);
+}
+
 export const model = mongoose.model('Group', schema);
 
 // initialize tavern if !exists (fresh installs)

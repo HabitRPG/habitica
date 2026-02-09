@@ -13,6 +13,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
   let member;
   let member2;
   let adminUser;
+  let guildMembers;
 
   beforeEach(async () => {
     const {
@@ -24,10 +25,11 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
         privacy: 'private',
       },
       invites: 1,
-      members: 2,
+      members: 8,
       upgradeToGroupPlan: true,
     });
 
+    guildMembers = members;
     guild = group;
     leader = groupLeader;
     invitedUser = invitees[0]; // eslint-disable-line prefer-destructuring
@@ -136,6 +138,17 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
       expect(email.sendTxn.args[1][0]._id).to.eql(member._id);
       expect(email.sendTxn.args[1][1]).to.eql('group-member-removed');
     });
+
+    it('keep the member count consistent under concurrent member removals', async () => {
+      await Promise.all(guildMembers.map((member) => leader.post(`/groups/${guild._id}/removeMember/${member._id}`)))
+      const newMemberCount = (await leader.get(`/groups/${guild._id}`))?.memberCount;
+      expect(newMemberCount).eq(
+        1,
+        `Expected to have only a single leader left but instead ${
+          newMemberCount ? `found ${newMemberCount} members` : 'failed at GET request to retrieve number of members'
+        }`,
+      );
+    })
   });
 
   context('Party', () => {
@@ -144,7 +157,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
     let partyInvitedUser;
     let partyMember;
     let removedMember;
-
+    let partyMembers;
     beforeEach(async () => {
       const {
         group, groupLeader, invitees, members,
@@ -161,6 +174,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
 
       party = group;
       partyLeader = groupLeader;
+      partyMembers = members;
       partyInvitedUser = invitees[0]; // eslint-disable-line prefer-destructuring
       partyMember = members[0]; // eslint-disable-line prefer-destructuring
       removedMember = members[1]; // eslint-disable-line prefer-destructuring
@@ -293,5 +307,16 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
       expect(email.sendTxn.args[0][0]._id).to.eql(partyMember._id);
       expect(email.sendTxn.args[0][1]).to.eql('kicked-from-party');
     });
+
+    it('keep the member count consistent under concurrent member removals', async () => {
+      await Promise.all(partyMembers.map((member) => partyLeader.post(`/groups/${party._id}/removeMember/${member._id}`)))
+      const newMemberCount = (await partyLeader.get(`/groups/${party._id}`))?.memberCount;
+      expect(newMemberCount).eq(
+        1,
+        `Expected to have only a single leader left but instead ${
+          newMemberCount ? `found ${newMemberCount} members` : 'failed at GET request to retrieve number of members'
+        }`,
+      );
+    })
   });
 });
