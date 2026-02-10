@@ -499,8 +499,8 @@ export default {
     await this.triggerGetWorldState();
     this.currentEvent = _find(this.currentEventList, event => Boolean(event.season));
     if (this.currentEvent.season === 'valentines') {
-      this.imageURLs.background = `url(/static/npc/spring/seasonal_shop_opened_background.png)`;
-      this.imageURLs.npc = `url(/static/npc/spring/seasonal_shop_opened_npc.png)`;      
+      this.imageURLs.background = 'url(/static/npc/spring/seasonal_shop_opened_background.png)';
+      this.imageURLs.npc = 'url(/static/npc/spring/seasonal_shop_opened_npc.png)';
     } else {
       this.imageURLs.background = `url(/static/npc/${this.currentEvent.season}/seasonal_shop_opened_background.png)`;
       this.imageURLs.npc = `url(/static/npc/${this.currentEvent.season}/seasonal_shop_opened_npc.png)`;
