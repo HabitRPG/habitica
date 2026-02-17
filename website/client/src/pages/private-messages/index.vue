@@ -982,8 +982,16 @@ export default defineComponent({
       }
     },
   },
+  watch: {
+    shouldShowInputPanel (val) {
+      if (val) {
+        this.$nextTick(() => {
+          this.textbox = this.$refs.textarea;
+        });
+      }
+    },
+  },
   async mounted () {
-    this.textbox = this.$refs.textarea;
     this.$store.dispatch('common:setTitle', {
       section: this.$t('messages'),
     });

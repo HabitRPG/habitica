@@ -70,17 +70,12 @@ export default {
   },
   computed: {
     autocompleteStyle () {
-      function heightToUse (textBox, topCoords) {
-        const textBoxHeight = textBox.clientHeight;
-        return topCoords < textBoxHeight ? topCoords + 30 : textBoxHeight + 10;
-      }
+      const top = this.textbox.offsetTop + this.textbox.offsetHeight + 2;
       return {
-        top: `${heightToUse(this.textbox, this.coords.TOP)}px`,
-        left: `${this.coords.LEFT + 30}px`,
-        marginLeft: '-28px',
-        marginTop: '28px',
+        top: `${top}px`,
+        left: `${this.textbox.offsetLeft}px`,
         position: 'absolute',
-        minWidth: '100px',
+        minWidth: '150px',
         zIndex: 100,
         backgroundColor: 'white',
       };
