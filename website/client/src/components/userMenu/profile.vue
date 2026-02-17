@@ -1340,7 +1340,7 @@ export default {
     },
 
     openAdminPanel () {
-      this.$router.push(`/admin-panel/${this.hero._id}`);
+      this.$router.push(`/admin/panel/${this.hero._id}`);
     },
   },
 };
