@@ -1,5 +1,5 @@
 <template>
-  <fragment>
+  <div class="d-content">
     <tr>
       <td class="settings-label">
         {{ $t("showHeader") }}
@@ -26,7 +26,7 @@
         />
       </td>
     </tr>
-  </fragment>
+  </div>
 </template>
 
 <style lang="scss" scoped>

@@ -1,5 +1,5 @@
 <template>
-  <fragment v-if="allowedToChangeClass">
+  <div class="d-content" v-if="allowedToChangeClass">
     <tr
       v-if="!mixinData.inlineSettingMixin.modalVisible"
     >
@@ -71,7 +71,7 @@
         </div>
       </td>
     </tr>
-  </fragment>
+  </div>
 </template>
 
 <style lang="scss" scoped>
