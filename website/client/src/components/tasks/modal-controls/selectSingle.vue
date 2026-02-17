@@ -11,7 +11,8 @@
     >
       <b-dropdown-header>
         <div class="mb-2">
-          <b-form-input
+          <input
+          class="form-control"
             v-model="search"
             type="text"
             :placeholder="searchPlaceholder"

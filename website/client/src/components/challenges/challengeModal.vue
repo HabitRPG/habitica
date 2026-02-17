@@ -12,7 +12,8 @@
         <label>
           <strong v-once>{{ $t('name') }} *</strong>
         </label>
-        <b-form-input
+        <input
+          class="form-control"
           v-model="workingChallenge.name"
           type="text"
           :placeholder="$t('challengeNamePlaceholder')"
@@ -23,7 +24,8 @@
         <label>
           <strong v-once>{{ $t('shortName') }} *</strong>
         </label>
-        <b-form-input
+        <input
+          class="form-control"
           v-model="workingChallenge.shortName"
           type="text"
           :placeholder="$t('shortNamePlaceholder')"
@@ -141,9 +143,6 @@
           </button>
         </div>
       </div>
-      <!-- @TODO: Implement in V2 .form-grouplabel
-  strong(v-once) {{$t('endDate')}}
-      b-form-input.end-date-input-->
       <div
         v-if="creating"
         class="form-group"
