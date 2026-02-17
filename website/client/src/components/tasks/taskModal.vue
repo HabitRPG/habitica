@@ -70,6 +70,13 @@
           spellcheck="true"
           :disabled="challengeAccessRequired"
           :placeholder="$t('addATitle')"
+          @focus="setActiveField('title')"
+          @keydown="autoCompleteMixinUpdateCarretPosition"
+          @keydown.tab="autoCompleteMixinHandleTab($event)"
+          @keydown.up="autoCompleteMixinSelectPreviousAutocomplete($event)"
+          @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
+          @keypress.enter="titleEnterHandler($event)"
+          @keydown.esc="autoCompleteMixinHandleEscape($event)"
         >
       </div>
       <div
@@ -92,11 +99,27 @@
           </small>
         </div>
         <textarea
+          ref="notesTextarea"
           v-model="task.notes"
           class="form-control input-notes"
           :class="cssClass('input')"
           :placeholder="$t('addNotes')"
+          @focus="setActiveField('notes')"
+          @keydown="autoCompleteMixinUpdateCarretPosition"
+          @keydown.tab="autoCompleteMixinHandleTab($event)"
+          @keydown.up="autoCompleteMixinSelectPreviousAutocomplete($event)"
+          @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
+          @keypress.enter="autoCompleteMixinSelectAutocomplete($event)"
+          @keydown.esc="autoCompleteMixinHandleEscape($event)"
         ></textarea>
+        <emoji-auto-complete
+          ref="emojiAutocomplete"
+          :text="activeFieldText"
+          :textbox="textbox"
+          :coords="mixinData.autoComplete.coords"
+          :caret-position="mixinData.autoComplete.caretPosition"
+          @select="selectedAutocomplete"
+        />
       </div>
     </div>
     <div
@@ -712,6 +735,7 @@
     }
 
     .task-modal-header {
+      position: relative;
       color: $white;
       width: 100%;
       border-top-left-radius: 8px;
@@ -1160,6 +1184,8 @@ import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
 import selectList from '@/components/ui/selectList';
 
 import syncTask from '../../mixins/syncTask';
+import emojiAutoComplete from '@/components/chat/emojiAutoComplete';
+import { autoCompleteHelperMixin } from '@/mixins/autoCompleteHelper';
 
 import positiveIcon from '@/assets/svg/positive.svg?raw';
 import negativeIcon from '@/assets/svg/negative.svg?raw';
@@ -1182,15 +1208,18 @@ export default {
     toggleCheckbox,
     lockableLabel,
     selectList,
+    emojiAutoComplete,
   },
   directives: {
     markdown: markdownDirective,
   },
-  mixins: [syncTask],
+  mixins: [syncTask, autoCompleteHelperMixin],
   // purpose is either create or edit, task is the task created or edited
   props: ['task', 'purpose', 'challengeId', 'groupId'],
   data () {
     return {
+      textbox: null,
+      activeField: 'title',
       showAssignedSelect: false,
       newChecklistItem: null,
       icons: Object.freeze({
@@ -1313,6 +1342,10 @@ export default {
     },
     selectedTags () {
       return this.getTagsFor(this.task);
+    },
+    activeFieldText () {
+      if (!this.task) return '';
+      return this.activeField === 'title' ? (this.task.text || '') : (this.task.notes || '');
     },
     showStatAssignment () {
       return this.task.type !== 'reward'
@@ -1489,6 +1522,35 @@ export default {
     },
     focusInput () {
       this.$refs.inputToFocus.focus();
+      this.setActiveField('title');
+    },
+    setActiveField (field) {
+      this.activeField = field;
+      if (field === 'title') {
+        this.textbox = this.$refs.inputToFocus;
+      } else {
+        this.textbox = this.$refs.notesTextarea;
+      }
+    },
+    titleEnterHandler (e) {
+      const ac = this._getActiveAutocomplete();
+      if (ac && ac.selected !== null) {
+        e.preventDefault();
+        ac.makeSelection();
+      } else if (ac) {
+        ac.cancel();
+      }
+    },
+    selectedAutocomplete (newText, newCaret) {
+      if (this.activeField === 'title') {
+        this.task.text = newText;
+      } else {
+        this.task.notes = newText;
+      }
+      this.$nextTick(() => {
+        this.textbox.setSelectionRange(newCaret, newCaret);
+        this.textbox.focus();
+      });
     },
     async addTag (name) {
       const tagResult = await this.createTag({ name });
