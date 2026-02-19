@@ -739,13 +739,12 @@ export default {
             break;
           case 'STREAK_ACHIEVEMENT':
             // Client-side deduplication: prevent showing duplicate streak achievements
-            // Fixes issue #13325 - Users receiving duplicate streak notifications
             if (this.lastShownStreakCount === this.user.achievements.streak) {
               // Same streak already shown, skip this notification
               break;
             }
             this.lastShownStreakCount = this.user.achievements.streak;
-            
+
             this.text(`${this.$t('streaks')}: ${this.user.achievements.streak}`, () => {
               this.$root.$emit('bv::show::modal', 'streak');
             }, this.user.preferences.suppressModals.streak);
