@@ -246,7 +246,9 @@
               :class="{white: user.preferences.background}"
               style="overflow:hidden"
             >
-              <Sprite :image-name="'icon_background_' + user.preferences.background" />
+              <Sprite
+                v-if="user.preferences.background && user.preferences.background !== ''"
+                :image-name="'icon_background_' + user.preferences.background" />
             </div>
             <b-popover
               v-if="label !== 'skip'
