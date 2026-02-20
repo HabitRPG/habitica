@@ -248,6 +248,14 @@ export default {
 
       return filteredItems;
     },
+    hasExactMatch(){
+      const searchTerm = this.search.trim().toLowerCase();
+      if (!searchTerm || this.availableToSelect.length === 0) return false;
+      if (this.availableToSelect[0].name.toLowerCase() === searchTerm){ 
+        return true;
+      }
+      return false;
+    }
   },
   watch: {
     selected () {
