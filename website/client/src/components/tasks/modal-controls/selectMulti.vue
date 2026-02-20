@@ -249,14 +249,14 @@ export default {
 
       return filteredItems;
     },
-    hasExactMatch(){
+    hasExactMatch () {
       const searchTerm = this.search.trim().toLowerCase();
       if (!searchTerm || this.availableToSelect.length === 0) return false;
-      if (this.availableToSelect[0].name.toLowerCase() === searchTerm){ 
+      if (this.availableToSelect[0].name.toLowerCase() === searchTerm) {
         return true;
       }
       return false;
-    }
+    },
   },
   watch: {
     selected () {
@@ -328,10 +328,8 @@ export default {
       if (this.hasExactMatch) {
         this.selectItem(this.availableToSelect[0]);
         this.search = '';
-        return;
-      }
-      // Creating a new tag as there is no existing tag present
-      else if (this.addNew) {
+      } else if (this.addNew) {
+        // Creating a new tag as there is no existing tag present
         this.$emit('addNew', search);
         this.search = '';
       }
