@@ -41,7 +41,7 @@
         v-if="addNew || availableToSelect.length > 0"
         :class="{
           'item-group': true,
-          'add-new': availableToSelect.length === 0 && search !== '',
+          'add-new': search !== '' && !hasExactMatch,
           'scroll': availableToSelect.length > 5
         }"
       >
