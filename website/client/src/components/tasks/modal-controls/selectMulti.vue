@@ -152,7 +152,8 @@ $itemHeight: 2rem;
     max-height: #{5*$itemHeight};
 
     &.add-new {
-      height: 30px;
+      min-height: 30px;
+      height: auto;
 
       .hint {
         display: block;
