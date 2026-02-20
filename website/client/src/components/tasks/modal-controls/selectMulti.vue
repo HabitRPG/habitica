@@ -323,9 +323,17 @@ export default {
     handleSubmit () {
       if (!this.addNew) return;
       const { search } = this;
-      this.$emit('addNew', search);
-
-      this.search = '';
+      // If there is a existing tag
+      if (this.hasExactMatch) {
+        this.selectItem(this.availableToSelect[0]);
+        this.search = '';
+        return;
+      }
+      // Creating a new tag as there is no existing tag present
+      else if (this.addNew) {
+        this.$emit('addNew', search);
+        this.search = '';
+      }
     },
   },
 };
