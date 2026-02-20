@@ -71,7 +71,7 @@
         </b-dropdown-item-button>
 
         <div
-          v-if="addNew && !hasExactMatch"
+          v-if="addNew && search !== '' && !hasExactMatch"
           class="hint"
         >
           {{ $t('pressEnterToAddTag', { tagName: search }) }}
