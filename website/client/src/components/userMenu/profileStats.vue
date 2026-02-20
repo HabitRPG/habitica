@@ -43,7 +43,7 @@
                 <strong>{{ $t('equipment') }}:</strong>
                 <span :class="{ 'positive-stat': statsComputed.gearBonus[stat] !== 0 }">
                   {{ statsComputed.gearBonus[stat] !== 0 ? '+' : '' }}{{
-                    statsComputed.gearBonus[stat]
+                    statsComputed.gearBonus[stat] + statsComputed.classBonus[stat]
                   }}
                 </span>
               </li>
