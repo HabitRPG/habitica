@@ -31,12 +31,20 @@
         <label>
           <strong v-once>{{ $t('shortName') }} *</strong>
         </label>
-        <b-form-input
+        <input
+          ref="shortNameInput"
           v-model="workingChallenge.shortName"
+          class="form-control"
           type="text"
           :placeholder="$t('shortNamePlaceholder')"
-          @keydown="enableSubmit"
-        />
+          @focus="setActiveField('shortName')"
+          @keydown="onFieldKeydown($event)"
+          @keydown.tab="autoCompleteMixinHandleTab($event)"
+          @keydown.up="autoCompleteMixinSelectPreviousAutocomplete($event)"
+          @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
+          @keypress.enter="autoCompleteMixinSelectAutocomplete($event)"
+          @keydown.esc="autoCompleteMixinHandleEscape($event)"
+        >
       </div>
       <div class="form-group">
         <label>
@@ -633,6 +641,7 @@ export default {
       this.activeField = field;
       const refMap = {
         name: 'nameInput',
+        shortName: 'shortNameInput',
         summary: 'summaryTextarea',
         description: 'descriptionTextarea',
       };

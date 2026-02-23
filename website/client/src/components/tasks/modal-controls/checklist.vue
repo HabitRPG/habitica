@@ -259,6 +259,7 @@ export default {
   @import '@/assets/scss/colors.scss';
 
   .checklist-component {
+    position: relative;
 
     .chevron-flip {
       transform: translateY(-5px) rotate(180deg);
