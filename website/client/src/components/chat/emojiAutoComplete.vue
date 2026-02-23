@@ -84,7 +84,20 @@ export default {
   },
   computed: {
     autocompleteStyle () {
-      const top = this.textbox.offsetTop + this.textbox.offsetHeight + 2;
+      const isTextarea = this.textbox.tagName === 'TEXTAREA';
+      let top;
+
+      if (isTextarea) {
+        const computedStyle = window.getComputedStyle(this.textbox);
+        const lineHeight = parseFloat(computedStyle.lineHeight)
+          || (parseFloat(computedStyle.fontSize) * 1.4);
+        const caretTopInTextbox = this.coords.TOP - (this.textbox.scrollTop || 0) + lineHeight;
+        const clamped = Math.min(Math.max(caretTopInTextbox, 0), this.textbox.offsetHeight);
+        top = this.textbox.offsetTop + clamped + 2;
+      } else {
+        top = this.textbox.offsetTop + this.textbox.offsetHeight + 2;
+      }
+
       return {
         top: `${top}px`,
         left: `${this.textbox.offsetLeft}px`,
