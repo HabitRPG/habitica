@@ -12,12 +12,20 @@
         <label>
           <strong v-once>{{ $t('name') }} *</strong>
         </label>
-        <b-form-input
+        <input
+          ref="nameInput"
           v-model="workingChallenge.name"
+          class="form-control"
           type="text"
           :placeholder="$t('challengeNamePlaceholder')"
-          @keydown="enableSubmit"
-        />
+          @focus="setActiveField('name')"
+          @keydown="onFieldKeydown($event)"
+          @keydown.tab="autoCompleteMixinHandleTab($event)"
+          @keydown.up="autoCompleteMixinSelectPreviousAutocomplete($event)"
+          @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
+          @keypress.enter="autoCompleteMixinSelectAutocomplete($event)"
+          @keydown.esc="autoCompleteMixinHandleEscape($event)"
+        >
       </div>
       <div class="form-group">
         <label>
@@ -40,10 +48,17 @@
           {{ $t('charactersRemaining', {characters: charactersRemaining}) }}
         </div>
         <textarea
+          ref="summaryTextarea"
           v-model="workingChallenge.summary"
           class="summary-textarea form-control"
           :placeholder="$t('challengeSummaryPlaceholder')"
-          @keydown="enableSubmit"
+          @focus="setActiveField('summary')"
+          @keydown="onFieldKeydown($event)"
+          @keydown.tab="autoCompleteMixinHandleTab($event)"
+          @keydown.up="autoCompleteMixinSelectPreviousAutocomplete($event)"
+          @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
+          @keypress.enter="autoCompleteMixinSelectAutocomplete($event)"
+          @keydown.esc="autoCompleteMixinHandleEscape($event)"
         ></textarea>
       </div>
       <div class="form-group">
@@ -55,11 +70,26 @@
           class="float-right"
         ></a>
         <textarea
+          ref="descriptionTextarea"
           v-model="workingChallenge.description"
           class="description-textarea form-control"
           :placeholder="$t('challengeDescriptionPlaceholder')"
-          @keydown="enableSubmit"
+          @focus="setActiveField('description')"
+          @keydown="onFieldKeydown($event)"
+          @keydown.tab="autoCompleteMixinHandleTab($event)"
+          @keydown.up="autoCompleteMixinSelectPreviousAutocomplete($event)"
+          @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
+          @keypress.enter="autoCompleteMixinSelectAutocomplete($event)"
+          @keydown.esc="autoCompleteMixinHandleEscape($event)"
         ></textarea>
+        <emoji-auto-complete
+          ref="emojiAutocomplete"
+          :text="activeFieldText"
+          :textbox="textbox"
+          :coords="mixinData.autoComplete.coords"
+          :caret-position="mixinData.autoComplete.caretPosition"
+          @select="selectedAutocomplete"
+        />
       </div>
       <div
         v-if="creating"
@@ -280,12 +310,17 @@ import { TAVERN_ID, MIN_SHORTNAME_SIZE_FOR_CHALLENGES, MAX_SUMMARY_SIZE_FOR_CHAL
 import CategoryOptions from '@/../../common/script/content/categoryOptions';
 import markdownDirective from '@/directives/markdown';
 import { userStateMixin } from '../../mixins/userState';
+import emojiAutoComplete from '@/components/chat/emojiAutoComplete';
+import { autoCompleteHelperMixin } from '@/mixins/autoCompleteHelper';
 
 export default {
+  components: {
+    emojiAutoComplete,
+  },
   directives: {
     markdown: markdownDirective,
   },
-  mixins: [userStateMixin],
+  mixins: [userStateMixin, autoCompleteHelperMixin],
   props: ['groupId'],
   data () {
     const categoryOptions = CategoryOptions;
@@ -319,9 +354,14 @@ export default {
       categoriesHashByKey,
       loading: false,
       groups: [],
+      textbox: null,
+      activeField: 'name',
     };
   },
   computed: {
+    activeFieldText () {
+      return this.workingChallenge[this.activeField] || '';
+    },
     creating () {
       return !this.workingChallenge.id;
     },
@@ -588,6 +628,28 @@ export default {
     },
     toggleCategorySelect () {
       this.showCategorySelect = !this.showCategorySelect;
+    },
+    setActiveField (field) {
+      this.activeField = field;
+      const refMap = {
+        name: 'nameInput',
+        summary: 'summaryTextarea',
+        description: 'descriptionTextarea',
+      };
+      this.textbox = this.$refs[refMap[field]] || null;
+    },
+    onFieldKeydown (e) {
+      this.enableSubmit();
+      this.autoCompleteMixinUpdateCarretPosition(e);
+    },
+    selectedAutocomplete (newText, newCaret) {
+      this.workingChallenge[this.activeField] = newText;
+      this.$nextTick(() => {
+        if (this.textbox) {
+          this.textbox.setSelectionRange(newCaret, newCaret);
+          this.textbox.focus();
+        }
+      });
     },
     enableSubmit: throttle(function enableSubmit () {
       /* Enables the submit button if it was disabled */
