@@ -13,7 +13,16 @@
       @mouseenter="setHover(result)"
       @mouseleave="resetSelection()"
     >
-      <span class="emoji-char">{{ result.emoji }}</span>
+      <img
+        v-if="result.imageUrl"
+        class="emoji-img"
+        :src="result.imageUrl"
+        :alt="result.shortcode"
+      >
+      <span
+        v-else
+        class="emoji-char"
+      >{{ result.emoji }}</span>
       <span
         class="shortcode ml-2"
         :class="{'hover-foreground': result.hover}"
@@ -47,6 +56,11 @@
     line-height: 1;
   }
 
+  .emoji-img {
+    height: 20px;
+    width: 20px;
+  }
+
   .shortcode {
     color: $gray-200;
     font-size: 14px;
@@ -54,7 +68,7 @@
 </style>
 
 <script>
-import emojiDefs from 'markdown-it-emoji/lib/data/full.json';
+import habiticaMarkdown from 'habitica-markdown';
 
 export default {
   props: ['text', 'caretPosition', 'coords', 'textbox'],
@@ -101,11 +115,17 @@ export default {
     },
   },
   created () {
+    const defs = habiticaMarkdown.emojiDefs;
+    const customEmojis = habiticaMarkdown.customEmojis || {};
     const list = [];
-    const keys = Object.keys(emojiDefs);
+    const keys = Object.keys(defs);
     keys.sort();
     for (const key of keys) {
-      list.push({ shortcode: key, emoji: emojiDefs[key], hover: false });
+      const entry = { shortcode: key, emoji: defs[key], hover: false };
+      if (customEmojis[key]) {
+        entry.imageUrl = customEmojis[key];
+      }
+      list.push(entry);
     }
     this.emojiList = list;
   },

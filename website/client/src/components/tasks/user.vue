@@ -80,9 +80,17 @@
                             v-html="icons.drag"
                           ></div>
                           <input
+                            :ref="'tagInput-' + tagIndex"
                             v-model="tag.name"
                             class="tag-edit-input inline-edit-input form-control"
                             type="text"
+                            @focus="setActiveTag(tagIndex)"
+                            @keydown="autoCompleteMixinUpdateCarretPosition"
+                            @keydown.tab="autoCompleteMixinHandleTab($event)"
+                            @keydown.up="autoCompleteMixinSelectPreviousAutocomplete($event)"
+                            @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
+                            @keypress.enter="autoCompleteMixinSelectAutocomplete($event)"
+                            @keydown.esc="autoCompleteMixinHandleEscape($event)"
                           >
                           <div
                             class="input-group-append"
@@ -100,11 +108,18 @@
                         class="col-6 dragSpace"
                       >
                         <input
+                          ref="newTagInput"
                           v-model="newTag"
                           class="new-tag-item edit-tag-item inline-edit-input form-control"
                           type="text"
                           :placeholder="$t('newTag')"
-                          @keydown.enter="addTag($event, tagsType.key)"
+                          @focus="setActiveTag(-1)"
+                          @keydown="autoCompleteMixinUpdateCarretPosition"
+                          @keydown.tab="autoCompleteMixinHandleTab($event)"
+                          @keydown.up="autoCompleteMixinSelectPreviousAutocomplete($event)"
+                          @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
+                          @keypress.enter="newTagEnterHandler($event, tagsType.key)"
+                          @keydown.esc="autoCompleteMixinHandleEscape($event)"
                         >
                       </div>
                     </draggable>
@@ -134,6 +149,15 @@
                 </div>
               </div>
             </div>
+            <emoji-auto-complete
+              v-if="editingTags"
+              ref="emojiAutocomplete"
+              :text="activeTagText"
+              :textbox="textbox"
+              :coords="mixinData.autoComplete.coords"
+              :caret-position="mixinData.autoComplete.caretPosition"
+              @select="selectedTagAutocomplete"
+            />
             <div class="filter-panel-footer clearfix">
               <template v-if="editingTags === true">
                 <div class="text-center">
@@ -405,6 +429,8 @@ import dragIcon from '@/assets/svg/drag_indicator.svg?raw';
 
 import { mapState, mapActions } from '@/libs/store';
 import brokenTaskModal from './brokenTaskModal';
+import emojiAutoComplete from '@/components/chat/emojiAutoComplete';
+import { autoCompleteHelperMixin } from '@/mixins/autoCompleteHelper';
 
 export default {
   components: {
@@ -414,10 +440,12 @@ export default {
     spells,
     brokenTaskModal,
     draggable,
+    emojiAutoComplete,
   },
   directives: {
     markdown,
   },
+  mixins: [autoCompleteHelperMixin],
   data () {
     return {
       columns: ['habit', 'daily', 'todo', 'reward'],
@@ -445,10 +473,19 @@ export default {
       newTag: null,
       editingTask: null,
       creatingTask: null,
+      textbox: null,
+      activeTagIndex: -1,
     };
   },
   computed: {
     ...mapState({ user: 'user.data' }),
+    activeTagText () {
+      if (this.activeTagIndex === -1) {
+        return this.newTag || '';
+      }
+      const tag = this.tagsSnap.tags[this.activeTagIndex];
+      return tag ? tag.name || '' : '';
+    },
     tagsByType () {
       const userTags = this.user.tags;
       const tagsByType = {
@@ -513,6 +550,39 @@ export default {
     addTag (eventObj, key) {
       this.tagsSnap[key].push({ id: uuid(), name: this.newTag });
       this.newTag = null;
+    },
+    setActiveTag (index) {
+      this.activeTagIndex = index;
+      if (index === -1) {
+        const refArr = this.$refs.newTagInput;
+        this.textbox = Array.isArray(refArr) ? refArr[0] : refArr;
+      } else {
+        const refArr = this.$refs[`tagInput-${index}`];
+        this.textbox = refArr ? (Array.isArray(refArr) ? refArr[0] : refArr) : null;
+      }
+    },
+    newTagEnterHandler (e, key) {
+      const ac = this._getActiveAutocomplete();
+      if (ac && ac.selected !== null) {
+        e.preventDefault();
+        ac.makeSelection();
+      } else {
+        if (ac) ac.cancel();
+        this.addTag(e, key);
+      }
+    },
+    selectedTagAutocomplete (newText, newCaret) {
+      if (this.activeTagIndex === -1) {
+        this.newTag = newText;
+      } else {
+        this.tagsSnap.tags[this.activeTagIndex].name = newText;
+      }
+      this.$nextTick(() => {
+        if (this.textbox) {
+          this.textbox.setSelectionRange(newCaret, newCaret);
+          this.textbox.focus();
+        }
+      });
     },
     removeTag (index, key) {
       const tagId = this.tagsSnap[key][index].id;
