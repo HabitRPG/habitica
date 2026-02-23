@@ -4,7 +4,7 @@ Habitica ![Build Status](https://github.com/HabitRPG/habitica/workflows/Test/bad
 [Habitica](https://habitica.com) is an open-source habit-building program that treats your life like a role-playing game. Level up as you succeed, lose HP as you fail, and earn Gold to buy weapons and armor!
 
 **Want to contribute code to Habitica?** We're always looking for assistance on any issues in our repo with the "Help Wanted" label. The wiki pages below and the additional linked pages will tell you how to start contributing code and where you can seek further help or ask questions:
-* [Guidance for Blacksmiths](https://habitica.fandom.com/wiki/Guidance_for_Blacksmiths) - an introduction to the technologies used and how the software is organized.
+* [Guidance for Codesmiths](https://habitica.fandom.com/wiki/Guidance_for_Blacksmiths) - an introduction to the technologies used and how the software is organized.
 * [Setting up Habitica Locally](https://github.com/HabitRPG/habitica/wiki/Setting-Up-Habitica-for-Local-Development) - how to set up a local install of Habitica for development and testing.
 
 **Interested in contributing to Habitica’s mobile apps?** Visit the links below for our mobile repositories.
