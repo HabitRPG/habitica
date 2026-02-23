@@ -558,7 +558,11 @@ export default {
         this.textbox = Array.isArray(refArr) ? refArr[0] : refArr;
       } else {
         const refArr = this.$refs[`tagInput-${index}`];
-        this.textbox = refArr ? (Array.isArray(refArr) ? refArr[0] : refArr) : null;
+        if (!refArr) {
+          this.textbox = null;
+        } else {
+          this.textbox = Array.isArray(refArr) ? refArr[0] : refArr;
+        }
       }
     },
     newTagEnterHandler (e, key) {
