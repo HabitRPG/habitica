@@ -81,6 +81,7 @@ export default {
       selected: null,
       emojiList: [],
       renderTick: 0,
+      internalCoords: { TOP: 0, LEFT: 0 },
     };
   },
   computed: {
@@ -94,7 +95,7 @@ export default {
 
       let top;
       let left;
-      const caretLeft = this.coords.LEFT - (this.textbox.scrollLeft || 0);
+      const caretLeft = this.internalCoords.LEFT - (this.textbox.scrollLeft || 0);
 
       if (needsRectCalc) {
         const textboxRect = this.textbox.getBoundingClientRect();
@@ -105,7 +106,7 @@ export default {
           const computedStyle = window.getComputedStyle(this.textbox);
           const lineHeight = parseFloat(computedStyle.lineHeight)
             || (parseFloat(computedStyle.fontSize) * 1.4);
-          const caretTopInTextbox = this.coords.TOP - (this.textbox.scrollTop || 0) + lineHeight;
+          const caretTopInTextbox = this.internalCoords.TOP - (this.textbox.scrollTop || 0) + lineHeight;
           const clamped = Math.min(Math.max(caretTopInTextbox, 0), this.textbox.offsetHeight);
           top = (textboxRect.top - parentRect.top) + parentScrollTop + clamped + 2;
         } else {
@@ -117,7 +118,7 @@ export default {
           const computedStyle = window.getComputedStyle(this.textbox);
           const lineHeight = parseFloat(computedStyle.lineHeight)
             || (parseFloat(computedStyle.fontSize) * 1.4);
-          const caretTopInTextbox = this.coords.TOP - (this.textbox.scrollTop || 0) + lineHeight;
+          const caretTopInTextbox = this.internalCoords.TOP - (this.textbox.scrollTop || 0) + lineHeight;
           const clamped = Math.min(Math.max(caretTopInTextbox, 0), this.textbox.offsetHeight);
           top = this.textbox.offsetTop + clamped + 2;
         } else {
@@ -146,6 +147,7 @@ export default {
     },
     text (newText, prevText) {
       if (!this.textbox) return;
+      this._measureCaretCoords();
       const delCharsBool = prevText.length > newText.length;
       const caretPosition = this.textbox.selectionEnd;
       const lastFocusChar = delCharsBool ? prevText[caretPosition] : newText[caretPosition - 1];
@@ -243,6 +245,29 @@ export default {
         const result = this.searchResults[this.selected];
         this.select(result);
       }
+    },
+    _measureCaretCoords () {
+      const el = this.textbox;
+      const caretPosition = el.selectionEnd;
+      const div = document.createElement('div');
+      const span = document.createElement('span');
+      const copyStyle = getComputedStyle(el);
+
+      [].forEach.call(copyStyle, prop => {
+        div.style[prop] = copyStyle[prop];
+      });
+
+      div.style.position = 'absolute';
+      div.style.visibility = 'hidden';
+      document.body.appendChild(div);
+      div.textContent = el.value.substr(0, caretPosition);
+      span.textContent = el.value.substr(caretPosition) || '.';
+      div.appendChild(span);
+      this.internalCoords = {
+        TOP: span.offsetTop,
+        LEFT: span.offsetLeft,
+      };
+      document.body.removeChild(div);
     },
     cancel () {
       this.searchActive = false;
