@@ -106,7 +106,8 @@ export default {
           const computedStyle = window.getComputedStyle(this.textbox);
           const lineHeight = parseFloat(computedStyle.lineHeight)
             || (parseFloat(computedStyle.fontSize) * 1.4);
-          const caretTopInTextbox = this.internalCoords.TOP - (this.textbox.scrollTop || 0) + lineHeight;
+          const caretTopInTextbox = this.internalCoords.TOP
+            - (this.textbox.scrollTop || 0) + lineHeight;
           const clamped = Math.min(Math.max(caretTopInTextbox, 0), this.textbox.offsetHeight);
           top = (textboxRect.top - parentRect.top) + parentScrollTop + clamped + 2;
         } else {
@@ -118,7 +119,8 @@ export default {
           const computedStyle = window.getComputedStyle(this.textbox);
           const lineHeight = parseFloat(computedStyle.lineHeight)
             || (parseFloat(computedStyle.fontSize) * 1.4);
-          const caretTopInTextbox = this.internalCoords.TOP - (this.textbox.scrollTop || 0) + lineHeight;
+          const caretTopInTextbox = this.internalCoords.TOP
+            - (this.textbox.scrollTop || 0) + lineHeight;
           const clamped = Math.min(Math.max(caretTopInTextbox, 0), this.textbox.offsetHeight);
           top = this.textbox.offsetTop + clamped + 2;
         } else {
