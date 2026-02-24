@@ -9,12 +9,27 @@
       @toggle="openOrClose($event)"
     >
       <b-dropdown-header>
-        <div class="mb-2">
+        <div class="mb-2 search-input-wrapper">
           <b-form-input
+            ref="searchInput"
             v-model="search"
             type="text"
             :placeholder="searchPlaceholder"
-            @keyup.enter="handleSubmit"
+            @focus="setTextbox"
+            @keydown="autoCompleteMixinUpdateCarretPosition"
+            @keydown.tab="autoCompleteMixinHandleTab($event)"
+            @keydown.up="autoCompleteMixinSelectPreviousAutocomplete($event)"
+            @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
+            @keydown.enter="searchEnterHandler($event)"
+            @keydown.esc="searchEscHandler($event)"
+          />
+          <emoji-auto-complete
+            ref="emojiAutocomplete"
+            :text="search"
+            :textbox="textbox"
+            :coords="mixinData.autoComplete.coords"
+            :caret-position="mixinData.autoComplete.caretPosition"
+            @select="selectedAutocomplete"
           />
         </div>
 
@@ -94,6 +109,10 @@ $itemHeight: 2rem;
 }
 
 .select-multi {
+  .search-input-wrapper {
+    position: relative;
+  }
+
   .dropdown-toggle {
     padding-left: 0.75rem;
   }
@@ -185,6 +204,8 @@ $itemHeight: 2rem;
 import Vue from 'vue';
 import MultiList from '@/components/tasks/modal-controls/multiList';
 import markdownDirective from '@/directives/markdown';
+import emojiAutoComplete from '@/components/chat/emojiAutoComplete';
+import { autoCompleteHelperMixin } from '@/mixins/autoCompleteHelper';
 
 export default {
   directives: {
@@ -192,7 +213,9 @@ export default {
   },
   components: {
     MultiList,
+    emojiAutoComplete,
   },
+  mixins: [autoCompleteHelperMixin],
   props: {
     addNew: {
       type: Boolean,
@@ -221,6 +244,7 @@ export default {
       wasTagAdded: false,
       selected: this.selectedItems,
       search: '',
+      textbox: null,
     };
   },
   computed: {
@@ -311,6 +335,38 @@ export default {
       if (e.keyCode === 27) {
         this.closeSelectPopup();
       }
+    },
+    setTextbox () {
+      const ref = this.$refs.searchInput;
+      this.textbox = ref ? (ref.$el || ref) : null;
+    },
+    searchEnterHandler (e) {
+      const ac = this._getActiveAutocomplete();
+      if (ac && ac.selected !== null) {
+        e.preventDefault();
+        e.stopPropagation();
+        ac.makeSelection();
+      } else {
+        if (ac) ac.cancel();
+        this.handleSubmit();
+      }
+    },
+    searchEscHandler (e) {
+      const ac = this._getActiveAutocomplete();
+      if (ac && ac.searchActive) {
+        e.preventDefault();
+        e.stopPropagation();
+        ac.cancel();
+      }
+    },
+    selectedAutocomplete (newText, newCaret) {
+      this.search = newText;
+      this.$nextTick(() => {
+        if (this.textbox) {
+          this.textbox.setSelectionRange(newCaret, newCaret);
+          this.textbox.focus();
+        }
+      });
     },
     handleSubmit () {
       if (!this.addNew) return;
