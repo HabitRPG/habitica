@@ -1,4 +1,4 @@
-import { sendJob } from '../../libs/worker';
+import sendJob from '../../libs/worker';
 import { authWithHeaders } from '../../middlewares/auth';
 import { ensurePermission } from '../../middlewares/ensureAccessRight';
 import { TransactionModel as Transaction } from '../../models/transaction';
@@ -48,7 +48,7 @@ api.deleteMember = {
     req.checkQuery('deleteAmplitude').optional().isIn(['true', 'false']);
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
-    sendJob('delete-user', {
+    sendJob.sendJob('delete-user', {
       data: {
         userId: req.params.memberId,
         deleteAccount: req.query.deleteAccount === 'true',

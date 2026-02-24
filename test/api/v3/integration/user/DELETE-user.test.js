@@ -1,8 +1,4 @@
 import {
-  each,
-  map,
-} from 'lodash';
-import {
   checkExistence,
   createAndPopulateGroup,
   generateGroup,
@@ -15,6 +11,7 @@ import {
   sha1Encrypt as sha1EncryptPassword,
 } from '../../../../../website/server/libs/password';
 import * as email from '../../../../../website/server/libs/email';
+import sendJob from '../../../../../website/server/libs/worker';
 
 const DELETE_CONFIRMATION = 'DELETE';
 
@@ -47,12 +44,13 @@ describe('DELETE /user', () => {
       });
     });
 
-    it('deletes the user', async () => {
-      await expect(checkExistence('users', user._id)).to.eventually.eql(true);
+    it('sends deletion job to worker', async () => {
+      const workerStub = sandbox.stub(sendJob, 'sendJob');
       await user.del('/user', {
         password,
       });
-      await expect(checkExistence('users', user._id)).to.eventually.eql(false);
+      expect(workerStub).to.be.calledOnce;
+      workerStub.restore();
     });
 
     it('returns an error if excessive feedback is supplied', async () => {
@@ -82,28 +80,6 @@ describe('DELETE /user', () => {
         error: 'NotAuthorized',
         message: t('cannotDeleteActiveAccount'),
       });
-    });
-
-    it('deletes the user\'s tasks', async () => {
-      await user.post('/tasks/user', {
-        text: 'test habit',
-        type: 'habit',
-      });
-      await user.sync();
-
-      // gets the user's tasks ids
-      const ids = [];
-      each(user.tasksOrder, idsForOrder => {
-        ids.push(...idsForOrder);
-      });
-
-      expect(ids.length).to.be.above(0); // make sure the user has some task to delete
-
-      await user.del('/user', {
-        password,
-      });
-
-      await Promise.all(map(ids, id => expect(checkExistence('tasks', id)).to.eventually.eql(false)));
     });
 
     it('reduces memberCount in challenges user is linked to', async () => {
@@ -158,10 +134,10 @@ describe('DELETE /user', () => {
     });
 
     it('deletes the user with a legacy sha1 password', async () => {
-      await expect(checkExistence('users', user._id)).to.eventually.eql(true);
       const textPassword = 'mySecretPassword';
       const salt = sha1MakeSalt();
       const sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
+      const workerStub = sandbox.stub(sendJob, 'sendJob');
 
       await user.updateOne({
         'auth.local.hashed_password': sha1HashedPassword,
@@ -179,7 +155,8 @@ describe('DELETE /user', () => {
       await user.del('/user', {
         password: textPassword,
       });
-      await expect(checkExistence('users', user._id)).to.eventually.eql(false);
+      expect(workerStub).to.be.calledOnce;
+      workerStub.restore();
     });
 
     context('last member of a party', () => {
@@ -213,11 +190,12 @@ describe('DELETE /user', () => {
     });
 
     it('deletes a Google user', async () => {
-      await expect(checkExistence('users', user._id)).to.eventually.eql(true);
+      const workerStub = sandbox.stub(sendJob, 'sendJob');
       await user.del('/user', {
         password: DELETE_CONFIRMATION,
       });
-      await expect(checkExistence('users', user._id)).to.eventually.eql(false);
+      expect(workerStub).to.be.calledOnce;
+      workerStub.restore();
     });
   });
 
@@ -232,12 +210,13 @@ describe('DELETE /user', () => {
       });
     });
 
-    it('deletes a Apple user', async () => {
-      await expect(checkExistence('users', user._id)).to.eventually.eql(true);
+    it('deletes an Apple user', async () => {
+      const workerStub = sandbox.stub(sendJob, 'sendJob');
       await user.del('/user', {
         password: DELETE_CONFIRMATION,
       });
-      await expect(checkExistence('users', user._id)).to.eventually.eql(false);
+      expect(workerStub).to.be.calledOnce;
+      workerStub.restore();
     });
   });
 });

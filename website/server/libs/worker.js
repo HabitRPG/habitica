@@ -10,7 +10,7 @@ const EMAIL_SERVER = {
   },
 };
 
-export function sendJob (type, config) {
+function sendJob (type, config) {
   const { data, options } = config;
   const usedOptions = {
     backoff: { delay: 10 * 60 * 1000, type: 'exponential' },
@@ -31,3 +31,5 @@ export function sendJob (type, config) {
     extraMessage: 'Error while sending an email.',
   }));
 }
+
+export default { sendJob };

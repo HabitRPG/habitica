@@ -22,7 +22,7 @@ import {
   getUserInfo,
   sendTxn,
 } from '../../libs/email';
-import { sendJob } from '../../libs/worker';
+import sendJob from '../../libs/worker';
 import * as inboxLib from '../../libs/inbox';
 import * as userLib from '../../libs/user';
 import { model as UserHistory } from '../../models/userHistory';
@@ -319,7 +319,7 @@ api.deleteUser = {
       ]);
     }
 
-    sendJob('delete-user', {
+    sendJob.sendJob('delete-user', {
       data: {
         userId: user._id,
         deleteAccount: true,

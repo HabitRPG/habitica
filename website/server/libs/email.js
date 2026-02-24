@@ -2,7 +2,7 @@ import nconf from 'nconf';
 import { TAVERN_ID } from '../models/group'; // eslint-disable-line import/no-cycle
 import { encrypt } from './encryption';
 import common from '../../common';
-import { sendJob } from './worker';
+import sendJob from './worker';
 
 const IS_PROD = nconf.get('IS_PROD');
 const BASE_URL = nconf.get('BASE_URL');
@@ -148,7 +148,7 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
   }
 
   if (IS_PROD && mailingInfoArray.length > 0) {
-    return sendJob('email', {
+    return sendJob.sendJob('email', {
       data: {
         emailType,
         to: mailingInfoArray,
