@@ -3,6 +3,7 @@ import winston from 'winston';
 import { Loggly } from 'winston-loggly-bulk';
 import nconf from 'nconf';
 import _ from 'lodash';
+import os from 'os';
 import {
   CustomError,
 } from './errors';
@@ -65,9 +66,8 @@ if (IS_PROD) {
         ),
       }));
   }
-
   if (LOGGLY_TOKEN && LOGGLY_SUBDOMAIN) {
-    const tags = ['Winston-NodeJS'];
+    const tags = ['Winston-NodeJS', os.hostname()];
     if (nconf.get('SERVER_EMOJI')) {
       tags.push(nconf.get('SERVER_EMOJI'));
     }

@@ -5,6 +5,7 @@ import {
   getDevelopmentConnectionUrl,
   getDefaultConnectionOptions,
 } from './mongodb';
+import SERVER_STATUS from './serverStatus';
 
 const IS_PROD = nconf.get('IS_PROD');
 const MAINTENANCE_MODE = nconf.get('MAINTENANCE_MODE');
@@ -24,6 +25,13 @@ const connectionUrl = IS_PROD ? DB_URI : getDevelopmentConnectionUrl(DB_URI);
 export default async function connectToMongoDB () {
   // Do not connect to MongoDB when in maintenance mode
   if (MAINTENANCE_MODE !== 'true') {
+    mongoose.connection.on('open', () => {
+      SERVER_STATUS.MONGODB = true;
+    });
+    mongoose.connection.on('disconnected', () => {
+      SERVER_STATUS.MONGODB = false;
+    });
+
     return mongoose.connect(connectionUrl, mongooseOptions).then(() => {
       logger.info('Connected with Mongoose.');
     });
