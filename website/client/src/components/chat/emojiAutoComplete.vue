@@ -80,27 +80,55 @@ export default {
       searchResults: [],
       selected: null,
       emojiList: [],
+      renderTick: 0,
     };
   },
   computed: {
     autocompleteStyle () {
+      // eslint-disable-next-line no-unused-vars
+      const _tick = this.renderTick;
       const isTextarea = this.textbox.tagName === 'TEXTAREA';
-      let top;
+      const dropdownPA = (this.$el && this.$el.nodeType === 1) ? this.$el.offsetParent : null;
+      const textboxOP = this.textbox.offsetParent;
+      const needsRectCalc = dropdownPA && textboxOP && dropdownPA !== textboxOP;
 
-      if (isTextarea) {
-        const computedStyle = window.getComputedStyle(this.textbox);
-        const lineHeight = parseFloat(computedStyle.lineHeight)
-          || (parseFloat(computedStyle.fontSize) * 1.4);
-        const caretTopInTextbox = this.coords.TOP - (this.textbox.scrollTop || 0) + lineHeight;
-        const clamped = Math.min(Math.max(caretTopInTextbox, 0), this.textbox.offsetHeight);
-        top = this.textbox.offsetTop + clamped + 2;
+      let top;
+      let left;
+      const caretLeft = this.coords.LEFT - (this.textbox.scrollLeft || 0);
+
+      if (needsRectCalc) {
+        const textboxRect = this.textbox.getBoundingClientRect();
+        const parentRect = dropdownPA.getBoundingClientRect();
+        const parentScrollTop = dropdownPA.scrollTop || 0;
+
+        if (isTextarea) {
+          const computedStyle = window.getComputedStyle(this.textbox);
+          const lineHeight = parseFloat(computedStyle.lineHeight)
+            || (parseFloat(computedStyle.fontSize) * 1.4);
+          const caretTopInTextbox = this.coords.TOP - (this.textbox.scrollTop || 0) + lineHeight;
+          const clamped = Math.min(Math.max(caretTopInTextbox, 0), this.textbox.offsetHeight);
+          top = (textboxRect.top - parentRect.top) + parentScrollTop + clamped + 2;
+        } else {
+          top = (textboxRect.bottom - parentRect.top) + parentScrollTop + 2;
+        }
+        left = (textboxRect.left - parentRect.left) + caretLeft;
       } else {
-        top = this.textbox.offsetTop + this.textbox.offsetHeight + 2;
+        if (isTextarea) {
+          const computedStyle = window.getComputedStyle(this.textbox);
+          const lineHeight = parseFloat(computedStyle.lineHeight)
+            || (parseFloat(computedStyle.fontSize) * 1.4);
+          const caretTopInTextbox = this.coords.TOP - (this.textbox.scrollTop || 0) + lineHeight;
+          const clamped = Math.min(Math.max(caretTopInTextbox, 0), this.textbox.offsetHeight);
+          top = this.textbox.offsetTop + clamped + 2;
+        } else {
+          top = this.textbox.offsetTop + this.textbox.offsetHeight + 2;
+        }
+        left = this.textbox.offsetLeft + caretLeft;
       }
 
       return {
         top: `${top}px`,
-        left: `${this.textbox.offsetLeft}px`,
+        left: `${left}px`,
         position: 'absolute',
         minWidth: '150px',
         zIndex: 100,
@@ -109,6 +137,13 @@ export default {
     },
   },
   watch: {
+    searchResults (results, oldResults) {
+      if (results.length > 0 && (!oldResults || oldResults.length === 0)) {
+        this.$nextTick(() => {
+          this.renderTick += 1;
+        });
+      }
+    },
     text (newText, prevText) {
       if (!this.textbox) return;
       const delCharsBool = prevText.length > newText.length;
