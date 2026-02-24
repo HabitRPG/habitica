@@ -683,6 +683,15 @@ const backgrounds = {
   backgrounds022026: {
     elegant_palace: { },
   },
+  backgrounds032026: {
+    waterfall_with_rainbow: { },
+  },
+  backgrounds042026: {
+    riding_a_comet: { },
+  },
+  backgrounds052026: {
+    elven_citadel: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,

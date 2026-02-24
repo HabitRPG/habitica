@@ -839,6 +839,18 @@ const armor = {
   winter2026Rogue: {
     set: 'winter2026SkiRogueSet',
   },
+  spring2026Warrior: {
+    set: 'spring2026FrogWarriorSet',
+  },
+  spring2026Rogue: {
+    set: 'spring2026BranchRogueSet',
+  },
+  spring2026Healer: {
+    set: 'spring2026SnowdropHealerSet',
+  },
+  spring2026Mage: {
+    set: 'spring2026MaypoleMageSet',
+  },
 };
 
 const armorStats = {
@@ -1988,6 +2000,18 @@ const head = {
   winter2026Rogue: {
     set: 'winter2026SkiRogueSet',
   },
+  spring2026Warrior: {
+    set: 'spring2026FrogWarriorSet',
+  },
+  spring2026Rogue: {
+    set: 'spring2026BranchRogueSet',
+  },
+  spring2026Healer: {
+    set: 'spring2026SnowdropHealerSet',
+  },
+  spring2026Mage: {
+    set: 'spring2026MaypoleMageSet',
+  },
 };
 
 const headStats = {
@@ -2727,6 +2751,16 @@ const shield = {
   winter2026Rogue: {
     set: 'winter2026SkiRogueSet',
   },
+  spring2026Warrior: {
+    set: 'spring2026FrogWarriorSet',
+  },
+  spring2026Rogue: {
+    set: 'spring2026BranchRogueSet',
+    notes: t('shieldSpecialSpring2026RogueNotes', { str: 8 }),
+  },
+  spring2026Healer: {
+    set: 'spring2026SnowdropHealerSet',
+  },
 };
 
 const shieldStats = {
@@ -3465,6 +3499,18 @@ const weapon = {
   },
   winter2026Rogue: {
     set: 'winter2026SkiRogueSet',
+  },
+  spring2026Warrior: {
+    set: 'spring2026FrogWarriorSet',
+  },
+  spring2026Rogue: {
+    set: 'spring2026BranchRogueSet',
+  },
+  spring2026Healer: {
+    set: 'spring2026SnowdropHealerSet',
+  },
+  spring2026Mage: {
+    set: 'spring2026MaypoleMageSet',
   },
 };
 
