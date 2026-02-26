@@ -10,6 +10,7 @@ import {
 } from '../libs/errors';
 import logger from '../libs/logger';
 import { apiError } from '../libs/apiError';
+import SERVER_STATUS from '../libs/serverStatus';
 
 // Middleware to rate limit requests to the API
 
@@ -47,6 +48,14 @@ if (RATE_LIMITER_ENABLED) {
       enable_offline_queue: false,
     });
 
+    redisClient.on('ready', () => {
+      SERVER_STATUS.REDIS = true;
+    });
+
+    redisClient.on('reconnecting', () => {
+      SERVER_STATUS.REDIS = false;
+    });
+
     redisClient.on('error', error => {
       logger.error(error, 'Redis Error');
     });
@@ -56,6 +65,8 @@ if (RATE_LIMITER_ENABLED) {
       storeClient: redisClient,
     });
   }
+} else {
+  SERVER_STATUS.REDIS = true;
 }
 
 function setResponseHeaders (res, rateLimiterRes) {
