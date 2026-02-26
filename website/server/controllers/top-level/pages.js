@@ -16,4 +16,13 @@ api.getNewClient = {
   },
 };
 
+api.robotsTxt = {
+  method: 'GET',
+  url: '/robots.txt',
+  noLanguage: true,
+  async handler (req, res) {
+    res.type('text/plain');
+    res.send(`User-agent: *\nAllow: /\nSitemap: ${BASE_URL}/sitemap.xml`);
+  },
+};
 export default api;
