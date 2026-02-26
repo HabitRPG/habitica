@@ -135,6 +135,7 @@ jobs:
     strategy:
       matrix:
         node-version: [21.x]
+        mongodb-version: [7.0]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -144,12 +145,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Start MongoDB 7.0 Replica Set
-      run: |
-        docker run -d --name mongodb -p 27017:27017 mongo:7.0 --replSet rs
-        sleep 5
-        docker exec mongodb mongosh --quiet --eval "rs.initiate({_id: 'rs', members: [{_id: 0, host: 'localhost:27017'}]})"
-        sleep 3
+    - name: Start MongoDB ${{ matrix.mongodb-version }} Replica Set
+      uses: supercharge/mongodb-github-action@1.11.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+        mongodb-replica-set: rs
 
     - run: sudo apt update
     - run: sudo apt -y install libkrb5-dev
@@ -170,6 +170,7 @@ jobs:
     strategy:
       matrix:
         node-version: [21.x]
+        mongodb-version: [7.0]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -178,12 +179,11 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Start MongoDB 7.0 Replica Set
-      run: |
-        docker run -d --name mongodb -p 27017:27017 mongo:7.0 --replSet rs
-        sleep 5
-        docker exec mongodb mongosh --quiet --eval "rs.initiate({_id: 'rs', members: [{_id: 0, host: 'localhost:27017'}]})"
-        sleep 3
+    - name: Start MongoDB ${{ matrix.mongodb-version }} Replica Set
+      uses: supercharge/mongodb-github-action@1.11.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+        mongodb-replica-set: rs
 
     - run: sudo apt update
     - run: sudo apt -y install libkrb5-dev
@@ -204,6 +204,7 @@ jobs:
     strategy:
       matrix:
         node-version: [21.x]
+        mongodb-version: [7.0]
 
     steps:
     - uses: actions/checkout@v4
@@ -213,12 +214,11 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Start MongoDB 7.0 Replica Set
-      run: |
-        docker run -d --name mongodb -p 27017:27017 mongo:7.0 --replSet rs
-        sleep 5
-        docker exec mongodb mongosh --quiet --eval "rs.initiate({_id: 'rs', members: [{_id: 0, host: 'localhost:27017'}]})"
-        sleep 3
+    - name: Start MongoDB ${{ matrix.mongodb-version }} Replica Set
+      uses: supercharge/mongodb-github-action@1.11.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+        mongodb-replica-set: rs
 
     - run: sudo apt update
     - run: sudo apt -y install libkrb5-dev
