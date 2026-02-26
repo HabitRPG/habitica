@@ -15,46 +15,60 @@ export const autoCompleteHelperMixin = {
     };
   },
   methods: {
+    _getActiveAutocomplete () {
+      if (this.$refs.autocomplete && this.$refs.autocomplete.searchActive) {
+        return this.$refs.autocomplete;
+      }
+      if (this.$refs.emojiAutocomplete && this.$refs.emojiAutocomplete.searchActive) {
+        return this.$refs.emojiAutocomplete;
+      }
+      return null;
+    },
+
     autoCompleteMixinHandleTab (e) {
-      if (this.$refs.autocomplete.searchActive) {
+      const ac = this._getActiveAutocomplete();
+      if (ac) {
         e.preventDefault();
         if (e.shiftKey) {
-          this.$refs.autocomplete.selectPrevious();
+          ac.selectPrevious();
         } else {
-          this.$refs.autocomplete.selectNext();
+          ac.selectNext();
         }
       }
     },
 
     autoCompleteMixinHandleEscape (e) {
-      if (this.$refs.autocomplete.searchActive) {
+      const ac = this._getActiveAutocomplete();
+      if (ac) {
         e.preventDefault();
-        this.$refs.autocomplete.cancel();
+        ac.cancel();
       }
     },
 
     autoCompleteMixinSelectNextAutocomplete (e) {
-      if (this.$refs.autocomplete.searchActive) {
+      const ac = this._getActiveAutocomplete();
+      if (ac) {
         e.preventDefault();
-        this.$refs.autocomplete.selectNext();
+        ac.selectNext();
       }
     },
 
     autoCompleteMixinSelectPreviousAutocomplete (e) {
-      if (this.$refs.autocomplete.searchActive) {
+      const ac = this._getActiveAutocomplete();
+      if (ac) {
         e.preventDefault();
-        this.$refs.autocomplete.selectPrevious();
+        ac.selectPrevious();
       }
     },
 
     autoCompleteMixinSelectAutocomplete (e) {
-      if (this.$refs.autocomplete.searchActive) {
-        if (this.$refs.autocomplete.selected !== null) {
+      const ac = this._getActiveAutocomplete();
+      if (ac) {
+        if (ac.selected !== null) {
           e.preventDefault();
-          this.$refs.autocomplete.makeSelection();
+          ac.makeSelection();
         } else {
-          // no autocomplete selected, newline instead
-          this.$refs.autocomplete.cancel();
+          ac.cancel();
         }
       }
     },

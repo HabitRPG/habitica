@@ -153,9 +153,23 @@
               :placeholder="$t('needsTextPlaceholder')"
               :maxlength="MAX_MESSAGE_LENGTH"
               :class="{'has-content': newMessage.trim() !== '', 'disabled': newMessageDisabled}"
+              @keydown="autoCompleteMixinUpdateCarretPosition"
               @keyup.ctrl.enter="sendPrivateMessage()"
+              @keydown.tab="autoCompleteMixinHandleTab($event)"
+              @keydown.up="autoCompleteMixinSelectPreviousAutocomplete($event)"
+              @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
+              @keypress.enter="autoCompleteMixinSelectAutocomplete($event)"
+              @keydown.esc="autoCompleteMixinHandleEscape($event)"
             >
             </textarea>
+            <emoji-auto-complete
+              ref="emojiAutocomplete"
+              :text="newMessage"
+              :textbox="textbox"
+              :coords="mixinData.autoComplete.coords"
+              :caret-position="mixinData.autoComplete.caretPosition"
+              @select="selectedAutocomplete"
+            />
           </div>
           <div
             class="sub-new-message-row d-flex"
@@ -540,6 +554,7 @@ h3 {
 }
 
 .new-message-row {
+  position: relative;
   width: 100%;
   padding-left: 1.5rem;
   padding-top: 1.5rem;
@@ -676,6 +691,8 @@ import PmNewMessageStarted from './pm-new-message-started.vue';
 import StartNewConversationInputHeader from './start-new-conversation-input-header.vue';
 import positiveIcon from '@/assets/svg/positive.svg?raw';
 import NotificationMixins from '@/mixins/notifications';
+import emojiAutoComplete from '@/components/chat/emojiAutoComplete';
+import { autoCompleteHelperMixin } from '@/mixins/autoCompleteHelper';
 
 // extract to a shared path
 const CONVERSATIONS_PER_PAGE = 10;
@@ -700,13 +717,14 @@ export default defineComponent({
     toggleSwitch,
     userLink,
     faceAvatar,
+    emojiAutoComplete,
   },
   filters: {
     timeAgo (value) {
       return moment(new Date(value)).fromNow();
     },
   },
-  mixins: [styleHelper, NotificationMixins],
+  mixins: [styleHelper, NotificationMixins, autoCompleteHelperMixin],
   beforeRouteEnter (to, from, next) {
     next(vm => {
       const data = vm.$store.state.privateMessageOptions;
@@ -751,6 +769,7 @@ export default defineComponent({
       /** @type {Record<string, PrivateMessages.PrivateMessageEntry[]>} */
       messagesByConversation: {}, // cache {uuid: []}
 
+      textbox: null,
       newMessage: '',
       messages: [],
       messagesLoading: false,
@@ -960,6 +979,15 @@ export default defineComponent({
         default: {
           return false;
         }
+      }
+    },
+  },
+  watch: {
+    shouldShowInputPanel (val) {
+      if (val) {
+        this.$nextTick(() => {
+          this.textbox = this.$refs.textarea;
+        });
       }
     },
   },
@@ -1223,6 +1251,13 @@ export default defineComponent({
     },
     triggerStartNewConversationState () {
       this.showStartNewConversationInput = true;
+    },
+    selectedAutocomplete (newText, newCaret) {
+      this.newMessage = newText;
+      this.$nextTick(() => {
+        this.textbox.setSelectionRange(newCaret, newCaret);
+        this.textbox.focus();
+      });
     },
     async startConversationByUsername (targetUserName) {
       // check if the target user exists in current conversations, select that conversation

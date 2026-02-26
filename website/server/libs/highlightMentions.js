@@ -88,7 +88,7 @@ function toSourceMapRegex (token) {
   let regexStr = '';
 
   if (type === 'code_block') {
-    regexStr = withOptionalIndentation(contentRegex);
+    regexStr = withOptionalIndentation(contentRegex.replace(/\n$/, ''));
   } else if (type === 'fence') {
     regexStr = `\\s*${markup}.*\n${withOptionalIndentation(contentRegex)}\\s*${markup}`;
   } else if (type === 'code_inline') {
