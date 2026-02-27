@@ -43,6 +43,14 @@
           <p class="purple-600">
             {{ $t('usernameLimitations') }}
           </p>
+          <input
+            v-if="needsEmailField"
+            id="emailInput"
+            v-model="email"
+            class="form-control dark"
+            type="text"
+            :placeholder="$t('email')"
+          >
           <div class="custom-control custom-checkbox mb-4">
             <input
               id="privacyTOS"
@@ -165,6 +173,7 @@ export default {
       registrationMethod: null,
       username: '',
       usernameIssues: [],
+      needsEmailField: false,
     };
   },
   computed: {
@@ -183,21 +192,27 @@ export default {
     },
   },
   mounted () {
-    if (window.sessionStorage.getItem('apple-token')) {
-      this.registrationMethod = 'apple';
-    } else if (!this.$store.state.registrationOptions.registrationMethod) {
-      this.$router.push('/');
-    } else {
-      this.registrationMethod = this.$store.state.registrationOptions.registrationMethod;
-    }
     this.authData = this.$store.state.registrationOptions.authData;
     this.email = this.$store.state.registrationOptions.email;
     this.username = this.$store.state.registrationOptions.username;
     this.password = this.$store.state.registrationOptions.password;
     this.passwordConfirm = this.$store.state.registrationOptions.passwordConfirm;
 
-    if (!this.email) {
+    if (window.sessionStorage.getItem('apple-token')) {
+      this.registrationMethod = 'apple';
+      if (!this.email) {
+        this.email = window.sessionStorage.getItem('apple-email');
+      }
+    } else if (!this.$store.state.registrationOptions.registrationMethod) {
+      this.$router.push('/');
+    } else {
+      this.registrationMethod = this.$store.state.registrationOptions.registrationMethod;
+    }
+
+    if (!this.email && this.registrationMethod !== 'apple') {
       return;
+    } else if ((!this.email || this.email === '') && this.registrationMethod === 'apple') {
+      this.needsEmailField = true;
     }
     const usernameToCheck = this.email.split('@')[0].replace(/[^a-zA-Z0-9\-_]/g, '');
     this.$store.dispatch('auth:verifyUsername', {
@@ -237,6 +252,7 @@ export default {
           idToken: window.sessionStorage.getItem('apple-token'),
           name: window.sessionStorage.getItem('apple-name'),
           username: this.username,
+          email: this.email,
           allowRegister: true,
         });
       } else {
