@@ -42,7 +42,7 @@
               :hide-class-badge="true"
               :with-background="true"
               :override-avatar-gear="getAvatarOverrides(item)"
-              :sprites-margin="'0px auto 0px -24px'"
+              :sprites-margin="'0px auto 0px -2px'"
             />
           </div>
           <item
