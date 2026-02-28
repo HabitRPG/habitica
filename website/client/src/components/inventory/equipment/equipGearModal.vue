@@ -10,7 +10,10 @@
     <div class="dialog-close">
       <close-icon @click="hideDialog()" />
     </div>
-    <div v-if="item != null" class="content">
+    <div
+      v-if="item != null"
+      class="content"
+    >
       <div class="inner-content">
         <avatar
           :member="user"
@@ -24,15 +27,22 @@
         <h4 class="title mt-3">
           {{ itemText }}
         </h4>
-        <div class="text" v-html="itemNotes"></div>
-        <span v-if="showClassTag" class="classTag mt-3">
+        <div
+          class="text"
+          v-html="itemNotes"
+        ></div>
+        <span
+          v-if="showClassTag"
+          class="classTag mt-3"
+        >
           <span
             class="svg-icon inline icon-16"
             v-html="icons[itemClass]"
           ></span>
-          <span class="className" :class="itemClass">{{
-            getClassName(itemClass)
-          }}</span>
+          <span
+            class="className"
+            :class="itemClass"
+          >{{ getClassName(itemClass) }}</span>
         </span>
         <attributesGrid
           v-if="attributesGridVisible"
@@ -42,7 +52,7 @@
         />
         <button
           class="btn with-icon mt-4"
-          :class="{ 'btn-primary': !isEquipped, 'btn-secondary': isEquipped }"
+          :class="{'btn-primary': !isEquipped, 'btn-secondary': isEquipped }"
           @click="equipItem()"
         >
           <span
@@ -50,142 +60,145 @@
             v-html="isEquipped ? icons.unEquip : icons.equip"
           ></span>
           <span class="button-label">
-            {{ $t(isEquipped ? "unequip" : "equip") }}
+            {{ $t(isEquipped ? 'unequip' : 'equip') }}
           </span>
         </button>
       </div>
     </div>
-    <div slot="modal-footer" class="clearfix"></div>
+    <div
+      slot="modal-footer"
+      class="clearfix"
+    ></div>
   </b-modal>
 </template>
 
 <style lang="scss">
-@import "@/assets/scss/colors.scss";
-@import "@/assets/scss/mixins.scss";
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/mixins.scss';
 
-#equipgear-modal {
-  @include centeredModal();
-  width: fit-content;
-  left: 0;
-  right: 0;
-  margin: auto;
-
-  .modal-content {
-    border-radius: 8px;
-    box-shadow: 0 14px 28px 0 #1a181d3d, 0 10px 10px 0 #1a181d47;
+  #equipgear-modal {
+    @include centeredModal();
     width: fit-content;
-  }
+    left: 0;
+    right: 0;
+    margin: auto;
 
-  .modal-body {
-    padding: 2rem 1.5rem;
-    width: fit-content;
-  }
+    .modal-content {
+      border-radius: 8px;
+      box-shadow: 0 14px 28px 0 #1a181d3d, 0 10px 10px 0 #1a181d47;
+      width: fit-content;
+    }
 
-  .modal-dialog {
-    width: fit-content;
-    min-width: 330px;
-    max-width: 90vw;
+    .modal-body {
+      padding: 2rem 1.5rem;
+      width: fit-content;
+    }
+
+    .modal-dialog {
+      width: fit-content;
+      min-width: 330px;
+      max-width: 90vw;
+
+      .text {
+        min-height: 0;
+      }
+    }
 
     .text {
-      min-height: 0;
+      font-size: 0.875rem;
+      line-height: 1.71;
+      text-align: center;
+      color: $gray-50;
+    }
+
+    .content {
+      text-align: center;
+      width: fit-content;
+    }
+
+    .item-wrapper {
+      margin-bottom: 0 !important;
+    }
+
+    .inner-content {
+      width: fit-content;
+      min-width: 282px;
+    }
+
+    .classTag {
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .className {
+      height: 24px;
+      font-size: 0.875rem;
+      line-height: 1.71;
+      text-align: left;
+      margin-left: 8px;
+      font-weight: bold;
+    }
+
+    .healer {
+      color: $healer-color;
+    }
+
+    .rogue {
+      color: $rogue-color;
+    }
+
+    .warrior {
+      color: $warrior-color;
+    }
+
+    .wizard {
+      color: $wizard-color;
+    }
+
+    .title {
+      color: $gray-10;
+    }
+
+    .attributesGrid {
+      background-color: $gray-500;
+      margin: 1rem 0 0;
+      border-radius: 4px;
+      border: 1px solid #f4f4f4;
+    }
+
+    .avatar {
+      cursor: default;
+      margin: 0 auto;
+
+      .character-sprites span {
+        left: 24px;
+      }
+    }
+
+    button.btn {
+      display: inline-flex;
+      align-items: center;
     }
   }
-
-  .text {
-    font-size: 0.875rem;
-    line-height: 1.71;
-    text-align: center;
-    color: $gray-50;
-  }
-
-  .content {
-    text-align: center;
-    width: fit-content;
-  }
-
-  .item-wrapper {
-    margin-bottom: 0 !important;
-  }
-
-  .inner-content {
-    width: fit-content;
-    min-width: 282px;
-  }
-
-  .classTag {
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .className {
-    height: 24px;
-    font-size: 0.875rem;
-    line-height: 1.71;
-    text-align: left;
-    margin-left: 8px;
-    font-weight: bold;
-  }
-
-  .healer {
-    color: $healer-color;
-  }
-
-  .rogue {
-    color: $rogue-color;
-  }
-
-  .warrior {
-    color: $warrior-color;
-  }
-
-  .wizard {
-    color: $wizard-color;
-  }
-
-  .title {
-    color: $gray-10;
-  }
-
-  .attributesGrid {
-    background-color: $gray-500;
-    margin: 1rem 0 0;
-    border-radius: 4px;
-    border: 1px solid #f4f4f4;
-  }
-
-  .avatar {
-    cursor: default;
-    margin: 0 auto;
-
-    .character-sprites span {
-      left: 24px;
-    }
-  }
-
-  button.btn {
-    display: inline-flex;
-    align-items: center;
-  }
-}
 </style>
 
 <script>
-import { getClassName } from "@/../../common/script/libs/getClassName";
-import { mapState } from "@/libs/store";
+import { getClassName } from '@/../../common/script/libs/getClassName';
+import { mapState } from '@/libs/store';
 
-import svgClose from "@/assets/svg/close.svg?raw";
-import svgEquipIcon from "@/assets/svg/equip.svg?raw";
-import svgHealer from "@/assets/svg/healer.svg?raw";
-import svgRogue from "@/assets/svg/rogue.svg?raw";
-import svgUnEquipIcon from "@/assets/svg/unequip.svg?raw";
-import svgWarrior from "@/assets/svg/warrior.svg?raw";
-import svgWizard from "@/assets/svg/wizard.svg?raw";
+import svgClose from '@/assets/svg/close.svg?raw';
+import svgWarrior from '@/assets/svg/warrior.svg?raw';
+import svgWizard from '@/assets/svg/wizard.svg?raw';
+import svgRogue from '@/assets/svg/rogue.svg?raw';
+import svgHealer from '@/assets/svg/healer.svg?raw';
+import svgEquipIcon from '@/assets/svg/equip.svg?raw';
+import svgUnEquipIcon from '@/assets/svg/unequip.svg?raw';
 
-import Avatar from "@/components/avatar";
-import attributesGrid from "@/components/inventory/equipment/attributesGrid.vue";
-import closeIcon from "@/components/shared/closeIcon";
+import Avatar from '@/components/avatar';
+import attributesGrid from '@/components/inventory/equipment/attributesGrid.vue';
+import closeIcon from '@/components/shared/closeIcon';
 // TODO @common/ path alias
 
 export default {
@@ -208,7 +221,7 @@ export default {
       type: Boolean,
     },
   },
-  data() {
+  data () {
     return {
       icons: Object.freeze({
         close: svgClose,
@@ -223,28 +236,28 @@ export default {
   },
   computed: {
     ...mapState({
-      content: "content",
-      user: "user.data",
+      content: 'content',
+      user: 'user.data',
     }),
-    showClassTag() {
+    showClassTag () {
       return this.content.classes.includes(this.itemClass);
     },
-    itemText() {
+    itemText () {
       if (this.item.text instanceof Function) {
         return this.item.text();
       }
       return this.item.text;
     },
-    itemNotes() {
+    itemNotes () {
       if (this.item.notes instanceof Function) {
         return this.item.notes();
       }
       return this.item.notes;
     },
-    itemClass() {
+    itemClass () {
       return this.item.klass || this.item.specialClass;
     },
-    attributesGridVisible() {
+    attributesGridVisible () {
       if (this.costumeMode) {
         return false;
       }
@@ -253,22 +266,22 @@ export default {
     },
   },
   methods: {
-    onChange($event) {
-      this.$emit("change", $event);
+    onChange ($event) {
+      this.$emit('change', $event);
     },
-    equipItem() {
-      this.$emit("equipItem", this.item);
+    equipItem () {
+      this.$emit('equipItem', this.item);
       this.hideDialog();
     },
-    hideDialog() {
-      this.$root.$emit("bv::hide::modal", "equipgear-modal");
+    hideDialog () {
+      this.$root.$emit('bv::hide::modal', 'equipgear-modal');
     },
-    memberOverrideAvatarGear(gear) {
+    memberOverrideAvatarGear (gear) {
       return {
         [gear.type]: gear.key,
       };
     },
-    getClassName(classType) {
+    getClassName (classType) {
       return this.$t(getClassName(classType));
     },
   },
