@@ -42,10 +42,11 @@
 
   .attributes-group {
     border-radius: 4px;
-    // unless we have a way to give a popover an id or class, it needs expand the attributes area
+    // unless we have a way to give a popover an id or class, it needs to expand the attributes area
     margin: -12px -16px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
   }
 
   .popover-content-attr {
