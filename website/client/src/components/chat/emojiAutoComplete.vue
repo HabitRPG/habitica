@@ -168,6 +168,7 @@ export default {
   },
   created () {
     const defs = habiticaMarkdown.emojiDefs;
+    if (!defs) return;
     const customEmojis = habiticaMarkdown.customEmojis || {};
     const list = [];
     const keys = Object.keys(defs);
