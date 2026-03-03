@@ -211,7 +211,9 @@ export default {
 
     if (!this.email && this.registrationMethod !== 'apple') {
       return;
-    } else if ((!this.email || this.email === '') && this.registrationMethod === 'apple') {
+    }
+    
+    if ((!this.email || this.email === '') && this.registrationMethod === 'apple') {
       this.needsEmailField = true;
     }
     const usernameToCheck = this.email.split('@')[0].replace(/[^a-zA-Z0-9\-_]/g, '');
