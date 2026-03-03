@@ -212,7 +212,7 @@ export default {
     if (!this.email && this.registrationMethod !== 'apple') {
       return;
     }
-    
+
     if ((!this.email || this.email === '') && this.registrationMethod === 'apple') {
       this.needsEmailField = true;
     }
