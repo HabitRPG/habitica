@@ -103,9 +103,9 @@ export default async function rebirth (user, tasks = [], req = {}, analytics) {
   if (!user.achievements.rebirths) {
     user.achievements.rebirths = 1;
     user.achievements.rebirthLevel = lvl;
-  } else if (lvl > user.achievements.rebirthLevel || lvl === MAX_LEVEL) {
+  } else {
     user.achievements.rebirths += 1;
-    user.achievements.rebirthLevel = lvl;
+    user.achievements.rebirthLevel = Math.max(user.achievements.rebirthLevel || 0, lvl);
   }
 
   if (!notFree) {
