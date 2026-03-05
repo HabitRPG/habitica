@@ -282,5 +282,9 @@
     "fall2025SkeletonRogueSet": "Набір Розбійника Скелет",
     "fall2025KoboldHealerSet": "Набір Цілителя Кобольд",
     "fall2025MaskedGhostMageSet": "Набір Мага Замаскований Привид",
-    "gemSaleLimitationsText": "Ця акція діє лише протягом обмеженого періоду часу. Ця подія розпочнеться <%= eventStartMonth %> <%= eventStartOrdinal %> о <%= eventStartTime %> <%= timeZone %> і закінчиться <%= eventEndMonth %> <%= eventEndOrdinal %> о <%= eventEndTime %> <%= timeZone %>. Акційна пропозиція діє лише при покупці Самоцвітів для себе."
+    "gemSaleLimitationsText": "Ця акція діє лише протягом обмеженого періоду часу. Ця подія розпочнеться <%= eventStartMonth %> <%= eventStartOrdinal %> о <%= eventStartTime %> <%= timeZone %> і закінчиться <%= eventEndMonth %> <%= eventEndOrdinal %> о <%= eventEndTime %> <%= timeZone %>. Акційна пропозиція діє лише при покупці Самоцвітів для себе.",
+    "winter2026RimeReaperWarriorSet": "Комплект Воїна-Женця Паморозі",
+    "winter2026SkiRogueSet": "Спорядження Лижного Розбійника",
+    "winter2026PolarBearHealerSet": "Набір Білого Ведмедя цілителя",
+    "winter2026MidwinterCandleMageSet": "Набір Мага Зимового сонцестояння"
 }

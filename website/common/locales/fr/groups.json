@@ -428,5 +428,17 @@
     "groupManager": "Utilisation pour le travail",
     "groupParentChildren": "Utilisation dans mon foyer",
     "groupPlanBillingFYI": "Les abonnements à l'Offre de Groupe se renouvellent automatiquement, à moins que vous ne résiliiez au moins 24 heures avant l'échéance de la période en cours. Vous pouvez résilier depuis l'onglet Facturation de votre Offre de Groupe. Un prélèvement aura lieu 24 heures avant le renouvellement de votre abonnement, en fonction du nombre de membres présent·e·s dans votre Offre de Groupe au moment de la facturation. Si vous ajoutez de nouve·aux·lles membres pendant la période de facturation, vous recevrez des frais proratisés lors des prochains paiements.",
-    "groupPlanBillingFYIShort": "Les abonnements à l'Offre de Groupe se renouvellent automatiquement, à moins que vous ne résiliiez au moins 24 heures avant l'échéance de la période en cours. Un prélèvement aura lieu 24 heures avant le renouvellement de votre abonnement, en fonction du nombre de membres présent·e·s dans votre Offre de Groupe au moment de la facturation. Si vous ajoutez de nouve·aux·lles membres pendant la période de facturation, vous recevrez des frais proratisés lors des prochains paiements."
+    "groupPlanBillingFYIShort": "Les abonnements à l'Offre de Groupe se renouvellent automatiquement, à moins que vous ne résiliiez au moins 24 heures avant l'échéance de la période en cours. Un prélèvement aura lieu 24 heures avant le renouvellement de votre abonnement, en fonction du nombre de membres présent·e·s dans votre Offre de Groupe au moment de la facturation. Si vous ajoutez de nouve·aux·lles membres pendant la période de facturation, vous recevrez des frais proratisés lors des prochains paiements.",
+    "previouslyUpgradedGroup": "Groupe préalablement mis à jour",
+    "perMember": "par membre",
+    "additionalMembersProrated": "Les membres invité·e·s au cours du mois seront ajouté·e·s à la facturation du prochain cycle selon une charge au prorata.",
+    "oneMember": "1 membre",
+    "membersCount": "<%= count %> membres",
+    "pendingCount": "(<%= count %> en attente)",
+    "upgradeCancelsPendingInvites": "Mettre à jour votre Équipe annulera toutes les invitations en attente",
+    "chooseAnOption": "Choisissez une Option",
+    "yourParty": "Votre Équipe",
+    "inviteOthersForAdditional": "Inviter d'autres personnes dans votre Groupe pour plus de",
+    "upgradeExistingGroup": "Mettre à jour un Groupe Existant",
+    "createNewGroup": "Créer un Nouveau Groupe"
 }

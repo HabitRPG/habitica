@@ -77,7 +77,7 @@
     "newBaileyUpdate": "Nieuwe update van Bailey!",
     "tellMeLater": "Een andere keer lezen",
     "dismissAlert": "Boodschap verbergen",
-    "donateText3": "Habitica is een open-sourceproject dat afhankelijk is van onze gebruikers voor ondersteuning. Het geld dat jij uitgeeft aan edelstenen helpt ons om de servers te laten lopen, een kleine stafgroep medewerkers te onderhouden, nieuwe functies te ontwikkelen en onze vrijwillige programmeurs te prikkelen. Bedankt voor je gulheid!",
+    "donateText3": "Habitica is een open-sourceproject dat afhankelijk is van onze gebruikers voor ondersteuning. Het geld dat jij uitgeeft aan edelstenen helpt ons om de servers draaiende te houden, een kleine stafgroep medewerkers te onderhouden, nieuwe functies te ontwikkelen en onze vrijwilligers te stimuleren.",
     "card": "Creditcard",
     "paymentMethods": "Koop met",
     "paymentSuccessful": "Je betaling van succesvol!",
@@ -125,5 +125,9 @@
     "amountExp": "<%= amount %> Exp",
     "groupsPaymentSubBilling": "Je volgende aanrekeningsdatum is <strong><%= renewalDate %></strong>.",
     "groupsPaymentAutoRenew": "Dit abonnement zal zich hernieuwen tot het geannuleerd is. Als je wil annuleren, kan je dat doen via het tabblad 'Groepsuitgaven'.",
-    "helpSupportHabitica": "Help mee Habitica Steunen"
+    "helpSupportHabitica": "Help mee Habitica Steunen",
+    "notAvailable": "Dit voorwerp is niet beschikbaar.",
+    "customizationsShopText": "Wil je jouw stijl veranderen? Je bent op de juiste plek! Wij hebben de laatste looks passend bij het seizoen.",
+    "paymentYouSentSubscriptionG1G1": "Je hebt <strong><%= name %></strong><br> een <%= months %> maand(en) Habitica abonnement geschonken en hetzelfde abonnement is toegepast op jouw account met onze \"Schenk één, Krijg één\" actie!",
+    "sellItems": "Voorwerpen verkopen"
 }

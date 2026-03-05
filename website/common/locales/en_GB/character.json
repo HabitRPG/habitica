@@ -191,5 +191,7 @@
     "titleHaircolor": "Hair Colours",
     "titleHairbase": "Hair Styles",
     "customizations": "Customisations",
-    "skins": "Skins"
+    "skins": "Skins",
+    "pointsAvailable": "Points Available",
+    "assignedStat": "Assigned Stat"
 }

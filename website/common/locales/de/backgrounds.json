@@ -873,7 +873,7 @@
     "backgrounds072024": "SET 122: Veröffentlicht im Juli 2024",
     "backgroundRiverBottomText": "Flussgrund",
     "backgroundRiverBottomNotes": "Erkunde den Grund eines Flusses.",
-    "monthlyBackgrounds": "Hintergrund des Monats",
+    "monthlyBackgrounds": "Monatliche Hintergründe",
     "backgrounds082024": "Set 123: Veröffentlicht im August 2024",
     "backgroundSavannaText": "Dunstiges Grasland",
     "backgroundSavannaNotes": "Wandere durch Dunstiges Grasland.",
@@ -930,5 +930,10 @@
     "backgroundElegantPalaceText": "Eleganter Palast",
     "backgroundElegantPalaceNotes": "Bewundere die farbenfrohen Hallen eines Eleganten Palastes.",
     "backgroundWinterDesertWithSaguarosText": "Winter-Wüste mit Kakteen",
-    "backgroundWinterDesertWithSaguarosNotes": "Atme die kalte Luft Wunder Winter-Wüste mit Kakteen."
+    "backgroundWinterDesertWithSaguarosNotes": "Atme die kalte Luft Wunder Winter-Wüste mit Kakteen.",
+    "backgrounds032026": "SET 142: Veröffentlicht im März 2026",
+    "backgroundWaterfallWithRainbowText": "Wasserfall mit Regenbogen",
+    "backgroundWaterfallWithRainbowNotes": "Bewundere die atemberaubende Schönheit eines Wasserfalls mit Regenbogen.",
+    "backgrounds042026": "SET 143: Veröffentlicht im April 2026",
+    "backgrounds052026": "SET 144: Veröffentlicht im Mai 2026"
 }

@@ -137,5 +137,11 @@
     "taskAliasPopover": "Dieser Aufgaben-Alias kann für die Integrierung in Drittanbieter-Integrationen verwendet werden. Nur Bindestriche, Unterstriche und alphanumerische Zeichen werden unterstützt. Der Aufgaben-Alias muss über alle deine Aufgaben eindeutig sein.",
     "taskAliasPlaceholder": "Dein-Aufgaben-Alias-hier",
     "scoreUp": "Score hoch",
-    "scoreDown": "Score runter"
+    "scoreDown": "Score runter",
+    "sureDeleteType": "Bist du sicher, dass du diese Aufgabe löschen möchtest?",
+    "deleteTask": "Aufgabe löschen",
+    "deleteXTasks": "<%= count %> Aufgaben löschen",
+    "confirmDeleteTasks": "Möchtest du diese Aufgaben löschen?",
+    "deleteType": "Lösche <%= type %>",
+    "brokenChallengeTaskCount": "Das ist eine von <%= count %> Aufgaben, die Teil einer Herausforderung sind, die nicht mehr existiert."
 }

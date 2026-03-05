@@ -137,5 +137,11 @@
     "scoreUp": "Pontszám növelése",
     "scoreDown": "Pontszám csökkentése",
     "taskAliasPlaceholder": "ide-jön-a-feladat-fedőneved",
-    "pressEnterToAddTag": "Nyomd meg az Entert a címke hozzáadásához: '<%= tagName %>'"
+    "pressEnterToAddTag": "Nyomd meg az Entert a címke hozzáadásához: '<%= tagName %>'",
+    "sureDeleteType": "Biztosan törölni szeretnéd ezt a feladatot?",
+    "deleteType": "<%= type %> törlése",
+    "deleteTask": "Feladat törlése",
+    "deleteXTasks": "<%= count %> feladat törlése",
+    "brokenChallengeTaskCount": "Ez egy olyan <%= count %> feladat egyike, amely egy már nem létező kihívás része volt.",
+    "confirmDeleteTasks": "Szeretnéd törölni a feladatokat?"
 }
