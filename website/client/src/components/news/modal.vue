@@ -10,6 +10,10 @@
   >
     <div class="modal-body">
       <news-content ref="newsContent" />
+      <close-x
+        v-if="user.permissions.fullAccess || user.permissions.news"
+        @close="dismissAlert()"
+      />
     </div>
 
     <div class="modal-footer d-flex align-items-center pb-0">
@@ -30,11 +34,17 @@
 </template>
 
 <script>
+import { mapState } from '@/libs/store';
 import newsContent from './newsContent';
+import closeX from '../ui/closeX.vue';
 
 export default {
   components: {
+    closeX,
     newsContent,
+  },
+  computed: {
+    ...mapState({ user: 'user.data' }),
   },
   methods: {
     async onShow () {
