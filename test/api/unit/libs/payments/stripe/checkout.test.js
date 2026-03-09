@@ -236,7 +236,7 @@ describe('Stripe - Checkout', () => {
       const group = generateGroup({
         name: 'test group',
         type: 'guild',
-        privacy: 'public',
+        privacy: 'private',
         leader: user._id,
       });
       const groupId = group._id;

@@ -30,7 +30,7 @@ describe('Amazon Payments - Subscribe', () => {
     group = generateGroup({
       name: 'test group',
       type: 'guild',
-      privacy: 'public',
+      privacy: 'private',
       leader: user._id,
     });
     group.purchased.plan.customerId = 'customer-id';

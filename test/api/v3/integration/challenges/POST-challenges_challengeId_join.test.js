@@ -29,19 +29,17 @@ describe('POST /challenges/:challengeId/join', () => {
   });
 
   it('returns error when challengeId is in an old public Guild', async () => {
-    const user = await generateUser({ balance: 1 });
     const populatedGroup = await createAndPopulateGroup({
       members: 1,
     });
-    const groupLeader = populatedGroup.groupLeader;
-    const group = populatedGroup.group;
+    const { group, groupLeader } = populatedGroup;
     const authorizedUser = populatedGroup.members[0]; // eslint-disable-line prefer-destructuring
     const challenge = await generateChallenge(groupLeader, group);
 
     // Creation API is shut down, we need to simulate an extant public group
-    await Group.updateOne({ _id: populatedGroup._id }, { $set: { privacy: 'public' }}).exec();
+    await Group.updateOne({ _id: populatedGroup._id }, { $set: { privacy: 'public' } }).exec();
 
-    await expect(user.post(`/challenges/${challenge._id}/join`)).to.eventually.be.rejected.and.eql({
+    await expect(authorizedUser.post(`/challenges/${challenge._id}/join`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
       message: t('challengeNotFound'),
@@ -88,11 +86,11 @@ describe('POST /challenges/:challengeId/join', () => {
     });
 
     it('succeeds when it\'s a Tavern challenge, even if the user isn\'t a "member" of Tavern', async () => {
-      const tavernChallenge = await generateChallenge(groupLeader, 'habitrpg');
+      const tavernChallenge = await generateChallenge(groupLeader, { _id: 'habitrpg' });
       const generalUser = await generateUser();
 
       const res = await generalUser.post(`/challenges/${tavernChallenge._id}/join`);
-      expect(res.name).to.equal(challenge.name);
+      expect(res.name).to.equal(tavernChallenge.name);
     });
 
     it('returns challenge data', async () => {
