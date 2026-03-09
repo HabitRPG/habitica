@@ -376,11 +376,13 @@ describe('Stripe - Checkout', () => {
         group = generateGroup({
           name: 'test group',
           type: 'guild',
-          privacy: 'public',
+          privacy: 'private',
           leader: user._id,
         });
         groupId = group._id;
         await group.save();
+        user.guilds.push(group._id);
+        await user.save();
       });
 
       it('throws if user is not allowed to change group plan', async () => {

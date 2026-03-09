@@ -583,9 +583,6 @@ api.joinGroup = {
     const group = await Group
       .getGroup({ user, groupId: req.params.groupId, optionalMembership: true });
     if (!group) throw new NotFound(res.t('groupNotFound'));
-    if (group.privacy == 'public') {
-      throw new BadRequest(res.t('featureRetired'));
-    }
 
     let isUserInvited = false;
     const seekingParty = Boolean(user.party.seeking);
