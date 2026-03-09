@@ -11,7 +11,6 @@
     <div class="modal-body">
       <news-content ref="newsContent" />
       <close-x
-        v-if="user.permissions.fullAccess || user.permissions.news"
         @close="dismissAlert()"
       />
     </div>
