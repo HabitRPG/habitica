@@ -46,10 +46,10 @@
     "commGuideHeadingConsequences": "Gevolgen",
     "commGuidePara059": "<strong>Gemeenschapsovertredingen hebben directe gevolgen.</strong> Hieronder volgen enkele voorbeelden van gevolgen.",
     "commGuideHeadingSevereConsequences": "Voorbeelden van ernstige gevolgen",
-    "commGuideList09A": "Accountverbanningen (zie hierboven)",
-    "commGuideList09C": "Permanent blokkeren (\"bevriezen\") van je vooruitgang door de bijdragersrangen",
+    "commGuideList09A": "Accountverbanningen",
+    "commGuideList09C": "Permanent stoppen van je vooruitgang door de bijdragersrangen",
     "commGuideHeadingModerateConsequences": "Voorbeelden van gematigde gevolgen",
-    "commGuideList10D": "Tijdelijk blokkeren (\"bevriezen\") van je vooruitgang door de bijdragersrangen",
+    "commGuideList10D": "Tijdelijk pauzeren van je vooruitgang door de bijdragersrangen",
     "commGuideHeadingMinorConsequences": "Voorbeelden van kleine gevolgen",
     "commGuideList11A": "Herinneringen van de richtlijnen",
     "commGuideList11B": "Waarschuwingen",
@@ -89,5 +89,5 @@
     "commGuideList02P": "<strong>We raden je af om ongevraagde privéberichten te sturen</strong>. Als je een ongewenst bericht ontvangt waar je je ongemakkelijk bij voelt of dat in strijd is met deze richtlijnen of de Algemene Voorwaarden, blokkeer dan de afzender en meld het aan de beheerders.",
     "commGuideList02Q": "<strong>Probeer een blokkade niet te omzeilen</strong>. Als iemand je heeft geblokkeerd voor het versturen van privéberichten, probeer dan niet op andere wijze contact met diegene op te nemen om te vragen de blokkade op te heffen.",
     "commGuideList09E": "Definitieve verwijdering van mogelijkheid om privéberichten te sturen of te verschijnen in de zoekresultaten van leden van het Gezelschap",
-    "commGuideList10G": "Definitieve uitschakeling van de mogelijkheid om privéberichten te sturen of te verschijnen in de zoekresultaten voor de leden van het Gezelschap"
+    "commGuideList10G": "Tijdelijke uitschakeling van de mogelijkheid om privéberichten te sturen of te verschijnen in de zoekresultaten voor de leden van de groep"
 }

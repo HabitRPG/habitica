@@ -544,5 +544,6 @@
     "backgroundClotheslineNotes": "Häng med kläderna som torkar på en Torkställning.",
     "backgroundClotheslineText": "Torkställning",
     "backgroundWindmillsNotes": "Gör dig redo för att slåss mot väderkvarnar.",
-    "backgroundDragonsLairNotes": "Försök att inte störa invånaren i Drakens lya."
+    "backgroundDragonsLairNotes": "Försök att inte störa invånaren i Drakens lya.",
+    "hideLockedBackgrounds": "Dölj låsta bakgrunder"
 }

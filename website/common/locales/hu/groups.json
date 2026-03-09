@@ -422,5 +422,11 @@
     "blockedToSendToThisUser": "Nem küldhetsz üzenetet ennek a játékosnak, mert letiltottad őt.",
     "questWithOthers": "Vállalj küldetéseket másokkal",
     "messagePartyLeader": "Üzenet a csapatvezetőnek",
-    "messageCopiedToClipboard": "Az üzenet vágólapra másolva."
+    "messageCopiedToClipboard": "Az üzenet vágólapra másolva.",
+    "groupPlanBillingFYI": "A csoportos csomag előfizetések automatikusan megújulnak, hacsak nem mondod le legalább 24 órával a jelenlegi időszak vége előtt. A lemondást a csoportos csomagod csoportos számlázás fülén teheted meg. A díjat 24 órán belül levonják az előfizetés megújítása előtt, a csoportos csomagodban aktuálisan lévő tagok száma alapján. Ha tagokat adsz hozzá a fizetési időszakok között, a következő számlázási ciklusban egy további arányosított díjat fogsz látni a kedvezményeikért.",
+    "groupPlanBillingFYIShort": "A csoportos csomag előfizetések automatikusan megújulnak, hacsak nem mondod le legalább 24 órával a jelenlegi időszak vége előtt. A díjat 24 órán belül levonják az előfizetés megújítása előtt, a csoportos csomagodban aktuálisan lévő tagok száma alapján. Ha tagokat adsz hozzá a fizetési időszakok között, a következő számlázási ciklusban egy további arányosított díjat fogsz látni a kedvezményeikért.",
+    "groupParentChildren": "Használat a háztartásommal",
+    "groupFriends": "Használat barátokkal",
+    "groupManager": "Használat munkában",
+    "groupTeacher": "Használat oktatásban"
 }

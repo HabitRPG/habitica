@@ -137,5 +137,11 @@
     "scoreDown": "Puan aşağı",
     "taskAlias": "Görevin Takma Adı",
     "taskAliasPlaceholder": "işinin-takma-ismi",
-    "taskAliasPopover": "Bu görev takma adı, üçüncü taraf entegrasyonlarıyla birleştirirken kullanılabilir. Yalnızca tireler, alt çizgiler ve alfanümerik karakterler desteklenmektedir. Görev takma adı, tüm görevlerin için farklı olmalıdır."
+    "taskAliasPopover": "Bu görev takma adı, üçüncü taraf entegrasyonlarıyla birleştirirken kullanılabilir. Yalnızca tireler, alt çizgiler ve alfanümerik karakterler desteklenmektedir. Görev takma adı, tüm görevlerin için farklı olmalıdır.",
+    "deleteType": "Sil: <%= type %>",
+    "deleteTask": "Görevi Sil",
+    "deleteXTasks": "<%= count %> adet görevi sil",
+    "confirmDeleteTasks": "Görevleri silmek ister misin?",
+    "brokenChallengeTaskCount": "Bu<%= count %> sayıdaki görevin ait olduğu meydan okuma artık yok.",
+    "sureDeleteType": "Bu görevi silmek istediğine emin misin?"
 }

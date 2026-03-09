@@ -257,5 +257,21 @@
     "transaction_gift_receive": "<b>Kapva</b> tőle:",
     "amount": "Összeg",
     "resetDetail4": "El fogod veszíteni az összes felszerelésed, kivéve az előfizetői rejtélyes tárgyakat és az ingyenes emléktárgyakat. A törölt tárgyakat visszavásárolhatod, beleértve az összes limitált kiadású felszerelést is (a kaszt specifikus felszerelések visszavásárlásához a megfelelő kasztban kell lenned).",
-    "connected": "Csatlakoztatva"
+    "connected": "Csatlakoztatva",
+    "acceptAllCookies": "Összes süti elfogadása",
+    "denyNonEssentialCookies": "Nem alapvető sütik elutasítása",
+    "managePrivacyPreferences": "Adatvédelmi beállítások kezelése",
+    "yourPrivacyPreferences": "Adatvédelmi beállításaid",
+    "learnMorePrivacy": "További információkért tekintsd meg az <a href='/static/privacy' target='_blank'>Adatvédelmi nyilatkozatunkat</a>.",
+    "strictlyNecessary": "Feltétlenül szükséges",
+    "alwaysActive": "Mindig aktív",
+    "requiredToRun": "Ezek szükségesek ahhoz, hogy weboldalunk és alkalmazásaink a legjobb teljesítménnyel működjenek.",
+    "performanceAnalytics": "Teljesítmény és elemzés",
+    "usedForSupport": "Ezeket a felhasználói élmény, teljesítmény és weboldalunk és alkalmazásaink szolgáltatásainak javítására használjuk. Ezeket az adatokat a támogatási csapatunk használja kérések és hibajelentések kezelésénél.",
+    "savePreferences": "Beállítások mentése",
+    "habiticaPrivacyPolicy": "Habitica adatvédelmi nyilatkozata",
+    "privacyOverview": "A mai világban úgy tűnik, minden cég profitálni akar az adataidból. Ez megnehezítheti a megfelelő alkalmazás megtalálását a szokásaid javításához. A Habitica olyan sütiket használ, amelyek kizárólag teljesítményelemzés, támogatási kérések kezelése és a legjobb gamifikált élmény biztosítása céljából tárolnak adatokat. Ezt bármikor megváltoztathatod a fiókbeállításaidból.",
+    "privacySettingsOverview": "A Habitica sütiket használ a teljesítmény elemzéséhez, a támogatási kérések kezeléséhez és a legjobb gamifikált élmény biztosításához. Ehhez az alábbi engedélyeket kell kérnünk. Ezeket bármikor megváltoztathatod a fiókbeállításaidból.",
+    "gpcWarning": "A <a href='<%= url %>' target='_blank'>GPC</a> be van kapcsolva. Az alábbi követés bekapcsolása felülírja ezt és adatokat küld az elemzési partnereinknek.",
+    "gpcPlusAnalytics": "A <a href='<%= url %>' target='_blank'>GPC</a> be van kapcsolva. Beleegyeztél a követésbe és adatok küldésébe az elemzési partnereinknek."
 }

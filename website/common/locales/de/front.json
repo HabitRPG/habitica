@@ -124,7 +124,7 @@
     "passwordReset": "Wenn wir Deine E-Mail-Adresse oder Deinen Benutzernamen kennen, wurden Anweisungen zum Passwort-Zurücksetzen dorthin verschickt.",
     "invalidLoginCredentialsLong": "Deine E-Mail-Adresse, deine Benutzername oder Passwort sind nicht korrekt. Bitte versuche es erneut oder wähle \"Passwort vergessen.\"",
     "invalidCredentials": "Es gibt kein Konto, das diese Anmeldedaten verwendet.",
-    "accountSuspended": "Dieser Account \"<%= userId %>\", wurde gesperrt. Für weitere Informationen oder um Widerspruch einzulegen, sende bitte eine E-Mail an admin@habitica.com mit deinem Habitica-Benutzernamen oder User-ID.",
+    "accountSuspended": "Dieser Account \"<%= username %>\" wurde gesperrt. Für weitere Informationen oder um Widerspruch einzulegen, sende bitte eine E-Mail an admin@habitica.com mit deinem Habitica Benutzernamen oder deiner User-ID.",
     "accountSuspendedTitle": "Dieser Account wurde suspendiert",
     "unsupportedNetwork": "Dieses Netzwerk wird aktuell nicht unterstützt.",
     "cantDetachSocial": "Der Account hat nur noch diese Authentifizierung, sie kann nicht getrennt werden.",

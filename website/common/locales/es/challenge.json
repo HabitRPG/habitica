@@ -4,8 +4,8 @@
     "brokenChaLink": "El enlace al desafío no funciona",
     "keepIt": "Conservarla",
     "removeIt": "Eliminarla",
-    "brokenChallenge": "Enlace al desafío interrumpido: esta tarea formaba parte de un desafío, pero el desafío (o el grupo) se ha eliminado. ¿Qué hacemos con las tareas del desafío?",
-    "challengeCompleted": "Este desafío ha finalizado y el ganador es ¡<span class=\"badge\"><%= user %></span>! ¿Qué hacemos con las tareas del desafío?",
+    "brokenChallenge": "Enlace de desafío roto",
+    "challengeCompleted": "¡Desafío Completado!",
     "unsubChallenge": "Enlace al desafío interrumpido: esta tarea formaba parte de un desafío, pero ya no participas en él. ¿Qué hacemos con las tareas del desafío?",
     "challenges": "Desafíos",
     "endDate": "Concluye",
@@ -108,5 +108,9 @@
     "cannotClose": "Este Desafío no puede cerrarse porque uno o más jugadores lo han marcado como inapropiado. Un miembro del Personal te contactará pronto con instrucciones. Si han pasado más de 48 horas y no has recibido noticias de ellos, envía un correo a admin@habitica.com para solicitar ayuda.",
     "cannotMakeChallenge": "No puedes crear un Desafío público porque tu cuenta no tiene privilegios de chat en este momento. Envía un mensaje a admin@habitica.com para obtener más información.",
     "messageChallengeFlagOfficial": "Los Desafíos Oficiales no se pueden notificar.",
-    "deleteChallengeRefundDescription": "Si cancelas este Desafío, recuperarás las Gemas de la recompensa y las tareas del Desafío permanecerán en los listados de tareas de los participantes."
+    "deleteChallengeRefundDescription": "Si cancelas este Desafío, recuperarás las Gemas de la recompensa y las tareas del Desafío permanecerán en los listados de tareas de los participantes.",
+    "brokenTaskDescription": "Esta tarea formaba parte de un desafío, pero se ha eliminado. ¿Qué te gustaría hacer?",
+    "brokenChallengeDescription": "Esta tarea formaba parte de un desafío, pero el desafío (o grupo) se ha eliminado. ¿Qué hacer con las tareas huérfanas?",
+    "challengeCompletedDescription": "¡El ganador fue <%= user %>! ¿Qué hacer con las tareas huérfanas?",
+    "brokenTask": "Enlace de desafío roto"
 }
