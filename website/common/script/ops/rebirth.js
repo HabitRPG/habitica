@@ -2,7 +2,6 @@ import each from 'lodash/each';
 import pick from 'lodash/pick';
 import i18n from '../i18n';
 import { capByLevel } from '../statHelpers';
-import { MAX_LEVEL } from '../constants';
 import {
   NotAuthorized,
 } from '../libs/errors';
