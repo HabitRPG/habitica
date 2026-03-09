@@ -6,6 +6,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 import { model as Group } from '../../../../../website/server/models/group';
+import { TAVERN_ID } from '../../../../../website/common/script/constants';
 
 describe('POST /challenges/:challengeId/join', () => {
   it('returns error when challengeId is not a valid UUID', async () => {
@@ -99,7 +100,8 @@ describe('POST /challenges/:challengeId/join', () => {
     });
 
     it('succeeds when it\'s a Tavern challenge, even if the user isn\'t a "member" of Tavern', async () => {
-      const tavernChallenge = await generateChallenge(groupLeader, { _id: 'habitrpg' }, { prize: 1 });
+      const tavern = await groupLeader.get(`/groups/${TAVERN_ID}`);
+      const tavernChallenge = await generateChallenge(groupLeader, tavern, { prize: 1 });
       const generalUser = await generateUser();
 
       const res = await generalUser.post(`/challenges/${tavernChallenge._id}/join`);
