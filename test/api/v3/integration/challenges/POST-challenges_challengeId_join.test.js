@@ -50,7 +50,7 @@ describe('POST /challenges/:challengeId/join', () => {
 
     it('returns error when challengeId is in an old public Guild', async () => {
       const authorizedUser = members[0]; // eslint-disable-line prefer-destructuring
-        
+
       await expect(authorizedUser.post(`/challenges/${challenge._id}/join`)).to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
