@@ -5,6 +5,7 @@ import {
   createAndPopulateGroup,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
+import { model as Group } from '../../../../../website/server/models/group';
 
 describe('POST /challenges/:challengeId/join', () => {
   it('returns error when challengeId is not a valid UUID', async () => {
@@ -21,6 +22,26 @@ describe('POST /challenges/:challengeId/join', () => {
     const user = await generateUser({ balance: 1 });
 
     await expect(user.post(`/challenges/${generateUUID()}/join`)).to.eventually.be.rejected.and.eql({
+      code: 404,
+      error: 'NotFound',
+      message: t('challengeNotFound'),
+    });
+  });
+
+  it('returns error when challengeId is in an old public Guild', async () => {
+    const user = await generateUser({ balance: 1 });
+    const populatedGroup = await createAndPopulateGroup({
+      members: 1,
+    });
+    const groupLeader = populatedGroup.groupLeader;
+    const group = populatedGroup.group;
+    const authorizedUser = populatedGroup.members[0]; // eslint-disable-line prefer-destructuring
+    const challenge = await generateChallenge(groupLeader, group);
+
+    // Creation API is shut down, we need to simulate an extant public group
+    await Group.updateOne({ _id: populatedGroup._id }, { $set: { privacy: 'public' }}).exec();
+
+    await expect(user.post(`/challenges/${challenge._id}/join`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
       message: t('challengeNotFound'),
@@ -63,6 +84,14 @@ describe('POST /challenges/:challengeId/join', () => {
       expect(groupLeader.guilds).to.be.empty; // check that leaving worked
 
       const res = await groupLeader.post(`/challenges/${challenge._id}/join`);
+      expect(res.name).to.equal(challenge.name);
+    });
+
+    it('succeeds when it\'s a Tavern challenge, even if the user isn\'t a "member" of Tavern', async () => {
+      const tavernChallenge = await generateChallenge(groupLeader, 'habitrpg');
+      const generalUser = await generateUser();
+
+      const res = await generalUser.post(`/challenges/${tavernChallenge._id}/join`);
       expect(res.name).to.equal(challenge.name);
     });
 
