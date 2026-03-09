@@ -110,6 +110,11 @@
 
   .orb-icon {
     margin: 0 8px;
+
+    ::v-deep img {
+      width: 96px;
+      height: 96px;
+    }
   }
 
   .subtitle {
