@@ -248,11 +248,6 @@ describe('Amazon Payments - Subscribe', () => {
     user.guilds.push(groupId);
     await user.save();
 
-    // Add existing users
-    user = new User();
-    user.guilds.push(groupId);
-    await user.save();
-
     // Set expected amount
     sub.key = 'group_monthly';
     sub.price = 9;

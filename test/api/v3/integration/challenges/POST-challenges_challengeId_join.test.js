@@ -99,7 +99,7 @@ describe('POST /challenges/:challengeId/join', () => {
     });
 
     it('succeeds when it\'s a Tavern challenge, even if the user isn\'t a "member" of Tavern', async () => {
-      const tavernChallenge = await generateChallenge(groupLeader, { _id: 'habitrpg', prize: 1 });
+      const tavernChallenge = await generateChallenge(groupLeader, { _id: 'habitrpg' }, { prize: 1 });
       const generalUser = await generateUser();
 
       const res = await generalUser.post(`/challenges/${tavernChallenge._id}/join`);
