@@ -28,21 +28,34 @@ describe('POST /challenges/:challengeId/join', () => {
     });
   });
 
-  it('returns error when challengeId is in an old public Guild', async () => {
-    const populatedGroup = await createAndPopulateGroup({
-      members: 1,
+  context('public Guild', () => {
+    let group;
+    let groupLeader;
+    let members;
+    let challenge;
+    before(async () => {
+      ({ group, groupLeader, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'test group',
+          type: 'guild',
+          privacy: 'private',
+        },
+        members: 1,
+        upgradeToGroupPlan: true,
+      }));
+      challenge = await generateChallenge(groupLeader, group);
+      // Creation API is shut down, we need to simulate an extant public group
+      await Group.updateOne({ _id: group._id }, { $set: { privacy: 'public' }, $unset: { 'purchased.plan': 1 } }).exec();
     });
-    const { group, groupLeader } = populatedGroup;
-    const authorizedUser = populatedGroup.members[0]; // eslint-disable-line prefer-destructuring
-    const challenge = await generateChallenge(groupLeader, group);
 
-    // Creation API is shut down, we need to simulate an extant public group
-    await Group.updateOne({ _id: populatedGroup._id }, { $set: { privacy: 'public' } }).exec();
-
-    await expect(authorizedUser.post(`/challenges/${challenge._id}/join`)).to.eventually.be.rejected.and.eql({
-      code: 404,
-      error: 'NotFound',
-      message: t('challengeNotFound'),
+    it('returns error when challengeId is in an old public Guild', async () => {
+      const authorizedUser = members[0]; // eslint-disable-line prefer-destructuring
+        
+      await expect(authorizedUser.post(`/challenges/${challenge._id}/join`)).to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('challengeNotFound'),
+      });
     });
   });
 
@@ -86,7 +99,7 @@ describe('POST /challenges/:challengeId/join', () => {
     });
 
     it('succeeds when it\'s a Tavern challenge, even if the user isn\'t a "member" of Tavern', async () => {
-      const tavernChallenge = await generateChallenge(groupLeader, { _id: 'habitrpg' });
+      const tavernChallenge = await generateChallenge(groupLeader, { _id: 'habitrpg', prize: 1 });
       const generalUser = await generateUser();
 
       const res = await generalUser.post(`/challenges/${tavernChallenge._id}/join`);

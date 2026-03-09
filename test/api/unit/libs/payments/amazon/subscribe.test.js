@@ -36,6 +36,8 @@ describe('Amazon Payments - Subscribe', () => {
     group.purchased.plan.customerId = 'customer-id';
     group.purchased.plan.planId = subKey;
     await group.save();
+    user.guilds.push(group._id);
+    await user.save();
 
     amount = common.content.subscriptionBlocks[subKey].price;
     billingAgreementId = 'billingAgreementId';
