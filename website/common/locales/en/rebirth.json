@@ -3,7 +3,7 @@
     "rebirthUnlock": "You've unlocked Rebirth! This special Market item allows you to begin a new game at level 1 while keeping your tasks, achievements, pets, and more. Use it to breathe new life into Habitica if you feel you've achieved it all, or to experience new features with the fresh eyes of a beginning character!",
     "rebirthUnlockedNewItem": "You Unlocked a New Item!",
     "rebirthUnlockedOrb": "You've unlocked the Orb of Rebirth!",
-    "rebirthUnlockedDesc": "This special item allows you to start fresh from level 1 while keeping your tasks, achievements, Pets, and more.",
+    "rebirthUnlockedDesc": "This special Market item allows you to begin a new game at level 1 while keeping your tasks, achievements, pets, and more. Use it to breathe new life into Habitica if you feel you've achieved it all, or to experience new features with the fresh eyes of a beginning character!",
     "rebirthNewAchievement": "New Achievement",
     "rebirthNewAdventure": "A new adventure begins now!",
     "rebirthAchievement": "You've used the Orb of Rebirth <strong><%= number %></strong> time, and your highest level reached is <strong><%= level %></strong>.",

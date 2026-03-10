@@ -4,7 +4,15 @@
     size="sm"
     :hide-header="true"
   >
-    <close-icon @click="close()" />
+    <div
+      class="close-x"
+      @click.stop="close()"
+    >
+      <div
+        class="svg-icon svg-close"
+        v-html="icons.close"
+      ></div>
+    </div>
     <div class="content text-center">
       <h2
         v-once
@@ -18,10 +26,11 @@
           class="svg-icon sparkles mirror"
           v-html="icons.starGroup"
         ></div>
-        <Sprite
+        <img
           class="orb-icon"
-          image-name="rebirth_orb"
-        />
+          src="@/assets/images/rebirth_orb_2x.svg"
+          alt=""
+        >
         <div
           v-once
           class="svg-icon sparkles"
@@ -108,18 +117,39 @@
     }
   }
 
-  .orb-icon {
-    margin: 0 8px;
+  .close-x {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    cursor: pointer;
+    z-index: 2;
 
-    ::v-deep img {
-      width: 96px;
-      height: 96px;
+    &:hover .svg-close {
+      opacity: 0.75;
+    }
+
+    .svg-close {
+      width: 16px;
+      height: 16px;
+      opacity: 0.5;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
     }
   }
 
+  .orb-icon {
+    margin: 0 8px;
+    width: 124px;
+    height: 124px;
+  }
+
   .subtitle {
-    font-size: 1rem;
-    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0;
     margin-bottom: 12px;
     color: $gray-50;
   }
@@ -137,20 +167,16 @@
 </style>
 
 <script>
-import closeIcon from '@/components/shared/closeIcon';
-import Sprite from '@/components/ui/sprite';
+import closeIcon from '@/assets/svg/close.svg?raw';
 import starGroup from '@/assets/svg/star-group.svg?raw';
 import { mapState } from '@/libs/store';
 
 export default {
-  components: {
-    closeIcon,
-    Sprite,
-  },
   data () {
     return {
       icons: Object.freeze({
         starGroup,
+        close: closeIcon,
       }),
     };
   },

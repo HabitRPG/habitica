@@ -4,7 +4,15 @@
     size="sm"
     :hide-header="true"
   >
-    <close-icon @click="close()" />
+    <div
+      class="close-x"
+      @click.stop="close()"
+    >
+      <div
+        class="svg-icon svg-close"
+        v-html="icons.close"
+      ></div>
+    </div>
     <div class="content text-center">
       <h2
         v-once
@@ -112,6 +120,26 @@
     }
   }
 
+  .close-x {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    cursor: pointer;
+    z-index: 2;
+
+    &:hover .svg-close {
+      opacity: 0.75;
+    }
+
+    .svg-close {
+      width: 16px;
+      height: 16px;
+      opacity: 0.5;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+  }
+
   .achievement-icon {
     margin: 0 8px;
   }
@@ -153,7 +181,7 @@
 </style>
 
 <script>
-import closeIcon from '@/components/shared/closeIcon';
+import closeIcon from '@/assets/svg/close.svg?raw';
 import Sprite from '@/components/ui/sprite';
 import starGroup from '@/assets/svg/star-group.svg?raw';
 import purpleWaves from '@/assets/svg/purple-waves.svg?raw';
@@ -161,7 +189,6 @@ import { mapState } from '@/libs/store';
 
 export default {
   components: {
-    closeIcon,
     Sprite,
   },
   data () {
@@ -169,6 +196,7 @@ export default {
       icons: Object.freeze({
         starGroup,
         purpleWaves,
+        close: closeIcon,
       }),
     };
   },
