@@ -50,5 +50,59 @@ describe('UserNotification Model', () => {
       expect(safeNotifications[0].type).to.equal('NEW_CHAT_MESSAGE');
       expect(safeNotifications[0].id).to.equal('123');
     });
+
+    it('removes duplicate STREAK_ACHIEVEMENT notifications', () => {
+      // Fixes issue #13325 - Users receiving duplicate streak achievement notifications
+      const notifications = [
+        new UserNotification({
+          type: 'STREAK_ACHIEVEMENT',
+          id: 123,
+          data: {},
+        }),
+        new UserNotification({
+          type: 'STREAK_ACHIEVEMENT',
+          id: 456,
+          data: {},
+        }),
+        new UserNotification({
+          type: 'CRON',
+          id: 789,
+          data: {},
+        }), // different type, should be kept
+      ];
+
+      const safeNotifications = UserNotification.cleanupCorruptData(notifications);
+      expect(safeNotifications.length).to.equal(2);
+      expect(safeNotifications[0].type).to.equal('STREAK_ACHIEVEMENT');
+      expect(safeNotifications[0].id).to.equal('123');
+      expect(safeNotifications[1].type).to.equal('CRON');
+      expect(safeNotifications[1].id).to.equal('789');
+    });
+
+    it('handles multiple STREAK_ACHIEVEMENT duplicates correctly', () => {
+      // Test case: 3 duplicate STREAK_ACHIEVEMENT notifications
+      const notifications = [
+        new UserNotification({
+          type: 'STREAK_ACHIEVEMENT',
+          id: 111,
+          data: {},
+        }),
+        new UserNotification({
+          type: 'STREAK_ACHIEVEMENT',
+          id: 222,
+          data: {},
+        }),
+        new UserNotification({
+          type: 'STREAK_ACHIEVEMENT',
+          id: 333,
+          data: {},
+        }),
+      ];
+
+      const safeNotifications = UserNotification.cleanupCorruptData(notifications);
+      expect(safeNotifications.length).to.equal(1);
+      expect(safeNotifications[0].type).to.equal('STREAK_ACHIEVEMENT');
+      expect(safeNotifications[0].id).to.equal('111'); // Keep first one
+    });
   });
 });
