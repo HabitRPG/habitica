@@ -139,8 +139,6 @@
 
   .orb-icon {
     margin: 0 8px;
-    width: 124px;
-    height: 124px;
   }
 
   .subtitle {
