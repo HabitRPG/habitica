@@ -222,6 +222,8 @@ export default {
       wasTagAdded: false,
       selected: this.selectedItems,
       search: '',
+      textbox: null,
+      itemsAdded: [],
     };
   },
   computed: {
@@ -251,7 +253,9 @@ export default {
     },
     hasExactMatch () {
       const searchTerm = this.search.trim().toLowerCase();
-      if (!searchTerm || this.availableToSelect.length === 0) return false;
+      if (!searchTerm) return false;
+      if (this.itemsAdded.indexOf(searchTerm) !== -1) return true;
+      if (this.availableToSelect.length === 0) return false;
       if (this.availableToSelect[0].name.toLowerCase() === searchTerm) {
         return true;
       }
@@ -295,6 +299,7 @@ export default {
       this.closeSelectPopup();
     },
     selectItem (item) {
+      if (!item) return;
       this.selectedItems.push(item.id);
       this.$emit('toggle', item.id);
       this.preventHide = true;
@@ -328,9 +333,10 @@ export default {
       if (this.hasExactMatch) {
         this.selectItem(this.availableToSelect[0]);
         this.search = '';
-      } else if (this.addNew) {
+      } else {
         // Creating a new tag as there is no existing tag present
         this.$emit('addNew', search);
+        this.itemsAdded.push(search.toLowerCase());
         this.search = '';
       }
     },
