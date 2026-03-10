@@ -18,7 +18,7 @@
     "resetAccPop": "Comece de novo, removendo todos níveis, ouro, equipamentos, histórico, e tarefas.",
     "deleteAccount": "Eliminar Conta",
     "deleteAccPop": "Cancela e remove sua conta do Habitica.",
-    "feedback": "Se tu queres nos dar um feedback, por favor insira-o abaixo - adoraríamos saber o que você gostou ou não gostou sobre o Habitica! Não fala bem o inglês? Sem problemas! Use o idioma que preferir.",
+    "feedback": "Se você quer nos dar um feedback, por favor insira-o abaixo - adoraríamos ouvir seu feedback! Será anônimo, a menos que opte por enviar com suas informações de contato. Não fala bem o inglês? Sem problemas! Use o idioma que preferir.",
     "dataExport": "Exportação de Dados",
     "saveData": "Aqui estão algumas opções para guardar os seus dados.",
     "habitHistory": "Histórico de Hábitos",
@@ -199,5 +199,13 @@
     "showLevelUpModal": "Quando Subir um Nível",
     "showHatchPetModal": "Quando chocar um Pet",
     "showRaisePetModal": "Quando criar um Pet para ser uma montaria",
-    "showStreakModal": "Quando alcançar uma sequencia de Proezas"
+    "showStreakModal": "Quando alcançar uma sequencia de Proezas",
+    "feedbackPlaceholder": "Adicione seu feedback",
+    "yourUserData": "Seus dados de usuário",
+    "taskHistory": "Histórico de tarefas",
+    "yourUserDataDisclaimer": "Aqui você pode baixar uma cópia do seu histórico de tarefas ou seus dados de usuário completo.",
+    "useridCopied": "ID de usuário copiado para área de transferência.",
+    "userIdTooltip": "O ID de usuário é um número único que o Habitica gera automaticamente quando um jogador se cadastra, semelhante a um nome de usuário. No entanto, diferentemente do nome de usuário, o ID de usuário não pode ser alterado.",
+    "developerMode": "Modo Desenvolvedor",
+    "developerModeTooltip": "O Habitica oferece um modo desenvolvedor para habilitar recursos adicionais que interagem com a API do Habitica."
 }

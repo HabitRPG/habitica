@@ -430,7 +430,7 @@
     "backgroundBlossomingDesertText": "Çiçek Açan Çöl",
     "backgroundBlossomingDesertNotes": "Çiçek Açan Çölde nadir bir süperçiçeklenmeye tanık ol.",
     "backgrounds052019": "SET 60: Mayıs 2019'da yayınlandı",
-    "backgroundDojoText": "Dojo",
+    "backgroundDojoText": "Dojо",
     "backgroundDojoNotes": "Dojo'da yeni hareketler öğren.",
     "backgroundParkWithStatueText": "Heykelli Park",
     "backgroundParkWithStatueNotes": "Heykelli Park'ın içinden çiçek kaplı bir yolu takip edin.",
@@ -930,5 +930,14 @@
     "backgroundMonstrousCaveText": "Canavar Mağarası",
     "backgroundMonstrousCaveNotes": "Canavar Mağarası'nın girişinden bak.",
     "backgroundJackOLanternStacksText": "Balkabağı Feneri Yığınları",
-    "backgroundJackOLanternStacksNotes": "Balkabağı fenerleri tarlasını hayranlıkla izle."
+    "backgroundJackOLanternStacksNotes": "Balkabağı fenerleri tarlasını hayranlıkla izle.",
+    "backgrounds032026": "SET 142: Mart 2026'da yayımlandı",
+    "backgroundWaterfallWithRainbowText": "Gökkuşağı ile Çağlayan",
+    "backgroundWaterfallWithRainbowNotes": "Gökkuşağı ile Çağlayan'ın nefes kesici güzelliğine hayran ol.",
+    "backgrounds042026": "SET 143: Nisan 2026'da yayımlandı",
+    "backgroundRidingACometText": "Kuyruklu Yıldıza Binmek",
+    "backgroundRidingACometNotes": "Bir kuyruklu yıldızla uzay boyu gez!",
+    "backgrounds052026": "SET 144: Mayıs 2026'da yayınlandı",
+    "backgroundElvenCitadelText": "Elf Kalesi",
+    "backgroundElvenCitadelNotes": "Elflerin kalesine doğru manzaralı bir yolculuğa çık."
 }

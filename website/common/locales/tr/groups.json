@@ -423,5 +423,22 @@
     "classLabel": "Sınıf:",
     "invitedToYourParty": "<strong> senin takımına davetli!</strong>&nbsp;&nbsp;Geri Almak İçin Tıkla",
     "noOneLooking": "Şu anda Takım arayan kimse yok. <br> Daha sonra tekrar bakabilirsin!",
-    "tavernDiscontinuedDetail": "Oyuncu tabanımızın Habitica ile etkileşim biçimindeki değişiklikler de dahil olmak üzere bir dizi etken nedeniyle, bu alanları sürdürmek için gereken kaynaklar, bunlara katılan kişi sayısıyla orantısız hale geldi ve uzun vadede sürdürülemez oldu."
+    "tavernDiscontinuedDetail": "Oyuncu tabanımızın Habitica ile etkileşim biçimindeki değişiklikler de dahil olmak üzere bir dizi etken nedeniyle, bu alanları sürdürmek için gereken kaynaklar, bunlara katılan kişi sayısıyla orantısız hale geldi ve uzun vadede sürdürülemez oldu.",
+    "chooseAnOption": "Bir Seçenek Seç",
+    "upgradeExistingGroup": "Var Olan Bir Grubu Yükselt",
+    "createNewGroup": "Yeni Grup Oluştur",
+    "yourParty": "Senin Partin",
+    "previouslyUpgradedGroup": "Daha Önce Yükseltilmiş Grup",
+    "inviteOthersForAdditional": "Ek ayrıcalıklar için başkalarını da grubuna çağır",
+    "perMember": "üye başı",
+    "additionalMembersProrated": "Ay içinde çağrılan ek üyeler, bir sonraki fatura döneminin toplamına orantılı bir ücret olarak eklenecek.",
+    "oneMember": "1 üye",
+    "membersCount": "<%= count %> üye",
+    "pendingCount": "(<%= count %> beklemede)",
+    "upgradeCancelsPendingInvites": "Partini yükseltmek, bekleyen tüm çağrıları iptal edecek",
+    "interestedLearningMore": "Daha fazlasını öğrenmek ister misin?",
+    "checkGroupPlanFAQ": "Paylaşımlı görev deneyiminizden en iyi biçimde nasıl yararlanacağınızı öğrenmek için <a href='/static/faq#what-is-group-plan'>Grup Planları SSS</a> bölümüne göz at.",
+    "groupPlanBillingFYI": "Grup Planı abonelikleri, mevcut döneminizin bitiminden en az 24 saat önce iptal etmediğin sürece otomatik olarak yenilenir. İptal işlemini Grup Planınızın Grup Faturalandırma sekmesinden yapabilirsin. Aboneliğinin yenilenmesinden 24 saat önce, o anki Grup Planındaki üye sayısına göre ücretlendirileceksin. Ödeme dönemleri arasında üye eklersen, bir sonraki faturalama döneminde bu üyelerin ayrıcalıkları için ek bir orantılı ücret göreceksin.",
+    "groupPlanBillingFYIShort": "Grup Planı abonelikleri, mevcut döneminin bitiminden en az 24 saat önce iptal etmediğin sürece otomatik olarak yenilenir. Aboneliğinin yenilenmesinden 24 saat önce, o anki Grup Planındaki üye sayısına göre ücretlendirileceksin. Ödeme dönemleri arasında üye eklersen, bir sonraki fatura döneminde bu üyelerin ayrıcalıkları için orantılı ek bir ücret göreceksin.",
+    "chatSunsetWarning": "⚠️ <strong>Habitica Loncaları ve Meyhane sohbeti 8/8/2023 tarihinde kullanımdan kaldırılacak.</strong> Bu değişiklikle ilgili daha fazla bilgi edinmek için <a href='/static/faq/tavern-and-guilds'>buraya tıkla</a>."
 }
