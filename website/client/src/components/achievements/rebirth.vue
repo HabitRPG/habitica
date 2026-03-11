@@ -180,9 +180,9 @@
 
     ::v-deep svg {
       display: block;
-      width: calc(100% + 2px);
+      width: calc(100% + 8px);
       height: auto;
-      margin: 0 -1px -1px;
+      margin: 0 -4px -4px;
     }
   }
 </style>
