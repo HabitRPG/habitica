@@ -74,6 +74,7 @@
     }
 
     .modal-content {
+      border: none;
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 14px 28px 0 rgba($black, 0.24), 0 10px 10px 0 rgba($black, 0.28);
@@ -141,14 +142,18 @@
   }
 
   .achievement-icon {
-    margin: 0 8px;
+    margin: 0 24px;
   }
 
   .subtitle {
-    font-size: 1rem;
-    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0;
     margin-bottom: 12px;
-    color: $gray-50;
+    color: $gray-10;
   }
 
   .description {
@@ -161,7 +166,7 @@
   .stack-info {
     font-size: 0.875rem;
     line-height: 1.71;
-    color: $gray-200;
+    color: $gray-50;
     margin-bottom: 24px;
   }
 
@@ -175,7 +180,7 @@
     ::v-deep svg {
       display: block;
       width: 100%;
-      height: auto;
+      height: 130px;
     }
   }
 </style>
