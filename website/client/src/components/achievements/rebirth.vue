@@ -87,6 +87,7 @@
     .modal-footer {
       padding: 0;
       border-top: none;
+      border-radius: 0;
       margin: 0;
       line-height: 0;
     }

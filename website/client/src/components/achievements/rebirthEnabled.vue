@@ -137,9 +137,10 @@
   }
 
   .orb-icon {
-    width: 62px;
-    height: 62px;
-    margin: 0 24px;
+    width: 124px;
+    height: 124px;
+    margin: 0 -4px;
+    image-rendering: auto;
   }
 
   .subtitle {
