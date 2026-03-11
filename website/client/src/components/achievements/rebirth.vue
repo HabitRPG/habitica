@@ -172,7 +172,7 @@
   }
 
   .btn-primary {
-    margin-bottom: 24px;
+    margin-bottom: 8px;
   }
 
   .footer-wave {
@@ -180,8 +180,9 @@
 
     ::v-deep svg {
       display: block;
-      width: 100%;
-      height: 130px;
+      width: calc(100% + 2px);
+      height: auto;
+      margin: 0 -1px -1px;
     }
   }
 </style>
