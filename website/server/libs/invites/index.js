@@ -200,7 +200,7 @@ async function inviteByEmail (invite, group, inviter, req, res) {
     ];
 
     if (group.type === 'guild') {
-      variables.push({ name: 'GUILD_NAME', content: group.name });
+      variables.push({ name: 'GROUP_NAME', content: group.name });
     }
 
     // Check for the email address not to be unsubscribed
