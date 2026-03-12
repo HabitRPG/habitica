@@ -727,14 +727,14 @@ export default {
             this.$root.$emit('habitica:won-challenge', notification);
             break;
           case 'REBIRTH_ACHIEVEMENT':
-            if (localStorage.getItem('show-rebirth-confirmation') === 'true') {
-              markAsRead = false;
-            } else if (!this.isInitialLoadComplete) {
-              this.pendingRebirthNotification = notification;
-              markAsRead = false;
-            } else {
-              this.playSound('Achievement_Unlocked');
-              this.$root.$emit('bv::show::modal', 'rebirth');
+            if (localStorage.getItem('show-rebirth-confirmation') !== 'true') {
+              if (!this.isInitialLoadComplete) {
+                this.pendingRebirthNotification = notification;
+                markAsRead = false;
+              } else {
+                this.playSound('Achievement_Unlocked');
+                this.$root.$emit('bv::show::modal', 'rebirth');
+              }
             }
             break;
           case 'STREAK_ACHIEVEMENT':

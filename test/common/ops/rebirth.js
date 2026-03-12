@@ -211,22 +211,32 @@ describe('shared.ops.rebirth', () => {
     expect(user.achievements.rebirthLevel).to.equal(2);
   });
 
-  it('does not increment rebirth achievements when level is lower than previous', async () => {
+  it('increments rebirth achievements even when level is lower than previous', async () => {
     user.stats.lvl = 2;
     user.achievements.rebirths = 1;
     user.achievements.rebirthLevel = 3;
 
     await rebirth(user);
 
-    expect(user.achievements.rebirths).to.equal(1);
+    expect(user.achievements.rebirths).to.equal(2);
     expect(user.achievements.rebirthLevel).to.equal(3);
   });
 
-  it('always increments rebirth achievements when level is MAX_LEVEL', async () => {
+  it('updates rebirthLevel when current level is higher than previous', async () => {
+    user.stats.lvl = 5;
+    user.achievements.rebirths = 1;
+    user.achievements.rebirthLevel = 3;
+
+    await rebirth(user);
+
+    expect(user.achievements.rebirths).to.equal(2);
+    expect(user.achievements.rebirthLevel).to.equal(5);
+  });
+
+  it('increments rebirth achievements when level is MAX_LEVEL', async () => {
     user.stats.lvl = MAX_LEVEL;
     user.achievements.rebirths = 1;
-    // this value is not actually possible (actually capped at MAX_LEVEL) but makes a good test
-    user.achievements.rebirthLevel = MAX_LEVEL + 1;
+    user.achievements.rebirthLevel = MAX_LEVEL;
 
     await rebirth(user);
 
@@ -234,11 +244,10 @@ describe('shared.ops.rebirth', () => {
     expect(user.achievements.rebirthLevel).to.equal(MAX_LEVEL);
   });
 
-  it('always increments rebirth achievements when level is greater than MAX_LEVEL', async () => {
+  it('increments rebirth achievements when level is greater than MAX_LEVEL', async () => {
     user.stats.lvl = MAX_LEVEL + 1;
     user.achievements.rebirths = 1;
-    // this value is not actually possible (actually capped at MAX_LEVEL) but makes a good test
-    user.achievements.rebirthLevel = MAX_LEVEL + 2;
+    user.achievements.rebirthLevel = MAX_LEVEL;
 
     await rebirth(user);
 
