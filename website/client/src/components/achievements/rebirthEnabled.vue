@@ -101,11 +101,11 @@
     line-height: 1.4;
     color: $purple-200;
     margin-top: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
   }
 
   .icon-area {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
   }
 
   .sparkles {
