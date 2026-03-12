@@ -26,10 +26,11 @@
           class="svg-icon sparkles mirror"
           v-html="icons.starGroup"
         ></div>
-        <Sprite
+        <img
           class="orb-icon"
-          image-name="rebirth_orb"
-        />
+          src="@/assets/images/rebirth-orb.png"
+          alt="Orb of Rebirth"
+        >
         <div
           v-once
           class="svg-icon sparkles"
@@ -100,11 +101,11 @@
     line-height: 1.4;
     color: $purple-200;
     margin-top: 8px;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
   }
 
   .icon-area {
-    margin-bottom: 16px;
+    margin-bottom: 8px;
   }
 
   .sparkles {
@@ -137,10 +138,10 @@
   }
 
   .orb-icon {
-    width: 124px;
-    height: 124px;
-    margin: 0 -4px;
-    image-rendering: auto;
+    width: 62px;
+    height: 62px;
+    margin: 0 24px;
+    image-rendering: pixelated;
   }
 
   .subtitle {
@@ -168,14 +169,10 @@
 
 <script>
 import closeIcon from '@/assets/svg/close.svg?raw';
-import Sprite from '@/components/ui/sprite';
 import starGroup from '@/assets/svg/star-group.svg?raw';
 import { mapState } from '@/libs/store';
 
 export default {
-  components: {
-    Sprite,
-  },
   data () {
     return {
       icons: Object.freeze({

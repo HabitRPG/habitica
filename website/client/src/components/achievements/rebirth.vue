@@ -161,7 +161,7 @@
     font-size: 0.875rem;
     line-height: 1.71;
     margin-bottom: 12px;
-    color: $gray-100;
+    color: $gray-50;
   }
 
   .stack-info {
