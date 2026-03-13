@@ -261,11 +261,11 @@ schema.statics.getGroup = async function getGroup (options = {}) {
   } else if (isTavern) {
     query = { _id: TAVERN_ID };
   } else if (optionalMembership === true) {
-    query = { _id: groupId };
+    query = { privacy: 'private', _id: groupId };
   } else if (isUserGuild) {
-    query = { type: 'guild', _id: groupId };
+    query = { type: 'guild', privacy: 'private', _id: groupId };
   } else {
-    query = { type: 'guild', privacy: 'public', _id: groupId };
+    return null;
   }
 
   const mQuery = this.findOne(query);
