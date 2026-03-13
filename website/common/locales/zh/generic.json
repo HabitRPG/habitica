@@ -190,7 +190,7 @@
     "messages": "私信",
     "emptyMessagesLine1": "你没有任何私信",
     "emptyMessagesLine2": "发送信息来与你的队友或其他Habitica玩家开始对话",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span>给你发送了一条私信",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span>给你发送了一条私信",
     "letsgo": "我们出发吧！",
     "selected": "已选择",
     "howManyToBuy": "你想购买多少？",

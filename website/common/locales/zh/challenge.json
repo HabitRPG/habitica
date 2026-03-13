@@ -110,7 +110,7 @@
     "messageChallengeFlagOfficial": "不能举报官方挑战。",
     "deleteChallengeRefundDescription": "如果您删除该挑战，将退还用于奖励的宝石，但挑战任务仍会保留在参加者的任务面板上。",
     "brokenTaskDescription": "这项任务原本是某个挑战的一部分，但是已经被移除了。你想如何处理这项遗留的任务？",
-    "challengeCompletedDescription": "获胜者是 <%- user %>！你想如何处理这些遗留任务？",
+    "challengeCompletedDescription": "获胜者是 <%= user %>！你想如何处理这些遗留任务？",
     "brokenChallengeDescription": "这项任务原本是某挑战的一部分，但是该挑战（或团队）已经被删除了。你想如何处理这项遗留的任务？",
     "brokenTask": "已失效的挑战链接"
 }

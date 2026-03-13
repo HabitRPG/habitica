@@ -66,7 +66,7 @@
     "mountNotOwned": "חיית רכיבה זו אינה בבעלותך.",
     "feedPet": "האכילו את <%= name %> ב<%= text %>?",
     "raisedPet": "ה <%= pet %> שלכם גדל/ה!",
-    "petName": "<%= potion(locale) %> מ<%= egg(locale) %>",
+    "petName": "<%= potion %> מ<%= egg %>",
     "mountName": "",
     "keyToPets": "מפתח למאורות של חיות המחמד",
     "keyToPetsDesc": "שחררו את כל חיות המחמד הבסיסיות כדי שתוכלו לאסוף אותם שוב. (חיות מחמד מהרפתקאות וחיות מחמד נדירות לא ישוחררו.)",

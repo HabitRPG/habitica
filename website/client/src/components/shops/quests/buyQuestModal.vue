@@ -180,6 +180,11 @@
     .badge-dialog {
       left: -8px;
       top: -8px;
+
+      .badge-pin {
+        width: 32px;
+        height: 32px;
+      }
     }
 
     .modal-content {

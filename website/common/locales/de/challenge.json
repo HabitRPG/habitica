@@ -111,6 +111,6 @@
     "deleteChallengeRefundDescription": "Wenn du diese Herausforderung löschst, bekommst du den Preis in Edelsteinen erstattet und die Aufgaben der Herausforderung verbleiben auf der Aufgabentafel der Teilnehmer.",
     "brokenTaskDescription": "Diese Aufgabe war Teil einer Herausforderung, wurde jedoch daraus entfernt. Was möchtest Du tun?",
     "brokenChallengeDescription": "Diese Aufgabe war Teil einer Herausforderung, aber die Herausforderung (oder Gruppe) wurde gelöscht. Was soll mit den verwaisten Aufgaben geschehen?",
-    "challengeCompletedDescription": "Gewonnen hat <%- user %>! Was soll mit den verwaisten Aufgaben geschehen?",
+    "challengeCompletedDescription": "Gewonnen hat <%= user %>! Was soll mit den verwaisten Aufgaben geschehen?",
     "brokenTask": "Defekter Link zur Herausforderung"
 }

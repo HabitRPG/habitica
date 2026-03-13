@@ -561,6 +561,15 @@ const armor = {
     con: 10,
     set: 'loneCowpoke',
   },
+  softYellowSuit: {
+    con: 9,
+    str: 9,
+    set: 'yellowLoungewear',
+  },
+  handstandOutfit: {
+    per: 10,
+    set: 'handstand',
+  },
 };
 
 const back = {
@@ -1156,6 +1165,18 @@ const head = {
     per: 10,
     set: 'loneCowpoke',
   },
+  floppyYellowHat: {
+    con: 3,
+    int: 3,
+    per: 3,
+    str: 3,
+    set: 'yellowLoungewear',
+  },
+  verdantArmingCap: {
+    con: 5,
+    per: 5,
+    set: 'verdantPage',
+  },
 };
 
 const shield = {
@@ -1545,6 +1566,15 @@ const shield = {
     per: 2,
     str: 2,
     set: 'prettyInPink',
+  },
+  softYellowPillow: {
+    int: 9,
+    per: 9,
+    set: 'yellowLoungewear',
+  },
+  verdantBanner: {
+    int: 10,
+    set: 'verdantPage',
   },
 };
 

@@ -190,7 +190,7 @@
     "messages": "Messages",
     "emptyMessagesLine1": "Vous n'avez aucun message",
     "emptyMessagesLine2": "Envoyez un message pour démarrer une conversation avec les membres de votre Équipe ou un·e autre joueu·r·se d'Habitica",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> vous a envoyé un message",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> vous a envoyé un message",
     "letsgo": "Allons-y !",
     "selected": "Selectionné",
     "howManyToBuy": "Combien voulez-vous en acquérir ?",

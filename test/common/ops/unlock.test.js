@@ -20,6 +20,9 @@ describe('shared.ops.unlock', () => {
   beforeEach(() => {
     user = generateUser();
     user.balance = usersStartingGems;
+    user.pinnedItems.push({ type: 'background', path: 'backgrounds.backgrounds042016.giant_florals' });
+    user.pinnedItems.push({ type: 'haircolor', path: 'hair.color.rainbow' });
+    user.pinnedItems.push({ type: 'shirt', path: 'shirt.convict' });
     clock = sandbox.useFakeTimers(new Date('2024-04-10'));
   });
 
@@ -272,6 +275,7 @@ describe('shared.ops.unlock', () => {
   });
 
   it('unlocks an item (appearance)', async () => {
+    expect(user.pinnedItems.findIndex(item => item.type === 'shirt')).to.not.equal(-1);
     const path = unlockPath.split(',')[0];
     const initialShirts = Object.keys(user.purchased.shirt).length;
     const [, message] = await unlock(user, { query: { path } });
@@ -282,11 +286,12 @@ describe('shared.ops.unlock', () => {
     );
     expect(get(user.purchased, path)).to.be.true;
     expect(user.balance).to.equal(usersStartingGems - 0.5);
+    expect(user.pinnedItems.findIndex(item => item.type === 'shirt')).to.equal(-1);
   });
 
   it('unlocks an item (hair color)', async () => {
     user.purchased.hair.color = {};
-
+    expect(user.pinnedItems.findIndex(item => item.type === 'haircolor')).to.not.equal(-1);
     const path = hairUnlockPath.split(',')[0];
     const initialColorHair = Object.keys(user.purchased.hair.color).length;
     const [, message] = await unlock(user, { query: { path } });
@@ -297,6 +302,7 @@ describe('shared.ops.unlock', () => {
     );
     expect(get(user.purchased, path)).to.be.true;
     expect(user.balance).to.equal(usersStartingGems - 0.5);
+    expect(user.pinnedItems.findIndex(item => item.type === 'haircolor')).to.equal(-1);
   });
 
   it('unlocks an item (facial hair)', async () => {
@@ -334,6 +340,7 @@ describe('shared.ops.unlock', () => {
 
   it('unlocks an item (background)', async () => {
     const initialBackgrounds = Object.keys(user.purchased.background).length;
+    expect(user.pinnedItems.findIndex(item => item.type === 'background')).to.not.equal(-1);
     const [, message] = await unlock(user, {
       query: { path: backgroundUnlockPath },
     });
@@ -344,6 +351,7 @@ describe('shared.ops.unlock', () => {
     );
     expect(get(user.purchased, backgroundUnlockPath)).to.be.true;
     expect(user.balance).to.equal(usersStartingGems - 1.75);
+    expect(user.pinnedItems.findIndex(item => item.type === 'background')).to.equal(-1);
   });
 
   it('handles an invalid hair path gracefully', async () => {

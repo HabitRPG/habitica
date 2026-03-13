@@ -4,8 +4,8 @@
     "brokenChaLink": "Bozulmuş Mücadele Bağlantısı",
     "keepIt": "Sakla",
     "removeIt": "Sil",
-    "brokenChallenge": "Bozulmuş Mücadele Bağlantısı: bu görev bir mücadelenin parçasıydı ama mücadele (ya da grup) silindi. Kimsesiz işler ile ne yapmak istersin?",
-    "challengeCompleted": "Bu mücadele tamamlandı ve kazanan <span class=\"badge\"><%- user %></span> oldu! Kimsesiz işler ile ne yapmak istersin?",
+    "brokenChallenge": "Bozulmuş Mücadele Bağlantısı",
+    "challengeCompleted": "Meydan okuma tamamlandı!",
     "unsubChallenge": "Bozulmuş Mücadele Bağlantısı: bu görev bir mücadelenin parçasıydı ama artık bu mücadeleyi takip etmiyorsun. Kimsesiz işler ile ne yapmak istersin?",
     "challenges": "Mücadeleler",
     "endDate": "Bitiş Tarihi",
@@ -94,7 +94,7 @@
     "selectParticipant": "Katılımcı Seç",
     "yourReward": "Ödülün",
     "filters": "Filtreler",
-    "wonChallengeDesc": "<%= challengeName %> seni kazanan olarak belirledi! Zaferin, Başarılarına kaydedildi.",
+    "wonChallengeDesc": "<% = challengeName%> seni kazanan olarak seçti! Kazancın, Başarılarına kaydedildi.",
     "removeTasks": "Görevleri Kaldır",
     "whyReportingChallenge": "Bu Mücadeleyi neden bildiriyorsunuz?",
     "whyReportingChallengePlaceholder": "Raporlama nedeni",
@@ -108,5 +108,9 @@
     "resetFlagCount": "Bayrak Sayısını Sıfırla",
     "abuseFlagModalBodyChallenge": "Bir Meydan Okuma'yı yalnızca <%= firstLinkStart %>Topluluk Kuralları<%= linkEnd %> ve/veya <%= secondLinkStart %>Hizmet Şartları<%= linkEnd %>nı ihlal ettiğinde bildirmelisiniz. Yanlış bir rapor göndermek, Habitica'nın Topluluk Kuralları’nın ihlalidir.",
     "resetFlags": "Bayrakları Sıfırla",
-    "deleteChallengeRefundDescription": "Bu Mücadeleyi silersen, Mücevher ödülün sana geri ödenecek ve Mücadele görevleri katılımcıların görev panolarında kalacak."
+    "deleteChallengeRefundDescription": "Bu Mücadeleyi silersen, Mücevher ödülün sana geri ödenecek ve Mücadele görevleri katılımcıların görev panolarında kalacak.",
+    "brokenTaskDescription": "Bu görev bir meydan okumanın parçasıydı, ama ondan silindi. Ne yapmak istersin?",
+    "brokenChallengeDescription": "Bu görev bir meydan okumanın parçasıydı, ama meydan okuma (ya da takım) silindi. Kalan görevle ne yapmak istersin?",
+    "challengeCompletedDescription": "Kazanan <%= user %> kullanıcısı oldu! Kalan görevle ne yapmak istersin?",
+    "brokenTask": "Bozulmuş Meydan Okuma Bağlantısı"
 }

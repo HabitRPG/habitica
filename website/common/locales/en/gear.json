@@ -578,6 +578,15 @@
   "weaponSpecialWinter2026MageText": "Candelabra Staff",
   "weaponSpecialWinter2026MageNotes": "Candelabras help by holding multiple candles at a time—follow its lead the next time you need to multitask. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition Winter 2025-2026 Gear.",
 
+  "weaponSpecialSpring2026WarriorText": "Mighty Froggy Foil",
+  "weaponSpecialSpring2026WarriorNotes": "An opportunity to duel might present itself at any moment, and with this formidable foil, you will be ready! Increases Strength by <%= str %>. Limited Edition Spring 2026 Gear.",
+  "weaponSpecialSpring2026RogueText": "Spring Branch",
+  "weaponSpecialSpring2026RogueNotes": "An opportunity to grow is nearly upon you, and with these budding branches, you will be ready! Increases Strength by <%= str %>. Limited Edition Spring 2026 Gear.",
+  "weaponSpecialSpring2026HealerText": "Snowdrop Staff",
+  "weaponSpecialSpring2026HealerNotes": "An opportunity to begin anew with a fresh start is right up ahead, and with this splendid staff, you will be ready! Increases Intelligence by <%= int %>. Limited Edition Spring 2026 Gear.",
+  "weaponSpecialSpring2026MageText": "Maypole Parasol",
+  "weaponSpecialSpring2026MageNotes": "An opportunity to celebrate approaches, and with this pretty parasol pole, you will be ready! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition Spring 2026 Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -626,6 +635,8 @@
   "weaponMystery202512Notes": "A shining sword cast from sugar, mint, and arcane enchantments. Confers no benefit. December 2025 Subscriber Item.",
   "weaponMystery202601Text": "Winter's Aegis",
   "weaponMystery202601Notes": "An icy bubble shield that grants magical protection from opposing elements. Confers no benefit. January 2026 Subscriber Item.",
+  "weaponMystery202603Text": "Wisteria Wizard Staff",
+  "weaponMystery202603Notes": "Cast spells to warm the spring air and encourage the blossoms to bud! Confers no benefit. March 2026 Subscriber Item.",
 
   "weaponMystery301404Text": "Steampunk Cane",
   "weaponMystery301404Notes": "Excellent for taking a turn about town. March 3015 Subscriber Item. Confers no benefit.",
@@ -1412,6 +1423,15 @@
   "armorSpecialWinter2026MageText": "Midwinter Candle Robe",
   "armorSpecialWinter2026MageNotes": "Glide smoothly along your path like wax on your way to completing your Dailies. Increases Intelligence by <%= int %>. Limited Edition Winter 2025-2026 Gear.",
 
+  "armorSpecialSpring2026WarriorText": "Frog Armor",
+  "armorSpecialSpring2026WarriorNotes": "Spring into action just as soon as the snow begins to thaw. Increases Constitution by <%= con %>. Limited Edition Spring 2026 Gear.",
+  "armorSpecialSpring2026RogueText": "Birch Bark Armor",
+  "armorSpecialSpring2026RogueNotes": "Withstand inevitable spring rains as well as light breezes. Increases Perception by <%= per %>. Limited Edition Spring 2026 Gear.",
+  "armorSpecialSpring2026HealerText": "Snowdrop Gown",
+  "armorSpecialSpring2026HealerNotes": "Glide gracefully from a cold, dark winter into glorious spring. Increases Constitution by <%= con %>. Limited Edition Spring 2026 Gear.",
+  "armorSpecialSpring2026MageText": "Maypole Dancer Outfit",
+  "armorSpecialSpring2026MageNotes": "Arrive ready to dance, picnic, and enjoy the warm weather spring brings. Increases Intelligence by <%= int %>. Limited Edition Spring 2026 Gear.",
+
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
   "armorMystery201403Text": "Forest Walker Armor",
@@ -1550,6 +1570,8 @@
   "armorMystery202509Notes": "Bright silks protect you from the weather, hot or cold. Confers no benefit. September 2025 Subscriber Item.",
   "armorMystery202512Text": "Cookie Champion Armor",
   "armorMystery202512Notes": "Ready for battle in this plate that is both sweet and strong. Confers no benefit. December 2025 Subscriber Item.",
+  "armorMystery202604Text": "Audacious Astronaut Spacesuit",
+  "armorMystery202604Notes": "One small step for your To Do list, one giant leap for your sense of accomplishment! Confers no benefit. April 2026 Subscriber Item.",
   
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
@@ -1800,6 +1822,10 @@
   "armorArmoireBlackPartyDressNotes": "You’re strong, smart, hearty, and so fashionable! Increases Strength, Intelligence, and Constitution by <%= attrs %> each. Enchanted Armoire: Black Hairbow Set (Item 2 of 2).",
   "armorArmoireLoneCowpokeOutfitText": "Lone Cowpoke Outfit",
   "armorArmoireLoneCowpokeOutfitNotes": "Whoa, there! Want to make a statement when you ride into town as a mysterious stranger ready to be productive? Here’s the perfect outfit, complete with chaps and a shining, silver belt buckle. Increases Constitution by <%= con %>. Enchanted Armoire: Lone Cowpoke Set (Item 2 of 2)",
+  "armorArmoireSoftYellowSuitText": "Soft Yellow Suit",
+  "armorArmoireSoftYellowSuitNotes": "Yellow is an energetic color. Wear this to bed, and you will wake up with the sun the next morning ready to tackle a day full of tasks. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Yellow Loungewear Set (Item 2 of 3).",
+  "armorArmoireHandstandOutfitText": "Handstand",
+  "armorArmoireHandstandOutfitNotes": "Things sure do look different when you’re upside-down, don’t they? If you’re feeling stuck, it’s time for a fresh perspective! Increases Perception by <%= per %>. Enchanted Armoire: Handstand Set (Item 1 of 1).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2352,6 +2378,15 @@
   "headSpecialWinter2026MageText": "Midwinter Candle Hat",
   "headSpecialWinter2026MageNotes": "Maintain focus and illumination as you set your sights on greater goals this season. Increases Perception by <%= per %>. Limited Edition 2025-2026 Winter Gear.",
 
+  "headSpecialSpring2026WarriorText": "Frog Warrior Helm",
+  "headSpecialSpring2026WarriorNotes": "Frogs are well-known for their resistance to corruption. This helm will grant you their noble qualities! Increases Strength by <%= str %>. Limited Edition Spring 2026 Gear.",
+  "headSpecialSpring2026RogueText": "Spring Branch Helm",
+  "headSpecialSpring2026RogueNotes": "Make a striking statement with twigs and buds growing wild in all directions. Increases Perception by <%= per %>. Limited Edition Spring 2026 Gear.",
+  "headSpecialSpring2026HealerText": "Snowdrop Helm",
+  "headSpecialSpring2026HealerNotes": "Make a hopeful statement with these beautiful, resilient petals. Increases Intelligence by <%= int %>. Limited Edition Spring 2026 Gear.",
+  "headSpecialSpring2026MageText": "Mayflower Crown",
+  "headSpecialSpring2026MageNotes": "Make a joyous statement with bright blooms encircling your head. Increases Perception by <%= per %>. Limited Edition Spring 2026 Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -2538,7 +2573,11 @@
   "headMystery202512Text": "Cookie Champion Helm",
   "headMystery202512Notes": "Gingerbread forged with ancient magic will protect you as long as you can hold off your urge to try a bite! Confers no benefit. December 2025 Subscriber Item.",
   "headMystery202602Text": "Sakura Fox Ears",
-  "headMystery202602Notes": " Your hearing will be sharpened by these ears such that you can hear the buds of blossoms growing on tree branches as spring approaches. Confers no benefit. February 2026 Subscriber Item.",
+  "headMystery202602Notes": "Your hearing will be sharpened by these ears such that you can hear the buds of blossoms growing on tree branches as spring approaches. Confers no benefit. February 2026 Subscriber Item.",
+  "headMystery202603Text": "Wisteria Wizard Hat",
+  "headMystery202603Notes": "This jaunty hat not only enhances your magical ability, it also has a lovely spring scent! Confers no benefit. March 2026 Subscriber Item.",
+  "headMystery202604Text": "Audacious Astronaut Helmet",
+  "headMystery202604Notes": "In space, no one can hear you check off your To Do’s. But the real reward is your sense of personal accomplishment! Confers no benefit. April 2026 Subscriber Item.",
 
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
@@ -2769,6 +2808,10 @@
   "headArmoireBlacksmithsGogglesNotes": "Shatter and heat-resistant ocular protection is yours when you’re working in a forge. Increases Perception by <%= per %>. Enchanted Armoire: Blacksmith Set (Item 1 of 3).",
   "headArmoireLoneCowpokeHatText": "Lone Cowpoke Hat",
   "headArmoireLoneCowpokeHatNotes": "Howdy there, pardner! D’you hate when you’re out on the range, workin’ on tasks, and sun gets in your eyes? Well, good thing you’ve got a hat for that now. Increases Perception by <%= per %>. Enchanted Armoire: Lone Cowpoke Set (Item 1 of 2)",
+  "headArmoireFloppyYellowHatText": "Yellow Floppy Hat",
+  "headArmoireFloppyYellowHatNotes": "Many spells have been sewn into this simple hat, giving it a youthful yellow color. Increases all stats by <%= attrs %> each. Enchanted Armoire: Yellow Loungewear Set (Item 1 of 3).",
+  "headArmoireVerdantArmingCapText": "Verdant Page Arming Cap",
+  "headArmoireVerdantArmingCapNotes": "This comfy, cushioned coif makes you battle-ready and helps you withstand anything heavy that could come your way. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Verdant Page Set (Item 1 of 2).",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -3086,6 +3129,13 @@
   "shieldSpecialWinter2026HealerText": "Starburst",
   "shieldSpecialWinter2026HealerNotes": "Stars help with wayfinding, energy, and illumination—all things that help you better conquer a task list. Increases Constitution by <%= con %>. Limited Edition Winter 2025-2026 Gear.",
 
+  "shieldSpecialSpring2026WarriorText": "Frog Warrior Candelabra",
+  "shieldSpecialSpring2026WarriorNotes": "Not only can this candelabra light your way, you can use it to melt any lingering snow and ice. Increases Constitution by <%= con %>. Limited Edition Spring 2026 Gear.",
+  "shieldSpecialSpring2026RogueText": "Spring Branch",
+  "shieldSpecialSpring2026RogueNotes": "Reach out and reach high with these branches. They double as a back scratcher in a pinch. Increases Strength by <%= str %>. Limited Edition Spring 2026 Gear.",
+  "shieldSpecialSpring2026HealerText": "Snowdrop Leaf",
+  "shieldSpecialSpring2026HealerNotes": "Create a light breeze with this fan as the days grow warmer. It doubles as a writing utensil in a pinch. Increases Constitution by <%= con %>. Limited Edition Spring 2026 Gear.",
+
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
   "shieldMystery201701Text": "Time-Freezer Shield",
@@ -3116,6 +3166,8 @@
   "shieldMystery202508Notes": "If you thought one spinning blade was cool looking, try two! Confers no benefit. August 2025 Subscriber Item.",
   "shieldMystery202511Text": "Frost Shield",
   "shieldMystery202511Notes": "This rugged shield of icy rock protects you from bad Habits but won't freeze your hands. Confers no benefit. November 2025 Subscriber Item.",
+  "shieldMystery202605Text": "Nightfall Shield",
+  "shieldMystery202605Notes": "Let the moon’s shining light protect you from dangers in the dark. Confers no benefit. May 2026 Subscriber Item.",
 
   "shieldMystery301405Text": "Clock Shield",
   "shieldMystery301405Notes": "Time is on your side with this towering clock shield! Confers no benefit. June 3015 Subscriber Item.",
@@ -3298,6 +3350,10 @@
   "shieldArmoireDoubleBassNotes": "Bom doo bom brrrr brr brr brrrr! Gather your party for some grounding or dancing as you listen to music on this deep double bass. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Musical Instrument Set 2 (Item 3 of 3)",
   "shieldArmoirePrettyPinkGiftBoxText": "Pretty Pink Present",
   "shieldArmoirePrettyPinkGiftBoxNotes": "Is this gift from a dear friend? A caring relative? A true love? A secret admirer? Whoever sent it knows you’ll be pleased with what’s inside. Increases all stats by <%= attrs %> each. Enchanted Armoire: Pretty in Pink Set (Item 2 of 2)",
+  "shieldArmoireSoftYellowPillowText": "Soft Yellow Pillow",
+  "shieldArmoireSoftYellowPillowNotes": "The experienced warrior packs a pillow for any expedition. Grow and shine as you consolidate all you’ve learned during past adventures… even while you nap. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Yellow Loungewear Set (Item 3 of 3).",
+  "shieldArmoireVerdantBannerText": "Verdant Page Banner",
+  "shieldArmoireVerdantBannerNotes": "Wave your banner high to signal friends it’s time to rally together! Intelligence by <%= int %>. Enchanted Armoire: Verdant Page Set (Item 2 of 2).",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
@@ -3392,6 +3448,8 @@
   "backMystery202601Notes": "This mark grants the user control over the elements of the season of cold and frost. Confers no benefit. January 2026 Subscriber Item.",
   "backMystery202602Text": "Five Tails of Sakura",
   "backMystery202602Notes": "These fluffy tails are the color of cherry blossoms, a reminder that spring is on the way! Confers no benefit. February 2026 Subscriber Item.",
+  "backMystery202605Text": "Nightfall Nimbus",
+  "backMystery202605Notes": "A glowing aureole of moonlight and starlight to illuminate the darkest night. Confers no benefit. May 2026 Subscriber Item.",
 
   "backArmoireHarpsichordText": "Harpsichord",
   "backArmoireHarpsichordNotes": "Pting! Ptiiing! Gather your party for a dinner or picnic and listen to a tinny melody on this harpsichord. Increases Perception and Intelligence by <%= attrs %> each. Enchanted Armoire: Musical Instrument Set 2 (Item 1 of 3)",

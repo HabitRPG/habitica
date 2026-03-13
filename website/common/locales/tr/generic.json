@@ -114,7 +114,7 @@
     "thankyouCardExplanation": "İkiniz de Çok Minnettar başarısını kazandınız!",
     "thankyouCardNotes": "Bir takım üyesine Teşekkür kartı gönder.",
     "thankyou0": "Çok teşekkür ederim!",
-    "thankyou1": "Teşekkürler, teşekkürler, teşekkürler!",
+    "thankyou1": "Sağ olun, çok sağ olun, teşekkürler!",
     "thankyou2": "Ne kadar teşekkür etsem azdır.",
     "thankyou3": "Sana minnettarım - teşekkürler!",
     "thankyouCardAchievementTitle": "Çok Minnettar",
@@ -190,7 +190,7 @@
     "messages": "Mesajlar",
     "emptyMessagesLine1": "Hiç mesajın yok",
     "emptyMessagesLine2": "Parti üyelerinizle veya başka bir Habitica oyuncusuyla sohbet başlatmak için bir mesaj gönderin",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sana bir mesaj gönderdi",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> sana bir mesaj gönderdi",
     "letsgo": "Haydi!",
     "selected": "Seçilmiş",
     "howManyToBuy": "Ne kadar satın almak istersiniz?",
@@ -242,5 +242,6 @@
     "newMessage": "Yeni Mesaj",
     "targetUserNotExist": "Hedef Kullanıcı: '<%= userName %>' mevcut değil.",
     "rememberToBeKind": "Lütfen nazik, saygılı olun ve <a href='/static/community-guidelines' target='_blank'>Topluluk Kurallarına</a> uyun.",
-    "gem": "Mücevher"
+    "gem": "Mücevher",
+    "confirmPurchase": "Satın Alımı Onayla"
 }

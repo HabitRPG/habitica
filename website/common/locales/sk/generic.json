@@ -190,7 +190,7 @@
     "messages": "Messages",
     "emptyMessagesLine1": "Nemáš žiadne správy",
     "emptyMessagesLine2": "Odošli právu pre začatie konverzácie s členom tvojej družiny alebo iným hráčom Habitici",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> ti poslal správu",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> ti poslal správu",
     "letsgo": "Poďme na to!",
     "selected": "Vybrané",
     "howManyToBuy": "Koľko by ste si chceli zakúpiť?",

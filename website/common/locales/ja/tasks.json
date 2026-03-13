@@ -137,5 +137,9 @@
     "scoreUp": "スコアアップ",
     "taskAlias": "タスクの別名",
     "taskAliasPopover": "タスクの別名は、サードパーティの統合と統合するときに使用できます。ダッシュ、アンダースコア、英数字のみがサポートされています。タスクの別名はすべてのタスクの中で一意でなければなりません。",
-    "taskAliasPlaceholder": "-タスクの別名はここ-"
+    "taskAliasPlaceholder": "-タスクの別名はここ-",
+    "deleteType": "<%= type %>を削除する",
+    "deleteTask": "タスクを削除する",
+    "deleteXTasks": "<%= count %>つのタスクを削除する",
+    "confirmDeleteTasks": "タスクを削除したいですか？"
 }

@@ -82,8 +82,8 @@
     "paymentMethods": "お支払い方法",
     "paymentSuccessful": "支払いは成功しました！",
     "paymentYouReceived": "受け取りました：",
-    "paymentYouSentGems": "<strong><%- name %></strong> に送りました：",
-    "paymentYouSentSubscription": "<strong><%- name %></strong><br> に <%= months %>ヶ月分のHabitica有料プランを送りました。",
+    "paymentYouSentGems": "<strong><%= name %></strong> に送りました：",
+    "paymentYouSentSubscription": "<strong><%= name %></strong><br> に <%= months %>ヶ月分のHabitica有料プランを送りました。",
     "paymentSubBilling": "あなたの有料プランは、<strong><%= months %>ヶ月</strong>ごとに <strong>$<%= amount %></strong> 請求されます。",
     "success": "成功しました！",
     "classGear": "クラス アイテム",
@@ -129,5 +129,5 @@
     "sellItems": "アイテムを売る",
     "customizationsShopText": "スタイルを変えたいですか？そんなあなたにぴったりの場所です！季節に合った新しい外見を取り揃えています。",
     "notAvailable": "このアイテムはご利用いただけません。",
-    "paymentYouSentSubscriptionG1G1": "あなたは<strong><%- name %></strong><br>さんに<%= months %>か月間のHabitica 有料プランを送信しました。そして、Gift One Get One プロモーションのため、同じ有料プランがあなたのアカウントに適用されました。"
+    "paymentYouSentSubscriptionG1G1": "あなたは<strong><%= name %></strong><br>さんに<%= months %>か月間のHabitica 有料プランを送信しました。そして、Gift One Get One プロモーションのため、同じ有料プランがあなたのアカウントに適用されました。"
 }

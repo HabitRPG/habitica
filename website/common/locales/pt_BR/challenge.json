@@ -110,7 +110,7 @@
     "messageChallengeFlagOfficial": "Desafios Oficiais não podem ser reportados.",
     "deleteChallengeRefundDescription": "Se você excluir este Desafio, o prêmio em gema será reembolsado e as tarefas do Desafio permanecerão nos painéis de tarefas dos participantes.",
     "brokenTaskDescription": "Essa tarefa era parte de um desafio, mas foi removida dele. O que gostaria de fazer?",
-    "challengeCompletedDescription": "O vencedor foi <%- user %>! O que fazer com as tarefas abandonadas?",
+    "challengeCompletedDescription": "O vencedor foi <%= user %>! O que fazer com as tarefas abandonadas?",
     "brokenChallengeDescription": "Essa tarefa fazia parte de um desafio, mas o desafio (ou grupo) foi excluído. O que deseja fazer com as tarefas abandonadas?",
     "brokenTask": "Link de Desafio quebrado"
 }

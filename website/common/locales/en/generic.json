@@ -210,7 +210,7 @@
   "emptyMessagesLine1": "You don't have any messages",
   "emptyMessagesLine2": "Send a message to start a conversation with your Party members or another Habitica player",
   "newMessage": "New Message",
-  "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sent you a message",
+  "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> sent you a message",
   "letsgo": "Let's Go!",
   "selected": "Selected",
   "howManyToBuy": "How many would you like to purchase?",

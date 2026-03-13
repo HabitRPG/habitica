@@ -190,7 +190,7 @@
     "messages": "Pesan",
     "emptyMessagesLine1": "Kamu tidak memiliki pesan apapun",
     "emptyMessagesLine2": "Kamu dapat memulai sebuah percakapan dengan anggota Kelompokmu atau pengguna lain",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> mengirim-mu sebuah pesan",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> mengirim-mu sebuah pesan",
     "letsgo": "Ayo Pergi!",
     "selected": "Dipilih",
     "howManyToBuy": "Berapa banyak yang ingin kamu beli?",

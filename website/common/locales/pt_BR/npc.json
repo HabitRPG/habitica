@@ -82,8 +82,8 @@
     "paymentMethods": "Comprar usando",
     "paymentSuccessful": "Seu pagamento foi efetuado com sucesso!",
     "paymentYouReceived": "Você recebeu:",
-    "paymentYouSentGems": "Você enviou para <strong><%- name %></strong>:",
-    "paymentYouSentSubscription": "Você enviou para <strong><%- name %></strong><br> <%= months %> mês/meses de assinatura do Habitica.",
+    "paymentYouSentGems": "Você enviou para <strong><%= name %></strong>:",
+    "paymentYouSentSubscription": "Você enviou para <strong><%= name %></strong><br> <%= months %> mês/meses de assinatura do Habitica.",
     "paymentSubBilling": "Sua assinatura será cobrada no valor de <strong>$<%= amount %></strong> a cada <strong><%= months %> mês/meses</strong>.",
     "success": "Sucesso!",
     "classGear": "Equipamento de Classe",
@@ -129,5 +129,5 @@
     "sellItems": "Vender itens",
     "notAvailable": "Este item não está disponível.",
     "customizationsShopText": "Quer mudar seu estilo? Você veio ao lugar certo! Temos os looks mais recentes para a estação.",
-    "paymentYouSentSubscriptionG1G1": "Você enviou para <strong><%- name %></strong><br> uma assinatura Habitica de <%= months %> mês(es), e a mesma assinatura foi aplicada à sua conta devido à promoção Presenteie uma, Ganhe outra!"
+    "paymentYouSentSubscriptionG1G1": "Você enviou para <strong><%= name %></strong><br> uma assinatura Habitica de <%= months %> mês(es), e a mesma assinatura foi aplicada à sua conta devido à promoção Presenteie uma, Ganhe outra!"
 }

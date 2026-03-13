@@ -82,8 +82,8 @@
     "paymentMethods": "를(을) 사용하여 구매",
     "paymentSuccessful": "결제가 성공적으로 완료되었습니다!",
     "paymentYouReceived": "수신했습니다:",
-    "paymentYouSentGems": "<strong><%- name %></strong>에게 보냈습니다:",
-    "paymentYouSentSubscription": "<strong><%- name %></strong><br> 님에게 <%= months %>개월의 Habitica 구독 플랜을 보냈습니다.",
+    "paymentYouSentGems": "<strong><%= name %></strong>에게 보냈습니다:",
+    "paymentYouSentSubscription": "<strong><%= name %></strong><br> 님에게 <%= months %>개월의 Habitica 구독 플랜을 보냈습니다.",
     "paymentSubBilling": "구독료는 <strong><%= months %>개월</strong>마다 <strong>$<%= amount %></strong> 청구됩니다.",
     "success": "Success!",
     "classGear": "직업 장비",
@@ -129,5 +129,5 @@
     "limitedAvailabilityDays": "구매 가능 기간이 <%= days %>일<%= hours %><%= hours %>시간<%= minutes %>분 남았습니다",
     "paymentAutoRenew": "이 구독은 취소하지 않는 한 자동 갱신됩니다. 이 구독을 취소해야 하는 경우 설정에서 취소할 수 있습니다.",
     "paymentCanceledDisputes": "취소 승인 메일을 보내드렸습니다. 만약 해당 메일을 찾을 수 없는 경우, 향후 청구에 대한 분쟁을 방지하기 위해 저희에게 연락을 주시기 바랍니다.",
-    "paymentYouSentSubscriptionG1G1": "<strong><%- name %></strong><br>에게 <%= months %> 개월의 Habitica 구독 플랜을 보냈으며, 1+1 프로모션에 따라 이 계정에도 동일한 구독 플랜이 적용되었습니다!"
+    "paymentYouSentSubscriptionG1G1": "<strong><%= name %></strong><br>에게 <%= months %> 개월의 Habitica 구독 플랜을 보냈으며, 1+1 프로모션에 따라 이 계정에도 동일한 구독 플랜이 적용되었습니다!"
 }

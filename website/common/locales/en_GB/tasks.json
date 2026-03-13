@@ -137,5 +137,9 @@
     "taskAliasPopover": "This task alias can be used when integrating with 3rd party integrations. Only dashes, underscores, and alphanumeric characters are supported. The task alias must be unique among all your tasks.",
     "taskAliasPlaceholder": "your-task-alias-here",
     "scoreUp": "Score up",
-    "scoreDown": "Score down"
+    "scoreDown": "Score down",
+    "deleteType": "Delete <%= type %>",
+    "deleteTask": "Delete Task",
+    "deleteXTasks": "Delete <%= count %> Tasks",
+    "sureDeleteType": "Are you sure you want to delete this task?"
 }

@@ -109,7 +109,7 @@
     "cannotMakeChallenge": "Vous ne pouvez pas créer de Défis publics car votre compte n'a pour le moment pas les accès aux discussions. Merci de contacter admin@habitica.com pour plus d'informations.",
     "messageChallengeFlagOfficial": "Les Défis Officiels ne peuvent pas être signalés.",
     "deleteChallengeRefundDescription": "Si vous supprimez ce Défi, les Gemmes investies vous seront restituées et les Tâches du Défis ne disparaîtront pas des Tâches des participant·e·s.",
-    "challengeCompletedDescription": "<%- user %> a remporté le Défi ! Que souhaitez-vous faire des tâches restantes ?",
+    "challengeCompletedDescription": "<%= user %> a remporté le Défi ! Que souhaitez-vous faire des tâches restantes ?",
     "brokenTaskDescription": "Cette tâche faisait partie d'un défi mais en a été supprimé. Que souhaitez-vous faire ?",
     "brokenChallengeDescription": "Cette tâche faisait partie d'un défi mais celui-ci (ou le groupe) a été supprimé. Que souhaitez-vous faire des tâches restantes ?",
     "brokenTask": "Lien Inexistant vers Défi"

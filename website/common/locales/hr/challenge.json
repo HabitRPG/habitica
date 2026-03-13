@@ -5,7 +5,7 @@
     "keepIt": "Zadrži",
     "removeIt": "Ukloni",
     "brokenChallenge": "Neispravna poveznica Izazova: ovaj je zadatak bio dio izazova, ali je izazov (ili grupa) izbrisan/a. Što učiniti s tim osamljenim zadacima?",
-    "challengeCompleted": "Ovaj je izazov završen, a pobjednik je bio <span class=\"badge\"><%- user %></span>! Što učiniti s tim osamljenim zadacima?",
+    "challengeCompleted": "Ovaj je izazov završen, a pobjednik je bio <span class=\"badge\"><%= user %></span>! Što učiniti s tim osamljenim zadacima?",
     "unsubChallenge": "Neispravna poveznica Izazova: ovaj je zadatak bio dio izazova, ali ste se odjavili s izazova. Što učiniti s tim osamljenim zadacima?",
     "challenges": "Izazovi",
     "endDate": "Završava",

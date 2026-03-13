@@ -110,7 +110,7 @@
     "abuseFlagModalBodyChallenge": "Powinieneś zgłaszać wyłącznie Wyzwanie, które narusza <%= firstLinkStart %>Regulamin Społeczności<%= linkEnd %> i/lub <%= secondLinkStart %>Warunki korzystania z Usług<%= linkEnd %>. Złożenie mylnego zgłoszenia narusza Regulamin Społeczności Habitica.",
     "deleteChallengeRefundDescription": "Jeżeli usuniesz to Wyzwanie, Klejnoty z nagrody zostaną zwrócone, a zadania przypisane do Wyzwania pozostaną na tablicach zadań uczestników.",
     "brokenChallengeDescription": "To zadanie było częścią wyzwania, ale wyzwanie(lub grupa) zostało usunięte. Co chcesz zrobić z porzuconym zadaniem?",
-    "challengeCompletedDescription": "Zycięzcą został <%- user %>! Co chcesz zrobić z porzuconymi zadaniami?",
+    "challengeCompletedDescription": "Zycięzcą został <%= user %>! Co chcesz zrobić z porzuconymi zadaniami?",
     "brokenTaskDescription": "To zadanie było częścią wyzwania, ale zostało z niego usunięte. Co chcesz zrobić?",
     "brokenTask": "Nieprawidlowy link do wyzwania"
 }

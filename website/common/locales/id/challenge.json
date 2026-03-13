@@ -109,7 +109,7 @@
     "whyReportingChallenge": "Mengapa kamu melapor Tantangan ini?",
     "cannotClose": "Tantangan ini tidak dapat ditutup karena satu atau lebih pemain telah melaporkannya sebagai tidak pantas. Anggota staf akan segera menghubungimu dengan instruksi lebih lanjut. Jika lebih dari 48 jam telah berlalu dan kamu belum menerima kabar dari mereka, silakan kirim email ke admin@habitica.com untuk mendapatkan bantuan.",
     "resetFlags": "Atur ulang Tanda",
-    "challengeCompletedDescription": "Pemenangnya <%- user %>! Apa yang harus dilakukan dengan tugas yang tidak lagi terhubung?",
+    "challengeCompletedDescription": "Pemenangnya <%= user %>! Apa yang harus dilakukan dengan tugas yang tidak lagi terhubung?",
     "brokenTaskDescription": "Tugas ini bagian dari sebuah Tantangan, tetapi telah dihapus. Apa yang ingin kamu lakukan?",
     "brokenChallengeDescription": "Tugas ini bagian dari sebuah tantangan, tetapi tantangan (atau grup) telah dihapus. Apa yang harus dilakukan dengan tugas yang tidak lagi terhubung?",
     "brokenTask": "Tautan Tantangan Rusak"

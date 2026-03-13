@@ -48,11 +48,19 @@
           />
 
           <input
+            :ref="'checklistItem-' + $index"
             v-model="item.text"
             class="inline-edit-input checklist-item form-control"
             type="text"
             :disabled="disabled || disableEdit"
             :class="summaryClass(item)"
+            @focus="setActiveItem($index)"
+            @keydown="autoCompleteMixinUpdateCarretPosition"
+            @keydown.tab="autoCompleteMixinHandleTab($event)"
+            @keydown.up="autoCompleteMixinSelectPreviousAutocomplete($event)"
+            @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
+            @keypress.enter="autoCompleteMixinSelectAutocomplete($event)"
+            @keydown.esc="autoCompleteMixinHandleEscape($event)"
           >
           <span
             v-if="!disabled && !disableEdit"
@@ -81,15 +89,30 @@
         </span>
 
         <input
+          ref="newChecklistInput"
           v-model="newChecklistItem"
           class="inline-edit-input checklist-item form-control"
           type="text"
           :placeholder="$t('newChecklistItem')"
-          @keypress.enter="setHasPossibilityOfIMEConversion(false)"
+          @focus="setActiveItem(-1)"
+          @keydown="autoCompleteMixinUpdateCarretPosition"
+          @keydown.tab="autoCompleteMixinHandleTab($event)"
+          @keydown.up="autoCompleteMixinSelectPreviousAutocomplete($event)"
+          @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
+          @keypress.enter="newChecklistEnterHandler($event)"
           @keyup.enter="addChecklistItem($event, true)"
+          @keydown.esc="autoCompleteMixinHandleEscape($event)"
           @blur="addChecklistItem($event, false)"
         >
       </div>
+      <emoji-auto-complete
+        ref="emojiAutocomplete"
+        :text="activeFieldText"
+        :textbox="textbox"
+        :coords="mixinData.autoComplete.coords"
+        :caret-position="mixinData.autoComplete.caretPosition"
+        @select="selectedAutocomplete"
+      />
     </b-collapse>
   </div>
 </template>
@@ -105,6 +128,8 @@ import chevronIcon from '@/assets/svg/chevron.svg?raw';
 import gripIcon from '@/assets/svg/grip.svg?raw';
 import checkbox from '@/components/ui/checkbox';
 import lockableLabel from './lockableLabel';
+import emojiAutoComplete from '@/components/chat/emojiAutoComplete';
+import { autoCompleteHelperMixin } from '@/mixins/autoCompleteHelper';
 
 export default {
   name: 'Checklist',
@@ -112,7 +137,9 @@ export default {
     checkbox,
     draggable,
     lockableLabel,
+    emojiAutoComplete,
   },
+  mixins: [autoCompleteHelperMixin],
   props: {
     disabled: {
       type: Boolean,
@@ -133,6 +160,8 @@ export default {
       showChecklist: true,
       hasPossibilityOfIMEConversion: true,
       newChecklistItem: null,
+      textbox: null,
+      activeItemIndex: -1,
       icons: Object.freeze({
         positive: positiveIcon,
         destroy: deleteIcon,
@@ -140,6 +169,15 @@ export default {
         grip: gripIcon,
       }),
     };
+  },
+  computed: {
+    activeFieldText () {
+      if (this.activeItemIndex === -1) {
+        return this.newChecklistItem || '';
+      }
+      const item = this.checklist[this.activeItemIndex];
+      return item ? item.text || '' : '';
+    },
   },
   methods: {
     summaryClass (item) {
@@ -179,6 +217,40 @@ export default {
       this.checklist.splice(i, 1);
       this.updateChecklist();
     },
+    setActiveItem (index) {
+      this.activeItemIndex = index;
+      if (index === -1) {
+        this.textbox = this.$refs.newChecklistInput;
+      } else {
+        const refArr = this.$refs[`checklistItem-${index}`];
+        this.textbox = refArr ? refArr[0] || refArr : null;
+      }
+    },
+    newChecklistEnterHandler (e) {
+      const ac = this._getActiveAutocomplete();
+      if (ac && ac.selected !== null) {
+        e.preventDefault();
+        ac.makeSelection();
+      } else if (ac) {
+        ac.cancel();
+        this.setHasPossibilityOfIMEConversion(false);
+      } else {
+        this.setHasPossibilityOfIMEConversion(false);
+      }
+    },
+    selectedAutocomplete (newText, newCaret) {
+      if (this.activeItemIndex === -1) {
+        this.newChecklistItem = newText;
+      } else {
+        this.checklist[this.activeItemIndex].text = newText;
+      }
+      this.$nextTick(() => {
+        if (this.textbox) {
+          this.textbox.setSelectionRange(newCaret, newCaret);
+          this.textbox.focus();
+        }
+      });
+    },
   },
 };
 </script>
@@ -187,6 +259,7 @@ export default {
   @import '@/assets/scss/colors.scss';
 
   .checklist-component {
+    position: relative;
 
     .chevron-flip {
       transform: translateY(-5px) rotate(180deg);

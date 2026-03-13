@@ -156,7 +156,16 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'bannedWordsAllowed', 'challengeCount', 'tasksOrder', 'purchased', 'managers'],
   private: ['purchased.plan'],
   toJSONTransform (plainObj, originalDoc) {
-    if (plainObj.purchased) plainObj.purchased.active = originalDoc.hasActiveGroupPlan();
+    if (plainObj.purchased) {
+      plainObj.purchased.active = originalDoc.hasActiveGroupPlan();
+      const plan = originalDoc.purchased && originalDoc.purchased.plan;
+      if (plan && plan.customerId) {
+        plainObj.purchased.wasUpgraded = true;
+        if (plan.dateTerminated) {
+          plainObj.purchased.dateTerminated = plan.dateTerminated;
+        }
+      }
+    }
   },
 });
 
@@ -309,13 +318,16 @@ schema.statics.getGroups = async function getGroups (options = {}) {
           privacy: 'private',
           _id: { $in: user.guilds },
           'purchased.plan.customerId': { $exists: true },
-          $or: [
+        };
+        if (!filters.includeExpiredPlans) {
+          query.$or = [
             { 'purchased.plan.dateTerminated': null },
             { 'purchased.plan.dateTerminated': { $exists: false } },
             { 'purchased.plan.dateTerminated': { $gt: new Date() } },
-          ],
-        };
-        _.assign(query, filters);
+          ];
+        }
+        const filtersWithoutCustom = _.omit(filters, ['includeExpiredPlans']);
+        _.assign(query, filtersWithoutCustom);
         const privateGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) privateGuildsQuery.populate('leader', nameFields);
         privateGuildsQuery.sort(sort);

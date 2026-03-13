@@ -190,7 +190,7 @@
     "messages": "Wiadomości",
     "emptyMessagesLine1": "Nie masz żadnych wiadomości",
     "emptyMessagesLine2": "Wyślij wiadomość, aby zacząć rozmowę z członkami Twojej Drużyny lub innymi graczami Habitica",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> wysłał ci wiadomość",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> wysłał ci wiadomość",
     "letsgo": "Jazda!",
     "selected": "Wybrane",
     "howManyToBuy": "Ile chcesz zakupić?",

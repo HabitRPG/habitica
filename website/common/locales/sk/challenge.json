@@ -5,7 +5,7 @@
     "keepIt": "Ponechať",
     "removeIt": "Odstrániť",
     "brokenChallenge": "Nefunkčný odkaz k výzve: táto úloha bola súčasťou výzvy, ale výzva (alebo skupina) bola odstránená. Čo chceš urobiť s osirelými úlohami?",
-    "challengeCompleted": "Táto výzva je ukončená a víťazom sa stal <span class=\"badge\"><%- user %></span>! Čo chceš urobiť s osirelými úlohami?",
+    "challengeCompleted": "Táto výzva je ukončená a víťazom sa stal <span class=\"badge\"><%= user %></span>! Čo chceš urobiť s osirelými úlohami?",
     "unsubChallenge": "Nefunkčný odkaz k výzve: táto úloha bola súčasťou výzvy, z ktorej si sa odhlásil. Čo chceš urobiť s osirelými úlohami?",
     "challenges": "Výzvy",
     "endDate": "Končí",

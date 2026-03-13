@@ -82,8 +82,8 @@
     "paymentMethods": "Paga utilizzando",
     "paymentSuccessful": "Il tuo pagamento ha avuto successo!",
     "paymentYouReceived": "Hai ricevuto:",
-    "paymentYouSentGems": "Hai inviato a <strong><%- name %></strong>:",
-    "paymentYouSentSubscription": "Hai inviato a <strong><%- name %></strong> uno o più abbonamenti ad Habitica di <%= months %> mesi.",
+    "paymentYouSentGems": "Hai inviato a <strong><%= name %></strong>:",
+    "paymentYouSentSubscription": "Hai inviato a <strong><%= name %></strong> uno o più abbonamenti ad Habitica di <%= months %> mesi.",
     "paymentSubBilling": "Pagherai per il tuo abbonamento <strong>$<%= amount %></strong> ogni <strong><%= months %> mesi</strong>.",
     "success": "Successo!",
     "classGear": "Equipaggiamento per Classi",
@@ -128,6 +128,6 @@
     "groupsPaymentSubBilling": "La tua prossima data di fatturazione è <strong><%= renewalDate %></strong>.",
     "customizationsShopText": "Vuoi cambiare il tuo stile? Sei nel posto giusto! Abbiamo in magazzino i look più freschi adatti alla stagione.",
     "notAvailable": "Questo Oggetto non è disponibile.",
-    "paymentYouSentSubscriptionG1G1": "Hai inviato a <strong><%- name %></strong><br> un abbonamento Habitica di <%= months %> mese(i) e lo stesso abbonamento è stato applicato al tuo account grazie alla nostra promozione \"Regala uno, ricevi uno\"!",
+    "paymentYouSentSubscriptionG1G1": "Hai inviato a <strong><%= name %></strong><br> un abbonamento Habitica di <%= months %> mese(i) e lo stesso abbonamento è stato applicato al tuo account grazie alla nostra promozione \"Regala uno, ricevi uno\"!",
     "sellItems": "Vendi Oggetti"
 }

@@ -82,8 +82,8 @@
     "paymentMethods": "Kup przez",
     "paymentSuccessful": "Twoja płatność została przyjęta!",
     "paymentYouReceived": "Otrzymano:",
-    "paymentYouSentGems": "Wysłano <strong><%- name %></strong>:",
-    "paymentYouSentSubscription": "Wysłano <strong><%- name %></strong> <%= months %>-miesięcy subskrypcji Habitica.",
+    "paymentYouSentGems": "Wysłano <strong><%= name %></strong>:",
+    "paymentYouSentSubscription": "Wysłano <strong><%= name %></strong> <%= months %>-miesięcy subskrypcji Habitica.",
     "paymentSubBilling": "Twoja subskrypcja będzie kosztować <strong>$<%= amount %></strong> co <strong><%= months %> miesiące</strong>.",
     "success": "Sukces!",
     "classGear": "Wyposażenie klasowe",
@@ -129,5 +129,5 @@
     "groupsPaymentAutoRenew": "Ta subskrybcja będzie odnawiana automatycznie. Aby z niej zrezygnować, przejdź do zakładki \"Rozliczenia Grupowe\".",
     "notAvailable": "Ten przedmiot jest niedostępny.",
     "customizationsShopText": "Chcesz zmienić swój styl? Dobrze trafiłeś! Oferujemy najświeższe stylizacje na każdą porę roku.",
-    "paymentYouSentSubscriptionG1G1": "Wysłałeś <strong><%- name %></strong><br> subskrypcję Habitica na <%= months %> miesiąc/miesięcy. Otrzymujesz taką samą subskrypcję dzięki promocji Gift One Get One!"
+    "paymentYouSentSubscriptionG1G1": "Wysłałeś <strong><%= name %></strong><br> subskrypcję Habitica na <%= months %> miesiąc/miesięcy. Otrzymujesz taką samą subskrypcję dzięki promocji Gift One Get One!"
 }

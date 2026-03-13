@@ -190,7 +190,7 @@
     "messages": "Nachrichten",
     "emptyMessagesLine1": "Du hast im Moment keine Nachrichten",
     "emptyMessagesLine2": "Sende eine Nachricht, um eine Konversation mit Mitgliedern deiner Gruppe oder anderen Habitica Spielern zu beginnen",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> hat Dir eine Nachricht gesendet",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> hat Dir eine Nachricht gesendet",
     "letsgo": "Auf geht's!",
     "selected": "Ausgewählt",
     "howManyToBuy": "Wie viele möchtest Du kaufen?",
@@ -242,5 +242,6 @@
     "targetUserNotExist": "Zielbenutzer: '<%= userName %>' existiert nicht.",
     "newMessage": "Neue Nachricht",
     "rememberToBeKind": "Bitte sei freundlich, respektvoll, und folge den <a href='/static/community-guidelines' target='_blank'>Community-Richtlinien</a>.",
-    "gem": "Edelstein"
+    "gem": "Edelstein",
+    "confirmPurchase": "Kauf bestätigen"
 }

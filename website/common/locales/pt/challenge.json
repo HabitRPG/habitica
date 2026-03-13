@@ -108,7 +108,7 @@
     "cannotClone": "Este Desafio não pode ser clonado porque um ou mais jogadores o reportaram como inapropriado. Um moderador irá entrar em contacto consigo em breve para lhe dar instruções. Se já passaram 48 horas e ainda não obteve resposta, por favor envie um e-mail para admin@habitica.com para pedir suporte.",
     "cannotMakeChallenge": "Você não pode criar Desafios públicos, pois a sua conta atualmente não tem privilégios de bate-papo. Por favor, contacte admin@habitica.com para mais informações.",
     "brokenTaskDescription": "Esta tarefa fazia parte de um Desafio, mas foi removida do mesmo. O que é que gostarias de fazer?",
-    "challengeCompletedDescription": "O vencedor foi <%- user %>! O que quer fazer com as restantes tarefas?",
+    "challengeCompletedDescription": "O vencedor foi <%= user %>! O que quer fazer com as restantes tarefas?",
     "brokenChallengeDescription": "Esta tarefa fazia parte de um Desafio, mas foi removida do mesmo. O que é que gostarias de fazer?",
     "resetFlags": "Redefinir Configurações",
     "deleteChallengeRefundDescription": "Se apagar este Desafio, o Prémio de Jóias será refundado e as tarefas do Desafio continuarão no quadro de tarefas dos participantes",

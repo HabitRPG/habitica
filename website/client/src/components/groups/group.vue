@@ -25,53 +25,61 @@
         <div class="col-12 col-md-6">
           <div class="row icon-row">
             <div
-              class="item-with-icon"
+              class="item-with-icon p-2"
               tabindex="0"
               role="button"
               @keyup.enter="showMemberModal()"
               @click="showMemberModal()"
             >
-              <div
-                v-if="group.memberCount > 1000"
-                class="svg-icon shield"
-                v-html="icons.goldGuildBadgeIcon"
-              ></div>
-              <div
-                v-if="group.memberCount > 100 && group.memberCount < 999"
-                class="svg-icon shield"
-                v-html="icons.silverGuildBadgeIcon"
-              ></div>
-              <div
-                v-if="group.memberCount < 100"
-                class="svg-icon shield"
-                v-html="icons.bronzeGuildBadgeIcon"
-              ></div>
-              <span class="number">{{ group.memberCount | abbrNum }}</span>
-              <div
-                v-once
-                class="member-list label"
-              >
-                {{ $t('memberList') }}
+              <div class="box-content">
+                <div class="icon-number-row">
+                  <div
+                    v-if="group.memberCount > 1000"
+                    class="svg-icon shield"
+                    v-html="icons.goldGuildBadgeIcon"
+                  ></div>
+                  <div
+                    v-if="group.memberCount > 100 && group.memberCount < 999"
+                    class="svg-icon shield"
+                    v-html="icons.silverGuildBadgeIcon"
+                  ></div>
+                  <div
+                    v-if="group.memberCount < 100"
+                    class="svg-icon shield"
+                    v-html="icons.bronzeGuildBadgeIcon"
+                  ></div>
+                  <span class="number">{{ group.memberCount | abbrNum }}</span>
+                </div>
+                <div
+                  v-once
+                  class="details"
+                >
+                  {{ $t('memberList') }}
+                </div>
               </div>
             </div>
             <div v-if="!isParty">
               <div
-                class="item-with-icon"
+                class="item-with-icon p-2"
                 tabindex="0"
                 role="button"
                 @keyup.enter="showGroupGems()"
                 @click="showGroupGems()"
               >
-                <div
-                  class="svg-icon gem"
-                  v-html="icons.gem"
-                ></div>
-                <span class="number">{{ group.balance * 4 }}</span>
-                <div
-                  v-once
-                  class="label"
-                >
-                  {{ $t('guildBank') }}
+                <div class="box-content">
+                  <div class="icon-number-row">
+                    <div
+                      class="svg-icon gem"
+                      v-html="icons.gem"
+                    ></div>
+                    <span class="number">{{ group.balance * 4 }}</span>
+                  </div>
+                  <div
+                    v-once
+                    class="details"
+                  >
+                    {{ $t('guildBank') }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -128,35 +136,57 @@
   }
 
   .item-with-icon {
+    display: inline-block;
     border-radius: 2px;
-    background-color: #ffffff;
+    background-color: $white;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-    padding: 1em;
-    text-align: center;
-    min-width: 120px;
+    margin-left: 1em;
+    width: 120px;
     height: 76px;
-    margin-right: 1rem;
+    text-align: center;
+    font-size: 20px;
+    vertical-align: bottom;
+    overflow: hidden;
+    position: relative;
 
-    &:last-of-type {
-      margin-left: 0.5rem;
+    .box-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
     }
 
-    .svg-icon.shield, .svg-icon.gem {
-      width: 28px;
-      height: auto;
-      margin: 0 auto;
+    .icon-number-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.1em;
+
+      .number {
+        font-size: 18px;
+        font-weight: normal;
+        margin-left: 0.2em;
+      }
+    }
+
+    .svg-icon {
+      width: 24px;
+      height: 24px;
       display: inline-block;
       vertical-align: bottom;
-      margin-right: 0.5em;
     }
 
-    .number {
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    .label {
-      margin-top: .5em;
+    .details {
+      font-size: 11px;
+      color: $gray-200;
+      width: 100%;
+      padding: 0 4px;
+      line-height: 1.1;
+      word-break: break-word;
+      max-height: 2.2em;
+      overflow: visible;
     }
   }
 
@@ -215,11 +245,6 @@
   .icon-row {
     margin-top: 1em;
     justify-content: flex-end;
-
-    .number {
-      font-size: 22px;
-      font-weight: bold;
-    }
   }
 
   .chat-row {
