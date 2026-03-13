@@ -56,7 +56,7 @@
         v-if="addNew || availableToSelect.length > 0"
         :class="{
           'item-group': true,
-          'add-new': availableToSelect.length === 0 && search !== '',
+          'add-new': search !== '' && !hasExactMatch,
           'scroll': availableToSelect.length > 5
         }"
       >
@@ -86,7 +86,7 @@
         </b-dropdown-item-button>
 
         <div
-          v-if="addNew"
+          v-if="addNew && search !== '' && !hasExactMatch"
           class="hint"
         >
           {{ $t('pressEnterToAddTag', { tagName: search }) }}
@@ -171,7 +171,8 @@ $itemHeight: 2rem;
     max-height: #{5*$itemHeight};
 
     &.add-new {
-      height: 30px;
+      min-height: 30px;
+      height: auto;
 
       .hint {
         display: block;
@@ -245,6 +246,7 @@ export default {
       selected: this.selectedItems,
       search: '',
       textbox: null,
+      itemsAdded: [],
     };
   },
   computed: {
@@ -271,6 +273,16 @@ export default {
       const filteredItems = availableItems.filter(i => i.name.toLowerCase().includes(searchString));
 
       return filteredItems;
+    },
+    hasExactMatch () {
+      const searchTerm = this.search.trim().toLowerCase();
+      if (!searchTerm) return false;
+      if (this.itemsAdded.indexOf(searchTerm) !== -1) return true;
+      if (this.availableToSelect.length === 0) return false;
+      if (this.availableToSelect[0].name.toLowerCase() === searchTerm) {
+        return true;
+      }
+      return false;
     },
   },
   watch: {
@@ -310,6 +322,7 @@ export default {
       this.closeSelectPopup();
     },
     selectItem (item) {
+      if (!item) return;
       this.selectedItems.push(item.id);
       this.$emit('toggle', item.id);
       this.preventHide = true;
@@ -371,9 +384,16 @@ export default {
     handleSubmit () {
       if (!this.addNew) return;
       const { search } = this;
-      this.$emit('addNew', search);
-
-      this.search = '';
+      // If there is a existing tag
+      if (this.hasExactMatch) {
+        this.selectItem(this.availableToSelect[0]);
+        this.search = '';
+      } else {
+        // Creating a new tag as there is no existing tag present
+        this.$emit('addNew', search);
+        this.itemsAdded.push(search.toLowerCase());
+        this.search = '';
+      }
     },
   },
 };
