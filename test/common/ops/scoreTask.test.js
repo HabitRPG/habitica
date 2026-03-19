@@ -13,7 +13,6 @@ import {
 } from '../../../website/common/script/libs/errors';
 import crit from '../../../website/common/script/fns/crit';
 import shared from '../../../website/common/script';
-import cloneDeep from 'lodash/cloneDeep';
 
 const EPSILON = 0.0001; // negligible distance between datapoints
 
@@ -54,45 +53,6 @@ describe('shared.ops.scoreTask', () => {
 
   beforeEach(() => {
     ref = beforeAfter();
-  });
-
-  it.only('bennies from upscoring a variety of task values', () => {
-    sandbox.stub(crit, 'crit').returns(1.5);
-    const taskWorst = generateTodo({ userId: ref.afterUser._id, text: 'worst', value: -21 });
-    const taskWorse = generateTodo({ userId: ref.afterUser._id, text: 'worse', value: -11 });
-    const taskBad = generateTodo({ userId: ref.afterUser._id, text: 'bad', value: -2 });
-    const taskNeutral = generateTodo({ userId: ref.afterUser._id, text: 'neutral', value: 0 });
-    const taskGood = generateTodo({ userId: ref.afterUser._id, text: 'good', value: 4 });
-    const taskBetter = generateTodo({ userId: ref.afterUser._id, text: 'better', value: 9 });
-    const taskBest = generateTodo({ userId: ref.afterUser._id, text: 'best', value: 11 });
-    [taskWorst, taskWorse, taskBad, taskNeutral, taskGood, taskBetter, taskBest].forEach(task => {
-      ref.afterUser.stats.exp = 0;
-      ref.afterUser.stats.gp = 0;
-      const valueDelta = scoreTask({ user: ref.afterUser, task: task });
-      console.log(
-        `${task.text}: user.stats.exp +${ref.afterUser.stats.exp},
-        user.stats.gp +${ref.afterUser.stats.gp},
-        task.value +${valueDelta}`
-      );
-    });
-    crit.crit.restore();
-  });
-
-  it.only('hp loss from downscoring a variety of task values', () => {
-    sandbox.stub(crit, 'crit').returns(1.5);
-    const taskWorst = generateHabit({ userId: ref.afterUser._id, text: 'worst', value: -21 });
-    const taskWorse = generateHabit({ userId: ref.afterUser._id, text: 'worse', value: -11 });
-    const taskBad = generateHabit({ userId: ref.afterUser._id, text: 'bad', value: -2 });
-    const taskNeutral = generateHabit({ userId: ref.afterUser._id, text: 'neutral', value: 0 });
-    const taskGood = generateHabit({ userId: ref.afterUser._id, text: 'good', value: 4 });
-    const taskBetter = generateHabit({ userId: ref.afterUser._id, text: 'better', value: 9 });
-    const taskBest = generateHabit({ userId: ref.afterUser._id, text: 'best', value: 11 });
-    [taskWorst, taskWorse, taskBad, taskNeutral, taskGood, taskBetter, taskBest].forEach(task => {
-      ref.afterUser.stats.hp = 50;
-      scoreTask({ user: ref.afterUser, task, direction: 'down' });
-      console.log(`${task.text}: user.stats.hp ${ref.afterUser.stats.hp - 50}`);
-    });
-    crit.crit.restore();
   });
 
   it('throws an error when scoring a reward if user does not have enough gold', done => {
