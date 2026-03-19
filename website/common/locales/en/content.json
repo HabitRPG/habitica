@@ -356,6 +356,7 @@
   "hatchingPotionBalloon": "Balloon",
   "hatchingPotionCryptid": "Cryptid",
   "hatchingPotionOpal": "Opal",
+  "hatchingPotionAlien": "Alien",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText %> Pet.",
   "premiumPotionUnlimitedNotes": "Not usable on Quest Pet eggs.",

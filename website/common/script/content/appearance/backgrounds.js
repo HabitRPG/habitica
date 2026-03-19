@@ -696,6 +696,9 @@ const backgrounds = {
     birthday_bash: {
       price: 0,
     },
+    on_a_strange_planet: {
+      price: 0,
+    },
   },
   timeTravelBackgrounds: {
     airship: {

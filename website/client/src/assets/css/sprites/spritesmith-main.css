@@ -1801,6 +1801,11 @@
   width: 141px;
   height: 147px;
 }
+.background_on_a_strange_planet {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_on_a_strange_planet.png');
+  width: 141px;
+  height: 147px;
+}
 .background_on_tree_branch {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_on_tree_branch.png');
   width: 141px;
@@ -31485,8 +31490,8 @@
   width: 114px;
   height: 90px;
 }
-.slim_armor_armoire_handstandOutfit  {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_handstandOutfit .png');
+.slim_armor_armoire_handstandOutfit {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/slim_armor_armoire_handstandOutfit.png');
   width: 114px;
   height: 90px;
 }
@@ -53223,6 +53228,11 @@
   width: 81px;
   height: 99px;
 }
+.Pet-BearCub-Alien {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-BearCub-Alien.png');
+  width: 81px;
+  height: 99px;
+}
 .Pet-BearCub-Amber {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-BearCub-Amber.png');
   width: 81px;
@@ -53710,6 +53720,11 @@
 }
 .Pet-Butterfly-Zombie {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Butterfly-Zombie.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Cactus-Alien {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Cactus-Alien.png');
   width: 81px;
   height: 99px;
 }
@@ -54503,6 +54518,11 @@
   width: 81px;
   height: 99px;
 }
+.Pet-Dragon-Alien {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dragon-Alien.png');
+  width: 81px;
+  height: 99px;
+}
 .Pet-Dragon-Amber {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Dragon-Amber.png');
   width: 81px;
@@ -54998,6 +55018,11 @@
   width: 81px;
   height: 99px;
 }
+.Pet-FlyingPig-Alien {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-FlyingPig-Alien.png');
+  width: 81px;
+  height: 99px;
+}
 .Pet-FlyingPig-Amber {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-FlyingPig-Amber.png');
   width: 81px;
@@ -55330,6 +55355,11 @@
 }
 .Pet-FlyingPig-Zombie {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-FlyingPig-Zombie.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Fox-Alien {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Fox-Alien.png');
   width: 81px;
   height: 99px;
 }
@@ -56113,6 +56143,11 @@
   width: 81px;
   height: 99px;
 }
+.Pet-LionCub-Alien {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-LionCub-Alien.png');
+  width: 81px;
+  height: 99px;
+}
 .Pet-LionCub-Amber {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-LionCub-Amber.png');
   width: 81px;
@@ -56715,6 +56750,11 @@
 }
 .Pet-Owl-Zombie {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Owl-Zombie.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-PandaCub-Alien {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-PandaCub-Alien.png');
   width: 81px;
   height: 99px;
 }
@@ -58113,6 +58153,11 @@
   width: 81px;
   height: 99px;
 }
+.Pet-TigerCub-Alien {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-TigerCub-Alien.png');
+  width: 81px;
+  height: 99px;
+}
 .Pet-TigerCub-Amber {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-TigerCub-Amber.png');
   width: 81px;
@@ -58755,6 +58800,11 @@
 }
 .Pet-Whale-Zombie {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Whale-Zombie.png');
+  width: 81px;
+  height: 99px;
+}
+.Pet-Wolf-Alien {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet-Wolf-Alien.png');
   width: 81px;
   height: 99px;
 }

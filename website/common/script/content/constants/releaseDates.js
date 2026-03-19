@@ -53,4 +53,5 @@ export const HATCHING_POTIONS_RELEASE_DATES = {
   Cryptid: { year: 2025, month: 4, day: 3 },
   Balloon: { year: 2025, month: 4, day: 21 },
   Opal: { year: 2025, month: 5, day: 14 },
+  Alien: { year: 2026, month: 4, day: 3 },
 };

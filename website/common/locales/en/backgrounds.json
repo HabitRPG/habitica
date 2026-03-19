@@ -1086,6 +1086,8 @@
   "eventBackgrounds": "Event Backgrounds",
   "backgroundBirthdayBashText": "Birthday Bash",
   "backgroundBirthdayBashNotes": "Habitica's having a birthday party, and everyone's invited!",
+  "backgroundOnAStrangePlanetText": "On a Strange Planet",
+  "backgroundOnAStrangePlanetNotes": "Venture where no Habitican has gone before: On a Strange Planet.",
 
   "monthlyBackgrounds": "Monthly Backgrounds"
 }

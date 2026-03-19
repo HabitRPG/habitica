@@ -233,6 +233,45 @@ const QUEST_SEASONAL = {
       unlock: t('questFungiUnlockText'),
     },
   },
+  alien: {
+    text: t('questAlienText'),
+    notes: t('questAlienNotes'),
+    completion: t('questAlienCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    boss: {
+      name: t('questAlienBoss'),
+      hp: 500,
+      str: 2,
+      rage: {
+        title: t('questAlienRageTitle'),
+        description: t('questAlienRageDescription'),
+        value: 50,
+        healing: 0.3,
+        effect: t('questAlienRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Alien',
+          text: t('questAlienDropAlienPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Alien',
+          text: t('questAlienDropAlienPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Alien',
+          text: t('questAlienDropAlienPotion'),
+        },
+      ],
+      gp: 40,
+      exp: 500,
+      unlock: t('questAlienUnlockText'),
+    },
+  },
 };
 
 export default QUEST_SEASONAL;
