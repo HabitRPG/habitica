@@ -149,11 +149,19 @@ export function geti18nCoreBrowserScript (languageCode) {
     availableLanguages,
     language,
     strings: coreTranslations[languageCode],
-    momentLang: momentLangs[languageCode],
   })};
   })()`;
 }
 
 export function geti18nContentBrowserScript (languageCode) {
   return JSON.stringify(contentTranslations[languageCode]);
+}
+
+export function geti18nLocaleBrowserScript (languageCode) {
+  return `(function () {
+    if (!window || !window['habitica-i18n']) return;
+    window['habitica-i18n'].momentLang = ${JSON.stringify(
+    momentLangs[languageCode]
+  )};
+  })()`;
 }

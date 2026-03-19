@@ -370,8 +370,15 @@ export default {
           language: this.user.preferences.language,
         },
       );
+      const momentLocale = await axios.get(
+        'api/v4/i18n/locale',
+        {
+          language: this.user.preferences.language,
+        },
+      );
       const i18nData = window && window['habitica-i18n'];
       i18nData.strings = { ...i18nData.strings, ...contentTranslations.data };
+      i18nData.momentLang = momentLocale;
       this.$loadLocale(i18nData);
     },
     async loadAllTranslations () {

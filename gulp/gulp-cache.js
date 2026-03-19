@@ -77,6 +77,7 @@ gulp.task('cache:i18n', done => {
     safeMkdir(BROWSER_SCRIPT_CACHE_PATH);
     safeMkdir(`${BROWSER_SCRIPT_CACHE_PATH}core/`);
     safeMkdir(`${BROWSER_SCRIPT_CACHE_PATH}content/`);
+    safeMkdir(`${BROWSER_SCRIPT_CACHE_PATH}locales/`);
 
     // create and save the i18n browser script for each language
     langCodes.forEach(languageCode => {
@@ -88,6 +89,11 @@ gulp.task('cache:i18n', done => {
       fs.writeFileSync(
         `${BROWSER_SCRIPT_CACHE_PATH}content/${languageCode}.js`,
         geti18nContentBrowserScript(languageCode),
+        'utf8',
+      );
+      fs.writeFileSync(
+        `${BROWSER_SCRIPT_CACHE_PATH}locales/${languageCode}.js`,
+        geti18nLocaleBrowserScript(languageCode),
         'utf8',
       );
     });

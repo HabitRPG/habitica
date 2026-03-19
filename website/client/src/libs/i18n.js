@@ -14,14 +14,7 @@ function loadLocale (i18nData) {
   if (language && i18nData.momentLang && language.momentLangCode) {
     // Make moment available under `window` so that the locale can be set
     window.moment = moment;
-
-    // Execute the script and set the locale
-    const head = document.getElementsByTagName('head')[0];
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.text = i18nData.momentLang;
-    head.appendChild(script);
-    moment.updateLocale(language.momentLangCode);
+    moment.updateLocale(language.momentLangCode, i18nData.momentLang);
   }
 }
 
