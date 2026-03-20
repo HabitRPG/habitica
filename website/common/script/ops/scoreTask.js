@@ -177,15 +177,19 @@ function _changeTaskValue (user, task, direction, times, cron) {
         const prevProgress = user.party.quest.progress.up;
 
         if (task.type === 'todo' || task.type === 'daily') {
-          user.party.quest.progress.up += Math.ceil(nextDelta * _crit * (1 + statsComputed(user).str / 200));
+          user.party.quest.progress.up += Math.ceil(
+            nextDelta * _crit * (1 + statsComputed(user).str / 200)
+          );
         } else if (task.type === 'habit') {
-          user.party.quest.progress.up += Math.ceil(nextDelta * _crit * (0.5 + statsComputed(user).str / 400));
+          user.party.quest.progress.up += Math.ceil(
+            nextDelta * _crit * (0.5 + statsComputed(user).str / 400)
+          );
         }
 
         if (!user._tmp.quest) user._tmp.quest = {};
         user._tmp.quest.progressDelta = Math.ceil(user.party.quest.progress.up - prevProgress);
       }
-      task.value = task.value + nextDelta;
+      task.value += nextDelta;
     }
 
     addToDelta += nextDelta;
