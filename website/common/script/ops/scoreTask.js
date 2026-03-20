@@ -178,11 +178,11 @@ function _changeTaskValue (user, task, direction, times, cron) {
 
         if (task.type === 'todo' || task.type === 'daily') {
           user.party.quest.progress.up += Math.ceil(
-            nextDelta * _crit * (1 + statsComputed(user).str / 200)
+            nextDelta * _crit * (1 + statsComputed(user).str / 200),
           );
         } else if (task.type === 'habit') {
           user.party.quest.progress.up += Math.ceil(
-            nextDelta * _crit * (0.5 + statsComputed(user).str / 400)
+            nextDelta * _crit * (0.5 + statsComputed(user).str / 400),
           );
         }
 
