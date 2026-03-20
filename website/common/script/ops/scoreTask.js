@@ -147,9 +147,9 @@ function _addPoints (user, task, stats, direction, delta) {
       user._tmp.streakBonus = afterStreak - gpMod;
     }
 
-    stats.gp += Math.ceil(afterStreak);
+    stats.gp += (direction === 'down' ? Math.floor(afterStreak) : Math.ceil(afterStreak));
   } else {
-    stats.gp += Math.ceil(gpMod);
+    stats.gp += (direction === 'down' ? Math.floor(gpMod) : Math.ceil(gpMod));
   }
 }
 
