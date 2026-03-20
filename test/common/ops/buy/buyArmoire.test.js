@@ -50,12 +50,10 @@ describe('shared.ops.buyArmoire', () => {
     user.items.food = {};
 
     sandbox.stub(randomValFns, 'trueRandom');
-    sinon.stub(analytics, 'track');
   });
 
   afterEach(() => {
     randomValFns.trueRandom.restore();
-    analytics.track.restore();
   });
 
   context('failure conditions', () => {
@@ -155,7 +153,6 @@ describe('shared.ops.buyArmoire', () => {
 
       expect(armoireCount).to.eql(_.size(getFullArmoire()) - 2);
       expect(user.stats.gp).to.eql(100);
-      expect(analytics.track).to.be.calledTwice;
     });
   });
 });

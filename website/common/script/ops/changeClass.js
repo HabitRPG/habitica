@@ -34,19 +34,18 @@ async function resetClass (user, req = {}) {
   return balanceRemoved;
 }
 
-export default async function changeClass (user, req = {}, analytics) {
+export default async function changeClass (user, req = {}) {
   const klass = get(req, 'query.class');
-  let balanceRemoved = 0;
   // user.flags.classSelected is set to false after the user paid the 3 gems
   if (user.stats.lvl < 10) {
     throw new NotAuthorized(i18n.t('lvl10ChangeClass', req.language));
   } else if (!klass) {
     // if no class is specified, reset points and set user.flags.classSelected to false.
     // User will have paid 3 gems and will be prompted to select class.
-    balanceRemoved = await resetClass(user, req);
+    await resetClass(user, req);
   } else if (klass === 'warrior' || klass === 'rogue' || klass === 'wizard' || klass === 'healer') {
     if (user.flags.classSelected) {
-      balanceRemoved = await resetClass(user, req);
+      await resetClass(user, req);
     }
 
     user.stats.class = klass;
@@ -67,17 +66,6 @@ export default async function changeClass (user, req = {}, analytics) {
     if (user.markModified) user.markModified('items.gear.owned');
 
     removePinnedItemsByOwnedGear(user);
-
-    if (analytics) {
-      analytics.track('change class', {
-        user: pick(user, ['preferences', 'registeredThrough']),
-        uuid: user._id,
-        class: klass,
-        currency: balanceRemoved === 0 ? 'Free' : 'Gems',
-        category: 'behavior',
-        headers: req.headers,
-      });
-    }
   } else {
     // if invalid class is specified, throw an error.
     throw new BadRequest(i18n.t('invalidClass', req.language));

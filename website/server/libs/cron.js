@@ -1,6 +1,5 @@
 import moment from 'moment';
 import mongoose from 'mongoose';
-import pick from 'lodash/pick';
 import nconf from 'nconf';
 import { model as User } from '../models/user';
 import * as Tasks from '../models/task';
@@ -100,20 +99,6 @@ function processHabits (user, habits, now, daysMissed) {
   });
 }
 
-function trackCronAnalytics (analytics, user, _progress, options) {
-  analytics.track('Cron', {
-    category: 'behavior',
-    uuid: user._id,
-    user: pick(user, ['preferences', 'registeredThrough']),
-    resting: user.preferences.sleep,
-    cronCount: user.flags.cronCount,
-    progressUp: Math.min(_progress.up, 900),
-    progressDown: _progress.down,
-    headers: options.headers,
-    loginIncentives: user.loginIncentives,
-  });
-}
-
 function awardLoginIncentives (user) {
   if (user.loginIncentives > MAX_INCENTIVES) return;
 
@@ -165,7 +150,7 @@ function awardLoginIncentives (user) {
 // Perform various beginning-of-day reset actions.
 export async function cron (options = {}) {
   const {
-    user, tasksByType, analytics, now = new Date(), daysMissed, timezoneUtcOffsetFromUserPrefs,
+    user, tasksByType, now = new Date(), daysMissed, timezoneUtcOffsetFromUserPrefs,
   } = options;
   let _progress = { down: 0, up: 0, collectedItems: 0 };
 
@@ -394,7 +379,6 @@ export async function cron (options = {}) {
 
   // Analytics
   user.flags.cronCount += 1;
-  trackCronAnalytics(analytics, user, _progress, options);
 
   await UserHistory.beginUserHistoryUpdate(user._id, options.headers)
     .withCron(user.flags.cronCount)

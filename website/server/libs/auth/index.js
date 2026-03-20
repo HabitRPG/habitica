@@ -1,5 +1,4 @@
 import moment from 'moment';
-import pick from 'lodash/pick';
 import {
   BadRequest,
   NotAuthorized,
@@ -216,16 +215,6 @@ async function registerLocal (req, res, { isV3 = false }) {
       }
     })
     .catch(err => logger.error(err));
-
-  if (!existingUser) {
-    res.analytics.track('register', {
-      user: pick(savedUser, ['preferences', 'registeredThrough']),
-      category: 'acquisition',
-      type: 'local',
-      uuid: savedUser._id,
-      headers: req.headers,
-    });
-  }
 
   return null;
 }

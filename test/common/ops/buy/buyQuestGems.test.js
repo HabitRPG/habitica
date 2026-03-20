@@ -25,13 +25,11 @@ describe('shared.ops.buyQuestGems', () => {
   });
 
   beforeEach(() => {
-    sinon.stub(analytics, 'track');
     sinon.spy(pinnedGearUtils, 'removeItemByPath');
     clock = sinon.useFakeTimers(new Date('2024-01-16'));
   });
 
   afterEach(() => {
-    analytics.track.restore();
     pinnedGearUtils.removeItemByPath.restore();
     clock.restore();
   });

@@ -36,8 +36,6 @@ describe('payments/index', () => {
 
     sandbox.stub(sender, 'sendTxn');
     sandbox.stub(user, 'sendMessage');
-    sandbox.stub(analytics.mockAnalyticsService, 'trackPurchase');
-    sandbox.stub(analytics.mockAnalyticsService, 'track');
     sandbox.stub(notifications, 'sendNotification');
 
     data = {
@@ -298,28 +296,6 @@ describe('payments/index', () => {
         expect(notifications.sendNotification).to.be.calledOnce;
       });
 
-      it('tracks subscription purchase as gift', async () => {
-        await api.createSubscription(data);
-
-        expect(analytics.mockAnalyticsService.trackPurchase).to.be.calledOnce;
-        expect(analytics.mockAnalyticsService.trackPurchase).to.be.calledWith({
-          uuid: user._id,
-          groupId: undefined,
-          itemPurchased: 'Subscription',
-          sku: 'payment method-subscription',
-          purchaseType: 'subscribe',
-          paymentMethod: data.paymentMethod,
-          quantity: 1,
-          gift: true,
-          purchaseValue: 15,
-          firstPurchase: true,
-          headers: {
-            'x-client': 'habitica-web',
-            'user-agent': '',
-          },
-        });
-      });
-
       context('No Active Promotion', () => {
         beforeEach(() => {
           sinon.stub(worldState, 'getCurrentEventList').returns([]);
@@ -541,28 +517,6 @@ describe('payments/index', () => {
 
         expect(sender.sendTxn).to.be.calledOnce;
         expect(sender.sendTxn).to.be.calledWith(data.user, 'subscription-begins');
-      });
-
-      it('tracks subscription purchase', async () => {
-        await api.createSubscription(data);
-
-        expect(analytics.mockAnalyticsService.trackPurchase).to.be.calledOnce;
-        expect(analytics.mockAnalyticsService.trackPurchase).to.be.calledWith({
-          uuid: user._id,
-          groupId: undefined,
-          itemPurchased: 'Subscription',
-          sku: 'payment method-subscription',
-          purchaseType: 'subscribe',
-          paymentMethod: data.paymentMethod,
-          quantity: 1,
-          gift: false,
-          purchaseValue: 15,
-          firstPurchase: true,
-          headers: {
-            'x-client': 'habitica-web',
-            'user-agent': '',
-          },
-        });
       });
 
       context('Upgrades subscription', () => {

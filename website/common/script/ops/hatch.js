@@ -2,9 +2,7 @@ import findIndex from 'lodash/findIndex';
 import forEach from 'lodash/forEach';
 import get from 'lodash/get';
 import keys from 'lodash/keys';
-import pick from 'lodash/pick';
 import upperFirst from 'lodash/upperFirst';
-import moment from 'moment';
 import i18n from '../i18n';
 import content from '../content/index';
 import {
@@ -15,7 +13,7 @@ import {
 import { errorMessage } from '../libs/errorMessage';
 import { checkOnboardingStatus } from '../libs/onboarding';
 
-export default function hatch (user, req = {}, analytics) {
+export default function hatch (user, req = {}) {
   const egg = get(req, 'params.egg');
   const hatchingPotion = get(req, 'params.hatchingPotion');
 
@@ -57,7 +55,7 @@ export default function hatch (user, req = {}, analytics) {
 
   if (!user.achievements.hatchedPet && user.addAchievement) {
     user.addAchievement('hatchedPet');
-    checkOnboardingStatus(user, req, analytics);
+    checkOnboardingStatus(user, req);
   }
 
   if (content.dropEggs[egg]) {
@@ -149,16 +147,6 @@ export default function hatch (user, req = {}, analytics) {
           }
         }
       }
-    });
-  }
-
-  if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
-    analytics.track('pet hatch', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      uuid: user._id,
-      petKey: pet,
-      category: 'behavior',
-      headers: req.headers,
     });
   }
 

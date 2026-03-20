@@ -1,8 +1,4 @@
 import axios from 'axios';
-import * as Analytics from '@/libs/analytics';
-
-// export async function initQuest (store) {
-// }
 
 export async function sendAction (store, payload) { // eslint-disable-line import/prefer-default-export, max-len
   // @TODO: Maybe move this to server
@@ -18,8 +14,6 @@ export async function sendAction (store, payload) { // eslint-disable-line impor
       partySize: store.state.partyMembers.data.length,
     };
   }
-
-  Analytics.updateUser(partyData);
 
   const response = await axios.post(`/api/v4/groups/${payload.groupId}/${payload.action}`);
 

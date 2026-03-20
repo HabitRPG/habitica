@@ -23,11 +23,9 @@ describe('shared.ops.buySpecialSpell', () => {
   }
   beforeEach(() => {
     user = generateUser();
-    sinon.stub(analytics, 'track');
   });
 
   afterEach(() => {
-    analytics.track.restore();
     if (clock) {
       clock.restore();
     }
@@ -89,7 +87,6 @@ describe('shared.ops.buySpecialSpell', () => {
       expect(message).to.equal(i18n.t('messageBought', {
         itemText: item.text(),
       }));
-      expect(analytics.track).to.be.calledOnce;
     });
 
     it('buys a limited card when it is available', async () => {
@@ -112,7 +109,6 @@ describe('shared.ops.buySpecialSpell', () => {
       expect(message).to.equal(i18n.t('messageBought', {
         itemText: item.text(),
       }));
-      expect(analytics.track).to.be.calledOnce;
     });
 
     it('throws an error if the card is not currently available', async () => {
@@ -151,7 +147,6 @@ describe('shared.ops.buySpecialSpell', () => {
       expect(message).to.equal(i18n.t('messageBought', {
         itemText: item.text(),
       }));
-      expect(analytics.track).to.be.calledOnce;
     });
 
     it('throws an error if the spell is not currently available', async () => {

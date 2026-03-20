@@ -1,4 +1,3 @@
-import pick from 'lodash/pick';
 import {
   NotAuthorized,
 } from '../../libs/errors';
@@ -26,18 +25,6 @@ api.trackEvent = {
     if (req.headers['x-client'] !== 'habitica-web') {
       throw new NotAuthorized('Only habitica.com is allowed to track analytics events.');
     }
-
-    const { user } = res.locals;
-    const eventProperties = req.body;
-
-    res.analytics.track(req.params.eventName, {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      uuid: user._id,
-      headers: req.headers,
-      category: 'behavior',
-      ...eventProperties,
-    });
-
     // not using res.respond
     // because we don't want to send back notifications and other user-related data
     res.status(200).send({});

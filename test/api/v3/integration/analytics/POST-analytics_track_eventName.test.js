@@ -7,7 +7,6 @@ import { mockAnalyticsService as analytics } from '../../../../../website/server
 describe('POST /analytics/track/:eventName', () => {
   it('calls res.analytics', async () => {
     const user = await generateUser();
-    sandbox.spy(analytics, 'track');
 
     const requestWithHeaders = requester(user, { 'x-client': 'habitica-web' });
     await requestWithHeaders.post('/analytics/track/eventName', { data: 'example' }, { 'x-client': 'habitica-web' });

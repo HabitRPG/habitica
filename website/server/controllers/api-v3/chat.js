@@ -23,9 +23,6 @@ import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
 import { apiError } from '../../libs/apiError';
 import highlightMentions from '../../libs/highlightMentions';
-import { getAnalyticsServiceByEnvironment } from '../../libs/analyticsService';
-
-const analytics = getAnalyticsServiceByEnvironment();
 
 const ACCOUNT_MIN_CHAT_AGE = Number(nconf.get('ACCOUNT_MIN_CHAT_AGE'));
 
@@ -187,13 +184,6 @@ api.postChat = {
 
     // Check if account is newer than the minimum age for chat participation
     if (moment().diff(user.auth.timestamps.created, 'minutes') < ACCOUNT_MIN_CHAT_AGE) {
-      analytics.track('chat age error', {
-        user: pick(user, ['preferences', 'registeredThrough']),
-        uuid: user._id,
-        hitType: 'event',
-        category: 'behavior',
-        headers: req.headers,
-      });
       throw new BadRequest(res.t('chatTemporarilyUnavailable'));
     }
 
@@ -238,27 +228,6 @@ api.postChat = {
     }
 
     await Promise.all(toSave);
-
-    const analyticsObject = {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      groupType: group.type,
-      privacy: group.privacy,
-      headers: req.headers,
-    };
-
-    if (mentions) {
-      analyticsObject.mentionsCount = mentions.length;
-    } else {
-      analyticsObject.mentionsCount = 0;
-    }
-    if (group.privacy === 'public') {
-      analyticsObject.groupName = group.name;
-    }
-
-    res.analytics.track('group chat', analyticsObject);
 
     if (chatUpdated) {
       res.respond(200, { chat: chatRes.chat });

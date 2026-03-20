@@ -27,11 +27,9 @@ describe('shared.ops.buyMysterySet', () => {
         },
       },
     });
-    sinon.stub(analytics, 'track');
   });
 
   afterEach(() => {
-    analytics.track.restore();
     if (clock) {
       clock.restore();
     }

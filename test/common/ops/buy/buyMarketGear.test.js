@@ -47,14 +47,12 @@ describe('shared.ops.buyMarketGear', () => {
     sinon.stub(shared, 'randomVal');
     sinon.stub(shared.onboarding, 'checkOnboardingStatus');
     sinon.stub(shared.fns, 'predictableRandom');
-    sinon.stub(analytics, 'track');
   });
 
   afterEach(() => {
     shared.randomVal.restore();
     shared.fns.predictableRandom.restore();
     shared.onboarding.checkOnboardingStatus.restore();
-    analytics.track.restore();
 
     if (clock) {
       clock.restore();
@@ -92,7 +90,6 @@ describe('shared.ops.buyMarketGear', () => {
         eyewear_special_whiteHalfMoon: true,
         eyewear_special_yellowHalfMoon: true,
       });
-      expect(analytics.track).to.be.calledOnce;
     });
 
     it('adds the onboarding achievement to the user and checks the onboarding status', async () => {

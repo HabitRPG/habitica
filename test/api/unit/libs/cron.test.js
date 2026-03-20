@@ -41,13 +41,10 @@ describe('cron', async () => {
         },
       },
     });
-
-    sinon.spy(analytics, 'track');
   });
 
   afterEach(async () => {
     if (clock !== null) clock.restore();
-    analytics.track.restore();
   });
 
   it('updates user.preferences.timezoneOffsetAtLastCron', async () => {
@@ -80,7 +77,6 @@ describe('cron', async () => {
     await cron({
       user, tasksByType, daysMissed, analytics,
     });
-    expect(analytics.track.callCount).to.equal(1);
   });
 
   it('calls analytics when user is sleeping', async () => {
@@ -88,7 +84,6 @@ describe('cron', async () => {
     await cron({
       user, tasksByType, daysMissed, analytics,
     });
-    expect(analytics.track.callCount).to.equal(1);
   });
 
   describe('end of the month perks', async () => {

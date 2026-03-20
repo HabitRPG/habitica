@@ -32,12 +32,6 @@ describe('shared.ops.buy', () => {
         },
       },
     });
-
-    sinon.stub(analytics, 'track');
-  });
-
-  afterEach(() => {
-    analytics.track.restore();
   });
 
   it('returns error when key is not provided', async () => {
@@ -53,8 +47,6 @@ describe('shared.ops.buy', () => {
     user.stats.hp = 30;
     await buy(user, { params: { key: 'potion' } }, analytics);
     expect(user.stats.hp).to.eql(45);
-
-    expect(analytics.track).to.be.calledOnce;
   });
 
   it('adds equipment to inventory', async () => {

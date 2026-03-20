@@ -35,12 +35,6 @@ describe('shared.ops.buyGem', () => {
         },
       },
     });
-
-    sinon.stub(analytics, 'track');
-  });
-
-  afterEach(() => {
-    analytics.track.restore();
   });
 
   context('Gems', () => {
@@ -51,7 +45,6 @@ describe('shared.ops.buyGem', () => {
       expect(user.balance).to.equal(userGemAmount + 0.25);
       expect(user.purchased.plan.gemsBought).to.equal(1);
       expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate);
-      expect(analytics.track).to.be.calledOnce;
     });
 
     it('purchases gems with a different language than the default', async () => {

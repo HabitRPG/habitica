@@ -3,7 +3,6 @@ import cloneDeep from 'lodash/cloneDeep';
 import compact from 'lodash/compact';
 import forEach from 'lodash/forEach';
 import keys from 'lodash/keys';
-import pick from 'lodash/pick';
 import remove from 'lodash/remove';
 import validator from 'validator';
 import {
@@ -77,7 +76,7 @@ async function createTasks (req, res, options = {}) {
       // are the onboarding ones
       if (!user.achievements.createdTask && user.flags.welcomed) {
         user.addAchievement('createdTask');
-        shared.onboarding.checkOnboardingStatus(user, req, res.analytics);
+        shared.onboarding.checkOnboardingStatus(user, req);
       }
     }
 
@@ -462,14 +461,14 @@ async function scoreTask (user, task, direction, req, res) {
       task,
       user: rollbackUser,
       direction,
-    }, req, res.analytics);
+    }, req);
     await rollbackUser.save();
   } else {
-    delta = shared.ops.scoreTask({ task, user, direction }, req, res.analytics);
+    delta = shared.ops.scoreTask({ task, user, direction }, req);
   }
   // Drop system (don't run on the client,
   // as it would only be discarded since ops are sent to the API, not the results)
-  if (direction === 'up' && !firstTask) shared.fns.randomDrop(user, { task, delta }, req, res.analytics);
+  if (direction === 'up' && !firstTask) shared.fns.randomDrop(user, { task, delta }, req);
 
   // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
   // TODO move to common code?
@@ -505,28 +504,6 @@ async function scoreTask (user, task, direction, req, res) {
     delta,
     user,
   });
-
-  if (group) {
-    let role;
-    if (group.leader === user._id) {
-      role = 'leader';
-    } else if (group.managers[user._id]) {
-      role = 'manager';
-    } else {
-      role = 'member';
-    }
-    res.analytics.track('team task scored', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      taskType: task.type,
-      direction,
-      headers: req.headers,
-      groupID: group._id,
-      role,
-    });
-  }
 
   return {
     task,

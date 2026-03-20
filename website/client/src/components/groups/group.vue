@@ -314,7 +314,6 @@ import extend from 'lodash/extend';
 import groupUtilities from '@/mixins/groupsUtilities';
 import styleHelper from '@/mixins/styleHelper';
 import { mapGetters } from '@/libs/store';
-import * as Analytics from '@/libs/analytics';
 import participantListModal from './participantListModal';
 import groupFormModal from './groupFormModal';
 import groupGemsModal from '@/components/groups/groupGemsModal';
@@ -560,7 +559,6 @@ export default {
 
       if (this.isParty) {
         data.type = 'party';
-        Analytics.updateUser({ partySize: null, partyID: null });
         this.$store.state.partyMembers = [];
       }
 

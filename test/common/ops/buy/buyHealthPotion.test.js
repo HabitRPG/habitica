@@ -32,11 +32,6 @@ describe('shared.ops.buyHealthPotion', () => {
       },
       stats: { gp: 200 },
     });
-    sinon.stub(analytics, 'track');
-  });
-
-  afterEach(() => {
-    analytics.track.restore();
   });
 
   context('Potion', () => {
@@ -44,7 +39,6 @@ describe('shared.ops.buyHealthPotion', () => {
       user.stats.hp = 30;
       await buyHealthPotion(user, {}, analytics);
       expect(user.stats.hp).to.eql(45);
-      expect(analytics.track).to.be.calledOnce;
     });
 
     it('does not increase hp above 50', async () => {

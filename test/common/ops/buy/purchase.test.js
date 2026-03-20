@@ -24,13 +24,11 @@ describe('shared.ops.purchase', () => {
   });
 
   beforeEach(() => {
-    sinon.stub(analytics, 'track');
     sinon.spy(pinnedGearUtils, 'removeItemByPath');
     clock = sandbox.useFakeTimers(new Date('2024-01-10'));
   });
 
   afterEach(() => {
-    analytics.track.restore();
     pinnedGearUtils.removeItemByPath.restore();
     clock.restore();
   });
@@ -191,7 +189,6 @@ describe('shared.ops.purchase', () => {
 
       expect(user.items[type][key]).to.equal(1);
       expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
-      expect(analytics.track).to.be.calledOnce;
     });
 
     it('purchases hatchingPotions', async () => {

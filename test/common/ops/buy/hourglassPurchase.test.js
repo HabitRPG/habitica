@@ -23,11 +23,6 @@ describe('common.ops.hourglassPurchase', () => {
 
   beforeEach(() => {
     user = generateUser();
-    sinon.stub(analytics, 'track');
-  });
-
-  afterEach(() => {
-    analytics.track.restore();
   });
 
   context('failure conditions', () => {
@@ -136,7 +131,6 @@ describe('common.ops.hourglassPurchase', () => {
       expect(message).to.eql(i18n.t('hourglassPurchase'));
       expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
       expect(user.items.pets).to.eql({ 'MantisShrimp-Base': 5 });
-      expect(analytics.track).to.be.calledOnce;
     });
 
     it('buys a mount', async () => {
