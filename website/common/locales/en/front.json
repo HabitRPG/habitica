@@ -187,5 +187,6 @@
   "learnMore": "Learn More",
   "translateHabitica": "Translate Habitica",
   "whatToCallYou": "What should we call you?",
-  "acceptPrivacyTOS": "You confirm that you are at least 18 years old, and that you have read and agree to our <a href='/static/terms' target='_blank'>Terms of Service</a> and <a href='/static/privacy' target='_blank'>Privacy Policy</a>"
+  "acceptPrivacyTOS": "You confirm that you are at least 18 years old, and that you have read and agree to our <a href='/static/terms' target='_blank'>Terms of Service</a> and <a href='/static/privacy' target='_blank'>Privacy Policy</a>",
+  "emailAddress": "Email address"
 }
