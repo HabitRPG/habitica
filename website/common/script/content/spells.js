@@ -264,7 +264,7 @@ spells.healer = {
     cast (user, target) {
       each(target, member => {
         member.stats.hp += Math.ceil(
-          (statsComputed(user).con + statsComputed(user).int + 5) * 0.04
+          (statsComputed(user).con + statsComputed(user).int + 5) * 0.04,
         );
         if (member.stats.hp > 50) member.stats.hp = 50;
       });
