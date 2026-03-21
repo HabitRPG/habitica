@@ -53,4 +53,66 @@ ul {
     color: $gray-10;
     line-height: 1.71;
   }
+  
+  .headings {
+    cursor: pointer;
+    position: relative;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0;
+    padding: 8px 0;
+    
+    &::after {
+      content: '▼';
+      display: inline-block;
+      font-size: 12px;
+      color: $purple-200;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+      opacity: 0;
+      transform: translateX(-8px);
+    }
+    
+    &:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    &[aria-expanded="true"]::after {
+      opacity: 1;
+      transform: rotate(180deg) translateX(0);
+    }
+    
+    &[aria-expanded="true"]:hover::after {
+      transform: rotate(180deg) scale(1.1);
+    }
+    
+    &:hover:not([aria-expanded="true"])::after {
+      transform: translateX(0);
+    }
+    
+    &:hover {
+      transform: translateX(4px);
+      color: darken($purple-200, 8%);
+    }
+    
+    &:active {
+      transform: translateX(2px) scale(0.99);
+      transition: transform 0.1s ease;
+    }
+    
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba($purple-200, 0.3);
+      border-radius: 4px;
+      
+      &::after {
+        opacity: 0.6;
+        transform: translateX(0);
+      }
+    }
+  }
 }
