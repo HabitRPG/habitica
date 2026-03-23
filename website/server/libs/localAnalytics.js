@@ -5,14 +5,14 @@ import { SubscriptionEventModel } from '../models/analytics/subscriptionEvent';
 const LOCAL_ANALYTICS = nconf.get('LOCAL_ANALYTICS');
 
 function getAuthenticationMethod (user) {
-  if (user.auth.local) return 'local';
   if (user.auth.google) return 'google';
   if (user.auth.facebook) return 'facebook';
   if (user.auth.apple) return 'apple';
+  if (user.auth.local) return 'local';
   return 'unknown';
 }
 
-export function trackRegistrationEvent (eventData) {
+export async function trackRegistrationEvent (eventData) {
   if (!LOCAL_ANALYTICS) return null;
 
   const { user, ipAddress } = eventData;
@@ -26,7 +26,7 @@ export function trackRegistrationEvent (eventData) {
   return registrationEvent.save();
 }
 
-export function trackSubscriptionEvent (eventData) {
+export async function trackSubscriptionEvent (eventData) {
   if (!LOCAL_ANALYTICS) return null;
 
   const {
