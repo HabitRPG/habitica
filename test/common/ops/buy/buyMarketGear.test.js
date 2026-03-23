@@ -13,15 +13,14 @@ import {
 import i18n from '../../../../website/common/script/i18n';
 import { errorMessage } from '../../../../website/common/script/libs/errorMessage';
 
-async function buyGear (user, req, analytics) {
-  const buyOp = new BuyMarketGearOperation(user, req, analytics);
+async function buyGear (user, req) {
+  const buyOp = new BuyMarketGearOperation(user, req);
 
   return buyOp.purchase();
 }
 
 describe('shared.ops.buyMarketGear', () => {
   let user;
-  const analytics = { track () {} };
   let clock;
 
   beforeEach(() => {
@@ -63,7 +62,7 @@ describe('shared.ops.buyMarketGear', () => {
     it('adds equipment to inventory', async () => {
       user.stats.gp = 31;
 
-      await buyGear(user, { params: { key: 'armor_warrior_1' } }, analytics);
+      await buyGear(user, { params: { key: 'armor_warrior_1' } });
 
       expect(user.items.gear.owned).to.eql({
         weapon_warrior_0: true,
@@ -95,7 +94,7 @@ describe('shared.ops.buyMarketGear', () => {
     it('adds the onboarding achievement to the user and checks the onboarding status', async () => {
       user.stats.gp = 31;
 
-      await buyGear(user, { params: { key: 'armor_warrior_1' } }, analytics);
+      await buyGear(user, { params: { key: 'armor_warrior_1' } });
 
       expect(user.addAchievement).to.be.calledOnce;
       expect(user.addAchievement).to.be.calledWith('purchasedEquipment');
@@ -108,7 +107,7 @@ describe('shared.ops.buyMarketGear', () => {
       user.stats.gp = 31;
       user.achievements.purchasedEquipment = true;
 
-      await buyGear(user, { params: { key: 'armor_warrior_1' } }, analytics);
+      await buyGear(user, { params: { key: 'armor_warrior_1' } });
 
       expect(user.addAchievement).to.not.be.called;
     });

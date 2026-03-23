@@ -1,7 +1,6 @@
 import express from 'express';
 import expressValidator from 'express-validator';
 import path from 'path';
-import analytics from './analytics';
 import setupBody from './setupBody';
 import rateLimiter from './rateLimiter';
 import setupExpress from '../libs/setupExpress';
@@ -17,7 +16,6 @@ const app = express();
 setupExpress(app);
 
 app.use(expressValidator());
-app.use(analytics);
 app.use(setupBody);
 
 const topLevelRouter = express.Router(); // eslint-disable-line new-cap

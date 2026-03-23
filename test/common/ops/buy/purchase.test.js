@@ -17,7 +17,6 @@ describe('shared.ops.purchase', () => {
   let user;
   let clock;
   const goldPoints = 40;
-  const analytics = { track () {} };
 
   before(() => {
     user = generateUser({ 'stats.class': 'rogue' });
@@ -185,7 +184,7 @@ describe('shared.ops.purchase', () => {
       const type = 'eggs';
       const key = 'Wolf';
 
-      await purchase(user, { params: { type, key } }, analytics);
+      await purchase(user, { params: { type, key } });
 
       expect(user.items[type][key]).to.equal(1);
       expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
@@ -329,7 +328,7 @@ describe('shared.ops.purchase', () => {
       const key = 'Wolf';
 
       try {
-        await purchase(user, { params: { type, key }, quantity: 'jamboree' }, analytics);
+        await purchase(user, { params: { type, key }, quantity: 'jamboree' });
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
         expect(err.message).to.equal(i18n.t('invalidQuantity'));
@@ -342,7 +341,7 @@ describe('shared.ops.purchase', () => {
       user.balance = 10;
 
       try {
-        await purchase(user, { params: { type, key }, quantity: -2 }, analytics);
+        await purchase(user, { params: { type, key }, quantity: -2 });
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
         expect(err.message).to.equal(i18n.t('invalidQuantity'));
@@ -355,7 +354,7 @@ describe('shared.ops.purchase', () => {
       user.balance = 10;
 
       try {
-        await purchase(user, { params: { type, key }, quantity: 2.9 }, analytics);
+        await purchase(user, { params: { type, key }, quantity: 2.9 });
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
         expect(err.message).to.equal(i18n.t('invalidQuantity'));

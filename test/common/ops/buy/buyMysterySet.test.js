@@ -14,7 +14,6 @@ import { errorMessage } from '../../../../website/common/script/libs/errorMessag
 
 describe('shared.ops.buyMysterySet', () => {
   let user;
-  const analytics = { track () {} };
   let clock;
 
   beforeEach(() => {
@@ -91,7 +90,7 @@ describe('shared.ops.buyMysterySet', () => {
     context('successful purchases', () => {
       it('buys Steampunk Accessories Set', async () => {
         user.purchased.plan.consecutive.trinkets = 1;
-        await buyMysterySet(user, { params: { key: '301404' } }, analytics);
+        await buyMysterySet(user, { params: { key: '301404' } });
 
         expect(user.purchased.plan.consecutive.trinkets).to.eql(0);
         expect(user.items.gear.owned).to.have.property('weapon_warrior_0', true);
@@ -104,7 +103,7 @@ describe('shared.ops.buyMysterySet', () => {
       it('buys mystery set if it is available', async () => {
         clock = sinon.useFakeTimers(new Date('2024-01-16'));
         user.purchased.plan.consecutive.trinkets = 1;
-        await buyMysterySet(user, { params: { key: '201601' } }, analytics);
+        await buyMysterySet(user, { params: { key: '201601' } });
 
         expect(user.purchased.plan.consecutive.trinkets).to.eql(0);
         expect(user.items.gear.owned).to.have.property('shield_mystery_201601', true);

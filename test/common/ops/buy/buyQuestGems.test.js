@@ -12,10 +12,9 @@ describe('shared.ops.buyQuestGems', () => {
   let user;
   let clock;
   const goldPoints = 40;
-  const analytics = { track () {} };
 
-  async function buyQuest (_user, _req, _analytics) {
-    const buyOp = new BuyQuestWithGemOperation(_user, _req, _analytics);
+  async function buyQuest (_user, _req) {
+    const buyOp = new BuyQuestWithGemOperation(_user, _req);
 
     return buyOp.purchase();
   }

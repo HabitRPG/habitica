@@ -23,6 +23,7 @@ import calculateSubscriptionTerminationDate from './calculateSubscriptionTermina
 import { getCurrentEventList } from '../worldState'; // eslint-disable-line import/no-cycle
 import { paymentConstants } from './constants';
 import { addSubscriptionToGroupUsers, cancelGroupUsersSubscription } from './groupPayments'; // eslint-disable-line import/no-cycle
+import { trackSubscriptionEvent } from '../localAnalytics';
 
 // @TODO: Abstract to shared/constant
 const JOINED_GROUP_PLAN = 'joined group plan';
@@ -352,6 +353,16 @@ async function createSubscription (data) {
   if (data.user && data.user.isModified()) await data.user.save();
   if (data.gift) await data.gift.member.save();
 
+  trackSubscriptionEvent({
+    eventType: 'subscribed',
+    user: data.user,
+    gift: data.gift,
+    autoRenews,
+    paymentMethod: data.paymentMethod,
+    planId: block.key,
+    customerId: plan.customerId,
+  });
+
   slack.sendSubscriptionNotification({
     buyer: {
       id: data.user._id,
@@ -430,6 +441,15 @@ async function cancelSubscription (data) {
   if (sendEmail) {
     txnEmail(data.user, emailType, emailMergeData);
   }
+
+  trackSubscriptionEvent({
+    eventType: 'cancelled',
+    user: data.user,
+    cancellationReason: data.cancellationReason,
+    paymentMethod: plan.paymentMethod,
+    planId: plan.planId,
+    customerId: plan.customerId,
+  });
 }
 
 export {

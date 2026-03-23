@@ -1,6 +1,5 @@
 import find from 'lodash/find';
 import includes from 'lodash/includes';
-import pick from 'lodash/pick';
 
 import { encrypt } from '../encryption';
 import { sendNotification as sendPushNotification } from '../pushNotifications';
@@ -143,21 +142,6 @@ async function inviteByUUID (uuid, group, inviter, req, res) {
     ));
   }
 
-  const analyticsObject = {
-    user: pick(inviter, ['preferences', 'registeredThrough']),
-    uuid: inviter._id,
-    hitType: 'event',
-    category: 'behavior',
-    invitee: uuid,
-    groupId: group._id,
-    groupType: group.type,
-    headers: req.headers,
-  };
-
-  if (group.type === 'party') {
-    analyticsObject.seekingParty = Boolean(userToInvite.party.seeking);
-  }
-
   return addInvitationToUser(userToInvite, group, inviter, res);
 }
 
@@ -229,21 +213,6 @@ async function inviteByUserName (username, group, inviter, req, res) {
       objections[0],
       { userId: userToInvite._id, username: userToInvite.profile.name },
     ));
-  }
-
-  const analyticsObject = {
-    user: pick(inviter, ['preferences', 'registeredThrough']),
-    uuid: inviter._id,
-    hitType: 'event',
-    category: 'behavior',
-    invitee: userToInvite._id,
-    groupId: group._id,
-    groupType: group.type,
-    headers: req.headers,
-  };
-
-  if (group.type === 'party') {
-    analyticsObject.seekingParty = Boolean(userToInvite.party.seeking);
   }
   return addInvitationToUser(userToInvite, group, inviter, res);
 }

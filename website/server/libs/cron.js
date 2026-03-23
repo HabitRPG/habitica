@@ -377,7 +377,6 @@ export async function cron (options = {}) {
     user.pinnedItems = common.cleanupPinnedItems(user);
   }
 
-  // Analytics
   user.flags.cronCount += 1;
 
   await UserHistory.beginUserHistoryUpdate(user._id, options.headers)
@@ -422,7 +421,6 @@ export async function cronWrapper (req, res) {
   const { user } = res.locals;
   if (!user) return null; // User might not be available when authentication is not mandatory
 
-  const { analytics } = res;
   const now = new Date();
   let session;
 
@@ -472,7 +470,6 @@ export async function cronWrapper (req, res) {
       tasksByType,
       now,
       daysMissed,
-      analytics,
       timezoneUtcOffsetFromUserPrefs,
       headers: req.headers,
     });

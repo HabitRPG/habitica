@@ -15,9 +15,3 @@ services:
     volumes:
       - "./mongodb-data-docker:/data/db"
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs" ]
-    healthcheck:
-      test: echo "try { rs.status() } catch (err) { rs.initiate() }" | mongosh --port 27017 --quiet
-      interval: 10s
-      timeout: 30s
-      start_period: 0s
-      retries: 30

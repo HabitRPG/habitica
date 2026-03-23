@@ -18,6 +18,7 @@ import {
 } from './social';
 import { loginRes } from './utils';
 import { verifyUsername } from '../user/validation';
+import { trackRegistrationEvent } from '../localAnalytics';
 
 const USERNAME_LENGTH_MIN = 1;
 const USERNAME_LENGTH_MAX = 20;
@@ -179,6 +180,7 @@ async function registerLocal (req, res, { isV3 = false }) {
   } else {
     newUser = new User(newUser);
     newUser.registeredThrough = req.headers['x-client']; // Not saved, used to create the correct tasks based on the device used
+    trackRegistrationEvent({ user: newUser, method: 'local', ipAddress: req.ip });
   }
 
   // we check for partyInvite for backward compatibility

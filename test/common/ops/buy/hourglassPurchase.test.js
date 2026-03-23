@@ -13,10 +13,9 @@ import { BuyHourglassMountOperation } from '../../../../website/common/script/op
 
 describe('common.ops.hourglassPurchase', () => {
   let user;
-  const analytics = { track () {} };
 
-  async function buyMount (_user, _req, _analytics) {
-    const buyOp = new BuyHourglassMountOperation(_user, _req, _analytics);
+  async function buyMount (_user, _req) {
+    const buyOp = new BuyHourglassMountOperation(_user, _req);
 
     return buyOp.purchase();
   }
@@ -126,7 +125,7 @@ describe('common.ops.hourglassPurchase', () => {
     it('buys a pet', async () => {
       user.purchased.plan.consecutive.trinkets = 2;
 
-      const [, message] = await hourglassPurchase(user, { params: { type: 'pets', key: 'MantisShrimp-Base' } }, analytics);
+      const [, message] = await hourglassPurchase(user, { params: { type: 'pets', key: 'MantisShrimp-Base' } });
 
       expect(message).to.eql(i18n.t('hourglassPurchase'));
       expect(user.purchased.plan.consecutive.trinkets).to.eql(1);

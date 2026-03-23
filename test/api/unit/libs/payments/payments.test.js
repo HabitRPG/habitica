@@ -3,7 +3,6 @@ import moment from 'moment';
 import * as sender from '../../../../../website/server/libs/email';
 import common from '../../../../../website/common';
 import api from '../../../../../website/server/libs/payments/payments';
-import * as analytics from '../../../../../website/server/libs/analyticsService';
 import * as notifications from '../../../../../website/server/libs/pushNotifications';
 import { model as User } from '../../../../../website/server/models/user';
 import { translate as t } from '../../../../helpers/api-integration/v3';
