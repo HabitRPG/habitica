@@ -9,10 +9,6 @@ import {
   BadRequest,
   NotAuthorized,
 } from '../../libs/errors';
-import {
-  basicFields as basicGroupFields,
-  model as Group,
-} from '../../models/group';
 import * as Tasks from '../../models/task';
 import * as passwordUtils from '../../libs/password';
 import {

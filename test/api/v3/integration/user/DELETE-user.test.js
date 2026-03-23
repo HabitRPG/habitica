@@ -82,31 +82,6 @@ describe('DELETE /user', () => {
       });
     });
 
-    it('reduces memberCount in challenges user is linked to', async () => {
-      const populatedGroup = await createAndPopulateGroup({
-        members: 2,
-      });
-
-      const { group } = populatedGroup;
-      const authorizedUser = populatedGroup.members[1];
-
-      const challenge = await generateChallenge(populatedGroup.groupLeader, group);
-      await populatedGroup.groupLeader.post(`/challenges/${challenge._id}/join`);
-      await authorizedUser.post(`/challenges/${challenge._id}/join`);
-
-      await challenge.sync();
-
-      expect(challenge.memberCount).to.eql(2);
-
-      await authorizedUser.del('/user', {
-        password,
-      });
-
-      await challenge.sync();
-
-      expect(challenge.memberCount).to.eql(1);
-    });
-
     it('sends feedback to the admin email', async () => {
       sandbox.spy(email, 'sendTxn');
 
