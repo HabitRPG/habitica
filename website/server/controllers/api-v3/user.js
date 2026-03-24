@@ -26,7 +26,6 @@ import * as inboxLib from '../../libs/inbox';
 import * as userLib from '../../libs/user';
 import { model as UserHistory } from '../../models/userHistory';
 
-const OFFICIAL_PLATFORMS = ['habitica-web', 'habitica-ios', 'habitica-android'];
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 const DELETE_CONFIRMATION = 'DELETE';
 
