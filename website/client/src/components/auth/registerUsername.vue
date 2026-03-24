@@ -20,24 +20,28 @@
           class="form mx-auto"
           @submit.prevent.stop="register()"
         >
-          <input
-            id="emailInput"
-            v-if="showEmailField"
-            v-model="email"
-            class="form-control dark"
-            type="text"
-            :placeholder="$t('emailAddress')"
-            :class="{
-              'mb-3': !emailError,
-              'input-invalid input-with-error mb-2': emailError,
-              'input-valid': email && emailValid,
-            }"
-          >
-          <div
-            v-if="emailError"
-            class="input-error"
-          >
-            {{ emailError }}
+          <div v-if="showEmailField">
+            <input
+              id="emailInput"
+              v-model="email"
+              class="form-control dark"
+              type="text"
+              :placeholder="$t('emailAddress')"
+              :class="{
+                'mb-3': !emailError,
+                'input-invalid input-with-error mb-2': emailError,
+                'input-valid': email && emailValid,
+              }"
+            >
+            <div
+              v-if="emailError"
+              class="input-error"
+            >
+              {{ emailError }}
+            </div>
+            <p class="purple-600 mb-3">
+              {{ $t('emailRequiredForSupport') }}
+            </p>
           </div>
           <input
             id="usernameInput"
