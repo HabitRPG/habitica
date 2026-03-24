@@ -111,7 +111,6 @@ export async function create (store, createdTask) {
     }
     const tasksCreatedCount = getLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT);
     if (!tasksCreatedCount || tasksCreatedCount < 2) {
-      const uuid = store.state.user.data._id;
       if (!tasksCreatedCount) {
         setLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT, 1);
       } else {
