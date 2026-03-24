@@ -81,7 +81,8 @@
             ></label>
           </div>
           <button
-            class="btn btn-info d-flex justify-content-center align-items-center w-100 sign-up mx-auto mb-5"
+            class="btn btn-info d-flex justify-content-center
+              align-items-center w-100 sign-up mx-auto mb-5"
             :disabled="!email || emailError || !username || usernameInvalid || !privacyAccepted"
             type="submit"
           >
