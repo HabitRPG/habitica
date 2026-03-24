@@ -18,7 +18,7 @@
           type="text"
           :placeholder="$t('challengeNamePlaceholder')"
           @keydown="enableSubmit"
-        />
+        ></input>
       </div>
       <div class="form-group">
         <label>
@@ -30,7 +30,7 @@
           type="text"
           :placeholder="$t('shortNamePlaceholder')"
           @keydown="enableSubmit"
-        />
+        ></input>
       </div>
       <div class="form-group">
         <label>

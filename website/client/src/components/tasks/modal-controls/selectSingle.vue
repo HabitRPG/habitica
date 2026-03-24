@@ -12,12 +12,12 @@
       <b-dropdown-header>
         <div class="mb-2">
           <input
-          class="form-control"
+            class="form-control"
             v-model="search"
             type="text"
             :placeholder="searchPlaceholder"
             @keyup.enter="handleSubmit"
-          />
+          ></input>
         </div>
       </b-dropdown-header>
       <template #button-content>
