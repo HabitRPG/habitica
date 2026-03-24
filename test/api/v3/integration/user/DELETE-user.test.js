@@ -1,9 +1,7 @@
 import {
   checkExistence,
-  createAndPopulateGroup,
   generateGroup,
   generateUser,
-  generateChallenge,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 import {
