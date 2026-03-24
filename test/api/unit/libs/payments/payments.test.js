@@ -12,6 +12,7 @@ import {
 import * as worldState from '../../../../../website/server/libs/worldState';
 import { TransactionModel } from '../../../../../website/server/models/transaction';
 import { REPEATING_EVENTS } from '../../../../../website/common/script/content/constants/events';
+import { SubscriptionEventModel } from '../../../../../website/server/models/analytics/subscriptionEvent';
 
 describe('payments/index', () => {
   let user;
@@ -92,6 +93,16 @@ describe('payments/index', () => {
         await api.createSubscription(data);
 
         expect(recipient.items.pets['Jackalope-RoyalPurple']).to.eql(5);
+      });
+
+      it('tracks subscription events', async () => {
+        await api.createSubscription(data);
+        const subscriptionEvent = await SubscriptionEventModel.findOne({ userId: recipient._id });
+        expect(subscriptionEvent).to.exist;
+        expect(subscriptionEvent).to.have.property('eventType', 'subscribed');
+        expect(subscriptionEvent).to.have.property('userId', recipient._id);
+        expect(subscriptionEvent).to.have.property('planId', 'basic_3mo');
+        expect(subscriptionEvent).to.have.property('paymentMethod', 'Payment Method');
       });
 
       it('adds extra months to an existing subscription', async () => {
@@ -430,6 +441,16 @@ describe('payments/index', () => {
         expect(user.purchased.plan.dateCreated).to.exist;
       });
 
+      it('tracks subscription events', async () => {
+        await api.createSubscription(data);
+        const subscriptionEvent = await SubscriptionEventModel.findOne({ userId: user._id });
+        expect(subscriptionEvent).to.exist;
+        expect(subscriptionEvent).to.have.property('userId', user._id);
+        expect(subscriptionEvent).to.have.property('ipAddress');
+        expect(subscriptionEvent).to.have.property('planId', 'basic_3mo');
+        expect(subscriptionEvent).to.have.property('paymentMethod', 'Payment Method');
+      });
+
       it('sets plan.dateCreated if it did not previously exist', async () => {
         expect(user.purchased.plan.dateCreated).to.not.exist;
 
@@ -519,6 +540,23 @@ describe('payments/index', () => {
       });
 
       context('Upgrades subscription', () => {
+        it('tracks subscription events', async () => {
+          data.sub.key = 'basic_earned';
+          expect(user.purchased.plan.planId).to.not.exist;
+
+          await api.createSubscription(data);
+
+          data.sub.key = 'basic_6mo';
+          data.updatedFrom = { key: 'basic_earned' };
+          await api.createSubscription(data);
+
+          const subscriptionEvent = await SubscriptionEventModel.findOne({ userId: user._id, planId: 'basic_6mo' });
+          expect(subscriptionEvent).to.exist;
+          expect(subscriptionEvent).to.have.property('eventType', 'upgraded');
+          expect(subscriptionEvent).to.have.property('userId', user._id);
+          expect(subscriptionEvent).to.have.property('paymentMethod', 'Payment Method');
+        });
+
         it('from basic_earned to basic_6mo', async () => {
           data.sub.key = 'basic_earned';
           expect(user.purchased.plan.planId).to.not.exist;
@@ -561,6 +599,23 @@ describe('payments/index', () => {
       });
 
       context('Downgrades subscription', () => {
+        it('tracks subscription events', async () => {
+          data.sub.key = 'basic_6mo';
+          expect(user.purchased.plan.planId).to.not.exist;
+
+          await api.createSubscription(data);
+
+          data.sub.key = 'basic_earned';
+          data.updatedFrom = { key: 'basic_6mo' };
+          await api.createSubscription(data);
+
+          const subscriptionEvent = await SubscriptionEventModel.findOne({ userId: user._id, planId: 'basic_earned' });
+          expect(subscriptionEvent).to.exist;
+          expect(subscriptionEvent).to.have.property('eventType', 'downgraded');
+          expect(subscriptionEvent).to.have.property('userId', user._id);
+          expect(subscriptionEvent).to.have.property('paymentMethod', 'Payment Method');
+        });
+
         it('from basic_6mo to basic_earned', async () => {
           data.sub.key = 'basic_6mo';
           expect(user.purchased.plan.planId).to.not.exist;
@@ -1087,6 +1142,15 @@ describe('payments/index', () => {
         const daysTillTermination = moment(user.purchased.plan.dateTerminated).diff(now, 'days');
 
         expect(daysTillTermination).to.be.within(29, 30); // 1 month +/- 1 days
+      });
+
+      it('tracks subscription events', async () => {
+        await api.cancelSubscription(data);
+
+        const subscriptionEvent = await SubscriptionEventModel.findOne({ userId: user._id });
+        expect(subscriptionEvent).to.exist;
+        expect(subscriptionEvent).to.have.property('eventType', 'cancelled');
+        expect(subscriptionEvent).to.have.property('userId', user._id);
       });
 
       it('adds extraMonths to dateTerminated value', async () => {

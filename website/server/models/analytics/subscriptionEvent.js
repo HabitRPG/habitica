@@ -4,7 +4,7 @@ import baseModel from '../../libs/baseModel';
 import { getAnalyticsDatabase } from '../../libs/mongoose';
 
 const { Schema } = mongoose;
-const eventTypes = ['subscribed', 'cancelled', 'resubscribed', 'updated'];
+const eventTypes = ['subscribed', 'cancelled', 'resubscribed', 'upgraded', 'downgraded'];
 
 export const schema = new Schema({
   userId: {

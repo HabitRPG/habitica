@@ -10,7 +10,7 @@ describe('localAnalytics', () => {
   before(() => {
     const nconfGetStub = sandbox.stub(nconf, 'get');
     nconfGetStub.withArgs('ANALYTICS_DB').returns('analytics');
-    nconfGetStub.withArgs('LOCAL_ANALYTICS').returns(true);
+    nconfGetStub.withArgs('DISABLE_LOCAL_ANALYTICS').returns(false);
     localAnalytics = requireAgain('../../../../website/server/libs/localAnalytics');
   });
 

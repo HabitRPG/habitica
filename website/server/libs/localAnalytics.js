@@ -2,7 +2,7 @@ import nconf from 'nconf';
 import { RegistrationEventModel } from '../models/analytics/registrationEvent';
 import { SubscriptionEventModel } from '../models/analytics/subscriptionEvent';
 
-const LOCAL_ANALYTICS = nconf.get('LOCAL_ANALYTICS');
+const LOCAL_ANALYTICS = !nconf.get('DISABLE_LOCAL_ANALYTICS');
 
 function getAuthenticationMethod (user) {
   if (user.auth.google) return 'google';

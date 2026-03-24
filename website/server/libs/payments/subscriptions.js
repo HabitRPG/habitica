@@ -78,6 +78,14 @@ async function prepareSubscriptionValues (data) {
     ? shared.content.subscriptionBlocks[data.updatedFrom.key]
     : undefined;
   let months;
+  let subscriptionEventType = 'subscribed';
+  if (updatedFrom) {
+    if (Number(updatedFrom.months) > Number(block.months)) {
+      subscriptionEventType = 'downgraded';
+    } else {
+      subscriptionEventType = 'upgraded';
+    }
+  }
   if (updatedFrom && Number(updatedFrom.months) !== 1) {
     if (Number(updatedFrom.months) > Number(block.months)) {
       months = 0;
@@ -220,6 +228,7 @@ async function prepareSubscriptionValues (data) {
     purchaseType,
     emailType,
     isNewSubscription,
+    subscriptionEventType,
   };
 }
 
@@ -234,6 +243,7 @@ async function createSubscription (data) {
     groupId,
     emailType,
     isNewSubscription,
+    subscriptionEventType,
   } = await prepareSubscriptionValues(data);
   if (recipient !== group) {
     recipient.items.pets['Jackalope-RoyalPurple'] = 5;
@@ -353,10 +363,10 @@ async function createSubscription (data) {
   if (data.user && data.user.isModified()) await data.user.save();
   if (data.gift) await data.gift.member.save();
 
-  trackSubscriptionEvent({
-    eventType: 'subscribed',
-    user: data.user,
-    gift: data.gift,
+  await trackSubscriptionEvent({
+    eventType: subscriptionEventType,
+    user: data.gift ? data.gift.member : data.user,
+    gifted: data.gift !== undefined,
     autoRenews,
     paymentMethod: data.paymentMethod,
     planId: block.key,
@@ -442,7 +452,7 @@ async function cancelSubscription (data) {
     txnEmail(data.user, emailType, emailMergeData);
   }
 
-  trackSubscriptionEvent({
+  await trackSubscriptionEvent({
     eventType: 'cancelled',
     user: data.user,
     cancellationReason: data.cancellationReason,
