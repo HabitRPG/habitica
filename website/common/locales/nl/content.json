@@ -375,7 +375,7 @@
     "hatchingPotionBalloon": "Ballon",
     "hatchingPotionGingerbread": "Gemberkoek",
     "hatchingPotionJade": "Jade",
-    "hatchingPotionCryptid": "Cryptid",
+    "hatchingPotionCryptid": "Cryptisch",
     "wackyPotionNotes": "Gebruik dit op een ei, en er zal een maf <%= potText %> huisdier uitkomen.",
     "hatchingPotionOpal": "Opaal",
     "questEggRaccoonMountText": "Wasbeer",
@@ -408,5 +408,7 @@
     "questEggPlatypusAdjective": "een perfectionistische",
     "hatchingPotionPinkMarble": "Roze marmer",
     "hatchingPotionTeaShop": "Theewinkel",
-    "wackyPotionAddlNotes": "Kan niet worden opgevoed als Rijdier of worden gebruikt voor Queeste-Huisdiereieren."
+    "wackyPotionAddlNotes": "Kan niet worden opgevoed als Rijdier of worden gebruikt voor Queeste-Huisdiereieren.",
+    "questEggCrabAdjective": "een rommelig",
+    "hatchingPotionPorcelain": "porselein"
 }

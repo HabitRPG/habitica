@@ -136,7 +136,7 @@ describe('Stripe - Subscriptions', () => {
       group = generateGroup({
         name: 'test group',
         type: 'guild',
-        privacy: 'public',
+        privacy: 'private',
         leader: user._id,
       });
       groupId = group._id;
@@ -315,12 +315,14 @@ describe('Stripe - Subscriptions', () => {
       group = generateGroup({
         name: 'test group',
         type: 'guild',
-        privacy: 'public',
+        privacy: 'private',
         leader: user._id,
       });
       group.purchased.plan.customerId = 'customer-id';
       group.purchased.plan.planId = subKey;
       await group.save();
+      user.guilds.push(group._id);
+      await user.save();
 
       groupId = group._id;
     });

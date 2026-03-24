@@ -7,8 +7,8 @@
     "reachedGoldToGemCapQuantity": "Det begärda beloppet <%= quantity %> överskrider Guld=>Juvel konverterings-begränsningen <%= convCap %> för denna månaden. Begränsningen återställs inom de första tre dagarna för varje månad. Tack för att du abonnerar!",
     "mysteryItem": "Exklusiva föremål varje månad",
     "mysteryItemText": "Varje månad får du en unik kosmetiskt föremål för din karaktär! Dessutom, för varje tredje månad av konsekutiv prenumeration så kommer de Mysteriska Tidsresenärerna att ge dig tillgång till historiska (och framtida!) kosmetiska föremålen.",
-    "exclusiveJackalopePet": "Exklusivt husdjur",
-    "giftSubscription": "Vill du ge någon en prenumeration?",
+    "exclusiveJackalopePet": "Särskilt Husdjur",
+    "giftSubscription": "Vill du ge någon en prenumeration som gåva?",
     "giftSubscriptionText4": "Tack för att du stödjer Habitica!",
     "groupPlans": "Grupp Planer",
     "nowSubscribed": "Du här nu en abonnent för Habitica!",
@@ -153,5 +153,10 @@
     "mysterySet202103": "Blomvisning Set",
     "mysterySet202105": "Nebulosadrake Set",
     "mysterySet202102": "Charmerande mästare Set",
-    "mysterySet202106": "Solnedgång Siren Set"
+    "mysterySet202106": "Solnedgång Siren Set",
+    "viewSubscriptions": "Visa prenumerationer",
+    "howManyGemsPurchase": "Hur många juveler vill du köpa?",
+    "howManyGemsSend": "Hur många juveler vill du skicka?",
+    "needToPurchaseGems": "Vill du köpa juveler som en present?",
+    "wantToSendOwnGems": "Vill du skicka dina egna juveler?"
 }

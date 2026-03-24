@@ -398,14 +398,29 @@
                 :placeholder="$t('imageUrl')"
               >
             </div>
-            <div class="form-group">
+            <div class="form-group" style="position: relative;">
               <label>{{ $t('about') }}</label>
               <textarea
+                ref="blurbTextarea"
                 v-model="editingProfile.blurb"
                 class="form-control"
                 rows="5"
                 :placeholder="$t('displayBlurbPlaceholder')"
+                @keydown="autoCompleteMixinUpdateCarretPosition"
+                @keydown.tab="autoCompleteMixinHandleTab($event)"
+                @keydown.up="autoCompleteMixinSelectPreviousAutocomplete($event)"
+                @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
+                @keypress.enter="autoCompleteMixinSelectAutocomplete($event)"
+                @keydown.esc="autoCompleteMixinHandleEscape($event)"
               ></textarea>
+              <emoji-auto-complete
+                ref="emojiAutocomplete"
+                :text="editingProfile.blurb"
+                :textbox="textbox"
+                :coords="mixinData.autoComplete.coords"
+                :caret-position="mixinData.autoComplete.caretPosition"
+                @select="selectedAutocomplete"
+              />
               <!-- include ../../shared/formatting-help-->
             </div>
           </div>
@@ -1001,6 +1016,8 @@ import mute from '@/assets/svg/mute.svg?raw';
 import shadowMute from '@/assets/svg/shadow-mute.svg?raw';
 import externalLinks from '../../mixins/externalLinks';
 import { userCustomStateMixin } from '../../mixins/userState';
+import emojiAutoComplete from '@/components/chat/emojiAutoComplete';
+import { autoCompleteHelperMixin } from '@/mixins/autoCompleteHelper';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
 
@@ -1012,8 +1029,9 @@ export default {
     MemberDetails,
     profileStats,
     toggleSwitch,
+    emojiAutoComplete,
   },
-  mixins: [externalLinks, userCustomStateMixin('userLoggedIn')],
+  mixins: [externalLinks, userCustomStateMixin('userLoggedIn'), autoCompleteHelperMixin],
   props: ['userId', 'startingPage'],
   data () {
     return {
@@ -1033,6 +1051,7 @@ export default {
         mute,
         shadowMute,
       }),
+      textbox: null,
       userIdToMessage: '',
       editing: false,
       editingProfile: {
@@ -1120,6 +1139,13 @@ export default {
     },
     userLoggedIn () {
       this.loadUser();
+    },
+    editing (val) {
+      if (val) {
+        this.$nextTick(() => {
+          this.textbox = this.$refs.blurbTextarea;
+        });
+      }
     },
   },
   mounted () {
@@ -1331,6 +1357,13 @@ export default {
       this.$emit('toggled', this.isOpened);
     },
 
+    selectedAutocomplete (newText, newCaret) {
+      this.editingProfile.blurb = newText;
+      this.$nextTick(() => {
+        this.textbox.setSelectionRange(newCaret, newCaret);
+        this.textbox.focus();
+      });
+    },
     reportPlayer () {
       this.$root.$emit('habitica::report-profile', {
         memberId: this.user._id,
@@ -1340,7 +1373,7 @@ export default {
     },
 
     openAdminPanel () {
-      this.$router.push(`/admin-panel/${this.hero._id}`);
+      this.$router.push(`/admin/panel/${this.hero._id}`);
     },
   },
 };

@@ -406,5 +406,9 @@
     "hatchingPotionCryptid": "Містичний",
     "wackyPotionNotes": "Вилийте це на яйце, і з нього вилупиться Дивний улюбленець, типу \"<%= potText %>\".",
     "wackyPotionAddlNotes": "Не може бути використано на яйцях з Квестовими улюбленцями.",
-    "hatchingPotionBalloon": "Надувний"
+    "hatchingPotionBalloon": "Надувний",
+    "questEggPlatypusText": "Качкодзьоб",
+    "questEggPlatypusMountText": "Качкодзьоб",
+    "questEggPlatypusAdjective": "перфекціоніст",
+    "hatchingPotionOpal": "Опал"
 }

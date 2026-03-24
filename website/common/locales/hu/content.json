@@ -182,7 +182,7 @@
     "questEggVelociraptorText": "Velociraptor",
     "questEggVelociraptorMountText": "Velociraptor",
     "questEggVelociraptorAdjective": "egy okos",
-    "eggNotes": "Keress egy keltetőfőzetet, és öntsd rá erre a tojásra – így kikel belőle egy <%= eggAdjective %> <%= eggText %>.",
+    "eggNotes": "Keress egy keltetőfőzetet és öntsd rá erre a tojásra – így kikel belőle egy <%= eggAdjective %> <%= eggText %>.",
     "hatchingPotionBase": "Alap",
     "hatchingPotionWhite": "Fehér",
     "hatchingPotionDesert": "Sivatag",

@@ -85,6 +85,13 @@ const router = new VueRouter({
       props: true,
     },
     { name: 'profile', path: '/user/profile' },
+    {
+      name: 'avatar',
+      path: '/avatar',
+      children: [
+        { name: 'backgrounds', path: 'backgrounds' },
+      ],
+    },
     { name: 'stats', path: '/user/stats' },
     { name: 'achievements', path: '/user/achievements' },
     {
@@ -408,6 +415,13 @@ router.beforeEach(async (to, from, next) => {
 
   if (from.name === 'userProfile' || from.name === 'stats' || from.name === 'achievements' || from.name === 'profile') {
     router.app.$root.$emit('bv::hide::modal', 'profile');
+  }
+
+  if (to.name === 'backgrounds') {
+    store.state.avatarEditorOptions.editingUser = true;
+    store.state.avatarEditorOptions.startingPage = 'backgrounds';
+    router.app.$root.$emit('bv::show::modal', 'avatar-modal');
+    return null;
   }
 
   return next();

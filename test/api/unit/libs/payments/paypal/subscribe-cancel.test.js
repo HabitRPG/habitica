@@ -30,13 +30,15 @@ describe('paypal - subscribeCancel', () => {
     group = generateGroup({
       name: 'test group',
       type: 'guild',
-      privacy: 'public',
+      privacy: 'private',
       leader: user._id,
     });
     group.purchased.plan.customerId = groupCustomerId;
     group.purchased.plan.planId = subKey;
     group.purchased.plan.lastBillingDate = new Date();
     await group.save();
+    user.guilds.push(group._id);
+    await user.save();
 
     nextBillingDate = new Date();
 

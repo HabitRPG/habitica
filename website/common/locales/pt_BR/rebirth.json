@@ -11,5 +11,8 @@
     "rebirthPop": "Recomece seu personagem no Nível 1 enquanto mantém conquistas, colecionáveis e equipamentos. Suas tarefas, incluindo o histórico, continuarão, mas se tornarão amarelas. Seus combos das tarefas serão removidos, com exceção das tarefas pertencentes a Desafios ativos ou a Planos de Grupo. Seu Ouro, Experiência, Mana e efeitos de todas as Habilidades serão removidos. Tudo isso terá efeito imediatamente.",
     "rebirthName": "Orbe do Renascimento",
     "rebirthComplete": "Você renasceu!",
-    "nextFreeRebirth": "<strong><%= days %> dias</strong> até Orbe de Renascimento <strong>GRÁTIS</strong>"
+    "nextFreeRebirth": "<strong><%= days %> dias</strong> até Orbe de Renascimento <strong>GRÁTIS</strong>",
+    "rebirthUnlockedOrb": "Nova aventura disponível!",
+    "rebirthNewAchievement": "Nova conquista",
+    "rebirthNewAdventure": "Uma nova aventura começa agora!"
 }

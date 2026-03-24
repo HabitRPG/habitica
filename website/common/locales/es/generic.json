@@ -242,5 +242,6 @@
     "newMessage": "Nuevo Mensaje",
     "targetUserNotExist": "Usuario objetivo: '<%= userName %>' no existe.",
     "rememberToBeKind": "Por favor recuerda ser bondadoso, respetuoso y seguir las <a href='/static/community-guidelines' target='_blank'>Normas de la Comunidad</a>.",
-    "gem": "Gema"
+    "gem": "Gema",
+    "confirmPurchase": "Confirmar Compra"
 }

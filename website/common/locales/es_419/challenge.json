@@ -108,5 +108,9 @@
     "whyReportingChallenge": "Por qué estas reportando este Desafío?",
     "abuseFlagModalBodyChallenge": "Deberías solo reportar un Desafío que viola las <%= firstLinkStart %>Directrices de la Comunidad<%= linkEnd %> y/o los <%= secondLinkStart %>Términos de Servicio<%= linkEnd %>. Envíar un reporte falso es una violación a las Directrices de la Comunidad.",
     "resetFlags": "Reiniciar marcadores",
-    "deleteChallengeRefundDescription": "Si eliminas este Desafío, recuperarás las Gemas de la recompensa y las tareas del Desafío permanecerán en los listados de tareas de los participantes."
+    "deleteChallengeRefundDescription": "Si eliminas este Desafío, recuperarás las Gemas de la recompensa y las tareas del Desafío permanecerán en los listados de tareas de los participantes.",
+    "brokenTaskDescription": "Esta tarea hacia parte de un desafio, pero fue removida, ¿Que te gustaria hacer?",
+    "brokenChallengeDescription": "Esta tarea hacia parte de un desafío (o grupo) fue eliminada. ¿Qué hacer con las tareas huérfanas?",
+    "challengeCompletedDescription": "¡El ganador es <%= user %>! ¿Qué hacer con las tareas huérfanas?",
+    "brokenTask": "Enlaze del desafío roto"
 }

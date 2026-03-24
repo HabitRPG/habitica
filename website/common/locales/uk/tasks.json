@@ -140,8 +140,8 @@
     "taskAliasPlaceholder": "тут-заголовок-вашого-завдання",
     "deleteType": "Видалити <%= type %>",
     "confirmDeleteTasks": "Чи хочете ви видалити ці завдання?",
-    "deleteXTasks": "Видалити <%= count %> Завдання",
+    "deleteXTasks": "Видалити <%= count %> завдання",
     "deleteTask": "Видалити Завдання",
-    "brokenChallengeTaskCount": "Це одне з <%= count %> завдань що є частиною Випробування якого більше не існує.",
+    "brokenChallengeTaskCount": "Це одне з <%= count %> завдань, що є частиною Випробування, якого більше не існує.",
     "sureDeleteType": "Ви впевнені, що хочете видалити це завдання?"
 }

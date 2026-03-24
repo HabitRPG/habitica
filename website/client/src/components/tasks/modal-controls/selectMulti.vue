@@ -9,14 +9,29 @@
       @toggle="openOrClose($event)"
     >
       <b-dropdown-header>
-        <div class="mb-2">
+        <div class="mb-2 search-input-wrapper">
           <input
             class="form-control"
+            ref="searchInput"
             v-model="search"
             type="text"
             :placeholder="searchPlaceholder"
-            @keyup.enter="handleSubmit"
-          ></input>
+            @focus="setTextbox"
+            @keydown="autoCompleteMixinUpdateCarretPosition"
+            @keydown.tab="autoCompleteMixinHandleTab($event)"
+            @keydown.up="autoCompleteMixinSelectPreviousAutocomplete($event)"
+            @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
+            @keydown.enter="searchEnterHandler($event)"
+            @keydown.esc="searchEscHandler($event)"
+          /></input>
+          <emoji-auto-complete
+            ref="emojiAutocomplete"
+            :text="search"
+            :textbox="textbox"
+            :coords="mixinData.autoComplete.coords"
+            :caret-position="mixinData.autoComplete.caretPosition"
+            @select="selectedAutocomplete"
+          />
         </div>
 
         <multi-list
@@ -42,7 +57,7 @@
         v-if="addNew || availableToSelect.length > 0"
         :class="{
           'item-group': true,
-          'add-new': availableToSelect.length === 0 && search !== '',
+          'add-new': search !== '' && !hasExactMatch,
           'scroll': availableToSelect.length > 5
         }"
       >
@@ -72,7 +87,7 @@
         </b-dropdown-item-button>
 
         <div
-          v-if="addNew"
+          v-if="addNew && search !== '' && !hasExactMatch"
           class="hint"
         >
           {{ $t('pressEnterToAddTag', { tagName: search }) }}
@@ -95,6 +110,10 @@ $itemHeight: 2rem;
 }
 
 .select-multi {
+  .search-input-wrapper {
+    position: relative;
+  }
+
   .dropdown-toggle {
     padding-left: 0.75rem;
   }
@@ -153,7 +172,8 @@ $itemHeight: 2rem;
     max-height: #{5*$itemHeight};
 
     &.add-new {
-      height: 30px;
+      min-height: 30px;
+      height: auto;
 
       .hint {
         display: block;
@@ -186,6 +206,8 @@ $itemHeight: 2rem;
 import Vue from 'vue';
 import MultiList from '@/components/tasks/modal-controls/multiList';
 import markdownDirective from '@/directives/markdown';
+import emojiAutoComplete from '@/components/chat/emojiAutoComplete';
+import { autoCompleteHelperMixin } from '@/mixins/autoCompleteHelper';
 
 export default {
   directives: {
@@ -193,7 +215,9 @@ export default {
   },
   components: {
     MultiList,
+    emojiAutoComplete,
   },
+  mixins: [autoCompleteHelperMixin],
   props: {
     addNew: {
       type: Boolean,
@@ -222,6 +246,8 @@ export default {
       wasTagAdded: false,
       selected: this.selectedItems,
       search: '',
+      textbox: null,
+      itemsAdded: [],
     };
   },
   computed: {
@@ -248,6 +274,16 @@ export default {
       const filteredItems = availableItems.filter(i => i.name.toLowerCase().includes(searchString));
 
       return filteredItems;
+    },
+    hasExactMatch () {
+      const searchTerm = this.search.trim().toLowerCase();
+      if (!searchTerm) return false;
+      if (this.itemsAdded.indexOf(searchTerm) !== -1) return true;
+      if (this.availableToSelect.length === 0) return false;
+      if (this.availableToSelect[0].name.toLowerCase() === searchTerm) {
+        return true;
+      }
+      return false;
     },
   },
   watch: {
@@ -287,6 +323,7 @@ export default {
       this.closeSelectPopup();
     },
     selectItem (item) {
+      if (!item) return;
       this.selectedItems.push(item.id);
       this.$emit('toggle', item.id);
       this.preventHide = true;
@@ -313,12 +350,51 @@ export default {
         this.closeSelectPopup();
       }
     },
+    setTextbox () {
+      const ref = this.$refs.searchInput;
+      this.textbox = ref ? (ref.$el || ref) : null;
+    },
+    searchEnterHandler (e) {
+      const ac = this._getActiveAutocomplete();
+      if (ac && ac.selected !== null) {
+        e.preventDefault();
+        e.stopPropagation();
+        ac.makeSelection();
+      } else {
+        if (ac) ac.cancel();
+        this.handleSubmit();
+      }
+    },
+    searchEscHandler (e) {
+      const ac = this._getActiveAutocomplete();
+      if (ac && ac.searchActive) {
+        e.preventDefault();
+        e.stopPropagation();
+        ac.cancel();
+      }
+    },
+    selectedAutocomplete (newText, newCaret) {
+      this.search = newText;
+      this.$nextTick(() => {
+        if (this.textbox) {
+          this.textbox.setSelectionRange(newCaret, newCaret);
+          this.textbox.focus();
+        }
+      });
+    },
     handleSubmit () {
       if (!this.addNew) return;
       const { search } = this;
-      this.$emit('addNew', search);
-
-      this.search = '';
+      // If there is a existing tag
+      if (this.hasExactMatch) {
+        this.selectItem(this.availableToSelect[0]);
+        this.search = '';
+      } else {
+        // Creating a new tag as there is no existing tag present
+        this.$emit('addNew', search);
+        this.itemsAdded.push(search.toLowerCase());
+        this.search = '';
+      }
     },
   },
 };

@@ -85,7 +85,7 @@
     "taskToTop": "Naar boven",
     "taskToBottom": "Naar beneden",
     "taskAliasAlreadyUsed": "Taakalias al in gebruik bij een andere taak.",
-    "invalidTaskType": "Taaktype moet gelijk zijn aan \"habit\", \"daily\", \"todo\" of \"reward\".",
+    "invalidTaskType": "Taaktype moet gelijk zijn aan \"habit\", \"daily\", \"todo\", of \"reward\".",
     "invalidTasksType": "Taaktype moet gelijk zijn aan \"habits\", \"dailys\", \"todos\" of \"rewards\".",
     "invalidTasksTypeExtra": "Taaktype moet gelijk zijn aan \"habits\", \"dailys\", \"todos\", \"rewards\" of \"completedTodos\".",
     "cantDeleteChallengeTasks": "Een taak die bij een uitdaging hoort kan niet verwijderd worden.",
@@ -137,5 +137,11 @@
     "scoreDown": "Score omlaag",
     "taskAlias": "Taakalias",
     "taskAliasPopover": "Deze taakalias kan worden gebruikt voor integratie met software van derden. Alleen koppeltekens, onderstrepingstekens en alfanumerieke tekens worden ondersteund. De aliassen voor je taken moeten onderling uniek zijn.",
-    "taskAliasPlaceholder": "alias-voor-jouw-taak"
+    "taskAliasPlaceholder": "alias-voor-jouw-taak",
+    "deleteType": "Verwijder <%= type %>",
+    "deleteTask": "Verwijder taak",
+    "deleteXTasks": "Verwijder <%= count %> taken",
+    "brokenChallengeTaskCount": "Dit is een van de <%= count %> taken die deel uitmaken van een Uitdaging die niet langer bestaat.",
+    "confirmDeleteTasks": "Wil je deze taken verwijderen?",
+    "sureDeleteType": "Weet je zeker dat je deze taak wil verwijderen?"
 }

@@ -41,7 +41,7 @@ export const logRequestData = (req, res, next) => {
 
 export const logSlowRequests = (req, res, next) => {
   req.requestStartTime = Date.now();
-  req.on('close', () => {
+  req.once('close', () => {
     const requestTime = Date.now() - req.requestStartTime;
     if (requestTime > SLOW_REQUEST_THRESHOLD) {
       const data = buildBaseLogData(req);

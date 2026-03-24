@@ -25,7 +25,8 @@ export default function cleanupPinnedItems (user) {
         if (type === 'background') {
           return matchers.backgrounds.match(pinnedItem.path.split('.')[1]);
         } if (type === 'premiumHatchingPotion') {
-          return matchers.premiumHatchingPotions.match(key);
+          const potion = getItemByPathAndType(type, pinnedItem.path);
+          return potion.questPotion || matchers.premiumHatchingPotions.match(key);
         } if (type === 'mystery_set') {
           return matchers.timeTravelers.match(key);
         } if (type === 'seasonalQuest') {

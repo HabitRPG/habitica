@@ -240,5 +240,8 @@
     "submitQuestion": "Vraag versturen",
     "refreshList": "Lijst verversen",
     "general": "Algemeen",
-    "allNotifications": "Alle notificaties"
+    "allNotifications": "Alle notificaties",
+    "confirmPurchase": "bevestig aankoop",
+    "shadowMute": "Onzichtbare stomme",
+    "unbanPlayer": "Verbanning speler opheffen"
 }

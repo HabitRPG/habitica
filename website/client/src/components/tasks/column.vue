@@ -348,7 +348,6 @@
 import throttle from 'lodash/throttle';
 import isEmpty from 'lodash/isEmpty';
 import draggable from 'vuedraggable';
-import { shouldDo } from '@/../../common/script/cron';
 import inAppRewards from '@/../../common/script/libs/inAppRewards';
 import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import Task from './task';
@@ -482,25 +481,10 @@ export default {
       return this.$t('addATask', { type });
     },
     badgeCount () {
-      // 0 means the badge will not be shown
-      // It is shown for the all and due views of dailies
-      // and for the active and scheduled views of todos.
-      if (this.type === 'todo' && this.activeFilter.label !== 'complete2') {
-        return this.taskList.length;
-      } if (this.type === 'daily') {
-        if (this.activeFilter.label === 'due') {
-          return this.taskList.length;
-        } if (this.activeFilter.label === 'all') {
-          return this.taskList
-            .reduce(
-              (count, t) => (!t.completed
-                && shouldDo(new Date(), t, this.getUserPreferences) ? count + 1 : count),
-              0,
-            );
-        }
+      if (this.type === 'reward') {
+        return 0;
       }
-
-      return 0;
+      return this.taskList.length;
     },
   },
   watch: {

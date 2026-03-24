@@ -29,6 +29,9 @@ export const ARMOIRE_RELEASE_DATES = {
   musicalInstrumentTwo: { year: 2025, month: 12 },
   loneCowpoke: { year: 2026, month: 1 },
   prettyInPink: { year: 2026, month: 2 },
+  yellowLoungewear: { year: 2026, month: 3 },
+  handstand: { year: 2026, month: 4 },
+  verdantPage: { year: 2026, month: 5 },
 };
 
 export const EGGS_RELEASE_DATES = {
@@ -50,4 +53,5 @@ export const HATCHING_POTIONS_RELEASE_DATES = {
   Cryptid: { year: 2025, month: 4, day: 3 },
   Balloon: { year: 2025, month: 4, day: 21 },
   Opal: { year: 2025, month: 5, day: 14 },
+  Alien: { year: 2026, month: 4, day: 3 },
 };

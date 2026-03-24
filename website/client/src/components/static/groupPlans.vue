@@ -1,5 +1,6 @@
 <template>
   <div>
+    <group-plan-selection-modal />
     <group-plan-creation-modal />
     <div class="d-flex justify-content-center">
       <div
@@ -315,10 +316,12 @@
 import { setup as setupPayments } from '@/libs/payments';
 import paymentsMixin from '../../mixins/payments';
 import GroupPlanCreationModal from '../group-plans/groupPlanCreationModal.vue';
+import GroupPlanSelectionModal from '../group-plans/groupPlanSelectionModal.vue';
 
 export default {
   components: {
     GroupPlanCreationModal,
+    GroupPlanSelectionModal,
   },
   mixins: [paymentsMixin],
   data () {
@@ -359,7 +362,7 @@ export default {
       if (this.upgradingGroup._id) {
         return this.stripeGroup({ group: this.upgradingGroup, upgrade: true });
       }
-      return this.$root.$emit('bv::show::modal', 'create-group');
+      return this.$root.$emit('bv::show::modal', 'group-plan-selection');
     },
   },
 };
