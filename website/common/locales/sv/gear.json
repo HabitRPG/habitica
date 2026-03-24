@@ -1851,5 +1851,7 @@
     "armorArmoireSoftPinkSuitText": "Mjuk rosa kostym",
     "headArmoirePinkFloppyHatNotes": "Många trollformler har sys in i denna enkla hatt, vilket ger den en perfekt rosa färg. Ökar Visdom med <%= int %>. Förtrollat skåp: Rosa vardagskläder uppsättningen (Föremål 1 av 3).",
     "headArmoirePinkFloppyHatText": "Rosa diskett hatt",
-    "armorArmoireMedievalLaundryOutfitNotes": "Ta på dig arbetskläderna och rulla upp ärmarna: det är dags att göra klart tvätten! Ökar Tålighet med <%= con %>. Förtrollat skåp: Medeltida tvättare set (Föremål 1 av 6)."
+    "armorArmoireMedievalLaundryOutfitNotes": "Ta på dig arbetskläderna och rulla upp ärmarna: det är dags att göra klart tvätten! Ökar Tålighet med <%= con %>. Förtrollat skåp: Medeltida tvättare set (Föremål 1 av 6).",
+    "moreArmoireGearComing": "Det förtrollade klädskåpet återrfylls också varje månad!",
+    "moreArmoireGearAvailable": "Tills dess finns det <%= armorieCount %> utrustning att finna i det förtrollade klädskåpet!"
 }

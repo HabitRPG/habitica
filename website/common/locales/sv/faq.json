@@ -13,5 +13,8 @@
     "faqQuestion27": "Varför ändrar uppgifter färg?",
     "faqQuestion28": "Kan jag pausa mina Dagliga uppgifter om jag behöver en paus?",
     "faqQuestion29": "Hur återfår jag HP?",
-    "webFaqAnswer29": "Du kan få tillbaka HP genom att köpa en Hälsobrygd från dina Belöningar för 25 Guld. Utöver det kommer du alltid att återfå all din HP när du når nästa Nivå!"
+    "webFaqAnswer29": "Du kan få tillbaka HP genom att köpa en Hälsobrygd från dina Belöningar för 25 Guld. Utöver det kommer du alltid att återfå all din HP när du når nästa Nivå!",
+    "faqQuestion30": "Vad händer när mitt HP tar slut?",
+    "faqQuestion31": "Varför förlorade jag HP när jag interagerade med en uppgift utan ett negativt alternativ?",
+    "webFaqAnswer30": "Om du förlorat allt HP kommer du gå ner en nivå samt den nivåns egenskaptpoäng, allt ditt guld och en utrustning som kan återköpas. Du kan återförbättra genom att utföra uppgifter och gå upp i nivå."
 }
