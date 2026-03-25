@@ -2,8 +2,9 @@ import nconf from 'nconf';
 import express from 'express';
 import http from 'http';
 import mongoose from 'mongoose';
-import redis from 'redis';
 import logger from './libs/logger';
+import { getRedisClient as getWorkerRedisClient } from './libs/worker';
+import { getRedisClient as getRateLimiterRedisClient } from './middlewares/rateLimiter';
 
 // Setup translations
 // Must come before attach middlewares so Mongoose validations can use translations
@@ -31,7 +32,10 @@ process.on('SIGTERM', async () => {
   console.log('SIGTERM signal received: closing HTTP server');
   server.close(async () => {
     await mongoose.disconnect();
-    await redis.quit();
+    const workerRedisClient = getWorkerRedisClient();
+    if (workerRedisClient) await workerRedisClient.quit();
+    const rateLimiterRedisClient = getRateLimiterRedisClient();
+    if (rateLimiterRedisClient) await rateLimiterRedisClient.quit();
     process.exit(0);
   });
 });
