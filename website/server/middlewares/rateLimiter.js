@@ -1,5 +1,4 @@
 import nconf from 'nconf';
-import redis from 'redis';
 import {
   RateLimiterRedis,
   RateLimiterMemory,
@@ -11,6 +10,7 @@ import {
 import logger from '../libs/logger';
 import { apiError } from '../libs/apiError';
 import SERVER_STATUS from '../libs/serverStatus';
+import setupRedis from '../libs/redis';
 
 // Middleware to rate limit requests to the API
 
@@ -19,9 +19,6 @@ import SERVER_STATUS from '../libs/serverStatus';
 
 const IS_TEST = nconf.get('IS_TEST');
 const RATE_LIMITER_ENABLED = nconf.get('RATE_LIMITER_ENABLED') === 'true';
-const REDIS_HOST = nconf.get('REDIS_HOST');
-const REDIS_PASSWORD = nconf.get('REDIS_PASSWORD');
-const REDIS_PORT = nconf.get('REDIS_PORT');
 const LIVELINESS_PROBE_KEY = nconf.get('LIVELINESS_PROBE_KEY');
 const REGISTRATION_COST = nconf.get('RATE_LIMITER_REGISTRATION_COST') || 5;
 const IP_RATE_LIMIT_COST = nconf.get('RATE_LIMITER_IP_COST') || 5;
@@ -41,19 +38,21 @@ if (RATE_LIMITER_ENABLED) {
       ...rateLimiterOpts,
     });
   } else {
-    redisClient = redis.createClient({
-      host: REDIS_HOST,
-      password: REDIS_PASSWORD,
-      port: REDIS_PORT,
-      enable_offline_queue: false,
+    redisClient = setupRedis({
+      host: nconf.get('REDIS_HOST'),
+      username: nconf.get('REDIS_USERNAME'),
+      password: nconf.get('REDIS_PASSWORD'),
+      port: nconf.get('REDIS_PORT'),
+    }, {
+      enableOfflineQueue: false,
     });
 
     redisClient.on('ready', () => {
-      SERVER_STATUS.REDIS = true;
+      SERVER_STATUS.RATE_LIMITER = true;
     });
 
     redisClient.on('reconnecting', () => {
-      SERVER_STATUS.REDIS = false;
+      SERVER_STATUS.RATE_LIMITER = false;
     });
 
     redisClient.on('error', error => {
@@ -66,7 +65,7 @@ if (RATE_LIMITER_ENABLED) {
     });
   }
 } else {
-  SERVER_STATUS.REDIS = true;
+  SERVER_STATUS.RATE_LIMITER = true;
 }
 
 function setResponseHeaders (res, rateLimiterRes) {
@@ -81,6 +80,10 @@ function setResponseHeaders (res, rateLimiterRes) {
   }
 
   res.set(headers);
+}
+
+export function getRedisClient () {
+  return redisClient;
 }
 
 export default function rateLimiterMiddleware (req, res, next) {
