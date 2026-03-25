@@ -23,7 +23,7 @@ if (nconf.get('WORKER_REDIS_URL')) {
 
   const queueConfig = {
     connection: redisClient,
-  }
+  };
   if (nconf.get('WORKER_REDIS_KEY_PREFIX')) {
     queueConfig.prefix = nconf.get('WORKER_REDIS_KEY_PREFIX');
   }
