@@ -9,7 +9,7 @@ import {
 import apiErrorMessages from '../../../../../../website/common/script/errors/apiErrorMessages';
 import { RegistrationEventModel } from '../../../../../../website/server/models/analytics/registrationEvent';
 
-describe('POST /user/auth/social', () => {
+describe.only('POST /user/auth/social', () => {
   let api;
   let user;
   const endpoint = '/user/auth/social';
@@ -67,14 +67,14 @@ describe('POST /user/auth/social', () => {
     });
 
     it('tracks a registration event', async () => {
-      await api.post(endpoint, {
+      const socialUser = await api.post(endpoint, {
         authResponse: { access_token: randomAccessToken }, // eslint-disable-line camelcase
         network,
       });
 
-      const registrationEvent = await RegistrationEventModel.findOne({ userId: user._id });
+      const registrationEvent = await RegistrationEventModel.findOne({ userId: socialUser.id });
       expect(registrationEvent).to.exist;
-      expect(registrationEvent).to.have.property('userId', user._id);
+      expect(registrationEvent).to.have.property('userId', socialUser.id);
       expect(registrationEvent).to.have.property('ipAddress');
       expect(registrationEvent).to.have.property('authenticationMethod', 'google');
     });

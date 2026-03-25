@@ -14,12 +14,12 @@ function getAuthenticationMethod (user) {
 export async function trackRegistrationEvent (eventData) {
   if (!LOCAL_ANALYTICS) return null;
 
-  const { user, ipAddress } = eventData;
+  const { user, ipAddress, method } = eventData;
 
   const registrationEvent = new RegistrationEventModel({
     userId: user._id,
     ipAddress,
-    authenticationMethod: getAuthenticationMethod(user),
+    authenticationMethod: method ?? getAuthenticationMethod(user),
     platform: user.registeredThrough,
   });
   return registrationEvent.save();

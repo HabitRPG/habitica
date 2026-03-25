@@ -43,7 +43,7 @@ describe('localAnalytics', () => {
 
     it('saves the correct data to the database', async () => {
       user._id = '00000000-0000-0000-0000-000000000002';
-      user.auth.google = { emails: [{ value: 'email@example.com' }] };
+      user.auth.google = { id: 'abc', emails: [{ value: 'email@example.com' }] };
       await localAnalytics.trackRegistrationEvent({ user, ipAddress: '127.0.0.2' });
 
       const registrationEvent = await RegistrationEventModel.findOne({ userId: user._id });
