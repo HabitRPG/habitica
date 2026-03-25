@@ -19,7 +19,7 @@ export async function trackRegistrationEvent (eventData) {
   const registrationEvent = new RegistrationEventModel({
     userId: user._id,
     ipAddress,
-    authenticationMethod: method ?? getAuthenticationMethod(user),
+    authenticationMethod: method || getAuthenticationMethod(user),
     platform: user.registeredThrough,
   });
   return registrationEvent.save();
