@@ -21,12 +21,15 @@ if (nconf.get('WORKER_REDIS_URL')) {
     SERVER_STATUS.WORKER = false;
   });
 
-  queues.email = new Queue('emails', {
+  const queueConfig = {
     connection: redisClient,
-  });
-  queues.deleteUser = new Queue('DeleteUsers', {
-    connection: redisClient,
-  });
+  }
+  if (nconf.get('WORKER_REDIS_KEY_PREFIX')) {
+    queueConfig.prefix = nconf.get('WORKER_REDIS_KEY_PREFIX');
+  }
+
+  queues.email = new Queue('emails', queueConfig);
+  queues.deleteUser = new Queue('DeleteUsers', queueConfig);
 } else {
   SERVER_STATUS.WORKER = true;
 }
