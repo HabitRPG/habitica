@@ -9,7 +9,7 @@ import {
 import apiErrorMessages from '../../../../../../website/common/script/errors/apiErrorMessages';
 import { RegistrationEventModel } from '../../../../../../website/server/models/analytics/registrationEvent';
 
-describe.only('POST /user/auth/social', () => {
+describe('POST /user/auth/social', () => {
   let api;
   let user;
   const endpoint = '/user/auth/social';
