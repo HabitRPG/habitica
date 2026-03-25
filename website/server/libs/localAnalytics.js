@@ -5,11 +5,10 @@ import { SubscriptionEventModel } from '../models/analytics/subscriptionEvent';
 const LOCAL_ANALYTICS = !nconf.get('DISABLE_LOCAL_ANALYTICS');
 
 function getAuthenticationMethod (user) {
-  if (user.auth.google) return 'google';
-  if (user.auth.facebook) return 'facebook';
-  if (user.auth.apple) return 'apple';
-  if (user.auth.local) return 'local';
-  return 'unknown';
+  if (user.auth.google && user.auth.google.id) return 'google';
+  if (user.auth.facebook && user.auth.facebook.id) return 'facebook';
+  if (user.auth.apple && user.auth.apple.id) return 'apple';
+  return 'local';
 }
 
 export async function trackRegistrationEvent (eventData) {
