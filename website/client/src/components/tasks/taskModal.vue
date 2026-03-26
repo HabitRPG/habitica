@@ -1399,7 +1399,7 @@ export default {
       this.task.down = !this.task.down;
     },
     weekdaysMin (dayNumber) {
-      return moment.weekdaysMin(dayNumber);
+      return this.$t(`weekdaysMin${dayNumber}`);
     },
     formattedDate (date) {
       return moment(date).format('MM/DD/YYYY');

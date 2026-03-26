@@ -3,7 +3,6 @@ import {
   BROWSER_SCRIPT_CACHE_PATH,
   geti18nCoreBrowserScript,
   geti18nContentBrowserScript,
-  geti18nLocaleBrowserScript,
 } from '../../libs/i18n';
 
 const IS_PROD = nconf.get('IS_PROD');
@@ -61,34 +60,6 @@ api.geti18nContentBrowserScript = {
       });
 
       const jsonResString = geti18nContentBrowserScript(req.language);
-      res.status(200).send(jsonResString);
-    }
-  },
-};
-
-/**
- * @api {get} /api/v3/i18n/locale Returns the locale data for a language code.
- * @apiDescription Returns the i18n JS script to make localized dates, times,
- * etc. available in the browser under window.i18n.locale.
- * Does not require authentication.
- * @apiName i18nBrowserScriptGet
- * @apiGroup i18n
- */
-api.geti18nLocaleBrowserScript = {
-  method: 'GET',
-  url: '/i18n/locale',
-  async handler (req, res) {
-    if (IS_PROD) {
-      res.set({
-        'Cache-Control': 'private',
-      });
-      res.sendFile(`${BROWSER_SCRIPT_CACHE_PATH}locales/${req.language}.js`);
-    } else {
-      res.set({
-        'Content-Type': 'application/javascript',
-      });
-
-      const jsonResString = geti18nLocaleBrowserScript(req.language);
       res.status(200).send(jsonResString);
     }
   },
