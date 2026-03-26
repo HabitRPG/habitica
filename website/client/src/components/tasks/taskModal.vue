@@ -1301,7 +1301,7 @@ export default {
         firstLink: '<a href="/static/privacy#section_1" target="_blank">',
         secondLink: '<a href="/static/privacy" target="_blank">',
         linkClose: '</a>',
-      }
+      },
     };
   },
   computed: {
