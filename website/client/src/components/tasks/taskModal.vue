@@ -75,8 +75,6 @@
               class="my-1"
             >
               <a
-                target="_blank"
-                href="/static/privacy#section_1"
                 :class="cssClass('headings')"
               >{{ $t('avoidSPI') }}</a>
             </small>
