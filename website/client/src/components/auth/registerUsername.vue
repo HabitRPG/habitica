@@ -20,7 +20,7 @@
           class="form mx-auto"
           @submit.prevent.stop="register()"
         >
-          <div v-if="showEmailField">
+          <div v-if="needsEmailField">
             <input
               id="emailInput"
               v-model="email"
@@ -187,6 +187,7 @@ export default {
       privacyAccepted: false,
       showEmailField: false,
       usernameIssues: [],
+      needsEmailField: false,
     };
   },
   computed: {
@@ -205,22 +206,29 @@ export default {
     },
   },
   mounted () {
-    if (window.sessionStorage.getItem('apple-token')) {
-      this.registrationMethod = 'apple';
-    } else if (!this.$store.state.registrationOptions.registrationMethod) {
-      this.$router.push('/');
-    } else {
-      this.registrationMethod = this.$store.state.registrationOptions.registrationMethod;
-    }
     this.authData = this.$store.state.registrationOptions.authData;
     this.email = this.$store.state.registrationOptions.email;
     this.username = this.$store.state.registrationOptions.username;
     this.password = this.$store.state.registrationOptions.password;
     this.passwordConfirm = this.$store.state.registrationOptions.passwordConfirm;
 
-    if (!this.email) {
-      this.showEmailField = true;
+    if (window.sessionStorage.getItem('apple-token')) {
+      this.registrationMethod = 'apple';
+      if (!this.email) {
+        this.email = window.sessionStorage.getItem('apple-email');
+      }
+    } else if (!this.$store.state.registrationOptions.registrationMethod) {
+      this.$router.push('/');
+    } else {
+      this.registrationMethod = this.$store.state.registrationOptions.registrationMethod;
+    }
+
+    if (!this.email && this.registrationMethod !== 'apple') {
       return;
+    }
+
+    if ((!this.email || this.email === '') && this.registrationMethod === 'apple') {
+      this.needsEmailField = true;
     }
     const usernameToCheck = this.email.split('@')[0].replace(/[^a-zA-Z0-9\-_]/g, '');
     this.$store.dispatch('auth:verifyUsername', {
@@ -260,6 +268,7 @@ export default {
           idToken: window.sessionStorage.getItem('apple-token'),
           name: window.sessionStorage.getItem('apple-name'),
           username: this.username,
+          email: this.email,
           allowRegister: true,
         });
       } else {
