@@ -103,11 +103,12 @@
       </div>
       <b-popover
         :target="'spi-alert'"
-        triggers="hover click"
+        triggers="hover"
         placement="bottom"
         offset="-128"
       >
-        <div v-markdown="$t('avoidSPIDetails', { link: '(/static/privacy#section_1)' })">
+        <div
+          v-html="$t('avoidSPIDetails', spiLinkData)">
         </div>
       </b-popover>
       <div
@@ -1298,6 +1299,11 @@ export default {
         { key: 'per', label: 'perception', description: 'perTaskText' },
       ],
       calendarHighlights: { dates: [new Date()] },
+      spiLinkData: {
+        firstLink: '<a href="/static/privacy#section_1" target="_blank">',
+        secondLink: '<a href="/static/privacy" target="_blank">',
+        linkClose: '</a>',
+      }
     };
   },
   computed: {
