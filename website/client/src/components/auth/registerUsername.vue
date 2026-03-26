@@ -185,7 +185,6 @@ export default {
   data () {
     return {
       privacyAccepted: false,
-      showEmailField: false,
       usernameIssues: [],
       needsEmailField: false,
     };
