@@ -14,5 +14,9 @@
     "nextFreeRebirth": "<strong><%= days %> dias</strong> até Orbe de Renascimento <strong>GRÁTIS</strong>",
     "rebirthUnlockedOrb": "Nova aventura disponível!",
     "rebirthNewAchievement": "Nova conquista",
-    "rebirthNewAdventure": "Uma nova aventura começa agora!"
+    "rebirthNewAdventure": "Uma nova aventura começa agora!",
+    "rebirthUnlockedNewItem": "Orbe do Renascimento desbloqueado",
+    "rebirthUnlockedDesc": "Use o Orbe do Renascimento para dar uma nova vida à sua aventura no Habitica quando você sentir que já conquistou tudo! Comece novamente do nível 1 mantendo suas Tarefas, Conquistas e Mascotes com esse item especial que pode ser encontrado no Mercado.",
+    "rebirthStackInfo": "Essa conquista acumula a cada vez que você usar o Orbe do Renascimento.",
+    "rebirthAchievementPlural": "Você usou o Orbe do Renascimento <strong><%= number %></strong> vezes, e o nível mais alto que você atingiu foi <strong><%= level %></strong>."
 }

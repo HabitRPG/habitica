@@ -2673,5 +2673,8 @@
     "weaponSpecialSummer2024MageNotes": "Deze verschrikkelijke tentakels kunnen tegelijkertijd magie afleiden, afbuigen en sturen. Verhoogt Intelligentie met <%= int %> en Perceptie met <%= per %>. Beperkte Oplage Zomer 2024 Uitrusting.",
     "weaponSpecialSummer2024HealerNotes": "Het zal je verbazen wanneer je ontdekt hoe hard de schelp aan het eind van deze staf is. Verhoogt Intelligentie met <%= int %>. Beperkte Oplage Zomer 2024 Uitrusting.",
     "weaponSpecialWinter2025RogueNotes": "Verblind die moeilijke taken tot onderwerping! Je zult niet te stoppen zijn! Verhoogt Kracht met <%= str %>. Beperkte Oplage Winter 2024-2025 Uitrusting.",
-    "weaponSpecialWinter2025HealerNotes": "Wat je nu nodig hebt zijn meer lichtjes met een lichtgevende ster er bovenop! Je zal niet te stoppen zijn! Verhoogt Intelligentie met <%= int %>. Beperkte Oplage Winter 2024-2025 Uitrusting."
+    "weaponSpecialWinter2025HealerNotes": "Wat je nu nodig hebt zijn meer lichtjes met een lichtgevende ster er bovenop! Je zal niet te stoppen zijn! Verhoogt Intelligentie met <%= int %>. Beperkte Oplage Winter 2024-2025 Uitrusting.",
+    "headMystery202111Text": "Chroovision Hoed",
+    "headArmoireRegalCrownText": "Koninklijke Kroon",
+    "shieldArmoireBucketText": "Emmer"
 }
