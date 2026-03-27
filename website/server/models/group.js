@@ -159,7 +159,7 @@ schema.plugin(baseModel, {
     if (plainObj.purchased) {
       plainObj.purchased.active = originalDoc.hasActiveGroupPlan();
       const plan = originalDoc.purchased && originalDoc.purchased.plan;
-      if (plan && plan.customerId) {
+      if (plan && plan.dateCreated) {
         plainObj.purchased.wasUpgraded = true;
         if (plan.dateTerminated) {
           plainObj.purchased.dateTerminated = plan.dateTerminated;
@@ -317,7 +317,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
           type: 'guild',
           privacy: 'private',
           _id: { $in: user.guilds },
-          'purchased.plan.customerId': { $exists: true },
+          'purchased.plan.dateCreated': { $exists: true },
         };
         if (!filters.includeExpiredPlans) {
           query.$or = [
