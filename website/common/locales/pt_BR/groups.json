@@ -436,5 +436,6 @@
     "pendingCount": "(<%= count %> pendentes)",
     "chooseAnOption": "Escolha uma Opção",
     "upgradeExistingGroup": "Aprimorar um Grupo Existente",
-    "createNewGroup": "Criar um Novo Grupo"
+    "createNewGroup": "Criar um Novo Grupo",
+    "perMember": "Por membro"
 }

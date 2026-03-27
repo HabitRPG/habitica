@@ -3495,5 +3495,7 @@
     "backMystery202601Notes": "Dieses Zeichen gewährt dem Anwender die Kontrolle über die Elemente der Jahreszeit von Kälte und Frost. Gewährt keinen Attributbonus. Januar 2026 Abonnentengegenstand.",
     "backMystery202602Text": "Fünf Schweife der Sakura",
     "backMystery202602Notes": "Diese flauschigen Schweife haben die Farbe der Kirschblüte, eine Erinnerung, dass der Frühling auf dem Weg ist. Gewährt keinen Autobusbonus. Februar 2026 Abonnentengegenstand.",
-    "backArmoireHarpsichordText": "Cembalo"
+    "backArmoireHarpsichordText": "Cembalo",
+    "weaponSpecialSpring2026HealerText": "Schneeglöckchen Stab",
+    "weaponSpecialSpring2026HealerNotes": "Eine Gelegenheit für einen Neuanfang liegt direkt vor dir, und mit diesem prächtigen Stab wirst du bereit sein! Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe Frühlingsausrüstung 2026."
 }
