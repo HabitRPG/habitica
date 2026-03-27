@@ -697,7 +697,7 @@ const backgrounds = {
       price: 0,
     },
     on_a_strange_planet: {
-      price: 0,
+      price: 1,
     },
   },
   timeTravelBackgrounds: {
