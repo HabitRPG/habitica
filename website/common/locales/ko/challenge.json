@@ -102,5 +102,6 @@
     "whyReportingChallengePlaceholder": "보고의 이유",
     "messageChallengeFlagOfficial": "공식 도전 과제는 신고가 불가능합니다.",
     "messageChallengeFlagAlreadyReported": "이 도전을 이미 신고하셨습니다.",
-    "flaggedAndHidden": "도전 플래그 세우고 숨기기"
+    "flaggedAndHidden": "도전 플래그 세우고 숨기기",
+    "brokenTask": "챌린지"
 }
