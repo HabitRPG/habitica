@@ -109,7 +109,10 @@ export async function appleAuth (store, params) {
   }
 
   if (result.data.message && result.data.id_token) {
-    return { idToken: result.data.id_token };
+    return {
+      idToken: result.data.id_token,
+      email: result.data.data && result.data.data.email,
+    };
   }
 
   const user = result.data.data;

@@ -35,6 +35,7 @@ export function loginRes (user, req, res) {
     apiToken: user.apiToken,
     newUser: user.newUser || false,
     username: user.auth.local.username,
+    email: user.auth.local.email,
   };
   return res.respond(200, responseData);
 }
