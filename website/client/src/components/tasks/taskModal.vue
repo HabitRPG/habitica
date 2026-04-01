@@ -1240,7 +1240,7 @@ import chevronIcon from '@/assets/svg/chevron.svg?raw';
 import calendarIcon from '@/assets/svg/calendar.svg?raw';
 import gripIcon from '@/assets/svg/grip.svg?raw';
 import InformationIcon from '@/components/ui/informationIcon.vue';
-import alertIcon from '@/assets/svg/for-css/alert-white.svg?raw'
+import alertIcon from '@/assets/svg/for-css/alert-white.svg?raw';
 
 export default {
   components: {
@@ -1301,7 +1301,7 @@ export default {
         firstLink: '<a href="/static/privacy#section_1" target="_blank">',
         secondLink: '<a href="/static/privacy" target="_blank">',
         linkClose: '</a>',
-      }
+      },
     };
   },
   computed: {
