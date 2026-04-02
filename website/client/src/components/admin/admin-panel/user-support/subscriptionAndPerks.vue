@@ -609,7 +609,7 @@ import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks
 import saveHero from '../mixins/saveHero';
 import LoadingSpinner from '@/components/ui/loadingSpinner';
 
-const PLAY_CONSOLE_ORDERS_BASE_URL = import.meta.env.PLAY_CONSOLE_ORDERS_BASE_URL;
+const { PLAY_CONSOLE_ORDERS_BASE_URL } = import.meta.env;
 
 const humanReadablePaymentDetails = {
   customerId: {
