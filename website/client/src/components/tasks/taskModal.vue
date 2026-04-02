@@ -1409,7 +1409,15 @@ export default {
 
       let details = '';
       if (task.frequency === 'weekly') {
-        const dayNames = { su: 'Sunday', m: 'Monday', t: 'Tuesday', w: 'Wednesday', th: 'Thursday', f: 'Friday', s: 'Saturday' };
+        const dayNames = {
+          su: 'Sunday',
+          m: 'Monday',
+          t: 'Tuesday',
+          w: 'Wednesday',
+          th: 'Thursday',
+          f: 'Friday',
+          s: 'Saturday',
+        };
         const activeDays = Object.keys(task.repeat || {}).filter(d => task.repeat[d]);
         if (activeDays.length > 0) {
           details = ` on ${activeDays.map(d => dayNames[d]).join(', ')}`;
