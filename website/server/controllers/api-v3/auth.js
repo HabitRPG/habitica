@@ -187,6 +187,7 @@ api.loginApple = {
     req.body.network = 'apple';
     req.body.allowRegister = req.query.allowRegister === 'true';
     req.body.username = req.query.username;
+    req.body.email = req.query.email;
     return loginSocial(req, res);
   },
 };

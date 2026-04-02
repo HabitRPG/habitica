@@ -229,14 +229,16 @@ export default {
     if ((!this.email || this.email === '') && this.registrationMethod === 'apple') {
       this.needsEmailField = true;
     }
-    const usernameToCheck = this.email.split('@')[0].replace(/[^a-zA-Z0-9\-_]/g, '');
-    this.$store.dispatch('auth:verifyUsername', {
-      username: usernameToCheck,
-    }).then(res => {
-      if (!res.issues) {
-        this.username = usernameToCheck;
-      }
-    });
+    if (this.email) {
+      const usernameToCheck = this.email.split('@')[0].replace(/[^a-zA-Z0-9\-_]/g, '');
+      this.$store.dispatch('auth:verifyUsername', {
+        username: usernameToCheck,
+      }).then(res => {
+        if (!res.issues) {
+          this.username = usernameToCheck;
+        }
+      });
+    }
     document.getElementById('usernameInput').focus();
   },
   methods: {
