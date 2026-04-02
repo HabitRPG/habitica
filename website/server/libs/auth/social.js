@@ -91,6 +91,7 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     if (network === 'apple') {
       return res.status(200).send({
         message: res.t('userNotFound'),
+        email,
         id_token: profile.idToken,
       });
     }
