@@ -181,6 +181,8 @@ api.ipn = {
   async handler (req, res) {
     res.sendStatus(200);
 
+    logger.info('PayPal IPN', req.body);
+
     paypalPayments
       .ipn(req.body)
       .catch(err => logger.error(err, 'Error handling Paypal IPN message.'));
