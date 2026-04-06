@@ -462,13 +462,11 @@
     &:hover:not(.task-not-editable.task-not-scoreable),
     &:focus-within:not(.task-not-editable.task-not-scoreable) {
       box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
-      z-index: 11;
     }
   }
 
   .task:not(.groupTask) {
-    &:hover,
-    &:focus-within {
+    &:hover, &:has(.task-clickable-area:focus) {
       .left-control, .right-control, .task-content {
         border-color: $purple-400;
       }
@@ -521,11 +519,6 @@
 
     &-user {
       padding-right: 0px;
-    }
-
-    &:focus {
-      border-radius: 4px;
-      border: $purple-400 solid 1px;
     }
   }
 
