@@ -13,6 +13,8 @@
       }, `type_${task.type}`
       ]"
       @click="castEnd($event, task)"
+      tabindex="0"
+      @keypress.enter="$emit('editTask', task)"
     >
       <div
         class="d-flex"
@@ -98,9 +100,7 @@
           <div
             class="task-clickable-area pt-1 pl-75 pb-0"
             :class="{ 'cursor-auto': !teamManagerAccess }"
-            tabindex="0"
             @click="edit($event, task)"
-            @keypress.enter="edit($event, task)"
           >
             <div class="d-flex justify-content-between">
               <h3
@@ -432,10 +432,6 @@
     outline: none;
     transition: none;
     border: $purple-400 solid 1px;
-
-    :not(task-best-control-inner-habit) { // round icon
-      border-radius: 4px;
-    }
   }
 
   .control-bottom-box {
@@ -466,10 +462,9 @@
   }
 
   .task:not(.groupTask) {
-    &:hover, &:has(.task-clickable-area:focus) {
-      .left-control, .right-control, .task-content {
-        border-color: $purple-400;
-      }
+    &:hover, &:focus {
+      border: none;
+      outline: 1px solid $purple-400;
     }
   }
 
