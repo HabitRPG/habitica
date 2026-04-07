@@ -21,6 +21,7 @@ export async function trackRegistrationEvent (eventData) {
     ipAddress,
     authenticationMethod: method || getAuthenticationMethod(user),
     platform: user.registeredThrough,
+    language: user.preferences.language,
   });
   return registrationEvent.save();
 }

@@ -12,6 +12,7 @@ export const schema = new Schema({
   ipAddress: { $type: String },
   platform: { $type: String },
   authenticationMethod: { $type: String },
+  language: { $type: String },
 }, {
   strict: true,
   typeKey: '$type',
