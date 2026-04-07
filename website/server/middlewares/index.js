@@ -71,6 +71,7 @@ export default function attachMiddlewares (app, server) {
     contentSecurityPolicy: {
       directives: {
         defaultSrc: [
+          'habitica.com',
           '*.habitica.com',
           '*.amazon.com',
           '*.amazonaws.com',
@@ -85,6 +86,7 @@ export default function attachMiddlewares (app, server) {
           'data:',
         ],
         scriptSrc: [
+          'habitica.com',
           '*.habitica.com',
           '*.amazon.com',
           '*.amazonaws.com',
