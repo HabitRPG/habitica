@@ -187,5 +187,7 @@
     "minPasswordLengthLogin": "Votre mot de passe contient au moins 8 caractères.",
     "enterValidEmail": "Merci d'entrer une adresse email valide.",
     "whatToCallYou": "Comment souhaitez-vous que nous vous appelions ?",
-    "acceptPrivacyTOS": "Vous confirmez avoir au moins 18 ans, et avoir lu et approuvé nos <a href='/static/terms' target='_blank'>Conditions de Service</a> ainsi que notre <a href='/static/privacy' target='_blank'>Politique de confidentialité</a>"
+    "acceptPrivacyTOS": "Vous confirmez avoir au moins 18 ans, et avoir lu et approuvé nos <a href='/static/terms' target='_blank'>Conditions de Service</a> ainsi que notre <a href='/static/privacy' target='_blank'>Politique de confidentialité</a>",
+    "emailAddress": "Adresse mail",
+    "emailRequiredForSupport": "Une adresse mail est nécessaire pour le support utilisat·eur·rice. Veuillez entrer une adresse mail pour poursuivre la création de votre compte."
 }

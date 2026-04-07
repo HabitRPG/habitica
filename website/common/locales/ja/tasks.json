@@ -141,5 +141,7 @@
     "deleteType": "<%= type %>を削除する",
     "deleteTask": "タスクを削除する",
     "deleteXTasks": "<%= count %>つのタスクを削除する",
-    "confirmDeleteTasks": "タスクを削除したいですか？"
+    "confirmDeleteTasks": "タスクを削除したいですか？",
+    "sureDeleteType": "本当にこのタスクを削除してもいいですか？",
+    "brokenChallengeTaskCount": "これは終了したチャレンジに関する<%= count %>つのタスクのうちの一つです。"
 }
