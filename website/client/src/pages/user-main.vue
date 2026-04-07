@@ -4,6 +4,7 @@
     :class="{
       'casting-spell': castingSpell,
     }"
+    @dragover.prevent
   >
     <!-- <banned-account-modal /> -->
     <amazon-payments-modal v-if="!isStaticPage" />

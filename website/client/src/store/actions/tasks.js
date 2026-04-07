@@ -158,11 +158,15 @@ export async function collapseChecklist (store, task) {
 }
 
 export async function destroy (store, task) {
-  const list = store.state.tasks.data[`${task.type}s`];
-  const taskIndex = list.findIndex(t => t._id === task._id);
+  const type = `${task.type}s`;
+  const listIndex = store.state.tasks.data[type].findIndex(t => t._id === task._id);
+  const orderIndex = store.state.user.data.tasksOrder[type].indexOf(task._id);
 
-  if (taskIndex > -1) {
-    list.splice(taskIndex, 1);
+  if (listIndex > -1) {
+    store.state.tasks.data[type].splice(listIndex, 1);
+  }
+  if (orderIndex > -1) {
+    store.state.user.data.tasksOrder[type].splice(orderIndex, 1);
   }
 
   await axios.delete(`/api/v4/tasks/${task._id}`);
