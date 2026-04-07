@@ -243,5 +243,7 @@
   "playerReportModalBody": "You should only report a player who violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Submitting a false report is a violation of Habitica’s Community Guidelines.",
   "targetUserNotExist": "Target User: '<%= userName %>' does not exist.",
   "rememberToBeKind": "Please remember to be kind, respectful, and follow the <a href='/static/community-guidelines' target='_blank'>Community Guidelines</a>.",
-  "confirmPurchase": "Confirm Purchase"
+  "confirmPurchase": "Confirm Purchase",
+  "avoidSPI": "Avoid SPI",
+  "avoidSPIDetails": "For your privacy, avoid including <%= firstLink %>sensitive personal information<%= linkClose %> (SPI) when using Habitica. Your account data, including tasks, is stored on our servers so you can access it from any device.<br><br>To learn more, review our <%= secondLink %>Privacy Policy<%= linkClose %>."
 }
