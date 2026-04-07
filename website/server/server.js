@@ -31,7 +31,9 @@ process.on('SIGTERM', async () => {
   console.log('SIGTERM signal received: closing HTTP server');
   server.close(async () => {
     await mongoose.disconnect();
-    await redis.quit();
+    if (redis.quit) {
+      await redis.quit();
+    }
     process.exit(0);
   });
 });

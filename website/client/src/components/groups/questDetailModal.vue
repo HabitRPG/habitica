@@ -334,7 +334,6 @@ import orderBy from 'lodash/orderBy';
 import * as quests from '@/../../common/script/content/quests';
 import getItemInfo from '@/../../common/script/libs/getItemInfo';
 import { mapState } from '@/libs/store';
-import * as Analytics from '@/libs/analytics';
 
 import navigationBack from '@/assets/svg/navigation_back.svg?raw';
 import questDialogContent from '../shops/quests/questDialogContent';
@@ -420,11 +419,6 @@ export default {
     },
     async questInit () {
       this.loading = true;
-
-      Analytics.updateUser({
-        partyID: this.group._id,
-        partySize: this.group.memberCount,
-      });
 
       const groupId = this.group._id || this.user.party._id;
 

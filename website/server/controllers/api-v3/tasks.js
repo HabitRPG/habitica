@@ -1,7 +1,6 @@
 import assign from 'lodash/assign';
 import find from 'lodash/find';
 import merge from 'lodash/merge';
-import pick from 'lodash/pick';
 import moment from 'moment';
 import { authWithHeaders } from '../../middlewares/auth';
 import {
@@ -330,17 +329,6 @@ api.createChallengeTasks = {
 
     // If adding tasks to a challenge -> sync users
     if (challenge) challenge.addTasks(tasks);
-
-    tasks.forEach(task => {
-      res.analytics.track('challenge task created', {
-        user: pick(user, ['preferences', 'registeredThrough']),
-        uuid: user._id,
-        hitType: 'event',
-        category: 'behavior',
-        taskType: task.type,
-        challengeID: challenge._id,
-      });
-    });
   },
 };
 
@@ -698,17 +686,6 @@ api.updateTask = {
       taskActivityWebhook.send(user, {
         type: 'updated',
         task: savedTask,
-      });
-    }
-
-    if (group) {
-      res.analytics.track('task edit', {
-        user: pick(user, ['preferences', 'registeredThrough']),
-        uuid: user._id,
-        hitType: 'event',
-        category: 'behavior',
-        taskType: task.type,
-        groupID: group._id,
       });
     }
   },

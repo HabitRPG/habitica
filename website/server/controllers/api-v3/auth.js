@@ -1,6 +1,5 @@
 import validator from 'validator';
 import moment from 'moment';
-import pick from 'lodash/pick';
 import sortBy from 'lodash/sortBy';
 import nconf from 'nconf';
 import {
@@ -126,14 +125,6 @@ api.loginLocal = {
     // Force the updated timestamp to update, so that we know they logged in
     user.auth.timestamps.updated = new Date();
     await user.save();
-
-    res.analytics.track('login', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      category: 'behavior',
-      type: 'local',
-      uuid: user._id,
-      headers: req.headers,
-    });
 
     return loginRes(user, req, res);
   },

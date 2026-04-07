@@ -49,10 +49,4 @@ export class BuyHourglassMountOperation extends AbstractHourglassItemOperation {
       message,
     ];
   }
-
-  analyticsData () {
-    const data = super.analyticsData();
-    data.itemType = 'mounts';
-    return data;
-  }
 }

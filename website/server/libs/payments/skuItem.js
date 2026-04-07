@@ -1,13 +1,9 @@
-import pick from 'lodash/pick';
 import moment from 'moment';
 import {
   BadRequest,
 } from '../errors';
 import shared from '../../../common';
-import { getAnalyticsServiceByEnvironment } from '../analyticsService';
 import { getGemsBlock, buyGems } from './gems'; // eslint-disable-line import/no-cycle
-
-const analytics = getAnalyticsServiceByEnvironment();
 
 const RESPONSE_INVALID_ITEM = 'INVALID_ITEM_PURCHASED';
 
@@ -31,19 +27,6 @@ async function buyGryphatrice (data) {
   data.user.items.pets[key] = 5;
   data.user.purchased.txnCount += 1;
 
-  analytics.trackPurchase({
-    user: pick(data.user, ['preferences', 'registeredThrough']),
-    uuid: data.user._id,
-    itemPurchased: 'Gryphatrice',
-    sku: `${data.paymentMethod.toLowerCase()}-checkout`,
-    purchaseType: 'checkout',
-    paymentMethod: data.paymentMethod,
-    quantity: 1,
-    gift: Boolean(data.gift),
-    purchaseValue: 10,
-    headers: data.headers,
-    firstPurchase: data.user.purchased.txnCount === 1,
-  });
   if (data.user.markModified) data.user.markModified('items.pets');
   await data.user.save();
 }

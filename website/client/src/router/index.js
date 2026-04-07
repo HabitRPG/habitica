@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import * as Analytics from '@/libs/analytics';
 import getStore from '@/store';
 import handleRedirect from './handleRedirect';
 
@@ -316,15 +315,6 @@ router.beforeEach(async (to, from, next) => {
 
   if (to.name === 'party') {
     router.app.$root.$emit('update-party');
-  }
-
-  if (to.name === 'lookingForParty') {
-    Analytics.track({
-      hitType: 'event',
-      eventName: 'View Find Members',
-      eventAction: 'View Find Members',
-      eventCategory: 'behavior',
-    }, { trackOnClient: true });
   }
 
   // Redirect old guild urls

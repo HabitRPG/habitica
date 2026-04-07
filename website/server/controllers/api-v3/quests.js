@@ -1,9 +1,7 @@
 import each from 'lodash/each';
 import every from 'lodash/every';
 import isBoolean from 'lodash/isBoolean';
-import pick from 'lodash/pick';
 import { authWithHeaders } from '../../middlewares/auth';
-import { getAnalyticsServiceByEnvironment } from '../../libs/analyticsService';
 import {
   model as Group,
   basicFields as basicGroupFields,
@@ -23,8 +21,6 @@ import { sendNotification as sendPushNotification } from '../../libs/pushNotific
 import { apiError } from '../../libs/apiError';
 import { questActivityWebhook } from '../../libs/webhook';
 import { model as UserHistory } from '../../models/userHistory';
-
-const analytics = getAnalyticsServiceByEnvironment();
 
 const questScrolls = common.content.quests;
 
@@ -166,17 +162,6 @@ api.inviteToQuest = {
       quest,
     });
 
-    // track that the inviting user has accepted the quest
-    analytics.track('quest', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      uuid: user._id,
-      category: 'behavior',
-      headers: req.headers,
-      owner: true,
-      questName: questKey,
-      response: 'accept',
-    });
-
     await UserHistory.beginUserHistoryUpdate(user._id, req.headers)
       .withQuestInviteResponse(group.quest.key, 'invite')
       .commit();
@@ -230,17 +215,6 @@ api.acceptQuest = {
     const savedGroup = await group.save();
 
     res.respond(200, savedGroup.quest);
-
-    // track that a user has accepted the quest
-    analytics.track('quest', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      category: 'behavior',
-      owner: false,
-      response: 'accept',
-      questName: group.quest.key,
-      uuid: user._id,
-      headers: req.headers,
-    });
 
     await UserHistory.beginUserHistoryUpdate(user._id, req.headers)
       .withQuestInviteResponse(group.quest.key, 'accept')
@@ -297,16 +271,6 @@ api.rejectQuest = {
 
     res.respond(200, savedGroup.quest);
 
-    analytics.track('quest', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      category: 'behavior',
-      owner: false,
-      response: 'reject',
-      questName: group.quest.key,
-      uuid: user._id,
-      headers: req.headers,
-    });
-
     await UserHistory.beginUserHistoryUpdate(user._id, req.headers)
       .withQuestInviteResponse(group.quest.key, 'reject')
       .commit();
@@ -360,16 +324,6 @@ api.forceStart = {
     ]);
 
     res.respond(200, savedGroup.quest);
-
-    analytics.track('quest', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      category: 'behavior',
-      owner: user._id === group.quest.leader,
-      response: 'force-start',
-      questName: group.quest.key,
-      uuid: user._id,
-      headers: req.headers,
-    });
   },
 };
 

@@ -1,4 +1,3 @@
-import pick from 'lodash/pick';
 import passport from 'passport';
 import common from '../../../common';
 import { verifyUsername } from '../user/validation';
@@ -13,6 +12,7 @@ import { model as User } from '../../models/user';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../email';
 import { apiError } from '../apiError';
+import { trackRegistrationEvent } from '../localAnalytics';
 
 function _passportProfile (network, accessToken) {
   return new Promise((resolve, reject) => {
@@ -145,6 +145,7 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     };
     user = new User(user);
     user.registeredThrough = req.headers['x-client']; // Not saved, used to create the correct tasks based on the device used
+    trackRegistrationEvent({ user, method: network, ipAddress: req.ip });
   }
 
   const savedUser = await user.save();
@@ -170,16 +171,6 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
         }
       })
       .catch(err => logger.error(err)); // eslint-disable-line max-nested-callbacks
-  }
-
-  if (!existingUser) {
-    res.analytics.track('register', {
-      user: pick(savedUser, ['preferences', 'registeredThrough']),
-      uuid: savedUser._id,
-      category: 'acquisition',
-      type: network,
-      headers: req.headers,
-    });
   }
 
   return response;

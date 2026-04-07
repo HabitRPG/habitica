@@ -70,8 +70,4 @@ export class BuyGemOperation extends AbstractGoldItemOperation { // eslint-disab
       this.i18n('plusGem', { count: this.quantity }),
     ];
   }
-
-  analyticsLabel () { // eslint-disable-line class-methods-use-this
-    return 'purchase gems';
-  }
 }
