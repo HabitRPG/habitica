@@ -68,37 +68,7 @@ export default function attachMiddlewares (app, server) {
   // See https://helmetjs.github.io/ for the list of headers enabled by default
   app.use(helmet({
     // New middlewares added by default in Helmet 4 are disabled
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: [
-          'habitica.com',
-          '*.habitica.com',
-          '*.amazon.com',
-          '*.amazonaws.com',
-          '*.amplitude.com',
-          '*.loggly.com',
-          '*.payments-amazon.com',
-          '*.stripe.com',
-          '*.stripe.network',
-        ],
-        imgSrc: [
-          '*',
-          'data:',
-        ],
-        scriptSrc: [
-          'habitica.com',
-          '*.habitica.com',
-          '*.amazon.com',
-          '*.amazonaws.com',
-          '*.amplitude.com',
-          '*.loggly.com',
-          '*.payments-amazon.com',
-          '*.stripe.com',
-          '*.stripe.network',
-        ],
-        upgradeInsecureRequests: IS_PROD ? [] : null,
-      },
-    },
+    contentSecurityPolicy: false, // @TODO implement
     expectCt: false,
     permittedCrossDomainPolicies: false,
     referrerPolicy: false,
