@@ -54,7 +54,7 @@ api.readNotification = {
  * @api {post} /api/v3/notifications/read Mark multiple notifications as read
  * @apiName ReadNotifications
  * @apiGroup Notification
- *
+ * @apiParam (Body) {String[]} notificationIds Array of notification IDs to mark as read.
  * @apiSuccess {Object} data user.notifications
  */
 api.readNotifications = {
@@ -69,8 +69,8 @@ api.readNotifications = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const notificationsIds = req.body.notificationIds;
-    for (const notificationId of notificationsIds) {
+    const notificationIds = req.body.notificationIds;
+    for (const notificationId of notificationIds) {
       const index = user.notifications.findIndex(n => n && n.id === notificationId);
 
       if (index === -1) {
@@ -81,7 +81,7 @@ api.readNotifications = {
     }
 
     await user.updateOne({
-      $pull: { notifications: { id: { $in: notificationsIds } } },
+      $pull: { notifications: { id: { $in: notificationIds } } },
     }).exec();
 
     // Update the user version field manually,
@@ -149,7 +149,7 @@ api.seeNotification = {
  * @api {post} /api/v3/notifications/see Mark multiple notifications as seen
  * @apiName SeeNotifications
  * @apiGroup Notification
- *
+ * @apiParam (Body) {String[]} notificationIds Array of notification IDs to mark as read.
  * @apiSuccess {Object} data user.notifications
  */
 api.seeNotifications = {
@@ -164,9 +164,9 @@ api.seeNotifications = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const notificationsIds = req.body.notificationIds;
+    const notificationIds = req.body.notificationIds;
 
-    for (const notificationId of notificationsIds) {
+    for (const notificationId of notificationIds) {
       const notification = user.notifications.find(n => n && n.id === notificationId);
 
       if (!notification) {
