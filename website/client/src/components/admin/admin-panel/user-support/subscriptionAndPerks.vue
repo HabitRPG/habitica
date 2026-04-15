@@ -792,7 +792,6 @@ export default {
       return date ? moment(date).format('MM/DD/YYYY') : '---';
     },
     isSubscribed () {
-      console.log(this.hero.purchased.plan.customerId, this.hero.purchased.plan.dateTerminated);
       return this.hero.purchased.plan
         && this.hero.purchased.plan.customerId
         && this.hero.purchased.plan.planId

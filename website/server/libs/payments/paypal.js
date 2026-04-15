@@ -248,7 +248,6 @@ api.getSubscriptionPaymentDetails = async function getSubscriptionPaymentDetails
   const customer = await this.paypalBillingAgreementGet(customerId);
   if (!customer) throw new NotFound(i18n.t('subscriptionNotFound'));
 
-  console.log('PayPal subscription details:', customer);
   return {
     customerId: customer.id,
     originalPurchaseDate: customer.start_date,
