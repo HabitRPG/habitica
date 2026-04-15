@@ -1530,6 +1530,62 @@ describe('Group Model', () => {
           mentionedMembers: [mentionedUser],
         })).to.eventually.be.rejectedWith('Push notification failed');
       });
+
+      it('does not send mention push notification to the sender', async () => {
+        sandbox.stub(pushNotifications, 'sendNotification').resolves();
+
+        const sender = new User({
+          party: { _id: party._id },
+          profile: { name: 'Sender' },
+          preferences: {
+            pushNotifications: {
+              mentionParty: true,
+              unsubscribeFromAll: false,
+            },
+          },
+          pushDevices: [{ regId: 'device-1', type: 'android' }],
+        });
+
+        await sender.save();
+
+        await party.sendChat({
+          message: 'I mentioned myself @sender',
+          user: sender,
+          mentionedMembers: [sender],
+        });
+
+        expect(pushNotifications.sendNotification).to.not.be.called;
+      });
+
+      it('does not send mention push notification when mentionParty preference is false', async () => {
+        sandbox.stub(pushNotifications, 'sendNotification').resolves();
+
+        const sender = new User({
+          profile: { name: 'Sender' },
+        });
+
+        const mentionedUser = new User({
+          party: { _id: party._id },
+          profile: { name: 'Mentioned User' },
+          preferences: {
+            pushNotifications: {
+              mentionParty: false,
+              unsubscribeFromAll: false,
+            },
+          },
+          pushDevices: [{ regId: 'device-1', type: 'android' }],
+        });
+
+        await Promise.all([sender.save(), mentionedUser.save()]);
+
+        await party.sendChat({
+          message: 'Hey @mentioned',
+          user: sender,
+          mentionedMembers: [mentionedUser],
+        });
+
+        expect(pushNotifications.sendNotification).to.not.be.called;
+      });
     });
 
     describe('#startQuest', () => {
