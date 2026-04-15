@@ -16,6 +16,7 @@ import {
   questActivityWebhook,
 } from '../../../../website/server/libs/webhook';
 import * as email from '../../../../website/server/libs/email';
+import * as pushNotifications from '../../../../website/server/libs/pushNotifications';
 import { TAVERN_ID } from '../../../../website/common/script/constants';
 import shared from '../../../../website/common';
 
@@ -1460,6 +1461,47 @@ describe('Group Model', () => {
 
         expect(User.updateMany).to.not.be.called;
       });
+
+      it('sends push notifications to mentioned members', async () => {
+        sandbox.stub(pushNotifications, 'sendNotification').resolves();
+
+        const sender = new User({
+          profile: { name: 'Sender' },
+        });
+
+        const mentionedUser = new User({
+          party: { _id: party._id },
+          profile: { name: 'Mentioned User' },
+          preferences: {
+            pushNotifications: {
+              mentionParty: true,
+              unsubscribeFromAll: false,
+            },
+          },
+          pushDevices: [{ regId: 'device-1', type: 'android' }],
+        });
+
+        party.members = [sender._id, mentionedUser._id];
+
+        await Promise.all([sender.save(), mentionedUser.save()]);
+
+        await party.sendChat({
+          message: 'Hey @mentionedUser check this out',
+          user: sender,
+          mentionedMembers: [mentionedUser],
+        });
+
+        expect(pushNotifications.sendNotification).to.be.calledOnce;
+        expect(pushNotifications.sendNotification).to.be.calledWithMatch(
+          sinon.match({ _id: mentionedUser._id }),
+          sinon.match({
+            identifier: 'chatMention',
+            title: sinon.match('Sender mentioned you'),
+            message: sinon.match.string,
+          }),
+        );
+      });
+
     });
 
     describe('#startQuest', () => {
