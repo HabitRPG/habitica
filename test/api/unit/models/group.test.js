@@ -17,6 +17,7 @@ import {
 } from '../../../../website/server/libs/webhook';
 import * as email from '../../../../website/server/libs/email';
 import * as pushNotifications from '../../../../website/server/libs/pushNotifications';
+import logger from '../../../../website/server/libs/logger';
 import { TAVERN_ID } from '../../../../website/common/script/constants';
 import shared from '../../../../website/common';
 
@@ -1502,9 +1503,10 @@ describe('Group Model', () => {
         );
       });
 
-      it('awaits all mention push notifications (does not swallow errors)', async () => {
+      it('logs mention push notification errors without blocking chat delivery', async () => {
         const pushError = new Error('Push notification failed');
         sandbox.stub(pushNotifications, 'sendNotification').rejects(pushError);
+        sandbox.stub(logger, 'error');
 
         const sender = new User({
           profile: { name: 'Sender' },
@@ -1524,11 +1526,20 @@ describe('Group Model', () => {
 
         await Promise.all([sender.save(), mentionedUser.save()]);
 
-        await expect(party.sendChat({
+        const chatMessage = await party.sendChat({
           message: 'Hey @mentioned check this',
           user: sender,
           mentionedMembers: [mentionedUser],
-        })).to.eventually.be.rejectedWith('Push notification failed');
+        });
+
+        expect(chatMessage).to.exist;
+        expect(chatMessage.text).to.eql('Hey @mentioned check this');
+
+        // Wait for the fire-and-forget Promise.all to settle
+        await new Promise(resolve => { setTimeout(resolve, 50); });
+
+        expect(logger.error).to.be.calledOnce;
+        expect(logger.error).to.be.calledWith(pushError);
       });
 
       it('does not send mention push notification to the sender', async () => {

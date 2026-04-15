@@ -621,7 +621,7 @@ schema.methods.sendChat = async function sendChat (options = {}) {
     sendChatPushNotifications(user, this, newChatMessage, mentions, translate);
   }
   if (mentionedMembers) {
-    await Promise.all(mentionedMembers.map(async member => {
+    Promise.all(mentionedMembers.map(async member => {
       if (member._id === user._id) return;
       const pushNotifPrefs = member.preferences.pushNotifications;
       if (this.type === 'party') {
@@ -649,7 +649,7 @@ schema.methods.sendChat = async function sendChat (options = {}) {
           payload: { type: this.type, groupID: this._id },
         });
       }
-    }));
+    })).catch(err => logger.error(err));
   }
   return newChatMessage;
 };
