@@ -1502,6 +1502,34 @@ describe('Group Model', () => {
         );
       });
 
+      it('awaits all mention push notifications (does not swallow errors)', async () => {
+        const pushError = new Error('Push notification failed');
+        sandbox.stub(pushNotifications, 'sendNotification').rejects(pushError);
+
+        const sender = new User({
+          profile: { name: 'Sender' },
+        });
+
+        const mentionedUser = new User({
+          party: { _id: party._id },
+          profile: { name: 'Mentioned User' },
+          preferences: {
+            pushNotifications: {
+              mentionParty: true,
+              unsubscribeFromAll: false,
+            },
+          },
+          pushDevices: [{ regId: 'device-1', type: 'android' }],
+        });
+
+        await Promise.all([sender.save(), mentionedUser.save()]);
+
+        await expect(party.sendChat({
+          message: 'Hey @mentioned check this',
+          user: sender,
+          mentionedMembers: [mentionedUser],
+        })).to.eventually.be.rejectedWith('Push notification failed');
+      });
     });
 
     describe('#startQuest', () => {
