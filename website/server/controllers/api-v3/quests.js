@@ -206,13 +206,16 @@ api.acceptQuest = {
     }
 
     user.party.quest.RSVPNeeded = false;
-    await user.save();
 
     if (canStartQuestAutomatically(group)) {
       await group.startQuest(user);
     }
 
-    const savedGroup = await group.save();
+    let savedGroup;
+    await Group.db.transaction(async session => {
+      await user.save({ session });
+      savedGroup = await group.save({ session });
+    });
 
     res.respond(200, savedGroup.quest);
 
@@ -261,13 +264,16 @@ api.rejectQuest = {
 
     user.party.quest = Group.cleanQuestUser(user.party.quest.progress);
     user.markModified('party.quest');
-    await user.save();
 
     if (canStartQuestAutomatically(group)) {
       await group.startQuest(user);
     }
 
-    const savedGroup = await group.save();
+    let savedGroup;
+    await Group.db.transaction(async session => {
+      await user.save({ session });
+      savedGroup = await group.save({ session });
+    });
 
     res.respond(200, savedGroup.quest);
 
