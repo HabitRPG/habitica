@@ -198,15 +198,31 @@ api.acceptQuest = {
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInviteNotFound'));
     if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyStartedFriendly'));
-    if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
 
-    const acceptedSuccessfully = await group.handleQuestInvitation(user, true);
+    if (group.quest.members[user._id] === true) {
+      if (user.party.quest.RSVPNeeded) {
+        user.party.quest.RSVPNeeded = false;
+        await user.save();
+        res.respond(200, group.quest);
+        return;
+      }
+      throw new BadRequest(res.t('questAlreadyAccepted'));
+    }
+    if (group.quest.members[user._id] === false) {
+      throw new BadRequest(res.t('questAlreadyAccepted'));
+    }
+
+    let acceptedSuccessfully = false;
+    await Group.db.transaction(async session => {
+      acceptedSuccessfully = await group.handleQuestInvitation(user, true, session);
+      if (!acceptedSuccessfully) return;
+      user.party.quest.RSVPNeeded = false;
+      await user.save({ session });
+    });
+
     if (!acceptedSuccessfully) {
       throw new NotAuthorized(res.t('questAlreadyAccepted'));
     }
-
-    user.party.quest.RSVPNeeded = false;
-    await user.save();
 
     if (canStartQuestAutomatically(group)) {
       await group.startQuest(user);
@@ -251,17 +267,33 @@ api.rejectQuest = {
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
     if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyStartedFriendly'));
-    if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
-    if (group.quest.members[user._id] === false) throw new BadRequest(res.t('questAlreadyRejected'));
 
-    const rejectedSuccessfully = await group.handleQuestInvitation(user, false);
+    if (group.quest.members[user._id] === true) {
+      throw new BadRequest(res.t('questAlreadyAccepted'));
+    }
+    if (group.quest.members[user._id] === false) {
+      if (user.party.quest.RSVPNeeded) {
+        user.party.quest = Group.cleanQuestUser(user.party.quest.progress);
+        user.markModified('party.quest');
+        await user.save();
+        res.respond(200, group.quest);
+        return;
+      }
+      throw new BadRequest(res.t('questAlreadyRejected'));
+    }
+
+    let rejectedSuccessfully = false;
+    await Group.db.transaction(async session => {
+      rejectedSuccessfully = await group.handleQuestInvitation(user, false, session);
+      if (!rejectedSuccessfully) return;
+      user.party.quest = Group.cleanQuestUser(user.party.quest.progress);
+      user.markModified('party.quest');
+      await user.save({ session });
+    });
+
     if (!rejectedSuccessfully) {
       throw new NotAuthorized(res.t('questAlreadyRejected'));
     }
-
-    user.party.quest = Group.cleanQuestUser(user.party.quest.progress);
-    user.markModified('party.quest');
-    await user.save();
 
     if (canStartQuestAutomatically(group)) {
       await group.startQuest(user);
