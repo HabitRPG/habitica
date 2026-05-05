@@ -91,6 +91,23 @@ describe('POST /groups/:groupId/quests/accept', () => {
       expect(partyMembers[0].party.quest.RSVPNeeded).to.be.false;
     });
 
+    it('heals stuck RSVPNeeded when group already has the user accepted', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+
+      await partyMembers[0].updateOne({ 'party.quest.RSVPNeeded': true });
+      await partyMembers[0].sync();
+      expect(partyMembers[0].party.quest.RSVPNeeded).to.be.true;
+
+      const res = await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+      expect(res).to.exist;
+
+      await partyMembers[0].sync();
+      await questingGroup.sync();
+      expect(partyMembers[0].party.quest.RSVPNeeded).to.equal(false);
+      expect(questingGroup.quest.members[partyMembers[0]._id]).to.equal(true);
+    });
+
     it('does not accept invite for a quest already underway', async () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
       await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);

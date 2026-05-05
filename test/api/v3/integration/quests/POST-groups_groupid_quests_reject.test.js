@@ -100,6 +100,23 @@ describe('POST /groups/:groupId/quests/reject', () => {
       expect(partyMembers[0].party.quest.RSVPNeeded).to.be.false;
     });
 
+    it('heals stuck RSVPNeeded when group already has the user rejected', async () => {
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/reject`);
+
+      await partyMembers[0].updateOne({ 'party.quest.RSVPNeeded': true });
+      await partyMembers[0].sync();
+      expect(partyMembers[0].party.quest.RSVPNeeded).to.be.true;
+
+      const res = await partyMembers[0].post(`/groups/${questingGroup._id}/quests/reject`);
+      expect(res).to.exist;
+
+      await partyMembers[0].sync();
+      await questingGroup.sync();
+      expect(partyMembers[0].party.quest.RSVPNeeded).to.equal(false);
+      expect(questingGroup.quest.members[partyMembers[0]._id]).to.equal(false);
+    });
+
     it('return an error when a user rejects an invite already accepted', async () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
       await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
