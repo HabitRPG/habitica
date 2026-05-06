@@ -2588,7 +2588,7 @@
     "weaponArmoireHuntingHornText": "Corne de chasse",
     "weaponArmoireHuntingHornNotes": "Taïaut ! Taïaut ! Rassemblez votre équipe pour une aventure ou une quête en soufflant dans cette corne. Augmente la force de <%= str %> et l'intelligence de <%= int %>. Armoire enchantée : ensemble d'instruments de musique 1 (objet 1 de 3)",
     "shieldArmoireSpanishGuitarText": "Guitare espagnole",
-    "shieldArmoireSpanishGuitarNotes": "Dzing ! Dzing ! Rassemblez votre équipe pour un concert ou un fête en jouant de cette guitare. Augmente la perception de <%= per %> et l'intelligence de <%= int %>. Armoire enchantée : ensemble d'instruments de musique 1 ((objet 2 de 3)",
+    "shieldArmoireSpanishGuitarNotes": "Dzing ! Dzing ! Rassemblez votre équipe pour un concert ou un fête en jouant de cette guitare. Augmente la perception de <%= per %> et l'intelligence de <%= int %>. Armoire enchantée : ensemble d'instruments de musique 1 (objet 2 de 3)",
     "shieldArmoireSnareDrumText": "Caisse-claire",
     "shieldArmoireSnareDrumNotes": "Rat-a-tat-tat ! Rassemblez votre équipe pour une parade ou un défilé en jouant de ce tambour. Augmente la constitution de <%= con %> et l'intelligence de <%= int %>. Armoire enchantée : ensemble d'instruments de musique 1 (objet 3 de 3)",
     "backMystery202206Text": "Ailes de lutine maritime",

@@ -39,7 +39,7 @@
     "messageGroupChatFlagAlreadyReported": "Hai già segnalato questo messaggio",
     "messageGroupChatNotFound": "Messaggio non trovato!",
     "messageGroupChatAdminClearFlagCount": "Solo un amministratore può azzerare il conteggio flag!",
-    "messageCannotFlagSystemMessages": "Non puoi segnalare un messaggio di sistema. Se hai bisogno di segnalare una violazione delle Linee guida della community relativa a questo messaggio, per favore invia per e-mail uno screenshot e una spiegazione del problema al Responsabile della Comunità, all'indirizzo <%= communityManagerEmail %>.",
+    "messageCannotFlagSystemMessages": "Non puoi segnalare un messaggio di sistema. Se hai bisogno di segnalare una violazione delle Linee Guida della Community relativa a questo messaggio, per favore invia per email uno screenshot e una spiegazione del problema al Responsabile della Comunità, all'indirizzo <%= communityManagerEmail %>.",
     "messageCannotLeaveWhileQuesting": "Non puoi accettare questo invito ad unirti ad una squadra mentre partecipi ad una missione. Se vuoi unirti a questa squadra devi prima annullare la missione, puoi farlo dalla schermata della squadra. Ti verrà restituita la Pergamena.",
     "messageUserOperationProtected": "Il percorso `<%= operation %>` non è stato salvato, perché è un percorso protetto.",
     "messageNotificationNotFound": "Notifica non trovata.",

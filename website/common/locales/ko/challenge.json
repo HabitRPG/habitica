@@ -102,6 +102,15 @@
     "whyReportingChallengePlaceholder": "보고의 이유",
     "messageChallengeFlagOfficial": "공식 도전 과제는 신고가 불가능합니다.",
     "messageChallengeFlagAlreadyReported": "이 도전을 이미 신고하셨습니다.",
-    "flaggedAndHidden": "도전 플래그 세우고 숨기기",
-    "brokenTask": "챌린지"
+    "flaggedAndHidden": "신고된 챌린지이며 현재 숨김 처리되었습니다",
+    "brokenTask": "챌린지",
+    "flaggedNotHidden": "챌린지가 한 번 신고되었으나, 숨겨지지 않았습니다",
+    "brokenTaskDescription": "이 작업은 챌린지의 일부였으나 현재는 삭제되었습니다. 어떻게 하시겠습니까?",
+    "brokenChallengeDescription": "본 작업은 특정 챌린지의 일부였으나 현재 그 챌린지(또는 그룹)가 존재하지 않습니다. 남은 작업들은 어떻게 할까요?",
+    "challengeCompletedDescription": "<%= user %>님이 우승하셨습니다! 남은 작업은 어떻게 할까요?",
+    "cannotClose": "본 챌린지는 부적절한 콘텐츠 신고가 접수되어 종료가 불가능합니다. 운영진이 검토 후 곧 연락을 드릴 것입니다. 만약 48시간 내에 답변을 받지 못하셨다면 admin@habitica.com으로 메일 부탁드립니다.",
+    "cannotClone": "하나 이상의 신고가 접수되어 이 챌린지를 복제할 수 없습니다. 운영진이 곧 연락을 드릴 예정입니다. 48시간이 경과해도 안내를 받지 못하신 경우, admin@habitica.com으로 지원을 요청해 주세요.",
+    "abuseFlagModalBodyChallenge": "<%= firstLinkStart %>커뮤니티 가이드라인<%= linkEnd %> 및/또는 <%= secondLinkStart %>서비스 이용 약관<%= linkEnd %>을 위반하는 챌린지만 신고해야 합니다. 허위 신고를 제출하는 것은 Habitica의 커뮤니티 가이드라인을 위반하는 행위입니다.",
+    "resetFlags": "플래그 재설정",
+    "cannotMakeChallenge": "현재 계정에 채팅 권한이 없어 공개 챌린지를 생성할 수 없습니다. 자세한 내용은 admin@habitica.com으로 문의해 주세요."
 }

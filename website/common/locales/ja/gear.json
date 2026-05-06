@@ -3470,5 +3470,8 @@
     "shieldSpecialWinter2026WarriorText": "霧氷の盾",
     "shieldArmoireFancyFloralFanText": "おしゃれな花の扇子",
     "shieldArmoireFlyFishingRodText": "フライフィッシングの釣竿",
-    "headSpecialWinter2026WarriorText": "霜の死神のかぶと"
+    "headSpecialWinter2026WarriorText": "霜の死神のかぶと",
+    "backMystery202605Notes": "最も暗い夜でも照らす、月と星の光で輝く光輪。効果なし。2026年5月の有料会員アイテム。",
+    "backMystery202506Text": "陽光の光輪",
+    "weaponArmoirePrettyPinkParasolNotes": "見た目もよくて実用的、それがいちばんの組み合わせです。さらに印象的に見せるなら、このパラソルをくるっと回してみてください！すべての能力値がそれぞれ<%= attrs %>上がります。ラッキー宝箱：ピンクのおしゃれセット（アイテム1/2）"
 }

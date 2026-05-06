@@ -430,5 +430,8 @@
     "createNewGroup": "新しいグループを作成",
     "yourParty": "あなたのパーティー",
     "oneMember": "メンバー1人",
-    "membersCount": "メンバー<%= count %>人"
+    "membersCount": "メンバー<%= count %>人",
+    "chooseAnOption": "オプションを選択",
+    "inviteOthersForAdditional": "他の人をグループに誘う追加料金",
+    "perMember": "（一人あたり）"
 }

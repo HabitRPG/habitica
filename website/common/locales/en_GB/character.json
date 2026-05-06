@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to e-mail <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profile",
     "avatar": "Customise Avatar",
     "editAvatar": "Customise Avatar",
@@ -63,7 +63,7 @@
     "gearAchievementNotification": "You have earned the \"Ultimate Gear\" Achievement for upgrading to the maximum gear set for a class!",
     "moreGearAchievements": "To attain more Ultimate Gear badges, change classes on <a href='/user/settings/site' target='_blank'>the Settings &gt; Site page</a> and buy your new class's gear!",
     "armoireUnlocked": "For more equipment, check out the <strong>Enchanted Armoire!</strong> Click on the Enchanted Armoire Reward for a random chance at special Equipment! It may also give you random XP or food items.",
-    "ultimGearName": "Ultimate Gear - <%= ultClass %>",
+    "ultimGearName": "Ultimate Gear—<%= ultClass %>",
     "ultimGearText": "Has upgraded to the maximum weapon and armour set for the <%= ultClass %> class.",
     "level": "Level",
     "levelUp": "Level Up!",
@@ -193,5 +193,12 @@
     "customizations": "Customisations",
     "skins": "Skins",
     "pointsAvailable": "Points Available",
-    "assignedStat": "Assigned Stat"
+    "assignedStat": "Assigned Stat",
+    "strTaskText": "Increases critical hit chance and damage when scoring tasks. Also increases damage dealt to Quest bosses.",
+    "perTaskText": "Increases item drop chance, daily item drop cap, task streak bonuses, and Gold earned when completing tasks.",
+    "autoAllocate": "Auto Allocate",
+    "allocationMethod": "Allocation Method",
+    "statAllocationInfo": "Each level earns you one point to assign to a Stat of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options.",
+    "conTaskText": "Reduces damage taken from missed Dailies and negative Habits. Does not reduce damage from Quest bosses.",
+    "intTaskText": "Increases Experience earned from tasks. Also increases your Mana cap and Mana regeneration rate."
 }
