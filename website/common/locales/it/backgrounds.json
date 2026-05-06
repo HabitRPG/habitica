@@ -914,7 +914,7 @@
     "backgroundSunnyStreetWithShopsText": "Strada Soleggiata con Negozi",
     "backgroundSunnyStreetWithShopsNotes": "Lasciati incantare dall’atmosfera di una strada soleggiata con negozi.",
     "backgroundAutumnSwampText": "Palude Autunnale",
-    "backgroundAutumnSwampNotes": "Immergiti nelle inquietanti atmosfere di una palude d’autunno.",
+    "backgroundAutumnSwampNotes": "Immergiti nelle inquietanti atmosfere di una palude d’Autunno.",
     "backgrounds102025": "SET 137: Rilasciato Ottobre 2025",
     "backgroundInsideForestWitchsCottageNotes": "Tessi incantesimi nella casetta della Strega della Foresta.",
     "backgrounds112025": "SET 138: Rilasciato Novembre 2025",
@@ -930,5 +930,16 @@
     "backgroundWinterDesertWithSaguarosNotes": "Respira l'aria frizzante di un Deserto Invernale con Cactus Giganti.",
     "backgrounds022026": "SET 141: Rilasciato Febbraio 2026",
     "backgroundElegantPalaceText": "Palazzo Elegante",
-    "backgroundElegantPalaceNotes": "Ammira le sale piene di colori di un Elegante Palazzo."
+    "backgroundElegantPalaceNotes": "Ammira le sale piene di colori di un Elegante Palazzo.",
+    "backgrounds032026": "SET 142: Rilasciato Marzo 2026",
+    "backgroundWaterfallWithRainbowText": "Cascata con Arcobaleno",
+    "backgroundWaterfallWithRainbowNotes": "Ammira la bellezza mozzafiato di una Cascata con Arcobaleno.",
+    "backgrounds042026": "SET 143: Rilasciato Aprile 2026",
+    "backgroundRidingACometNotes": "Viaggia nello spazio Sfrecciando su una Cometa!",
+    "backgroundRidingACometText": "Sfrecciando su una Cometa",
+    "backgrounds052026": "SET 144: Rilasciato Maggio 2026",
+    "backgroundElvenCitadelText": "Cittadella Elfica",
+    "backgroundElvenCitadelNotes": "Fai il giro panoramico in una Cittadella Elfica.",
+    "backgroundOnAStrangePlanetText": "Su uno Strano Pianeta",
+    "backgroundOnAStrangePlanetNotes": "Avventurati dove nessun Habitante è mai giunto prima: Su uno Strano Pianeta."
 }

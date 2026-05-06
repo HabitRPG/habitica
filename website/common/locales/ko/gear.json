@@ -172,7 +172,7 @@
     "weaponSpecialFall2015RogueText": "박쥐 도끼",
     "weaponSpecialFall2015RogueNotes": "아무리 두려운 할일이라도 이 도끼의 날갯짓 앞에서는 움츠러들 것이다. 힘을 <%= str %>만큼 증가시킨다. 2015년 가을 한정판 장비.",
     "weaponSpecialFall2015WarriorText": "나무판자",
-    "weaponSpecialFall2015WarriorNotes": "Great for elevating things in cornfields and/or smacking tasks. Increases Strength by <%= str %>. Limited Edition 2015 Autumn Gear.",
+    "weaponSpecialFall2015WarriorNotes": "옥수수밭에서 물건을 들어 올리거나 작업을 세게 처리하는 데 아주 유용합니다. 힘(Strength)을 <%= str %>만큼 증가시킵니다. 2015년 가을 한정판 장비.",
     "weaponSpecialFall2015MageText": "마법에 걸린 실",
     "weaponSpecialFall2015MageNotes": "A powerful Stitch Witch can control this enchanted thread without even touching it! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2015 Autumn Gear.",
     "weaponSpecialFall2015HealerText": "Swamp-Slime Potion",

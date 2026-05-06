@@ -11,5 +11,12 @@
     "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from tasks belonging to active Challenges and Group Plans. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately.",
     "rebirthName": "Orb of Rebirth",
     "rebirthComplete": "You have been reborn!",
-    "nextFreeRebirth": "<strong><%= days %> days</strong> until <strong>FREE</strong> Orb of Rebirth"
+    "nextFreeRebirth": "<strong><%= days %> days</strong> until <strong>FREE</strong> Orb of Rebirth",
+    "rebirthUnlockedNewItem": "Orb of Rebirth Unlocked",
+    "rebirthUnlockedOrb": "A new adventure is available!",
+    "rebirthUnlockedDesc": "Use the Orb of Rebirth to breathe new life into your Habitica adventure once you feel you've achieved it all! Begin again at level 1 while keeping your tasks, Achievements, and Pets with this special item found in the Market.",
+    "rebirthNewAchievement": "New Achievement",
+    "rebirthNewAdventure": "A new adventure begins now!",
+    "rebirthAchievementPlural": "You've used the Orb of Rebirth <strong><%= number %></strong> times, and your highest level reached is <strong><%= level %></strong>.",
+    "rebirthStackInfo": "This achievement will stack each time you use the Orb of Rebirth."
 }

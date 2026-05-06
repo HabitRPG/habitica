@@ -1,9 +1,9 @@
 {
     "lostAllHealth": "Hai finito i punti salute!",
     "dontDespair": "Non disperarti!",
-    "deathPenaltyDetails": "Hai perso un livello, il tuo oro e un oggetto del tuo equipaggiamento, ma potrai recuperare tutto lavorando sodo! Buona fortuna, ce la farai.",
+    "deathPenaltyDetails": "Hai perso un Livello, il tuo Oro e un oggetto del tuo Equipaggiamento, ma potrai recuperare tutto con un po' d'impegno! Buona fortuna, ce la farai.",
     "refillHealthTryAgain": "Ripristina salute e riprovaci",
-    "dyingOftenTips": "Succede spesso? <a href='https://habitica.fandom.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Qui trovi qualche consiglio! (in inglese)</a>",
+    "dyingOftenTips": "Succede spesso? <a href='/static/faq#prevent-damage' target='_blank'>Qui trovi qualche consiglio! (in inglese)</a>",
     "losingHealthWarning": "Attenzione - stai perdendo Salute!",
     "losingHealthWarning2": "Non lasciare che la tua Salute scenda a zero! Se lo farai, perderai un livello, il tuo Oro e un pezzo di equipaggiamento.",
     "toRegainHealth": "Per ripristinare la Salute:",

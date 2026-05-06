@@ -1,7 +1,7 @@
 {
     "rebirthNew": "환생: 새로운 모험을 시작할 수 있습니다!",
     "rebirthUnlock": "환생 기능이 추가되었습니다! 마켓에서 살 수 있는 특별한 아이템으로 과제와 업적, 펫, 그밖에 여러가지를 그대로 유지하면서 레벨 1부터 다시 시작할 수 있습니다. Habitica에서 얻을 수 있는 모든 걸 달성했다고 생각한다면 환생을 통해 새로운 출발을 해보세요! 새로 업데이트된 기능을 처음부터 경험하고 싶은 경우에도 사용할 수 있습니다!",
-    "rebirthAchievement": "당신의 새로운 모험이 시작됩니다! 이건 당신을 위한 <%= number %>번째 환생이고, 당신의 가장 높았던 레벨은 <%= level %>입니다. 이 업적을 쌓기 위해 이보다 더 높은 레벨에 도달했을 때, 당신의 새로운 그 다음 모험을 시작하십시오.",
+    "rebirthAchievement": "환생의 구슬을 <strong><%= number %></strong>번 사용하셨으며, 달성한 최고 레벨은 <strong><%= level %></strong>입니다.",
     "rebirthAchievement100": "당신의 새로운 모험이 시작됩니다! 이건 당신을 위한 <%= number %>번째 환생이고, 당신의 가장 높았던 레벨은 100 또는 그 이상입니다. 이 업적을 쌓기 위해 최소 레벨 100에 도달하면 당신의 새로운 그 다음 모험을 시작하십시오!",
     "rebirthBegan": "새로운 모험을 시작하였습니다.",
     "rebirthText": "<%= rebirths %> 번의 새로운 모험을 시작하였습니다.",
@@ -12,5 +12,11 @@
     "rebirthName": "환생의 구슬",
     "rebirthComplete": "다시 태어났습니다!",
     "nextFreeRebirth": "<strong>무료로</strong> 환생의 구슬을 사용할 수 있을 때까지 <strong><%= days %> 일</strong>이 남았습니다.",
-    "rebirthUnlockedOrb": "새로운 모험을 할수있습니다!"
+    "rebirthUnlockedOrb": "새로운 모험을 할수있습니다!",
+    "rebirthUnlockedNewItem": "환생의 구슬 잠금 해제",
+    "rebirthUnlockedDesc": "해비티카의 모든 목표를 달성했다고 생각하시나요? 환생의 구슬로 당신의 모험에 새로운 생명력을 불어넣어 보세요! 상점에서 구매 가능한 이 특별한 아이템은 과제와 업적, 펫을 유지하면서 레벨 1부터 새롭게 시작하게 해줍니다.",
+    "rebirthNewAchievement": "새로운 업적",
+    "rebirthNewAdventure": "새 모험이 지금 시작되었습니다!",
+    "rebirthAchievementPlural": "환생의 구슬을 총 <strong><%= number %></strong>번 사용하셨으며, 최고 도달 레벨은 <strong><%= level %></strong>입니다.",
+    "rebirthStackInfo": "환생의 구슬을 사용할 때마다 이 업적 수치가 누적됩니다."
 }

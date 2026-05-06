@@ -126,7 +126,7 @@
     "deleteTaskType": "Delete this <%= type %>",
     "pressEnterToAddTag": "Press Enter to add tag: '<%= tagName %>'",
     "enterTag": "Enter a tag",
-    "addTags": "Add tags...",
+    "addTags": "Add tags…",
     "tomorrow": "Tomorrow",
     "counter": "Counter",
     "taskSummary": "<%= type %> Summary",
@@ -141,5 +141,7 @@
     "deleteType": "Delete <%= type %>",
     "deleteTask": "Delete Task",
     "deleteXTasks": "Delete <%= count %> Tasks",
-    "sureDeleteType": "Are you sure you want to delete this task?"
+    "sureDeleteType": "Are you sure you want to delete this task?",
+    "brokenChallengeTaskCount": "This is one of <%= count %> tasks that are part of a Challenge that no longer exists.",
+    "confirmDeleteTasks": "Would you like to delete the tasks?"
 }

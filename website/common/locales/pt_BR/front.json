@@ -187,5 +187,7 @@
     "acceptPrivacyTOS": "Você confirma que tem pelo menos 18 anos de idade e que leu e concorda com nossos <a href='/static/terms' target='_blank'>Termos de Serviço</a> e <a href='/static/privacy' target='_blank'>Política de Privacidade</a>",
     "marketing3Lead1Title": "Aplicativos Android e iOS",
     "marketing4Lead3Button": "Comece Hoje Mesmo",
-    "missingClientHeader": "Cabeçalhos x-client ausentes."
+    "missingClientHeader": "Cabeçalhos x-client ausentes.",
+    "emailAddress": "Endereço de email",
+    "emailRequiredForSupport": "Precisamos de um endereço de e-mail para suporte ao usuário. Por favor, insira um endereço de e-mail para continuar criando sua conta."
 }
