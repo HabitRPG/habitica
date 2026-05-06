@@ -99,7 +99,6 @@ describe('rateLimiter middleware', () => {
     const setupRateLimiter = requireAgain(pathToRateLimiter).default;
     const attachRateLimiter = setupRateLimiter();
 
-
     req.query.liveliness = 'abc';
     await attachRateLimiter(req, res, next);
 
