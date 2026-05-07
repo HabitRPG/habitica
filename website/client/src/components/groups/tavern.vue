@@ -335,6 +335,7 @@
                 v-once
                 href="https://habitica.fandom.com/wiki/Habitica_Wiki"
                 target="_blank"
+                rel="noopener noreferrer"
               >{{ $t('wiki') }}</a>
             </li>
             <li>
@@ -342,12 +343,14 @@
                 v-once
                 href="https://tools.habitica.com/"
                 target="_blank"
+                rel="noopener noreferrer"
               >{{ $t('dataDisplayTool') }}</a>
             </li>
             <li>
               <a
                 href=""
                 target="_blank"
+                rel="noopener noreferrer"
                 @click.prevent="openBugReportModal()"
               >
                 {{ $t('reportBug') }}
@@ -358,6 +361,7 @@
                 v-once
                 href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
                 target="_blank"
+                rel="noopener noreferrer"
               >{{ $t('requestFeature') }}</a>
             </li>
             <li>

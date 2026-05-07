@@ -94,7 +94,7 @@
     "showAPIToken": "Show API Token",
     "hideAPIToken": "Hide API Token",
     "thirdPartyApps": "Third Party Apps",
-    "thirdPartyTools": "Find third party apps, extensions, and all kinds of other tools you can use with your account on the <a href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Habitica wiki</a>.",
+    "thirdPartyTools": "Find third party apps, extensions, and all kinds of other tools you can use with your account on the <a href='https://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank' rel='noreferrer noopener'>Habitica wiki</a>.",
     "resetDo": "Do it, reset my account!",
     "resetComplete": "Reset complete!",
     "fixValues": "Fix Values",
@@ -163,7 +163,7 @@
     "generate": "Generate",
     "getCodes": "Get Codes",
     "webhooks": "Webhooks",
-    "webhooksInfo": "Webhooks provide a way for developers to receive notifications when a particular action is performed, such as scoring or updating a Task, or sending a message in a Group. By creating a webhook, you will be able to listen to changes in Habitica and build apps that respond to these changes.<br><br>For additional information and examples on webhooks, please visit our <a target=\"_blank\" href=\"https://apidoc.habitica.com/#api-Webhook-AddWebhook\">API Docs</a>.",
+    "webhooksInfo": "Webhooks provide a way for developers to receive notifications when a particular action is performed, such as scoring or updating a Task, or sending a message in a Group. By creating a webhook, you will be able to listen to changes in Habitica and build apps that respond to these changes.<br><br>For additional information and examples on webhooks, please visit our <a target=\"_blank\" rel=\"noreferrer noopener\" href=\"https://apidoc.habitica.com/#api-Webhook-AddWebhook\">API Docs</a>.",
     "enabled": "Enabled",
     "webhookURL": "Webhook URL",
     "addWebhook": "Add Webhook",
@@ -264,7 +264,7 @@
     "managePrivacyPreferences": "Manage Your Privacy Preferences",
     "yourPrivacyPreferences": "Your Privacy Preferences",
     "privacySettingsOverview": "Habitica uses cookies to analyze performance, handle support requests, and provide you with the best possible gamified experience. To do that, we need to request the following permissions. You can change these at any time from your account settings.",
-    "learnMorePrivacy": "To learn more, review our <a href='/static/privacy' target='_blank'>Privacy Policy</a>.",
+    "learnMorePrivacy": "To learn more, review our <a href='/static/privacy' target='_blank' rel='noreferrer noopener'>Privacy Policy</a>.",
     "strictlyNecessary": "Strictly Necessary",
     "alwaysActive": "Always Active",
     "requiredToRun": "These are required by our website and apps to run at their best.",
@@ -272,6 +272,6 @@
     "usedForSupport": "These are used to improve the user experience, performance, and services of our website and apps. This data is used by our support team when handling requests and bug reports.",
     "savePreferences": "Save Preferences",
     "habiticaPrivacyPolicy": "Habitica's Privacy Policy",
-    "gpcWarning": "<a href='<%= url %>' target='_blank'>GPC</a> is on. Turning on tracking below will override this and send data to our analytics partners.",
-    "gpcPlusAnalytics": "<a href='<%= url %>' target='_blank'>GPC</a> is on. You have opted in to tracking and sending data to our analytics partners."
+    "gpcWarning": "<a href='<%= url %>' target='_blank' rel='noreferrer noopener'>GPC</a> is on. Turning on tracking below will override this and send data to our analytics partners.",
+    "gpcPlusAnalytics": "<a href='<%= url %>' target='_blank' rel='noreferrer noopener'>GPC</a> is on. You have opted in to tracking and sending data to our analytics partners."
 }

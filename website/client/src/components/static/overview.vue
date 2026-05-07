@@ -16,6 +16,7 @@
           <span v-html="$t('overviewQuestionsRevised')"></span>
           <a
             target="_blank"
+            rel="noopener noreferrer"
             @click.prevent="openBugReportModal(true)"
           >
             {{ $t('askQuestion') }}

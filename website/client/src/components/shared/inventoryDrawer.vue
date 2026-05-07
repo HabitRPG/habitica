@@ -33,6 +33,7 @@
             class="drawer-help-text"
             href="/static/faq#pet-foods"
             target="_blank"
+            rel="noopener noreferrer"
           >
             <span>{{ $t('petLikeToEat') }}</span>
           </a>

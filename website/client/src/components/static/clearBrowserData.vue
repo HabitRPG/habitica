@@ -33,11 +33,11 @@ export default {
   data () {
     return {
       localStorageTryFirst: {
-        linkStart: '<a href="/user/settings/site" target="_blank">',
+        linkStart: '<a href="/user/settings/site" target="_blank" rel="noopener noreferrer">',
         linkEnd: '</a>',
       },
       localStorageTryNext: {
-        linkStart: '<a href="https://github.com/HabitRPG/habitica/issues/2760" target="_blank">',
+        linkStart: '<a href="https://github.com/HabitRPG/habitica/issues/2760" target="_blank" rel="noopener noreferrer">',
         linkEnd: '</a>',
       },
     };

@@ -68,6 +68,7 @@
                   <a
                     href="https://habitica.fandom.com/wiki/Contributor_Rewards"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >More details</a>
                 </small>
               </div>
@@ -296,6 +297,7 @@
                   <div
                     v-markdown="hero.contributor.contributions"
                     target="_blank"
+                    rel="noopener noreferrer"
                   ></div>
                 </td>
               </tr>

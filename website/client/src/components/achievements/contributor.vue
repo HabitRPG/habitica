@@ -14,6 +14,7 @@
         <br>
         <a
           :href="$t('conRewardsURL')"
+          rel="noopener noreferrer"
           target="_blank"
         >{{ $t('contribLink') }}</a>
         <br>
