@@ -1,25 +1,13 @@
 import _ from 'lodash';
 import { chatModel as Chat } from '../../models/message';
 import shared from '../../../common';
-import { // eslint-disable-line import/no-cycle
-  MAX_CHAT_COUNT,
-  MAX_SUBBED_GROUP_CHAT_COUNT,
-} from '../../models/group';
 
 const questScrolls = shared.content.quests;
 
 // @TODO: Don't use this method when the group can be saved.
 export async function getGroupChat (group, options = {}) {
   const { limit, before } = options;
-
-  let maxChatCount = MAX_CHAT_COUNT;
-  if (group.chatLimitCount && group.chatLimitCount >= MAX_CHAT_COUNT) {
-    maxChatCount = group.chatLimitCount;
-  } else if (group.hasActiveGroupPlan()) {
-    maxChatCount = MAX_SUBBED_GROUP_CHAT_COUNT;
-  }
-
-  const effectiveLimit = limit !== undefined ? Math.min(limit, maxChatCount) : maxChatCount;
+  const effectiveLimit = group.getEffectiveChatLimit(limit);
 
   let query = Chat.find({ groupId: group._id })
     .sort('-timestamp');

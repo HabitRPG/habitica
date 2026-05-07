@@ -227,6 +227,7 @@ api.postChat = {
     }
 
     await Promise.all(toSave);
+    await group.trimChat();
 
     if (chatUpdated) {
       res.respond(200, { chat: chatRes.chat });
