@@ -414,10 +414,23 @@
         </div>
         <p
           v-if="task.type === 'daily' && schedulingSummary"
-          class="scheduling-summary text-center mt-2 mb-0"
+          class="scheduling-summary mt-2 mb-0"
         >
           {{ schedulingSummary }}
         </p>
+        <div
+          v-if="task.type === 'daily' && schedulingWarning"
+          class="scheduling-warning mt-2"
+        >
+          <span
+            class="scheduling-warning-icon"
+            v-html="icons.exclamationInfo"
+          ></span>
+          <span
+            class="scheduling-warning-text"
+            v-html="schedulingWarning"
+          ></span>
+        </div>
         <div
           v-if="!groupId"
           class="tags-select option mt-3"
@@ -1116,9 +1129,39 @@
   }
 
   .scheduling-summary {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-style: normal;
     font-size: 12px;
-    line-height: 1.33;
-    color: $gray-200;
+    line-height: 16px;
+    color: $gray-50;
+    text-align: left;
+  }
+
+  .scheduling-warning {
+    display: flex;
+    align-items: flex-start;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 16px;
+    color: $gray-50;
+  }
+
+  .scheduling-warning-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-right: 6px;
+    margin-top: -1px;
+  }
+
+  .scheduling-warning-text {
+    flex: 1;
   }
 
   label {
@@ -1251,6 +1294,7 @@ import goldIcon from '@/assets/svg/gold.svg?raw';
 import chevronIcon from '@/assets/svg/chevron.svg?raw';
 import calendarIcon from '@/assets/svg/calendar.svg?raw';
 import gripIcon from '@/assets/svg/grip.svg?raw';
+import exclamationInfoIcon from '@/assets/svg/exclaimation_info.svg?raw';
 import InformationIcon from '@/components/ui/informationIcon.vue';
 import alertIcon from '@/assets/svg/for-css/alert-white.svg?raw';
 
@@ -1289,6 +1333,7 @@ export default {
         calendar: calendarIcon,
         grip: gripIcon,
         alert: alertIcon,
+        exclamationInfo: exclamationInfoIcon,
       }),
       members: [],
       membersNameAndId: [],
@@ -1396,13 +1441,13 @@ export default {
 
       let interval;
       if (task.frequency === 'daily') {
-        interval = everyXValue === 1 ? this.$t('everyDay') : `${this.$t('every')} ${everyXValue} ${this.$t('days')}`;
+        interval = everyXValue === 1 ? this.$t('everyDay') : this.$t('everyXDays', { count: everyXValue });
       } else if (task.frequency === 'weekly') {
-        interval = everyXValue === 1 ? this.$t('everyWeek') : `${this.$t('every')} ${everyXValue} ${this.$t('weeks')}`;
+        interval = everyXValue === 1 ? this.$t('everyWeek') : this.$t('everyXWeeks', { count: everyXValue });
       } else if (task.frequency === 'monthly') {
         interval = everyXValue === 1 ? this.$t('everyMonth') : this.$t('everyXMonths', { count: everyXValue });
       } else if (task.frequency === 'yearly') {
-        interval = everyXValue === 1 ? this.$t('everyYear') : `${this.$t('every')} ${everyXValue} ${this.$t('years')}`;
+        interval = everyXValue === 1 ? this.$t('everyYear') : this.$t('everyXYears', { count: everyXValue });
       } else {
         return '';
       }
@@ -1456,16 +1501,19 @@ export default {
         details = ` on ${moment(task.startDate).format('MMMM Do')}`;
       }
 
-      let summary = `${this.$t('repeats')} ${interval}${details}`;
-
+      return `${this.$t('repeats')} ${interval}${details}`;
+    },
+    schedulingWarning () {
+      if (!this.task || this.task.type !== 'daily') return '';
+      const { task } = this;
       if (task.frequency === 'monthly'
         && task.weeksOfMonth && task.weeksOfMonth.length > 0
-        && task.weeksOfMonth[0] === 4) {
+        && task.weeksOfMonth[0] === 4
+        && task.startDate) {
         const dayName = moment(task.startDate).format('dddd');
-        summary += `. ${this.$t('fifthWeekWarning', { day: dayName })}`;
+        return this.$t('fifthWeekWarning', { day: dayName });
       }
-
-      return summary;
+      return '';
     },
     repeatsOn: {
       get () {
