@@ -142,8 +142,8 @@ function _addPoints (user, task, stats, direction, delta) {
     const currStreak = direction === 'down' ? task.streak - 1 : task.streak;
     const streakBonus = currStreak / 100 + 1; // eg, 1-day streak is 1.01, 2-day is 1.02, etc
     let afterStreak = gpMod * streakBonus;
-    if (afterStreak - gpMod < 1) {
-      afterStreak = gpMod + 1; // min streak bonus of +1
+    if (Math.abs(afterStreak - gpMod) < 1) {
+      afterStreak = direction === 'down' ? gpMod - 1 : gpMod + 1; // min streak bonus of +1
     }
     if (currStreak > 0 && gpMod > 0) {
       // keep this on-hand for later, so we can notify streak-bonus
