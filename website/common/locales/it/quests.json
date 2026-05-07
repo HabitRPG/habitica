@@ -1,7 +1,7 @@
 {
     "quests": "Missioni",
     "quest": "missione",
-    "petQuests": "Missioni animali e cavalcature",
+    "petQuests": "Missioni Animali e Cavalcature",
     "unlockableQuests": "Missioni sbloccabili",
     "goldQuests": "Serie di Missioni dei Masterclasser",
     "questDetails": "Dettagli missione",
@@ -79,7 +79,7 @@
     "questAlreadyStarted": "La missione è già iniziata.",
     "bossDamage": "Hai danneggiato il boss!",
     "questInvitationNotificationInfo": "Sei stato invitato a partecipare a una missione",
-    "hatchingPotionQuests": "Missioni della Pozione di Schiusa Magica",
+    "hatchingPotionQuests": "Missioni per le Pozioni di Schiusa Magiche",
     "questOwner": "Proprietario della missione",
     "cancelQuest": "Annulla missione",
     "backToSelection": "Ritorna alla scelta della missione",

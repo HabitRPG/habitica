@@ -677,7 +677,8 @@ schema.methods.trimChat = async function trimChat (limit) {
   }
 };
 
-schema.methods.handleQuestInvitation = async function handleQuestInvitation (user, accept) {
+// eslint-disable-next-line max-len
+schema.methods.handleQuestInvitation = async function handleQuestInvitation (user, accept, session) {
   if (!user) throw new InternalServerError('Must provide user to handle quest invitation');
   if (accept !== true && accept !== false) throw new InternalServerError('Must provide accept param handle quest invitation');
 
@@ -685,12 +686,14 @@ schema.methods.handleQuestInvitation = async function handleQuestInvitation (use
   // to prevent multiple concurrent requests overriding updates
   // see https://github.com/HabitRPG/habitica/issues/11398
   const Group = this.constructor;
+  const options = session ? { session } : {};
   const result = await Group.updateOne(
     {
       _id: this._id,
       [`quest.members.${user._id}`]: { $type: 10 }, // match BSON Type Null (type number 10)
     },
     { $set: { [`quest.members.${user._id}`]: accept } },
+    options,
   ).exec();
 
   if (result.modifiedCount) {

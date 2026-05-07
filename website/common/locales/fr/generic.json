@@ -243,5 +243,7 @@
     "newMessage": "Nouveau Message",
     "targetUserNotExist": "L'Utilisat·eur·rice '<%= userName %>' n'existe pas.",
     "gem": "Gemme",
-    "confirmPurchase": "Confirmer l'Achat"
+    "confirmPurchase": "Confirmer l'Achat",
+    "avoidSPI": "Éviter SPI",
+    "avoidSPIDetails": "Dans le cadre de votre confidentialité, évitez de diffuser vos <%= firstLink %>informations personnelle<%= linkClose %> (SPI) durant votre activité sur Habitica. Vos données de compte, y compris vos tâches, sont stockées sur nos serveurs pour que vous puissiez y accéder depuis n'importe quelle plateforme.<br><br>Pour en savoir plus, consulter notre <%= secondLink %>Politique de Confidentialité<%= linkClose %>."
 }

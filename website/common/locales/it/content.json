@@ -409,6 +409,7 @@
     "hatchingPotionOpal": "Opale",
     "hatchingPotionPinkMarble": "Marmo Rosa",
     "hatchingPotionTeaShop": "Negozio di Tè",
-    "wackyPotionNotes": "Versalo su un uovo, e si schiuderà uno Strano <%= potText %> Animale Domestico.",
-    "wackyPotionAddlNotes": "Non può essere trasformato in Cavalcature né usato su uova di animali domestici ottenuti attraverso una Missione."
+    "wackyPotionNotes": "Versalo su un uovo, e si schiuderà uno Stravagante <%= potText %> Animale Domestico.",
+    "wackyPotionAddlNotes": "Non può essere trasformato in Cavalcature né usato su uova di animali domestici ottenuti attraverso una Missione.",
+    "hatchingPotionAlien": "Alieno"
 }

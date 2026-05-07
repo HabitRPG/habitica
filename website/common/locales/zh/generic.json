@@ -243,5 +243,7 @@
     "targetUserNotExist": "目标用户：'<%= userName %>'不存在。",
     "rememberToBeKind": "请谨记友善、尊重他人，并遵守<a href='/static/community-guidelines' target='_blank'>社区准则</a>。",
     "gem": "宝石",
-    "confirmPurchase": "确认购买"
+    "confirmPurchase": "确认购买",
+    "avoidSPI": "避免添加敏感个人信息（SPI）",
+    "avoidSPIDetails": "为保护您的隐私，请在使用 Habitica 时，避免添加 <%= firstLink %>敏感个人信息<%= linkClose %>（SPI）。您的账户数据（包括任务）存储在我们的服务器上，因此您可以通过任何设备访问这些数据。<br><br>如需了解更多信息，请查阅我们的 <%= secondLink %>隐私政策<%= linkClose %>。"
 }

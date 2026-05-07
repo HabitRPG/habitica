@@ -410,5 +410,6 @@
     "questEggAlpacaMountText": "Alpaca",
     "questEggAlpacaAdjective": "Um superlotado",
     "wackyPotionNotes": "Despeje isso em um ovo e ele chocará como um animal de estimação Maluco <%= potText %>.",
-    "wackyPotionAddlNotes": "Não pode ser convertido a Montaria ou usado em Ovos de Mascotes de missão."
+    "wackyPotionAddlNotes": "Não pode ser convertido a Montaria ou usado em Ovos de Mascotes de missão.",
+    "hatchingPotionAlien": "Alienígena"
 }

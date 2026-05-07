@@ -1,5 +1,5 @@
 {
-    "stable": "Stáj",
+    "stable": "Mazlíčci a Mounty",
     "pets": "Mazlíčci",
     "activePet": "Aktivní mazlíček",
     "noActivePet": "Bez aktivního mazlíčka",
@@ -109,5 +109,7 @@
     "wackyPets": "Šílená zvířátka",
     "invalidAmount": "Neplatný počet jídla,je vyžadováno pozitivní celé číslo",
     "tooMuchFood": "Snažíš se dát svému zvířeti moc jídla, akce byla zrušena",
-    "notEnoughFood": "Nemáš dost jídla"
+    "notEnoughFood": "Nemáš dost jídla",
+    "veteranCactus": "Kaktus Veterán",
+    "veteranDragon": "Drak Veterán"
 }
