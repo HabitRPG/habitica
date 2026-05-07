@@ -25,7 +25,8 @@ const REDIS_PORT = nconf.get('REDIS_PORT');
 const LIVELINESS_PROBE_KEY = nconf.get('LIVELINESS_PROBE_KEY');
 const BASE_POINTS = nconf.get('RATE_LIMITER_BASE_POINTS') || 30;
 const BASE_DURATION = nconf.get('RATE_LIMITER_BASE_DURATION') || 60;
-const REGISTRATION_COST = nconf.get('RATE_LIMITER_REGISTRATION_COST') || 5;
+const REGISTRATION_COST = nconf.get('RATE_LIMITER_REGISTRATION_COST') || 10;
+const LOGIN_COST = nconf.get('RATE_LIMITER_LOGIN_COST') || 10;
 const IP_RATE_LIMIT_COST = nconf.get('RATE_LIMITER_IP_COST') || 5;
 
 let redisClient;
@@ -94,8 +95,12 @@ export default function setupRateLimiter (options = {}) {
     const userId = req.header('x-api-user');
 
     let cost = 1;
-    if (req.path === '/api/v4/user/auth/local/register' || req.path === '/api/v3/user/auth/local/register') {
+    if (req.path.indexOf('/user/auth/local/register') > 0) {
       cost = options.registrationCost || REGISTRATION_COST;
+    } else if (req.path.indexOf('/user/auth/local/login') > 0) {
+      cost = options.loginCost || LOGIN_COST;
+    } else if (req.path.indexOf('/user/auth/verify-username') > 0) {
+      cost = 1; // Verifying username might happen multiple times during typing
     } else if (!userId) {
       cost = options.ipRateLimitCost || IP_RATE_LIMIT_COST;
     }
