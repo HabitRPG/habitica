@@ -2119,7 +2119,7 @@ const weapon = {
     str: 2,
     set: 'prettyInPink',
   },
-  rainbowKite: {
+  brightRainbowKite: {
     con: 3,
     int: 3,
     per: 3,
