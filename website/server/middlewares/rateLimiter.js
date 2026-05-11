@@ -95,11 +95,12 @@ export default function setupRateLimiter (options = {}) {
     const userId = req.header('x-api-user');
 
     let cost = 1;
-    if (req.path.indexOf('/user/auth/local/register') > 0) {
+    const url = req.path || '';
+    if (url.indexOf('/user/auth/local/register') > 0) {
       cost = options.registrationCost || REGISTRATION_COST;
-    } else if (req.path.indexOf('/user/auth/local/login') > 0) {
+    } else if (url.indexOf('/user/auth/local/login') > 0) {
       cost = options.loginCost || LOGIN_COST;
-    } else if (req.path.indexOf('/user/auth/verify-username') > 0) {
+    } else if (url.indexOf('/user/auth/verify-username') > 0) {
       cost = 1; // Verifying username might happen multiple times during typing
     } else if (!userId) {
       cost = options.ipRateLimitCost || IP_RATE_LIMIT_COST;
