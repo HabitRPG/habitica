@@ -100,7 +100,7 @@ export default function setupRateLimiter (options = {}) {
       cost = options.registrationCost || REGISTRATION_COST;
     } else if (url.indexOf('/user/auth/local/login') > 0) {
       cost = options.loginCost || LOGIN_COST;
-    } else if (url.indexOf('/user/auth/verify-username') > 0) {
+    } else if (url.indexOf('/auth/verify-username') > 0) {
       cost = 1; // Verifying username might happen multiple times during typing
     } else if (!userId) {
       cost = options.ipRateLimitCost || IP_RATE_LIMIT_COST;
