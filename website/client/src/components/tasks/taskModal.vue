@@ -423,8 +423,8 @@
           class="scheduling-warning mt-2"
         >
           <span
-            class="scheduling-warning-icon"
-            v-html="icons.exclamationInfo"
+            class="scheduling-warning-icon svg-icon color gray-50"
+            v-html="icons.alert"
           ></span>
           <span
             class="scheduling-warning-text"
@@ -1294,7 +1294,6 @@ import goldIcon from '@/assets/svg/gold.svg?raw';
 import chevronIcon from '@/assets/svg/chevron.svg?raw';
 import calendarIcon from '@/assets/svg/calendar.svg?raw';
 import gripIcon from '@/assets/svg/grip.svg?raw';
-import exclamationInfoIcon from '@/assets/svg/exclaimation_info.svg?raw';
 import InformationIcon from '@/components/ui/informationIcon.vue';
 import alertIcon from '@/assets/svg/for-css/alert-white.svg?raw';
 
@@ -1333,7 +1332,6 @@ export default {
         calendar: calendarIcon,
         grip: gripIcon,
         alert: alertIcon,
-        exclamationInfo: exclamationInfoIcon,
       }),
       members: [],
       membersNameAndId: [],
