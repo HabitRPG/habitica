@@ -154,7 +154,7 @@
     "assignedToUser": "Toegewezen aan <strong><%= userName %></strong>",
     "assignedToMembers": "<%= userCount %> leden",
     "assignedToYouAndMembers": "Jou en <strong><%= userCount %> andere leden</strong>",
-    "youAreAssigned": "Aan jou toegewezen",
+    "youAreAssigned": "Aan <strong>jou</strong> toegewezen",
     "taskIsUnassigned": "Deze taak is niet toegewezen",
     "confirmUnClaim": "Weet je zeker dat je deze taak wilt opgeven?",
     "confirmNeedsWork": "Weet je zeker dat je deze taak op 'werk nodig' wil zetten?",
@@ -386,5 +386,7 @@
     "youEmphasized": "<strong>U</strong>",
     "languageLabel": "Taal:",
     "lookingForPartyTitle": "Leden Zoeken",
-    "currentlyLookingForParty": "Jij zoekt een Gezelschap!"
+    "currentlyLookingForParty": "Jij zoekt een Gezelschap!",
+    "nameStar": "Naam",
+    "classLabel": "Klasse:"
 }

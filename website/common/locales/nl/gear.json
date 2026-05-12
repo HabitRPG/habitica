@@ -2676,5 +2676,11 @@
     "weaponSpecialWinter2025HealerNotes": "Wat je nu nodig hebt zijn meer lichtjes met een lichtgevende ster er bovenop! Je zal niet te stoppen zijn! Verhoogt Intelligentie met <%= int %>. Beperkte Oplage Winter 2024-2025 Uitrusting.",
     "headMystery202111Text": "Chroovision Hoed",
     "headArmoireRegalCrownText": "Koninklijke Kroon",
-    "shieldArmoireBucketText": "Emmer"
+    "shieldArmoireBucketText": "Emmer",
+    "headArmoireMedievalLaundryCapText": "Wasserij Pet",
+    "headArmoireRubberDuckyText": "Rubber Eendje",
+    "headArmoireMedievalLaundryHatText": "Wasserij Hoed",
+    "shieldArmoireMedievalLaundryText": "Vuile Wasgoed",
+    "shieldArmoireBasketballText": "Basketbal",
+    "shieldArmoireDustpanText": "Stofblik"
 }
