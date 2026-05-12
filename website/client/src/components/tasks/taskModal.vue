@@ -412,6 +412,25 @@
             </div>
           </div>
         </div>
+        <p
+          v-if="task.type === 'daily' && schedulingSummary"
+          class="scheduling-summary mt-2 mb-0"
+        >
+          {{ schedulingSummary }}
+        </p>
+        <div
+          v-if="task.type === 'daily' && schedulingWarning"
+          class="scheduling-warning mt-2"
+        >
+          <span
+            class="scheduling-warning-icon svg-icon color gray-50"
+            v-html="icons.alert"
+          ></span>
+          <span
+            class="scheduling-warning-text"
+            v-html="schedulingWarning"
+          ></span>
+        </div>
         <div
           v-if="!groupId"
           class="tags-select option mt-3"
@@ -1109,6 +1128,42 @@
     height: 1rem;
   }
 
+  .scheduling-summary {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 16px;
+    color: $gray-50;
+    text-align: left;
+  }
+
+  .scheduling-warning {
+    display: flex;
+    align-items: flex-start;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 16px;
+    color: $gray-50;
+  }
+
+  .scheduling-warning-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-right: 6px;
+    margin-top: -1px;
+  }
+
+  .scheduling-warning-text {
+    flex: 1;
+  }
+
   label {
     display: inline-flex;
     align-items: center;
@@ -1376,6 +1431,87 @@ export default {
         return everyXValue === 1 ? this.$t('year') : this.$t('years');
       }
       return null;
+    },
+    schedulingSummary () {
+      if (!this.task || this.task.type !== 'daily') return '';
+      const { task } = this;
+      const everyXValue = +task.everyX;
+
+      let interval;
+      if (task.frequency === 'daily') {
+        interval = everyXValue === 1 ? this.$t('everyDay') : this.$t('everyXDays', { count: everyXValue });
+      } else if (task.frequency === 'weekly') {
+        interval = everyXValue === 1 ? this.$t('everyWeek') : this.$t('everyXWeeks', { count: everyXValue });
+      } else if (task.frequency === 'monthly') {
+        interval = everyXValue === 1 ? this.$t('everyMonth') : this.$t('everyXMonths', { count: everyXValue });
+      } else if (task.frequency === 'yearly') {
+        interval = everyXValue === 1 ? this.$t('everyYear') : this.$t('everyXYears', { count: everyXValue });
+      } else {
+        return '';
+      }
+
+      let details = '';
+      if (task.frequency === 'weekly') {
+        const dayNames = {
+          su: 'Sunday',
+          m: 'Monday',
+          t: 'Tuesday',
+          w: 'Wednesday',
+          th: 'Thursday',
+          f: 'Friday',
+          s: 'Saturday',
+        };
+        const activeDays = Object.keys(task.repeat || {}).filter(d => task.repeat[d]);
+        if (activeDays.length > 0) {
+          details = ` on ${activeDays.map(d => dayNames[d]).join(', ')}`;
+        }
+      } else if (task.frequency === 'monthly' && task.startDate) {
+        const dayOfMonth = moment(task.startDate).date();
+        if (task.weeksOfMonth && task.weeksOfMonth.length > 0) {
+          const weekNum = task.weeksOfMonth[0] + 1;
+          const weekStr = String(weekNum);
+          const lastDigit = weekStr.slice(-1);
+          let suffix = 'th';
+          if (lastDigit === '1' && weekStr !== '11') suffix = 'st';
+          if (lastDigit === '2' && weekStr !== '12') suffix = 'nd';
+          if (lastDigit === '3' && weekStr !== '13') suffix = 'rd';
+          const dayName = moment(task.startDate).format('dddd');
+          details = ` on the ${weekNum}${suffix} ${dayName} of the month`;
+        } else if (task.daysOfMonth && task.daysOfMonth.length > 0) {
+          const dom = task.daysOfMonth[0];
+          const domStr = String(dom);
+          const lastDigit = domStr.slice(-1);
+          let suffix = 'th';
+          if (lastDigit === '1' && domStr !== '11') suffix = 'st';
+          if (lastDigit === '2' && domStr !== '12') suffix = 'nd';
+          if (lastDigit === '3' && domStr !== '13') suffix = 'rd';
+          details = ` on the ${dom}${suffix}`;
+        } else {
+          const domStr = String(dayOfMonth);
+          const lastDigit = domStr.slice(-1);
+          let suffix = 'th';
+          if (lastDigit === '1' && domStr !== '11') suffix = 'st';
+          if (lastDigit === '2' && domStr !== '12') suffix = 'nd';
+          if (lastDigit === '3' && domStr !== '13') suffix = 'rd';
+          details = ` on the ${dayOfMonth}${suffix}`;
+        }
+      } else if (task.frequency === 'yearly' && task.startDate) {
+        details = ` on ${moment(task.startDate).format('MMMM Do')}`;
+      }
+
+      return `${this.$t('repeats')} ${interval}${details}`;
+    },
+    schedulingWarning () {
+      if (!this.task || this.task.type !== 'daily') return '';
+      const { task } = this;
+      if (task.frequency === 'monthly'
+        && task.weeksOfMonth && task.weeksOfMonth.length > 0
+        && task.weeksOfMonth[0] === 4
+        && task.startDate) {
+        const dayName = moment(task.startDate).format('dddd');
+        return this.$t('fifthWeekWarning', { day: dayName });
+      }
+      return '';
     },
     repeatsOn: {
       get () {
