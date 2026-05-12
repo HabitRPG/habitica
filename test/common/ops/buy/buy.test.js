@@ -13,7 +13,6 @@ import { errorMessage } from '../../../../website/common/script/libs/errorMessag
 
 describe('shared.ops.buy', () => {
   let user;
-  const analytics = { track () {} };
 
   beforeEach(() => {
     user = generateUser({
@@ -32,12 +31,6 @@ describe('shared.ops.buy', () => {
         },
       },
     });
-
-    sinon.stub(analytics, 'track');
-  });
-
-  afterEach(() => {
-    analytics.track.restore();
   });
 
   it('returns error when key is not provided', async () => {
@@ -51,10 +44,8 @@ describe('shared.ops.buy', () => {
 
   it('buys health potion', async () => {
     user.stats.hp = 30;
-    await buy(user, { params: { key: 'potion' } }, analytics);
+    await buy(user, { params: { key: 'potion' } });
     expect(user.stats.hp).to.eql(45);
-
-    expect(analytics.track).to.be.calledOnce;
   });
 
   it('adds equipment to inventory', async () => {

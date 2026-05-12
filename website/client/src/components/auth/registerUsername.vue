@@ -20,6 +20,29 @@
           class="form mx-auto"
           @submit.prevent.stop="register()"
         >
+          <div v-if="needsEmailField">
+            <input
+              id="emailInput"
+              v-model="email"
+              class="form-control dark"
+              type="text"
+              :placeholder="$t('emailAddress')"
+              :class="{
+                'mb-3': !emailError,
+                'input-invalid input-with-error mb-2': emailError,
+                'input-valid': email && emailValid,
+              }"
+            >
+            <div
+              v-if="emailError"
+              class="input-error"
+            >
+              {{ emailError }}
+            </div>
+            <p class="purple-600 mb-3">
+              {{ $t('emailRequiredForSupport') }}
+            </p>
+          </div>
           <input
             id="usernameInput"
             v-model="username"
@@ -66,8 +89,9 @@
             ></label>
           </div>
           <button
-            class="btn btn-info d-block w-100 sign-up mx-auto mb-5"
-            :disabled="!username || usernameInvalid || !privacyAccepted"
+            class="btn btn-info d-flex justify-content-center
+              align-items-center w-100 sign-up mx-auto mb-5"
+            :disabled="!email || emailError || !username || usernameInvalid || !privacyAccepted"
             type="submit"
           >
             {{ $t('getStarted') }}
@@ -141,10 +165,12 @@
     border: 2px solid transparent;
     box-shadow: 0 1px 3px 0 rgba($black, 0.16), 0 1px 3px 0 rgba($black, 0.24);
 
-    &:focus, &:active {
-      background-color: $blue-50;
-      border: 2px solid $purple-400;
-      box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
+    &:not(:disabled):not(.disabled) {
+      &:focus, &:active {
+        background-color: $blue-50;
+        border: 2px solid $purple-400;
+        box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
+      }
     }
   }
 
@@ -156,22 +182,17 @@
 <script>
 import debounce from 'lodash/debounce';
 import PrivacyBanner from '@/components/header/banners/privacy';
+import accountCreation from '@/mixins/accountCreation';
 import sanitizeRedirect from '@/mixins/sanitizeRedirect';
 
 export default {
   components: {
     PrivacyBanner,
   },
-  mixins: [sanitizeRedirect],
+  mixins: [accountCreation, sanitizeRedirect],
   data () {
     return {
-      authData: {},
-      email: '',
-      password: '',
-      passwordConfirm: '',
       privacyAccepted: false,
-      registrationMethod: null,
-      username: '',
       usernameIssues: [],
       needsEmailField: false,
     };
@@ -212,18 +233,19 @@ export default {
     if (!this.email && this.registrationMethod !== 'apple') {
       return;
     }
-
     if ((!this.email || this.email === '') && this.registrationMethod === 'apple') {
       this.needsEmailField = true;
     }
-    const usernameToCheck = this.email.split('@')[0].replace(/[^a-zA-Z0-9\-_]/g, '');
-    this.$store.dispatch('auth:verifyUsername', {
-      username: usernameToCheck,
-    }).then(res => {
-      if (!res.issues) {
-        this.username = usernameToCheck;
-      }
-    });
+    if (this.email) {
+      const usernameToCheck = this.email.split('@')[0].replace(/[^a-zA-Z0-9\-_]/g, '');
+      this.$store.dispatch('auth:verifyUsername', {
+        username: usernameToCheck,
+      }).then(res => {
+        if (!res.issues) {
+          this.username = usernameToCheck;
+        }
+      });
+    }
     document.getElementById('usernameInput').focus();
   },
   methods: {

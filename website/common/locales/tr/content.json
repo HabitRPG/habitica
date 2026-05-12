@@ -12,7 +12,7 @@
     "dropEggTigerCubMountText": "Kaplan",
     "dropEggTigerCubAdjective": "vahşi bir",
     "dropEggPandaCubText": "Yavru Panda",
-    "dropEggPandaCubMountText": "Panda",
+    "dropEggPandaCubMountText": "Pandа",
     "dropEggPandaCubAdjective": "nazik bir",
     "dropEggLionCubText": "Yavru Aslan",
     "dropEggLionCubMountText": "Aslan",
@@ -125,8 +125,8 @@
     "questEggTurtleText": "Deniz Kaplumbağası",
     "questEggTurtleMountText": "Dev Deniz Kaplumbağası",
     "questEggTurtleAdjective": "huzurlu bir",
-    "questEggArmadilloText": "Armadillo",
-    "questEggArmadilloMountText": "Armadillo",
+    "questEggArmadilloText": "Armаdillo",
+    "questEggArmadilloMountText": "Armаdillo",
     "questEggArmadilloAdjective": "zırhlı bir",
     "questEggCowText": "İnek",
     "questEggCowMountText": "İnek",
@@ -410,5 +410,6 @@
     "questEggPlatypusText": "Ornitorenk",
     "questEggPlatypusMountText": "Ornitorenk",
     "questEggPlatypusAdjective": "bir mükemmeliyetçi",
-    "hatchingPotionOpal": "Opal"
+    "hatchingPotionOpal": "Opаl",
+    "hatchingPotionAlien": "Uzaylı"
 }

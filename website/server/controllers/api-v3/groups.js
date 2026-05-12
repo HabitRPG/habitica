@@ -5,7 +5,6 @@ import findIndex from 'lodash/findIndex';
 import includes from 'lodash/includes';
 import isArray from 'lodash/isArray';
 import mergeWith from 'lodash/mergeWith';
-import pick from 'lodash/pick';
 import uniqBy from 'lodash/uniqBy';
 import nconf from 'nconf';
 import moment from 'moment';
@@ -166,25 +165,6 @@ api.createGroup = {
       profile: { name: user.profile.name },
     };
 
-    const analyticsObject = {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      owner: true,
-      groupId: savedGroup._id,
-      groupType: savedGroup.type,
-      privacy: savedGroup.privacy,
-      headers: req.headers,
-      invited: false,
-    };
-
-    if (savedGroup.privacy === 'public') {
-      analyticsObject.groupName = savedGroup.name;
-    }
-
-    res.analytics.track('join group', analyticsObject);
-
     res.respond(201, response); // do not remove chat flags data as we've just created the group
   },
 };
@@ -216,19 +196,6 @@ api.createGroupPlan = {
 
     const results = await Promise.all([user.save(), group.save()]);
     const savedGroup = results[1];
-
-    res.analytics.track('join group', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      owner: true,
-      groupId: savedGroup._id,
-      groupType: savedGroup.type,
-      privacy: savedGroup.privacy,
-      headers: req.headers,
-      invited: false,
-    });
 
     // do not remove chat flags data as we've just created the group
     const groupResponse = savedGroup.toJSON();
@@ -585,7 +552,6 @@ api.joinGroup = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let isUserInvited = false;
-    const seekingParty = Boolean(user.party.seeking);
 
     if (group.type === 'party') {
       // Check if was invited to party
@@ -710,20 +676,6 @@ api.joinGroup = {
 
     promises.push(group.save());
 
-    const analyticsObject = {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      owner: false,
-      groupId: group._id,
-      groupType: group.type,
-      privacy: group.privacy,
-      headers: req.headers,
-      invited: isUserInvited,
-      seekingParty: group.type === 'party' ? seekingParty : null,
-    };
-
     promises = await Promise.all(promises);
 
     if (group.hasNotCancelled()) {
@@ -736,8 +688,6 @@ api.joinGroup = {
     if (leader) {
       response.leader = leader.toJSON({ minimize: true });
     }
-
-    res.analytics.track('join group', analyticsObject);
 
     res.respond(200, response);
   },

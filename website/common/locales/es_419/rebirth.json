@@ -1,15 +1,22 @@
 {
     "rebirthNew": "Renacimiento: ¡Nueva Aventura Disponible!",
     "rebirthUnlock": "¡Has desbloqueado el Renacimiento! Este objeto especial del Mercado te permite empezar un nuevo juego desde el nivel 1 manteniendo tus tareas, logros, mascotas, y más. ¡Úsalo para darle nueva vida a Habitica si sientes que ya lo lograste todo, o para tener la experiencia de nuevas funciones con la perspectiva de un personaje nuevo!",
-    "rebirthAchievement": "¡Has comenzado una nueva aventura! Éste es tu Renacimiento número <%= number %>, y el Nivel más alto que has alcanzado es <%= level %>. Para acumular este Logro, ¡empieza tu aventura siguiente después de haber conseguido un nivel aún más alto!",
-    "rebirthAchievement100": "¡Has comenzado una nueva aventura! Éste es tu Renacimiento número <%= number %>, y el Nivel más alto que has alcanzado es 100 o más. Para acumular este Logro, ¡empieza tu aventura siguiente cuando hayas alcanzado como mínimo el nivel 100!",
+    "rebirthAchievement": "Has utilizado el Orbe del Renacimiento <strong><%= number %></strong> vez, y el nivel más alto que has alcanzado es <strong><%= level %></strong>.",
+    "rebirthAchievement100": "Has utilizado el Orbe del Renacimiento <strong><%= number %></strong> veces, y el nivel más alto que has alcanzado es <strong>100</strong> o más.",
     "rebirthBegan": "Comenzó una Nueva Aventura",
     "rebirthText": "Comenzó <%= rebirths %> Nuevas Aventuras",
     "rebirthOrb": "Usó una Esfera de Renacimiento para empezar de nuevo después de llegar a Nivel <%= level %>.",
     "rebirthOrb100": "Usó una Esfera de Renacimiento para volver a empezar después de alcanzar Nivel 100 o superior.",
     "rebirthOrbNoLevel": "Usó una Esfera de Renacimiento para comenzar de nuevo.",
-    "rebirthPop": "Reinicia instantáneamente tu personaje a Guerrero nivel 1, manteniendo tus logros, coleccionables y equipamiento. Tus tareas y su historial se mantendrán pero se volverán amarillas. Tus rachas serán removidas exceptuando aquellas que pertenezcan a Desafíos activos y Planes Grupales. Tu Oro, Experiencia, Maná, y los efectos de todas las Habilidades serán removidas. Todo esto tomará efecto inmediatamente. Para mas información, ve la página <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> en la Wiki.",
+    "rebirthPop": "Reinicia instantáneamente tu personaje a Guerrero nivel 1, manteniendo tus logros, coleccionables y equipamiento. Tus tareas y su historial se mantendrán pero se volverán amarillas de nuevo. Tus rachas serán removidas exceptuando aquellas que pertenezcan a tareas de Desafíos activos y Planes Grupales. Tu Oro, Experiencia, Maná, y los efectos de todas las Habilidades serán removidas. Todo esto tomará efecto inmediatamente.",
     "rebirthName": "Esfera de Renacimiento",
     "rebirthComplete": "¡Volviste a Nacer!",
-    "nextFreeRebirth": "<strong><%= days %> días</strong> hasta un Orbe de Renacimiento <strong>GRATIS</strong>"
+    "nextFreeRebirth": "<strong><%= days %> días</strong> hasta un Orbe de Renacimiento <strong>GRATIS</strong>",
+    "rebirthUnlockedNewItem": "Orbe del Renacimiento Desbloqueado",
+    "rebirthUnlockedOrb": "¡Una nueva aventura está disponible!",
+    "rebirthUnlockedDesc": "¡Usa el Orbe del Renacimiento para darle un toque de aire fresco a tu aventura en Habitica cuando sientas que ya lo has logrado todo! Empieza de nuevo en el nivel 1 manteniendo tus tareas, Logros y Mascotas con este artículo especial encontrado en el Mercado.",
+    "rebirthNewAchievement": "Nuevo Logro",
+    "rebirthNewAdventure": "¡Una nueva aventura comienza ahora!",
+    "rebirthAchievementPlural": "Has utilizado el Orbe del Renacimiento <strong><%= number %></strong> veces, y el nivel más alto que has alcanzado es <strong><%= level %></strong>.",
+    "rebirthStackInfo": "Este logro se acumulará cada vez que utilices el Orbe del Renacimiento."
 }

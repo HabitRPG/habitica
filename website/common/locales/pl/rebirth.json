@@ -11,5 +11,8 @@
     "rebirthPop": "Natychmiastowo odtworzy twoją postać jako Wojownika na 1 poziomie, z równoczesnym zachowaniem osiągnięć, przedmiotów kolekcjonerskich i ekwipunku. Twoje zadania i ich historia będą zachowane, ale zostaną zresetowane do żółtego poziomu. Twoje serie zostaną usunięte z wyjątkiem zadań pochodzących z aktywnych wyzwań oraz planów grupowych. Twoje Złoto, Punkty Doświadczenia, Mana i Umiejętności zostaną usunięte. Wszystkie te efekty zajdą natychmiastowo.",
     "rebirthName": "Kula Odrodzenia",
     "rebirthComplete": "Odrodziłeś się!",
-    "nextFreeRebirth": "<strong><%= days %> dni</strong> do <strong>DARMOWEJ</strong> Kuli Odrodzenia"
+    "nextFreeRebirth": "<strong><%= days %> dni</strong> do <strong>DARMOWEJ</strong> Kuli Odrodzenia",
+    "rebirthUnlockedOrb": "Nowa podróż jest dostępna!",
+    "rebirthNewAchievement": "Nowe Osiągnięcie",
+    "rebirthNewAdventure": "Nowa przygoda zaczyna się teraz!"
 }

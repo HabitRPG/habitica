@@ -200,6 +200,11 @@ const SEASONAL_SETS = {
     'summer2025SquidRogueSet',
     'summer2025SeaAngelHealerSet',
     'summer2025FairyWrasseMageSet',
+
+    'summer2026AlligatorWarriorSet',
+    'summer2026PuffinHealerSet',
+    'summer2026TigerSharkMageSet',
+    'summer2026TsunamiRogueSet',
   ],
   fall: [
     // fall 2014

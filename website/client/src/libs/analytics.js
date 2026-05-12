@@ -6,7 +6,7 @@ import amplitude from 'amplitude-js';
 import Vue from 'vue';
 import getStore from '@/store';
 
-const AMPLITUDE_KEY = import.meta.env.AMPLITUDE_KEY;
+const { AMPLITUDE_KEY } = import.meta.env;
 const REQUIRED_FIELDS = ['eventCategory', 'eventAction'];
 
 let analyticsLoading = false;

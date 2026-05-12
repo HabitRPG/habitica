@@ -243,5 +243,7 @@
     "targetUserNotExist": "「<%= userName %>」というユーザーはいません。",
     "rememberToBeKind": "他人には優しくして、<a href='/static/community-guidelines' target='_blank'>コミュニティガイドラン</a>を守ってください。",
     "gem": "ジェム",
-    "confirmPurchase": "購入を確認する"
+    "confirmPurchase": "購入を確認する",
+    "avoidSPI": "機微情報は避けてください",
+    "avoidSPIDetails": "プライバシーを守るため、Habitica をご利用の際は<%= firstLink %>機微（センシティブ）情報<%= linkClose %>を入力しないでください。タスクなどのアカウントデータは Habitica のサーバーに保存されるため、どの端末からでもアクセスできます。<br><br>詳しくは<%= secondLink %>プライバシーポリシー<%= linkClose %>をご覧ください。"
 }

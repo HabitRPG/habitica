@@ -114,7 +114,6 @@ import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 import guide from '@/mixins/guide';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
-import * as Analytics from '@/libs/analytics';
 
 import yesterdailyModal from './tasks/yesterdailyModal';
 import newStuff from './news/modal';
@@ -648,15 +647,6 @@ export default {
         // Reset daily analytics actions
         setLocalSetting(CONSTANTS.keyConstants.TASKS_SCORED_COUNT, 0);
         setLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT, 0);
-      } else {
-        // Note a failed cron event, for our records and investigation
-        Analytics.track({
-          eventName: 'cron failed',
-          eventAction: 'cron failed',
-          eventCategory: 'behavior',
-          hitType: 'event',
-          responseCode: response.status,
-        }, { trackOnClient: true });
       }
 
       // Sync

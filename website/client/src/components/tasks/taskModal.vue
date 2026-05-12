@@ -55,11 +55,31 @@
         </div>
       </div>
       <div class="form-group">
-        <lockable-label
-          :class-override="cssClass('headings')"
-          :locked="challengeAccessRequired"
-          :text="`${$t('text')}*`"
-        />
+        <div class="d-flex align-items-center">
+          <lockable-label
+            class="mr-auto"
+            :class-override="cssClass('headings')"
+            :locked="challengeAccessRequired"
+            :text="`${$t('text')}*`"
+          />
+          <div
+            id="spi-alert"
+            class="d-flex align-items-center"
+            :class="cssClass('headings')"
+          >
+            <div
+              class="svg svg-icon color icon-16 mr-1"
+              v-html="icons.alert"
+            ></div>
+            <small
+              class="my-1"
+            >
+              <a
+                :class="cssClass('headings')"
+              >{{ $t('avoidSPI') }}</a>
+            </small>
+          </div>
+        </div>
         <input
           ref="inputToFocus"
           v-model="task.text"
@@ -79,10 +99,20 @@
           @keydown.esc="autoCompleteMixinHandleEscape($event)"
         >
       </div>
+      <b-popover
+        :target="'spi-alert'"
+        triggers="hover"
+        placement="bottom"
+        offset="-128"
+      >
+        <div
+          v-html="$t('avoidSPIDetails', spiLinkData)">
+        </div>
+      </b-popover>
       <div
         class="form-group mb-0"
       >
-        <div class="d-flex">
+        <div class="d-flex align-items-center">
           <lockable-label
             class="mr-auto"
             :class-override="cssClass('headings')"
@@ -982,6 +1012,20 @@
         box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.12), 0px 1px 2px 0px rgba(26, 24, 29, 0.24);
       }
     }
+
+    .b-popover {
+      margin-top: -5px;
+      max-width: 330px;
+    }
+
+    .popover-body {
+      text-align: left;
+
+      a {
+        color: $gray-500;
+        text-decoration: underline;
+      }
+    }
   }
 
   @media only screen and (max-width: 768px) {
@@ -1252,6 +1296,7 @@ import calendarIcon from '@/assets/svg/calendar.svg?raw';
 import gripIcon from '@/assets/svg/grip.svg?raw';
 import exclamationInfoIcon from '@/assets/svg/exclaimation_info.svg?raw';
 import InformationIcon from '@/components/ui/informationIcon.vue';
+import alertIcon from '@/assets/svg/for-css/alert-white.svg?raw';
 
 export default {
   components: {
@@ -1288,6 +1333,7 @@ export default {
         calendar: calendarIcon,
         grip: gripIcon,
         exclamationInfo: exclamationInfoIcon,
+        alert: alertIcon,
       }),
       members: [],
       membersNameAndId: [],
@@ -1308,6 +1354,11 @@ export default {
         { key: 'per', label: 'perception', description: 'perTaskText' },
       ],
       calendarHighlights: { dates: [new Date()] },
+      spiLinkData: {
+        firstLink: '<a href="/static/privacy#section_1" target="_blank">',
+        secondLink: '<a href="/static/privacy" target="_blank">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {
@@ -1537,7 +1588,7 @@ export default {
       this.task.down = !this.task.down;
     },
     weekdaysMin (dayNumber) {
-      return moment.weekdaysMin(dayNumber);
+      return this.$t(`weekdaysMin${dayNumber}`);
     },
     formattedDate (date) {
       return moment(date).format('MM/DD/YYYY');
