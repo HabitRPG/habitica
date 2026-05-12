@@ -497,6 +497,17 @@ schema.statics.validateInvitations = async function getInvitationErr (invites, r
   }
 };
 
+schema.methods.getEffectiveChatLimit = function getEffectiveChatLimit (limit) {
+  let maxChatCount = MAX_CHAT_COUNT;
+  if (this.chatLimitCount && this.chatLimitCount >= MAX_CHAT_COUNT) {
+    maxChatCount = this.chatLimitCount;
+  } else if (this.hasActiveGroupPlan()) {
+    maxChatCount = MAX_SUBBED_GROUP_CHAT_COUNT;
+  }
+
+  return limit !== undefined ? Math.min(limit, maxChatCount) : maxChatCount;
+};
+
 schema.methods.getParticipatingQuestMembers = function getParticipatingQuestMembers () {
   return Object.keys(this.quest.members).filter(member => this.quest.members[member]);
 };
@@ -652,6 +663,18 @@ schema.methods.sendChat = async function sendChat (options = {}) {
     });
   }
   return newChatMessage;
+};
+
+schema.methods.trimChat = async function trimChat (limit) {
+  const query = Chat.find({ groupId: this._id })
+    .sort('-timestamp')
+    .skip(limit || (this.getEffectiveChatLimit() * 2))
+    .limit(1);
+  const lastMessage = await query.exec();
+  if (lastMessage && lastMessage.length > 0) {
+    const lastMessageTimestamp = lastMessage[0].timestamp;
+    await Chat.deleteMany({ groupId: this._id, timestamp: { $lte: lastMessageTimestamp } }).exec();
+  }
 };
 
 // eslint-disable-next-line max-len

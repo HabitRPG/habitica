@@ -110,7 +110,7 @@
     "missingPassword": "Falta la contraseña.",
     "missingNewPassword": "Falta una nueva contraseña.",
     "invalidEmailDomain": "No puedes registrar con emails con los siguientes dominios: <%= domains %>",
-    "wrongPassword": "Contraseña errónea. Si has olvidado tu contraseña, haz clic en \"He olvidado la contraseña\".",
+    "wrongPassword": "Contraseña incorrecta. Si has olvidado tu contraseña, haz clic en \"He olvidado mi contraseña.\"",
     "incorrectDeletePhrase": "Por favor, teclea <%= magicWord %> en mayúsculas para eliminar tu cuenta.",
     "notAnEmail": "La dirección de correo electrónico no es válida.",
     "emailTaken": "Ya existe una cuenta con esa dirección de correo electrónico.",
@@ -187,5 +187,7 @@
     "minPasswordLengthLogin": "Tu contraseña contiene al menos 8 caracteres.",
     "enterValidEmail": "Por favor introduce una dirección de correo electrónico válida.",
     "whatToCallYou": "¿Cómo debemos llamarte?",
-    "acceptPrivacyTOS": "Confirmas que tienes al menos 18 años y que has leído y estás de acuerdo con nuestros <a href='/static/terms' target='_blank'>Terminos de Servicio</a>y<a href='/static/privacy' target='_blank'>Política de Privacidad</a>"
+    "acceptPrivacyTOS": "Confirmas que tienes al menos 18 años y que has leído y estás de acuerdo con nuestros <a href='/static/terms' target='_blank'>Terminos de Servicio</a>y<a href='/static/privacy' target='_blank'>Política de Privacidad</a>",
+    "emailAddress": "Dirección de correo electrónico",
+    "emailRequiredForSupport": "Necesitamos una dirección de correo electrónico para brindarte asistencia. Por favor, introduce una dirección de correo electrónico para continuar creando tu cuenta."
 }

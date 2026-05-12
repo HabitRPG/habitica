@@ -163,5 +163,11 @@
     "siteData": "Podaci o sajtu",
     "taskSettings": "Podešavanja za Zadatke",
     "confirmCancelChanges": "Jesi li siguran? Izgubićeš ne sačuvane izmene.",
-    "account": "Nalog"
+    "account": "Nalog",
+    "loginMethods": "Metode prijave",
+    "character": "Lik",
+    "siteLanguage": "Jezik stranice",
+    "showLevelUpModal": "Kad dobijete nivo",
+    "showRaisePetModal": "Kad ljubimac postane montura",
+    "showStreakModal": "Kad osvojite streak achievement"
 }
