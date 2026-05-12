@@ -3353,7 +3353,7 @@
   "shieldArmoireSoftYellowPillowText": "Soft Yellow Pillow",
   "shieldArmoireSoftYellowPillowNotes": "The experienced warrior packs a pillow for any expedition. Grow and shine as you consolidate all you’ve learned during past adventures… even while you nap. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Yellow Loungewear Set (Item 3 of 3).",
   "shieldArmoireVerdantBannerText": "Verdant Page Banner",
-  "shieldArmoireVerdantBannerNotes": "Wave your banner high to signal friends it’s time to rally together! Intelligence by <%= int %>. Enchanted Armoire: Verdant Page Set (Item 2 of 2).",
+  "shieldArmoireVerdantBannerNotes": "Wave your banner high to signal friends it’s time to rally together! Increases Intelligence by <%= int %>. Enchanted Armoire: Verdant Page Set (Item 2 of 2).",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
