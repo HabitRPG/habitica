@@ -1,14 +1,19 @@
+import nconf from 'nconf';
 import express from 'express';
 import expressValidator from 'express-validator';
 import path from 'path';
 import setupBody from './setupBody';
-import rateLimiter from './rateLimiter';
+import setupRateLimiter from './rateLimiter';
 import setupExpress from '../libs/setupExpress';
 import * as routes from '../libs/routes';
 
 const API_V3_CONTROLLERS_PATH = path.join(__dirname, '/../controllers/api-v3/');
 const API_V4_CONTROLLERS_PATH = path.join(__dirname, '/../controllers/api-v4/');
 const TOP_LEVEL_CONTROLLERS_PATH = path.join(__dirname, '/../controllers/top-level/');
+
+const RATE_LIMITER_V4_POINTS = nconf.get('RATE_LIMITER_V4_POINTS') || 200;
+const RATE_LIMITER_V4_REGISTRATION_COST = nconf.get('RATE_LIMITER_V4_REGISTRATION_COST') || 15;
+const RATE_LIMITER_V4_LOGIN_COST = nconf.get('RATE_LIMITER_V4_LOGIN_COST') || 10;
 
 const app = express();
 
@@ -25,7 +30,10 @@ app.use('/', topLevelRouter);
 
 const v3Router = express.Router(); // eslint-disable-line new-cap
 routes.walkControllers(v3Router, API_V3_CONTROLLERS_PATH);
-app.use('/api/v3', rateLimiter, v3Router);
+const v3RateLimiter = setupRateLimiter({
+  keyPrefix: 'api-v3',
+});
+app.use('/api/v3', v3RateLimiter, v3Router);
 
 // API v4 proxies API v3 routes by default.
 // It can also disable or override v3 routes
@@ -49,6 +57,12 @@ const v4RouterOverrides = [
 const v4Router = express.Router(); // eslint-disable-line new-cap
 routes.walkControllers(v4Router, API_V3_CONTROLLERS_PATH, v4RouterOverrides);
 routes.walkControllers(v4Router, API_V4_CONTROLLERS_PATH);
-app.use('/api/v4', v4Router);
+const v4RateLimiter = setupRateLimiter({
+  keyPrefix: 'api-v4',
+  points: RATE_LIMITER_V4_POINTS,
+  registrationCost: RATE_LIMITER_V4_REGISTRATION_COST,
+  loginCost: RATE_LIMITER_V4_LOGIN_COST,
+});
+app.use('/api/v4', v4RateLimiter, v4Router);
 
 export default app;
