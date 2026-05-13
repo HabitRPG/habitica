@@ -36,7 +36,7 @@ async function deleteAmplitudeData (userId, email) {
 async function deleteHabiticaData (user, email) {
   const set = {
     'auth.blocked': false,
-    'auth.local.hashed_password': '$2a$10$QDnNh1j1yMPnTXDEOV38xOePEWFd4X8DSYwAM8XTmqmacG5X0DKjW',
+    'auth.local.hashed_password': process.env.DUMMY_HASHED_PASSWORD,
     'auth.local.passwordHashMethod': 'bcrypt',
   };
   if (!user.auth.local.email) set['auth.local.email'] = `${user._id}@example.com`;
