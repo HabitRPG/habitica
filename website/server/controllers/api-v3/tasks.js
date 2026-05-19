@@ -27,6 +27,7 @@ import {
   moveTask,
   setNextDue,
   requiredGroupFields,
+  normalizeDailyStartDate,
 } from '../../libs/tasks/utils';
 import common from '../../../common';
 import { apiError } from '../../libs/apiError';
@@ -648,13 +649,10 @@ api.updateTask = {
       task.group.managerNotes = sanitizedObj.managerNotes;
     }
 
-    // For daily tasks, update start date based on timezone to maintain consistency
     if (task.type === 'daily'
         && task.startDate
     ) {
-      task.startDate = moment(task.startDate).utcOffset(
-        -user.preferences.timezoneOffset,
-      ).startOf('day').toDate();
+      task.startDate = normalizeDailyStartDate(task.startDate, user);
 
       // If the daily task was set to repeat monthly on a day of the month, and the start date was
       // updated, the task will then need to be updated to repeat on the same day of the month as

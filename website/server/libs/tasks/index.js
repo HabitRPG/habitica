@@ -1,4 +1,3 @@
-import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import compact from 'lodash/compact';
 import forEach from 'lodash/forEach';
@@ -9,6 +8,7 @@ import {
   setNextDue,
   validateTaskAlias,
   requiredGroupFields,
+  normalizeDailyStartDate,
 } from './utils';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
@@ -80,13 +80,8 @@ async function createTasks (req, res, options = {}) {
       }
     }
 
-    // set startDate to midnight in the user's timezone
     if (taskType === 'daily') {
-      const awareStartDate = moment(newTask.startDate).utcOffset(-user.preferences.timezoneOffset);
-      if (awareStartDate.format('HMsS') !== '0000') {
-        awareStartDate.startOf('day');
-        newTask.startDate = awareStartDate.toDate();
-      }
+      newTask.startDate = normalizeDailyStartDate(newTask.startDate, user);
     }
 
     setNextDue(newTask, user);

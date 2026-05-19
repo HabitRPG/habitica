@@ -59,6 +59,21 @@ export function moveTask (order, taskId, to) {
   }
 }
 
+export function normalizeDailyStartDate (date, user) {
+  if (!date) return date;
+  const utcView = moment.utc(date);
+  const looksLikeMidnightLocal = utcView.second() === 0
+    && utcView.millisecond() === 0
+    && [0, 15, 30, 45].includes(utcView.minute());
+  if (looksLikeMidnightLocal) {
+    return new Date(date);
+  }
+  return moment(date)
+    .utcOffset(-(user.preferences.timezoneOffset || 0))
+    .startOf('day')
+    .toDate();
+}
+
 export function setNextDue (task, user, dueDateOption) {
   if (task.type !== 'daily') return;
 
