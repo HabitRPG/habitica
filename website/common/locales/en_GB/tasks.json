@@ -143,5 +143,15 @@
     "deleteXTasks": "Delete <%= count %> Tasks",
     "sureDeleteType": "Are you sure you want to delete this task?",
     "brokenChallengeTaskCount": "This is one of <%= count %> tasks that are part of a Challenge that no longer exists.",
-    "confirmDeleteTasks": "Would you like to delete the tasks?"
+    "confirmDeleteTasks": "Would you like to delete the tasks?",
+    "everyDay": "every day",
+    "everyXDays": "every <%= count %> days",
+    "everyXWeeks": "every <%= count %> weeks",
+    "everyMonth": "every month",
+    "everyYear": "every year",
+    "everyXYears": "every <%= count %> years",
+    "every": "every",
+    "everyWeek": "every week",
+    "everyXMonths": "every <%= count %> months",
+    "fifthWeekWarning": "This task <strong>will not</strong> appear due during months with fewer <%= day %>s"
 }

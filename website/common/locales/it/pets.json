@@ -1,5 +1,5 @@
 {
-    "stable": "Animali e cavalcature",
+    "stable": "Animali e Cavalcature",
     "pets": "Animali",
     "activePet": "Animale attivo",
     "noActivePet": "Nessun animale attivo",
@@ -57,7 +57,7 @@
     "mountMasterText2": " e ha liberato tutte e 90 le sue cavalcature <%= count %> volta/e",
     "triadBingoName": "Triplo Bingo",
     "triadBingoText": "Ha trovato tutti i 90 animali, tutte le 90 cavalcature e tutti i 90 animali DI NUOVO (MA COME HAI FATTO!)",
-    "triadBingoText2": " e ha liberato tutti i loro animali e cavalcature <%= count %> volta/e",
+    "triadBingoText2": " e ha liberato tutti gli Animali e le Cavalcature <%= count %> volta/e",
     "triadBingoAchievement": "Hai ottenuto la medaglia \"Triplo Bingo\" per aver trovato tutti gli animali, addomesticato tutte le cavalcature, e trovato di nuovo tutti gli animali!",
     "hatchedPet": "È nato un <%= egg %> <%= potion %>!",
     "hatchedPetGeneric": "Hai fatto nascere un nuovo animale!",

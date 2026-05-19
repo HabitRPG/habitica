@@ -1460,7 +1460,7 @@
     "shieldArmoireFancyBlownGlassVaseNotes": "What a fancy vase you've made! What will you put inside? Increases Intelligence by <%= int %>. Enchanted Armoire: Glassblower Set (Item 4 of 4).",
     "shieldArmoirePiraticalSkullShieldText": "Piratical Skull Shield",
     "shieldArmoirePiraticalSkullShieldNotes": "This enchanted shield will whisper the secret locations of your enemies' treasures- listen closely! Increases Perception and Intelligence by <%= attrs %> each. Enchanted Armoire: Piratical Princess Set (Item 4 of 4).",
-    "shieldArmoireUnfinishedTomeText": "Onafgewerkt boekdeel",
+    "shieldArmoireUnfinishedTomeText": "Onafgewerkt Boekdeel",
     "shieldArmoireUnfinishedTomeNotes": "You simply can't procrastinate when you're holding this! The binding needs to be finished so people can read the book! Increases Intelligence by <%= int %>. Enchanted Armoire: Bookbinder Set (Item 4 of 4).",
     "shieldArmoireSoftBluePillowText": "Zacht blauw kussen",
     "shieldArmoireSoftBluePillowNotes": "The sensible warrior packs a pillow for any expedition. Shield yourself from sharp tasks... even while you nap. Increases Constitution by <%= con %>. Enchanted Armoire: Blue Loungewear Set (Item 3 of 3).",
@@ -2682,5 +2682,14 @@
     "headArmoireMedievalLaundryHatText": "Wasserij Hoed",
     "shieldArmoireMedievalLaundryText": "Vuile Wasgoed",
     "shieldArmoireBasketballText": "Basketbal",
-    "shieldArmoireDustpanText": "Stofblik"
+    "shieldArmoireDustpanText": "Stofblik",
+    "headArmoireHattersTopHatText": "Hoge Hoed van de Hoedenmaakster",
+    "headMystery202606Text": "Feestdag Hoed",
+    "headSpecialSummer2022RogueText": "Krabhelm",
+    "shieldSpecialWinter2023WarriorText": "Oesterschild",
+    "bodyArmoireKarateYellowBeltText": "Gele Riem",
+    "headSpecialFall2022RogueText": "Kappa Masker",
+    "bodyArmoireKarateWhiteBeltText": "Witte Riem",
+    "armorSpecialSummer2023WarriorText": "Goudvispantser",
+    "shieldArmoireSpanishGuitarText": "Spaanse Gitaar"
 }

@@ -2845,5 +2845,6 @@
     "weaponSpecialWinter2026RogueNotes": "Los bastones de esquí te ayudan a mantener el equilibrio, la estabilidad y la sincronización; todo lo que necesitas para ser verdaderamente productivo. Aumenta <%= str %> de Fuerza. Equipamiento de Edición Limitada de Invierno 2025-2026.",
     "weaponSpecialWinter2026WarriorNotes": "Las guadañas ayudan a cortar, segar y cubrir grandes áreas; todo lo que necesitas a la hora de elaborar una lista de tareas. Aumenta <%= str %> de Fuerza. Equipamiento de Edición Limitada de Invierno 2025-2026.",
     "weaponSpecialWinter2026HealerNotes": "Los bastones dan soporte, estabilidad y dirección; todo lo que ayuda a conquistar verdaderamente una lista de tareas. Aumenta <%= int %> de Inteligencia. Equipamiento de Edición Limitada de Invierno 2025-2026.",
-    "weaponSpecialWinter2026MageText": "Bastón Candelabro"
+    "weaponSpecialWinter2026MageText": "Bastón Candelabro",
+    "weaponSpecialSummer2025HealerNotes": "Dibuja un ocho mientras avanzas, logrando un gran progreso en tus tareas. Aumenta <%= int %> de Inteligencia. Equipamiento de Edición Limitada de Verano 2025."
 }

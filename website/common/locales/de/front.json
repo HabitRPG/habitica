@@ -187,5 +187,7 @@
     "minPasswordLengthLogin": "Dein Passwort ist mindestens 8 Zeichen lang.",
     "enterValidEmail": "Bitte gib eine gültige E-Mail-Adresse ein.",
     "whatToCallYou": "Wie sollen wir dich nennen?",
-    "acceptPrivacyTOS": "Du bestätigst, dass du mindestens 18 Jahre alt bist und dass du unsere <a href='/static/terms' target='_blank'>Nutzungsbedingungen</a> und <a href='/static/privacy' target='_blank'>Datenschutz-Bestimmungen</a> gelesen hast und akzeptierst"
+    "acceptPrivacyTOS": "Du bestätigst, dass du mindestens 18 Jahre alt bist und dass du unsere <a href='/static/terms' target='_blank'>Nutzungsbedingungen</a> und <a href='/static/privacy' target='_blank'>Datenschutz-Bestimmungen</a> gelesen hast und akzeptierst",
+    "emailAddress": "E-Mail_adresse",
+    "emailRequiredForSupport": "Wir benötigen eine E-Mail-Adresse für den Benutzersupport. Bitte geben Sie eine E-Mail-Adresse ein, um mit der Erstellung Ihres Kontos fortzufahren."
 }

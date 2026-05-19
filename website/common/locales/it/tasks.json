@@ -18,7 +18,7 @@
     "edit": "Modifica",
     "save": "Salva",
     "addChecklist": "Aggiungi checklist",
-    "checklist": "Checklist",
+    "checklist": "Lista",
     "newChecklistItem": "Nuovo elemento checklist",
     "expandChecklist": "Espandi checklist",
     "collapseChecklist": "Nascondi checklist",
@@ -143,5 +143,15 @@
     "deleteXTasks": "Cancella <%= count %> Attività",
     "brokenChallengeTaskCount": "Questo è una delle <%= count %> attività che facevano parte di una Sfida che non esiste più.",
     "confirmDeleteTasks": "Vuoi eliminare le attività?",
-    "sureDeleteType": "Vuoi davvero eliminare questa attività?"
+    "sureDeleteType": "Vuoi davvero eliminare questa attività?",
+    "every": "ogni",
+    "everyDay": "ogni giorno",
+    "everyXDays": "ogni <%= count %> giorni",
+    "everyXWeeks": "ogni <%= count %> settimane",
+    "everyMonth": "ogni mese",
+    "everyYear": "ogni anno",
+    "everyXYears": "ogni <%= count %> anni",
+    "everyWeek": "ogni settimana",
+    "everyXMonths": "ogni <%= count %> mesi",
+    "fifthWeekWarning": "Questa attività <strong>non</strong> scadrà durante i mesi con meno di <%= giorni %>s"
 }

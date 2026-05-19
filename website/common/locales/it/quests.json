@@ -57,7 +57,7 @@
     "questNotPending": "Non ci sono missioni da cominciare.",
     "questOrGroupLeaderOnlyStartQuest": "Solo il leader del gruppo o della missione può forzare l'inizio di una missione",
     "loginIncentiveQuest": "Per sbloccare questa missione, usa Habitica per un totale di <%= count %> giorni!",
-    "loginReward": "<%= count %> accessi",
+    "loginReward": "<%= count %> Accessi",
     "questBundles": "Pacchetto missioni scontato",
     "noQuestToStart": "Fai un salto al <a href=\"<%= questShop %>\">Negozio Missioni</a> per le nuove uscite!",
     "pendingDamage": "<%= damage %> danno in sospeso",

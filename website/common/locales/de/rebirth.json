@@ -1,7 +1,7 @@
 {
     "rebirthNew": "Wiedergeburt: Ein neues Abenteuer erwartet Dich!",
     "rebirthUnlock": "Du hast die Wiedergeburt freigeschaltet! Dieser besondere Gegenstand gestattet es Dir ein neues Spiel mit Level 1 zu beginnen, jedoch behältst Du Deine Aufgaben, Erfolge, Haustiere und mehr. Verwende den Gegenstand um Habitica neues Leben einzuhauchen wenn Du glaubst alles erreicht zu haben, oder um neue Features aus dem Blickwinkel eines Anfängers zu erleben!",
-    "rebirthAchievement": "Du hast ein neues Abenteuer begonnen! Das ist Deine <%= number %>. Wiedergeburt. Dein höchstes jemals erreichtes Level ist <%= level %>. Um diesen Erfolg zu stapeln, beginne Dein nächstes Abenteuer wenn Du ein noch höheres Level erreicht hast!",
+    "rebirthAchievement": "Du hast ube die Orb of Rebirth <strong><%+numer%<>/Strong> ohr und  höchste Ebene ist <strong><%=",
     "rebirthAchievement100": "Du hast ein neues Abenteuer begonnen! Das ist Deine <%= number %>. Wiedergeburt. Dein höchstes jemals erreichtes Level ist 100 oder mehr. Um diesen Erfolg zu stapeln, beginne Dein nächstes Abenteuer wenn Du mindestens Level 100 erreicht hast!",
     "rebirthBegan": "Hat ein neues Abenteuer begonnen",
     "rebirthText": "Hat <%= rebirths %> neue Abenteuer begonnen",
@@ -13,9 +13,10 @@
     "rebirthComplete": "Du wurdest wiedergeboren!",
     "nextFreeRebirth": "<strong><%= days %> Tage</strong> bis zur <strong>KOSTENLOSEN</strong> Sphäre der Wiedergeburt",
     "rebirthUnlockedNewItem": "Ort der Wiedergeburt Freigeschaltet",
-    "rebirthUnlockedOrb": "Ein neues Abendteuer ist bverfügbar!",
+    "rebirthUnlockedOrb": "Ein neues Abenteuer ist verfügbar!",
     "rebirthUnlockedDesc": "Nutze den Ort der Wiedergeburt um ein neues Leben in dein Habitica Abendteuer zu bekommen wenn du das Gefühl hast, alles erreicht zu haben. Du beginnst wieder bei Level 1 und es beginnt wieder von vorne.",
     "rebirthNewAchievement": "Neue Auszeichnung",
-    "rebirthNewAdventure": "Ein neues Abendteuer beginnt nun!",
-    "rebirthStackInfo": "Diese Auszeichnung kann sich stapeln, jedes Mal, wenn du den Ort der Wiedergeburt nutzt."
+    "rebirthNewAdventure": "Ein neues Abenteuer beginnt nun!",
+    "rebirthStackInfo": "Diese Auszeichnung kann sich stapeln, jedes Mal, wenn du den Ort der Wiedergeburt nutzt.",
+    "rebirthAchievementPlural": "Du hast ube die Orb of Rebirth <strong><%+numer%<>/Strong> ohr und höchste Ebene ist <strong><%="
 }

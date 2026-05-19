@@ -938,5 +938,8 @@
     "backgrounds052026": "SET 144: Veröffentlicht im Mai 2026",
     "backgroundRidingACometText": "Ein Kometenritt",
     "backgroundRidingACometNotes": "Reise durch das All bei einem Kometenritt!",
-    "backgroundElvenCitadelText": "Elven Citadel"
+    "backgroundElvenCitadelText": "Elven Citadel",
+    "backgroundElvenCitadelNotes": "Unternehmen Sie die malerische Reise zu einer Elfenzitadelle.",
+    "backgroundOnAStrangePlanetNotes": "Wage dich dorthin, wo noch kein Habitican gewesen ist: Auf einem fremden Planeten.",
+    "backgroundOnAStrangePlanetText": "un eine strange planete"
 }
