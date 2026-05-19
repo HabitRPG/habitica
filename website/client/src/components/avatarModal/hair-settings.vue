@@ -101,7 +101,7 @@ export default {
         linkOpen: '<a href="/shops/customizations">',
         linkClose: '</a>',
       },
-    }
+    };
   },
   computed: {
     hairSubMenuItems () {

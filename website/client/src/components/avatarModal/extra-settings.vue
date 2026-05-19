@@ -82,7 +82,6 @@ import { avatarEditorUtilities } from '../../mixins/avatarEditUtilities';
 import customizeBanner from './customize-banner';
 import customizeOptions from './customize-options';
 import subMenu from './sub-menu';
-import { customRef } from 'vue';
 
 export default {
   components: {

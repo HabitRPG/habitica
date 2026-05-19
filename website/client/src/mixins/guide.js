@@ -13,7 +13,7 @@ export default {
       partyLinks: {
         linkOpen: '<a href="/static/faq#parties">',
         linkClose: '</a>',
-      }
+      },
     };
   },
   watch: {
@@ -60,7 +60,7 @@ export default {
         party: [[
           {
             orphan: true,
-            intro: this.$t('tourPartyPage', partyLinks),
+            intro: this.$t('tourPartyPage', this.partyLinks),
             final: true,
             proceed: this.$t('tourSplendid'),
             hideNavigation: true,

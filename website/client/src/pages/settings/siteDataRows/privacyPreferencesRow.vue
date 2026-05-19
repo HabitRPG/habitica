@@ -180,11 +180,10 @@ export default {
       return navigator.globalPrivacyControl;
     },
     gpcInfo () {
-      const gpcUrl = 'https://globalprivacycontrol.org/';
       if (this.user.preferences.analyticsConsent) {
-        return this.$t('gpcPlusAnalytics', gpcLinks);
+        return this.$t('gpcPlusAnalytics', this.gpcLinks);
       }
-      return this.$t('gpcWarning', gpcLinks);
+      return this.$t('gpcWarning', this.gpcLinks);
     },
   },
   methods: {

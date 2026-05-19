@@ -95,11 +95,13 @@ export default {
     achievementAvatar,
     Sprite,
   },
-  data: {
-    gearAchievementLinks: {
-      linkOpen: '<a href="/user/settings/site" target="_blank" rel="noreferrer noopener">',
-      linkClose: '</a>',
-    },
+  data () {
+    return {
+      gearAchievementLinks: {
+        linkOpen: '<a href="/user/settings/site" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
+    };
   },
   computed: {
     ...mapState({ user: 'user.data' }),

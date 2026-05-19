@@ -268,21 +268,21 @@ export default {
       const { $t } = this;
       switch (identifier) {
         case 'animalEars':
-          return $t('allCustomizationsOwned', customizeLinks);
+          return $t('allCustomizationsOwned', this.customizeLinks);
         case 'animalTails':
-          return $t('allCustomizationsOwned', customizeLinks);
+          return $t('allCustomizationsOwned', this.customizeLinks);
         case 'backgrounds':
-          return `${$t('allCustomizationsOwned', customizeLinks)} ${$t('checkNextMonth')}`;
+          return `${$t('allCustomizationsOwned', this.customizeLinks)} ${$t('checkNextMonth')}`;
         case 'facialHair':
-          return $t('allCustomizationsOwned', customizeLinks);
+          return $t('allCustomizationsOwned', this.customizeLinks);
         case 'color':
-          return `${$t('allCustomizationsOwned', customizeLinks)} ${$t('checkNextSeason')}`;
+          return `${$t('allCustomizationsOwned', this.customizeLinks)} ${$t('checkNextSeason')}`;
         case 'base':
-          return $t('allCustomizationsOwned', customizeLinks);
+          return $t('allCustomizationsOwned', this.customizeLinks);
         case 'shirt':
-          return $t('allCustomizationsOwned', customizeLinks);
+          return $t('allCustomizationsOwned', this.customizeLinks);
         case 'skin':
-          return `${$t('allCustomizationsOwned', customizeLinks)} ${$t('checkNextSeason')}`;
+          return `${$t('allCustomizationsOwned', this.customizeLinks)} ${$t('checkNextSeason')}`;
         default:
           return `Unknown identifier ${identifier}`;
       }
