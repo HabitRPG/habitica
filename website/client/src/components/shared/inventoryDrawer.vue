@@ -35,7 +35,7 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span>{{ $t('petLikeToEat') }}</span>
+            <span>{{ $t('petLikeToEat', eatLinks) }}</span>
           </a>
         </div>
       </drawer-header-tabs>
@@ -115,6 +115,10 @@ export default {
         },
       ],
       selectedDrawerTab: this.defaultSelectedTab,
+      eatLinks: {
+        linkOpen: '<a href="/static/faq#pet-foods" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {

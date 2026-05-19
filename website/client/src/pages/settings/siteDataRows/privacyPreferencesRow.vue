@@ -166,6 +166,10 @@ export default {
       icons: Object.freeze({
         alert,
       }),
+      gpcLinks: {
+        linkOpen: '<a href="https://globalprivacycontrol.org/" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {
@@ -178,9 +182,9 @@ export default {
     gpcInfo () {
       const gpcUrl = 'https://globalprivacycontrol.org/';
       if (this.user.preferences.analyticsConsent) {
-        return this.$t('gpcPlusAnalytics', { url: gpcUrl });
+        return this.$t('gpcPlusAnalytics', gpcLinks);
       }
-      return this.$t('gpcWarning', { url: gpcUrl });
+      return this.$t('gpcWarning', gpcLinks);
     },
   },
   methods: {

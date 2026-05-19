@@ -197,7 +197,7 @@ export default {
       },
       amazonPayments: {},
       assistanceEmailObject: {
-        hrefTechAssistanceEmail: `<a href="mailto:${TECH_ASSISTANCE_EMAIL}">${TECH_ASSISTANCE_EMAIL}</a>`,
+        techAssistanceEmail: `<a href="mailto:${TECH_ASSISTANCE_EMAIL}">${TECH_ASSISTANCE_EMAIL}</a>`,
       },
       sendingInProgress: false,
       userReceivingGems: null,

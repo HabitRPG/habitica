@@ -13,7 +13,7 @@
           <hr>
         </div>
         <p>
-          <span v-html="$t('overviewQuestionsRevised')"></span>
+          <span v-html="$t('overviewQuestionsRevised', overviewLinks)"></span>
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -57,6 +57,10 @@ export default {
           equipUrl: '/inventory/equipment',
           shopUrl: '/shops/market',
         },
+      },
+      overviewLinks: {
+        linkOpen: '<a href="/static/faq">',
+        linkClose: '</a>',
       },
     };
   },

@@ -61,7 +61,7 @@
         <p
           v-once
           class="w-50 mx-auto"
-          v-html="$t('visitCustomizationsShop')"
+          v-html="$t('visitCustomizationsShop', customizeLinks)"
         ></p>
       </div>
     </div>
@@ -95,6 +95,14 @@ export default {
   props: [
     'editing',
   ],
+  data () {
+    return {
+      customizeLinks: {
+        linkOpen: '<a href="/shops/customizations">',
+        linkClose: '</a>',
+      },
+    }
+  },
   computed: {
     hairSubMenuItems () {
       const items = [

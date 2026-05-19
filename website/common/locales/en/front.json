@@ -123,8 +123,8 @@
   "emailTaken": "Email address is already used in an account.",
   "newEmailRequired": "Missing new email address.",
   "usernameTime": "It's time to set your username!",
-  "usernameInfo": "Login names are now unique usernames that will be visible beside your display name and used for invitations, chat @mentions, and messaging.<br><br>If you'd like to learn more about this change, <a href='https://habitica.fandom.com/wiki/Player_Names' target='_blank' rel='noreferrer noopener'>visit our wiki</a>.",
-  "usernameTOSRequirements": "Usernames must conform to our <a href='/static/terms' target='_blank' rel='noreferrer noopener'>Terms of Service</a> and <a href='/static/community-guidelines' target='_blank' rel='noreferrer noopener'>Community Guidelines</a>. If you didn’t previously set a login name, your username was auto-generated.",
+  "usernameInfo": "Login names are now unique usernames that will be visible beside your display name and used for invitations, chat @mentions, and messaging.<br><br>If you'd like to learn more about this change, <%= linkOpen %>visit our wiki<%= linkClose %>.",
+  "usernameTOSRequirements": "Usernames must conform to our <%= termsLink %>Terms of Service<%= linkClose %> and <%= guidelinesLink %>Community Guidelines<%= linkClose %>. If you didn’t previously set a login name, your username was auto-generated.",
   "usernameTaken": "Username already taken.",
   "passwordConfirmationMatch": "Password confirmation doesn't match password.",
   "minPasswordLength": "Password must be 8 characters or more.",
@@ -187,7 +187,7 @@
   "learnMore": "Learn More",
   "translateHabitica": "Translate Habitica",
   "whatToCallYou": "What should we call you?",
-  "acceptPrivacyTOS": "You confirm that you are at least 18 years old, and that you have read and agree to our <a href='/static/terms' target='_blank' rel='noreferrer noopener'>Terms of Service</a> and <a href='/static/privacy' target='_blank' rel='noreferrer noopener'>Privacy Policy</a>",
+  "acceptPrivacyTOS": "You confirm that you are at least 18 years old, and that you have read and agree to our <%= termsLink %>Terms of Service<%= linkClose %> and <%= privacyLink %>Privacy Policy<%= linkClose %>",
   "emailAddress": "Email address",
   "emailRequiredForSupport": "We require an email address for user support. Please enter an email address to continue creating your account."
 }

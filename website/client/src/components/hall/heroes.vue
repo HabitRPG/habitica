@@ -3,7 +3,7 @@
     <div class="row standard-page">
       <small
         class="muted"
-        v-html="$t('blurbHallContributors')"
+        v-html="$t('blurbHallContributors', hallLinks)"
       ></small>
     </div>
     <div class="row standard-page">
@@ -362,6 +362,12 @@ export default {
       expandItems: false,
       expandAuth: false,
       expandTransactions: false,
+      hallLinks: {
+        linkRewards: '<a href="https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards" target="_blank" rel="noreferrer noopener">',
+        linkTiers: '<a href="https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tiers" target="_blank" rel="noreferrer noopener">',
+        linkContributing: '<a href="https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
     };
   },
   async mounted () {

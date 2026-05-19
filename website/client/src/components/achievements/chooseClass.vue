@@ -98,7 +98,7 @@
           <div
             v-once
             class="opt-out-description"
-            v-html="$t('optOutOfClassesText')"
+            v-html="$t('optOutOfClassesText', optOutLinks)"
           ></div>
         </div>
       </div>
@@ -214,6 +214,10 @@ export default {
         wizard: wizardIcon,
       }),
       selectedClass: 'warrior',
+      optOutLinks: {
+        linkOpen: '<a href="/static/faq#what-classes" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {

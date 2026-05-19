@@ -377,7 +377,7 @@
           <div class="">
             <div
               class="alert alert-info alert-sm"
-              v-html="$t('communityGuidelinesWarning', managerEmail)"
+              v-html="$t('communityGuidelinesWarning', communityGuidelineLinks)"
             ></div>
             <!-- TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak-->
             <div class="form-group">
@@ -1060,8 +1060,10 @@ export default {
         blurb: '',
       },
       hero: {},
-      managerEmail: {
-        hrefBlankCommunityManagerEmail: `<a href="mailto:${COMMUNITY_MANAGER_EMAIL}">${COMMUNITY_MANAGER_EMAIL}</a>`,
+      communityGuidelineLinks: {
+        linkOpen: '<a href="https://habitica.com/static/community-guidelines" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+        adminEmail: `<a href="mailto:${COMMUNITY_MANAGER_EMAIL}" target="_blank" rel="noopener noreferrer">${COMMUNITY_MANAGER_EMAIL}</a>`,
       },
       selectedPage: 'profile',
       achievements: {},

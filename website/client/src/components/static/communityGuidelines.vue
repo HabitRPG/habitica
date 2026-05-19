@@ -24,11 +24,11 @@
     <ul>
       <li><strong>{{ $t('commGuideList01A') }}</strong></li>
       <li v-html="$t('commGuideList02C')"></li>
-      <li v-html="$t('commGuideList02N')"></li>
+      <li v-html="$t('commGuideList02N', { adminEmail })"></li>
       <li v-html="$t('commGuideList02H')"></li>
       <li v-html="$t('commGuideList02A')"></li>
       <li v-html="$t('commGuideList02I')"></li>
-      <li v-html="$t('commGuideList02G')"></li>
+      <li v-html="$t('commGuideList02G', { adminEmail })"></li>
       <li v-html="$t('commGuideList02D')"></li>
       <li v-html="$t('commGuideList02E')"></li>
       <li v-html="$t('commGuideList02O')"></li>
@@ -36,7 +36,7 @@
       <li v-html="$t('commGuideList02P')"></li>
       <li v-html="$t('commGuideList02Q')"></li>
       <li v-html="$t('commGuideList02M')"></li>
-      <li v-html="$t('commGuideList02L')"></li>
+      <li v-html="$t('commGuideList02L', { adminEmail })"></li>
       <li v-html="$t('commGuideList02J')"></li>
       <li v-html="$t('commGuideList02K')"></li>
     </ul>
@@ -69,7 +69,7 @@
     <p v-html="$t('commGuidePara054')"></p>
     <p v-html="$t('commGuidePara055')"></p>
     <ul>
-      <li v-html="$t('commGuideList06A')"></li>
+      <li v-html="$t('commGuideList06A', { adminEmail })"></li>
       <li v-html="$t('commGuideList06C')"></li>
       <li v-html="$t('commGuideList06E')"></li>
     </ul>
@@ -108,7 +108,7 @@
       class="mb-3"
     >
     <p v-html="$t('commGuidePara061')"></p>
-    <p v-html="$t('commGuidePara063')"></p>
+    <p v-html="$t('commGuidePara063', { adminEmail })"></p>
     <h2 id="meet-the-mods">
       {{ $t('commGuideHeadingMeet') }}
     </h2>
@@ -162,15 +162,15 @@
     <h2 id="final">
       {{ $t('commGuideHeadingFinal') }}
     </h2>
-    <p v-html="$t('commGuidePara067')"></p>
+    <p v-html="$t('commGuidePara067', { adminEmail })"></p>
     <p v-html="$t('commGuidePara068')"></p>
     <h2 id="links">
       {{ $t('commGuideHeadingLinks') }}
     </h2>
     <ul>
       <li><a href="/static/faq">{{ $t('faq') }}</a></li>
-      <li v-html="$t('commGuideLink03')"></li>
-      <li v-html="$t('commGuideLink04')"></li>
+      <li v-html="$t('commGuideLink03', gitHubLinks)"></li>
+      <li v-html="$t('commGuideLink04', feedbackLinks)"></li>
     </ul>
     <p v-html="$t('commGuidePara069')"></p>
     <ul>
@@ -187,3 +187,23 @@
     </ul>
   </div>
 </template>
+
+<script>
+
+export default {
+  data () {
+    return {
+      adminEmail: '<a href="mailto:admin@habitica.com" target="_blank" rel="noreferrer noopener">admin@habitica.com</a>',
+      gitHubLinks: {
+        linkOpen: '<a href="https://github.com/HabitRPG/habitica" target="_blank">',
+        linkClose: '</a>',
+      },
+      feedbackLinks: {
+        linkOpen: '<a href="https://habitica.fandom.com/wiki/Habitica_Wiki" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
+    };
+  },
+}
+
+</script>
