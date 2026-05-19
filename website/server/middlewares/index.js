@@ -35,6 +35,7 @@ import {
   logRequestData,
   logSlowRequests,
 } from './requestLogHandler';
+import sitemap from './sitemap';
 
 const IS_PROD = nconf.get('IS_PROD');
 const DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING') === 'true';
@@ -73,6 +74,8 @@ export default function attachMiddlewares (app, server) {
     permittedCrossDomainPolicies: false,
     referrerPolicy: false,
   }));
+
+  app.use(sitemap);
 
   // add res.respond and res.t
   app.use(responseHandler);
