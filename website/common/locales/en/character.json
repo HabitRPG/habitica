@@ -138,7 +138,7 @@
   "healerText": "Healers stand impervious against harm, and extend that protection to others. Missed Dailies and bad Habits don't faze them much, and they have ways to recover Health from failure. Play a Healer if you enjoy assisting others in your Party, or if the idea of cheating Death through hard work inspires you!",
   "optOutOfClasses": "Opt Out",
   "chooseClass": "Choose your Class",
-  "chooseClassLearnMarkdown": "[Learn more about Habitica's class system](/static/faq#what-classes)",
+  "chooseClassLearnMarkdown": "[Learn more about Habitica's class system](<%= classLink %>)",
   "optOutOfClassesText": "Not ready to choose? There's no rush! If you opt out, you can read about each Class in <%= linkOpen %>our FAQ<%= linkClose %> and visit Settings to enable the Class System when you're ready.",
   "selectClass": "Select <%= heroClass %>",
   "select": "Select",

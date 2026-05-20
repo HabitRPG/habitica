@@ -41,7 +41,6 @@
   "backerTier": "Backer Tier",
   "playerTiers": "Player Tiers",
   "tier": "Tier",
-  "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
   "surveysSingle": "Helped Habitica grow, either by filling out a survey or helping with a major testing effort. Thank you!",
   "surveysMultiple": "Helped Habitica grow on <%= count %> occasions, either by filling out a survey or helping with a major testing effort. Thank you!",
   "blurbHallPatrons": "This is the Hall of Patrons, where we honor the noble adventurers who backed Habitica's original Kickstarter. We thank them for helping us bring Habitica to life!",

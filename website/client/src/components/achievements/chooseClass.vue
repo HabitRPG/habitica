@@ -70,7 +70,7 @@
           </div>
         </div>
         <div
-          v-markdown="$t('chooseClassLearnMarkdown')"
+          v-markdown="$t('chooseClassLearnMarkdown', { classLink })"
           class="text-center"
         ></div>
         <div class="modal-actions text-center">
@@ -218,6 +218,7 @@ export default {
         linkOpen: '<a href="/static/faq#what-classes" target="_blank" rel="noreferrer noopener">',
         linkClose: '</a>',
       },
+      classLink: '/static/faq#what-classes',
     };
   },
   computed: {

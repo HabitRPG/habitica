@@ -83,7 +83,7 @@
       </div>
       <div class="col-md-6 mb-5 mb-md-0">
         <img :src="makeUrl('features_opensource.png')">
-        <h2>{{ $t('marketing3Lead2Title') }}</h2>
+        <h2>{{ $t('marketing3Lead2Title', { githubLink }) }}</h2>
         <p
           v-markdown="$t('marketing3Lead2')"
           class="description"
@@ -179,6 +179,11 @@ import markdownDirective from '@/directives/markdown';
 export default {
   directives: {
     markdown: markdownDirective,
+  },
+  data () {
+    return {
+      githubLink: 'https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica',
+    };
   },
   mounted () {
     this.$store.dispatch('common:setTitle', {

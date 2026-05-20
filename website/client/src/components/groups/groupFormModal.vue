@@ -159,7 +159,7 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
           <strong v-else>{{ $t('groupDescription') }} *</strong>
         </label>
         <a
-          v-markdown="$t('markdownFormattingHelp')"
+          v-markdown="$t('markdownFormattingHelp', { markdownLink })"
           class="float-right"
         ></a>
         <textarea
@@ -420,6 +420,7 @@ export default {
         type: '',
       },
       membersToInvite: [],
+      markdownLink: 'https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica',
     };
 
     const hashedCategories = {};

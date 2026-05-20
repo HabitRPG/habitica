@@ -15,7 +15,6 @@
   "options": "Options",
   "markdownHelpLink": "Markdown formatting help",
   "bold": "**Bold**",
-  "markdownImageEx": "![mandatory alt text](https://habitica.com/cake.png \"optional mouseover title\")",
   "code": "`code`",
   "achievements": "Achievements",
   "basicAchievs": "Basic Achievements",
