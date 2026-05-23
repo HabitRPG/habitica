@@ -238,6 +238,41 @@
   background: $gray-10 !important;
 }
 
+.equipment.items.items-one-line {
+  display: flex;
+  flex-wrap: wrap;
+  white-space: normal;
+
+  > div {
+    flex: 0 0 12.5%;
+    display: flex;
+    justify-content: center;
+    margin-right: 0;
+  }
+
+  @media screen and (max-width: 1240px) {
+    > div {
+      flex-basis: 25%;
+    }
+  }
+
+  @media screen and (max-width: 575px) {
+    > div {
+      flex-basis: 50%;
+    }
+  }
+}
+
+.drawer-content:has(.equipment.items.items-one-line) {
+  @media screen and (max-width: 1240px) {
+    max-height: 400px;
+  }
+
+  @media screen and (max-width: 575px) {
+    max-height: 600px;
+  }
+}
+
 </style>
 
 <style lang="scss" scoped>
