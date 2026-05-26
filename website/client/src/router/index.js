@@ -262,7 +262,8 @@ const router = new VueRouter({
     { path: '/static/tavern-and-guilds', redirect: '/static/faq/tavern-and-guilds' },
     {
       path: '/apidoc',
-      component: NotFoundPage, beforeEnter() {
+      component: NotFoundPage,
+      beforeEnter () {
         window.location.href = 'https://apidoc.habitica.com';
       },
     },
