@@ -143,5 +143,15 @@
     "deleteXTasks": "Eliminar <%= count %> tareas",
     "confirmDeleteTasks": "¿Quieres eliminar las tareas?",
     "brokenChallengeTaskCount": "Esta es una de las <%= count %> tareas que forman parte de un desafío que ya no existe.",
-    "sureDeleteType": "¿Estás seguro que deseas eliminar esta tarea?"
+    "sureDeleteType": "¿Estás seguro que deseas eliminar esta tarea?",
+    "everyDay": "cada día",
+    "everyWeek": "cada semana",
+    "everyXWeeks": "cada <%= count %> semanas",
+    "everyMonth": "cada mes",
+    "everyYear": "cada año",
+    "everyXYears": "cada <%= count %> años",
+    "every": "cada",
+    "everyXDays": "cada <%= count %> días",
+    "everyXMonths": "cada <%= count %> meses",
+    "fifthWeekWarning": "Esta tarea <strong>no</strong> aparecerá pendiente en meses con menos de <%= day %>sem"
 }

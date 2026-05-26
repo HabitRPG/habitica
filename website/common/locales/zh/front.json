@@ -187,5 +187,7 @@
     "enterValidEmail": "请输入一个有效的电子邮箱地址。",
     "minPasswordLengthLogin": "您的密码长度至少为8个字符。",
     "whatToCallYou": "我们应该如何称呼您？",
-    "acceptPrivacyTOS": "请确认您已年满18周岁，而且已经阅读并同意了我们的 <a href='/static/terms' target='_blank'>服务条款</a> 和 <a href='/static/privacy' target='_blank'>隐私政策</a>"
+    "acceptPrivacyTOS": "请确认您已年满18周岁，而且已经阅读并同意了我们的 <a href='/static/terms' target='_blank'>服务条款</a> 和 <a href='/static/privacy' target='_blank'>隐私政策</a>",
+    "emailRequiredForSupport": "我们需要一个电子邮件地址来为您提供用户支持。请输入电子邮件地址以继续创建您的账户。",
+    "emailAddress": "电子邮件地址"
 }

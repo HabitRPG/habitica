@@ -692,12 +692,21 @@ const backgrounds = {
   backgrounds052026: {
     elven_citadel: { },
   },
+  backgrounds062026: {
+    beach_with_volcano: { },
+  },
+  backgrounds072026: {
+    tropical_coral_garden: { },
+  },
+  backgrounds082026: {
+    vegetable_garden: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,
     },
     on_a_strange_planet: {
-      price: 0,
+      price: 1,
     },
   },
   timeTravelBackgrounds: {

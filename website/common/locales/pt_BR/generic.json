@@ -243,5 +243,6 @@
     "rememberToBeKind": "Por favor, lembre-se de ser gentil, respeitoso e seguir as <a href='/static/community-guidelines' target='_blank'>Diretrizes da comunidade</a>.",
     "targetUserNotExist": "Usúario '<%= userName %>' não existe.",
     "gem": "Gema",
-    "confirmPurchase": "Confirmar Compra"
+    "confirmPurchase": "Confirmar Compra",
+    "avoidSPI": "Evite informações pessoais sensíveis"
 }

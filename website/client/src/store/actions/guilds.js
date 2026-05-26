@@ -1,7 +1,6 @@
 import axios from 'axios';
 import omit from 'lodash/omit';
 import findIndex from 'lodash/findIndex';
-import * as Analytics from '@/libs/analytics';
 import { loadAsyncResource } from '@/libs/asyncResource';
 
 export async function getPublicGuilds (store, payload) {
@@ -74,7 +73,6 @@ export async function join (store, payload) {
     if (invitationI !== -1) invitations.parties.splice(invitationI, 1);
 
     user.party._id = groupId;
-    Analytics.updateUser({ partyID: groupId });
     // load the party members so that they get shown in the header
     store.dispatch('party:getMembers');
   }

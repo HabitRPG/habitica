@@ -18,7 +18,6 @@ import * as shops from './shops';
 import * as snackbars from './snackbars';
 import * as worldState from './worldState';
 import * as news from './news';
-import * as analytics from './analytics';
 import * as faq from './faq';
 import * as blockers from './blockers';
 
@@ -44,7 +43,6 @@ const actions = flattenAndNamespace({
   snackbars,
   worldState,
   news,
-  analytics,
   faq,
   blockers,
 });

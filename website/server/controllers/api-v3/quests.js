@@ -1,9 +1,7 @@
 import each from 'lodash/each';
 import every from 'lodash/every';
 import isBoolean from 'lodash/isBoolean';
-import pick from 'lodash/pick';
 import { authWithHeaders } from '../../middlewares/auth';
-import { getAnalyticsServiceByEnvironment } from '../../libs/analyticsService';
 import {
   model as Group,
   basicFields as basicGroupFields,
@@ -23,8 +21,6 @@ import { sendNotification as sendPushNotification } from '../../libs/pushNotific
 import { apiError } from '../../libs/apiError';
 import { questActivityWebhook } from '../../libs/webhook';
 import { model as UserHistory } from '../../models/userHistory';
-
-const analytics = getAnalyticsServiceByEnvironment();
 
 const questScrolls = common.content.quests;
 
@@ -166,17 +162,6 @@ api.inviteToQuest = {
       quest,
     });
 
-    // track that the inviting user has accepted the quest
-    analytics.track('quest', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      uuid: user._id,
-      category: 'behavior',
-      headers: req.headers,
-      owner: true,
-      questName: questKey,
-      response: 'accept',
-    });
-
     await UserHistory.beginUserHistoryUpdate(user._id, req.headers)
       .withQuestInviteResponse(group.quest.key, 'invite')
       .commit();
@@ -213,15 +198,31 @@ api.acceptQuest = {
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInviteNotFound'));
     if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyStartedFriendly'));
-    if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
 
-    const acceptedSuccessfully = await group.handleQuestInvitation(user, true);
+    if (group.quest.members[user._id] === true) {
+      if (user.party.quest.RSVPNeeded) {
+        user.party.quest.RSVPNeeded = false;
+        await user.save();
+        res.respond(200, group.quest);
+        return;
+      }
+      throw new BadRequest(res.t('questAlreadyAccepted'));
+    }
+    if (group.quest.members[user._id] === false) {
+      throw new BadRequest(res.t('questAlreadyAccepted'));
+    }
+
+    let acceptedSuccessfully = false;
+    await Group.db.transaction(async session => {
+      acceptedSuccessfully = await group.handleQuestInvitation(user, true, session);
+      if (!acceptedSuccessfully) return;
+      user.party.quest.RSVPNeeded = false;
+      await user.save({ session });
+    });
+
     if (!acceptedSuccessfully) {
       throw new NotAuthorized(res.t('questAlreadyAccepted'));
     }
-
-    user.party.quest.RSVPNeeded = false;
-    await user.save();
 
     if (canStartQuestAutomatically(group)) {
       await group.startQuest(user);
@@ -230,17 +231,6 @@ api.acceptQuest = {
     const savedGroup = await group.save();
 
     res.respond(200, savedGroup.quest);
-
-    // track that a user has accepted the quest
-    analytics.track('quest', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      category: 'behavior',
-      owner: false,
-      response: 'accept',
-      questName: group.quest.key,
-      uuid: user._id,
-      headers: req.headers,
-    });
 
     await UserHistory.beginUserHistoryUpdate(user._id, req.headers)
       .withQuestInviteResponse(group.quest.key, 'accept')
@@ -277,17 +267,33 @@ api.rejectQuest = {
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
     if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyStartedFriendly'));
-    if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
-    if (group.quest.members[user._id] === false) throw new BadRequest(res.t('questAlreadyRejected'));
 
-    const rejectedSuccessfully = await group.handleQuestInvitation(user, false);
+    if (group.quest.members[user._id] === true) {
+      throw new BadRequest(res.t('questAlreadyAccepted'));
+    }
+    if (group.quest.members[user._id] === false) {
+      if (user.party.quest.RSVPNeeded) {
+        user.party.quest = Group.cleanQuestUser(user.party.quest.progress);
+        user.markModified('party.quest');
+        await user.save();
+        res.respond(200, group.quest);
+        return;
+      }
+      throw new BadRequest(res.t('questAlreadyRejected'));
+    }
+
+    let rejectedSuccessfully = false;
+    await Group.db.transaction(async session => {
+      rejectedSuccessfully = await group.handleQuestInvitation(user, false, session);
+      if (!rejectedSuccessfully) return;
+      user.party.quest = Group.cleanQuestUser(user.party.quest.progress);
+      user.markModified('party.quest');
+      await user.save({ session });
+    });
+
     if (!rejectedSuccessfully) {
       throw new NotAuthorized(res.t('questAlreadyRejected'));
     }
-
-    user.party.quest = Group.cleanQuestUser(user.party.quest.progress);
-    user.markModified('party.quest');
-    await user.save();
 
     if (canStartQuestAutomatically(group)) {
       await group.startQuest(user);
@@ -296,16 +302,6 @@ api.rejectQuest = {
     const savedGroup = await group.save();
 
     res.respond(200, savedGroup.quest);
-
-    analytics.track('quest', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      category: 'behavior',
-      owner: false,
-      response: 'reject',
-      questName: group.quest.key,
-      uuid: user._id,
-      headers: req.headers,
-    });
 
     await UserHistory.beginUserHistoryUpdate(user._id, req.headers)
       .withQuestInviteResponse(group.quest.key, 'reject')
@@ -360,16 +356,6 @@ api.forceStart = {
     ]);
 
     res.respond(200, savedGroup.quest);
-
-    analytics.track('quest', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      category: 'behavior',
-      owner: user._id === group.quest.leader,
-      response: 'force-start',
-      questName: group.quest.key,
-      uuid: user._id,
-      headers: req.headers,
-    });
   },
 };
 

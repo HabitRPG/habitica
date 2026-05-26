@@ -243,5 +243,7 @@
     "newMessage": "Neue Nachricht",
     "rememberToBeKind": "Bitte sei freundlich, respektvoll, und folge den <a href='/static/community-guidelines' target='_blank'>Community-Richtlinien</a>.",
     "gem": "Edelstein",
-    "confirmPurchase": "Kauf bestätigen"
+    "confirmPurchase": "Kauf bestätigen",
+    "avoidSPI": "vermeiden SPI",
+    "avoidSPIDetails": "Zu Ihrer Privatsphäre vermeiden Sie es, <%= firstLink %>sensible persönliche Informationen<%= linkClose %> (SPI) beim Verwenden von Habitica anzugeben. Ihre Kontodaten, einschließlich Aufgaben, werden auf unseren Servern gespeichert, sodass Sie von jedem Gerät aus darauf zugreifen können.<br><br>Um mehr zu erfahren, lesen Sie unsere <%= secondLink %>Datenschutzerklärung<%= linkClose %>."
 }

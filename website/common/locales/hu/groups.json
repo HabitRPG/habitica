@@ -428,5 +428,17 @@
     "groupParentChildren": "Használat a háztartásommal",
     "groupFriends": "Használat barátokkal",
     "groupManager": "Használat munkában",
-    "groupTeacher": "Használat oktatásban"
+    "groupTeacher": "Használat oktatásban",
+    "previouslyUpgradedGroup": "Korábban fejlesztett csoport",
+    "additionalMembersProrated": "A hónap során meghívott további tagok arányosan kerülnek hozzáadásra a következő számlázási ciklus összegéhez.",
+    "upgradeCancelsPendingInvites": "A csapatod fejlesztése törli az összes függőben lévő meghívót",
+    "chooseAnOption": "Válassz egy lehetőséget",
+    "upgradeExistingGroup": "Meglévő csoport fejlesztése",
+    "createNewGroup": "Új csoport létrehozása",
+    "yourParty": "A csapatod",
+    "inviteOthersForAdditional": "Hívj meg másokat a csoportodba további",
+    "perMember": "tagonként",
+    "oneMember": "1 tag",
+    "membersCount": "<%= count %> tag",
+    "pendingCount": "(<%= count %> függőben)"
 }

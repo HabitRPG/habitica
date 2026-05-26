@@ -23,7 +23,6 @@ import * as inboxLib from '../../libs/inbox';
 import * as userLib from '../../libs/user';
 import { model as UserHistory } from '../../models/userHistory';
 
-const OFFICIAL_PLATFORMS = ['habitica-web', 'habitica-ios', 'habitica-android'];
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 const DELETE_CONFIRMATION = 'DELETE';
 
@@ -424,7 +423,7 @@ api.sleep = {
   url: '/user/sleep',
   async handler (req, res) {
     const { user } = res.locals;
-    const sleepRes = common.ops.sleep(user, req, res.analytics);
+    const sleepRes = common.ops.sleep(user, req);
     await user.save();
     res.respond(200, ...sleepRes);
   },
@@ -483,10 +482,7 @@ api.buy = {
     let quantity = 1;
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;
-    if (OFFICIAL_PLATFORMS.indexOf(req.headers['x-client']) === -1) {
-      res.analytics = undefined;
-    }
-    const buyRes = await common.ops.buy(user, req, res.analytics);
+    const buyRes = await common.ops.buy(user, req);
 
     await user.save();
 
@@ -541,7 +537,7 @@ api.buyGear = {
   url: '/user/buy-gear/:key',
   async handler (req, res) {
     const { user } = res.locals;
-    const buyGearRes = await common.ops.buy(user, req, res.analytics);
+    const buyGearRes = await common.ops.buy(user, req);
     await user.save();
     res.respond(200, ...buyGearRes);
   },
@@ -583,10 +579,7 @@ api.buyArmoire = {
     const { user } = res.locals;
     req.type = 'armoire';
     req.params.key = 'armoire';
-    if (OFFICIAL_PLATFORMS.indexOf(req.headers['x-client']) === -1) {
-      res.analytics = undefined;
-    }
-    const buyArmoireResponse = await common.ops.buy(user, req, res.analytics);
+    const buyArmoireResponse = await common.ops.buy(user, req);
     await user.save();
     await UserHistory.beginUserHistoryUpdate(user._id, req.headers)
       .withArmoire(buyArmoireResponse[0].armoire.dropKey || 'experience')
@@ -629,7 +622,7 @@ api.buyHealthPotion = {
     const { user } = res.locals;
     req.type = 'potion';
     req.params.key = 'potion';
-    const buyHealthPotionResponse = await common.ops.buy(user, req, res.analytics);
+    const buyHealthPotionResponse = await common.ops.buy(user, req);
     await user.save();
     res.respond(200, ...buyHealthPotionResponse);
   },
@@ -671,7 +664,7 @@ api.buyMysterySet = {
   async handler (req, res) {
     const { user } = res.locals;
     req.type = 'mystery';
-    const buyMysterySetRes = await common.ops.buy(user, req, res.analytics);
+    const buyMysterySetRes = await common.ops.buy(user, req);
     await user.save();
     res.respond(200, ...buyMysterySetRes);
   },
@@ -714,7 +707,7 @@ api.buyQuest = {
   async handler (req, res) {
     const { user } = res.locals;
     req.type = 'quest';
-    const buyQuestRes = await common.ops.buy(user, req, res.analytics);
+    const buyQuestRes = await common.ops.buy(user, req);
     await user.save();
     res.respond(200, ...buyQuestRes);
   },
@@ -801,7 +794,7 @@ api.hatch = {
   url: '/user/hatch/:egg/:hatchingPotion',
   async handler (req, res) {
     const { user } = res.locals;
-    const hatchRes = common.ops.hatch(user, req, res.analytics);
+    const hatchRes = common.ops.hatch(user, req);
 
     await user.save();
 
@@ -899,7 +892,7 @@ api.feed = {
   url: '/user/feed/:pet/:food',
   async handler (req, res) {
     const { user } = res.locals;
-    const feedRes = common.ops.feed(user, req, res.analytics);
+    const feedRes = common.ops.feed(user, req);
 
     await user.save();
 
@@ -947,7 +940,7 @@ api.changeClass = {
   url: '/user/change-class',
   async handler (req, res) {
     const { user } = res.locals;
-    const changeClassRes = await common.ops.changeClass(user, req, res.analytics);
+    const changeClassRes = await common.ops.changeClass(user, req);
     await user.save();
     res.respond(200, ...changeClassRes);
   },
@@ -1023,7 +1016,7 @@ api.purchase = {
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;
 
-    const purchaseRes = await common.ops.buy(user, req, res.analytics);
+    const purchaseRes = await common.ops.buy(user, req);
     await user.save();
     res.respond(200, ...purchaseRes);
   },
@@ -1066,7 +1059,6 @@ api.userPurchaseHourglass = {
     const purchaseHourglassRes = await common.ops.buy(
       user,
       req,
-      res.analytics,
       { quantity, hourglass: true },
     );
     await user.save();
@@ -1163,7 +1155,7 @@ api.userOpenMysteryItem = {
   url: '/user/open-mystery-item',
   async handler (req, res) {
     const { user } = res.locals;
-    const openMysteryItemRes = common.ops.openMysteryItem(user, req, res.analytics);
+    const openMysteryItemRes = common.ops.openMysteryItem(user, req);
     await user.save();
     res.respond(200, ...openMysteryItemRes);
   },
@@ -1195,7 +1187,7 @@ api.userReleasePets = {
   url: '/user/release-pets',
   async handler (req, res) {
     const { user } = res.locals;
-    const releasePetsRes = await common.ops.releasePets(user, req, res.analytics);
+    const releasePetsRes = await common.ops.releasePets(user, req);
     await user.save();
     res.respond(200, ...releasePetsRes);
   },
@@ -1244,7 +1236,7 @@ api.userReleaseBoth = {
   url: '/user/release-both',
   async handler (req, res) {
     const { user } = res.locals;
-    const releaseBothRes = common.ops.releaseBoth(user, req, res.analytics);
+    const releaseBothRes = common.ops.releaseBoth(user, req);
     await user.save();
     res.respond(200, ...releaseBothRes);
   },
@@ -1280,7 +1272,7 @@ api.userReleaseMounts = {
   url: '/user/release-mounts',
   async handler (req, res) {
     const { user } = res.locals;
-    const releaseMountsRes = await common.ops.releaseMounts(user, req, res.analytics);
+    const releaseMountsRes = await common.ops.releaseMounts(user, req);
     await user.save();
     res.respond(200, ...releaseMountsRes);
   },
@@ -1356,7 +1348,7 @@ api.userUnlock = {
   url: '/user/unlock',
   async handler (req, res) {
     const { user } = res.locals;
-    const unlockRes = await common.ops.unlock(user, req, res.analytics);
+    const unlockRes = await common.ops.unlock(user, req);
     await user.save();
     res.respond(200, ...unlockRes);
   },
@@ -1382,7 +1374,7 @@ api.userRevive = {
   url: '/user/revive',
   async handler (req, res) {
     const { user } = res.locals;
-    const reviveRes = common.ops.revive(user, req, res.analytics);
+    const reviveRes = common.ops.revive(user, req);
     await user.save();
     res.respond(200, ...reviveRes);
   },

@@ -143,5 +143,15 @@
     "deleteXTasks": "Видалити <%= count %> завдання",
     "deleteTask": "Видалити Завдання",
     "brokenChallengeTaskCount": "Це одне з <%= count %> завдань, що є частиною Випробування, якого більше не існує.",
-    "sureDeleteType": "Ви впевнені, що хочете видалити це завдання?"
+    "sureDeleteType": "Ви впевнені, що хочете видалити це завдання?",
+    "everyXDays": "кожні <%= count %> днів",
+    "everyXWeeks": "кожні <%= count %> тижні(в)",
+    "everyMonth": "кожен місяць",
+    "everyYear": "кожен рік",
+    "everyXYears": "кожні <%= count %> роки",
+    "every": "кожен",
+    "everyDay": "кожен день",
+    "everyWeek": "кожен тиждень",
+    "everyXMonths": "кожні <%= count %> місяці(в)",
+    "fifthWeekWarning": "Це завдання <strong>не з'являтиметься</strong> в місяцях, де менше таких днів: <%= day %>"
 }

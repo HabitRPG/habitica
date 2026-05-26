@@ -3464,5 +3464,14 @@
     "headArmoireFloppyYellowHatNotes": "このシンプルな帽子にはたくさんの呪文が縫い込まれて、きれいな黄色がつきました。すべての能力値がそれぞれ<%= attrs %>上がります。ラッキー宝箱：黄色の部屋着セット（アイテム1/3）。",
     "shieldSpecialWinter2026HealerText": "スターバースト",
     "shieldMystery202605Notes": "月の光は、暗闇の中に隠れている危険から守ってくれます。効果なし。2026年5月の有料会員アイテム。",
-    "shieldArmoireSoftYellowPillowNotes": "経験豊富な戦士はどんな冒険にもまくらを持っていきます。過去の冒険から習い、成長し、輝きましょう．．．うたた寝しているときでさえ。知能と知覚がそれぞれ<%= attrs %>上がります。ラッキー宝箱：黄色の部屋着セット（アイテム3/3）。"
+    "shieldArmoireSoftYellowPillowNotes": "経験豊富な戦士はどんな冒険にもまくらを持っていきます。過去の冒険から習い、成長し、輝きましょう．．．うたた寝しているときでさえ。知能と知覚がそれぞれ<%= attrs %>上がります。ラッキー宝箱：黄色の部屋着セット（アイテム3/3）。",
+    "backMystery202605Text": "夜の帳",
+    "armorSpecialWinter2026WarriorText": "霜の死神のスーツ",
+    "shieldSpecialWinter2026WarriorText": "霧氷の盾",
+    "shieldArmoireFancyFloralFanText": "おしゃれな花の扇子",
+    "shieldArmoireFlyFishingRodText": "フライフィッシングの釣竿",
+    "headSpecialWinter2026WarriorText": "霜の死神のかぶと",
+    "backMystery202605Notes": "最も暗い夜でも照らす、月と星の光で輝く光輪。効果なし。2026年5月の有料会員アイテム。",
+    "backMystery202506Text": "陽光の光輪",
+    "weaponArmoirePrettyPinkParasolNotes": "見た目もよくて実用的、それがいちばんの組み合わせです。さらに印象的に見せるなら、このパラソルをくるっと回してみてください！すべての能力値がそれぞれ<%= attrs %>上がります。ラッキー宝箱：ピンクのおしゃれセット（アイテム1/2）"
 }

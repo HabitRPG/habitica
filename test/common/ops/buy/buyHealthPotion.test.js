@@ -10,10 +10,9 @@ import i18n from '../../../../website/common/script/i18n';
 
 describe('shared.ops.buyHealthPotion', () => {
   let user;
-  const analytics = { track () {} };
 
-  async function buyHealthPotion (_user, _req, _analytics) {
-    const buyOp = new BuyHealthPotionOperation(_user, _req, _analytics);
+  async function buyHealthPotion (_user, _req) {
+    const buyOp = new BuyHealthPotionOperation(_user, _req);
 
     return buyOp.purchase();
   }
@@ -32,19 +31,13 @@ describe('shared.ops.buyHealthPotion', () => {
       },
       stats: { gp: 200 },
     });
-    sinon.stub(analytics, 'track');
-  });
-
-  afterEach(() => {
-    analytics.track.restore();
   });
 
   context('Potion', () => {
     it('recovers 15 hp', async () => {
       user.stats.hp = 30;
-      await buyHealthPotion(user, {}, analytics);
+      await buyHealthPotion(user, {});
       expect(user.stats.hp).to.eql(45);
-      expect(analytics.track).to.be.calledOnce;
     });
 
     it('does not increase hp above 50', async () => {

@@ -4,7 +4,7 @@
     "questEvilSantaCompletion": "Pälsjägartomten tjuter av ilska och studsar iväg i natten. En tacksam hon-björn försöker genom att ryta och morra tala om något för dig. Du tar henne till stallet, där Djurviskaren Matt Boch lyssnar till hennes berättelse och flämtar till av fasa. Hon har en unge! Han flydde till isfälten när mamma björn fångades.",
     "questEvilSantaBoss": "Pälsjägartomten",
     "questEvilSantaDropBearCubPolarMount": "Isbjörn (Riddjur)",
-    "questEvilSanta2Text": "Hitta Björnungen",
+    "questEvilSanta2Text": "Hitta Ungen",
     "questEvilSanta2Notes": "När pälsjägartomten fångade isbjörnsriddjuret sprang hennes unge iväg över isfälten. Du hör grenar brytas och snö krasa genom det kristallklara ljudet av skogen. Tassavtryck! Ni börjar båda springa efter spåren. Hitta alla spår och brutna kvistar, och hämta tillbaka ungen!<br><br><strong>Notera</strong>: “Björnungen” belönar dig med en upprepbar prestation men delar ut ett ovanligt riddjur som endast kan läggas till i ditt stall en gång.",
     "questEvilSanta2Completion": "Du har hittat björnungen! Den kommer hålla dig sällskap för alltid.",
     "questEvilSanta2CollectTracks": "Spår",
@@ -645,5 +645,6 @@
     "sandySidekicksText": "Uppdragsbunten Sandiga hjälpredor",
     "jungleBuddiesText": "Uppdragsbunten Djungelvänner",
     "delightfulDinosText": "Uppdragsbunten Förtjusande dinosaurier",
-    "rockingReptilesText": "Uppdragsbunten Festande reptiler"
+    "rockingReptilesText": "Uppdragsbunten Festande reptiler",
+    "evilSantaAddlNotes": "Observera att Tomtefångaren och Finn Ungen har uppdragsprestationer som kan stapla men ger ett sällsynt husdjur och riddjur som endast kan läggas till i ditt stall en gång."
 }

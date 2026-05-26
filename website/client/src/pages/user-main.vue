@@ -4,6 +4,7 @@
     :class="{
       'casting-spell': castingSpell,
     }"
+    @dragover.prevent
   >
     <!-- <banned-account-modal /> -->
     <amazon-payments-modal v-if="!isStaticPage" />
@@ -130,7 +131,6 @@ import PrivacyBanner from '@/components/header/banners/privacy';
 import AppFooter from '@/components/appFooter';
 import notificationsDisplay from '@/components/notifications';
 import { mapState } from '@/libs/store';
-import * as Analytics from '@/libs/analytics';
 import BuyModal from '@/components/shops/buyModal.vue';
 import SelectMembersModal from '@/components/selectMembersModal.vue';
 import notifications from '@/mixins/notifications';
@@ -276,7 +276,6 @@ export default {
         }
       }
 
-      Analytics.updateUser();
       return this.loadAllTranslations();
     }).then(() => {
       this.$store.state.isUserLoaded = true;

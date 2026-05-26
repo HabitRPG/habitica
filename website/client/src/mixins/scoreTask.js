@@ -3,7 +3,6 @@ import Vue from 'vue';
 import scoreTask from '@/../../common/script/ops/scoreTask';
 import notifications from './notifications';
 import { mapState } from '@/libs/store';
-import * as Analytics from '@/libs/analytics';
 import { CONSTANTS, getLocalSetting, setLocalSetting } from '@/libs/userlocalManager';
 
 export default {
@@ -58,15 +57,6 @@ export default {
 
       const tasksScoredCount = getLocalSetting(CONSTANTS.keyConstants.TASKS_SCORED_COUNT);
       if (!tasksScoredCount || tasksScoredCount < 2) {
-        Analytics.track({
-          eventName: 'task scored',
-          eventAction: 'task scored',
-          eventCategory: 'behavior',
-          hitType: 'event',
-          uuid: user._id,
-          taskType: task.type,
-          direction,
-        }, { trackOnClient: true });
         if (!tasksScoredCount) {
           setLocalSetting(CONSTANTS.keyConstants.TASKS_SCORED_COUNT, 1);
         } else {

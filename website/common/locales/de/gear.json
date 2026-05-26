@@ -3484,7 +3484,7 @@
     "shieldSpecialWinter2026WarriorText": "Raureif Schild",
     "shieldSpecialWinter2026WarriorNotes": "Stoppe eiskalt Hindernisse mit diesem praktischen, pieksigen Schild. Erhöht Ausdauer um %= con %>. Limitierte Ausgabe Winterausrüstung 2025-2026.",
     "headMystery202602Text": "Kirschblüte Fuchsohren",
-    "headMystery202602Notes": " Diese Ohren schärfen dein Gehör so sehr, dass du im nahenden Frühling das Wachsen der Blütenknospen an den Zweigen der Bäume hören kannst. Gewährt keinen Attributbonus. Februar 2026 Abonnentengegenstand.",
+    "headMystery202602Notes": "Diese Ohren schärfen dein Gehör so sehr, dass du im nahenden Frühling das Wachsen der Blütenknospen an den Zweigen der Bäume hören kannst. Gewährt keinen Attributbonus. Februar 2026 Abonnentengegenstand.",
     "headArmoireLoneCowpokeHatNotes": "Howdy Kumpel! Hasst du’s auch so, wenn du draußen auf dem Schießstand bist, an Aufgaben arbeitest und dir die Sonne in die Augen scheint? Also, gute Sache, dass du dafür jetzt ’nen Hut hast. Erhöht deine Wahrnehmung um <%= per %>. Verzauberter Schrank: Einsamer Cowboy Set (Item 1 of 2)",
     "shieldSpecialWinter2026HealerText": "Sternenexplosion",
     "shieldArmoireDoubleBassNotes": "Bom doo bom brrrr brr brr brrrr! Versammle deine Party, um euch zu erden oder zu tanzen, während ihr euch Musik von dieser tiefen Double Bass anhört. Erhört Ausdauer und Stärke um jeweils <%= attrs %>. Verzauberter Schwank: Musikinstrumente Set 2 (Gegenstand 3 von 3)",
@@ -3495,5 +3495,11 @@
     "backMystery202601Notes": "Dieses Zeichen gewährt dem Anwender die Kontrolle über die Elemente der Jahreszeit von Kälte und Frost. Gewährt keinen Attributbonus. Januar 2026 Abonnentengegenstand.",
     "backMystery202602Text": "Fünf Schweife der Sakura",
     "backMystery202602Notes": "Diese flauschigen Schweife haben die Farbe der Kirschblüte, eine Erinnerung, dass der Frühling auf dem Weg ist. Gewährt keinen Autobusbonus. Februar 2026 Abonnentengegenstand.",
-    "backArmoireHarpsichordText": "Cembalo"
+    "backArmoireHarpsichordText": "Cembalo",
+    "weaponSpecialSpring2026HealerText": "Schneeglöckchen Stab",
+    "weaponSpecialSpring2026HealerNotes": "Eine Gelegenheit für einen Neuanfang liegt direkt vor dir, und mit diesem prächtigen Stab wirst du bereit sein! Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe Frühlingsausrüstung 2026.",
+    "armorSpecialSpring2026WarriorText": "Froschrüstung",
+    "armorSpecialSpring2026WarriorNotes": "Hüpf in Aktion, sobald der Schnee taut. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe Frühlingsausrüstung 2026.",
+    "armorSpecialSpring2026RogueText": "Birkenrinde Rüstung",
+    "armorSpecialSpring2026RogueNotes": "Trotze dem unvermeidlichen Frühlingsregen ebenso wie leichten Brisen. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe Frühlingsausrüstung 2026."
 }

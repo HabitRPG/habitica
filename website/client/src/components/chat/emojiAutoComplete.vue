@@ -189,7 +189,7 @@ export default {
         this.cancel();
         return [];
       }
-      this.currentSearch = regexRes[1];
+      this.currentSearch = regexRes[1]; // eslint-disable-line prefer-destructuring
 
       if (this.currentSearch.length === 0) return [];
 

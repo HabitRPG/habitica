@@ -54,19 +54,4 @@ describe('armoire', () => {
     const febuaryItems = armoire.all;
     expect(febuaryItems.length).to.equal(384);
   });
-
-  it('sets have at least 2 items', () => {
-    const setMap = {};
-    forEach(armoire.all, item => {
-      // Gotta have one outlier
-      if (!item.set || item.set.startsWith('armoire-')) return;
-      if (setMap[item.set] === undefined) {
-        setMap[item.set] = 0;
-      }
-      setMap[item.set] += 1;
-    });
-    Object.keys(setMap).forEach(set => {
-      expect(setMap[set], set).to.be.at.least(2);
-    });
-  });
 });

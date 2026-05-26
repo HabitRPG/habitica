@@ -189,7 +189,7 @@
     "questTRexUndeadBoss": "Skelettierter Tyrannosaurus",
     "questTRexUndeadRageTitle": "Knöcherne Heilung",
     "questTRexUndeadRageDescription": "Diese Leiste füllt sich, wenn Du Deine Tagesaufgaben nicht erfüllst. Wenn sie voll ist, heilt sich der skelettierte Tyrannosaurus um 30% seiner übrigen Lebenspunkte!",
-    "questTRexUndeadRageEffect": "'Der Skelettierte Tyrannosaurus benutzt KNÖCHERNE HEILUNG!'\n\nDas Monster lässt ein furchtbares Brüllen ertönen und einige seiner gesplitterten Knochen setzen sich wieder zusammen!",
+    "questTRexUndeadRageEffect": "Skeletal Tyrannosaur uses SKELETON HEALING!\n\nThe monster lets forth an unearthly roar, and some of its damaged bones knit back together!\n\nDas Monster lässt ein furchtbares Brüllen ertönen und einige seiner gesplitterten Knochen setzen sich wieder zusammen!",
     "questTRexDropTRexEgg": "Tyrannosaurus (Ei)",
     "questTRexUnlockText": "Schaltet den Kauf von Tyrannosauruseiern auf dem Marktplatz frei",
     "questRockText": "Entkomme dem Höhlenungetüm",

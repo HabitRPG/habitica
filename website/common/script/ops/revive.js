@@ -1,5 +1,4 @@
 import merge from 'lodash/merge';
-import pick from 'lodash/pick';
 import reduce from 'lodash/reduce';
 import each from 'lodash/each';
 import i18n from '../i18n';
@@ -13,7 +12,7 @@ import predictableRandom from '../fns/predictableRandom';
 import { removePinnedGearByClass, addPinnedGearByClass, addPinnedGear } from './pinnedGearUtils';
 import getItemInfo from '../libs/getItemInfo';
 
-export default function revive (user, req = {}, analytics) {
+export default function revive (user, req = {}) {
   if (user.stats.hp > 0) {
     throw new NotAuthorized(i18n.t('cannotRevive', req.language));
   }
@@ -108,16 +107,6 @@ export default function revive (user, req = {}, analytics) {
     }
 
     message = i18n.t('messageLostItem', { itemText: item.text(req.language) }, req.language);
-  }
-
-  if (analytics) {
-    analytics.track('Death', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      uuid: user._id,
-      lostItem,
-      category: 'behavior',
-      headers: req.headers,
-    });
   }
 
   return [

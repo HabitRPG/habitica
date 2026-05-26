@@ -243,5 +243,7 @@
     "targetUserNotExist": "Usuario objetivo: '<%= userName %>' no existe.",
     "rememberToBeKind": "Por favor recuerda ser bondadoso, respetuoso y seguir las <a href='/static/community-guidelines' target='_blank'>Normas de la Comunidad</a>.",
     "gem": "Gema",
-    "confirmPurchase": "Confirmar Compra"
+    "confirmPurchase": "Confirmar Compra",
+    "avoidSPI": "Evita IPS",
+    "avoidSPIDetails": "Por tu privacidad, evita incluir <%= firstLink %>información personal sensible<%= linkClose %> (IPS) cuando uses Habitica. La información de tu cuenta, incluyendo tareas, es almacenada en nuestros servidores para que puedas acceder a ella desde cualquier dispositivo.<br><br>Para saber más, revisa nuestra <%= secondLink %>Política de Privacidad<%= linkClose %>."
 }

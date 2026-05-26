@@ -1,7 +1,6 @@
 import assign from 'lodash/assign';
 import find from 'lodash/find';
 import merge from 'lodash/merge';
-import pick from 'lodash/pick';
 import moment from 'moment';
 import { authWithHeaders } from '../../middlewares/auth';
 import {
@@ -28,6 +27,7 @@ import {
   moveTask,
   setNextDue,
   requiredGroupFields,
+  normalizeDailyStartDate,
 } from '../../libs/tasks/utils';
 import common from '../../../common';
 import { apiError } from '../../libs/apiError';
@@ -330,17 +330,6 @@ api.createChallengeTasks = {
 
     // If adding tasks to a challenge -> sync users
     if (challenge) challenge.addTasks(tasks);
-
-    tasks.forEach(task => {
-      res.analytics.track('challenge task created', {
-        user: pick(user, ['preferences', 'registeredThrough']),
-        uuid: user._id,
-        hitType: 'event',
-        category: 'behavior',
-        taskType: task.type,
-        challengeID: challenge._id,
-      });
-    });
   },
 };
 
@@ -660,13 +649,10 @@ api.updateTask = {
       task.group.managerNotes = sanitizedObj.managerNotes;
     }
 
-    // For daily tasks, update start date based on timezone to maintain consistency
     if (task.type === 'daily'
         && task.startDate
     ) {
-      task.startDate = moment(task.startDate).utcOffset(
-        -user.preferences.timezoneOffset,
-      ).startOf('day').toDate();
+      task.startDate = normalizeDailyStartDate(task.startDate, user);
 
       // If the daily task was set to repeat monthly on a day of the month, and the start date was
       // updated, the task will then need to be updated to repeat on the same day of the month as
@@ -698,17 +684,6 @@ api.updateTask = {
       taskActivityWebhook.send(user, {
         type: 'updated',
         task: savedTask,
-      });
-    }
-
-    if (group) {
-      res.analytics.track('task edit', {
-        user: pick(user, ['preferences', 'registeredThrough']),
-        uuid: user._id,
-        hitType: 'event',
-        category: 'behavior',
-        taskType: task.type,
-        groupID: group._id,
       });
     }
   },
