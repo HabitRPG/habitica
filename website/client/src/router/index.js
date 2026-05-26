@@ -260,9 +260,12 @@ const router = new VueRouter({
     // Only used to handle some redirects
     // See router.beforeEach
     { path: '/static/tavern-and-guilds', redirect: '/static/faq/tavern-and-guilds' },
-    { path: '/apidoc', component: NotFoundPage, beforeEnter() {
-      window.location.href = 'https://apidoc.habitica.com';
-    }},
+    {
+      path: '/apidoc',
+      component: NotFoundPage, beforeEnter() {
+        window.location.href = 'https://apidoc.habitica.com';
+      },
+    },
     { path: '/redirect/:redirect', name: 'redirect' },
     { path: '*', redirect: { name: 'notFound' } },
   ],
