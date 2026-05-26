@@ -121,10 +121,6 @@ export default defineConfig({
       include: [/moment-recur/, /node_modules/]
     },
     rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'index.html'),
-        faq: path.resolve(__dirname, 'index-faq.html'),
-      },
       output: {
         experimentalMinChunkSize: 20000
       }
