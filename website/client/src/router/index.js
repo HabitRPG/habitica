@@ -7,6 +7,7 @@ import { PAGES } from '@/libs/consts';
 import { STATIC_ROUTES } from './static-routes';
 import { USER_ROUTES } from './user-routes';
 import { DEPRECATED_ROUTES } from '@/router/deprecated-routes';
+import { NotFoundPage } from './shared-route-imports';
 
 // NOTE: when adding a page make sure to implement the `common:setTitle` action
 
@@ -259,6 +260,9 @@ const router = new VueRouter({
     // Only used to handle some redirects
     // See router.beforeEach
     { path: '/static/tavern-and-guilds', redirect: '/static/faq/tavern-and-guilds' },
+    { path: '/apidoc', component: NotFoundPage, beforeEnter() {
+      window.location.href = 'https://apidoc.habitica.com';
+    }},
     { path: '/redirect/:redirect', name: 'redirect' },
     { path: '*', redirect: { name: 'notFound' } },
   ],

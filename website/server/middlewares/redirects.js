@@ -38,14 +38,6 @@ function nonApiUrl (req) {
   return req.originalUrl.search(/\/api\//) === -1;
 }
 
-export function redirectApidoc (req, res, next) {
-  if (req.baseUrl === '/apidoc') {
-    return res.redirect(308, `https://apidoc.habitica.com${req.path}`);
-  }
-
-  return next();
-}
-
 export function forceHabitica (req, res, next) {
   if (IS_PROD && !IGNORE_REDIRECT && req.hostname !== BASE_URL_HOST && nonApiUrl(req) && req.method === 'GET') {
     return res.redirect(301, BASE_URL + req.url);
