@@ -2,7 +2,7 @@ import nconf from 'nconf';
 import express from 'express';
 import http from 'http';
 import mongoose from 'mongoose';
-import redis from 'redis';
+import redis from 'ioredis';
 import logger from './libs/logger';
 
 // Setup translations

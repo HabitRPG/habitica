@@ -1,5 +1,5 @@
 import nconf from 'nconf';
-import redis from 'redis';
+import redis from 'ioredis';
 import {
   RateLimiterRedis,
   RateLimiterMemory,
