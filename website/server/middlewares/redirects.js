@@ -40,9 +40,9 @@ function nonApiUrl (req) {
 
 export function redirectApidoc (req, res, next) {
   if (req.baseUrl === '/apidoc') {
-    return res.redirect(308, 'https://apidoc.habitica.com' + req.path);
+    return res.redirect(308, `https://apidoc.habitica.com${req.path}`);
   }
-  
+
   return next();
 }
 
