@@ -67,7 +67,7 @@
 
         <div
           v-once
-          class="feedback"
+          class="feedback mt-3"
           v-html="$t('feedback')"
         >
         </div>

@@ -1457,6 +1457,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
 
     if (members.length === 0) {
       promises.push(group.deleteOne());
+      promises.push(Chat.deleteMany({ groupId: group._id }));
       return Promise.all(promises);
     }
   }

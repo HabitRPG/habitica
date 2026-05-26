@@ -24,7 +24,10 @@ api.getReady = {
   middlewares: [disableCache],
   async handler (req, res) {
     // This allows kubernetes to determine if the server is ready to receive traffic
-    if (!SERVER_STATUS.MONGODB || !SERVER_STATUS.REDIS || !SERVER_STATUS.EXPRESS) {
+    if (!SERVER_STATUS.MONGODB
+      || !SERVER_STATUS.RATE_LIMITER
+      || !SERVER_STATUS.WORKER
+      || !SERVER_STATUS.EXPRESS) {
       res.respond(503, {
         status: 'not ready',
       });
