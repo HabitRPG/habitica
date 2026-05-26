@@ -141,7 +141,7 @@
           <ul>
             <li>
               <a
-                href="/apidoc"
+                href="https://apidoc.habitica.com"
                 target="_blank"
               >{{ $t('APIv3') }}
               </a>

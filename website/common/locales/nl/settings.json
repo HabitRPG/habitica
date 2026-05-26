@@ -116,7 +116,7 @@
     "generate": "Genereren",
     "getCodes": "Codes verkrijgen",
     "webhooks": "Webhooks",
-    "webhooksInfo": "Webhooks bieden ontwikkelaars een manier om meldingen te ontvangen wanneer een bepaalde actie wordt uitgevoerd, zoals het beoordelen of bijwerken van een Taak, of het verzenden van een bericht in een Groep. Door een webhook te maken, kunt u luisteren naar wijzigingen in Habitica en apps bouwen die op deze wijzigingen reageren.<br><br>Voor meer informatie en voorbeelden over webhooks kunt u onze <a target=\"_blank\" href=\"https://habitica.com/apidoc/#api-Webhook-AddWebhook\">API-documentatie</a> raadplegen.",
+    "webhooksInfo": "Webhooks bieden ontwikkelaars een manier om meldingen te ontvangen wanneer een bepaalde actie wordt uitgevoerd, zoals het beoordelen of bijwerken van een Taak, of het verzenden van een bericht in een Groep. Door een webhook te maken, kunt u luisteren naar wijzigingen in Habitica en apps bouwen die op deze wijzigingen reageren.<br><br>Voor meer informatie en voorbeelden over webhooks kunt u onze <a target=\"_blank\" href=\"https://apidoc.habitica.com/#api-Webhook-AddWebhook\">API-documentatie</a> raadplegen.",
     "enabled": "Ingeschakeld",
     "webhookURL": "Webhook-URL",
     "invalidUrl": "ongeldige url",

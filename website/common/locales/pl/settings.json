@@ -116,7 +116,7 @@
     "generate": "Generuj",
     "getCodes": "Zdobądź kody",
     "webhooks": "Webhooki",
-    "webhooksInfo": "Habitica udostępnia webhooki, które umożliwiają przesyłanie informacji o pewnych działaniach występujących na twoim koncie do skryptów na innej stronie internetowej. Tutaj można wykazać te skrypty. Bądź ostrożny, gdyż wpisanie niepoprawnych URL może spowodować w Habitica błędy lub spowolnienia. Więcej informacji znajdziesz na stronie <a target=\"_blank\" href=\"https://habitica.com/apidoc/#api-Webhook-AddWebhook\">Webhooki</a>.",
+    "webhooksInfo": "Habitica udostępnia webhooki, które umożliwiają przesyłanie informacji o pewnych działaniach występujących na twoim koncie do skryptów na innej stronie internetowej. Tutaj można wykazać te skrypty. Bądź ostrożny, gdyż wpisanie niepoprawnych URL może spowodować w Habitica błędy lub spowolnienia. Więcej informacji znajdziesz na stronie <a target=\"_blank\" href=\"https://apidoc.habitica.com/#api-Webhook-AddWebhook\">Webhooki</a>.",
     "enabled": "Włączone",
     "webhookURL": "Link do webhooka",
     "invalidUrl": "Nieprawidłowy url",

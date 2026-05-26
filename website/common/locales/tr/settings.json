@@ -116,7 +116,7 @@
     "generate": "Üret",
     "getCodes": "Kod Al",
     "webhooks": "Webhook'lar",
-    "webhooksInfo": "Webhooklar, geliştiricilerin belirli bir işlem gerçekleştiğinde — örneğin bir Görevin puanlanması veya güncellenmesi ya da bir Grupta mesaj gönderilmesi gibi — bildirim almasını sağlayan bir yöntem sunar. Bir webhook oluşturarak Habitica’daki değişiklikleri dinleyebilir ve bu değişikliklere tepki veren uygulamalar geliştirebilirsin.<br><br>Webhooks hakkında ek bilgi ve örnekler için lütfen <a target=\"_blank\" href=\"https://habitica.com/apidoc/#api-Webhook-AddWebhook\">API Dokümanlarımızı</a> ziyaret et.",
+    "webhooksInfo": "Webhooklar, geliştiricilerin belirli bir işlem gerçekleştiğinde — örneğin bir Görevin puanlanması veya güncellenmesi ya da bir Grupta mesaj gönderilmesi gibi — bildirim almasını sağlayan bir yöntem sunar. Bir webhook oluşturarak Habitica’daki değişiklikleri dinleyebilir ve bu değişikliklere tepki veren uygulamalar geliştirebilirsin.<br><br>Webhooks hakkında ek bilgi ve örnekler için lütfen <a target=\"_blank\" href=\"https://apidoc.habitica.com/#api-Webhook-AddWebhook\">API Dokümanlarımızı</a> ziyaret et.",
     "enabled": "Aktif",
     "webhookURL": "Webhook URL'si",
     "invalidUrl": "geçersiz url",

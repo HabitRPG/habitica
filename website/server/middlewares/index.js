@@ -22,6 +22,7 @@ import { ENABLE_CLUSTER } from '../libs/config';
 import {
   forceSSL,
   forceHabitica,
+  redirectApidoc,
 } from './redirects';
 import blocker from './blocker';
 import v1 from './v1';
@@ -95,6 +96,7 @@ export default function attachMiddlewares (app, server) {
   if (!DISABLE_BASE_URL_ENFORCEMENT) {
     app.use(forceHabitica);
   }
+  app.use(redirectApidoc);
 
   app.use(bodyParser.urlencoded({
     extended: true, // Uses 'qs' library as old connect middleware

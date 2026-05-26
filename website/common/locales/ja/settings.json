@@ -116,7 +116,7 @@
     "generate": "生成する",
     "getCodes": "コードを取得する",
     "webhooks": "Webhook",
-    "webhooksInfo": "Webhookは、タスクの採点や更新、グループ内のメッセージ送信など、特定のアクションが実行されたときに通知を受け取る方法を開発者に提供します。Webhookを作成することで、Habiticaの変更を監視し、その変更に対応するアプリを構築することができます。<br><br>Webhookに関する追加情報や例については、<a target=\"_blank\" href=\"https://habitica.com/apidoc/#api-Webhook-AddWebhook\">API Docs</a>をご覧ください。",
+    "webhooksInfo": "Webhookは、タスクの採点や更新、グループ内のメッセージ送信など、特定のアクションが実行されたときに通知を受け取る方法を開発者に提供します。Webhookを作成することで、Habiticaの変更を監視し、その変更に対応するアプリを構築することができます。<br><br>Webhookに関する追加情報や例については、<a target=\"_blank\" href=\"https://apidoc.habitica.com/#api-Webhook-AddWebhook\">API Docs</a>をご覧ください。",
     "enabled": "有効",
     "webhookURL": "webフック URL",
     "invalidUrl": "無効な Url",

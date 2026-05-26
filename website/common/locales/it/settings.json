@@ -116,7 +116,7 @@
     "generate": "Genera",
     "getCodes": "Ottieni codici",
     "webhooks": "Webhooks",
-    "webhooksInfo": "Habitica provvede webhook in modo tale che quando alcune azioni avvengono nel tuo account, le informazioni possono essere inviate a uno script su un altro sito. Puoi specificare questi script qui. Fai attenzione con questa funzione perché se specifichi un URL non corretto questo può causare errori e lentezza in Habitica. Per ulterioni informazioni vedi l'articolo in inglese sulla wiki <a target=\"_blank\" href=\"https://habitica.com/apidoc/#api-Webhook-AddWebhook\">Webhooks</a>.",
+    "webhooksInfo": "Habitica provvede webhook in modo tale che quando alcune azioni avvengono nel tuo account, le informazioni possono essere inviate a uno script su un altro sito. Puoi specificare questi script qui. Fai attenzione con questa funzione perché se specifichi un URL non corretto questo può causare errori e lentezza in Habitica. Per ulterioni informazioni vedi l'articolo in inglese sulla wiki <a target=\"_blank\" href=\"https://apidoc.habitica.com/#api-Webhook-AddWebhook\">Webhooks</a>.",
     "enabled": "Abilitato",
     "webhookURL": "URL Webhook",
     "invalidUrl": "URL non valido",
