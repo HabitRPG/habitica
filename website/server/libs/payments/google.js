@@ -156,6 +156,14 @@ api.subscribe = async function subscribe (
   const receiptObj = typeof receipt === 'string' ? JSON.parse(receipt) : receipt; // passed as a string
   const token = receiptObj.token || receiptObj.purchaseToken;
 
+  let existingSub;
+  if (user && user.isSubscribed()) {
+    existingSub = shared.content.subscriptionBlocks[user.purchased.plan.planId];
+    if (existingSub === sub) {
+      throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+    }
+  }
+
   const existingUser = await User.findOne({
     'purchased.plan.customerId': token,
   }).exec();
@@ -168,7 +176,7 @@ api.subscribe = async function subscribe (
 
   nextPaymentProcessing = nextPaymentProcessing || moment.utc().add({ days: 2 }); // eslint-disable-line no-param-reassign, max-len
 
-  await payments.createSubscription({
+  const data = {
     user,
     customerId: token,
     paymentMethod: this.constants.PAYMENT_METHOD_GOOGLE,
@@ -176,7 +184,12 @@ api.subscribe = async function subscribe (
     headers,
     nextPaymentProcessing,
     additionalData: testObj,
-  });
+  };
+  if (existingSub) {
+    data.updatedFrom = existingSub;
+    data.updatedFrom.logic = 'payFull';
+  }
+  await payments.createSubscription(data);
 };
 
 api.noRenewSubscribe = async function noRenewSubscribe (options) {
