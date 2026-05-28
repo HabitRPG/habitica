@@ -32,7 +32,4 @@ export default function staticMiddleware (expressApp) {
 
   /* The remaining files are not cached yet. */
   expressApp.use('/static', express.static(`${BASE_DIR}/website/client/dist/static`));
-
-  /* APIdoc files, not cached yet. */
-  expressApp.use('/apidoc', express.static(`${BASE_DIR}/apidoc/html`));
 }

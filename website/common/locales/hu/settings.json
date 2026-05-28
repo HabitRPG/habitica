@@ -116,7 +116,7 @@
     "generate": "Generálás",
     "getCodes": "Kódok megszerzése",
     "webhooks": "Webhook",
-    "webhooksInfo": "A webhookok lehetőséget adnak a fejlesztőknek arra, hogy értesítést kapjanak, amikor valamilyen művelet történik – például amikor pontozol vagy frissítesz egy feladatot vagy üzenetet küldesz egy csoportban. Ha létrehozol egy webhookot, figyelheted a változásokat a Habiticában, és olyan alkalmazásokat építhetsz, amik ezekre a változásokra reagálnak.<br><br>További információért és példákért látogasd meg az <a target=\"_blank\" href=\"https://habitica.com/apidoc/#api-Webhook-AddWebhook\">API dokumentációnkat</a>.",
+    "webhooksInfo": "A webhookok lehetőséget adnak a fejlesztőknek arra, hogy értesítést kapjanak, amikor valamilyen művelet történik – például amikor pontozol vagy frissítesz egy feladatot vagy üzenetet küldesz egy csoportban. Ha létrehozol egy webhookot, figyelheted a változásokat a Habiticában, és olyan alkalmazásokat építhetsz, amik ezekre a változásokra reagálnak.<br><br>További információért és példákért látogasd meg az <a target=\"_blank\" href=\"https://apidoc.habitica.com/#api-Webhook-AddWebhook\">API dokumentációnkat</a>.",
     "enabled": "Engedélyezve",
     "webhookURL": "Webhook URL",
     "invalidUrl": "érvénytelen url",

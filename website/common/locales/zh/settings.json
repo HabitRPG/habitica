@@ -116,7 +116,7 @@
     "generate": "生成",
     "getCodes": "获取代码",
     "webhooks": "Webhook",
-    "webhooksInfo": "Webhook为开发人员提供了一种在执行特定操作时接收通知的方式，例如评分或更新任务，或在群组中发送消息。通过创建webhook，你将能够监听Habitica的变化，并构建响应这些变化的应用程序。<br><br>有关webhook的更多信息和示例，请访问我们的<a target=\"_blank\" href=\"https://habitica.com/apidoc/#api-Webhook-AddWebhook\">API 文档</a>。",
+    "webhooksInfo": "Webhook为开发人员提供了一种在执行特定操作时接收通知的方式，例如评分或更新任务，或在群组中发送消息。通过创建webhook，你将能够监听Habitica的变化，并构建响应这些变化的应用程序。<br><br>有关webhook的更多信息和示例，请访问我们的<a target=\"_blank\" href=\"https://apidoc.habitica.com/#api-Webhook-AddWebhook\">API 文档</a>。",
     "enabled": "已启用",
     "webhookURL": "Webhook链接",
     "invalidUrl": "无效的url",
