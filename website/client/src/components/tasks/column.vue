@@ -582,7 +582,7 @@ export default {
       const newPosition = where === 'top' ? 0 : list.length;
       list.splice(newPosition, 0, moved[0]);
 
-      if (!this.isUser) {
+      if (task.group.id && !this.isUser) {
         await this.$store.dispatch('tasks:moveGroupTask', {
           taskId: taskIdToMove,
           position: newPosition,
@@ -592,7 +592,7 @@ export default {
           taskId: taskIdToMove,
           position: newPosition,
         });
-        this.user.tasksOrder[`${this.type}s`] = newOrder;
+        if (!this.taskListOverride) this.user.tasksOrder[`${this.type}s`] = newOrder;
       }
     },
     async rewardSorted (data) {
