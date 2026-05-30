@@ -71,7 +71,7 @@
     "commGuidePara013": "",
     "commGuidePara014": "",
     "commGuideHeadingFinal": "הפסקה האחרונה",
-    "commGuidePara067": "So there you have it, brave Habitican -- the Community Guidelines! Wipe that sweat off of your brow and give yourself some XP for reading it all. If you have any questions or concerns about these Community Guidelines, please reach out to us via the <a href='http://contact.habitica.com/' target='_blank'>Moderator Contact Form</a> and we will be happy to help clarify things.",
+    "commGuidePara067": "So there you have it, brave Habitican -- the Community Guidelines! Wipe that sweat off of your brow and give yourself some XP for reading it all. If you have any questions or concerns about these Community Guidelines, please reach out to us via the <%= linkOpen %>Moderator Contact Form<%= linkClose %> and we will be happy to help clarify things.",
     "commGuidePara068": "עכשיו התקדמו לכם, הרפתקנים אמיצים, והרגו כמה מטלות יומיומיות!",
     "commGuideHeadingLinks": "קישורים שימושיים",
     "commGuideLink02": "",
