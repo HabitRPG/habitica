@@ -2468,5 +2468,7 @@
     "headSpecialSpring2026HealerNotes": "以這些美麗而堅韌的花瓣展現充滿希望的風采。增加 <%= int %> 點智力。2026 春季限定版裝備。",
     "shieldSpecialSpring2026HealerText": "雪滴花葉",
     "shieldSpecialSpring2026WarriorNotes": "這座燭台不僅能照亮你的道路，你還可以用它融化殘留的雪與冰。增加體質 <%= con %> 點。2026 春季限定版裝備。",
-    "shieldSpecialSpring2026WarriorText": "青蛙戰士燭台"
+    "shieldSpecialSpring2026WarriorText": "青蛙戰士燭台",
+    "weaponSpecialWinter2024RogueText": "雪鴞護腕",
+    "weaponSpecialWinter2024RogueNotes": "你裝備了羽毛和利爪！咕咕！增加<%= str %>點力量。2023-2024年冬季限定版裝備。"
 }

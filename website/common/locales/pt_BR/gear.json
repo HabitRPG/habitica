@@ -3498,5 +3498,7 @@
     "backArmoireHarpsichordNotes": "Pting! Ptiiing! Reúna seu grupo para um jantar ou piquenique e ouça uma melodia desafinada neste cravo. Aumenta a Percepção e a Inteligência em <%= attrs %> cada. Armário Encantado: Conjunto de Instrumentos Musicais 2 (Item 1 de 3)",
     "weaponSpecialSpring2026WarriorNotes": "Uma oportunidade de duelar pode surgir a qualquer momento e, com este formidável florete, você estará pronto! Aumenta a Força em <%= str %>. Equipamento de edição limitada da primavera de 2026.",
     "weaponSpecialSpring2026HealerText": "Cajado do floco de neve",
-    "weaponSpecialSpring2026RogueNotes": "Uma oportunidade de crescer está quase chegando e, com esses ramos em flor, você estará pronto! Aumenta a Força em <%= str %>. Equipamento de edição limitada da primavera de 2026."
+    "weaponSpecialSpring2026RogueNotes": "Uma oportunidade de crescer está quase chegando e, com esses ramos em flor, você estará pronto! Aumenta a Força em <%= str %>. Equipamento de edição limitada da primavera de 2026.",
+    "weaponSpecialSummer2026RogueText": "Lâmina Tsunami",
+    "weaponSpecialSummer2026MageText": "Lança Tubarão Tigre"
 }

@@ -1808,5 +1808,8 @@
     "weaponSpecialFall2020MageText": "3개의 비전",
     "weaponSpecialFall2019RogueNotes": "지휘를 하든 아리아를 부르든, 이 유용한 장치가 당신의 손을 자유롭게 해 극적인 제스처를 취할 수 있게 해줍니다! 체력이 <%= str %>만큼 증가합니다. 2019년 가을 한정판 장비.",
     "weaponSpecialFall2020HealerText": "누에고치 지팡이",
-    "weaponSpecialFall2020MageNotes": "무언가 마법사의 시야에서 벗어나더라도, 이 지팡이 위의 빛나는 수정들이 당신이 놓친 것을 비춰줄 것입니다. 지능이 <%=int%> 증가하고 지각이 <%=per%> 증가합니다. 2020년 가을 한정 장비."
+    "weaponSpecialFall2020MageNotes": "무언가 마법사의 시야에서 벗어나더라도, 이 지팡이 위의 빛나는 수정들이 당신이 놓친 것을 비춰줄 것입니다. 지능이 <%=int%> 증가하고 지각이 <%=per%> 증가합니다. 2020년 가을 한정 장비.",
+    "weaponSpecialSpring2021WarriorText": "태양의 망치",
+    "weaponSpecialSpring2021HealerText": "버드나무 가지",
+    "weaponSpecialSpring2021MageText": "백조 깃털"
 }

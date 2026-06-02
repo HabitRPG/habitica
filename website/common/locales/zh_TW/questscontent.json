@@ -744,5 +744,10 @@
     "questCatBoss": "喵惑師",
     "questCatRageEffect": "喵惑師把你收集的魔法物品通通從桌上拍飛了！全隊的魔法值被降低了！",
     "questCatRageDescription": "怒氣條會在你沒有完成每日任務時逐漸填滿。填滿後，喵惑師會奪走你隊伍一部分的魔法值！",
-    "questCatRageTitle": "狂怒貓拳"
+    "questCatRageTitle": "狂怒貓拳",
+    "questSolarSystemNotes": "你的隊伍正乘坐一艘由傑出的太空工程師 @gawrone 設計的奇幻飛船，航行於宇宙之間，欣賞沿途景色。飛船的「冥想礦石」推進系統仰賴隊伍的平靜心境才能維持航向。<br><br>在前方閃耀銀河的雲海之中，你們看見一顆不祥地脈動著的恆星。@beffymaroo 警告道：「保持專注。如果我們經過那顆新星時太過分心，恆星與飛船之間的引力可能會讓我們偏離航道！」<br><br>當你們逐漸接近那顆恆星時，一波波奇異能量脈衝朝飛船襲來。<br><br>「那些是分心怪，牠們是試圖讓我們迷失方向的思緒生物。」@SabreCat 說道。「如果我們能任由牠們流過，而不被牠們帶走注意力，我們就能繼續朝目標前進！」",
+    "questSolarSystemCompletion": "經過謹慎的練習，你和船員們成功阻止分心怪把你們捲出船外——方法僅僅是察覺並接納牠們的存在，而不讓牠們掌控自己。當你們安全通過那顆脈動的恆星後，@gawrone 發現了一群漂浮在太空中的瓶子，並把它們撈上船。每個瓶子裡似乎都裝著一個微小的太陽系！<br><br>「看來，我們的努力為我們帶來了相當不錯的獎勵呢！」@beffymaroo 說道。「來看看用這些新的孵化藥水孵化寵物蛋後，會出現什麼樣的天體奇觀吧。」",
+    "questSolarSystemDropSolarSystemPotion": "太陽系孵化藥水",
+    "questSolarSystemBoss": "分心怪",
+    "questSolarSystemText": "星際專注之旅"
 }
