@@ -3501,5 +3501,7 @@
     "armorSpecialSpring2026WarriorText": "Froschrüstung",
     "armorSpecialSpring2026WarriorNotes": "Hüpf in Aktion, sobald der Schnee taut. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe Frühlingsausrüstung 2026.",
     "armorSpecialSpring2026RogueText": "Birkenrinde Rüstung",
-    "armorSpecialSpring2026RogueNotes": "Trotze dem unvermeidlichen Frühlingsregen ebenso wie leichten Brisen. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe Frühlingsausrüstung 2026."
+    "armorSpecialSpring2026RogueNotes": "Trotze dem unvermeidlichen Frühlingsregen ebenso wie leichten Brisen. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe Frühlingsausrüstung 2026.",
+    "weaponMystery202608Notes": "Hell, wunderschön und gefährlich für deine unerledigte Tagesaufgaben. Gewährt keinen Attributbonus. August 2026 Abonnentengegenstand.",
+    "weaponMystery202608Text": "Leuchtende Magenta-Klinge"
 }

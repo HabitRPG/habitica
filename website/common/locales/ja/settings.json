@@ -183,7 +183,7 @@
     "transaction_gift_receive": "<b>受け取った</b>相手",
     "transaction_create_challenge": "<b>作成した</b>チャレンジ",
     "transaction_create_guild": "<b>作成した</b>ギルド",
-    "transaction_rebirth": "転生のオーブの使用",
+    "transaction_rebirth": "転生のオーブを使いました",
     "transaction_spend": "<b>使用</b>：",
     "transaction_reroll": "防御の薬の使用",
     "addPasswordAuth": "パスワードを追加",

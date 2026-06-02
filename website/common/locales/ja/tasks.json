@@ -143,5 +143,13 @@
     "deleteXTasks": "<%= count %>つのタスクを削除する",
     "confirmDeleteTasks": "タスクを削除したいですか？",
     "sureDeleteType": "本当にこのタスクを削除してもいいですか？",
-    "brokenChallengeTaskCount": "これは終了したチャレンジに関する<%= count %>つのタスクのうちの一つです。"
+    "brokenChallengeTaskCount": "これは終了したチャレンジに関する<%= count %>つのタスクのうちの一つです。",
+    "everyDay": "毎日",
+    "everyXDays": "<%= count %>日ごと",
+    "everyWeek": "毎週",
+    "everyXWeeks": "<%= count %>週間ごと",
+    "everyMonth": "毎月",
+    "everyXMonths": "<%= count %>ヶ月ごと",
+    "everyYear": "毎年",
+    "everyXYears": "<%= count %>年ごと"
 }

@@ -143,5 +143,15 @@
     "brokenChallengeTaskCount": "这项任务是某个已经失效的挑战中的 <%= count %> 项任务之一。",
     "confirmDeleteTasks": "你要删除这些任务吗？",
     "deleteType": "删除 <%= type %>",
-    "sureDeleteType": "确定要删除这项任务吗？"
+    "sureDeleteType": "确定要删除这项任务吗？",
+    "everyDay": "每天",
+    "everyXDays": "每<%= count %>天",
+    "everyWeek": "每周",
+    "everyXWeeks": "每<%= count %>周",
+    "everyMonth": "每月",
+    "everyYear": "每年",
+    "everyXYears": "每<%= count %>年",
+    "everyXMonths": "每<%= count %>个月",
+    "every": "每",
+    "fifthWeekWarning": "这个 <strong>任务不会在少于 <%= day %> 天的月份中出现"
 }
