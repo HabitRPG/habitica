@@ -40,7 +40,6 @@
     "backerTier": "Backers-Rang",
     "playerTiers": "Spelersrangen",
     "tier": "Rang",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "Heeft Habitica geholpen om te groeien door een enquête in te vullen of door mee te helpen met een grote speltest. Bedankt!",
     "surveysMultiple": "Heeft Habitica helpen groeien op <%= count %> momenten, door een enquête in te vullen of door mee te helpen met een grote test. Bedankt!",
     "blurbHallPatrons": "Dit is de Hal der Weldoeners. Hier eren we de nobele adventuriers die Habitica hebben gesteund in de Kickstarter. We bedanken ze omdat ze Habitica tot leven hebben gebracht!",

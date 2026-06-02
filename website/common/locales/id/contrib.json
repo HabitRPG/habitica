@@ -40,7 +40,6 @@
     "backerTier": "Tingkat Pendukung",
     "playerTiers": "Tingkatan Pemain",
     "tier": "Tingkat",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "Membantu Habitica berkembang, baik dengan mengisi survey atau membantu dalam pengujian utama. Terima kasih!",
     "surveysMultiple": "Membantu Habitica berkembang sebanyak <%= count %> kali, baik dengan mengisi survey atau membantu dalam pengujian utama. Terima kasih!",
     "blurbHallPatrons": "Ini adalah Aula Patron, di mana kami memberi penghormatan kepada para petualang pemberani yang telah membantu Kickstarter asli Habitica. Kami berterima kasih kepada mereka yang membantu kami mewujudkan Habitica menjadi kenyataan!",

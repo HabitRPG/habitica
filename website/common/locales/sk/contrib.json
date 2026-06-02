@@ -40,7 +40,6 @@
     "backerTier": "Úroveň podporovateľa",
     "playerTiers": "Úrovne hráčov",
     "tier": "Úroveň",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "Pomohol Habitice rásť vyplnením dotazníka alebo s testovaním. Ďakujeme!",
     "surveysMultiple": "Pomohol Habitice rásť v <%= count %> prípadoch, buď vyplnením dotazníka alebo pomocou pri veľkom testovaní. Ďakujeme!",
     "blurbHallPatrons": "Toto je Sieň Patrónov, kde si uctievame ušľachtilých dobrodruhov, ktorí podporili pôvodnú Habitiku na Kickstarteri. Ďakujeme im za to, že nám pomohli priviesť Habitiku k životu!",

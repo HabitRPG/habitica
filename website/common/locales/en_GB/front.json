@@ -72,8 +72,6 @@
     "pkAnswer6": "Lots of different people use Habitica! More than half of our users are ages 18 to 34, but we have grandparents using the site with their young grandkids and every age in-between. Often families will join a party and battle monsters together. <br /> Many of our users have a background in games, but surprisingly, when we ran a survey a while back, 40% of our users identified as non-gamers! So it looks like our method can be effective for anyone who wants productivity and wellness to feel more fun.",
     "pkQuestion7": "Why does Habitica use pixel art?",
     "pkAnswer7": "Habitica uses pixel art for several reasons. In addition to the fun nostalgia factor, pixel art is very approachable to our volunteer artists who want to chip in. It's much easier to keep our pixel art consistent even when lots of different artists contribute, and it lets us quickly generate a ton of new content!",
-    "pkQuestion8": "How has Habitica affected people's real lives?",
-    "pkAnswer8": "You can find lots of testimonials for how Habitica has helped people here: https://habitversary.tumblr.com",
     "pkMoreQuestions": "Do you have a question that’s not on this list? Send an e-mail to admin@habitica.com!",
     "pkPromo": "Promos",
     "pkLogo": "Logos",
@@ -116,8 +114,8 @@
     "emailTaken": "E-mail address is already used in an account.",
     "newEmailRequired": "Missing new e-mail address.",
     "usernameTime": "It's time to set your username!",
-    "usernameInfo": "Login names are now unique usernames that will be visible beside your display name and used for invitations, chat @mentions, and messaging.<br><br>If you'd like to learn more about this change, <a href='https://habitica.fandom.com/wiki/Player_Names' target='_blank'>visit our wiki</a>.",
-    "usernameTOSRequirements": "Usernames must conform to our <a href='/static/terms' target='_blank'>Terms of Service</a> and <a href='/static/community-guidelines' target='_blank'>Community Guidelines</a>. If you didn’t previously set a login name, your username was auto-generated.",
+    "usernameInfo": "Login names are now unique usernames that will be visible beside your display name and used for invitations, chat @mentions, and messaging.<br><br>If you'd like to learn more about this change, <%= linkOpen %>visit our wiki<%= linkClose %>.",
+    "usernameTOSRequirements": "Usernames must conform to our <%= guidelinesLink %>Community Guidelines<%= linkClose %>. If you didn’t previously set a login name, your username was auto-generated.",
     "usernameTaken": "Username already taken.",
     "passwordConfirmationMatch": "Password confirmation doesn't match password.",
     "passwordResetPage": "Reset Password",
@@ -187,7 +185,7 @@
     "minPasswordLengthLogin": "Your password is at least 8 characters long.",
     "enterValidEmail": "Please enter a valid e-mail address.",
     "whatToCallYou": "What should we call you?",
-    "acceptPrivacyTOS": "You confirm that you are at least 18 years old, and that you have read and agree to our <a href='/static/terms' target='_blank'>Terms of Service</a> and <a href='/static/privacy' target='_blank'>Privacy Policy</a>",
+    "acceptPrivacyTOS": "You confirm that you are at least 18 years old, and that you have read and agree to our <%= privacyLink %>Privacy Policy<%= linkClose %>",
     "emailAddress": "E-mail address",
     "emailRequiredForSupport": "We require an e-mail address for user support. Please enter an e-mail address to continue creating your account."
 }

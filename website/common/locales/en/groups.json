@@ -26,7 +26,6 @@
   "userId": "User ID",
   "invite": "Invite",
   "leave": "Leave",
-  "invitedToParty": "You were invited to join the Party <span class=\"notification-bold\"><%= party %></span>",
   "invitedToPartyBy": "<%= usernameLink %> has invited you to join the Party <%= partyName %>",
   "invitedToPrivateGuild": "You were invited to join the private Group <span class=\"notification-bold\"><%= guild %></span>",
   "invitedToPublicGuild": "You were invited to join the Group <span class=\"notification-bold-blue\"><%= guild %></span>",

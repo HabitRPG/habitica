@@ -40,7 +40,6 @@
     "backerTier": "Ранг спонсора",
     "playerTiers": "Ранги игроков",
     "tier": "Ранг",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#Награды_за_вклад",
     "surveysSingle": "Помогли развитию страны Habitica, заполнив анкету, или приняв активное участие в тестировании. Спасибо!",
     "surveysMultiple": "Помогли развитию Habitica <%= count %> раз, заполнив анкету, или помогая тестировать. Спасибо!",
     "blurbHallPatrons": "Это Зал Покровителей, где мы чествуем благородных искателей приключений, которые поддержали проект Habitica на Kickstarter. Мы благодарим их за помощь в воплощении страны Habitica в жизнь!",

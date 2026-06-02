@@ -40,7 +40,6 @@
     "backerTier": "Támogatói szint",
     "playerTiers": "Játékos szintek",
     "tier": "Szint",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "Segítette a Habitica fejlődését egy kérdőív kitöltésével vagy nagyobb tesztben való részvétellel. Köszönjük!",
     "surveysMultiple": "Segítette Habitica fejlődését <%= count %> alkalommal, egy kérdőív kitöltésével vagy nagyobb tesztben való részvétellel. Köszönjük!",
     "blurbHallPatrons": "Ez a Mecénások csarnoka, ahol megemlékezünk azokról a nemes kalandorokról, akik támogatták az eredeti Kickstarter projektet. Hálásak vagyunk, hogy a Habitica valósággá válhatott!",

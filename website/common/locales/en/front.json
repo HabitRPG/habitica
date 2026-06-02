@@ -90,7 +90,7 @@
   "teams": "Teams",
   "terms": "Terms of Service",
   "tumblr": "Tumblr",
-  "localStorageTryFirst": "If you are experiencing problems with Habitica, click the button below to clear local storage and most cookies for this website (other websites will not be affected). You will need to log in again after doing this, so first be sure that you know your log-in details, which can be found at Settings -> <%= linkStart %>Site<%= linkEnd %>.",
+  "localStorageTryFirst": "If you are experiencing problems with Habitica, click the button below to clear local storage and most cookies for this website (other websites will not be affected). You will need to log in again after doing this, so first be sure that you know your log-in details, which can be found at <%= linkStart %>Settings -> Site<%= linkEnd %>.",
   "localStorageTryNext": "If the problem persists, please <%= linkStart %>Report a Bug<%= linkEnd %> if you haven't already.",
   "localStorageClear": "Clear Data",
   "localStorageClearExplanation": "This button will clear local storage and most cookies, and log you out.",
@@ -122,7 +122,7 @@
   "newEmailRequired": "Missing new email address.",
   "usernameTime": "It's time to set your username!",
   "usernameInfo": "Login names are now unique usernames that will be visible beside your display name and used for invitations, chat @mentions, and messaging.<br><br>If you'd like to learn more about this change, <%= linkOpen %>visit our wiki<%= linkClose %>.",
-  "usernameTOSRequirements": "Usernames must conform to our <%= termsLink %>Terms of Service<%= linkClose %> and <%= guidelinesLink %>Community Guidelines<%= linkClose %>. If you didn’t previously set a login name, your username was auto-generated.",
+  "usernameTOSRequirements": "Usernames must conform to our <%= guidelinesLink %>Community Guidelines<%= linkClose %>. If you didn’t previously set a login name, your username was auto-generated.",
   "usernameTaken": "Username already taken.",
   "passwordConfirmationMatch": "Password confirmation doesn't match password.",
   "minPasswordLength": "Password must be 8 characters or more.",
@@ -185,7 +185,7 @@
   "learnMore": "Learn More",
   "translateHabitica": "Translate Habitica",
   "whatToCallYou": "What should we call you?",
-  "acceptPrivacyTOS": "You confirm that you are at least 18 years old, and that you have read and agree to our <%= termsLink %>Terms of Service<%= linkClose %> and <%= privacyLink %>Privacy Policy<%= linkClose %>",
+  "acceptPrivacyTOS": "You confirm that you are at least 18 years old, and that you have read and agree to our <%= privacyLink %>Privacy Policy<%= linkClose %>",
   "emailAddress": "Email address",
   "emailRequiredForSupport": "We require an email address for user support. Please enter an email address to continue creating your account."
 }

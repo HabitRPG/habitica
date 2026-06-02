@@ -40,7 +40,6 @@
     "backerTier": "רמת גיבוי",
     "playerTiers": "רמות שחקנים",
     "tier": "רמה",
-    "conRewardsURL": "https://habitica.fandom.com/wiki/Contributor_Rewards",
     "surveysSingle": "עזרת להביטיקה לגדול, באמצעות מילוי שאלון או מאמץ בדיקות גדול. תודה רבה!",
     "surveysMultiple": "עזרת להביטיקה לגדול ב-<%= count %> מקרים, אם ע\"י מילוי סקר או עזרה עם מאמץ בדיקות גדול. תודה לך!",
     "blurbHallPatrons": "זהו היכל התומכים, היכן שאנו מעניקים כבוד לשחקנים האדירים שתמכו ב־\"Kickstarter\" המקורי של האתר. אנו מודים להם על שהביאו את הביטיקה לחיים!",

@@ -40,7 +40,6 @@
     "backerTier": "Trägerstufe",
     "playerTiers": "Spielerstufen",
     "tier": "Level",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "Half Habitica zu wachsen, entweder durch das Ausfüllen einer Umfrage oder durch große Hilfe beim Testen. Danke!",
     "surveysMultiple": "Hat Habitica an <%= count %> Gelegenheiten geholfen zu wachsen, entweder durch Ausfüllen eines Fragebogens oder durch große Hilfe beim Testen. Danke!",
     "blurbHallPatrons": "Dies ist die Halle der Schirmherren, in der wir die edlen Abenteurer ehren, die Habiticas ursprüngliche Kickstarter-Kampagne unterstützt haben. Wir danken ihnen für die Hilfe Habitica zum Leben zu erwecken!",

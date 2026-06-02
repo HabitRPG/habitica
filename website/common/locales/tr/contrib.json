@@ -40,7 +40,6 @@
     "backerTier": "Destekçi Kademesi",
     "playerTiers": "Oyuncu Kademeleri",
     "tier": "Kademe",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "Bir anket doldurarak veya test çözmeye vakit ayırarak Habitica'nın büyümesine yardımcı oldun. Teşekkürler!",
     "surveysMultiple": "Bir anket doldurarak veya büyük bir geliştirme uygulamasına katkı göstererek <%= count %> adet etkinlikte Habitica'nın büyümesine yardımcı oldu. Teşekkürler!",
     "blurbHallPatrons": "Burası Müdavimler Salonu. Burada, Habitica'nın orijinal Kickstarter kampanyasını desteklemiş olan soylu maceracıları anıyoruz. Habitica'yı hayata geçirmemizde yardımları için müteşekkiriz!",

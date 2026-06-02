@@ -72,8 +72,6 @@
     "pkAnswer6": "许多不同的人都在使用Habitica！ 我们一半以上的用户年龄在18岁至34岁之间，但是我们有和年轻孙子们一起使用该网站的爷爷奶奶们，并且每个年龄段都有。通常家庭会参加队伍并与怪物一起战斗。<br /> 我们的许多用户都具有游戏背景，但令人惊讶的是，当我们在前期进行调查时，40％的用户被认定为非玩家！ 所以看起来我们的方法对任何希望有生产力和健康更有趣的人都是有效的。",
     "pkQuestion7": "为什么Habitica采用像素风格？",
     "pkAnswer7": "Habitica使用像素艺术有以下几个原因。除了有趣的怀旧因素之外，像素艺术对于我们希望融入其中的志愿艺术家来说非常平易近人。即使有许多不同的美术家贡献了自己的像素艺术，也更容易保持一致，并且它可以让我们快速生成大量新的内容！",
-    "pkQuestion8": "Habitica如何影响人们的现实生活呢？",
-    "pkAnswer8": "你可以在这里找到很多Habitica帮助人们的记录：https://habitversary.tumblr.com",
     "pkMoreQuestions": "你想问的问题不在这个清单上吗？请向admin@habitica.com发送一封电子邮件！",
     "pkPromo": "促销",
     "pkLogo": "标志",
@@ -116,8 +114,8 @@
     "emailTaken": "邮件地址已经和其他账户关联。",
     "newEmailRequired": "未输入新的邮件地址。",
     "usernameTime": "是时候设置你的用户名啦！",
-    "usernameInfo": "登录名现在是唯一的用户名，它将显示在你的昵称旁边，用于邀请、聊天时的@提及和发送信息。<br><br>如果你想了解更多有关此变动的信息，请访问我们的<a href='https://habitica.fandom.com/zh/wiki/玩家名' target='_blank'>维基</a>。",
-    "usernameTOSRequirements": "用户名必须符合我们的<a href='/static/terms' target='_blank'>服务条款</a>和<a href='/static/community-guidelines' target='_blank'>社区准则</a>。如果您之前未设置登录名，我们将会自动生成您的用户名。",
+    "usernameInfo": "登录名现在是唯一的用户名，它将显示在你的昵称旁边，用于邀请、聊天时的@提及和发送信息。<br><br>如果你想了解更多有关此变动的信息，请访问我们的<%= linkOpen %>维基<%= linkClose %>。",
+    "usernameTOSRequirements": "用户名必须符合我们的<%= guidelinesLink %>社区准则<%= linkClose %>。如果您之前未设置登录名，我们将会自动生成您的用户名。",
     "usernameTaken": "用户名已被使用。",
     "passwordConfirmationMatch": "密码不匹配。",
     "passwordResetPage": "重置密码",
@@ -187,7 +185,7 @@
     "enterValidEmail": "请输入一个有效的电子邮箱地址。",
     "minPasswordLengthLogin": "您的密码长度至少为8个字符。",
     "whatToCallYou": "我们应该如何称呼您？",
-    "acceptPrivacyTOS": "请确认您已年满18周岁，而且已经阅读并同意了我们的 <a href='/static/terms' target='_blank'>服务条款</a> 和 <a href='/static/privacy' target='_blank'>隐私政策</a>",
+    "acceptPrivacyTOS": "请确认您已年满18周岁，而且已经阅读并同意了我们的 <%= privacyLink %>隐私政策<%= linkClose %>",
     "emailRequiredForSupport": "我们需要一个电子邮件地址来为您提供用户支持。请输入电子邮件地址以继续创建您的账户。",
     "emailAddress": "电子邮件地址"
 }

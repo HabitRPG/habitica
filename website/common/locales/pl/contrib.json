@@ -40,7 +40,6 @@
     "backerTier": "Ranga wspieracza",
     "playerTiers": "Rangi graczy",
     "tier": "Ranga",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "Pomógł rozwinąć Habitica poprzez wypełnienie ankiet lub testowanie. Dziękujemy!",
     "surveysMultiple": "Pomagał w rozwoju Habitiki przy <%= count %> okazjach, czy to wypełniając ankiety, czy też wkładając dużo wysiłku w testowanie. Dziękujemy!",
     "blurbHallPatrons": "To jest Sala patronów, gdzie oddajemy cześć szlachetnym poszukiwaczom przygód, którzy wsparli Habitica w pierwszej zbiórce na Kickstarterze. Dziękujemy im za pomoc w powołaniu Habitiki do życia!",

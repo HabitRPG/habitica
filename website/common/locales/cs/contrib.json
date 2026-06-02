@@ -40,7 +40,6 @@
     "backerTier": "Stupeň podporovatele",
     "playerTiers": "Úrovně hráče",
     "tier": "Úroveň",
-    "conRewardsURL": "http://habitica.fandom.com/wiki/Contributor_Rewards",
     "surveysSingle": "Pomohl zemi Habitica růst vyplněním dotazníků nebo usilovným testováním. Děkujeme vám!",
     "surveysMultiple": "Pomohl programu Habitica růst v <%= count %> případech, buď vyplněním dotazníků nebo usilovným testováním. Děkujeme vám!",
     "blurbHallPatrons": "Toto je Síň Patronů, ve které oslavujeme vznešené dobrodruhy, kteří podpořili program Habitica na Kickstarteru. Jsme jim vděční za to, že pomohli zemi Habitica přivést k životu!",

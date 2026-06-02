@@ -40,7 +40,6 @@
     "backerTier": "Stödjar-nivå",
     "playerTiers": "Spelarnivåer",
     "tier": "Nivå",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "Hjälpte Habitica växa genom att delta i en undersökning eller genom att hjälpa med en stor testinsats. Tack!",
     "surveysMultiple": "Hjälpte Habitica växa vid <%= count %> tillfällen genom att delta i en undersökning eller genom att hjälpa med en stor testinsats. Tack!",
     "blurbHallPatrons": "Det här är Beskyddarnas sal, där vi hedrar de ädla äventyrarna som stödde Habiticas ursprungliga Kickstarter. VI tackar dem för att de hjälpte oss att göra Habitica levande!",

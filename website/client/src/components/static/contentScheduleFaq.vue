@@ -85,7 +85,7 @@
       </ul>
       <p
         v-html="$t('contentFaqPara3',
-                   { mailto: '<a href=mailto:admin@habitica.com>admin@habitica.com</a>'}
+                   { mailto: '<a href=mailto:admin@habitica.com target=_blank rel=noreferrer noopener>admin@habitica.com</a>'}
         )"
       ></p>
     </div>

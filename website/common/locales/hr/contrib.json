@@ -40,7 +40,6 @@
     "backerTier": "Razina Podržatelja",
     "playerTiers": "Razine Igrača",
     "tier": "Razina",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "Pomogli ste Habitici da raste, ispunjavanjem ankete ili pomaganjem u velikom testiranju. Hvala Vam!",
     "surveysMultiple": "Pomogli su Habitici da raste u <%= count %> navrata, ispunjavanjem ankete ili pomaganjem u velikom testiranju. Hvala Vam!",
     "blurbHallPatrons": "Ovo je Dvorana pokrovitelja, gdje odajemo počast plemenitim pustolovima koji su podržali originalni Kickstarter projekt Habitice. Zahvaljujemo im što su nam pomogli oživjeti Habiticu!",

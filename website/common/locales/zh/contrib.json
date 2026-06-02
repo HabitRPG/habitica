@@ -40,7 +40,6 @@
     "backerTier": "资助人等级",
     "playerTiers": "贡献者等级",
     "tier": "层级",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#贡献者奖励",
     "surveysSingle": "通过填写调查问卷或协助大型测试，帮助 Habitica 发展壮大。谢谢你！",
     "surveysMultiple": "曾<%= count %>次通过填写调查问卷或协助大型测试，帮助Habitica发展壮大。谢谢你！",
     "blurbHallPatrons": "这里是赞助者殿堂，我们在此纪念Kickstarter众筹时支持Habitica的冒险家们。我们感谢他们帮助我们让Habitica得以实现！",

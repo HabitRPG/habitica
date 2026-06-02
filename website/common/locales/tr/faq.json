@@ -88,7 +88,7 @@
     "contentAnswer501": "Ciltler",
     "contentAnswer400": "Evcil Hayvan Görevleri",
     "anotherQuestion": "Başka sorunuz var mı?",
-    "contactAdmin": "<a href='mailto:admin@habitica.com'>admin@habitica.com</a> ile iletişime geç",
+    "contactAdmin": "<%= adminEmail %> ile iletişime geç",
     "contentReleaseChanges": "İçerik Yayımlama Değişiklikleri",
     "subscriptionBenefitsAdjustments": "Abone Ayrıcalıklarında Düzenlemeler",
     "subscriptionHeading3": "Yayın günü ödülleri",

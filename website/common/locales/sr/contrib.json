@@ -40,7 +40,6 @@
     "backerTier": "Čin sponzora",
     "playerTiers": "Činovi igrača",
     "tier": "Čin",
-    "conRewardsURL": "http://habitica.fandom.com/wiki/Contributor_Rewards",
     "surveysSingle": "Pomogao Habitca, da li tako što je popunio anketu, ili znatnim testiranjem. Hvala Vam!",
     "surveysMultiple": "Helped Habitica grow on <%= count %> occasions, either by filling out a survey or helping with a major testing effort. Thank you!",
     "blurbHallPatrons": "Ovo je Dvorana Patrona, gde dajemo odlikovanje plemenitim herojima koji su pomogli Habitca Kickstarteru. Zahvaljujemo im za njihovu pomoć!",

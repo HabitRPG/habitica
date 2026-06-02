@@ -40,7 +40,6 @@
     "backerTier": "Grado sostenitore Kickstarter",
     "playerTiers": "Gradi giocatore",
     "tier": "Grado",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "Ha aiutato Habitica a crescere, compilando un questionario o aiutando in un test. Grazie!",
     "surveysMultiple": "Ha aiutato Habitica a crescere in <%= count %> occasioni, compilando un questionario o aiutando in una fase di test importante. Grazie!",
     "blurbHallPatrons": "Questo è il salone dei Mecenati, nel quale vengono onorati i nobili avventurieri che hanno sostenuto la nostra campagna su Kickstarter. Li ringraziamo per aver aiutato a far nascere Habitica!",

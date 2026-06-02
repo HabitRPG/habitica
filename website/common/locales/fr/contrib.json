@@ -40,7 +40,6 @@
     "backerTier": "Palier de Soutien",
     "playerTiers": "Paliers de joueur",
     "tier": "Palier",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards (En anglais)",
     "surveysSingle": "A aidé à faire progresser Habitica, en participant à une enquête ou à une phase de test importante. Merci !",
     "surveysMultiple": "A aidé à faire progresser Habitica à <%= count %> reprises, que ce soit en participant à une enquête ou en contribuant à une phase de test importante. Merci !",
     "blurbHallPatrons": "Voici le Panthéon des Sponsors, où nous rendons hommage aux nobles aventuriers qui ont soutenu le Kickstarter original de Habitica. Nous les remercions de nous avoir aidés à donner la vie à Habitica !",

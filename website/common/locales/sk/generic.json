@@ -12,7 +12,6 @@
     "showLess": "Zobraziť menej",
     "markdownHelpLink": "Nápoveda k Markdown formátovaniu",
     "bold": "**Hrubé**",
-    "markdownImageEx": "![povinný alternatívny text](https://habitica.com/cake.png \"voliteľný titulok pri prejdutí myšou\")",
     "code": "`code`",
     "achievements": "Odznaky",
     "basicAchievs": "Základné odznaky",
@@ -239,7 +238,7 @@
     "submitQuestion": "Odoslať otázku",
     "refreshList": "Obnoviť",
     "skipExternalLinkModal": "Ak chcete tento modál preskočiť, pri kliknutí na prepojenie podržte kláves CTRL (Windows) alebo Command (Mac).",
-    "rememberToBeKind": "Prosím nezabudni byť milý, ohľaduplný a dodržuj <a href='/static/community-guidelines' target='_blank'>Pravidlá pre komunitu</a>.",
+    "rememberToBeKind": "Prosím nezabudni byť milý, ohľaduplný a dodržuj <%= linkOpen %>Pravidlá pre komunitu<%= linkClose %>.",
     "newMessage": "Nová správa",
     "targetUserNotExist": "Zvolený používateľ: '<%= userName %>' neexistuje."
 }

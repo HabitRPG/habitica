@@ -40,7 +40,6 @@
     "backerTier": "Nivel de susținător",
     "playerTiers": "Niveluri de jucător",
     "tier": "Nivel",
-    "conRewardsURL": "http://habitica.fandom.com/wiki/Contributor_Rewards",
     "surveysSingle": "A ajutat Habitica să crească, fie prin completarea unui formular sau ajutând la o testare majoră. Mulțumim!",
     "surveysMultiple": "A ajutat Habitica să crească în <%= count %> cazuri, fie prin completarea unui formular sau ajutând la o testare majoră. Mulțumim!",
     "blurbHallPatrons": "Aceasta este Sala Patronilor, unde îi onorăm pe nobilii aventurieri care au susținut Kickstarter-ul original Habitica. Le mulțumim că ne ajută să aducem Habitica la viață!",

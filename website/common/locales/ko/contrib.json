@@ -40,7 +40,6 @@
     "backerTier": "후원자 등급",
     "playerTiers": "플레이어 등급",
     "tier": "등급",
-    "conRewardsURL": "https://habitica.wikia.com/wiki/Contributor_Rewards",
     "surveysSingle": "설문 조사에 참여하거나, 주요 테스트를 도우며 Habitica의 성장을 도와주세요! 감사합니다!",
     "surveysMultiple": "<%= count %> 경우에도 Habitica가 성장할 수 있도록 도와주세요, 설문 조사에 참여하거나, 주요 테스트를 도우면서요. 감사합니다!",
     "blurbHallPatrons": "여기는 Habitica를 Kickstarter때 후원해주신 숭고한 모험가들을 기리는 후원자의 홀이예요. 우리는 Habitica를 삶에 적용할 수 있도록 도와주신 그들에게 감사해요!",

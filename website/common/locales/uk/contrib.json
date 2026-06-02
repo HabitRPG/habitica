@@ -40,7 +40,6 @@
     "backerTier": "Рівень мецената",
     "playerTiers": "Рівні гравців",
     "tier": "Рівень",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "Цей гравець допомагав Habitica розвиватися, заповнюючи опитування або приймаючи участь у важливому тестуванні. Дякуємо!",
     "surveysMultiple": "Ви допомагали Habitica розвиватися <%= count %> рази(-ів), заповнюючи опитування або допомагаючи в важливому тестуванні. Дякуємо!",
     "blurbHallPatrons": "Це Зал меценатів, де ми вшановуємо шляхетних шукачів пригод, які підтримали Habitica на Kickstarter. Ми дякуємо їм за те, що вони допомогли нам зробити Habitica реальною!",
