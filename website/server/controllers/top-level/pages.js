@@ -16,15 +16,6 @@ api.getNewClient = {
   },
 };
 
-api.getFAQEntryPoint = {
-  method: 'GET',
-  url: '/static/faq',
-  noLanguage: true,
-  async handler (req, res) {
-    return serveClient(res, 'index-faq.html');
-  },
-};
-
 api.robotsTxt = {
   method: 'GET',
   url: '/robots.txt',
