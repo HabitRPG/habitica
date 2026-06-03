@@ -59,7 +59,7 @@
     "loginIncentiveQuest": "To unlock this quest, check in to Habitica on <%= count %> different days!",
     "loginReward": "<%= count %>번 출석",
     "questBundles": "Discounted Quest Bundles",
-    "noQuestToStart": "새로운 것이 있는지 <a href=\"<%= questShop %>\">퀘스트상점</a>  을 확인해보세요!",
+    "noQuestToStart": "새로운 것이 있는지 <%= linkOpen %>퀘스트상점<%= linkClose %>  을 확인해보세요!",
     "pendingDamage": "<%= damage %> pending damage",
     "pendingDamageLabel": "pending damage",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
