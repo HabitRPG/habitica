@@ -3,13 +3,17 @@ import escapeRegExp from 'lodash/escapeRegExp';
 import merge from 'lodash/merge';
 import reduce from 'lodash/reduce';
 import times from 'lodash/times';
+import { TaskQueue } from 'cwait';
 import { authWithHeaders, authWithSession } from '../../middlewares/auth';
 import { model as Challenge } from '../../models/challenge';
+import { sanitizeText as sanitizeMessageText } from '../../models/message';
 import bannedWords from '../../libs/bannedWords';
 import bannedSlurs from '../../libs/bannedSlurs';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import * as slack from '../../libs/slack';
 import { getUserInfo } from '../../libs/email';
+import highlightMentions from '../../libs/highlightMentions';
+import { sentMessage } from '../../libs/inbox';
 import {
   model as Group,
   basicFields as basicGroupFields,
@@ -769,6 +773,68 @@ api.exportChallengeCsv = {
 
     const csvRes = await csvStringify(resArray);
     res.status(200).send(csvRes);
+  },
+};
+
+api.messageParticipants = {
+  method: 'POST',
+  url: '/challenges/:challengeId/message-participants',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+    const { challengeId } = req.params;
+
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    req.checkBody('message', res.t('messageRequired')).notEmpty();
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const challenge = await Challenge.findById(challengeId).exec();
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+
+    const group = await Group.getGroup({
+      user, groupId: challenge.group, fields: '_id type privacy purchased', optionalMembership: true,
+    });
+    if (!group || (!challenge.canView(user, group) && !challenge.canModify(user))) {
+      throw new NotFound(res.t('challengeNotFound'));
+    }
+    if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderMessageParticipantsChal'));
+    if (user.flags.chatRevoked) throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
+
+    const sanitizedMessageText = sanitizeMessageText(req.body.message);
+    const message = (await highlightMentions(sanitizedMessageText))[0];
+
+    const [totalParticipants, recipients] = await Promise.all([
+      User.countDocuments({ challenges: challenge._id }).exec(),
+      User.find({ challenges: challenge._id, _id: { $ne: user._id } })
+        .sort({ _id: 1 })
+        .exec(),
+    ]);
+
+    let sent = 0;
+    const skippedByReason = {};
+    const queue = new TaskQueue(Promise, 1);
+
+    await Promise.all(recipients.map(queue.wrap(async recipient => {
+      const objections = user.getObjectionsToInteraction('send-private-message', recipient);
+      if (objections.length > 0 && !user.hasPermission('moderator')) {
+        const reason = objections[0];
+        skippedByReason[reason] = (skippedByReason[reason] || 0) + 1;
+        return;
+      }
+
+      await sentMessage(user, recipient, message, res.t);
+      sent += 1;
+    })));
+
+    res.respond(200, {
+      totalParticipants,
+      attemptedRecipients: recipients.length,
+      sent,
+      skipped: recipients.length - sent,
+      skippedByReason,
+    });
   },
 };
 

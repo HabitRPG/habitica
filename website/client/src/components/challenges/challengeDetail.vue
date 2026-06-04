@@ -11,6 +11,10 @@
       :prize="challenge.prize"
       :flag-count="challenge.flagCount"
     />
+    <message-participants-modal
+      v-if="challenge._id"
+      :challenge-id="challenge._id"
+    />
     <challenge-member-progress-modal :challenge-id="challenge._id" />
     <div class="col-12 col-md-8 standard-page">
       <div class="row">
@@ -215,6 +219,18 @@
           @click="exportChallengeCsv()"
         >
           {{ $t('exportChallengeCsv') }}
+        </button>
+      </div>
+      <div
+        v-if="isLeader || isAdmin"
+        class="button-container"
+      >
+        <button
+          v-once
+          class="btn btn-primary"
+          @click="messageParticipants()"
+        >
+          {{ $t('messageParticipants') }}
         </button>
       </div>
       <div
@@ -445,6 +461,7 @@ import TaskModal from '../tasks/taskModal';
 import markdownDirective from '@/directives/markdown';
 import challengeModal from './challengeModal';
 import challengeMemberProgressModal from './challengeMemberProgressModal';
+import messageParticipantsModal from './messageParticipantsModal';
 import challengeMemberSearchMixin from '@/mixins/challengeMemberSearch';
 import leaveChallengeModal from './leaveChallengeModal';
 import reportChallengeModal from './reportChallengeModal';
@@ -468,6 +485,7 @@ export default {
     reportChallengeModal,
     challengeModal,
     challengeMemberProgressModal,
+    messageParticipantsModal,
     memberSearchDropdown,
     sidebarSection,
     TaskColumn: Column,
@@ -716,6 +734,9 @@ export default {
     },
     async exportChallengeCsv () {
       window.location = `/api/v4/challenges/${this.searchId}/export/csv`;
+    },
+    messageParticipants () {
+      this.$root.$emit('bv::show::modal', 'message-participants-modal');
     },
     cloneChallenge () {
       this.$root.$emit('habitica:clone-challenge', {

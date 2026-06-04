@@ -72,6 +72,14 @@ export async function exportChallengeCsv (store, payload) {
   return response.data.data;
 }
 
+export async function messageChallengeParticipants (store, payload) {
+  const response = await axios.post(`/api/v4/challenges/${payload.challengeId}/message-participants`, {
+    message: payload.message,
+  });
+
+  return response.data.data;
+}
+
 export async function updateChallenge (store, payload) {
   const challengeDataToSend = omit(payload.challenge, ['tasks', 'habits', 'todos', 'rewards', 'group']);
 
