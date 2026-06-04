@@ -64,7 +64,7 @@ export default {
         };
       }
       return null;
-    }
+    },
   },
   async mounted () {
     this.invitingUser = await this.$store.dispatch('members:fetchMember', {
