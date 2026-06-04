@@ -237,5 +237,84 @@ describe('Task Column', () => {
         });
       });
     });
+
+    // each board type should hit the right move route
+    describe('moveTo (task ordering route)', () => {
+      function makeStore (userData = {}, extraGetters = {}) {
+        return new Store({
+          getters: {
+            'tasks:getFilteredTaskList': () => () => [],
+            'tasks:getUnfilteredTaskList': () => () => [],
+            ...extraGetters,
+          },
+          state: {
+            user: {
+              data: {
+                preferences: { tasks: { activeFilter: {} } },
+                tasksOrder: { habits: [] },
+                ...userData,
+              },
+            },
+          },
+        });
+      }
+
+      function stubDispatch (vm) {
+        const calls = [];
+        vm.$store.dispatch = (action, payload) => {
+          calls.push({ action, payload });
+          return Promise.resolve(['b', 'a']);
+        };
+        return calls;
+      }
+
+      test('challenge tasks (no group.id) use tasks:move and keep the user order untouched', async () => {
+        wrapper = makeWrapper({ store: makeStore() });
+        wrapper.setProps({
+          isUser: false,
+          challenge: { _id: 'c1' },
+          taskListOverride: [{ _id: 'a', group: {} }, { _id: 'b', group: {} }],
+        });
+        const calls = stubDispatch(wrapper.vm);
+
+        await wrapper.vm.moveTo({ _id: 'a', group: {} }, 'bottom');
+
+        expect(calls).to.have.lengthOf(1);
+        expect(calls[0].action).to.eq('tasks:move');
+        // an overridden list must never overwrite the user's personal order
+        expect(wrapper.vm.user.tasksOrder.habits.join(',')).to.eq('');
+      });
+
+      test('group-plan tasks (with group.id) use tasks:moveGroupTask', async () => {
+        wrapper = makeWrapper({ store: makeStore() });
+        wrapper.setProps({
+          isUser: false,
+          group: { _id: 'g1' },
+          taskListOverride: [{ _id: 'a', group: { id: 'g1' } }, { _id: 'b', group: { id: 'g1' } }],
+        });
+        const calls = stubDispatch(wrapper.vm);
+
+        await wrapper.vm.moveTo({ _id: 'a', group: { id: 'g1' } }, 'bottom');
+
+        expect(calls).to.have.lengthOf(1);
+        expect(calls[0].action).to.eq('tasks:moveGroupTask');
+      });
+
+      test('user tasks use tasks:move and update the user order', async () => {
+        const store = makeStore(
+          { tasksOrder: { habits: ['a', 'b'] } },
+          { 'tasks:getUnfilteredTaskList': () => () => [{ _id: 'a', group: {} }, { _id: 'b', group: {} }] },
+        );
+        wrapper = makeWrapper({ store });
+        wrapper.setProps({ isUser: true });
+        const calls = stubDispatch(wrapper.vm);
+
+        await wrapper.vm.moveTo({ _id: 'a', group: {} }, 'bottom');
+
+        expect(calls).to.have.lengthOf(1);
+        expect(calls[0].action).to.eq('tasks:move');
+        expect(wrapper.vm.user.tasksOrder.habits.join(',')).to.eq('b,a');
+      });
+    });
   });
 });
