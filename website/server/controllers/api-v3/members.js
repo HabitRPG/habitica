@@ -333,7 +333,7 @@ function _getMembersForItem (type) {
         const escapedSearch = escapeRegExp(req.query.search);
         query.$or = [
           { 'profile.name': { $regex: new RegExp(escapedSearch, 'i') } },
-          { 'auth.local.username': { $regex: new RegExp(req.query.search, 'i') } },
+          { 'auth.local.username': { $regex: new RegExp(escapedSearch, 'i') } },
         ];
       }
     } else if (type === 'group-invites') {
