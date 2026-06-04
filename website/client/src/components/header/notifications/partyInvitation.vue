@@ -56,10 +56,15 @@ export default {
   },
   computed: {
     ...mapState({ user: 'user.data' }),
-    invitationInfo: {
-      usernameLink: `<a href="/profile/${this.notification.data.inviter}" target="_blank" rel="noreferrer noopener">@${this.invitingUser.auth ? this.invitingUser.auth.local.username : null}</a>`,
-      partyName: `<span class="notification-bold">${this.notification.data.name}</span>`,
-    },
+    invitationInfo () {
+      if (this.notification?.data) {
+        return {
+          usernameLink: `<a href="/profile/${this.notification.data.inviter}" target="_blank" rel="noreferrer noopener">@${this.invitingUser.auth ? this.invitingUser.auth.local.username : null}</a>`,
+          partyName: `<span class="notification-bold">${this.notification.data.name}</span>`,
+        };
+      }
+      return null;
+    }
   },
   async mounted () {
     this.invitingUser = await this.$store.dispatch('members:fetchMember', {

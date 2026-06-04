@@ -19,7 +19,6 @@
     <delete-task-confirm-modal v-if="isUserLoaded" />
     <template v-if="isUserLoaded">
       <privacy-banner />
-      <chat-banner />
       <damage-paused-banner />
       <gems-promo-banner />
       <gift-promo-banner />
