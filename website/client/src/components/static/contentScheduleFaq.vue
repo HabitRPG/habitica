@@ -86,7 +86,7 @@
       <p
         v-html="$t(
           'contentFaqPara3',
-          { mailto: 
+          { mailto:
             '<a href=mailto:admin@habitica.com target=_blank rel=noreferrer noopener>admin@habitica.com</a>', // eslint-disable-line max-len
           },
         )"
