@@ -316,5 +316,55 @@ describe('Task Column', () => {
         expect(wrapper.vm.user.tasksOrder.habits.join(',')).to.eq('b,a');
       });
     });
+
+    describe('taskSorted', () => {
+      test('moves tasks in the unfiltered list when the visible list is filtered', async () => {
+        const originTasks = [
+          { _id: 'hidden-a', group: {} },
+          { _id: 'visible-a', group: {} },
+          { _id: 'hidden-b', group: {} },
+          { _id: 'visible-b', group: {} },
+          { _id: 'visible-c', group: {} },
+        ];
+        const filteredTasks = [
+          originTasks[1],
+          originTasks[3],
+          originTasks[4],
+        ];
+        const newOrder = ['hidden-a', 'visible-c', 'visible-a', 'hidden-b', 'visible-b'];
+        const store = new Store({
+          getters: {
+            'tasks:getFilteredTaskList': () => () => filteredTasks,
+            'tasks:getUnfilteredTaskList': () => () => originTasks,
+          },
+          state: {
+            user: {
+              data: {
+                preferences: { tasks: { activeFilter: { daily: 'due' } } },
+                tasksOrder: { dailys: originTasks.map(task => task._id) },
+              },
+            },
+          },
+        });
+        const calls = [];
+        store.dispatch = (action, payload) => {
+          calls.push({ action, payload });
+          return Promise.resolve(newOrder);
+        };
+
+        wrapper = makeWrapper({
+          propsData: { type: 'daily', isUser: true },
+          store,
+        });
+
+        await wrapper.vm.taskSorted({ oldIndex: 2, newIndex: 0 });
+
+        expect(calls).to.have.lengthOf(1);
+        expect(calls[0].action).to.eq('tasks:move');
+        expect(calls[0].payload.position).to.eq(1);
+        expect(originTasks.map(task => task._id).join(',')).to.eq(newOrder.join(','));
+        expect(wrapper.vm.user.tasksOrder.dailys.join(',')).to.eq(newOrder.join(','));
+      });
+    });
   });
 });
