@@ -144,7 +144,6 @@ api.subscribe = async function subscribe (
   receipt,
   signature,
   headers,
-  nextPaymentProcessing = undefined,
   deferredSku = undefined,
 ) {
   if (!sku) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
@@ -180,8 +179,11 @@ api.subscribe = async function subscribe (
   const isValidated = iap.isValidated(googleRes);
   if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
 
-  nextPaymentProcessing = nextPaymentProcessing || moment.utc().add({ days: 2 }); // eslint-disable-line no-param-reassign, max-len
-
+  let nextPaymentProcessing = moment.utc().add({ days: 2 }); // eslint-disable-line no-param-reassign, max-len
+  const nextBillingDate = new Date(Number(googleRes.expirationDate));
+  if (nextBillingDate < nextPaymentProcessing.toDate()) {
+    nextPaymentProcessing = moment(nextBillingDate);
+  }
   const data = {
     user,
     customerId: token,
@@ -189,6 +191,7 @@ api.subscribe = async function subscribe (
     sub,
     headers,
     nextPaymentProcessing,
+    nextBillingDate,
     additionalData: testObj,
   };
   if (existingSub) {
