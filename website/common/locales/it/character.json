@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Ricorda che il tuo Nome Pubblico, la tua foto profilo e la tua descrizione personale devono rispettare le <%= linkOpen %>Linee Guida della Community<%= linkClose %> (ad esempio sono vietate parolacce, argomenti per adulti, insulti, ecc.). Se vuoi sapere se ciò che hai scritto è appropriato, non esitare a inviare un'email a <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Ricorda che il tuo Nome Pubblico, la tua foto profilo e la tua descrizione personale devono rispettare le <%= linkOpen %>Linee Guida della Community<%= linkClose %> (ad esempio sono vietate parolacce, argomenti per adulti, insulti, ecc.). Se vuoi sapere se ciò che hai scritto è appropriato, non esitare a inviare un'email a <%= adminEmail %>!",
     "profile": "Profilo",
     "avatar": "Personalizza Avatar",
     "editAvatar": "Personalizza l'Avatar",

@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Görünen İsminin, profil resminin ve tanıtıcı yazının <%= linkOpen %>Topluluk Kuralları<%= linkClose %>'na uyumlu olması gerektiğini lütfen unutma. (örn. küfür, yetişkin içerik, hakaret içermemeli vs.) Eğer bir şeyin uygun olup olmadığıyla ilgili bir sorun olursa, <%= hrefBlankCommunityManagerEmail %> adresine mail atabilirsin!",
+    "communityGuidelinesWarning": "Görünen İsminin, profil resminin ve tanıtıcı yazının <%= linkOpen %>Topluluk Kuralları<%= linkClose %>'na uyumlu olması gerektiğini lütfen unutma. (örn. küfür, yetişkin içerik, hakaret içermemeli vs.) Eğer bir şeyin uygun olup olmadığıyla ilgili bir sorun olursa, <%= adminEmail %> adresine mail atabilirsin!",
     "profile": "Profil",
     "avatar": "Avatarını Düzenle",
     "editAvatar": "Avatarını özelleştir",

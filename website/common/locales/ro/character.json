@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Vă rugăm să țineți cont de faptul că Numele Afișat, fotografia de profil, și descrierea scurtă trebuie sa se alinieze cu <%= linkOpen %>Îndrumările Comunității<%= linkClose %> (ex.: fără profanare, fără subiecte interzise minorilor, fără insulte etc.) Dacă aveți întrebări legate de cât de potrivit este conținutul pe care doriți să îl utilizați, vă invităm să contactați prin email <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Vă rugăm să țineți cont de faptul că Numele Afișat, fotografia de profil, și descrierea scurtă trebuie sa se alinieze cu <%= linkOpen %>Îndrumările Comunității<%= linkClose %> (ex.: fără profanare, fără subiecte interzise minorilor, fără insulte etc.) Dacă aveți întrebări legate de cât de potrivit este conținutul pe care doriți să îl utilizați, vă invităm să contactați prin email <%= adminEmail %>!",
     "profile": "Profil",
     "avatar": "Personalizează Avatarul",
     "editAvatar": "Editează Avatarul",

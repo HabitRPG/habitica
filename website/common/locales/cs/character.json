@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Prosím, měj na paměti, že tvé zobrazované jméno, profilový obrázek a stručný popis musí být v souladu s <%= linkOpen %>Pravidly komunity<%= linkClose %> (tzn. žádné vulgarismy, témata pro dospělé nebo urážky). Pokud máš jakékoliv otázky ohledně toho, zdali něco je či není vhodné, neváhej nám napsat e-mail <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Prosím, měj na paměti, že tvé zobrazované jméno, profilový obrázek a stručný popis musí být v souladu s <%= linkOpen %>Pravidly komunity<%= linkClose %> (tzn. žádné vulgarismy, témata pro dospělé nebo urážky). Pokud máš jakékoliv otázky ohledně toho, zdali něco je či není vhodné, neváhej nám napsat e-mail <%= adminEmail %>!",
     "profile": "Profil",
     "avatar": "Upravit postavu",
     "editAvatar": "Upravit postavu",

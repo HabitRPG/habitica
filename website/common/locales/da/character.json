@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Vær venligst opmærksom på, at dit displaynavn, profilbillede og den korte tekst skal leve op til <%= linkOpen %>Retningslinjerne for fællesskabet<%= linkClose %> (f.eks. ingen bandeord, ingen +18-emner, ingen fornærmelser osv.). Hvis du har nogle spørgsmål til om noget er passende, så send endelig en mail til <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Vær venligst opmærksom på, at dit displaynavn, profilbillede og den korte tekst skal leve op til <%= linkOpen %>Retningslinjerne for fællesskabet<%= linkClose %> (f.eks. ingen bandeord, ingen +18-emner, ingen fornærmelser osv.). Hvis du har nogle spørgsmål til om noget er passende, så send endelig en mail til <%= adminEmail %>!",
     "profile": "Profil",
     "avatar": "Tilpas avatar",
     "editAvatar": "Tilpas Avatar",

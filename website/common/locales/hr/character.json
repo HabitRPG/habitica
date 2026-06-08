@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Imajte na umu da Vaše Prikazno Ime, profilna fotografija i kratki opis moraju biti u skladu s <%= linkOpen %>Smjernicama Zajednice<%= linkClose %> (npr. bez prostota, tema za odrasle, uvreda, itd.). Ako imate bilo kakvih pitanja o tome je li nešto prikladno, slobodno pošaljite e-mail <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Imajte na umu da Vaše Prikazno Ime, profilna fotografija i kratki opis moraju biti u skladu s <%= linkOpen %>Smjernicama Zajednice<%= linkClose %> (npr. bez prostota, tema za odrasle, uvreda, itd.). Ako imate bilo kakvih pitanja o tome je li nešto prikladno, slobodno pošaljite e-mail <%= adminEmail %>!",
     "profile": "Profil",
     "avatar": "Prilagodi Avatar",
     "editAvatar": "Prilagodba Avatara",

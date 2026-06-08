@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Ingatlah bahwa Nama Tampilan, foto profil, dan celotehmu harus mengikuti <%= linkOpen %>Pedoman Komunitas<%= linkClose %> (misalnya, tidak menggunakan bahasa tidak senonoh, topik dewasa, penghinaan, dsb). Jika kamu mempunyai pertanyaan apapun mengenai pantasnya sesuatu hal, silahkan email <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Ingatlah bahwa Nama Tampilan, foto profil, dan celotehmu harus mengikuti <%= linkOpen %>Pedoman Komunitas<%= linkClose %> (misalnya, tidak menggunakan bahasa tidak senonoh, topik dewasa, penghinaan, dsb). Jika kamu mempunyai pertanyaan apapun mengenai pantasnya sesuatu hal, silahkan email <%= adminEmail %>!",
     "profile": "Profil",
     "avatar": "Ubah Tampilan Avatar",
     "editAvatar": "Kustomisasi Avatar",

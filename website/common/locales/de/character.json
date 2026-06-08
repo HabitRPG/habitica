@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Bitte denke daran, dass Dein angezeigter Name, Dein Profilbild und Dein Profiltext die <%= linkOpen %>Community-Richtlinien<%= linkClose %> einhalten müssen (d.h. keine Schimpfwörter, keine sexuellen Themen, keine Beleidigungen, usw.). Wenn Du fragen willst, ob etwas angebracht ist oder nicht, schreibe einfach eine E-Mail an <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Bitte denke daran, dass Dein angezeigter Name, Dein Profilbild und Dein Profiltext die <%= linkOpen %>Community-Richtlinien<%= linkClose %> einhalten müssen (d.h. keine Schimpfwörter, keine sexuellen Themen, keine Beleidigungen, usw.). Wenn Du fragen willst, ob etwas angebracht ist oder nicht, schreibe einfach eine E-Mail an <%= adminEmail %>!",
     "profile": "Profil",
     "avatar": "Avatar anpassen",
     "editAvatar": "Avatar anpassen",

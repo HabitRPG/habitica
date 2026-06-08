@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Kérlek, vedd figyelembe, hogy a megjelenített nevednek, profilképednek és bemutatkozásodnak meg kell felelnie a <%= linkOpen %>Közösségi irányelveknek<%= linkClose %> (pl. tilos a trágár nyelvezet, felnőtt témák, sértések stb.). Ha bizonytalan vagy, hogy valami megfelelő-e, nyugodtan írj e-mailt a következő címre: <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Kérlek, vedd figyelembe, hogy a megjelenített nevednek, profilképednek és bemutatkozásodnak meg kell felelnie a <%= linkOpen %>Közösségi irányelveknek<%= linkClose %> (pl. tilos a trágár nyelvezet, felnőtt témák, sértések stb.). Ha bizonytalan vagy, hogy valami megfelelő-e, nyugodtan írj e-mailt a következő címre: <%= adminEmail %>!",
     "profile": "Profil",
     "avatar": "Avatár személyreszabása",
     "editAvatar": "Avatár testreszabása",

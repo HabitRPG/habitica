@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Tänk på att ditt användarnamn, profilbild och presentation måste följa <%= linkOpen %>gemenskapens riktlinjer<%= linkClose %> (t.ex. inga svordomar, inget opassande material, inga förolämpningar, etc.). Om du har frågor om huruvida något är passande, maila gärna <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Tänk på att ditt användarnamn, profilbild och presentation måste följa <%= linkOpen %>gemenskapens riktlinjer<%= linkClose %> (t.ex. inga svordomar, inget opassande material, inga förolämpningar, etc.). Om du har frågor om huruvida något är passande, maila gärna <%= adminEmail %>!",
     "profile": "Profil",
     "avatar": "Skräddarsy Avatar",
     "editAvatar": "Redigera karaktär",

@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Onthoud dat je weergegeven naam, profielfoto en blurb overeen moeten komen met de <%= linkOpen %>gemeenschapsrichtlijnen<%= linkClose %> (bijv. geen grof taalgebruik, geen volwassen onderwerpen, geen beledigingen, etc.). Als je vragen hebt over de geschiktheid van een tekst of onderwerp, stuur dan gerust een e-mail naar <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Onthoud dat je weergegeven naam, profielfoto en blurb overeen moeten komen met de <%= linkOpen %>gemeenschapsrichtlijnen<%= linkClose %> (bijv. geen grof taalgebruik, geen volwassen onderwerpen, geen beledigingen, etc.). Als je vragen hebt over de geschiktheid van een tekst of onderwerp, stuur dan gerust een e-mail naar <%= adminEmail %>!",
     "profile": "Profiel",
     "avatar": "Avatar aanpassen",
     "editAvatar": "Avatar bewerken",

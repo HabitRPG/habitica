@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "请注意您的昵称、头像和简介必须遵守<%= linkOpen %>社区准则<%= linkClose %>（例如不得包含亵渎言论、成人话题及侮辱言论等）。如果您对某些内容是否合适有任何疑问，请随时发送电子邮件至 <%= hrefBlankCommunityManagerEmail %>！",
+    "communityGuidelinesWarning": "请注意您的昵称、头像和简介必须遵守<%= linkOpen %>社区准则<%= linkClose %>（例如不得包含亵渎言论、成人话题及侮辱言论等）。如果您对某些内容是否合适有任何疑问，请随时发送电子邮件至 <%= adminEmail %>！",
     "profile": "简介",
     "avatar": "自定义头像",
     "editAvatar": "编辑头像",

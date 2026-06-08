@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <%= linkOpen %>Community Guidelines<%= linkClose %> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <%= linkOpen %>Community Guidelines<%= linkClose %> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= adminEmail %>!",
     "profile": "Profil",
     "avatar": "Customize Avatar",
     "editAvatar": "Izmeni Avatara",

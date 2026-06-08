@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "별명과 프로필 사진, 설명은 반드시 <%= linkOpen %>커뮤니티 가이드라인<%= linkClose %>을 준수해야 합니다. (예: 욕설, 성적인 언어와 이미지, 모욕 등). 질문이 있으시거나 부적절한 것을 발견한다면 저희에게 이메일을 보내주세요 <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "별명과 프로필 사진, 설명은 반드시 <%= linkOpen %>커뮤니티 가이드라인<%= linkClose %>을 준수해야 합니다. (예: 욕설, 성적인 언어와 이미지, 모욕 등). 질문이 있으시거나 부적절한 것을 발견한다면 저희에게 이메일을 보내주세요 <%= adminEmail %>!",
     "profile": "프로필",
     "avatar": "아바타 꾸미기",
     "editAvatar": "아바타 커스터마이즈",

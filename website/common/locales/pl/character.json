@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Pamiętaj, że twoja nazwa gracza, zdjęcie profilowe oraz krótki opis muszą zgadzać się z <%= linkOpen %>wytycznymi społeczności<%= linkClose %> (np. brak przekleństw, brak tematów dla dorosłych, brak obelg itd.) Jeśli masz jakieś pytania odnośnie poprawności, skontaktuj się z nami <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Pamiętaj, że twoja nazwa gracza, zdjęcie profilowe oraz krótki opis muszą zgadzać się z <%= linkOpen %>wytycznymi społeczności<%= linkClose %> (np. brak przekleństw, brak tematów dla dorosłych, brak obelg itd.) Jeśli masz jakieś pytania odnośnie poprawności, skontaktuj się z nami <%= adminEmail %>!",
     "profile": "Profil",
     "avatar": "Dostosuj Postać",
     "editAvatar": "Personalizuj Postać",
