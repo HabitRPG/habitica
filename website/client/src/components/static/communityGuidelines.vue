@@ -195,11 +195,11 @@ export default {
     return {
       adminEmail: '<a href="mailto:admin@habitica.com" target="_blank" rel="noreferrer noopener">admin@habitica.com</a>',
       gitHubLinks: {
-        linkOpen: '<a href="https://github.com/HabitRPG/habitica" target="_blank">',
+        linkOpen: '<a href="https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica" target="_blank" rel="noreferrer noopener">',
         linkClose: '</a>',
       },
       feedbackLinks: {
-        linkOpen: '<a href="https://habitica.fandom.com/wiki/Habitica_Wiki" target="_blank" rel="noreferrer noopener">',
+        linkOpen: '<a href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link" target="_blank" rel="noreferrer noopener">',
         linkClose: '</a>',
       },
     };
