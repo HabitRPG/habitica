@@ -119,15 +119,7 @@ api.getSubscriptionPaymentDetails = async function getDetails (userId, subscript
   };
 };
 
-api.subscribe = async function subscribe (
-  sku,
-  user,
-  receipt,
-  signature,
-  headers,
-  nextPaymentProcessing = undefined,
-) {
-  if (!sku) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
+function getSubCodeFromSku (sku) {
   let subCode;
   switch (sku) { // eslint-disable-line default-case
     case 'com.habitrpg.android.habitica.subscription.1month':
@@ -143,6 +135,20 @@ api.subscribe = async function subscribe (
       subCode = 'basic_12mo';
       break;
   }
+  return subCode;
+}
+
+api.subscribe = async function subscribe (
+  sku,
+  user,
+  receipt,
+  signature,
+  headers,
+  nextPaymentProcessing = undefined,
+  deferredSku = undefined,
+) {
+  if (!sku) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
+  const subCode = getSubCodeFromSku(sku);
   const sub = subCode ? shared.content.subscriptionBlocks[subCode] : false;
   if (!sub) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
 
@@ -186,8 +192,13 @@ api.subscribe = async function subscribe (
     additionalData: testObj,
   };
   if (existingSub) {
-    data.updatedFrom = existingSub;
-    data.updatedFrom.logic = 'payFull';
+    if (deferredSku) {
+      const deferredSubCode = getSubCodeFromSku(deferredSku);
+      data.updatedTo = shared.content.subscriptionBlocks[deferredSubCode];
+    } else {
+      data.updatedFrom = existingSub;
+      data.updatedFrom.logic = 'payFull';
+    }
   }
   await payments.createSubscription(data);
 };

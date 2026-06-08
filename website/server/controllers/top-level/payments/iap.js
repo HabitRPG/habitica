@@ -52,6 +52,8 @@ api.iapSubscriptionAndroid = {
       req.body.transaction.receipt,
       req.body.transaction.signature,
       req.headers,
+      req.body.nextPaymentProcessing,
+      req.body.deferredSku,
     );
 
     res.respond(200);
