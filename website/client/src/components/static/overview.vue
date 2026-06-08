@@ -14,13 +14,6 @@
         </div>
         <p>
           <span v-html="$t('overviewQuestionsRevised', overviewLinks)"></span>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            @click.prevent="openBugReportModal(true)"
-          >
-            {{ $t('askQuestion') }}
-          </a>
         </p>
       </div>
     </div>
@@ -39,13 +32,11 @@
 
 <script>
 import markdownDirective from '@/directives/markdown';
-import reportBug from '@/mixins/reportBug.js';
 
 export default {
   directives: {
     markdown: markdownDirective,
   },
-  mixins: [reportBug],
   data () {
     return {
       stepsNum: ['1', '2', '3'],
@@ -61,6 +52,7 @@ export default {
       overviewLinks: {
         linkOpen: '<a href="/static/faq">',
         linkClose: '</a>',
+        adminEmail: '<a href="mailto:admin@habitica.com?subject=Habitica Question" target="_blank" rel="noopener noreferrer"',
       },
     };
   },

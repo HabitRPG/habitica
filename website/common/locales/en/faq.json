@@ -199,7 +199,7 @@
   "sunsetFaqList7": "Currently many Challenges have tasks that require posts in Habitica’s public chat spaces. Creators of those Challenges can adapt their tasks or move the chat requirement to posting on an outside service.",
 
   "sunsetFaqHeader10": "Where will players go when they have questions about how to use Habitica?",
-  "sunsetFaqList8": "Our existing <%= linkOpen %>FAQ<%= linkClose %> is a great resource and can be found from the Help menu, or Support on mobile. We are in the process of creating a more comprehensive and improved FAQ to help guide players moving forward.",    
+  "sunsetFaqList8": "Our existing <%= linkOpen %>FAQ<%= linkClose %> is a great resource and can be found from the Help menu, or Support on mobile. We are in the process of creating a more comprehensive and improved FAQ to help guide players moving forward.",
   "sunsetFaqList9": "This <%= linkOpen %>blog post<%= linkClose %> also provides a handy guide for new players.",
   "sunsetFaqList10": "Players are also encouraged to email <%= adminEmail %> with any questions for which they cannot find answers in the above links.",
 

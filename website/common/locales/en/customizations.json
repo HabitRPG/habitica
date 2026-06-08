@@ -155,6 +155,7 @@
   "TRUred": "Crimson",
   "updo": "Updo",
   "visitCustomizationsShop": "Head over to the <%= linkOpen %>Customizations Shop<%= linkClose %> to browse the many ways you can customize your avatar!",
+  "visitCustomizationsShopEvenMore": "Check out the <%= linkOpen %>Customizations Shop<%= linkClose %> for even more ways to customize your avatar!",
   "wavyLong": "Wavy Long",
   "wavyShort": "Wavy Short",
   "white": "White",
