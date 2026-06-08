@@ -180,9 +180,12 @@ api.subscribe = async function subscribe (
   if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
 
   let nextPaymentProcessing = moment.utc().add({ days: 2 }); // eslint-disable-line no-param-reassign, max-len
-  const nextBillingDate = new Date(Number(googleRes.expirationDate));
-  if (nextBillingDate < nextPaymentProcessing.toDate()) {
-    nextPaymentProcessing = moment(nextBillingDate);
+  let nextBillingDate;
+  if (googleRes.expirationDate) {
+    nextBillingDate = new Date(Number(googleRes.expirationDate));
+    if (nextBillingDate < nextPaymentProcessing.toDate()) {
+      nextPaymentProcessing = moment(nextBillingDate);
+    }
   }
   const data = {
     user,
