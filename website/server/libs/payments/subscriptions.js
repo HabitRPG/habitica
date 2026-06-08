@@ -215,6 +215,10 @@ async function prepareSubscriptionValues (data) {
     if (data.subscriptionId) {
       plan.subscriptionId = data.subscriptionId;
     }
+    if (data.updatingTo && data.updatingTo.key) {
+      // Subscription change is deferred until next payment processing
+      plan.deferredPlanId = data.updatingTo.key;
+    }
   }
 
   return {
