@@ -35,6 +35,7 @@ export const schema = new mongoose.Schema({
     trinkets: { $type: Number, default: 0 },
     lastHourglassReceived: Date,
   },
+  deferredPlanId: String,
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
