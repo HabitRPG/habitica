@@ -83,9 +83,9 @@
       </div>
       <div class="col-md-6 mb-5 mb-md-0">
         <img :src="makeUrl('features_opensource.png')">
-        <h2>{{ $t('marketing3Lead2Title', { githubLink }) }}</h2>
+        <h2>{{ $t('marketing3Lead2Title') }}</h2>
         <p
-          v-markdown="$t('marketing3Lead2')"
+          v-markdown="$t('marketing3Lead2', { githubLink })"
           class="description"
         ></p>
       </div>
