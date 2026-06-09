@@ -111,7 +111,6 @@
     "sendGiftPurchase": "Kauf",
     "sendGiftMessagePlaceholder": "Füge eine Geschenknachricht hinzu",
     "sendGiftSubscription": "<%= months %> Monat(e): $<%= price %> USD",
-    "gemGiftsAreOptional": "Bitte nimm zur Kenntnis, dass Habitica niemals von Dir verlangen wird, anderen Spielern Edelsteine zu schenken. Bei anderen Spielern um Edelsteine zu betteln ist ein <strong>Verstoss gegen die Community-Richtlinien</strong>, und jedes Vorkommnis sollte bei <%= techAssistanceEmail %> gemeldet werden.",
     "battleWithFriends": "Spiele Habitica zusammen mit anderen",
     "startAParty": "Erstelle eine Party",
     "partyUpName": "Party!",

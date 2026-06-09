@@ -111,7 +111,6 @@
     "sendGiftPurchase": "購入する",
     "sendGiftMessagePlaceholder": "ギフトメッセージを追加",
     "sendGiftSubscription": "<%= months %> カ月：<%= price %> 米ドル",
-    "gemGiftsAreOptional": "Habitica は他のプレイヤーにジェムを贈るように要求することは一切ありません。ジェムを他人にねだることは <strong>コミュニティガイドライン違反</strong>となります。このような行いは全て<%= techAssistanceEmail %>へと通報されるべきです。",
     "battleWithFriends": "仲間たちと一緒にモンスターと戦いましょう",
     "startAParty": "パーティーを作成する",
     "partyUpName": "パーティー参加",

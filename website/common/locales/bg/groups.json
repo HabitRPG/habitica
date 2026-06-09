@@ -111,7 +111,6 @@
     "sendGiftPurchase": "Купуване",
     "sendGiftMessagePlaceholder": "Лично съобщение (незадължително)",
     "sendGiftSubscription": "<%= months %> месец(а): <%= price %>$ USD",
-    "gemGiftsAreOptional": "Имайте предвид, че Хабитика никога няма да изисква от Вас да подарявате диаманти на други играчи. Искането на диаманти от други хора е <strong>нарушение на Обществените правила</strong> и всички такива случаи трябва да бъдат докладвани на <%= techAssistanceEmail %>.",
     "battleWithFriends": "Бийте се с чудовища заедно с приятелите си",
     "startAParty": "Създаване на група",
     "partyUpName": "Купонът започва",

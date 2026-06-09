@@ -111,7 +111,6 @@
     "sendGiftPurchase": "רכוש",
     "sendGiftMessagePlaceholder": "הודעה אישית (אופציונילי)",
     "sendGiftSubscription": "<%= months %> חודש(ים): $<%= price %>",
-    "gemGiftsAreOptional": "בבקשה שימו לב שהביטיקה לא יכריח אותכם לעולם לתת מתנות של יהלומים למשתמשים אחרים. להתחנן ממשתמשים שישלחו לכם יהלומים היא <strong>הפרה של הנחיות הקהילה</strong>, כל המקרים הללו צריכים להיות מדווחים כאן: <%= techAssistanceEmail %>.",
     "battleWithFriends": "נלחמים במפלצות עם חברים",
     "startAParty": "התחילו חבורה",
     "partyUpName": "חגיגה",

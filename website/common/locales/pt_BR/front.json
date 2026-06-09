@@ -182,7 +182,7 @@
     "enterValidEmail": "Por favor, insira um endereço de email válido.",
     "emailBlockedRegistration": "Este E-mail está bloqueado para cadastro. Se você acha que isso é um engano, entre em contato conosco pelo admin@habitica.com.",
     "whatToCallYou": "Como devemos te chamar?",
-    "acceptPrivacyTOS": "Você confirma que tem pelo menos 18 anos de idade e que leu e concorda com nossos <%= privacyLink %>Política de Privacidade<%= linkClose %>",
+    "acceptPrivacyTOS": "Você confirma que tem pelo menos 18 anos de idade e que leu e concorda com nossos <%= termsLink %>Termos de Serviço<%= linkClose %> e <%= privacyLink %>Política de Privacidade<%= linkClose %>",
     "marketing3Lead1Title": "Aplicativos Android e iOS",
     "marketing4Lead3Button": "Comece Hoje Mesmo",
     "missingClientHeader": "Cabeçalhos x-client ausentes.",

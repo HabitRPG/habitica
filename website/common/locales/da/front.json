@@ -180,7 +180,7 @@
     "enterValidEmail": "Indtast venligst en gyldig e-mailadresse.",
     "translateHabitica": "Oversæt Habitica",
     "whatToCallYou": "Hvad skal vi kalde dig?",
-    "acceptPrivacyTOS": "Bekræfter du at du er over 18 år gammel, og har læst og accepteret vores <%= privacyLink %>Privatlivspolitik<%= linkClose %>",
+    "acceptPrivacyTOS": "Bekræfter du at du er over 18 år gammel, og har læst og accepteret vores <%= termsLink %>Terms of Services<%= linkClose %> og <%= privacyLink %>Privatlivspolitik<%= linkClose %>",
     "emailBlockedRegistration": "Denne e-mail er blokeret, og kan ikke benyttes til registrering. Hvis der er sket en fejl, kontakt os på admin@habitica.com",
     "emailUsernamePlaceholder": "Fx., vanedyr eller kanin@eksempel.com",
     "marketing3Lead1Title": "Android & iOS apps",

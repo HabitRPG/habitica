@@ -185,7 +185,7 @@
     "minPasswordLengthLogin": "Your password is at least 8 characters long.",
     "enterValidEmail": "Please enter a valid e-mail address.",
     "whatToCallYou": "What should we call you?",
-    "acceptPrivacyTOS": "You confirm that you are at least 18 years old, and that you have read and agree to our <%= privacyLink %>Privacy Policy<%= linkClose %>",
+    "acceptPrivacyTOS": "You confirm that you are at least 18 years old, and that you have read and agree to our <%= termsLink %>Terms of Service<%= linkClose %> and <%= privacyLink %>Privacy Policy<%= linkClose %>",
     "emailAddress": "E-mail address",
     "emailRequiredForSupport": "We require an e-mail address for user support. Please enter an e-mail address to continue creating your account."
 }

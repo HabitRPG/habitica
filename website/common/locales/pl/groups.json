@@ -111,7 +111,6 @@
     "sendGiftPurchase": "Kup nowe",
     "sendGiftMessagePlaceholder": "Załącz wiadomość",
     "sendGiftSubscription": "<%= months %> Miesiąc(e): $<%= price %> USD",
-    "gemGiftsAreOptional": "Pamiętaj, że Habitica nigdy nie będzie wymagać od Ciebie dawania klejnotów innym użytkownikom. Żebranie o klejnoty jest <strong>ciężkim naruszeniem Wytycznych Społeczności</strong>, takie przypadki powinny być zgłaszane do <%= techAssistanceEmail %>.",
     "battleWithFriends": "Połącz siły z innymi graczami Habitica",
     "startAParty": "Utwórz drużynę",
     "partyUpName": "Razem raźniej",

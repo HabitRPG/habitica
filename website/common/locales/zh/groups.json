@@ -111,7 +111,6 @@
     "sendGiftPurchase": "购买",
     "sendGiftMessagePlaceholder": "添加礼物信息",
     "sendGiftSubscription": "<%= months %> 月（或多个月）： $<%= price %>美元",
-    "gemGiftsAreOptional": "请注意，Habitica决不会要求你向其他玩家赠送宝石。向他人讨要宝石是一种<strong>违反社区准则</strong>的行为，所有此类情况均应举报至<%= techAssistanceEmail %>。",
     "battleWithFriends": "与其他人一起玩 Habitica",
     "startAParty": "创建一支队伍",
     "partyUpName": "举行派对",

@@ -111,7 +111,6 @@
     "sendGiftPurchase": "Beli",
     "sendGiftMessagePlaceholder": "Tambahkan pesan hadiah",
     "sendGiftSubscription": "<%= months %> Bulan: $<%= price %> USD",
-    "gemGiftsAreOptional": "Harap diingat bahwa Habitica tidak pernah memintamu untuk memberikan permata kepada pemain lain. Meminta-minta permata kepada orang lain adalah <strong>pelanggaran terhadap Pedoman Komunitas</strong>, dan semua kejadian seperti itu harus dilaporkan kepada <%= techAssistanceEmail %>.",
     "battleWithFriends": "Kalahkan Monster Bersama Teman-Teman",
     "startAParty": "Buat Party",
     "partyUpName": "Mari Berpesta",

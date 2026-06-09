@@ -185,5 +185,5 @@
     "pkBoss": "Bossevi",
     "marketing4Lead3Button": "Započnite Danas",
     "missingClientHeader": "Nedostaju zaglavlja x-klijenta.",
-    "acceptPrivacyTOS": "Potvrđujete da imate najmanje 18 godina te da ste pročitali i da se slažete s našim <%= privacyLink %>Pravilima Privatnosti<%= linkClose %>"
+    "acceptPrivacyTOS": "Potvrđujete da imate najmanje 18 godina te da ste pročitali i da se slažete s našim <%= termsLink %>Uvjetima Korištenja<%= linkClose %> i <%= privacyLink %>Pravilima Privatnosti<%= linkClose %>."
 }

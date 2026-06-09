@@ -111,7 +111,6 @@
     "sendGiftPurchase": "구입하기",
     "sendGiftMessagePlaceholder": "개인 메세지 (옵션)",
     "sendGiftSubscription": "<%= months %>달에: $<%= price %> USD",
-    "gemGiftsAreOptional": "Please note that Habitica will never require you to gift gems to other players. Begging people for gems is a <strong>violation of the Community Guidelines</strong>, and all such instances should be reported to <%= techAssistanceEmail %>.",
     "battleWithFriends": "친구들과 몬스터를 무찌릅니다",
     "startAParty": "파티 만들기",
     "partyUpName": "Party Up",

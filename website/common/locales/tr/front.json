@@ -183,7 +183,7 @@
     "minPasswordLengthLogin": "Şifren en az 8 karakter uzunluğunda.",
     "enterValidEmail": "Lütfen geçerli bir e-posta adresi gir.",
     "whatToCallYou": "Sana nasıl hitap edelim?",
-    "acceptPrivacyTOS": "En az 18 yaşında olduğunu ve <%= privacyLink %>Gizlilik Politikası<%= linkClose %>nı okuduğunu onaylamış sayılırsın",
+    "acceptPrivacyTOS": "En az 18 yaşında olduğunu ve <%= termsLink %>Hizmet Şartları<%= linkClose %> ile <%= privacyLink %>Gizlilik Politikası<%= linkClose %>nı okuduğunu onaylamış sayılırsın",
     "marketing4Lead3Button": "Bugün Başla",
     "missingClientHeader": "Eksik x-client başlıkları."
 }

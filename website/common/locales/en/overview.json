@@ -10,5 +10,5 @@
   "step3": "Step 3: Customize and Explore Habitica",
   "webStep3Text": "Once you're familiar with the basics, you can get even more out of Habitica with these nifty features:\n * Organize your Tasks with tags (edit a Task to add them).\n * Customize your Avatar by clicking the user icon in the upper-right corner.\n * Buy your Equipment under Rewards or from the Shops, and change it under Inventory > Equipment.\n * Connect with other users via the Looking for Party tool.\n * Hatch Pets by collecting Eggs and Hatching Potions. Feed them to create Mounts.\n * At level 10: Choose a particular Class and then use Class-specific skills (levels 11 to 14).\n * Form a Party with your friends (by clicking Party in the navigation bar) to stay accountable and earn a Quest scroll.\n * Defeat monsters and collect objects on Quests (you will be given a quest at level 15).",
 
-  "overviewQuestionsRevised": "Have questions? Check out the <%= linkOpen %>FAQ<%= linkClose %>! If your question isn't mentioned there, you can ask for further help via email: <%= adminEmail %>"
+  "overviewQuestionsRevised": "Have questions? Check out the <%= faqLink %>FAQ<%= linkClose %>! If your question isn’t mentioned there, you can reach out from the Help section in the menu, or <%= adminLink %>contact us<%= linkClose %> directly."
 }

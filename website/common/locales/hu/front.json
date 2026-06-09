@@ -184,6 +184,6 @@
     "minPasswordLengthLogin": "A jelszavad legalább 8 karakter hosszú.",
     "enterValidEmail": "Kérjük adj meg egy érvényes e-mail címet.",
     "whatToCallYou": "Hogy szólíthatunk?",
-    "acceptPrivacyTOS": "Megerősíted, hogy legalább 18 éves vagy, és hogy elolvastad és elfogadod a <%= privacyLink %>Adatvédelmi nyilatkozatunkat<%= linkClose %>",
+    "acceptPrivacyTOS": "Megerősíted, hogy legalább 18 éves vagy, és hogy elolvastad és elfogadod a <%= termsLink %>Felhasználási feltételeinket<%= linkClose %> és az <%= privacyLink %>Adatvédelmi nyilatkozatunkat<%= linkClose %>",
     "missingClientHeader": "Hiányzik az x-client fejléc."
 }

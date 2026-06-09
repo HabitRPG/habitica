@@ -112,7 +112,6 @@
     "sendGiftPurchase": "Køb",
     "sendGiftMessagePlaceholder": "Personlig besked (valgfri)",
     "sendGiftSubscription": "<%= months %> måned(er): $<%= price %> USD",
-    "gemGiftsAreOptional": "Bemærk venligst, at Habitica aldrig vil kræve at du sender ædelsten til andre spillere. At tigge om ædelsten er en <strong>overtrædelse af Retningslinjerne for Fællesskabet</strong>, og enhver forekomst af dette bør rapporteres til <%= techAssistanceEmail %>.",
     "battleWithFriends": "Bekæmp monstre med dine venner",
     "startAParty": "Opret et Hold",
     "partyUpName": "For selskabets skyld",

@@ -185,7 +185,7 @@
     "enterValidEmail": "有効なメールアドレスを入力してください。",
     "minPasswordLengthLogin": "パスワードは8文字以上です。",
     "whatToCallYou": "何とお呼びしたらいいですか？",
-    "acceptPrivacyTOS": "あなたは18歳以上であり、Habiticaの<%= privacyLink %>プライバシーポリシー<%= linkClose %>に同意することを確認します",
+    "acceptPrivacyTOS": "あなたは18歳以上であり、Habiticaの<%= termsLink %>利用規約<%= linkClose %>および<%= privacyLink %>プライバシーポリシー<%= linkClose %>に同意することを確認します",
     "emailAddress": "メールアドレス",
     "emailRequiredForSupport": "ユーザーサポートのためにメールアドレスが必要です。アカウントの作成を続けるにはメールアドレスを入力してください。"
 }

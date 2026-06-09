@@ -111,7 +111,6 @@
     "sendGiftPurchase": "Kupi",
     "sendGiftMessagePlaceholder": "Osobne poruke (neobavezno)",
     "sendGiftSubscription": "<%= months %> Mjesec(i): $<%= price %>",
-    "gemGiftsAreOptional": "Molimo te da imaš na umu da Habitica nikad neće od tebe zahtijevati poklanjanje dragulja drugim igračima. Moljakanje drugih za dragulje se smatra<strong>kršenjem Smjernica za zajednicu</strong> i svi takvi slučajevi bi se trebali prijaviti na adresu <%= techAssistanceEmail %>.",
     "battleWithFriends": "Bori se protiv čudovišta s prijateljima",
     "startAParty": "Započni Družinu",
     "partyUpName": "Udruži se",

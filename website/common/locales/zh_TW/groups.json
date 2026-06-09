@@ -111,7 +111,6 @@
     "sendGiftPurchase": "購買",
     "sendGiftMessagePlaceholder": "添加禮品資訊",
     "sendGiftSubscription": "<%= months %>個月的價格：$<%= price %>美金",
-    "gemGiftsAreOptional": "請注意Habitica從不要求您發送寶石給任何玩家。乞討寶石的行為已經<strong>違反社群守則</strong>，這些行為可以至<%= techAssistanceEmail %>回報。",
     "battleWithFriends": "與朋友一同打怪",
     "startAParty": "創立隊伍",
     "partyUpName": "小而美隊伍",

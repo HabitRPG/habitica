@@ -50,9 +50,9 @@ export default {
         },
       },
       overviewLinks: {
-        linkOpen: '<a href="/static/faq">',
+        faqLink: '<a href="/static/faq">',
+        adminLink: '<a href="mailto:admin@habitica.com?subject=Habitica Web Question" target="_blank" rel="noopener noreferrer">',
         linkClose: '</a>',
-        adminEmail: '<a href="mailto:admin@habitica.com?subject=Habitica Web Question" target="_blank" rel="noopener noreferrer"',
       },
     };
   },

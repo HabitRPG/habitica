@@ -111,7 +111,6 @@
     "sendGiftPurchase": "Comprar",
     "sendGiftMessagePlaceholder": "Añadir un mensaje al regalo",
     "sendGiftSubscription": "<%= months %> Mes(es): $<%= price %> USD",
-    "gemGiftsAreOptional": "Por favor ten en cuenta que Habitica nunca te pedirá que regales gemas a otros usuarios. La gente que pide gemas está <strong>violación a las Normas de la Comunidad</strong>, por lo que todos esos casos deben ser reportados a <%= techAssistanceEmail %>.",
     "battleWithFriends": "Juega Habitica con Otros",
     "startAParty": "Crea un Equipo",
     "partyUpName": "Equipados",

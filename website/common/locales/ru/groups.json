@@ -111,7 +111,6 @@
     "sendGiftPurchase": "Купить",
     "sendGiftMessagePlaceholder": "Добавить сообщение к подарку",
     "sendGiftSubscription": "<%= months %> мес.: $<%= price %> (долл. США)",
-    "gemGiftsAreOptional": "Пожалуйста, обратите внимание, что Habitica никогда не требует от вас дарить самоцветы другим игрокам. Выпрашивание у игроков самоцветов является <strong>нарушением правил сообщества</strong>, и о всех подобных случаях следует немедленно сообщать на <%= techAssistanceEmail %>.",
     "battleWithFriends": "Побеждайте монстров с друзьями",
     "startAParty": "Создать команду",
     "partyUpName": "Зажигаем",

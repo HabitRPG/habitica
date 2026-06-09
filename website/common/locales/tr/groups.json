@@ -111,7 +111,6 @@
     "sendGiftPurchase": "Satın Al",
     "sendGiftMessagePlaceholder": "Hediye mesajı ekle",
     "sendGiftSubscription": "<%= months %> Ay: $<%= price %> USD",
-    "gemGiftsAreOptional": "Unutma, Habitica, asla diğer oyunculara elmas hediye etmeni istemeyecektir. Elmas için dilenmek <strong>Topluluk Kurallarının ihlalidir</strong>, ve bunun tüm örnekleri <%= techAssistanceEmail %>adresine bildirilmelidir.",
     "battleWithFriends": "Başkalarıyla Habitica Oyna",
     "startAParty": "Bir Takım Oluştur",
     "partyUpName": "İki Elin Sesi Var",

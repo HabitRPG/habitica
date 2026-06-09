@@ -111,7 +111,6 @@
     "sendGiftPurchase": "Acquisto",
     "sendGiftMessagePlaceholder": "Aggiungi un messaggio al tuo regalo",
     "sendGiftSubscription": "<%= months %> Mese/i: <%= price %>$ USD",
-    "gemGiftsAreOptional": "Per favore, ricorda che Habitica non ti chiederà mai di donare gemme ad altri giocatori. Chiedere ad altri giocatori donazioni di gemme è una <strong>violazione delle Linee Guida della Community</strong>, e tutti gli episodi di questo tipo devono essere segnalati a <%= techAssistanceEmail %>.",
     "battleWithFriends": "Gioca su Habitica con gli altri",
     "startAParty": "Crea una Squadra",
     "partyUpName": "Party Up",

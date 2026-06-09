@@ -111,7 +111,6 @@
     "sendGiftPurchase": "Acheter les gemmes",
     "sendGiftMessagePlaceholder": "Ajouter un message",
     "sendGiftSubscription": "<%= months %> Mois : <%= price %>$ USD",
-    "gemGiftsAreOptional": "Veuillez noter que Habitica ne vous demandera jamais d'offrir des gemmes aux autres joueurs. Supplier qu'on vous donne des gemmes est une <strong>violation de nos règles de vie en communauté</strong>, et toute fois où cela se produit doit être signalée à <%= techAssistanceEmail %>.",
     "battleWithFriends": "Combattez des monstres aux côtés d'amis",
     "startAParty": "Former une équipe",
     "partyUpName": "Une joyeuse équipe",

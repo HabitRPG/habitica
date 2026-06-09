@@ -111,7 +111,6 @@
     "sendGiftPurchase": "Vásárlás",
     "sendGiftMessagePlaceholder": "Ajándéküzenet hozzáadása",
     "sendGiftSubscription": "<%= months %> hónap: $<%= price %> (USD)",
-    "gemGiftsAreOptional": "Fontos: Habitica soha nem követeli meg, hogy gyémántokat ajándékozz más játékosoknak. A gyémántok kéregetése <strong>a Közösségi irányelvek megsértésének számít</strong>, és minden ilyen esetet jelenteni kell a következő címen: <%= techAssistanceEmail %>.",
     "battleWithFriends": "Játssz Habiticát másokkal együtt",
     "startAParty": "Csapat indítása",
     "partyUpName": "Csapatba állás",

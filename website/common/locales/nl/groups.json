@@ -111,7 +111,6 @@
     "sendGiftPurchase": "Kopen",
     "sendGiftMessagePlaceholder": "Voeg een cadeaubericht toe",
     "sendGiftSubscription": "<%= months %> Maand(en): $<%= price %> USD",
-    "gemGiftsAreOptional": "Habitica zal je nooit vragen om edelstenen te versturen naar andere spelers. Bedelen voor edelstenen bij anderen is een <strong>overtreding van de gemeenschapsrichtlijnen</strong>. Als dit gebeurd zou je dit moeten melden bij <%= techAssistanceEmail %>.",
     "battleWithFriends": "Speel Habitica met anderen",
     "startAParty": "Een gezelschap beginnen",
     "partyUpName": "Groepsvorming",

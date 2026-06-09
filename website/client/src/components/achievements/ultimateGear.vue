@@ -48,9 +48,9 @@
         <br>
         <div
           v-if="!user.achievements.ultimateGearSets.healer
-            && user.achievements.ultimateGearSets.wizard
-            && user.achievements.ultimateGearSets.rogue
-            && user.achievements.ultimateGearSets.warrior"
+            || !user.achievements.ultimateGearSets.wizard
+            || !user.achievements.ultimateGearSets.rogue
+            || !user.achievements.ultimateGearSets.warrior"
         >
           <p v-html="$t('moreGearAchievements', gearAchievementLinks)"></p>
           <br>

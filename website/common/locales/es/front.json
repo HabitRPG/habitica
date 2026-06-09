@@ -185,7 +185,7 @@
     "minPasswordLengthLogin": "Tu contraseña contiene al menos 8 caracteres.",
     "enterValidEmail": "Por favor introduce una dirección de correo electrónico válida.",
     "whatToCallYou": "¿Cómo debemos llamarte?",
-    "acceptPrivacyTOS": "Confirmas que tienes al menos 18 años y que has leído y estás de acuerdo con nuestros <%= privacyLink %>Política de Privacidad<%= linkClose %>",
+    "acceptPrivacyTOS": "Confirmas que tienes al menos 18 años y que has leído y estás de acuerdo con nuestros <%= termsLink %>Terminos de Servicio<%= linkClose %> y <%= privacyLink %>Política de Privacidad<%= linkClose %>.",
     "emailAddress": "Dirección de correo electrónico",
     "emailRequiredForSupport": "Necesitamos una dirección de correo electrónico para brindarte asistencia. Por favor, introduce una dirección de correo electrónico para continuar creando tu cuenta."
 }
