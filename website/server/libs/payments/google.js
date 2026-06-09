@@ -164,7 +164,7 @@ api.subscribe = async function subscribe (
   let existingSub;
   if (user && user.isSubscribed()) {
     existingSub = shared.content.subscriptionBlocks[user.purchased.plan.planId];
-    if (existingSub === sub) {
+    if (existingSub === sub && user.purchased.plan.customerId === token) {
       throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
     }
   }
