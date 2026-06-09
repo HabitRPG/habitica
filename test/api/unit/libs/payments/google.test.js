@@ -238,6 +238,7 @@ describe('Google Payments', () => {
         headers,
         additionalData: { data: receipt, signature },
         nextPaymentProcessing,
+        nextBillingDate: undefined,
       });
     });
   });
