@@ -98,7 +98,7 @@ export default {
   data () {
     return {
       gearAchievementLinks: {
-        linkOpen: '<a href="/user/settings/site" target="_blank" rel="noreferrer noopener">',
+        linkOpen: '<a href="/user/settings/general" target="_blank" rel="noreferrer noopener">',
         linkClose: '</a>',
       },
     };
