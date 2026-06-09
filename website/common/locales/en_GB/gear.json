@@ -1217,7 +1217,7 @@
     "headArmoireGraduateCapNotes": "Congratulations! Your deep thoughts have earned you this thinking cap. Increases Intelligence by <%= int %>. Enchanted Armoire: Graduate Set (Item 3 of 3).",
     "headArmoireGreenFloppyHatText": "Green Floppy Hat",
     "headArmoireGreenFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a gorgeous green colour. Increases Constitution, Intelligence, and Perception by <%= attrs %> each. Enchanted Armoire: Green Loungewear Set (Item 1 of 3).",
-    "headArmoireCannoneerBandannaText": "Cannoneer Bandanna",
+    "headArmoireCannoneerBandannaText": "Cannoneer Bandana",
     "headArmoireCannoneerBandannaNotes": "'Tis a cannoneer's life for me! Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Cannoneer Set (Item 3 of 3).",
     "headArmoireFalconerCapText": "Falconer Cap",
     "headArmoireFalconerCapNotes": "This jaunty cap helps you better understand birds of prey. Increases Intelligence by <%= int %>. Enchanted Armoire: Falconer Set (Item 2 of 3).",
