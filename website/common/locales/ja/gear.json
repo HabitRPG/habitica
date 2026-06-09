@@ -1266,7 +1266,7 @@
     "headArmoireJeweledArcherHelmText": "宝石で飾られたかぶと",
     "headArmoireJeweledArcherHelmNotes": "このかぶとは飾り立てて見えるかもしれません。しかし、大変に軽く強力でもあるのです。知能が<%= int %>上がります。ラッキー宝箱：宝石飾りの弓使いセット(アイテム1/3 )。",
     "headArmoireVeilOfSpadesText": "スペードのベール",
-    "headArmoireVeilOfSpadesNotes": "影になってミステリアスなベールは、あなたの密やかさを高めるでしょう。知覚が<%= per %>上がります。ラッキー宝箱：スペードのエースセット(アイテム1/3 )。",
+    "headArmoireVeilOfSpadesNotes": "影になってミステリアスなベールは、あなたの密やかさを高めるでしょう。知覚が<%= per %>上がります。ラッキー宝箱：スペードのエースセット（アイテム1/3）。",
     "offhand": "反対の手のアイテム",
     "shieldBase0Text": "利き手と反対の手の装備はありません",
     "shieldBase0Notes": "盾や、利き手と反対の手の装備はありません。",
@@ -3488,5 +3488,10 @@
     "armorSpecialSummer2026RogueNotes": "このスーツに身に包めてもいいですが、困ったことから逃げてはいけません。探検家みたいに嵐を召喚してタスクに挑みましょう。知覚が<%= per %>上がります。2026年夏の限定装備。",
     "armorSpecialSummer2026HealerText": "ツノメドリのスーツ",
     "armorSpecialSummer2026MageText": "イタチザメのスーツ",
-    "armorSpecialSummer2026RogueText": "津波のスーツ"
+    "armorSpecialSummer2026RogueText": "津波のスーツ",
+    "weaponSpecialSummer2026MageText": "イタチザメの槍",
+    "weaponSpecialSummer2026MageNotes": "この鋭い諸刃の剣は海洋風コーデにぴったりです。知能が<%= int %>、知覚が<%= per %>上がります。2026年夏の限定装備。",
+    "weaponSpecialSummer2026WarriorNotes": "この豪華できらびやかな武器は沼風コーデにぴったりです。力が<%= str %>上がります。2026年夏の限定装備。",
+    "weaponArmoireBrightRainbowKiteText": "虹色の凧",
+    "weaponArmoirePastelRainbowKiteText": "パステルカラーの凧"
 }

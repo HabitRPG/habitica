@@ -151,5 +151,6 @@
     "everyMonth": "毎月",
     "everyXMonths": "<%= count %>ヶ月ごと",
     "everyYear": "毎年",
-    "everyXYears": "<%= count %>年ごと"
+    "everyXYears": "<%= count %>年ごと",
+    "fifthWeekWarning": "このタスクは<%= day %>が少ない月には表示されません"
 }
