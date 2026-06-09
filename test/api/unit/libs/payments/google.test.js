@@ -236,9 +236,9 @@ describe('Google Payments', () => {
         paymentMethod: googlePayments.constants.PAYMENT_METHOD_GOOGLE,
         sub,
         headers,
-        additionalData: { data: receipt, signature },
         nextPaymentProcessing,
         nextBillingDate: undefined,
+        additionalData: { data: receipt, signature },
       });
     });
   });
