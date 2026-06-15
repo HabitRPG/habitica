@@ -20,6 +20,7 @@ import {
   NotAuthorized,
   NotFound,
 } from '../errors';
+import { trackSubscriptionEvent } from '../localAnalytics';
 
 const BASE_URL = nconf.get('BASE_URL');
 const PAYPAL_MODE = nconf.get('PAYPAL_MODE');
@@ -320,34 +321,17 @@ api.subscribeCancel = async function subscribeCancel (options = {}) {
   });
 };
 
-api.ipn = async function ipnApi (options = {}) {
-  await this.ipnVerifyAsync(options, {
-    allow_sandbox: PAYPAL_MODE === 'sandbox',
-  });
-
-  const { txn_type, recurring_payment_id } = options;
-
-  const ipnAcceptableTypes = [
-    'recurring_payment_profile_cancel',
-    'recurring_payment_failed',
-    'recurring_payment_expired',
-    'recurring_payment_skipped',
-    'subscr_cancel',
-    'subscr_failed',
-  ];
-
-  if (ipnAcceptableTypes.indexOf(txn_type) === -1) return;
-
+async function cancelSubscription(transactionType, paymentId) {
   // @TODO: Should this request billing date?
-  const user = await User.findOne({ 'purchased.plan.customerId': recurring_payment_id }).exec();
+  const user = await User.findOne({ 'purchased.plan.customerId': paymentId }).exec();
   if (user) {
     // If the user has already cancelled the subscription, return
     // Otherwise the subscription would be cancelled twice
     // resulting in the loss of subscription credits
     if (user.hasCancelled()) return;
 
-    if (txn_type === 'recurring_payment_skipped') {
-      await this.paypalBillingAgreementCancel(recurring_payment_id, { note: 'Missed payment' });
+    if (transactionType === 'recurring_payment_skipped') {
+      await this.paypalBillingAgreementCancel(paymentId, { note: 'Missed payment' });
     }
     await payments.cancelSubscription({ user, paymentMethod: this.constants.PAYMENT_METHOD });
     return;
@@ -355,7 +339,7 @@ api.ipn = async function ipnApi (options = {}) {
 
   const groupFields = basicGroupFields.concat(' purchased');
   const group = await Group
-    .findOne({ 'purchased.plan.customerId': recurring_payment_id })
+    .findOne({ 'purchased.plan.customerId': paymentId })
     .select(groupFields)
     .exec();
 
@@ -369,6 +353,55 @@ api.ipn = async function ipnApi (options = {}) {
       groupId: group._id,
       paymentMethod: this.constants.PAYMENT_METHOD,
     });
+  }
+}
+
+const repayTypes = [
+  'recurring_payment',
+  'subscr_payment',
+];
+
+const cancelTypes = [
+  'recurring_payment_profile_cancel',
+  'recurring_payment_failed',
+  'recurring_payment_expired',
+  'recurring_payment_skipped',
+  'subscr_cancel',
+  'subscr_failed',
+];
+
+api.ipn = async function ipnApi (options = {}) {
+  await this.ipnVerifyAsync(options, {
+    allow_sandbox: PAYPAL_MODE === 'sandbox',
+  });
+
+  const { txn_type, recurring_payment_id } = options;
+
+  if (repayTypes.indexOf(txn_type) !== -1) {
+    let plan;
+    let ownerId;
+    const user = await User.findOne({ 'purchased.plan.customerId': recurring_payment_id }).exec();
+    if (user) {
+      plan = user.purchased.plan;
+      ownerId = user._id;
+    } else {
+      const group = await Group.findOne({ 'purchased.plan.customerId': recurring_payment_id }).exec();
+      if (group) {
+        plan = group.purchased.plan;
+        ownerId = group._id;
+      }
+    }
+    if (plan) {
+      await trackSubscriptionEvent({
+        eventType: 'resubscribed',
+        user: ownerId,
+        paymentMethod: plan.paymentMethod,
+        planId: plan.planId,
+        customerId: plan.customerId,
+      });
+    }
+  } else if (cancelTypes.indexOf(txn_type) !== -1) {
+    await cancelSubscription(txn_type, recurring_payment_id);
   }
 };
 
