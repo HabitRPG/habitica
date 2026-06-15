@@ -66,8 +66,12 @@ export async function handleWebhooks (options, stripeInc) {
       }
       case 'invoice.payment_succeeded': {
         const invoice = event.data.object;
-        const { customerId } = invoice;
-        await payments.handleSubscriptionRenewal(customerId);
+        /* eslint-disable camelcase */
+        const { customerId, billing_reason } = invoice;
+        if (billing_reason === 'subscription_cycle') {
+          await payments.handleSubscriptionRenewal(customerId);
+        }
+        /* eslint-enable camelcase */
         break;
       }
       case 'checkout.session.completed': {
