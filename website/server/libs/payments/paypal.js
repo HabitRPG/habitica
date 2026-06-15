@@ -20,7 +20,6 @@ import {
   NotAuthorized,
   NotFound,
 } from '../errors';
-import { trackSubscriptionEvent } from '../localAnalytics';
 
 const BASE_URL = nconf.get('BASE_URL');
 const PAYPAL_MODE = nconf.get('PAYPAL_MODE');
@@ -321,7 +320,7 @@ api.subscribeCancel = async function subscribeCancel (options = {}) {
   });
 };
 
-async function cancelSubscription(transactionType, paymentId) {
+async function cancelSubscription (transactionType, paymentId) {
   // @TODO: Should this request billing date?
   const user = await User.findOne({ 'purchased.plan.customerId': paymentId }).exec();
   if (user) {
@@ -378,28 +377,7 @@ api.ipn = async function ipnApi (options = {}) {
   const { txn_type, recurring_payment_id } = options;
 
   if (repayTypes.indexOf(txn_type) !== -1) {
-    let plan;
-    let ownerId;
-    const user = await User.findOne({ 'purchased.plan.customerId': recurring_payment_id }).exec();
-    if (user) {
-      plan = user.purchased.plan;
-      ownerId = user._id;
-    } else {
-      const group = await Group.findOne({ 'purchased.plan.customerId': recurring_payment_id }).exec();
-      if (group) {
-        plan = group.purchased.plan;
-        ownerId = group._id;
-      }
-    }
-    if (plan) {
-      await trackSubscriptionEvent({
-        eventType: 'resubscribed',
-        user: ownerId,
-        paymentMethod: plan.paymentMethod,
-        planId: plan.planId,
-        customerId: plan.customerId,
-      });
-    }
+    payments.handleSubscriptionRenewal(recurring_payment_id);
   } else if (cancelTypes.indexOf(txn_type) !== -1) {
     await cancelSubscription(txn_type, recurring_payment_id);
   }

@@ -36,6 +36,7 @@ export async function trackSubscriptionEvent (eventData) {
     customerId,
     planId,
     cancellationReason,
+    isGroupSubscription,
   } = eventData;
 
   const subscriptionEvent = new SubscriptionEventModel({
@@ -45,6 +46,7 @@ export async function trackSubscriptionEvent (eventData) {
     customerId,
     planId,
     cancellationReason,
+    isGroupSubscription,
   });
   return subscriptionEvent.save();
 }
