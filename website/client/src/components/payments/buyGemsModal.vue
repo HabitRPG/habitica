@@ -191,6 +191,37 @@
           </small>
         </div>
       </div>
+      <div
+        class="gift-gems-prompt"
+        role="button"
+        tabindex="0"
+        @click="showSelectUser"
+        @keyup.enter="showSelectUser"
+      >
+        <div class="gift-art">
+          <div
+            v-once
+            class="sparkles"
+            v-html="icons.sparkles"
+          ></div>
+          <div
+            v-once
+            class="gift"
+            v-html="icons.giftPurple"
+          ></div>
+          <div
+            v-once
+            class="sparkles sparkles-right"
+            v-html="icons.sparkles"
+          ></div>
+        </div>
+        <p
+          v-once
+          class="prompt-text"
+        >
+          {{ $t('giftGems') }}
+        </p>
+      </div>
     </b-modal>
   </div>
 </template>
@@ -219,7 +250,6 @@
 
     .modal-body {
       padding: 0;
-      padding-bottom: 2rem;
       background: $white;
       border-radius: 0px 0px 8px 8px;
     }
@@ -337,6 +367,51 @@
     line-height: 1.71;
   }
 
+  .gift-gems-prompt {
+    margin-top: 2rem;
+    padding: 1.5rem 1rem 1.75rem;
+    background: $gray-10;
+    border-radius: 0 0 8px 8px;
+    text-align: center;
+    cursor: pointer;
+
+    .gift-art {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+
+      ::v-deep svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .sparkles {
+        width: 2rem;
+      }
+
+      .gift {
+        width: 1.5rem;
+      }
+
+      .sparkles-right {
+        transform: scaleX(-1);
+      }
+    }
+
+    .prompt-text {
+      margin-bottom: 0;
+      font-family: Roboto;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 24px;
+      color: $white;
+    }
+  }
+
   .gift-promo-banner {
     width: 100%;
     height: 5rem;
@@ -405,6 +480,8 @@ import fortyTwoGems from '@/assets/svg/42-gems.svg?raw';
 import eightyFourGems from '@/assets/svg/84-gems.svg?raw';
 import svgClose from '@/assets/svg/close.svg?raw';
 import gifts from '@/assets/svg/gifts.svg?raw';
+import giftPurple from '@/assets/svg/gift-purple-600.svg?raw';
+import sparkles from '@/assets/svg/sparkles-left-purple-600-500.svg?raw';
 
 import paymentsButtons from '@/components/payments/buttons/list';
 import { worldStateMixin } from '@/mixins/worldState';
@@ -427,6 +504,8 @@ export default {
         '42gems': fortyTwoGems,
         '84gems': eightyFourGems,
         gifts,
+        giftPurple,
+        sparkles,
       }),
       selectedGemsBlock: null,
       alreadyTracked: false,
