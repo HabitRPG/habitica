@@ -267,24 +267,24 @@
         background-image: url('@/assets/images/gems/header/fall-header-bg@2x.png');
         background-size: 100%;
       }
-  
+
       .gem-btn {
         border: none;
         color: $black;
-  
+
         &.btn-success {
           background: $green-50 !important;
         }
       }
-  
+
       .gem-count {
         color: $color;
       }
-  
+
       .close-icon svg path {
         stroke: $gray-200;
       }
-  
+
       .close-icon:hover svg path {
         stroke: $gray-400;
       }
@@ -319,7 +319,8 @@
   }
   #buy-gems.event-flash_extra_gems {
     .gem-btn {
-      background-image: linear-gradient(90deg, $red-100 -7%, $orange-100 26%, $yellow-100 53%, $blue-100 107%);
+      background-image: linear-gradient(90deg, $red-100 -7%,
+        $orange-100 26%, $yellow-100 53%, $blue-100 107%);
     }
   }
 </style>
