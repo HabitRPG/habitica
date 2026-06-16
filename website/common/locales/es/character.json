@@ -61,7 +61,7 @@
     "costumeDisabled": "Has deshabilitado tu disfraz.",
     "gearAchievement": "¡Has obtenido el logro \"Equipamiento definitivo\" por mejorar al máximo el equipamiento de una clase! Has completado estos equipamientos:",
     "gearAchievementNotification": "¡Has obtenido el logro \"Equipamiento Definitivo\" por mejorar al máximo el equipamiento de una clase!",
-    "moreGearAchievements": "¡Para conseguir más insignias de Equipamiento Definitivo, cambia de clase en <%= linkOpen %>la página de Ajustes &gt; <%= linkClose %> y compra equipamiento de tu nueva clase!",
+    "moreGearAchievements": "¡Para conseguir más insignias de Equipamiento Definitivo, cambia de clase en <%= linkOpen %>la página de Ajustes<%= linkClose %> y compra equipamiento de tu nueva clase!",
     "armoireUnlocked": "¡Para obtener más equipamiento, revisa el <strong>Armario Encantado!</strong> ¡Haz clic en la recompensa del Armario Encantado para tener una oportunidad al azar de conseguir equipamiento especial! También puede que obtengas puntos de experiencia o alimentos al azar.",
     "ultimGearName": "Equipamiento al Máximo - <%= ultClass %>",
     "ultimGearText": "Consiguió el conjunto de armas y armadura de mayor nivel para la clase <%= ultClass %>.",
