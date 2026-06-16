@@ -12,58 +12,20 @@
       @click="openGemsModal"
     >
       <img
-        v-if="eventName === 'fall_extra_gems'"
         class="d-none d-xl-block"
-        srcset="
-    @/assets/images/gems/fall-confetti-left/confetti.png,
-    @/assets/images/gems/fall-confetti-left/confetti@2x.png 2x,
-    @/assets/images/gems/fall-confetti-left/confetti@3x.png 3x"
-        src="@/assets/images/gems/fall-confetti-left/confetti.png"
-      >
-      <img
-        v-else-if="eventName === 'spooky_extra_gems'"
-        class="d-none d-xl-block"
-        srcset="
-    @/assets/images/gems/spooky-confetti-left/confetti.png,
-    @/assets/images/gems/spooky-confetti-left/confetti@2x.png 2x,
-    @/assets/images/gems/spooky-confetti-left/confetti@3x.png 3x"
-        src="@/assets/images/gems/spooky-confetti-left/confetti.png"
+        :srcset="assets('confetti-left').srcSet"
+        :src="assets('confetti-left').src"
       >
       <div class="promo-test">
         <img
-          v-if="eventName === 'fall_extra_gems'"
-          srcset="
-      @/assets/images/gems/fall-text/text.png,
-      @/assets/images/gems/fall-text/text@2x.png 2x,
-      @/assets/images/gems/fall-text/text@3x.png 3x"
-          src="@/assets/images/gems/fall-text/text.png"
-        >
-        <img
-          v-else-if="eventName === 'spooky_extra_gems'"
-          srcset="
-      @/assets/images/gems/spooky-text/text.png,
-      @/assets/images/gems/spooky-text/text@2x.png 2x,
-      @/assets/images/gems/spooky-text/text@3x.png 3x"
-          src="@/assets/images/gems/spooky-text/text.png"
+          :srcset="assets('text').srcSet"
+          :src="assets('text').src"
         >
       </div>
       <img
-        v-if="eventName === 'fall_extra_gems'"
         class="d-none d-xl-block"
-        srcset="
-    @/assets/images/gems/fall-confetti-right/confetti.png,
-    @/assets/images/gems/fall-confetti-right/confetti@2x.png 2x,
-    @/assets/images/gems/fall-confetti-right/confetti@3x.png 3x"
-        src="@/assets/images/gems/fall-confetti-right/confetti.png"
-      >
-      <img
-        v-else-if="eventName === 'spooky_extra_gems'"
-        class="d-none d-xl-block"
-        srcset="
-    @/assets/images/gems/spooky-confetti-right/confetti.png,
-    @/assets/images/gems/spooky-confetti-right/confetti@2x.png 2x,
-    @/assets/images/gems/spooky-confetti-right/confetti@3x.png 3x"
-        src="@/assets/images/gems/spooky-confetti-right/confetti.png"
+        :srcset="assets('confetti-right').srcSet"
+        :src="assets('confetti-right').src"
       >
     </div>
   </base-banner>
@@ -72,8 +34,12 @@
 <style lang="scss" scoped>
 @import '@/assets/scss/colors.scss';
 
-.gems-promo-banner-fall_extra_gems {
-  background: $gray-10;
+$promos: ('spring', 'summer', 'fall', 'winter', 'flash');
+
+@each $event in $promos {
+  .gems-promo-banner-#{$event}_extra_gems {
+    background: $gray-10;
+  }
 }
 
 .gems-promo-banner-spooky_extra_gems {
@@ -86,6 +52,12 @@
     cursor: pointer;
   }
 }
+
+::v-deep .modal-close .svg-close {
+  color: $white;
+  opacity: 50%;
+}
+
 </style>
 
 <script>
@@ -122,6 +94,22 @@ export default {
   methods: {
     openGemsModal () {
       this.$root.$emit('bv::show::modal', 'buy-gems');
+    },
+    assets (pieceName = '') {
+      const { currentEvent } = this;
+      let gemsPromoSeason = currentEvent.gemsPromo ? currentEvent.event.split('_')[0] // eslint-disable-line prefer-destructuring
+        : '';
+      const IS_PRODUCTION = import.meta.env.NODE_ENV === 'production';
+      const assetPathLead = IS_PRODUCTION ? '/dist' : '/src';
+      if (gemsPromoSeason !== 'spooky' && pieceName.indexOf('confetti') !== -1) {
+        gemsPromoSeason = 'seasonal';
+      }
+      return {
+        src: `${assetPathLead}/assets/images/gems/${pieceName}/${gemsPromoSeason}-${pieceName}.png`,
+        srcSet: `${assetPathLead}/assets/images/gems/${pieceName}/${gemsPromoSeason}-${pieceName}.png,
+          ${assetPathLead}/assets/images/gems/${pieceName}/${gemsPromoSeason}-${pieceName}@2x.png 2x,
+          ${assetPathLead}/assets/images/gems/${pieceName}/${gemsPromoSeason}-${pieceName}@3x.png 3x`,
+      };
     },
   },
 };
