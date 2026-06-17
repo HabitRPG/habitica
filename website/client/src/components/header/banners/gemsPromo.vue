@@ -12,20 +12,20 @@
       @click="openGemsModal"
     >
       <img
-        class="d-none d-xl-block"
-        :srcset="assets('confetti-left').srcSet"
-        :src="assets('confetti-left').src"
+        class="d-xl-block"
+        :srcset="assets('confetti-left')?.srcSet"
+        :src="assets('confetti-left')?.src"
       >
-      <div class="promo-test">
+      <div>
         <img
-          :srcset="assets('text').srcSet"
-          :src="assets('text').src"
+          :srcset="assets('text')?.srcSet"
+          :src="assets('text')?.src"
         >
       </div>
       <img
-        class="d-none d-xl-block"
-        :srcset="assets('confetti-right').srcSet"
-        :src="assets('confetti-right').src"
+        class="d-xl-block"
+        :srcset="assets('confetti-right')?.srcSet"
+        :src="assets('confetti-right')?.src"
       >
     </div>
   </base-banner>
@@ -97,18 +97,17 @@ export default {
     },
     assets (pieceName = '') {
       const { currentEvent } = this;
+      if (!currentEvent) return null;
       let gemsPromoSeason = currentEvent.gemsPromo ? currentEvent.event.split('_')[0] // eslint-disable-line prefer-destructuring
         : '';
-      const IS_PRODUCTION = import.meta.env.NODE_ENV === 'production';
-      const assetPathLead = IS_PRODUCTION ? '/dist' : '/src';
       if (gemsPromoSeason !== 'spooky' && pieceName.indexOf('confetti') !== -1) {
         gemsPromoSeason = 'seasonal';
       }
       return {
-        src: `${assetPathLead}/assets/images/gems/${pieceName}/${gemsPromoSeason}-${pieceName}.png`,
-        srcSet: `${assetPathLead}/assets/images/gems/${pieceName}/${gemsPromoSeason}-${pieceName}.png,
-          ${assetPathLead}/assets/images/gems/${pieceName}/${gemsPromoSeason}-${pieceName}@2x.png 2x,
-          ${assetPathLead}/assets/images/gems/${pieceName}/${gemsPromoSeason}-${pieceName}@3x.png 3x`,
+        src: `/static/gems/${pieceName}/${gemsPromoSeason}-${pieceName}.png`,
+        srcSet: `/static/gems/${pieceName}/${gemsPromoSeason}-${pieceName}.png,
+          /static/gems/${pieceName}/${gemsPromoSeason}-${pieceName}@2x.png 2x,
+          /static/gems/${pieceName}/${gemsPromoSeason}-${pieceName}@3x.png 3x`,
       };
     },
   },

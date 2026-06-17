@@ -21,7 +21,7 @@
             class="col-12 text-center"
           >
             <img
-              v-if="eventInfo.gemsPromo"
+              v-if="eventInfo?.gemsPromo"
               :alt="$t('supportHabitica')"
               :srcset="eventInfo.srcSet"
               :src="eventInfo.src"
@@ -30,10 +30,10 @@
               v-else
               :alt="$t('supportHabitica')"
               srcset="
-          @/assets/images/gems/support-habitica.png,
-          @/assets/images/gems/support-habitica@2x.png 2x,
-          @/assets/images/gems/support-habitica@3x.png 3x"
-              src="@/assets/images/gems/support-habitica.png"
+                /static/gems/support-habitica.png,
+                /static/gems/support-habitica@2x.png 2x,
+                /static/gems/support-habitica@3x.png 3x"
+              src="/static/gems/support-habitica.png"
             >
           </div>
         </div>
@@ -150,7 +150,7 @@
           :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"
         />
         <div
-          v-if="eventInfo.gemsPromo"
+          v-if="eventInfo?.gemsPromo"
           class="d-flex flex-column justify-content-center"
         >
           <h4 class="mt-3 mx-auto">
@@ -264,7 +264,7 @@
       .header-wrap {
         padding-top: 4.5rem;
         padding-bottom: 1.5rem;
-        background-image: url('@/assets/images/gems/header/fall-header-bg@2x.png');
+        background-image: url('/static/gems/header/fall-header-bg@2x.png');
         background-size: 100%;
       }
 
@@ -309,7 +309,7 @@
   }
   #buy-gems.event-spooky_extra_gems {
     .header-wrap {
-      background-image: url('@/assets/images/gems/header/spooky-header-bg@2x.png');
+      background-image: url('/static/gems/header/spooky-header-bg@2x.png');
     }
   }
   #buy-gems.event-winter_extra_gems {
@@ -543,17 +543,15 @@ export default {
 
       const gemsPromoSeason = currentEvent.gemsPromo ? currentEvent.event.split('_')[0] // eslint-disable-line prefer-destructuring
         : '';
-      const IS_PRODUCTION = import.meta.env.NODE_ENV === 'production';
-      const assetPathLead = IS_PRODUCTION ? '/dist' : '/src';
 
       return {
         name: currentEvent.event,
         class: currentEvent.gemsPromo ? `event-${currentEvent.event}` : '',
         gemsPromo: currentEvent.gemsPromo,
-        src: `${assetPathLead}/assets/images/gems/header/${gemsPromoSeason}-header.png`,
-        srcSet: `${assetPathLead}/assets/images/gems/header/${gemsPromoSeason}-header.png,
-          ${assetPathLead}/assets/images/gems/header/${gemsPromoSeason}-header@2x.png 2x,
-          ${assetPathLead}/assets/images/gems/header/${gemsPromoSeason}-header@3x.png 3x
+        src: `/static/gems/header/${gemsPromoSeason}-header.png`,
+        srcSet: `/static/gems/header/${gemsPromoSeason}-header.png,
+          /static/gems/header/${gemsPromoSeason}-header@2x.png 2x,
+          /static/gems/header/${gemsPromoSeason}-header@3x.png 3x
         `,
         promo: currentEvent.promo,
         timeZoneAbbrev,

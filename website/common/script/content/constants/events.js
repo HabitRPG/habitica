@@ -84,6 +84,12 @@ export const REPEATING_EVENTS = {
     end: new Date('1970-08-02T03:59-04:00'),
     foodSeason: 'Cake',
   },
+  flashGemSale: {
+    start: new Date('1970-06-01T04:00-04:00'),
+    end: new Date('1970-06-28T23:59-04:00'),
+    event: 'flash_extra_gems',
+    gemsPromo,
+  },
   fallGemSale: {
     start: new Date('1970-08-27T04:00-04:00'),
     end: new Date('1970-09-03T23:59-04:00'),
