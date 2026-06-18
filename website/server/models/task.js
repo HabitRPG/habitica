@@ -161,6 +161,8 @@ TaskSchema.plugin(baseModel, {
   sanitizeTransform (taskObj) {
     if (taskObj.type && taskObj.type !== 'reward') { // value should be settable directly only for rewards
       delete taskObj.value;
+    } else if (taskObj.type && taskObj.type === 'reward') {
+      taskObj.value = Math.floor(taskObj.value);
     }
 
     if (taskObj.priority) {
