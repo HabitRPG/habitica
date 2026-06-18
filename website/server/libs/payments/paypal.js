@@ -23,6 +23,7 @@ import {
 
 const BASE_URL = nconf.get('BASE_URL');
 const PAYPAL_MODE = nconf.get('PAYPAL_MODE');
+const PAYPAL_DISABLE_IPN_VERIFICATION = nconf.get('PAYPAL_DISABLE_IPN_VERIFICATION') === 'true';
 const { i18n } = shared;
 
 // This is the plan.id for paypal subscriptions.
@@ -370,9 +371,11 @@ const cancelTypes = [
 ];
 
 api.ipn = async function ipnApi (options = {}) {
-  await this.ipnVerifyAsync(options, {
-    allow_sandbox: PAYPAL_MODE === 'sandbox',
-  });
+  if (!PAYPAL_DISABLE_IPN_VERIFICATION) {
+    await this.ipnVerifyAsync(options, {
+      allow_sandbox: PAYPAL_MODE === 'sandbox',
+    });
+  }
 
   const { txn_type, recurring_payment_id } = options;
 
