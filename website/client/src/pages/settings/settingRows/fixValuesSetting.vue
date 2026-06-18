@@ -138,6 +138,7 @@ input[type="number"] {
 import { MAX_LEVEL_HARD_CAP, MAX_FIELD_HARD_CAP } from '@/../../common/script/constants';
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
+import sync from '@/mixins/sync';
 import healthIcon from '@/assets/svg/health.svg?raw';
 import experienceIcon from '@/assets/svg/experience.svg?raw';
 import manaIcon from '@/assets/svg/mana.svg?raw';
@@ -148,7 +149,7 @@ import { mapState } from '@/libs/store';
 
 export default {
   components: { SaveCancelButtons },
-  mixins: [InlineSettingMixin],
+  mixins: [InlineSettingMixin, sync],
   data () {
     return {
       restoreValues: {
@@ -206,7 +207,8 @@ export default {
     this.resetControls();
   },
   methods: {
-    resetControls () {
+    async resetControls () {
+      await this.sync();
       const {
         hp, mp, gp, exp, lvl,
       } = this.user.stats;
