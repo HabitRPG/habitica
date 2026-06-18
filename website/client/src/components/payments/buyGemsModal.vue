@@ -191,13 +191,7 @@
           </small>
         </div>
       </div>
-      <div
-        class="gift-gems-prompt"
-        role="button"
-        tabindex="0"
-        @click="showSelectUser"
-        @keyup.enter="showSelectUser"
-      >
+      <div class="gift-gems-prompt">
         <div class="gift-art">
           <div
             v-once
@@ -215,12 +209,14 @@
             v-html="icons.sparkles"
           ></div>
         </div>
-        <p
-          v-once
+        <a
           class="prompt-text"
+          tabindex="0"
+          @click="showSelectUserForGems"
+          @keyup.enter="showSelectUserForGems"
         >
           {{ $t('giftGems') }}
-        </p>
+        </a>
       </div>
     </b-modal>
   </div>
@@ -369,11 +365,10 @@
 
   .gift-gems-prompt {
     margin-top: 2rem;
-    padding: 1.5rem 1rem 1.75rem;
+    padding: 1.5rem 1rem 1.25rem;
     background: $gray-10;
     border-radius: 0 0 8px 8px;
     text-align: center;
-    cursor: pointer;
 
     .gift-art {
       display: flex;
@@ -402,6 +397,7 @@
     }
 
     .prompt-text {
+      display: inline-block;
       margin-bottom: 0;
       font-family: Roboto;
       font-size: 14px;
@@ -409,6 +405,12 @@
       font-weight: 400;
       line-height: 24px;
       color: $white;
+      cursor: pointer;
+
+      &:hover {
+        color: $white;
+        text-decoration: underline;
+      }
     }
   }
 
@@ -595,6 +597,11 @@ export default {
     showSelectUser () {
       this.$root.$emit('bv::show::modal', 'select-user-modal');
       this.close();
+    },
+    showSelectUserForGems () {
+      // Open the Send Gift flow on the Gems tab (instead of the default Subscription tab)
+      this.$store.state.giftModalOptions.startingPage = 'buyGems';
+      this.showSelectUser();
     },
   },
 };
