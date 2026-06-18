@@ -394,6 +394,8 @@ schema.pre('save', true, async function preSaveUser (next, done) {
     _.each(['hp', 'mp', 'exp', 'gp'], stat => {
       if (this.stats[stat] > statMaximum) {
         this.stats[stat] = statMaximum;
+      } else {
+        this.stats[stat] = Math.floor(this.stats[stat]);
       }
       if (!this.stats[stat].isInteger()) {
         this.stats[stat] = Math.floor(this.stats[stat]);
