@@ -159,10 +159,12 @@ export const TaskSchema = new Schema({
 TaskSchema.plugin(baseModel, {
   noSet: ['challenge', 'userId', 'completed', 'history', 'dateCompleted', '_legacyId', 'group', 'isDue', 'nextDue'],
   sanitizeTransform (taskObj) {
-    if (taskObj.type && taskObj.type !== 'reward') { // value should be settable directly only for rewards
-      delete taskObj.value;
-    } else if (taskObj.type && taskObj.type === 'reward') {
-      taskObj.value = Math.floor(taskObj.value);
+    if (taskObj.type) {
+      if (taskObj.type === 'reward' && taskObj.value && !Number.isInteger(taskObj.value)) {
+        taskObj.value = Math.floor(taskObj.value);
+      } else if (taskObj.type !== 'reward') { // value should be settable directly only for rewards
+        delete taskObj.value;
+      }
     }
 
     if (taskObj.priority) {
