@@ -397,9 +397,6 @@ schema.pre('save', true, async function preSaveUser (next, done) {
       } else {
         this.stats[stat] = Math.floor(this.stats[stat]);
       }
-      if (!this.stats[stat].isInteger()) {
-        this.stats[stat] = Math.floor(this.stats[stat]);
-      }
     });
     if (this.stats.lvl > levelMaximum) {
       this.stats.lvl = levelMaximum;
