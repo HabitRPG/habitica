@@ -19,7 +19,7 @@ function adHocEvent () {
   const event = {
     start: AD_HOC_EVENT_BEGIN,
     end: AD_HOC_EVENT_END,
-    event: AD_HOC_EVENT_KEY,    
+    event: AD_HOC_EVENT_KEY,
   };
   if (AD_HOC_EVENT_GEMS === 'true') {
     event.gemsPromo = gemsPromo;
