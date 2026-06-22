@@ -33,7 +33,7 @@ import gemsBlock from './gems';
 import faq from './faq';
 import timeTravelers from './time-travelers';
 
-import { REPEATING_EVENTS, getRepeatingEvents } from './constants/events';
+import { REPEATING_EVENTS, getRepeatingEvents, gemsPromo } from './constants/events';
 
 import loginIncentives from './loginIncentives';
 
@@ -119,6 +119,7 @@ api.armoire = {
 
 api.events = EVENTS;
 api.repeatingEvents = REPEATING_EVENTS;
+api.gemsPromo = gemsPromo;
 api.getRepeatingEventsOnDate = getRepeatingEvents;
 
 api.classes = CLASSES;

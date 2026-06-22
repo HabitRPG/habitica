@@ -5,7 +5,6 @@ import { // eslint-disable-line import/no-cycle
   TAVERN_ID as tavernId,
 } from '../models/group';
 import common from '../../common';
-import { gemsPromo } from '../../common/script/content/constants/events';
 
 const AD_HOC_EVENT_BEGIN = nconf.get('AD_HOC_EVENT_BEGIN');
 const AD_HOC_EVENT_END = nconf.get('AD_HOC_EVENT_END');
@@ -22,7 +21,7 @@ function adHocEvent () {
     event: AD_HOC_EVENT_KEY,
   };
   if (AD_HOC_EVENT_GEMS === 'true') {
-    event.gemsPromo = gemsPromo;
+    event.gemsPromo = common.content.gemsPromo;
   }
   return event;
 }
