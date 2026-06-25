@@ -11,22 +11,20 @@
       class="content d-flex justify-content-around align-items-center"
       @click="openGemsModal"
     >
-      <img
-        class="d-xl-block"
-        :srcset="assets('confetti-left')?.srcSet"
-        :src="assets('confetti-left')?.src"
-      >
+      <div
+        class="w-100 mr-4"
+        :class="confettiClass('left')"
+      ></div>
       <div>
         <img
-          :srcset="assets('text')?.srcSet"
-          :src="assets('text')?.src"
+          :srcset="textAssets?.srcSet"
+          :src="textAssets?.src"
         >
       </div>
-      <img
-        class="d-xl-block"
-        :srcset="assets('confetti-right')?.srcSet"
-        :src="assets('confetti-right')?.src"
-      >
+      <div
+        class="w-100 ml-4"
+        :class="confettiClass('right')"
+      ></div>
     </div>
   </base-banner>
 </template>
@@ -35,6 +33,23 @@
 @import '@/assets/scss/colors.scss';
 
 $promos: ('spring', 'summer', 'fall', 'winter', 'flash');
+$sides: ('left', 'right');
+$types: ('seasonal', 'spooky');
+
+@each $type in $types {
+  @each $side in $sides {
+    .confetti-#{$side}-#{$type} {
+      height: 37px;
+      background-image: url('/static/gems/confetti-#{$side}/#{$type}-confetti-#{$side}.png');
+      background-image: image-set(
+        url('/static/gems/confetti-#{$side}/#{$type}-confetti-#{$side}.png') 1x,
+        url('/static/gems/confetti-#{$side}/#{$type}-confetti-#{$side}@2x.png') 2x,
+        url('/static/gems/confetti-#{$side}/#{$type}-confetti-#{$side}@3x.png') 3x,
+      );
+      background-repeat: repeat-x;
+    }
+  }
+}
 
 @each $event in $promos {
   .gems-promo-banner-#{$event}_extra_gems {
@@ -79,6 +94,12 @@ export default {
     eventName () {
       return this.currentEvent && this.currentEvent.event;
     },
+    gemsPromoSeason () {
+      const { currentEvent } = this;
+      if (!currentEvent) return null;
+      return currentEvent.gemsPromo ? currentEvent.event.split('_')[0] // eslint-disable-line prefer-destructuring
+        : '';
+    },
     showGemsPromoBanner () {
       const currEvt = this.currentEvent;
       if (!currEvt || !currEvt.gemsPromo) return false;
@@ -90,25 +111,24 @@ export default {
       if (!this.showGemsPromoBanner) return bannerClass;
       return `${bannerClass} ${bannerClass}-${this.eventName}`;
     },
+    textAssets () {
+      return {
+        src: `/static/gems/text/${this.gemsPromoSeason}-text.png`,
+        srcSet: `/static/gems/text/${this.gemsPromoSeason}-text.png,
+          /static/gems/text/${this.gemsPromoSeason}-text@2x.png 2x,
+          /static/gems/text/${this.gemsPromoSeason}-text@3x.png 3x`,
+      };
+    },
   },
   methods: {
     openGemsModal () {
       this.$root.$emit('bv::show::modal', 'buy-gems');
     },
-    assets (pieceName = '') {
-      const { currentEvent } = this;
-      if (!currentEvent) return null;
-      let gemsPromoSeason = currentEvent.gemsPromo ? currentEvent.event.split('_')[0] // eslint-disable-line prefer-destructuring
-        : '';
-      if (gemsPromoSeason !== 'spooky' && pieceName.indexOf('confetti') !== -1) {
-        gemsPromoSeason = 'seasonal';
+    confettiClass (side = 'left') {
+      if (this.gemsPromoSeason === 'spooky') {
+        return `confetti-${side}-spooky`;
       }
-      return {
-        src: `/static/gems/${pieceName}/${gemsPromoSeason}-${pieceName}.png`,
-        srcSet: `/static/gems/${pieceName}/${gemsPromoSeason}-${pieceName}.png,
-          /static/gems/${pieceName}/${gemsPromoSeason}-${pieceName}@2x.png 2x,
-          /static/gems/${pieceName}/${gemsPromoSeason}-${pieceName}@3x.png 3x`,
-      };
+      return `confetti-${side}-seasonal`;
     },
   },
 };

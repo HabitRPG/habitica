@@ -12,7 +12,7 @@
       >
         <span
           v-once
-          class="close-icon svg-icon inline icon-12"
+          class="close-icon svg-icon inline icon-16"
           @click="close()"
           v-html="icons.close"
         ></span>
