@@ -384,14 +384,15 @@ api.getUserTasks = {
     const types = Tasks.tasksTypes.map(type => `${type}s`);
     types.push('completedTodos', '_allCompletedTodos'); // _allCompletedTodos is currently in BETA and is likely to be removed in future
     req.checkQuery('type', res.t('invalidTasksTypeExtra')).optional().isIn(types);
+    req.checkQuery('history', res.t('invalidHistoryBoolean')).optional().isBoolean();
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     const { user } = res.locals;
-    const { dueDate } = req.query;
+    const { dueDate, history } = req.query;
 
-    const tasks = await getTasks(req, res, { user, dueDate });
+    const tasks = await getTasks(req, res, { user, dueDate, history: history !== 'false' });
     return res.respond(200, tasks);
   },
 };
