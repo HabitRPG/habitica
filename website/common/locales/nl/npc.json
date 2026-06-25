@@ -21,7 +21,7 @@
     "pauseDailies": "Pauzeer schade",
     "unpauseDailies": "Schade hervatten",
     "staffAndModerators": "Staf en Moderators",
-    "communityGuidelinesIntro": "Habitica streeft ernaar een gastvrije omgeving te creëren voor gebruikers van alle leeftijden en afkomsten, vooral in Groepen en Gildes. Als je twijfelt of vragen hebt, bekijk dan onze <a href='/static/community-guidelines' target='_blank'>Gemeenschapsrichtlijnen</a>.",
+    "communityGuidelinesIntro": "Habitica streeft ernaar een gastvrije omgeving te creëren voor gebruikers van alle leeftijden en afkomsten, vooral in Groepen en Gildes. Als je twijfelt of vragen hebt, bekijk dan onze <%= linkOpen %>Gemeenschapsrichtlijnen<%= linkClose %>.",
     "acceptCommunityGuidelines": "Ik stem ermee in om me aan de gemeenschapsrichtlijnen te houden",
     "worldBossEvent": "Wereldbaas-Evenement",
     "worldBossDescription": "Wereldbaas-Beschrijving",

@@ -67,6 +67,7 @@
       <a
         href="/static/privacy"
         target="_blank"
+        rel="noopener noreferrer"
       >
         {{ $t('habiticaPrivacyPolicy') }}
       </a>

@@ -72,8 +72,6 @@
     "pkAnswer6": "Beaucoup de personnes très différentes utilisent Habitica ! Plus de la moitié de ces personnes ont entre 18 et 34 ans, mais nous avons aussi des grand-parents qui utilisent le site avec leurs petits-enfants, et tous les âges entre les deux. Il n'est pas rare qu'une famille forme une équipe pour combattre les monstres ensemble.<br />De nombreuses personnes ont l'habitude des jeux, mais de façon surprenante, lors de notre dernière enquête, 40% des personnes participantes ne se considèrent pas spécialement comme des joueuses ! Il semble donc que notre méthode soit efficace pour n'importe qui souhaitant que la productivité et le bien-être soient plus fun.",
     "pkQuestion7": "Pourquoi Habitica utilise-t-il le pixel-art ?",
     "pkAnswer7": "Habitica utilise le pixel-art pour plusieurs raisons. En plus du côté nostalgie amusant, le pixel-art est très accessible à nos artistes volontaires qui veulent participer. Il est beaucoup plus facile de garder notre pixel-art cohérent, même quand de nombreux artistes différents contribuent, et cela nous permet de générer rapidement une tonne de nouveaux contenus !",
-    "pkQuestion8": "Comment Habitica a-t-il changé la vie réelle des gens ?",
-    "pkAnswer8": "Vous pouvez trouver beaucoup de témoignages sur la façon dont Habitica a aidé les gens ici : https://habitversary.tumblr.com",
     "pkMoreQuestions": "Avez-vous une question qui n'est pas sur cette liste ? Envoyez un courriel à admin@habitica.com !",
     "pkPromo": "Promos",
     "pkLogo": "Logos",
@@ -116,8 +114,8 @@
     "emailTaken": "Adresse courriel déjà utilisée par un utilisateur.",
     "newEmailRequired": "Nouvelle adresse courriel manquante.",
     "usernameTime": "Il est temps de définir votre identifiant !",
-    "usernameInfo": "Les identifiants sont maintenant des noms uniques qui seront visibles sous votre pseudo, et utilisés pour les invitations, les @mentions dans les discussions, et les messages.<br><br>Si vous voulez en savoir plus sur ce changement, <a href='https://habitica.fandom.com/wiki/Player_Names' target='_blank'>visitez notre wiki</a>.",
-    "usernameTOSRequirements": "Les identifiants doivent se conformer à nos <a href='/static/terms' target='_blank'>Conditions d'utilisations</a> et nos <a href='/static/community-guidelines' target='_blank'>Règles de vie en communauté</a>. Si vous n'aviez pas précédemment défini un identifiant, il a été auto-généré.",
+    "usernameInfo": "Les identifiants sont maintenant des noms uniques qui seront visibles sous votre pseudo, et utilisés pour les invitations, les @mentions dans les discussions, et les messages.<br><br>Si vous voulez en savoir plus sur ce changement, <%= linkOpen %>visitez notre wiki<%= linkClose %>.",
+    "usernameTOSRequirements": "Les identifiants doivent se conformer à nos <%= guidelinesLink %>Règles de vie en communauté<%= linkClose %>. Si vous n'aviez pas précédemment défini un identifiant, il a été auto-généré.",
     "usernameTaken": "L'identifiant est déjà pris.",
     "passwordConfirmationMatch": "La confirmation du mot de passe ne correspond pas au mot de passe.",
     "passwordResetPage": "Réinitialiser le mot de passe",
@@ -187,7 +185,7 @@
     "minPasswordLengthLogin": "Votre mot de passe contient au moins 8 caractères.",
     "enterValidEmail": "Merci d'entrer une adresse email valide.",
     "whatToCallYou": "Comment souhaitez-vous que nous vous appelions ?",
-    "acceptPrivacyTOS": "Vous confirmez avoir au moins 18 ans, et avoir lu et approuvé nos <a href='/static/terms' target='_blank'>Conditions de Service</a> ainsi que notre <a href='/static/privacy' target='_blank'>Politique de confidentialité</a>",
+    "acceptPrivacyTOS": "Vous confirmez avoir au moins 18 ans, et avoir lu et approuvé nos <%= termsLink %>Conditions de Service<%= linkClose %> ainsi que notre <%= privacyLink %>Politique de confidentialité<%= linkClose %>",
     "emailAddress": "Adresse mail",
     "emailRequiredForSupport": "Une adresse mail est nécessaire pour le support utilisat·eur·rice. Veuillez entrer une adresse mail pour poursuivre la création de votre compte."
 }

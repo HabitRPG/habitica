@@ -72,8 +72,6 @@
     "pkAnswer6": "Tante persone diverse usano Habitica! Più della metà dei nostri utenti hanno un'età compresa tra i 18 e i 34 anni, ma abbiamo anche nonni che usano il sito con i loro nipotini e ogni altra età intermedia. Speso una famiglia forma una squadra per combattere mostri assieme.<br />Molti dei nostri utenti hanno un passato da giocatori, ma sorprendentemente, quando abbiamo fatto un sondaggio un po' di tempo fa, il 40% dei nostri utenti si identifica come non-giocatore! Sembra che il nostro metodo può essere utile a chiunque voglia sentire produttività e benessere più divertenti.",
     "pkQuestion7": "Perché Habitica usa la pixel art?",
     "pkAnswer7": "Habitica usa la pixel art per varie ragioni. In aggiunta al fattore nostalgia, la pixel art è acile da approcciare dai nostri artisti volontari che vogliono collaborare. è molto più facile mantenere la nostra pixel art coerente anche con tanti artisti diversi che contribuiscono. e ci permette di generare velocemente tanti nuovi contenuti!",
-    "pkQuestion8": "Come ha influito Habitica sulla vita reale delle persone?",
-    "pkAnswer8": "Puoi trovare tante testimonianze su come Habitica ha aiutati molte persone qui: https://habitversary.tumblr.com",
     "pkMoreQuestions": "Hai una domanda che non è in questa lista? Mandaci un email a admin@habitica.com!",
     "pkPromo": "Promozioni",
     "pkLogo": "Loghi",
@@ -116,8 +114,8 @@
     "emailTaken": "L'indirizzo email è già stato utilizzato per un altro account.",
     "newEmailRequired": "Manca il nuovo indirizzo email.",
     "usernameTime": "È ora di impostare il tuo nome utente!",
-    "usernameInfo": "I nomi di login da questo momento diventano nomi utente unici che saranno visibili vicino al tuo nome pubblico e sono utilizzati per inviti, @menzioni in chat e messaggi. <br><br>Se vuoi imparare di più di questo cambiamento, <a href='https://habitica.fandom.com/wiki/Player_Names' target='_blank'>visita la nostra wiki</a>.",
-    "usernameTOSRequirements": "I nomi utenti devono essere conformi ai nostri <a href='/static/terms' target='_blank'>Termini di Servizio</a> e <a href='/static/community-guidelines' target='_blank'>Linee Guida della Community</a>. Se non avevi in precedenza un nome di login, il tuo nome utente è stato generato automaticamente.",
+    "usernameInfo": "I nomi di login da questo momento diventano nomi utente unici che saranno visibili vicino al tuo nome pubblico e sono utilizzati per inviti, @menzioni in chat e messaggi. <br><br>Se vuoi imparare di più di questo cambiamento, <%= linkOpen %>visita la nostra wiki<%= linkClose %>.",
+    "usernameTOSRequirements": "I nomi utenti devono essere conformi ai nostri <%= guidelinesLink %>Linee Guida della Community<%= linkClose %>. Se non avevi in precedenza un nome di login, il tuo nome utente è stato generato automaticamente.",
     "usernameTaken": "Nome utente già in uso.",
     "passwordConfirmationMatch": "La password non corrisponde alla conferma.",
     "passwordResetPage": "Reimposta password",
@@ -187,7 +185,7 @@
     "minPasswordLengthLogin": "La tua password deve avere almeno 8 caratteri.",
     "enterValidEmail": "Inserisci un indirizzo email valido.",
     "whatToCallYou": "Come possiamo chiamarti?",
-    "acceptPrivacyTOS": "L'utente dichiara di avere almeno 18 anni e di aver letto e accettato i nostri <a href='/static/terms' target='_blank'>Termini di Servizio</a> e la <a href='/static/privacy' target='_blank'>Privacy Policy</a>",
+    "acceptPrivacyTOS": "L'utente dichiara di avere almeno 18 anni e di aver letto e accettato i nostri <%= termsLink %>Termini di Servizio<%= linkClose %> e la <%= privacyLink %>Privacy Policy<%= linkClose %>",
     "emailRequiredForSupport": "Abbiamo bisogno di un indirizzo email per fornire assistenza. Inserisci un indirizzo email per continuare con la creazione del tuo account.",
     "missingClientHeader": "Mancano le intestazioni dell'x-client."
 }

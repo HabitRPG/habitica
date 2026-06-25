@@ -100,9 +100,11 @@
       We use Google Analytics, a service which uses cookies to collect and analyze data about the use of the Services and report on activities and trends. This service may also collect data about the use of other websites, apps, and online services. You can <a
         href="https://policies.google.com/technologies/partner-sites"
         target="_blank"
+        rel="noopener noreferrer"
       >learn about</a> Google's practices, and opt out of them, by downloading the <a
         href="https://tools.google.com/dlpage/gaoptout"
         target="_blank"
+        rel="noopener noreferrer"
       >Google Analytics opt-out browser add-on</a>.
     </p>
     <h4>Controlling Cookies</h4>
@@ -687,6 +689,7 @@
       <em>Opt - Out of the “ Sale” of Personal Information or Use of Such Information for “Targeted Advertising” or “Profiling”</em>. We engage in common marketing and advertising practices to provide more relevant content and ads to users of our Site and Services. Certain of these practices may involve the “selling” of personal information, or the use of such information for “targeted advertising” or “profiling,” as those terms are defined in the Texas Data Privacy and Security Act (“TDPSA”) and the Nebraska Data Privacy Act. We do not sell personal information under the more commonly understood meaning of that word—i.e., providing personal information to third parties in exchange for money. Nor do we have actual knowledge of selling personal information of minors under the age of 16. To opt-out of the selling of your personal information, or use of that information for targeted advertising or profiling, please submit a request to <a href="mailto:privacy@habitica.com">privacy@habitica.com</a>. Note: We also treat Global Privacy Control browser signals as opt-out of sale/disclosure for targeted advertising or profiling requests. To opt-out via the Global Privacy Control, please follow the instructions available <a
         href="https://globalprivacycontrol.org/"
         target="_blank"
+        rel="noopener noreferrer"
       >here</a>.
     </p>
     <p>
@@ -730,12 +733,15 @@
       <strong>Right to lodge a complaint:</strong> Users that reside in the UK, EEA, or Switzerland have the right to seek information and assistance or lodge a complaint about our data collection and processing actions with the supervisory authority where they reside. Contact details for data protection authorities are available here. UK: <a
         href="https://ico.org.uk/"
         target="_blank"
+        rel="noopener noreferrer"
       >https://ico.org.uk/</a> EEA: <a
         href="https://edpb.europa.eu/about-edpb/board/members_en"
         target="_blank"
+        rel="noopener noreferrer"
       >https://edpb.europa.eu/about-edpb/board/members_en</a> Switzerland: <a
         href="https//www.edoeb.admin.ch/edoeb/en/home/deredoeb/kontakt.html"
         target="_blank"
+        rel="noopener noreferrer"
       >https//www.edoeb.admin.ch/edoeb/en/home/deredoeb/kontakt.html</a>.
     </p>
     <p>

@@ -310,6 +310,7 @@
               <a
                 class="topbar-dropdown-item dropdown-item"
                 target="_blank"
+                rel="noopener noreferrer"
                 @click.prevent="openBugReportModal()"
               >
                 {{ $t('reportBug') }}
@@ -317,6 +318,7 @@
               <a
                 class="topbar-dropdown-item dropdown-item"
                 target="_blank"
+                rel="noopener noreferrer"
                 @click.prevent="openBugReportModal(true)"
               >
                 {{ $t('askQuestion') }}
@@ -325,6 +327,7 @@
                 class="topbar-dropdown-item dropdown-item"
                 href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
                 target="_blank"
+                rel="noopener noreferrer"
               >{{ $t('requestFeature') }}</a>
             </div>
           </li>
@@ -377,6 +380,7 @@
                 v-if="hasPermission(user, 'news')"
                 class="topbar-dropdown-item dropdown-item"
                 target="_blank"
+                rel="noopener noreferrer"
                 href="https://panel.habitica.com"
               >
                 {{ $t('newsroom') }}

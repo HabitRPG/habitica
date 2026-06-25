@@ -19,7 +19,6 @@
     <delete-task-confirm-modal v-if="isUserLoaded" />
     <template v-if="isUserLoaded">
       <privacy-banner />
-      <chat-banner />
       <damage-paused-banner />
       <gems-promo-banner />
       <gift-promo-banner />
@@ -123,7 +122,6 @@ import birthdayModal from '@/components/news/birthdayModal';
 import AppMenu from '@/components/header/menu';
 import AppHeader from '@/components/header/index';
 import BirthdayBanner from '@/components/header/banners/birthdayBanner';
-import ChatBanner from '@/components/header/banners/chatBanner';
 import DamagePausedBanner from '@/components/header/banners/damagePaused';
 import GemsPromoBanner from '@/components/header/banners/gemsPromo';
 import GiftPromoBanner from '@/components/header/banners/giftPromo';
@@ -160,7 +158,6 @@ export default {
     AppHeader,
     AppFooter,
     birthdayModal,
-    ChatBanner,
     DamagePausedBanner,
     GemsPromoBanner,
     GiftPromoBanner,

@@ -6,11 +6,7 @@
   >
     <div slot="content">
       <div
-        v-html="$t('invitedToPartyBy', {
-          userId: notification.data.inviter,
-          userName: invitingUser.auth ? invitingUser.auth.local.username : null,
-          party: notification.data.name,
-        })"
+        v-html="$t('invitedToPartyBy', invitationInfo)"
       >
       </div>
       <div class="notifications-buttons">
@@ -60,6 +56,15 @@ export default {
   },
   computed: {
     ...mapState({ user: 'user.data' }),
+    invitationInfo () {
+      if (this.notification?.data) {
+        return {
+          usernameLink: `<a href="/profile/${this.notification.data.inviter}" target="_blank" rel="noreferrer noopener">@${this.invitingUser.auth ? this.invitingUser.auth.local.username : null}</a>`,
+          partyName: `<span class="notification-bold">${this.notification.data.name}</span>`,
+        };
+      }
+      return null;
+    },
   },
   async mounted () {
     this.invitingUser = await this.$store.dispatch('members:fetchMember', {

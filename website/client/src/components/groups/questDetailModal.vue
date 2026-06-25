@@ -74,7 +74,7 @@
             class="no-quest-to-start"
           >
             <b>{{ $t('noQuestToStartTitle') }}</b> <br>
-            <span v-html="$t('noQuestToStart', { questShop: '/shops/quests' })"></span>
+            <span v-html="$t('noQuestToStart', questLinks)"></span>
           </span>
         </div>
       </div>
@@ -369,6 +369,10 @@ export default {
       shareUserIdShown: false,
       quests,
       sortBy: 'AZ',
+      questLinks: {
+        linkOpen: '<a href="/shops/quests">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {

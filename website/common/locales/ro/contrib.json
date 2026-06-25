@@ -40,9 +40,8 @@
     "backerTier": "Nivel de susținător",
     "playerTiers": "Niveluri de jucător",
     "tier": "Nivel",
-    "conRewardsURL": "http://habitica.fandom.com/wiki/Contributor_Rewards",
     "surveysSingle": "A ajutat Habitica să crească, fie prin completarea unui formular sau ajutând la o testare majoră. Mulțumim!",
     "surveysMultiple": "A ajutat Habitica să crească în <%= count %> cazuri, fie prin completarea unui formular sau ajutând la o testare majoră. Mulțumim!",
     "blurbHallPatrons": "Aceasta este Sala Patronilor, unde îi onorăm pe nobilii aventurieri care au susținut Kickstarter-ul original Habitica. Le mulțumim că ne ajută să aducem Habitica la viață!",
-    "blurbHallContributors": "Aceasta este Sala Contribuitorilor, unde contribuitorii open-source ai Habitica sunt onorați. Prin programare, artă, muzică, scris. sau prin ajutor general, au primit <a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> nestemate, echipament exclusiv</a>, <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>titluri prestigioase</a>. Și tu poți contribui la Habitica! <a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'>Află mai multe aici.</a>"
+    "blurbHallContributors": "Aceasta este Sala Contribuitorilor, unde contribuitorii open-source ai Habitica sunt onorați. Prin programare, artă, muzică, scris. sau prin ajutor general, au primit <%= linkRewards %> nestemate, echipament exclusiv<%= linkClose %>, <%= linkTiers %>titluri prestigioase<%= linkClose %>. Și tu poți contribui la Habitica! <%= linkContributing %>Află mai multe aici.<%= linkClose %>"
 }

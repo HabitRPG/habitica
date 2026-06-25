@@ -21,7 +21,7 @@
     "pauseDailies": "Pauznout poškození",
     "unpauseDailies": "Odpauznout poškození",
     "staffAndModerators": "Personál a Moderátoři",
-    "communityGuidelinesIntro": "Habitica se snaží vytvořit příjemné prostředí pro uživatele všech věků a prostředí, zvláště ve veřejných prostorech, jako je například Krčma. Pokud máš jakékoliv dotazy, prosím, projdi se naše <a href='/static/community-guidelines' target='_blank'>Zásady komunity</a>.",
+    "communityGuidelinesIntro": "Habitica se snaží vytvořit příjemné prostředí pro uživatele všech věků a prostředí, zvláště ve veřejných prostorech, jako je například Krčma. Pokud máš jakékoliv dotazy, prosím, projdi se naše <%= linkOpen %>Zásady komunity<%= linkClose %>.",
     "acceptCommunityGuidelines": "Souhlasím s dodržováním Zásad komunity",
     "worldBossEvent": "Událost: Světový Boss",
     "worldBossDescription": "Popis Světového bosse",

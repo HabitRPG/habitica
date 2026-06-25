@@ -72,8 +72,6 @@
     "pkAnswer6": "Veel verschillende mensen gebruiken Habitica! Meer dan de helft van onze gebruikers hebben een leeftijd tussen de 18 en de 34, maar we hebben ook grootouders die de site gebruiken met hun jonge kleinkinderen en alle leeftijden daartussenin. Families treden vaak toe tot een gezelschap en bevechten samen monsters. <br /> Veel van onze gebruikers hebben een achtergrond in games, maar verassend genoeg, toen we een tijdje geleden een enquête hielden, indentificeerde 40% van onze gebruikers als niet-gamer! Dus het lijkt er op dat onze methode effectief kan zijn voor iedereen die wil dat productiviteit en welzijn leuker voelt.",
     "pkQuestion7": "Waarom gebruikt Habitica pixelkunst?",
     "pkAnswer7": "Habitica gebruikt pixel art om verschillende redenen. Naast de leuke nostalgische factor, is pixel art heel toegankelijk voor onze vrijwillige kunstenaars die een steentje willen bijdragen. Het is veel makkelijker onze pixel art consistent te houden, zelfs wanneer veel verschillende kunstenaars bijdragen, en het laat ons toe snel een hoop nieuwe inhoud te genereren!",
-    "pkQuestion8": "Hoe heeft Habitica effect gehad op het leven van mensen?",
-    "pkAnswer8": "Je kunt veel verhalen vinden hoe Habitica mensen heeft geholpen op: https://habitversary.tumblr.com",
     "pkMoreQuestions": "Heb je een vraag die niet op deze lijst staat? Stuur dan een email naar admin@habitica.com!",
     "pkPromo": "Promoties",
     "pkLogo": "Logo's",
@@ -116,8 +114,8 @@
     "emailTaken": "E-mailadres is al in gebruik door een account.",
     "newEmailRequired": "Ontbrekend nieuw e-mailadres.",
     "usernameTime": "Het is tijd om je gebruikersnaam in te stellen!",
-    "usernameInfo": "Aanmeldnamen zijn vervangen door unieke gebruikersnamen die zichtbaar zijn naast uw weergavenaam en worden gebruikt voor uitnodigingen, chat @vermeldingen en berichten.<br><br> Als u meer wilt weten over deze wijziging, <a href='https://habitica.fandom.com/wiki/Player_Names' target=' _blank'>bezoek dan onze wiki</a>.",
-    "usernameTOSRequirements": "Gebruikersnamen moeten conform zijn aan onze <a href='/static/terms' target='_blank'>servicevoorwaarden</a> en <a href='/static/community-guidelines' target='_blank'>communityrichtlijnen</a>. Als je voorheen geen aanmeldnaam gezet had, dan werd je gebruikersnaam automatisch gegenereerd.",
+    "usernameInfo": "Aanmeldnamen zijn vervangen door unieke gebruikersnamen die zichtbaar zijn naast uw weergavenaam en worden gebruikt voor uitnodigingen, chat @vermeldingen en berichten.<br><br> Als u meer wilt weten over deze wijziging, <%= linkOpen %>bezoek dan onze wiki<%= linkClose %>.",
+    "usernameTOSRequirements": "Gebruikersnamen moeten conform zijn aan onze <%= guidelinesLink %>communityrichtlijnen<%= linkClose %>. Als je voorheen geen aanmeldnaam gezet had, dan werd je gebruikersnaam automatisch gegenereerd.",
     "usernameTaken": "Gebruikersnaam reeds in gebruik.",
     "passwordConfirmationMatch": "Wachtwoordconfirmatie komt niet overeen met wachtwoord.",
     "passwordResetPage": "Reset je wachtwoord",
@@ -186,6 +184,6 @@
     "incorrectResetPhrase": "Typ <%= magicWord %> in hoofdletters om uw account te resetten.",
     "marketing4Lead3Button": "Begin vandaag nog",
     "whatToCallYou": "Hoe moeten we je noemen?",
-    "acceptPrivacyTOS": "Ik bevestig dat ik ten minste 18 jaar oud ben en dat ik akkoord ga met de <a href='/static/terms' target='_blank'>Algemene Voorwaarden</a> en het <a href='/static/privacy' target='_blank'>Privacybeleid</a> en deze heb gelezen",
+    "acceptPrivacyTOS": "Ik bevestig dat ik ten minste 18 jaar oud ben en dat ik akkoord ga met de <%= termsLink %>Algemene Voorwaarden<%= linkClose %> en het <%= privacyLink %>Privacybeleid<%= linkClose %> en deze heb gelezen",
     "translateHabitica": "Habitica vertalen"
 }

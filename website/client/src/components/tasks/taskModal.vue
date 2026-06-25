@@ -1353,8 +1353,8 @@ export default {
       ],
       calendarHighlights: { dates: [new Date()] },
       spiLinkData: {
-        firstLink: '<a href="/static/privacy#section_1" target="_blank">',
-        secondLink: '<a href="/static/privacy" target="_blank">',
+        firstLink: '<a href="/static/privacy#section_1" target="_blank" rel="noopener noreferrer">',
+        secondLink: '<a href="/static/privacy" target="_blank" rel="noopener noreferrer">',
         linkClose: '</a>',
       },
     };

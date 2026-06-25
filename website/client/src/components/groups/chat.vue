@@ -8,7 +8,7 @@
         {{ label }}
       </h3>
       <div
-        v-markdown="$t('markdownFormattingHelp')"
+        v-markdown="$t('markdownFormattingHelp', { markdownLink })"
         class="float-right"
       ></div>
       <div
@@ -127,6 +127,7 @@ export default {
       },
       textbox: null,
       MAX_MESSAGE_LENGTH: MAX_MESSAGE_LENGTH.toString(),
+      markdownLink: 'https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica',
     };
   },
   computed: {
