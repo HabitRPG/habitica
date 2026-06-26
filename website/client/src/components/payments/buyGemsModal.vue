@@ -12,7 +12,7 @@
       >
         <span
           v-once
-          class="close-icon svg-icon inline icon-16"
+          class="close-icon svg-icon inline icon-16 color white"
           @click="close()"
           v-html="icons.close"
         ></span>
@@ -281,12 +281,12 @@
         color: $color;
       }
 
-      .close-icon svg path {
-        stroke: $gray-200;
-      }
+      .close-icon {
+        opacity: .5;
 
-      .close-icon:hover svg path {
-        stroke: $gray-400;
+        &:hover {
+          opacity: .75;
+        }
       }
     }
   }

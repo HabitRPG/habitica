@@ -70,7 +70,7 @@ $types: ('seasonal', 'spooky');
 
 ::v-deep .modal-close .svg-close {
   color: $white;
-  opacity: 50%;
+  opacity: .5;
 }
 
 </style>
