@@ -26,6 +26,10 @@ export const schema = new mongoose.Schema({
   nextBillingDate: Date, // Next time google will bill this user.
   hourglassPromoReceived: Date,
   cumulativeCount: { $type: Number, default: 0 },
+  deferred: {
+    planId: String,
+    deferredUntil: Date,
+  },
   consecutive: {
     count: { $type: Number, default: 0 },
     // when gifted subs, offset++ for each month. offset-- each new-month (cron).
