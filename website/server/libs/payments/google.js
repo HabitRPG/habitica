@@ -200,11 +200,22 @@ api.subscribe = async function subscribe (
   if (existingSub) {
     if (deferredSku) {
       const deferredSubCode = getSubCodeFromSku(deferredSku);
-      data.updatedTo = shared.content.subscriptionBlocks[deferredSubCode];
-    } else {
-      data.updatedFrom = existingSub;
-      data.updatedFrom.logic = 'payFull';
+      const purchaseList = iap.getPurchaseData(googleRes);
+      const previousPurchase = purchaseList
+        .find(purchase => getSubCodeFromSku(purchase.productId) === deferredSubCode);
+      nextBillingDate = new Date(Number(previousPurchase.expirationDate));
+      user.purchased.plan.deferred = {
+        planId: deferredSubCode,
+        deferredUntil: nextBillingDate,
+      };
+      user.purchased.plan.customerId = token;
+      await user.save();
+      // we don't want to do anything else at this point.
+      // When the deferring ends we will update the data.
+      return;
     }
+    data.updatedFrom = existingSub;
+    data.updatedFrom.logic = 'payFull';
   }
   await payments.createSubscription(data);
 };
