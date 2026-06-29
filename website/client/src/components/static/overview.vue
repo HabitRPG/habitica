@@ -51,7 +51,7 @@ export default {
       },
       overviewLinks: {
         faqLink: '<a href="/static/faq">',
-        adminLink: '<a href="mailto:admin@habitica.com?subject=Habitica Web Question" target="_blank" rel="noopener noreferrer">',
+        adminLink: '<a href="mailto:admin@habitica.com?subject=Habitica Web Question">',
         linkClose: '</a>',
       },
     };

@@ -1063,7 +1063,7 @@ export default {
       communityGuidelineLinks: {
         linkOpen: '<a href="https://habitica.com/static/community-guidelines" target="_blank" rel="noreferrer noopener">',
         linkClose: '</a>',
-        adminEmail: `<a href="mailto:${COMMUNITY_MANAGER_EMAIL}" target="_blank" rel="noopener noreferrer">${COMMUNITY_MANAGER_EMAIL}</a>`,
+        adminEmail: `<a href="mailto:${COMMUNITY_MANAGER_EMAIL}">${COMMUNITY_MANAGER_EMAIL}</a>`,
       },
       selectedPage: 'profile',
       achievements: {},

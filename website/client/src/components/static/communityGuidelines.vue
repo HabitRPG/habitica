@@ -193,7 +193,7 @@
 export default {
   data () {
     return {
-      adminEmail: '<a href="mailto:admin@habitica.com" target="_blank" rel="noreferrer noopener">admin@habitica.com</a>',
+      adminEmail: '<a href="mailto:admin@habitica.com">admin@habitica.com</a>',
       gitHubLinks: {
         linkOpen: '<a href="https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica" target="_blank" rel="noreferrer noopener">',
         linkClose: '</a>',

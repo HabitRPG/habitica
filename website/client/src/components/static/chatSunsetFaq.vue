@@ -171,9 +171,9 @@ export default {
   },
   data () {
     return {
-      adminEmail: '<a href="mailto:admin@habitica.com" target="_blank" rel="noreferrer noopener">admin@habitica.com</a>',
+      adminEmail: '<a href="mailto:admin@habitica.com">admin@habitica.com</a>',
       translationLinks: {
-        linkOpen: '<a href="https://translate.habitica.com/projects/habitica/#information">',
+        linkOpen: '<a href="https://translate.habitica.com/projects/habitica/#information" target="_blank" rel="noreferrer noopener">',
         linkClose: '</a>',
       },
       faqLinks: {
@@ -181,7 +181,7 @@ export default {
         linkClose: '</a>',
       },
       beginnerLinks: {
-        linkOpen: '<a href="https://habitica.wordpress.com/beginning-adventurers-guide/">',
+        linkOpen: '<a href="https://habitica.wordpress.com/beginning-adventurers-guide/"  target="_blank" rel="noreferrer noopener">',
         linkClose: '</a>',
       },
     };

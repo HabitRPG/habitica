@@ -368,7 +368,7 @@ export default {
         pixel_border: 'url(/static/npc/normal/pixel_border.png)',
       },
       staff: staffList,
-      adminEmail: '<a href="mailto:admin@habitica.com" target="_blank" rel="noreferrer noopener">admin@habitica.com</a>',
+      adminEmail: '<a href="mailto:admin@habitica.com">admin@habitica.com</a>',
     };
   },
 };

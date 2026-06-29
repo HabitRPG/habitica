@@ -37,7 +37,7 @@ export default {
         linkEnd: '</a>',
       },
       localStorageTryNext: {
-        linkStart: '<a href="mailto:admin@habitica.com?subject=Habitica Web Bug Report" target="_blank" rel="noopener noreferrer">',
+        linkStart: '<a href="mailto:admin@habitica.com?subject=Habitica Web Bug Report">',
         linkEnd: '</a>',
       },
     };
