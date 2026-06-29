@@ -12,7 +12,7 @@
       @click="openGemsModal"
     >
       <div
-        class="w-100 mr-4"
+        class="w-100"
         :class="confettiClass('left')"
       ></div>
       <div>
@@ -22,7 +22,7 @@
         >
       </div>
       <div
-        class="w-100 ml-4"
+        class="w-100"
         :class="confettiClass('right')"
       ></div>
     </div>
@@ -39,7 +39,7 @@ $types: ('seasonal', 'spooky');
 @each $type in $types {
   @each $side in $sides {
     .confetti-#{$side}-#{$type} {
-      height: 37px;
+      height: 48px;
       background-image: url('/static/gems/confetti-#{$side}/#{$type}-confetti-#{$side}.png');
       background-image: image-set(
         url('/static/gems/confetti-#{$side}/#{$type}-confetti-#{$side}.png') 1x,
@@ -48,6 +48,12 @@ $types: ('seasonal', 'spooky');
       );
       background-repeat: repeat-x;
     }
+  }
+  .confetti-left-#{$type} {
+    margin-right: 60px;
+  }
+  .confetti-right-#{$type} {
+    margin-left: 60px;
   }
 }
 
