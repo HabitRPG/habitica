@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Prosím, měj na paměti, že tvé zobrazované jméno, profilový obrázek a stručný popis musí být v souladu s <%= linkOpen %>Pravidly komunity<%= linkClose %> (tzn. žádné vulgarismy, témata pro dospělé nebo urážky). Pokud máš jakékoliv otázky ohledně toho, zdali něco je či není vhodné, neváhej nám napsat e-mail <%= adminEmail %>!",
+    "communityGuidelinesWarning": "Prosím, měj na paměti, že tvé zobrazované jméno, profilový obrázek a stručný popis musí být v souladu s <a href='https://habitica.com/static/community-guidelines' target='_blank'>Pravidly komunity</a> (tzn. žádné vulgarismy, témata pro dospělé nebo urážky). Pokud máš jakékoliv otázky ohledně toho, zdali něco je či není vhodné, neváhej nám napsat e-mail <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Upravit postavu",
     "editAvatar": "Upravit postavu",
@@ -61,7 +61,7 @@
     "costumeDisabled": "Vypnul jsi svůj kostým.",
     "gearAchievement": "Získal jsi Ocenění \"Maximální Vybavení\" za vylepšení výbavy na maximální set vybavení pro povolání! Získal jsi následující kompletní sety:",
     "gearAchievementNotification": "Získal jsi ocenění \"Ultimátní výbava\" za vylepšení vybavení daného povolání na maximální úroveň!",
-    "moreGearAchievements": "Abys získal více ocenění Ultimátního Vybavení, změň své povolání v <%= linkOpen %>Nastavení - Stránka<%= linkClose %>, a nakup si vybavení pro své nové povolání!",
+    "moreGearAchievements": "Abys získal více ocenění Ultimátního Vybavení, změň své povolání v <a href='/user/settings/site' target='_blank'>Nastavení - Stránka</a>, a nakup si vybavení pro své nové povolání!",
     "armoireUnlocked": "Také jsi odemkl <strong>Začarovanou almaru!</strong> Klikni na Odměnu začarované almary a náhodně získej speciální Vybavení! Také ti může náhodně dát Zkušenostní body nebo jídlo.",
     "ultimGearName": "Ultimátní výbava - <%= ultClass %>",
     "ultimGearText": "Vylepšil zbraň a brnění na maximální úroveň pro povolání <%= ultClass %> .",
@@ -185,5 +185,20 @@
     "purchasePetItemConfirm": "Tento nákup by překročil počet položek, které potřebujete k vylíhnutí všech možných <%= itemText %> domácích zvířátek. Jsi si jistá?",
     "notEnoughGold": "Nedostatek zlaťáků.",
     "chatCastSpellPartyTimes": "<%= username %> použil/a <%= spell %> pro skupinu <%= times %> times.",
-    "pointsAvailable": "Dostupné body"
+    "pointsAvailable": "Dostupné body",
+    "skins": "",
+    "titleFacialHair": "",
+    "titleHaircolor": "",
+    "titleHairbase": "",
+    "customizations": "",
+    "strTaskText": "",
+    "perTaskText": "",
+    "autoAllocate": "",
+    "allocationMethod": "",
+    "intTaskText": "",
+    "statAllocationInfo": "",
+    "assignedStat": "",
+    "conTaskText": "",
+    "chatCastSpellUserTimes": "",
+    "nextReward": ""
 }

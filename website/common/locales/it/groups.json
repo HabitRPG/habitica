@@ -239,7 +239,7 @@
     "guildSummaryPlaceholder": "Scrivi una breve descrizione del tuo gruppo. Qual è lo scopo principale del gruppo e di cosa si occuperanno i suoi membri?",
     "groupDescription": "Descrizione",
     "guildDescriptionPlaceholder": "Usa questa sezione per andare più in dettaglio su tutte quelle cose che i membri dovrebbero sapere riguardo il tuo Gruppo. Consigli, link utili e frasi di incoraggiamento vanno tutti qui!",
-    "markdownFormattingHelp": "[Guida per la formattazione (in inglese)](<%= markdownLink %>)",
+    "markdownFormattingHelp": "[Guida per la formattazione (in inglese)](https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica)",
     "partyDescriptionPlaceholder": "Questa è la descrizione della nostra Squadra. Descrive cosa facciamo in questa Squadra. Se vuoi imparare di più di cosa facciamo in questa Squadra, leggi la descrizione. All'avventura.",
     "guildGemCostInfo": "Un costo in Gemme promuove Gilde di alta qualità, ed è trasferito nella banca della tua Gilda.",
     "noGuildsTitle": "Non appartieni ad alcuna Gilda.",

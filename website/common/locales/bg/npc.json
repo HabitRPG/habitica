@@ -114,5 +114,20 @@
     "paymentCanceledDisputes": "Пратихме потвърждение за прекратяване на вашият email. Ако не виждате съобщението, моля свържете се с нас, за да се предотвратят бъдещи конфликти за таксуване.",
     "paymentAutoRenew": "Този абонамент ще се обновява автоматично, докато не се прекрати. Ако искате да прекратите този абонамент, може да го направите чрез настройките.",
     "paymentSubBillingWithMethod": "Вашият абонамент ще бъде таксуван <strong>$<%= amount %></strong> всеки <strong><%= months %> месеца</strong> чрез <strong><%= paymentMethod %></strong>.",
-    "cannotUnpinItem": "Този предмет не може да бъде откачен."
+    "cannotUnpinItem": "Този предмет не може да бъде откачен.",
+    "helpSupportHabitica": "",
+    "customizationsShopText": "",
+    "groupsPaymentSubBilling": "",
+    "limitedAvailabilityDays": "",
+    "nGemsGift": "",
+    "notAvailable": "",
+    "invalidUnlockSet": "",
+    "paymentYouSentSubscriptionG1G1": "",
+    "groupsPaymentAutoRenew": "",
+    "limitedAvailabilityMinutes": "",
+    "amountExp": "",
+    "nGems": "",
+    "nMonthsSubscriptionGift": "",
+    "sellItems": "",
+    "limitedAvailabilityHours": ""
 }

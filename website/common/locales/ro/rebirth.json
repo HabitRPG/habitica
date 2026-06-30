@@ -11,5 +11,12 @@
     "rebirthPop": "Resetează-ți automat personajul la Războinic de Nivelul 1 păstrând realizările, lucrurile de colecție și echipamentul. Sarcinile tale și istoricul lor va rămâne, dar vor fi resetat pe galben. Șirurile tale vor fi eliminate cu excepția cele ale sarcinilor din Provocări active sau din Planurile Grupului. Aurul, Experiența, Mana și efectele Atributelor tale vor fi eliminate. Toate acestea vor avea loc instant. Pentru mai multe informații, intră pe pagina de informații de pe wiki despre <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Globul Renașterii</a>.",
     "rebirthName": "Globul Renașterii",
     "rebirthComplete": "V-ați renăscut!",
-    "nextFreeRebirth": "<strong><%= days %>zile</strong> până la Globului Renașterii <strong>GRATUIT</strong>"
+    "nextFreeRebirth": "<strong><%= days %>zile</strong> până la Globului Renașterii <strong>GRATUIT</strong>",
+    "rebirthUnlockedNewItem": "",
+    "rebirthUnlockedOrb": "",
+    "rebirthUnlockedDesc": "",
+    "rebirthNewAchievement": "",
+    "rebirthNewAdventure": "",
+    "rebirthAchievementPlural": "",
+    "rebirthStackInfo": ""
 }

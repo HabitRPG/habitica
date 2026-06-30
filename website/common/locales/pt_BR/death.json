@@ -3,7 +3,7 @@
     "dontDespair": "Não se desespere!",
     "deathPenaltyDetails": "Você perdeu um Nível, seu Ouro e um Equipamento, mas você pode recuperar tudo isso com trabalho duro! Boa sorte -- você vai se sair bem.",
     "refillHealthTryAgain": "Restaurar Vida e tentar novamente",
-    "dyingOftenTips": "Isto está acontecendo com frequência? <%= linkOpen %>Aqui estão algumas dicas!<%= linkClose %>",
+    "dyingOftenTips": "Isto está acontecendo com frequência? <a href='/static/faq#prevent-damage' target='_blank'>Aqui estão algumas dicas!</a>",
     "losingHealthWarning": "Cuidado - Você está perdendo Vida!",
     "losingHealthWarning2": "Não deixe sua Vida chegar à zero! Se o fizer, você irá perder um nível, seu ouro e um equipamento.",
     "toRegainHealth": "Para recuperar Vida:",

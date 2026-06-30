@@ -151,5 +151,7 @@
     "everyMonth": "jeden Monat",
     "everyYear": "jedes Jahr",
     "everyXYears": "alle <%= count %> Jahre",
-    "everyXMonths": "alle <%= count %> Monate"
+    "everyXMonths": "alle <%= count %> Monate",
+    "fifthWeekWarning": "Diese Aufgabe wird in Monaten mit weniger als <%= day %> Tagen <strong>nicht fällig </strong>",
+    "every": ""
 }

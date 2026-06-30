@@ -165,8 +165,8 @@
     "mysterySet202006": "カラフル合金の人魚セット",
     "mysterySet202007": "ずば抜けたシャチセット",
     "mysterySet202008": "フクロウ賢者セット",
-    "cancelSubInfoGoogle": "あなたの有料プランをキャンセルしたい、もしくはすでにキャンセルした有料プランの終了日を確認するには、<%= linkOpen %>Google Play Store<%= linkClose %>をご使用ください。キャンセル後、有料プランの残りのクレジットは、契約終了日に追加されます。",
-    "cancelSubInfoApple": "あなたのsubscriptionをキャンセルしたい、もしくはすでにキャンセルしたsubscriptionの終了日を確認するには、<%= linkOpen %>Apple's official instructions<%= linkClose %>にアクセスして、内容にしたがってください。この画面上ではあなたがsubscriptionをキャンセルしているかどうかは表示されません。",
+    "cancelSubInfoGoogle": "あなたの有料プランをキャンセルしたい、もしくはすでにキャンセルした有料プランの終了日を確認するには、<a href='https://play.google.com/store/account/subscriptions'>Google Play Store</a>をご使用ください。キャンセル後、有料プランの残りのクレジットは、契約終了日に追加されます。",
+    "cancelSubInfoApple": "あなたのsubscriptionをキャンセルしたい、もしくはすでにキャンセルしたsubscriptionの終了日を確認するには、<a href=\"https://support.apple.com/en-us/HT202039\">Apple's official instructions</a>にアクセスして、内容にしたがってください。この画面上ではあなたがsubscriptionをキャンセルしているかどうかは表示されません。",
     "organization": "組織",
     "usuallyGems": "普段は<%= originalGems %>個",
     "mysterySet202009": "マーベラスな蛾セット",
@@ -277,5 +277,6 @@
     "mysterySet202604": "大胆な宇宙飛行士セット",
     "mysterySet202605": "夜の帳セット",
     "mysterySet202606": "ホリデーハンモックセット",
-    "mysterySet202607": "海の魔術師セット"
+    "mysterySet202607": "海の魔術師セット",
+    "mysterySet202608": ""
 }

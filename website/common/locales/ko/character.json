@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "별명과 프로필 사진, 설명은 반드시 <%= linkOpen %>커뮤니티 가이드라인<%= linkClose %>을 준수해야 합니다. (예: 욕설, 성적인 언어와 이미지, 모욕 등). 질문이 있으시거나 부적절한 것을 발견한다면 저희에게 이메일을 보내주세요 <%= adminEmail %>!",
+    "communityGuidelinesWarning": "별명과 프로필 사진, 설명은 반드시 <a href='https://habitica.com/static/community-guidelines' target='_blank'>커뮤니티 가이드라인</a>을 준수해야 합니다. (예: 욕설, 성적인 언어와 이미지, 모욕 등). 질문이 있으시거나 부적절한 것을 발견한다면 저희에게 이메일을 보내주세요 <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "프로필",
     "avatar": "아바타 꾸미기",
     "editAvatar": "아바타 커스터마이즈",
@@ -61,7 +61,7 @@
     "costumeDisabled": "의상을 해제했습니다.",
     "gearAchievement": "직업에 맞는 최고의 장비 세트로 업그레이드함으로써 \"궁극의 장비\" 업적을 달성하셨습니다! 완벽히 갖춘 세트:",
     "gearAchievementNotification": "직업에 맞는 최고의 장비 세트로 업그레이드함으로써 \"궁극의 장비\" 업적을 달성하셨습니다!",
-    "moreGearAchievements": "궁극의 장비 배지를 더 얻고 싶다면 <%= linkOpen %>설정에서 &gt; (이곳)<%= linkClose %> 직업을 바꾸고 새 직업의 장비를 구입하세요!",
+    "moreGearAchievements": "궁극의 장비 배지를 더 얻고 싶다면 <a href='/user/settings/site' target='_blank'>설정에서 &gt; (이곳)</a> 직업을 바꾸고 새 직업의 장비를 구입하세요!",
     "armoireUnlocked": "더 많은 장비는 <strong>마법의 장비상자</strong>에서 확인해 보세요. 마법의 장비상자 보상을 클릭하면 특수 장비를 얻을 수 있는 랜덤한 기회가 주어집니다. 또 랜덤하게 경험치나 음식 아이템을 줄 수도 있어요.",
     "ultimGearName": "궁극의 장비 - <%= ultClass %>",
     "ultimGearText": "<%= ultClass %> 클래스를 위한 최대 무기와 갑옷 세트로 업그레이드했습니다.",
@@ -130,7 +130,7 @@
     "optOutOfClasses": "나중에 선택하기",
     "chooseClass": "Choose your Class",
     "chooseClassLearnMarkdown": "[Habitica의 직업 시스템에 대해 자세히 알아보세요](/static/faq#what-classes)",
-    "optOutOfClassesText": "아직 못 고르셨나요? 서두를 필요 없습니다! 각 직업에 대해 <%= linkOpen %>자주 묻는 질문(FAQ)<%= linkClose %>에서 알아보고, 준비가 되면 설정에서 직업 시스템을 시작하세요.",
+    "optOutOfClassesText": "아직 못 고르셨나요? 서두를 필요 없습니다! 각 직업에 대해 <a href='/static/faq#what-classes' target='_blank'>자주 묻는 질문(FAQ)</a>에서 알아보고, 준비가 되면 설정에서 직업 시스템을 시작하세요.",
     "selectClass": "Select <%= heroClass %>",
     "select": "선택",
     "stealth": "은밀",
@@ -191,5 +191,14 @@
     "titleHaircolor": "머리색",
     "titleHairbase": "머리 모양",
     "customizations": "커스터마이즈",
-    "nextReward": "다음 로그인 보상"
+    "nextReward": "다음 로그인 보상",
+    "perTaskText": "",
+    "autoAllocate": "",
+    "pointsAvailable": "",
+    "allocationMethod": "",
+    "statAllocationInfo": "",
+    "assignedStat": "",
+    "strTaskText": "",
+    "conTaskText": "",
+    "intTaskText": ""
 }

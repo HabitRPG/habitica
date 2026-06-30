@@ -239,7 +239,7 @@
     "guildSummaryPlaceholder": "Schreibe eine Kurzbeschreibung über deine Gruppe.. Was ist der Hauptzweck der Gruppe und was werden die Gruppenmitglieder tun?",
     "groupDescription": "Beschreibung",
     "guildDescriptionPlaceholder": "Nutze diesen Abschnitt um alles, was Mitglieder über Deine Gruppe wissen sollten, ausführlicher darzustellen. Nützliche Tipps, hilfreiche Links und ermutigende Worte gehören hier hin!",
-    "markdownFormattingHelp": "[Markdown Formatierungshilfe](<%= markdownLink %>)",
+    "markdownFormattingHelp": "[Markdown Formatierungshilfe](https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica)",
     "partyDescriptionPlaceholder": "Das ist unsere Partybeschreibung. Sie beschreibt, was wir in unserer Party so tun. Wenn Du mehr darüber wissen willst, was wir in unserer Party so machen, lies die Beschreibung. Party on!",
     "guildGemCostInfo": "Eine Edelstein-Gebühr fördert die Qualität der Gilden und wird der Gildenbank gutgeschrieben.",
     "noGuildsTitle": "Du bist nicht Mitglied einer Gilde.",
@@ -427,5 +427,13 @@
     "chooseAnOption": "Wähle eine Option",
     "upgradeExistingGroup": "Eine bestehende Gruppe upgraden",
     "createNewGroup": "Eine neue Gruppe erstellen",
-    "yourParty": "Deine Party"
+    "yourParty": "Deine Party",
+    "previouslyUpgradedGroup": "",
+    "inviteOthersForAdditional": "",
+    "perMember": "",
+    "additionalMembersProrated": "",
+    "oneMember": "",
+    "membersCount": "",
+    "pendingCount": "",
+    "upgradeCancelsPendingInvites": ""
 }

@@ -942,5 +942,13 @@
     "backgrounds052026": "SET 144：2026年5月發布",
     "backgrounds042026": "SET 143：2026年4月發布",
     "backgroundElvenCitadelText": "精靈要塞",
-    "backgroundElvenCitadelNotes": "踏上前往精靈要塞的風景之旅。"
+    "backgroundElvenCitadelNotes": "踏上前往精靈要塞的風景之旅。",
+    "backgroundBeachWithVolcanoText": "",
+    "backgroundBeachWithVolcanoNotes": "",
+    "backgroundWaterfallWithRainbowText": "",
+    "backgroundWaterfallWithRainbowNotes": "",
+    "backgroundRidingACometText": "",
+    "backgroundRidingACometNotes": "",
+    "backgroundOnAStrangePlanetText": "",
+    "backgroundOnAStrangePlanetNotes": ""
 }

@@ -43,5 +43,6 @@
     "surveysSingle": "Pomohl zemi Habitica růst vyplněním dotazníků nebo usilovným testováním. Děkujeme vám!",
     "surveysMultiple": "Pomohl programu Habitica růst v <%= count %> případech, buď vyplněním dotazníků nebo usilovným testováním. Děkujeme vám!",
     "blurbHallPatrons": "Toto je Síň Patronů, ve které oslavujeme vznešené dobrodruhy, kteří podpořili program Habitica na Kickstarteru. Jsme jim vděční za to, že pomohli zemi Habitica přivést k životu!",
-    "blurbHallContributors": "Toto je Síň Přispěvatelů, kde oslavujeme open-source přispěvatele programu Habitica. Ať už za kód, kresby, hudbu, psaní, nebo jen prostě za pomoc, si vysloužili <%= linkRewards %> drahokamy, exkluzivní vybavení<%= linkClose %> a <%= linkTiers %>prestižní tituly<%= linkClose %>. Také můžeš programu Habitica přispět! <%= linkContributing %> Více informací najdeš zde.<%= linkClose %>"
+    "blurbHallContributors": "Toto je Síň Přispěvatelů, kde oslavujeme open-source přispěvatele programu Habitica. Ať už za kód, kresby, hudbu, psaní, nebo jen prostě za pomoc, si vysloužili <%= linkRewards %> drahokamy, exkluzivní vybavení<%= linkClose %> a <%= linkTiers %>prestižní tituly<%= linkClose %>. Také můžeš programu Habitica přispět! <%= linkContributing %> Více informací najdeš zde.<%= linkClose %>",
+    "noPrivAccess": ""
 }

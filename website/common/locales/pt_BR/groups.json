@@ -239,7 +239,7 @@
     "guildSummaryPlaceholder": "Escreva uma breve descrição do seu Grupo. Qual é o objetivo principal do Grupo e o que seus membros farão?",
     "groupDescription": "Descrição",
     "guildDescriptionPlaceholder": "Utilize essa parte para dar maiores detalhes sobre tudo que os membros do seu Grupo devem saber sobre ela. Boas dicas, links úteis e orientações de conduta entram aqui!",
-    "markdownFormattingHelp": "[Ajuda na formatação em Markdown](<%= markdownLink %>)",
+    "markdownFormattingHelp": "[Ajuda na formatação em Markdown](https://habitica.fandom.com/pt-br/wiki/Markdown_Cheat_Sheet)",
     "partyDescriptionPlaceholder": "Essa é a descrição do seu grupo. Aqui é descrito o que nós fazemos neste grupo. Se você quiser aprender mais sobre o que fazemos juntos, leia a descrição. Junte-se a nós.",
     "guildGemCostInfo": "O custo em Gemas promove Guildas de alta qualidade e é transferido para o banco da Guilda.",
     "noGuildsTitle": "Você não participa de nenhuma Guilda.",
@@ -432,5 +432,8 @@
     "chooseAnOption": "Escolha uma Opção",
     "upgradeExistingGroup": "Aprimorar um Grupo Existente",
     "createNewGroup": "Criar um Novo Grupo",
-    "perMember": "Por membro"
+    "perMember": "Por membro",
+    "inviteOthersForAdditional": "",
+    "additionalMembersProrated": "",
+    "upgradeCancelsPendingInvites": ""
 }

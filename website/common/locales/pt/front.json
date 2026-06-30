@@ -114,8 +114,8 @@
     "emailTaken": "Endereço de email já está sendo usado em uma conta.",
     "newEmailRequired": "Novo endereço de e-mail em falta.",
     "usernameTime": "É altura de estabelecer o seu nome de utilizador!",
-    "usernameInfo": "Agora, os nomes de logins são únicos e visíveis ao lado do seu nome de utilizador, além de serem usados para convites, @menções em conversa e mensagens.<br><br>Se quiser saber mais sobre esta mudança, <%= linkOpen %>visite a nossa wiki<%= linkClose %>.",
-    "usernameTOSRequirements": "Nomes de utilizador devem conformar-se com os nossos <%= guidelinesLink %>Diretrizes da Comunidade<%= linkClose %>. Se previamente não estabeleceu um nome de login, o seu nome de utilizador será automáticamente gerado.",
+    "usernameInfo": "Agora, os nomes de logins são únicos e visíveis ao lado do seu nome de utilizador, além de serem usados para convites, @menções em conversa e mensagens.<br><br>Se quiser saber mais sobre esta mudança, <a href='http://habitica.fandom.com/wiki/Player_Names' target='_blank'>visite a nossa wiki</a>.",
+    "usernameTOSRequirements": "Nomes de utilizador devem conformar-se com os nossos <a href='/static/terms' target='_blank'>Termos de Serviço</a> e <a href='/static/community-guidelines' target='_blank'>Diretrizes da Comunidade</a>. Se previamente não estabeleceu um nome de login, o seu nome de utilizador será automáticamente gerado.",
     "usernameTaken": "Nome de utilizador já tomado.",
     "passwordConfirmationMatch": "A confirmação da palavra-passe não corresponde com a palavra-passe.",
     "passwordResetPage": "Reinicializar Senha",
@@ -177,5 +177,15 @@
     "socialAlreadyExists": "Este login social já está ligado a uma conta Habitica que já existe.",
     "translateHabitica": "Traduzir Habitica",
     "enterHabitica": "Entre no Habitica",
-    "incorrectResetPhrase": "Por favor escreva <%= magicWord %> para resetar a sua conta."
+    "incorrectResetPhrase": "Por favor escreva <%= magicWord %> para resetar a sua conta.",
+    "emailBlockedRegistration": "",
+    "emailAddress": "",
+    "emailRequiredForSupport": "",
+    "whatToCallYou": "",
+    "minPasswordLengthLogin": "",
+    "enterValidEmail": "",
+    "acceptPrivacyTOS": "",
+    "missingClientHeader": "",
+    "marketing3Lead1Title": "Aplicativos para Android e iOS",
+    "marketing4Lead3Button": "Comece hoje mesmo"
 }

@@ -122,5 +122,12 @@
     "nMonthsSubscriptionGift": "<%= nMonths %> Abonament(e) Lunar (Cadou)",
     "nGemsGift": "<%= nGems %> Nestemate (Cadou)",
     "nGems": "<%= nGems %> Nestemate",
-    "amountExp": "<%= amount %> Exp"
+    "amountExp": "<%= amount %> Exp",
+    "customizationsShopText": "",
+    "notAvailable": "",
+    "helpSupportHabitica": "",
+    "groupsPaymentAutoRenew": "",
+    "paymentYouSentSubscriptionG1G1": "",
+    "groupsPaymentSubBilling": "",
+    "sellItems": ""
 }

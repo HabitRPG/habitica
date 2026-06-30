@@ -282,5 +282,17 @@
     "fall2023ScarletWarlockMageSet": "Grimizni Vještac (Čarobnjak)",
     "fall2023WitchsBrewRogueSet": "Vještičja Mješavina (Lupež)",
     "fall2023BogCreatureHealerSet": "Močvarno Stvorenje (Iscjelitelj)",
-    "gemSaleLimitationsText": "Ova promocija vrijedi samo tijekom događaja ograničenog trajanja. Događaj počinje <%= eventStartMonth %> <%= eventStartOrdinal %> u <%= eventStartTime %> <%= timeZone %> i završava <%= eventEndMonth %> <%= eventEndOrdinal %> u <%= eventEndTime %> <%= timeZone %>. Posebna ponuda dostupna je samo kada Dragulje kupujete za sebe."
+    "gemSaleLimitationsText": "Ova promocija vrijedi samo tijekom događaja ograničenog trajanja. Događaj počinje <%= eventStartMonth %> <%= eventStartOrdinal %> u <%= eventStartTime %> <%= timeZone %> i završava <%= eventEndMonth %> <%= eventEndOrdinal %> u <%= eventEndTime %> <%= timeZone %>. Posebna ponuda dostupna je samo kada Dragulje kupujete za sebe.",
+    "summer2026AlligatorWarriorSet": "",
+    "summer2026PuffinHealerSet": "",
+    "summer2026TigerSharkMageSet": "",
+    "summer2026TsunamiRogueSet": "",
+    "spring2026FrogWarriorSet": "",
+    "spring2026BranchRogueSet": "",
+    "spring2026SnowdropHealerSet": "",
+    "spring2026MaypoleMageSet": "",
+    "winter2026RimeReaperWarriorSet": "",
+    "winter2026SkiRogueSet": "",
+    "winter2026PolarBearHealerSet": "",
+    "winter2026MidwinterCandleMageSet": ""
 }

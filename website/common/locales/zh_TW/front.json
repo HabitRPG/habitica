@@ -114,8 +114,8 @@
     "emailTaken": "該電子郵件地址已經被其他帳號使用。",
     "newEmailRequired": "尚未輸入新電子郵件地址。",
     "usernameTime": "是時候來設定您的使用者名稱了！",
-    "usernameInfo": "使用者名稱現在是獨一無二的名稱，顯示於暱稱旁邊。它將用於邀請、聊天 @標記，和發訊息。<br><br>如果您想要知道更多關於這項改變的資訊，可以查看<%= linkOpen %>我們的wiki<%= linkClose %>。",
-    "usernameTOSRequirements": "使用者名稱必須遵守我們的<%= guidelinesLink %>社群守則<%= linkClose %>。如果您之前尚未設立登入名稱，您的使用者名稱將會被自動產生。",
+    "usernameInfo": "使用者名稱現在是獨一無二的名稱，顯示於暱稱旁邊。它將用於邀請、聊天 @標記，和發訊息。<br><br>如果您想要知道更多關於這項改變的資訊，可以查看<a href='https://habitica.fandom.com/wiki/Player_Names' target='_blank'>我們的wiki</a>。",
+    "usernameTOSRequirements": "使用者名稱必須遵守我們的<a href='/static/terms' target='_blank'>服務條款</a>和<a href='/static/community-guidelines' target='_blank'>社群守則</a>。如果您之前尚未設立登入名稱，您的使用者名稱將會被自動產生。",
     "usernameTaken": "此使用者名稱已有人使用。",
     "passwordConfirmationMatch": "密碼不匹配。",
     "passwordResetPage": "重設密碼",
@@ -178,5 +178,14 @@
     "emailUsernamePlaceholder": "例如 habitrabbit 或者 gryphon@example.com",
     "translateHabitica": "翻譯 Habitica",
     "marketing3Lead1Title": "Android & iOS 的應用程式",
-    "marketing4Lead3Button": "今天就開始"
+    "marketing4Lead3Button": "今天就開始",
+    "emailAddress": "",
+    "emailRequiredForSupport": "",
+    "emailBlockedRegistration": "",
+    "minPasswordLengthLogin": "",
+    "enterValidEmail": "",
+    "whatToCallYou": "",
+    "acceptPrivacyTOS": "",
+    "incorrectResetPhrase": "",
+    "missingClientHeader": ""
 }

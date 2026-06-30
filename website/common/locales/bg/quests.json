@@ -81,5 +81,16 @@
     "hatchingPotionQuests": "Мисии за Магическа Излюпваща Отвара",
     "bossDamage": "Нанесохте вреда на главатаря!",
     "questItemsPending": "<%= amount %> предмета ще бъдат събрани",
-    "sureLeaveInactive": "Сигурни ли сте, че искате да се откажете от мисията? Няма да можете да участвате в нея."
+    "sureLeaveInactive": "Сигурни ли сте, че искате да се откажете от мисията? Няма да можете да участвате в нея.",
+    "backToSelection": "",
+    "noQuestToStartTitle": "",
+    "yourPartyIsNotOnQuest": "",
+    "newItem": "",
+    "selectQuest": "",
+    "yourQuests": "",
+    "questOwner": "",
+    "ownerOnly": "",
+    "cancelQuest": "",
+    "selectQuestModal": "",
+    "membersParticipating": ""
 }

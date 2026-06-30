@@ -239,7 +239,7 @@
     "guildSummaryPlaceholder": "Grubunla ilgili kısa bir açıklama yaz. Grubunun ana amacı nedir ve üyeleri neler yapacak?",
     "groupDescription": "Açıklama",
     "guildDescriptionPlaceholder": "Bu bölümü, üyelerine grubunla ilgili bilmesi gereken her şey hakkında daha ayrıntılı bilgi vermek için kullan. Faydalı ipuçları, yararlı bağlantılar ve teşvik edici ifadeler burada yer alabilir!",
-    "markdownFormattingHelp": "[Markdown format yardımı](<%= markdownLink %>)",
+    "markdownFormattingHelp": "[Markdown format yardımı](https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica)",
     "partyDescriptionPlaceholder": "Bu bizim takımımızın açıklaması ve takımda ne yaptığımızı anlatır. Eğer bu takımda neler yaptığımıza dair daha fazla şey öğrenmek istersen açıklamayı okuyabilirsin.",
     "guildGemCostInfo": "Elmas ücreti, yüksek kalitede Loncalar oluşturmaya teşvik eder ve ücret Loncanın kasasına aktarılır.",
     "noGuildsTitle": "Hiç bir Loncaya üye değilsin.",

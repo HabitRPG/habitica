@@ -41,7 +41,7 @@
     "marketing3Header": "Plus de façons d'exploiter Habitica",
     "marketing3Lead1": "Vous pouvez utiliser Habitica sur votre appareil Android ou iOS pour valider vos tâches où que vous soyez. Consultez notre application primée pour aborder vos tâches sous un nouvel angle.",
     "marketing3Lead2Title": "Communauté Open-Source",
-    "marketing3Lead2": "Nous sommes fier·ère·s de porter un projet open-source qui accueille les contributions de notre communauté dévouée. Adaptez Habitica à vos besoins ou participez à l'amélioration de l'expérience pour tou·te·s les joueur·euse·s à travers le monde. Rendez-vous sur [GitHub](https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica) (site Anglais) pour en savoir plus !",
+    "marketing3Lead2": "Nous sommes fier·ère·s de porter un projet open-source qui accueille les contributions de notre communauté dévouée. Adaptez Habitica à vos besoins ou participez à l'amélioration de l'expérience pour tou·te·s les joueur·euse·s à travers le monde. Rendez-vous sur [GitHub](&lt;%= githubLink %&gt;) (site Anglais) pour en savoir plus !",
     "marketing4Header": "Au-delà des tâches domestiques",
     "marketing4Lead1": "L’apprentissage devient bien plus motivant avec un soupçon de ludification ! Brisez la routine quotidienne de votre classe en ajoutant que une expérience de jeu unique. Habitica peut offrir une manière ludique de suivre les devoirs, de créer des Défis en classe et de permettre aux élèves de mettre en valeur leurs réussites.",
     "marketing4Lead1Title": "La ludification dans l'éducation",
@@ -114,8 +114,8 @@
     "emailTaken": "Adresse courriel déjà utilisée par un utilisateur.",
     "newEmailRequired": "Nouvelle adresse courriel manquante.",
     "usernameTime": "Il est temps de définir votre identifiant !",
-    "usernameInfo": "Les identifiants sont maintenant des noms uniques qui seront visibles sous votre pseudo, et utilisés pour les invitations, les @mentions dans les discussions, et les messages.<br><br>Si vous voulez en savoir plus sur ce changement, <%= linkOpen %>visitez notre wiki<%= linkClose %>.",
-    "usernameTOSRequirements": "Les identifiants doivent se conformer à nos <%= guidelinesLink %>Règles de vie en communauté<%= linkClose %>. Si vous n'aviez pas précédemment défini un identifiant, il a été auto-généré.",
+    "usernameInfo": "Les identifiants sont maintenant des noms uniques qui seront visibles sous votre pseudo, et utilisés pour les invitations, les @mentions dans les discussions, et les messages.<br><br>Si vous voulez en savoir plus sur ce changement, <a href='https://habitica.fandom.com/wiki/Player_Names' target='_blank'>visitez notre wiki</a>.",
+    "usernameTOSRequirements": "Les identifiants doivent se conformer à nos <a href='/static/terms' target='_blank'>Conditions d'utilisations</a> et nos <a href='/static/community-guidelines' target='_blank'>Règles de vie en communauté</a>. Si vous n'aviez pas précédemment défini un identifiant, il a été auto-généré.",
     "usernameTaken": "L'identifiant est déjà pris.",
     "passwordConfirmationMatch": "La confirmation du mot de passe ne correspond pas au mot de passe.",
     "passwordResetPage": "Réinitialiser le mot de passe",
@@ -185,7 +185,7 @@
     "minPasswordLengthLogin": "Votre mot de passe contient au moins 8 caractères.",
     "enterValidEmail": "Merci d'entrer une adresse email valide.",
     "whatToCallYou": "Comment souhaitez-vous que nous vous appelions ?",
-    "acceptPrivacyTOS": "Vous confirmez avoir au moins 18 ans, et avoir lu et approuvé nos <%= termsLink %>Conditions de Service<%= linkClose %> ainsi que notre <%= privacyLink %>Politique de confidentialité<%= linkClose %>",
+    "acceptPrivacyTOS": "Vous confirmez avoir au moins 18 ans, et avoir lu et approuvé nos <a href='/static/terms' target='_blank'>Conditions de Service</a> ainsi que notre <a href='/static/privacy' target='_blank'>Politique de confidentialité</a>",
     "emailAddress": "Adresse mail",
     "emailRequiredForSupport": "Une adresse mail est nécessaire pour le support utilisat·eur·rice. Veuillez entrer une adresse mail pour poursuivre la création de votre compte."
 }

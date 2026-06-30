@@ -122,5 +122,12 @@
     "limitedAvailabilityMinutes": "Disponible por <%= minutes %>m <%= seconds %>s",
     "limitedAvailabilityHours": "Disponible por <%= hours %>h <%= minutes %>m",
     "limitedAvailabilityDays": "Disponible por <%= days %>d <%= hours %>h <%= minutes %>m",
-    "amountExp": "<%= amount %> Exp"
+    "amountExp": "<%= amount %> Exp",
+    "helpSupportHabitica": "",
+    "customizationsShopText": "",
+    "notAvailable": "",
+    "paymentYouSentSubscriptionG1G1": "",
+    "groupsPaymentSubBilling": "",
+    "groupsPaymentAutoRenew": "",
+    "sellItems": ""
 }

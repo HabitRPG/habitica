@@ -167,8 +167,8 @@
     "mysterySet202008": "Owlish Oracle Set",
     "mysterySet202010": "Beguilingly Batty Set",
     "mysterySet202009": "Marvellous Moth Set",
-    "cancelSubInfoApple": "Please follow <%= linkOpen %>Apple's official instructions<%= linkClose %> to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
-    "cancelSubInfoGoogle": "To cancel your subscription or to view your subscription's termination date, please use the <%= linkOpen %>Google Play Store<%= linkClose %>. Any leftover months of subscription credit will be added to your end date after cancellation.",
+    "cancelSubInfoApple": "Please follow &lt;%= linkOpen %&gt;Apple’s official instructions&lt;%= linkClose %&gt; to cancel your subscription or to see your subscription’s termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "cancelSubInfoGoogle": "To cancel your subscription or to view your subscription’s termination date, please use the &lt;%= linkOpen %&gt;Google Play Store&lt;%= linkClose %&gt;. Any leftover months of subscription credit will be added to your end date after cancellation.",
     "organization": "Organisation",
     "dropCapSubs": "Habitica subscribers can find twice as many random items each day and receive monthly mystery items!",
     "lookingForMoreItems": "Looking for More Items?",
@@ -263,7 +263,6 @@
     "maxGemCapGift": "They'll have the max <strong>Gem Cap</strong>",
     "subscriptionBillingFYIShort": "Subscriptions automatically renew unless you cancel at least 24 hours before the end of the current period. Your account will be charged within 24 hours of your renewal date, at the same price you initially paid.",
     "maxGemCap": "Instantly start at the max <strong>Gem Cap</strong>",
-    "subscriptionChangeAnnouncement": "<strong>Subscription benefits and the way they are sent out will be changing on 19 November.</strong> <%= linkStart %>Click here<%= linkClose %> to read more about this change.",
     "recurringNMonthly": "Recurring every <%= length %> months",
     "unlockNGems": "Unlock <strong><%= count %> Gems</strong> per month in the Market",
     "earn2Gems": "Earn <strong>+2 Gems</strong> every month you're subscribed",
@@ -279,5 +278,6 @@
     "subscriptionBillingFYI": "Subscriptions automatically renew unless you cancel at least 24 hours before the end of the current period. You can manage your subscription from the Subscription tab in the settings. Your account will be charged within 24 hours of your renewal date, at the same price you initially paid.",
     "mysterySet202606": "Holiday Hammock Set",
     "mysterySet202607": "Oceanmancer Set",
-    "mysterySet202608": "Beaming Blades Set"
+    "mysterySet202608": "Beaming Blades Set",
+    "giftGems": "Want to bestow a shiny haul of Gems on someone else?"
 }

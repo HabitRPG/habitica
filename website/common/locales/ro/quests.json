@@ -59,7 +59,7 @@
     "loginIncentiveQuest": "To unlock this quest, check in to Habitica on <%= count %> different days!",
     "loginReward": "<%= count %> Check-ins",
     "questBundles": "Discounted Quest Bundles",
-    "noQuestToStart": "Încearcă să verifici <%= linkOpen %>Quest Shop<%= linkClose %> pentru a găsi noile versiuni!",
+    "noQuestToStart": "Încearcă să verifici <a href=\"<%= questShop %>\">Quest Shop</a> pentru a găsi noile versiuni!",
     "pendingDamage": "<%= damage %> pending damage",
     "pendingDamageLabel": "pending damage",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",

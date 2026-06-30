@@ -106,5 +106,8 @@
     "gryphatrice": "גריפטריצ'ה",
     "jubilantGryphatrice": "גריפטריצ'ה צוהלת",
     "veteranCactus": "קקטוס וותיק",
-    "veteranDragon": "דרקון ותיק"
+    "veteranDragon": "דרקון ותיק",
+    "notEnoughFood": "",
+    "invalidAmount": "",
+    "tooMuchFood": ""
 }

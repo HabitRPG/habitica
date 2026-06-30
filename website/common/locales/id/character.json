@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Ingatlah bahwa Nama Tampilan, foto profil, dan celotehmu harus mengikuti <%= linkOpen %>Pedoman Komunitas<%= linkClose %> (misalnya, tidak menggunakan bahasa tidak senonoh, topik dewasa, penghinaan, dsb). Jika kamu mempunyai pertanyaan apapun mengenai pantasnya sesuatu hal, silahkan email <%= adminEmail %>!",
+    "communityGuidelinesWarning": "Ingatlah bahwa Nama Tampilan, foto profil, dan celotehmu harus mengikuti <a href='https://habitica.com/static/community-guidelines' target='_blank'>Pedoman Komunitas</a> (misalnya, tidak menggunakan bahasa tidak senonoh, topik dewasa, penghinaan, dsb). Jika kamu mempunyai pertanyaan apapun mengenai pantasnya sesuatu hal, silahkan email <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Ubah Tampilan Avatar",
     "editAvatar": "Kustomisasi Avatar",
@@ -61,7 +61,7 @@
     "costumeDisabled": "Kamu telah menonaktifkan kostummu.",
     "gearAchievement": "Kamu mendapat lencana \"Ultimate Gear\" karena sudah mendapat semua perlengkapan sesuai dengan pekerjaanmu! Kamu sudah melengkapi perlengkapan berikut:",
     "gearAchievementNotification": "Kamu telah memperoleh Pencapaian \"Perlengkapan Terakhir\" karena telah meng-upgrade semua perlengkapan sampai maksimal untuk suatu pekerjaan!",
-    "moreGearAchievements": "Untuk mendapatkan lebih banyak lencana Ultimate Gear, ubah pekerjaanmu di <%= linkOpen %>Pengaturan &gt; Laman Situs<%= linkClose %> dan beli perlengkapan untuk pekerjaan barumu!",
+    "moreGearAchievements": "Untuk mendapatkan lebih banyak lencana Ultimate Gear, ubah pekerjaanmu di <a href='/user/settings/site' target='_blank'>Pengaturan &gt; Laman Situs</a> dan beli perlengkapan untuk pekerjaan barumu!",
     "armoireUnlocked": "Kalau ingin lebih banyak perlengkapan, coba cek <strong>Peti Ajaib!</strong> Klik Hadiah Peti Ajaib untuk kesempatan mendapatkan Perlengkapan spesial! Kamu juga bisa mendapatkan pengalaman atau makanan.",
     "ultimGearName": "Perlengkapan Terakhir - <%= ultClass %>",
     "ultimGearText": "Telah meng-upgrade set senjata dan pakaian sampai maksimal untuk pekerjaan <%= ultClass %>.",
@@ -130,7 +130,7 @@
     "optOutOfClasses": "Matikan",
     "chooseClass": "Pilih Pekerjaan kamu",
     "chooseClassLearnMarkdown": "[Belajar lebih banyak mengenai sistem peran Habitica](/static/faq#what-classes)",
-    "optOutOfClassesText": "Belum siap untuk memilih? Tidak apa-apa! Untuk mengerti lebih banyak, baca mengenai setiap peran di<%= linkOpen %>our FAQ<%= linkClose %> dan kunjungi pengaturan untuk mengaktifkan sistem peran ketika kamu sudah siap.",
+    "optOutOfClassesText": "Belum siap untuk memilih? Tidak apa-apa! Untuk mengerti lebih banyak, baca mengenai setiap peran di<a href='/static/faq#what-classes' target='_blank'>our FAQ</a> dan kunjungi pengaturan untuk mengaktifkan sistem peran ketika kamu sudah siap.",
     "selectClass": "Pilih <%= heroClass %>",
     "select": "Pilih",
     "stealth": "Tidak Tampak",
@@ -191,5 +191,14 @@
     "titleHaircolor": "Warna Rambut",
     "titleHairbase": "Gaya Rambut",
     "customizations": "Pengaturan",
-    "nextReward": "Hadiah Login Berikutnya"
+    "nextReward": "Hadiah Login Berikutnya",
+    "perTaskText": "",
+    "strTaskText": "",
+    "autoAllocate": "",
+    "pointsAvailable": "",
+    "allocationMethod": "",
+    "statAllocationInfo": "",
+    "assignedStat": "",
+    "conTaskText": "",
+    "intTaskText": ""
 }

@@ -3,7 +3,7 @@
     "dontDespair": "Ne očajavajte!",
     "deathPenaltyDetails": "Izgubili ste Razinu, Zlato i komad Opreme, ali sve to možete vratiti napornim radom! Sretno—bit ćete sjajani.",
     "refillHealthTryAgain": "Obnovi Zdravlje i Pokušaj Ponovno",
-    "dyingOftenTips": "Događa li se ovo često?(<%= linkOpen %>Evo nekoliko savjeta!<%= linkClose %>)",
+    "dyingOftenTips": "Događa li se ovo često?(<a href='/static/faq#prevent-damage' target='_blank'>Evo nekoliko savjeta!</a>)",
     "losingHealthWarning": "Pripazite- gubite Zdravlje!",
     "losingHealthWarning2": "Ne dopustite da vam Zdravlje padne na nulu! Ako se to dogodi, izgubit ćete razinu, svoje Zlato i komad opreme.",
     "toRegainHealth": "Da bi vratili Zdravlje:",

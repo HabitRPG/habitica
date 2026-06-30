@@ -114,8 +114,8 @@
     "emailTaken": "Alamat email telah digunakan oleh akun lain.",
     "newEmailRequired": "Alamat email baru tidak ditemukan.",
     "usernameTime": "Ini waktunya untuk memilih nama penggunamu!",
-    "usernameInfo": "Nama login sekarang menjadi nama pengguna unik yang akan terlihat di samping nama tampilanmu dan digunakan untuk undangan, @mentions di obrolan, dan perpesanan.<br><br>Jika kamu ingin mempelajari lebih lanjut tentang perubahan ini, <%= linkOpen %>kunjungi wiki kami<%= linkClose %>.",
-    "usernameTOSRequirements": "Nama pengguna harus sesuai dengan <%= guidelinesLink %>Pedoman Komunitas<%= linkClose %> kami. Jika sebelumnya kamu tidak menetapkan nama login, nama pengguna-mu dibuat secara otomatis.",
+    "usernameInfo": "Nama login sekarang menjadi nama pengguna unik yang akan terlihat di samping nama tampilanmu dan digunakan untuk undangan, @mentions di obrolan, dan perpesanan.<br><br>Jika kamu ingin mempelajari lebih lanjut tentang perubahan ini, <a href='https://habitica.fandom.com/wiki/Player_Names' target='_blank'>kunjungi wiki kami</a>.",
+    "usernameTOSRequirements": "Nama pengguna harus sesuai dengan <a href='/static/terms' target='_blank'>Persyaratan Layanan</a> dan <a href='/static/community-guidelines' target='_blank'>Pedoman Komunitas</a> kami. Jika sebelumnya kamu tidak menetapkan nama login, nama pengguna-mu dibuat secara otomatis.",
     "usernameTaken": "Nama pengguna sudah diambil.",
     "passwordConfirmationMatch": "Konfirmasi kata sandi tidak cocok dengan kata sandi.",
     "passwordResetPage": "Reset Kata Sandi",
@@ -177,5 +177,15 @@
     "communityInstagram": "Instagram",
     "enterHabitica": "Masuk ke Habitica",
     "translateHabitica": "Terjemahkan Habitica",
-    "marketing3Lead1Title": "Aplikasi Android dan iOS"
+    "marketing3Lead1Title": "Aplikasi Android dan iOS",
+    "emailBlockedRegistration": "",
+    "minPasswordLengthLogin": "",
+    "enterValidEmail": "",
+    "whatToCallYou": "",
+    "acceptPrivacyTOS": "",
+    "emailAddress": "",
+    "emailRequiredForSupport": "",
+    "incorrectResetPhrase": "",
+    "marketing4Lead3Button": "",
+    "missingClientHeader": ""
 }

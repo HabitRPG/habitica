@@ -167,8 +167,8 @@
     "mysterySet202008": "Ensemble d'oracle du hibou",
     "mysterySet202009": "Ensemble de mite merveilleuse",
     "supportHabitica": "Soutenir Habitica",
-    "cancelSubInfoApple": "Veuillez suivre <%= linkOpen %>les instructions officielles d'Apple<%= linkClose %> pour annuler votre abonnement, ou voir la date d'expiration de votre abonnement si vous l'avez déjà annulé. Cet écran ne pourra pas vous indiquer si votre abonnement a été annulé.",
-    "cancelSubInfoGoogle": "Pour annuler votre abonnement ou consulter la date de fin de celui-ci, merci d'utiliser le <%= linkOpen %>Google Play Store<%= linkClose %>. Les mois d'abonnement restants vous seront crédités après annulation.",
+    "cancelSubInfoApple": "Veuillez suivre &lt;%= linkOpen %&gt;les instructions officielles d'Apple&lt;%= linkClose %&gt; pour annuler votre abonnement, ou voir la date d'expiration de votre abonnement si vous l'avez déjà annulé. Cet écran ne vous indiquera pas si votre abonnement a déjà été annulé.",
+    "cancelSubInfoGoogle": "Pour annuler votre abonnement ou consulter la date de fin de celui-ci, merci d'utiliser le &lt;%= linkOpen %&gt;Google Play Store&lt;%= linkClose %&gt;. Tous mois d'abonnement restants vous seront crédités après annulation.",
     "organization": "Organisation",
     "usuallyGems": "Généralement <%= originalGems %>",
     "mysterySet202010": "Ensemble de chauve-souris joyeuse",
@@ -278,5 +278,6 @@
     "mysterySet202603": "Ensemble Mage de la Glycine",
     "mysterySet202607": "Ensemble Océanmancien",
     "mysterySet202606": "Ensemble Hamac de Vacances",
-    "mysterySet202608": "Ensemble Lames Lumineuses"
+    "mysterySet202608": "Ensemble Lames Lumineuses",
+    "giftGems": "Vous souhaitez offrir un butin étincelant de Gemmes à quelqu'un·e d'autre ?"
 }

@@ -114,8 +114,8 @@
     "emailTaken": "Bu e-posta adresi zaten bir kullanıcı hesabında kayıtlı.",
     "newEmailRequired": "Yeni e-posta adresi eksik.",
     "usernameTime": "Kullanıcı adını ayarlama vakti!",
-    "usernameInfo": "Giriş isimleri artık görünür adının yanında görünen ve davetiyeler, sohbet @bahsetmeleri ve mesajlaşmalarda kullanılacak olan eşsiz kullanıcı adları.<br><br>Eğer bu değişim hakkında daha fazla bilgi edinmek istersen, <%= linkOpen %>wiki'mizi ziyaret et<%= linkClose %>.",
-    "usernameTOSRequirements": "Kullanıcı adları <%= guidelinesLink %>Topluluk İlkeleri<%= linkClose %>'mize uygun olmalı. Eğer daha önce bir giriş adı belirlemediysen, kullanıcı adın otomatik olarak oluşturulmuştur.",
+    "usernameInfo": "Giriş isimleri artık görünür adının yanında görünen ve davetiyeler, sohbet @bahsetmeleri ve mesajlaşmalarda kullanılacak olan eşsiz kullanıcı adları.<br><br>Eğer bu değişim hakkında daha fazla bilgi edinmek istersen, <a href='https://habitica.fandom.com/wiki/Player_Names' target='_blank'>wiki'mizi ziyaret et</a>.",
+    "usernameTOSRequirements": "Kullanıcı adları <a href='/static/terms' target='_blank'>Hizmet Koşulları</a>'mıza ve <a href='/static/community-guidelines' target='_blank'>Topluluk İlkeleri</a>'mize uygun olmalı. Eğer daha önce bir giriş adı belirlemediysen, kullanıcı adın otomatik olarak oluşturulmuştur.",
     "usernameTaken": "Kullanıcı Adı başkası tarafından kullanılıyor.",
     "passwordConfirmationMatch": "Şifre onayı şifreyle uyuşmuyor.",
     "passwordResetPage": "Şifre Sıfırla",
@@ -183,7 +183,9 @@
     "minPasswordLengthLogin": "Şifren en az 8 karakter uzunluğunda.",
     "enterValidEmail": "Lütfen geçerli bir e-posta adresi gir.",
     "whatToCallYou": "Sana nasıl hitap edelim?",
-    "acceptPrivacyTOS": "En az 18 yaşında olduğunu ve <%= termsLink %>Hizmet Şartları<%= linkClose %> ile <%= privacyLink %>Gizlilik Politikası<%= linkClose %>nı okuduğunu onaylamış sayılırsın",
+    "acceptPrivacyTOS": "En az 18 yaşında olduğunu ve <a href='/static/terms' target='_blank'>Hizmet Şartları</a> ile <a href='/static/privacy' target='_blank'>Gizlilik Politikası</a>nı okuduğunu onaylamış sayılırsın",
     "marketing4Lead3Button": "Bugün Başla",
-    "missingClientHeader": "Eksik x-client başlıkları."
+    "missingClientHeader": "Eksik x-client başlıkları.",
+    "emailAddress": "",
+    "emailRequiredForSupport": ""
 }

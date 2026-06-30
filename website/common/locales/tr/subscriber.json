@@ -141,8 +141,8 @@
     "needToPurchaseGems": "Hediye olarak Mücevher satın almanız mı gerekiyor?",
     "wantToSendOwnGems": "Kendi Mücevherlerinizi göndermek ister misiniz?",
     "organization": "Organizasyon",
-    "cancelSubInfoGoogle": "Aboneliğinizi iptal etmek veya aboneliğinizin bitiş tarihini görmek için lütfen <%= linkOpen %>Google Play Store<%= linkClose %>'u kullanın. İptal sonrasında kalan abonelik kredisi, bitiş tarihinize eklenecektir.",
-    "cancelSubInfoApple": "Aboneliğinizi iptal etmek veya aboneliğinizin bitiş tarihini görmek için lütfen <%= linkOpen %>Apple'ın resmi talimatlarını<%= linkClose %> takip edin. Bu ekran, aboneliğinizin iptal edilip edilmediğini gösteremez.",
+    "cancelSubInfoGoogle": "Aboneliğinizi iptal etmek veya aboneliğinizin bitiş tarihini görmek için lütfen <a href='https://play.google.com/store/account/subscriptions'>Google Play Store</a>'u kullanın. İptal sonrasında kalan abonelik kredisi, bitiş tarihinize eklenecektir.",
+    "cancelSubInfoApple": "Aboneliğinizi iptal etmek veya aboneliğinizin bitiş tarihini görmek için lütfen <a href=\"https://support.apple.com/en-us/HT202039\">Apple'ın resmi talimatlarını</a> takip edin. Bu ekran, aboneliğinizin iptal edilip edilmediğini gösteremez.",
     "subWillBecomeInactive": "Pasif hale gelecek",
     "mysticHourglassNeededNoSub": "Bu öğe bir Gizemli Kum Saati gerektirir. Gizemli Kum Saatleri, Habitica abonesi olarak kazanılır.",
     "mysterySet201904": "Zengin Opal Seti",
@@ -272,5 +272,11 @@
     "subscriptionStats": "Abonelik İstatistikleri",
     "cancelYourSubscription": "Aboneliğini iptal etmek mi istiyorsun?",
     "subMonths": "Abone Olunan Aylar",
-    "needToUpdateCard": "Kartını güncellemen mi gerek?"
+    "needToUpdateCard": "Kartını güncellemen mi gerek?",
+    "mysterySet202606": "",
+    "mysterySet202607": "",
+    "mysterySet202608": "",
+    "mysterySet202603": "",
+    "mysterySet202604": "",
+    "mysterySet202605": ""
 }

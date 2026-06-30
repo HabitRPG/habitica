@@ -873,7 +873,7 @@
     "backgroundRiverBottomText": "川底",
     "backgrounds082024": "セット123： 2024年8月リリース",
     "monthlyBackgrounds": "月替わりの背景",
-    "backgrounds092024": "セット124： 2024年9月リリース",
+    "backgrounds092024": "セット124：2024年9月リリース",
     "backgroundMagicDoorInForestText": "森の中の魔法の門",
     "backgroundMagicDoorInForestNotes": "思い切って森の魔法のゲートに足を踏み入れましょう。",
     "backgrounds102024": "セット125：2024年10月リリース",
@@ -883,9 +883,9 @@
     "backgroundOldFashionedTeaShopText": "レトロな喫茶店",
     "backgroundOldFashionedTeaShopNotes": "レトロな喫茶店で、心地よい飲み物を楽しみましょう。",
     "backgroundShellGateText": "貝殻門",
-    "backgroundSavannaText": "もやのかかった草原",
+    "backgroundSavannaText": "霞む草原",
     "backgroundShellGateNotes": "サンゴで装飾された貝殻門の間を行進しましょう。",
-    "backgroundSavannaNotes": "もやのかかった草原をハイキングしましょう。",
+    "backgroundSavannaNotes": "霞む草原をハイキングしよう。",
     "backgrounds122024": "セット127: 2024年12月リリース",
     "backgroundFirstSnowForestText": "森の初雪",
     "backgroundFirstSnowForestNotes": "森の中の初雪に足を踏み入れましょう。",
@@ -947,5 +947,8 @@
     "backgrounds072026": "セット146：2026年7月リリース",
     "backgrounds082026": "セット147：2063年8月リリース",
     "backgroundVegetableGardenText": "菜園",
-    "backgroundVegetableGardenNotes": "菜園でおいしい野菜を育てましょう。"
+    "backgroundVegetableGardenNotes": "菜園でおいしい野菜を育てましょう。",
+    "backgroundTropicalCoralGardenText": "熱帯サンゴの庭園",
+    "backgroundBeachWithVolcanoNotes": "火山のあるビーチで、自然の驚異を眺めよう。",
+    "backgroundTropicalCoralGardenNotes": "熱帯のサンゴ庭園に飛び込もう。"
 }

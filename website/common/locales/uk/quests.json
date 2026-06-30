@@ -59,7 +59,7 @@
     "loginIncentiveQuest": "Щоб розблокувати цей квест, заходьте в Habitica на протязі <%= count %> днів!",
     "loginReward": "<%= count %> відвідувань",
     "questBundles": "Набори квестів зі знижкою",
-    "noQuestToStart": "Завітайте до <%= linkOpen %> Магазину квестів<%= linkClose %>, щоб знайти нові сувої!",
+    "noQuestToStart": "Завітайте до <a href=\"<%= questShop %>\"> Магазину квестів</a>, щоб знайти нові сувої!",
     "pendingDamage": "<%= damage %> очікувана шкода",
     "pendingDamageLabel": "очікувана шкода",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Здоров'я",

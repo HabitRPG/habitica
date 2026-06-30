@@ -43,5 +43,6 @@
     "surveysSingle": "Pomogao Habitca, da li tako što je popunio anketu, ili znatnim testiranjem. Hvala Vam!",
     "surveysMultiple": "Helped Habitica grow on <%= count %> occasions, either by filling out a survey or helping with a major testing effort. Thank you!",
     "blurbHallPatrons": "Ovo je Dvorana Patrona, gde dajemo odlikovanje plemenitim herojima koji su pomogli Habitca Kickstarteru. Zahvaljujemo im za njihovu pomoć!",
-    "blurbHallContributors": "This is the Hall of Contributors, where open-source contributors to Habitica are honored. Whether through code, art, music, writing, or even just helpfulness, they have earned <%= linkRewards %> gems, exclusive equipment<%= linkClose %>, and <%= linkTiers %>prestigious titles<%= linkClose %>. You can contribute to Habitica, too! <%= linkContributing %> Find out more here. <%= linkClose %>"
+    "blurbHallContributors": "This is the Hall of Contributors, where open-source contributors to Habitica are honored. Whether through code, art, music, writing, or even just helpfulness, they have earned <%= linkRewards %> gems, exclusive equipment<%= linkClose %>, and <%= linkTiers %>prestigious titles<%= linkClose %>. You can contribute to Habitica, too! <%= linkContributing %> Find out more here. <%= linkClose %>",
+    "noPrivAccess": ""
 }

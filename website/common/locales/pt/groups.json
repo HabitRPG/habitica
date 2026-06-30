@@ -428,5 +428,12 @@
     "questWithOthers": "Participe de missões com outras pessoas",
     "startPartyDetail": "Comece seu próprio grupo ou participe de um já existente <br/>para realizar missões e aumentar sua motivação!",
     "partyExceedsInvitesLimit": "Um grupo só pode ter até <%= maxInvites %> convites pendentes.",
-    "messagePartyLeader": "Líder do grupo de mensagens"
+    "messagePartyLeader": "Líder do grupo de mensagens",
+    "tavernDiscontinued": "",
+    "viewStatus": "",
+    "groupPlanBillingFYI": "",
+    "groupPlanBillingFYIShort": "",
+    "checkinsLabel": "",
+    "tavernDiscontinuedDetail": "",
+    "sendTotal": ""
 }

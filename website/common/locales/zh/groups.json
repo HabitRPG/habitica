@@ -239,7 +239,7 @@
     "guildSummaryPlaceholder": "为你的团队撰写简短的介绍。团队主要目标是什么？成员们都会做些什么？",
     "groupDescription": "描述",
     "guildDescriptionPlaceholder": "在这里补充更多关于你的团队的细节以便成员加深理解。有用的建议、有帮助的链接，鼓励的内容都放在这里吧！",
-    "markdownFormattingHelp": "[Markdown格式帮助](<%= markdownLink %>)",
+    "markdownFormattingHelp": "[Markdown格式帮助](https://habitica.fandom.com/zh/wiki/Markdown格式帮助)",
     "partyDescriptionPlaceholder": "这是我们队伍的简介。介绍了我们是一个怎样的队伍。阅读简介后如果你想更加深入的了解我们，那就一起组队吧。",
     "guildGemCostInfo": "花费宝石促进高质量的公会，宝石会转移到您的公会的银行。",
     "noGuildsTitle": "你没有加入任何公会。",

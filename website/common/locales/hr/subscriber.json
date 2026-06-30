@@ -135,8 +135,8 @@
     "giftASubscription": "Poklonite Pretplatu",
     "wantToSendOwnGems": "Želite poslati svoje Dragulje?",
     "subWillBecomeInactive": "Postat će neaktivan",
-    "cancelSubInfoApple": "Slijedite <%= linkOpen %>službene upute tvrtke Apple<%= linkClose %> da biste otkazali pretplatu ili da biste vidjeli datum prekida pretplate ako ste je već otkazali. Ovaj vam zaslon ne može pokazati je li vaša pretplata otkazana.",
-    "cancelSubInfoGoogle": "Za otkazivanje pretplate ili pregled datuma isteka pretplate, molimo koristite <%= linkOpen %>Trgovinu Google Play<%= linkClose %>. Svi preostali mjeseci pretplatničkog kredita bit će dodani vašem krajnjem datumu nakon otkazivanja.",
+    "cancelSubInfoApple": "Slijedite <a href=\"https://support.apple.com/en-us/HT202039\">službene upute tvrtke Apple</a> da biste otkazali pretplatu ili da biste vidjeli datum prekida pretplate ako ste je već otkazali. Ovaj vam zaslon ne može pokazati je li vaša pretplata otkazana.",
+    "cancelSubInfoGoogle": "Za otkazivanje pretplate ili pregled datuma isteka pretplate, molimo koristite <a href='https://play.google.com/store/account/subscriptions'>Trgovinu Google Play</a>. Svi preostali mjeseci pretplatničkog kredita bit će dodani vašem krajnjem datumu nakon otkazivanja.",
     "confirmCancelSub": "Jeste li sigurni da želite otkazati svoju pretplatu? Izgubit ćete sve svoje pogodnosti pretplate.",
     "mysticHourglassNeededNoSub": "Za ovaj predmet potreban je mističan pješčani sat. Pretplatom na Habiticu zarađujete Mistični Pješćani sat.",
     "mysterySet201912": "Polarni Pixie Set",
@@ -267,5 +267,16 @@
     "mysterySet202307": "Set Opasnog Krakena",
     "mysterySet202309": "Set Kolosalnog Kometnog Moljca",
     "mysterySet202310": "Set Sablasti Duhovnog Svjetla",
-    "monthlyGems": "Mjesečni Dragulji:"
+    "monthlyGems": "Mjesečni Dragulji:",
+    "subscriptionBillingFYIShort": "",
+    "mysterySet202606": "",
+    "mysterySet202607": "",
+    "mysterySet202608": "",
+    "subscriptionBillingFYI": "",
+    "mysterySet202603": "",
+    "mysterySet202604": "",
+    "mysterySet202605": "",
+    "mysterySet202512": "",
+    "mysterySet202601": "",
+    "mysterySet202602": ""
 }

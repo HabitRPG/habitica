@@ -216,7 +216,7 @@
     "banPlayer": "Banaj Igrača",
     "unbanPlayer": "Odbanaj Igrača",
     "targetUserNotExist": "Ciljani Korisnik: '<%= userName %>' ne postoji.",
-    "rememberToBeKind": "Molimo vas da zapamtite da morate biti ljubazni, puni poštovanja, te da slijedite <%= linkOpen %>Smjernice Zajednice<%= linkClose %>.",
+    "rememberToBeKind": "Molimo vas da zapamtite da morate biti ljubazni, puni poštovanja, te da slijedite <a href='/static/community-guidelines' target='_blank'>Smjernice Zajednice</a>.",
     "shadowMute": "Utišavanje iz Sjene",
     "adminTools": "Adminski Alati",
     "viewAdminPanel": "Pregledaj Adminski Panel",
@@ -241,5 +241,8 @@
     "questionPlaceholder": "Postavite svoje pitanje ovdje",
     "submitQuestion": "Pošaljite Pitanje",
     "refreshList": "Osvježi Listu",
-    "leaveHabiticaText": "Habitica nije odgovorna za sadržaj bilo koje povezane web-stranice koja nije u vlasništvu ili pod upravom tvrtke HabitRPG. Molimo, imajte na umu da se prakse na tim web-stranicama mogu razlikovati od smjernica zajednice Habitice."
+    "leaveHabiticaText": "Habitica nije odgovorna za sadržaj bilo koje povezane web-stranice koja nije u vlasništvu ili pod upravom tvrtke HabitRPG. Molimo, imajte na umu da se prakse na tim web-stranicama mogu razlikovati od smjernica zajednice Habitice.",
+    "confirmPurchase": "",
+    "avoidSPI": "",
+    "avoidSPIDetails": ""
 }

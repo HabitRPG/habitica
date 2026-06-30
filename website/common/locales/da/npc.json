@@ -122,5 +122,12 @@
     "nMonthsSubscriptionGift": "<%= nMonths %> Måned(ers) Abonnement (Gave)",
     "nGemsGift": "<%= nGems %> Ædelsten (Gave)",
     "nGems": "<%= nGems %> Ædelsten",
-    "amountExp": "<%= amount %> Exp"
+    "amountExp": "<%= amount %> Exp",
+    "helpSupportHabitica": "",
+    "notAvailable": "",
+    "customizationsShopText": "",
+    "paymentYouSentSubscriptionG1G1": "",
+    "groupsPaymentSubBilling": "",
+    "groupsPaymentAutoRenew": "",
+    "sellItems": ""
 }

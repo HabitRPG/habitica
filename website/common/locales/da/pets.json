@@ -106,5 +106,8 @@
     "invalidAmount": "Ugyldig mængde Dyrefoder, skal være et positivt heltal",
     "tooMuchFood": "Du er ved at overfodre dit Kæledyr, handlingen er afbrudt",
     "notEnoughFood": "Du har ikke nok dyrefoder",
-    "gryphatrice": "Grifdue"
+    "gryphatrice": "Grifdue",
+    "veteranCactus": "",
+    "jubilantGryphatrice": "",
+    "veteranDragon": ""
 }

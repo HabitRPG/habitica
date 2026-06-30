@@ -237,10 +237,12 @@
     "questionEmailText": "Data ini hanya akan digunakan untuk menghubungimu terkait pertanyaanmu.",
     "question": "Pertanyaan",
     "playerReportModalBody": "Kamu hanya boleh melaporkan pemain yang melanggar <%= firstLinkStart %>Peraturan Komunitas<%= linkEnd %>dan/atau <%= secondLinkStart %> Persyaratan Layanan<%= linkEnd %>. Mengajukan laporan palsu adalah pelanggaran Peraturan Komunitas Habitica.",
-    "rememberToBeKind": "Harap selalu bersikap baik, saling menghormati, dan mematuhi <%= linkOpen %>Peraturan Komunitas<%= linkClose %>.",
+    "rememberToBeKind": "Harap selalu bersikap baik, saling menghormati, dan mematuhi <a href='/static/community-guidelines' target='_blank'>Peraturan Komunitas</a>.",
     "whyReportingPlayerPlaceholder": "Alasan untuk melapor",
     "whyReportingPlayer": "Mengapa kamu melaporkan pemain ini?",
     "confirmPurchase": "Konfirmasi Pembelian",
     "submitQuestion": "Kirim pertanyaan",
-    "targetUserNotExist": "Pengguna target: ‘<%= userName %>’ tidak ditemukan."
+    "targetUserNotExist": "Pengguna target: ‘<%= userName %>’ tidak ditemukan.",
+    "avoidSPI": "",
+    "avoidSPIDetails": ""
 }

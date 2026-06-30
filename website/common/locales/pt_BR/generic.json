@@ -239,9 +239,10 @@
     "playerReportModalBody": "Você só deve reportar um jogador que viole as <%=firstLinkStart%>Diretrizes da Comunidade<%=linkEnd%> e/ou os <%=secondLinkStart%>Termos de Serviço<%=linkEnd%>. Enviar uma denúncia falsa é uma violação das Diretrizes da Comunidade do Habitica.",
     "titleCustomizations": "Personalizações",
     "newMessage": "Nova Mensagem",
-    "rememberToBeKind": "Por favor, lembre-se de ser gentil, respeitoso e seguir as <%= linkOpen %>Diretrizes da comunidade<%= linkClose %>.",
+    "rememberToBeKind": "Por favor, lembre-se de ser gentil, respeitoso e seguir as <a href='/static/community-guidelines' target='_blank'>Diretrizes da comunidade</a>.",
     "targetUserNotExist": "Usúario '<%= userName %>' não existe.",
     "gem": "Gema",
     "confirmPurchase": "Confirmar Compra",
-    "avoidSPI": "Evite informações pessoais sensíveis"
+    "avoidSPI": "Evite informações pessoais sensíveis",
+    "avoidSPIDetails": "Para sua privacidade, evite incluir <%= firstLink %>informações pessoais sensíveis<%= linkClose %> (IPS) ao usar o Habitica. Seus dados de conta, incluindo tarefas, são armazenados em nossos servidores para que você possa acessá-los de qualquer dispositivo. Para saber mais, consulte nossa <%= secondLink %>Política de Privacidade<%= linkClose %>."
 }

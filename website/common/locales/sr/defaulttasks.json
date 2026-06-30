@@ -47,5 +47,10 @@
     "creativityTodoText": "Završi kreativan projekat",
     "schoolTodoText": "Završi prijavu za klasu",
     "creativityTodoNotes": "Klikni da odabereš ime tvog projekta",
-    "defaultHabitText": "Klikni ovde da izmeniš ovo u lošu naviku koju bi želeo da prestaneš da radiš"
+    "defaultHabitText": "Klikni ovde da izmeniš ovo u lošu naviku koju bi želeo da prestaneš da radiš",
+    "healthTodoText": "",
+    "workHabitMail": "",
+    "schoolTodoNotes": "",
+    "choresTodoNotes": "",
+    "creativityHabit": ""
 }

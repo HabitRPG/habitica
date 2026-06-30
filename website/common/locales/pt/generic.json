@@ -12,7 +12,6 @@
     "showLess": "Mostrar Menos",
     "markdownHelpLink": "Ajuda de formatação Markdown",
     "bold": "**Negrito**",
-    "markdownImageEx": "![texto alternativo obrigatório](https://habitica.com/cake.png \"título opcional ao passar o mouse\")",
     "code": "`código`",
     "achievements": "Conquistas",
     "basicAchievs": "Conquistas Básicas",
@@ -233,5 +232,17 @@
     "general": "Geral",
     "allNotifications": "Todas as Notificações",
     "blockPlayer": "Bloquear Jogador",
-    "unblockPlayer": "Desbloquear Jogador"
+    "unblockPlayer": "Desbloquear Jogador",
+    "gem": "",
+    "shadowMute": "",
+    "skipExternalLinkModal": "",
+    "playerReportModalBody": "",
+    "targetUserNotExist": "",
+    "rememberToBeKind": "",
+    "leaveHabiticaText": "",
+    "confirmPurchase": "",
+    "avoidSPI": "",
+    "avoidSPIDetails": "",
+    "newMessage": "",
+    "askQuestionHeaderDescribe": ""
 }

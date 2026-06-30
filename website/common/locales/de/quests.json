@@ -59,7 +59,7 @@
     "loginIncentiveQuest": "Um diese Quest freizuschalten, melde Dich an <%= count %> verschiedenen Tagen auf Habitica an!",
     "loginReward": "<%= count %> Anmeldungen",
     "questBundles": "Reduzierte Quest-Pakete",
-    "noQuestToStart": "Schau Mal im <%= linkOpen %>Quest Shop<%= linkClose %> vorbei, um neue Quests zu entdecken!",
+    "noQuestToStart": "Schau Mal im <a href=\"<%= questShop %>\">Quest Shop</a> vorbei, um neue Quests zu entdecken!",
     "pendingDamage": "<%= damage %> ausstehender Schaden",
     "pendingDamageLabel": "ausstehender Schaden",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Lebenspunkte",

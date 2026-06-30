@@ -230,7 +230,7 @@
     "playerReportModalBody": "Rapporteer alleen spelers die de <%= firstLinkStart %>Gemeenschapsrichtlijnen<%= linkEnd %> en/of de <%= secondLinkStart %>Algemene Voorwaarden<%= linkEnd %> overtreden. Het indienen van een valse melding is een schending van de Gemeenschapsrichtlijnen van Habitica.",
     "gem": "Edelsteen",
     "leaveHabiticaText": "Habitica is niet verantwoordelijk voor de inhoud van gelinkte websites die geen eigendom zijn van HabitRPG of niet door HabitRPG worden beheerd.<br>Houd er rekening mee dat de werkwijze van deze websites kan afwijken van de Gemeenschapsrichtlijnen van Habitica.",
-    "rememberToBeKind": "Wees vriendelijk, respectvol en volg de <%= linkOpen %>Gemeenschapsrichtlijnen<%= linkClose %>.",
+    "rememberToBeKind": "Wees vriendelijk, respectvol en volg de <a href='/static/community-guidelines' target='_blank'>Gemeenschapsrichtlijnen</a>.",
     "askQuestionHeaderDescribe": "Nieuw bij Habitica en weet je niet precies wat je doet? Of ben je veteraan, maar weet je niet hoe je één van de functies moet gebruiken? Vul dit formulier in en ons team neemt contact met je op.",
     "questionEmailText": "Deze gegevens worden uitsluitend gebruikt om contact met je op te nemen over je vraag.",
     "question": "Vraag",
@@ -242,5 +242,7 @@
     "allNotifications": "Alle notificaties",
     "confirmPurchase": "bevestig aankoop",
     "shadowMute": "Onzichtbare stomme",
-    "unbanPlayer": "Verbanning speler opheffen"
+    "unbanPlayer": "Verbanning speler opheffen",
+    "avoidSPI": "",
+    "avoidSPIDetails": ""
 }

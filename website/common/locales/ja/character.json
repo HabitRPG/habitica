@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "表示名、プロフィール写真、自己紹介文は、<%= linkOpen %>コミュニティ ガイドライン<%= linkClose %>に従わなくてはならないことを、心に刻んでおいてください（例 : 冒涜・不敬の禁止、成人向けの話題の禁止、侮辱行為の禁止など）。適切かどうかについてのご質問は、お気軽に <%= adminEmail %> へメールをお寄せください！",
+    "communityGuidelinesWarning": "表示名、プロフィール写真、自己紹介文は、<a href='https://habitica.com/static/community-guidelines' target='_blank'>コミュニティ ガイドライン</a>に従わなくてはならないことを、心に刻んでおいてください（例 : 冒涜・不敬の禁止、成人向けの話題の禁止、侮辱行為の禁止など）。適切かどうかについてのご質問は、お気軽に <%= hrefBlankCommunityManagerEmail %> へメールをお寄せください！",
     "profile": "プロフィール",
     "avatar": "アバターのカスタマイズ",
     "editAvatar": "アバターをカスタマイズする",
@@ -61,7 +61,7 @@
     "costumeDisabled": "衣装を無効にしました。",
     "gearAchievement": "クラスの最上級の装備セットを入手したため、「アルティメット・ギア」の実績を解除しました！ あなたは以下の全てのセットを手に入れています：",
     "gearAchievementNotification": "クラスの最上級の装備セットを入手したため、「アルティメット・ギア」の実績を解除しました！",
-    "moreGearAchievements": "他の「アルティメット・ギア」のバッジを手にするには、<%= linkOpen %>設定＞サイトのページ<%= linkClose %>でクラスを変えて、新しいクラスの装備を買いましょう！",
+    "moreGearAchievements": "他の「アルティメット・ギア」のバッジを手にするには、<a href='/user/settings/site' target='_blank'>設定＞サイトのページ</a>でクラスを変えて、新しいクラスの装備を買いましょう！",
     "armoireUnlocked": "もっと装備品がほしいですか？<strong>ラッキー宝箱</strong>をチェックしましょう！ごほうびの「ラッキー宝箱」をクリックすると、ランダムで特別な装備が当たります！経験値やえさが当たることもあります。",
     "ultimGearName": "アルティメット・ギア - <%= ultClass %>",
     "ultimGearText": "<%= ultClass %>のクラスにおいて最上級の武器防具を揃えました。",
@@ -83,7 +83,7 @@
     "allocatePerPop": "知覚にポイントを加える",
     "allocateInt": "知能のポイント：",
     "allocateIntPop": "知能にポイントを加える",
-    "noMoreAllocate": "レベル100に到達したため、これ以上ステータスポイントは増えません。このままレベルアップを続けるか、または<%= linkOpen %>転生のオーブ<%= linkClose %>を使ってレベル１から新しい冒険を始めることができます。",
+    "noMoreAllocate": "レベル100に到達したため、これ以上ステータスポイントは増えません。このままレベルアップを続けるか、または<a href='/shops/market'>転生のオーブ</a>を使ってレベル１から新しい冒険を始めることができます。",
     "stats": "ステータス",
     "strength": "力",
     "strText": "力は「会心の一撃」が出る確率と、それがもたらすゴールド、経験値、アイテムドロップの上昇率を上げます。さらに、ボスモンスターに与えるダメージも増えます。",
@@ -130,7 +130,7 @@
     "optOutOfClasses": "やめる",
     "chooseClass": "クラスを選んでください",
     "chooseClassLearnMarkdown": "[Habiticaのクラス・システムについて詳しく調べる](/static/faq/#what-classes)",
-    "optOutOfClassesText": "まだ選ぶ準備ができていない？ 焦らなくても大丈夫です！ もし選択しない場合、後で設定からクラスを有効にする事ができます。各クラスについては<%= linkOpen %>よくある質問<%= linkClose %>で読むことができます。",
+    "optOutOfClassesText": "まだ選ぶ準備ができていない？ 焦らなくても大丈夫です！ もし選択しない場合、後で設定からクラスを有効にする事ができます。各クラスについては<a href='/static/faq#what-classes' target='_blank'>よくある質問</a>で読むことができます。",
     "selectClass": "<%= heroClass %>を選択",
     "select": "選択",
     "stealth": "ステルス",
@@ -199,5 +199,6 @@
     "pointsAvailable": "利用可能なポイント",
     "statAllocationInfo": "レベルが1上がるごとに、任意の能力に割り当てられるポイントを 1点獲得します。割り当ては手動で行う、または「自動割り当て」設定でおまかせにすることもできます。",
     "conTaskText": "タスクの失敗や悪い習慣によって受けるダメージが減少します。クエストのボスからのダメージは減少しません。",
-    "intTaskText": "タスクの完了によって得られる経験値が増加します。また、マナの上限と時間回復の早さが増加します。"
+    "intTaskText": "タスクの完了によって得られる経験値が増加します。また、マナの上限と時間回復の早さが増加します。",
+    "assignedStat": ""
 }

@@ -3,7 +3,7 @@
     "dontDespair": "Umudunu kaybetme!",
     "deathPenaltyDetails": "Bir seviyeni, sahip olduğun altını ve bir ekipmanını kaybettin ama hepsini çok çalışarak yeniden kazanabilirsin! Bol şans - iyi iş çıkaracaksın.",
     "refillHealthTryAgain": "Sağlığını Doldur & Tekrar Dene",
-    "dyingOftenTips": "Bu çok mu sık oluyor? <%= linkOpen %> İşte birkaç tavsiye!<%= linkClose %>",
+    "dyingOftenTips": "Bu çok mu sık oluyor? <a href='https://tr.habitica.fandom.com/wiki/Ölüm_Mekanikleri#Hayatta_Kalmak_için_Stratejiler' target='_blank'> İşte birkaç tavsiye!</a>",
     "losingHealthWarning": "Dikkat Et - Sağlık Kaybediyorsun!",
     "losingHealthWarning2": "Sağlığının sıfıra düşmesine izin verme! Eğer düşerse bir seviye, altın, ve bir ekipmanını kaybedersin.",
     "toRegainHealth": "Sağlık kazanmak için:",

@@ -59,7 +59,7 @@
     "loginIncentiveQuest": "Ennek a küldetésnek a feloldásához jelentkezz be a Habiticába <%= count %> különböző napon!",
     "loginReward": "<%= count %> bejelentkezés",
     "questBundles": "Kedvezményes küldetéscsomagok",
-    "noQuestToStart": "Nézz körül a <%= linkOpen %>Küldetések boltjában<%= linkClose %> új küldetésekért!",
+    "noQuestToStart": "Nézz körül a <a href=\"<%= questShop %>\">Küldetések boltjában</a> új küldetésekért!",
     "pendingDamage": "<%= damage %> függőben lévő sebzés",
     "pendingDamageLabel": "függőben lévő sebzés",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> életerő",

@@ -103,5 +103,11 @@
     "notEnoughPetsMounts": "Не сте събрали достатъчно любимци и превози",
     "filterByWacky": "Смахнат",
     "gryphatrice": "Грифатрис",
-    "wackyPets": "Смахнати Любимци"
+    "wackyPets": "Смахнати Любимци",
+    "veteranCactus": "",
+    "tooMuchFood": "",
+    "notEnoughFood": "",
+    "invalidAmount": "",
+    "jubilantGryphatrice": "",
+    "veteranDragon": ""
 }

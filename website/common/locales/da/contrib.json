@@ -40,7 +40,6 @@
     "backerTier": "Støttetrin",
     "playerTiers": "Spillertrin",
     "tier": "Trin",
-    "conRewardsURL": "https://habitica.fandom.com/wiki/Contributor_Rewards",
     "surveysSingle": "Hjalp Habitica med at vokse ved at udfylde et spørgeskema eller var en stor hjælp ved test. Tusind tak!",
     "surveysMultiple": "Hjalp Habitica med at vokse ved <%= count %> lejligheder, enten ved at udfylde et spørgeskema eller hjalp med et større test-arbejde. Tusind tak!",
     "blurbHallPatrons": "Dette er Protektorernes Sal, hvor vi ærer de ædle eventyrere, der støttede Habiticas originale Kickstarter. Vi takker dem for at hjælpe os med at vække Habitica til live!",

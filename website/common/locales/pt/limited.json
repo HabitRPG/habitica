@@ -291,5 +291,8 @@
     "summer2026AlligatorWarriorSet": "Jacaré (Guerreiro)",
     "summer2026TigerSharkMageSet": "Tubarão-tigre (Mago)",
     "celebrateBirthday": "Comemore o 10º aniversário da Habitica com presentes e itens exclusivos!",
-    "gemSaleHow": "Entre <%= eventStartOrdinal %> e <%= eventEndOrdinal %> de <%= eventStartMonth %>, na compra de qualquer Pacote de Gemas, como de costume, sua conta receberá a quantidade promocional de Gemas. Mais Gemas para gastar, compartilhar, ou guardar para o futuro!"
+    "gemSaleHow": "Entre <%= eventStartOrdinal %> e <%= eventEndOrdinal %> de <%= eventStartMonth %>, na compra de qualquer Pacote de Gemas, como de costume, sua conta receberá a quantidade promocional de Gemas. Mais Gemas para gastar, compartilhar, ou guardar para o futuro!",
+    "anniversaryLimitations": "",
+    "gemSaleLimitationsText": "",
+    "g1g1Limitations": ""
 }

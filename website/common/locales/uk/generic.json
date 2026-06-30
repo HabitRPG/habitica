@@ -240,7 +240,7 @@
     "titleCustomizations": "Персоналізація",
     "newMessage": "Нове повідомлення",
     "targetUserNotExist": "Вибраний користувач: '<%= userName %>' не існує.",
-    "rememberToBeKind": "Не забувайте бути добрими, шанобливими та дотримуватися <%= linkOpen %>Правил спільноти<%= linkClose %>.",
+    "rememberToBeKind": "Не забувайте бути добрими, шанобливими та дотримуватися <a href='/static/community-guidelines' target='_blank'>Правил спільноти</a>.",
     "gem": "Самоцвіт",
     "confirmPurchase": "Підтвердити покупку",
     "avoidSPI": "Уникайте передачі конфіденційної інформації",

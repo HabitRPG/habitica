@@ -239,7 +239,7 @@
     "guildSummaryPlaceholder": "他のHabiticanにあなたのグループの簡単な紹介文を書きましょう。何がグループの主な目的で、メンバーたちは何をしますか？",
     "groupDescription": "説明",
     "guildDescriptionPlaceholder": "あなたのグループメンバーがグループについて知るべき情報をここに書いてください。役立つヒント、有益なリンク、そして励みになる言葉は全てここへどうぞ！",
-    "markdownFormattingHelp": "[マークダウン記法のヘルプ](<%= markdownLink %>)",
+    "markdownFormattingHelp": "[マークダウン記法のヘルプ](https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica)",
     "partyDescriptionPlaceholder": "私たちのパーティーの説明です。このパーティーで何をするかが書かれています。このパーティーでやることについてもっと知りたい場合、この説明を読んでください。パーティーを楽しみましょう。",
     "guildGemCostInfo": "ジェムの費用によって高品質のギルドを促進します。そして、ジェムはギルド口座に移されます。",
     "noGuildsTitle": "あなたはどのギルドにも参加していません。",
@@ -428,5 +428,12 @@
     "membersCount": "メンバー<%= count %>人",
     "chooseAnOption": "オプションを選択",
     "inviteOthersForAdditional": "他の人をグループに誘う追加料金",
-    "perMember": "（一人あたり）"
+    "perMember": "（一人あたり）",
+    "upgradeExistingGroup": "",
+    "previouslyUpgradedGroup": "",
+    "additionalMembersProrated": "",
+    "pendingCount": "",
+    "upgradeCancelsPendingInvites": "",
+    "groupPlanBillingFYI": "",
+    "groupPlanBillingFYIShort": ""
 }

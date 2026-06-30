@@ -59,7 +59,7 @@
     "loginIncentiveQuest": "כדי לשחרר את ההרפתקה הזאת, יש להיכנס להביטיקה <%= count %> ימים ברצף!",
     "loginReward": "<%= count %> כניסות",
     "questBundles": "אגד הרפתקאות בהנחה",
-    "noQuestToStart": "נסו לבקר את <%= linkOpen %>חנות ההרפתקאות<%= linkClose %> בשביל תכנים חדשים!",
+    "noQuestToStart": "נסו לבקר את <a href=\"<%= questShop %>\">חנות ההרפתקאות</a> בשביל תכנים חדשים!",
     "pendingDamage": "<%= damage %> נזק ממתין",
     "pendingDamageLabel": "נזק ממתין",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> בריאות",

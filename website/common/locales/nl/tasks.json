@@ -143,5 +143,15 @@
     "deleteXTasks": "Verwijder <%= count %> taken",
     "brokenChallengeTaskCount": "Dit is een van de <%= count %> taken die deel uitmaken van een Uitdaging die niet langer bestaat.",
     "confirmDeleteTasks": "Wil je deze taken verwijderen?",
-    "sureDeleteType": "Weet je zeker dat je deze taak wil verwijderen?"
+    "sureDeleteType": "Weet je zeker dat je deze taak wil verwijderen?",
+    "every": "",
+    "everyDay": "",
+    "everyXDays": "",
+    "everyWeek": "",
+    "everyXWeeks": "",
+    "everyMonth": "",
+    "everyXMonths": "",
+    "everyYear": "",
+    "everyXYears": "",
+    "fifthWeekWarning": ""
 }

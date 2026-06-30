@@ -2,7 +2,7 @@
     "settings": "Ustawienia",
     "language": "Język",
     "americanEnglishGovern": "W przypadku niezgodności tłumaczeń, za prawidłową należy uznać wersję angielską (USA).",
-    "helpWithTranslation": "Chciałbyś pomóc w tłumaczeniu Habitica? Świetnie! Odwiedź <%= linkOpen %>stronę Habitica w serwisie Weblate<%= linkClose %>!",
+    "helpWithTranslation": "Chciałbyś pomóc w tłumaczeniu Habitica? Świetnie! Odwiedź <a href=\"https://translate.habitica.com\">stronę Habitica w serwisie Weblate</a>!",
     "stickyHeader": "Przyklejony nagłówek",
     "newTaskEdit": "Otwieraj nowe zadania w trybie edycji",
     "reverseChatOrder": "Pokazuj wiadomości w odwrotnej kolejności",
@@ -115,7 +115,7 @@
     "generate": "Generuj",
     "getCodes": "Zdobądź kody",
     "webhooks": "Webhooki",
-    "webhooksInfo": "Habitica udostępnia webhooki, które umożliwiają przesyłanie informacji o pewnych działaniach występujących na twoim koncie do skryptów na innej stronie internetowej. Tutaj można wykazać te skrypty. Bądź ostrożny, gdyż wpisanie niepoprawnych URL może spowodować w Habitica błędy lub spowolnienia. Więcej informacji znajdziesz na stronie <%= linkOpen %>Webhooki<%= linkClose %>.",
+    "webhooksInfo": "Habitica udostępnia webhooki, które umożliwiają przesyłanie informacji o pewnych działaniach występujących na twoim koncie do skryptów na innej stronie internetowej. Tutaj można wykazać te skrypty. Bądź ostrożny, gdyż wpisanie niepoprawnych URL może spowodować w Habitica błędy lub spowolnienia. Więcej informacji znajdziesz na stronie <a target=\"_blank\" href=\"https://apidoc.habitica.com/#api-Webhook-AddWebhook\">Webhooki</a>.",
     "enabled": "Włączone",
     "webhookURL": "Link do webhooka",
     "invalidUrl": "Nieprawidłowy url",
@@ -269,5 +269,7 @@
     "usedForSupport": "Te są używane, aby poprawić user experience, wydajność oraz serwisy na naszej stronie i w aplikacjach. Te dane są używane przez nas zespół wsparcia podczas obsługiwania zapytań i zgłoszeń błędów.",
     "privacySettingsOverview": "Habitica używa plików cookies w celach analizy wydajności, rozpatrywania zgłoszeń wsparcia i aby zapewnić Ci jak najlepsze wrażenia z gry. W tym celu potrzebujemy następujących pozwoleń. Możesz je zmienić w dowolnym momencie z poziomu ustawień konta.",
     "transaction_create_bank_challenge": "<b>Stworzono</b> bankowe wyzwanie",
-    "resetDetail4": "Stracisz całe swoje wyposażenie poza tajemniczymi przedmiotami abonenta i darmowymi przedmiotami upamiętniającymi. Będziesz móc odkupić usunięte przedmioty, jak również całe wyposażenie z edycji limitowanych (musisz mieć poprawną klasę aby odkupić wyposażenie dla danej klasy)."
+    "resetDetail4": "Stracisz całe swoje wyposażenie poza tajemniczymi przedmiotami abonenta i darmowymi przedmiotami upamiętniającymi. Będziesz móc odkupić usunięte przedmioty, jak również całe wyposażenie z edycji limitowanych (musisz mieć poprawną klasę aby odkupić wyposażenie dla danej klasy).",
+    "gpcWarning": "",
+    "gpcPlusAnalytics": ""
 }

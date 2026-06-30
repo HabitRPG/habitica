@@ -122,5 +122,12 @@
     "nMonthsSubscriptionGift": "<%= nMonths %> Měsíční odběr (Dárek)",
     "nGems": "<%= nGems %> Drahokamy",
     "limitedAvailabilityHours": "K získání na <%= hodin %>h <%= minut %>m",
-    "limitedAvailabilityMinutes": "K získání na <%= minut %>m <%= sekund %>s"
+    "limitedAvailabilityMinutes": "K získání na <%= minut %>m <%= sekund %>s",
+    "helpSupportHabitica": "",
+    "customizationsShopText": "",
+    "notAvailable": "",
+    "groupsPaymentSubBilling": "",
+    "groupsPaymentAutoRenew": "",
+    "paymentYouSentSubscriptionG1G1": "",
+    "sellItems": ""
 }

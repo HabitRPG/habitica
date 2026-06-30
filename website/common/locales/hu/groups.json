@@ -239,7 +239,7 @@
     "guildSummaryPlaceholder": "Írj egy rövid leírást a csoportról. Mi a csoport fő célja és mit fognak csinálni a tagok?",
     "groupDescription": "Leírás",
     "guildDescriptionPlaceholder": "Ebben a szakaszban részletesebben kifejtheted, amit a tagoknak tudniuk kell a csoportról. Itt oszthatsz meg hasznos tippeket, segítő linkeket és bátorító üzeneteket!",
-    "markdownFormattingHelp": "[Markdown formázási segítség](<%= markdownLink %>)",
+    "markdownFormattingHelp": "[Markdown formázási segítség](https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica)",
     "partyDescriptionPlaceholder": "Ez a csapatunk leírása. Leírja, mit csinálunk ebben a csapatban. Ha többet szeretnél megtudni arról, mit csinálunk itt, olvasd el a leírást. Hajrá csapat.",
     "guildGemCostInfo": "Azzal hogy a céhek létrehozása gyémántba kerül, biztosítjuk a magas színvonalú céhek létrehozását. A gyémántok a céhbankba kerülnek.",
     "noGuildsTitle": "Nem vagy tagja egy céhnek sem.",

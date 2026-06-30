@@ -14,5 +14,9 @@
     "nextFreeRebirth": "<strong><%= days %> dni</strong> do <strong>DARMOWEJ</strong> Kuli Odrodzenia",
     "rebirthUnlockedOrb": "Nowa podróż jest dostępna!",
     "rebirthNewAchievement": "Nowe Osiągnięcie",
-    "rebirthNewAdventure": "Nowa przygoda zaczyna się teraz!"
+    "rebirthNewAdventure": "Nowa przygoda zaczyna się teraz!",
+    "rebirthStackInfo": "To osiągnięcie nalicza się za każdym razem, gdy użyjesz Kuli Odrodzenia.",
+    "rebirthUnlockedNewItem": "odblokowano Kulę Odrodzenia",
+    "rebirthUnlockedDesc": "Użyj Kuli Odrodzenia by tchnąć nowe życie w Twoją przygodę z Habiticą, kiedy poczujesz, że osiągnąłeś już wszystko! Zacznij na nowo na 1 poziomie, zachowując jednocześnie Twoje zadania, osiągnięcia i chowańce dzięki temu specjalnemu przedmiotowi znalezionemu na Targu.",
+    "rebirthAchievementPlural": "Użyłeś Kuli odrodzenia <strong><%= number %></strong>razy, a najwyższy poziom jaki osiągnąłeś to <strong><%= level %></strong>."
 }

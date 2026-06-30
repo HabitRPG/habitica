@@ -169,8 +169,8 @@
     "usuallyGems": "Normalmente <%= originalGems %>",
     "supportHabitica": "Suporte Habitica",
     "organization": "Organização",
-    "cancelSubInfoApple": "Siga as <%= linkOpen %>instruções oficiais da Apple<%= linkClose %> para cancelar a sua assinatura ou para ver a data de término da assinatura, caso já a tenha realizado o cancelamento da mesma. Esta tela não mostra se sua assinatura foi cancelada.",
-    "cancelSubInfoGoogle": "Por favor, visite a seção <%= linkOpen %>Google Play Store<%= linkClose %> para cancelar a sua assinatura ou para ver a data de término da sua assinatura, caso já tenha realizado o cancelamento da mesma. Esta tela não mostra se sua assinatura foi cancelada.",
+    "cancelSubInfoApple": "Siga as <a href=\"https://support.apple.com/en-us/HT202039\">instruções oficiais da Apple</a> para cancelar a sua assinatura ou para ver a data de término da assinatura, caso já a tenha realizado o cancelamento da mesma. Esta tela não mostra se sua assinatura foi cancelada.",
+    "cancelSubInfoGoogle": "Por favor, visite a seção <a href='https://play.google.com/store/account/subscriptions'>Google Play Store</a> para cancelar a sua assinatura ou para ver a data de término da sua assinatura, caso já tenha realizado o cancelamento da mesma. Esta tela não mostra se sua assinatura foi cancelada.",
     "mysterySet202010": "Conjunto Sedutoramente Extravagante",
     "dropCapSubs": "Os assinantes do Habitica podem encontrar o dobro dos itens aleatórios por dia e receber mensalmente itens misteriosos!",
     "lookingForMoreItems": "Querendo mais itens?",
@@ -274,5 +274,9 @@
     "mysterySet202601": "Conjunto Égide de Inverno",
     "mysterySet202602": "Conjunto Raposa de Sakura",
     "mysterySet202604": "Conjunto Astronauta Audacioso",
-    "mysterySet202605": "Conjunto Nimbos do Anoitecer"
+    "mysterySet202605": "Conjunto Nimbos do Anoitecer",
+    "mysterySet202606": "",
+    "mysterySet202607": "",
+    "mysterySet202608": "",
+    "mysterySet202603": ""
 }

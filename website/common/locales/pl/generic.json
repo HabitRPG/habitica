@@ -240,7 +240,9 @@
     "whyReportingPlayerPlaceholder": "Powód zgłoszenia",
     "targetUserNotExist": "Docelowy Użytkownik: '<%= userName %>' nie istnieje.",
     "shadowMute": "Wygłuszenie Cienia",
-    "rememberToBeKind": "Pamiętaj proszę o tym, aby być uprzejmym i pełnym szacunku względem innych Graczy oraz aby przestrzegać <%= linkOpen %>Regulamin Społeczności<%= linkClose %>.",
+    "rememberToBeKind": "Pamiętaj proszę o tym, aby być uprzejmym i pełnym szacunku względem innych Graczy oraz aby przestrzegać <a href='/static/community-guidelines' target='_blank'>Regulamin Społeczności</a>.",
     "gem": "Klejnot",
-    "confirmPurchase": "Potwierdź Zakup"
+    "confirmPurchase": "Potwierdź Zakup",
+    "avoidSPI": "",
+    "avoidSPIDetails": ""
 }

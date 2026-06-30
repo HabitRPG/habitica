@@ -105,5 +105,12 @@
     "deleteChallengeRefundDescription": "Pokud tuto výzvu smažeš, bude ti vrácena odměna v drahokamech a úkoly z výzvy zůstanou na nástěnkách úkolů účastníků.",
     "messageChallengeFlagOfficial": "Oficiální výzvy nelze nahlásit.",
     "brokenTask": "Nefunkční odkaz na výzvu",
-    "removeTasks": "Odstranit Úkoly"
+    "removeTasks": "Odstranit Úkoly",
+    "whyReportingChallengePlaceholder": "",
+    "abuseFlagModalBodyChallenge": "",
+    "whyReportingChallenge": "",
+    "cannotClone": "",
+    "resetFlags": "",
+    "cannotClose": "",
+    "cannotMakeChallenge": ""
 }

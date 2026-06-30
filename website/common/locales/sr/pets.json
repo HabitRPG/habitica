@@ -104,5 +104,10 @@
     "wackyPets": "Šašavi ljubimci",
     "notEnoughFood": "Nemate dovoljno hrane",
     "veteranCactus": "Kaktus veteran",
-    "veteranDragon": "Zmaj veteran"
+    "veteranDragon": "Zmaj veteran",
+    "gryphatrice": "",
+    "filterByWacky": "",
+    "invalidAmount": "",
+    "tooMuchFood": "",
+    "jubilantGryphatrice": ""
 }

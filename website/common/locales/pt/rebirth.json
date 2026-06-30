@@ -11,5 +11,12 @@
     "rebirthPop": "Recomece instantaneamente o seu personagem como um Guerreiro de Nível 1, mantendo, no entanto, conquistas, colecionáveis e equipamento. As suas tarefas e o historial das mesmas irá manter-se, mas serão reinicializadas para amarelo. Os seus combos serão removidos exceto em tarefas de desafio. O seu Ouro, Experiência, Mana e efeitos de todas as suas Habilidades serão removidos. Tudo isto terá efeito imediato.",
     "rebirthName": "Orbe do Renascimento",
     "rebirthComplete": "Renasceste!",
-    "nextFreeRebirth": "<strong><%= days %> dias</strong> até Orbe de Renascimento <strong>GRÁTIS</strong>"
+    "nextFreeRebirth": "<strong><%= days %> dias</strong> até Orbe de Renascimento <strong>GRÁTIS</strong>",
+    "rebirthUnlockedNewItem": "",
+    "rebirthUnlockedOrb": "",
+    "rebirthUnlockedDesc": "",
+    "rebirthNewAchievement": "",
+    "rebirthNewAdventure": "",
+    "rebirthAchievementPlural": "",
+    "rebirthStackInfo": ""
 }

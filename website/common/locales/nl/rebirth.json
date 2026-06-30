@@ -15,5 +15,8 @@
     "rebirthNewAchievement": "Nieuwe prestatie",
     "rebirthNewAdventure": "Een nieuw avontuur begint nu!",
     "rebirthUnlockedOrb": "Een nieuw avontuur is beschikbaar!",
-    "rebirthUnlockedNewItem": "Bol der Hergeboorte is Ontgrendeld"
+    "rebirthUnlockedNewItem": "Bol der Hergeboorte is Ontgrendeld",
+    "rebirthUnlockedDesc": "",
+    "rebirthAchievementPlural": "",
+    "rebirthStackInfo": ""
 }

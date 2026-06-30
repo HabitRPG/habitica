@@ -240,7 +240,9 @@
     "general": "Általános",
     "newMessage": "Új üzenet",
     "targetUserNotExist": "A megadott felhasználó ('<%= userName %>') nem létezik.",
-    "rememberToBeKind": "Ne feledd, hogy légy kedves, tisztelettudó, és tartsd be a <%= linkOpen %>Közösségi irányelveket<%= linkClose %>.",
+    "rememberToBeKind": "Ne feledd, hogy légy kedves, tisztelettudó, és tartsd be a <a href='/static/community-guidelines' target='_blank'>Közösségi irányelveket</a>.",
     "gem": "Gyémánt",
-    "confirmPurchase": "Vásárlás megerősítése"
+    "confirmPurchase": "Vásárlás megerősítése",
+    "avoidSPI": "",
+    "avoidSPIDetails": ""
 }

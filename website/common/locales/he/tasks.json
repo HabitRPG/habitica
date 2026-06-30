@@ -136,5 +136,22 @@
     "sureDeleteType": "אתה בטוח שאתה רוצה למחוק את המשימה?",
     "taskAlias": "כינוי למשימה",
     "taskAliasPopover": "כינוי משימה זה יכול להיות בשימוש בעת שילוב עם אינטגרציות של צד שלישי. רק מקפים, קווים תחתונים ותווים אלפאנומריים נתמכים. כינוי המשימה חייב להיות ייחודי בין כל המשימות שלך.",
-    "taskAliasPlaceholder": "כינוי-המשימה-שלך-כאן"
+    "taskAliasPlaceholder": "כינוי-המשימה-שלך-כאן",
+    "deleteType": "",
+    "every": "",
+    "everyDay": "",
+    "everyXDays": "",
+    "everyWeek": "",
+    "everyXWeeks": "",
+    "everyMonth": "",
+    "everyXMonths": "",
+    "everyYear": "",
+    "everyXYears": "",
+    "fifthWeekWarning": "",
+    "deleteTask": "",
+    "deleteXTasks": "",
+    "brokenChallengeTaskCount": "",
+    "confirmDeleteTasks": "",
+    "scoreUp": "",
+    "scoreDown": ""
 }

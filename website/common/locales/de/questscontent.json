@@ -860,5 +860,14 @@
     "questOpalCollectMercuryRunes": "Merkur-Rune",
     "questOpalCollectOpalGems": "Opal-Edelstein",
     "questOpalDropOpalPotion": "Opal-Schlüpfelixier",
-    "questOpalUnlockText": "Schaltet im Markt das Opal-Schlüpfelixier zum Kauf frei"
+    "questOpalUnlockText": "Schaltet im Markt das Opal-Schlüpfelixier zum Kauf frei",
+    "questAlienText": "",
+    "questAlienNotes": "",
+    "questAlienCompletion": "",
+    "questAlienBoss": "",
+    "questAlienRageTitle": "",
+    "questAlienRageDescription": "",
+    "questAlienRageEffect": "",
+    "questAlienDropAlienPotion": "",
+    "questAlienUnlockText": ""
 }
