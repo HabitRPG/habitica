@@ -8,7 +8,6 @@ import mergeWith from 'lodash/mergeWith';
 import uniqBy from 'lodash/uniqBy';
 import nconf from 'nconf';
 import moment from 'moment';
-import mongoose from 'mongoose';
 import { authWithHeaders, chatPrivilegesRequired } from '../../middlewares/auth';
 import {
   model as Group,
