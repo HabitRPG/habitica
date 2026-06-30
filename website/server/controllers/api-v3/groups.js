@@ -939,16 +939,18 @@ api.removeGroupMember = {
     const message = req.query.message || req.body.message;
     _sendMessageToRemoved(group, member, message, isInGroup);
 
-    const session = await mongoose.startSession();
-
+    const originalMemberCount = group.memberCount;
     try {
-      await session.withTransaction(async () => {
+      await Group.db.transaction(async session => {
+        group.memberCount -= 1;
         await member.save({ session });
         await group.save({ session });
       }, {
         retryWrites: true,
       });
     } catch (err) {
+      group.memberCount = originalMemberCount;
+      await group.save();
       if (err.name === 'MongoError') {
         throw err.hasErrorLabel('TransactionTooLargeForCache')
           ? new TransactionError(`Transaction too large for cache: ${err.message}`)
@@ -958,8 +960,6 @@ api.removeGroupMember = {
       } else {
         throw new InternalServerError(`Unexpected error: ${err.message}`);
       }
-    } finally {
-      session.endSession();
     }
 
     if (isInGroup && group.hasNotCancelled()) {
