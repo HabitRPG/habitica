@@ -121,9 +121,9 @@ describe('POST /chat/:chatId/like', () => {
 
     await expect(user.post(`/groups/${groupWithChat._id}/chat/${message.message.id}/like`))
       .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('featureRetired'),
+        code: 404,
+        error: 'NotFound',
+        message: t('groupNotFound'),
       });
   });
 });

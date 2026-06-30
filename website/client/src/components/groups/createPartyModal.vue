@@ -114,7 +114,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .copy-icon {
     width: 1rem;
@@ -163,7 +163,7 @@
     width: 100%;
 
     .quest_screen {
-      background-image: url('~@/assets/images/group@3x.png');
+      background-image: url('@/assets/images/group@3x.png');
       background-size: cover;
       width: 100%;
       height: 246px;
@@ -196,7 +196,7 @@
   }
 
   .join-party {
-    background-image: url('~@/assets/images/party.png');
+    background-image: url('@/assets/images/party.png');
     background-size: cover;
     width: 203px;
     height: 66px;
@@ -240,11 +240,10 @@
 
 <script>
 import { mapState } from '@/libs/store';
-import * as Analytics from '@/libs/analytics';
 import notifications from '@/mixins/notifications';
 import closeX from '../ui/closeX';
 
-import copyIcon from '@/assets/svg/copy.svg';
+import copyIcon from '@/assets/svg/copy.svg?raw';
 import copyToClipboard from '@/mixins/copyToClipboard';
 
 export default {
@@ -275,11 +274,6 @@ export default {
       const party = await this.$store.dispatch('guilds:create', { group });
       this.$store.state.party.data = party;
       this.user.party._id = party._id;
-
-      Analytics.updateUser({
-        partyID: party._id,
-        partySize: 1,
-      });
 
       this.$root.$emit('bv::hide::modal', 'create-party-modal');
       await this.$router.push('/party');

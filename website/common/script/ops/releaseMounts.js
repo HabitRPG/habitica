@@ -6,7 +6,7 @@ import {
 } from '../libs/errors';
 import updateUserBalance from './updateUserBalance';
 
-export default async function releaseMounts (user, req = {}, analytics) {
+export default async function releaseMounts (user, req = {}) {
   if (user.balance < 1) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
@@ -39,16 +39,6 @@ export default async function releaseMounts (user, req = {}, analytics) {
       user.achievements.mountMasterCount = 0;
     }
     user.achievements.mountMasterCount += 1;
-  }
-
-  if (analytics) {
-    analytics.track('release mounts', {
-      uuid: user._id,
-      currency: 'Gems',
-      gemCost: 4,
-      category: 'behavior',
-      headers: req.headers,
-    });
   }
 
   return [

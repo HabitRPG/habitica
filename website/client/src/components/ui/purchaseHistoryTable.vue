@@ -226,7 +226,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .page-header.btn-flat {
     background: transparent;
@@ -349,10 +349,10 @@
 
 <script>
 import moment from 'moment';
-import svgGem from '@/assets/svg/gem.svg';
-import svgGemRed from '@/assets/svg/gem-red.svg';
-import svgHourglass from '@/assets/svg/hourglass.svg';
-import svgHourglassRed from '@/assets/svg/hourglass-red.svg';
+import svgGem from '@/assets/svg/gem.svg?raw';
+import svgGemRed from '@/assets/svg/gem-red.svg?raw';
+import svgHourglass from '@/assets/svg/hourglass.svg?raw';
+import svgHourglassRed from '@/assets/svg/hourglass-red.svg?raw';
 import markdownDirective from '@/directives/markdown';
 
 export default {

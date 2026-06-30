@@ -1,4 +1,7 @@
 import {
+  describe, beforeEach, test, expect,
+} from 'vitest';
+import {
   getTypeLabel,
   getFilterLabels,
   getActiveFilter,
@@ -6,7 +9,7 @@ import {
 
 describe('Filter Category for Tasks', () => {
   describe('getTypeLabel', () => {
-    it('should return correct task type labels', () => {
+    test('should return correct task type labels', () => {
       expect(getTypeLabel('habit')).to.eq('habits');
       expect(getTypeLabel('daily')).to.eq('dailies');
       expect(getTypeLabel('todo')).to.eq('todos');
@@ -24,7 +27,7 @@ describe('Filter Category for Tasks', () => {
       reward = ['all', 'custom', 'wishlist'];
     });
 
-    it('should return all task type filter labels by type', () => {
+    test('should return all task type filter labels by type', () => {
       // habits
       getFilterLabels('habit').forEach((item, i) => {
         expect(item).to.eq(habit[i]);
@@ -45,14 +48,14 @@ describe('Filter Category for Tasks', () => {
   });
 
   describe('getActiveFilter', () => {
-    it('should return single function by default', () => {
+    test('should return single function by default', () => {
       const activeFilter = getActiveFilter('habit');
       expect(activeFilter).to.be.an('object');
       expect(activeFilter).to.have.all.keys('label', 'filterFn', 'default');
       expect(activeFilter.default).to.be.true;
     });
 
-    it('should return single function for given filter type', () => {
+    test('should return single function for given filter type', () => {
       const activeFilterLabel = 'yellowred';
       const activeFilter = getActiveFilter('habit', activeFilterLabel);
       expect(activeFilter).to.be.an('object');

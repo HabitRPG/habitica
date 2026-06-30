@@ -1,9 +1,9 @@
 // TODO these files need to refactored.
 
-import _ from 'lodash';
+import defaults from 'lodash/defaults';
+import each from 'lodash/each';
+import find from 'lodash/find';
 import moment from 'moment';
-
-import { getAnalyticsServiceByEnvironment } from '../analyticsService';
 import * as slack from '../slack'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
   getUserInfo,
@@ -23,14 +23,14 @@ import calculateSubscriptionTerminationDate from './calculateSubscriptionTermina
 import { getCurrentEventList } from '../worldState'; // eslint-disable-line import/no-cycle
 import { paymentConstants } from './constants';
 import { addSubscriptionToGroupUsers, cancelGroupUsersSubscription } from './groupPayments'; // eslint-disable-line import/no-cycle
+import { trackSubscriptionEvent } from '../localAnalytics';
 
 // @TODO: Abstract to shared/constant
 const JOINED_GROUP_PLAN = 'joined group plan';
-const analytics = getAnalyticsServiceByEnvironment();
 
 function _findMysteryItems (user, dateMoment) {
   const pushedItems = [];
-  _.each(shared.content.gear.flat, item => {
+  each(shared.content.gear.flat, item => {
     if (
       item.klass === 'mystery'
         && shared.content.mystery[item.mystery]
@@ -78,6 +78,14 @@ async function prepareSubscriptionValues (data) {
     ? shared.content.subscriptionBlocks[data.updatedFrom.key]
     : undefined;
   let months;
+  let subscriptionEventType = 'subscribed';
+  if (updatedFrom) {
+    if (Number(updatedFrom.months) > Number(block.months)) {
+      subscriptionEventType = 'downgraded';
+    } else {
+      subscriptionEventType = 'upgraded';
+    }
+  }
   if (updatedFrom && Number(updatedFrom.months) !== 1) {
     if (Number(updatedFrom.months) > Number(block.months)) {
       months = 0;
@@ -123,13 +131,6 @@ async function prepareSubscriptionValues (data) {
       user: data.user, groupId: data.groupId, populateLeader: false, groupFields,
     });
 
-    if (group) {
-      analytics.track(
-        data.groupID,
-        data.demographics,
-      );
-    }
-
     if (!group) {
       throw new NotFound(shared.i18n.t('groupNotFound'));
     }
@@ -150,14 +151,14 @@ async function prepareSubscriptionValues (data) {
     groupId = group._id;
     recipient.purchased.plan.quantity = data.sub.quantity;
 
+    if (group.type === 'party') {
+      await group.removeGroupInvitations();
+    }
+
     await addSubscriptionToGroupUsers(group);
   }
 
   const { plan } = recipient.purchased;
-
-  if (isNewSubscription) {
-    plan.perkMonthCount = 0;
-  }
 
   if (data.gift || !autoRenews) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
@@ -204,18 +205,11 @@ async function prepareSubscriptionValues (data) {
       owner: data.user._id,
     });
 
-    // allow non-override if a plan was previously used
-    if (!plan.gemsBought) {
-      plan.gemsBought = 0;
-    }
-
-    if (!plan.dateCreated) {
-      plan.dateCreated = today;
-    }
-
-    if (!plan.mysteryItems) {
-      plan.mysteryItems = [];
-    }
+    defaults(plan, {
+      gemsBought: 0,
+      dateCreated: today,
+      mysteryItems: [],
+    });
 
     if (data.subscriptionId) {
       plan.subscriptionId = data.subscriptionId;
@@ -234,6 +228,7 @@ async function prepareSubscriptionValues (data) {
     purchaseType,
     emailType,
     isNewSubscription,
+    subscriptionEventType,
   };
 }
 
@@ -246,27 +241,10 @@ async function createSubscription (data) {
     autoRenews,
     group,
     groupId,
-    itemPurchased,
-    purchaseType,
     emailType,
     isNewSubscription,
+    subscriptionEventType,
   } = await prepareSubscriptionValues(data);
-
-  // Block sub perks
-  if (months > 1 && (!data.gift || !isNewSubscription)) {
-    if (!data.gift && !groupId) {
-      plan.consecutive.offset = block.months;
-    }
-  } else if (months === 1) {
-    plan.consecutive.offset = 0;
-  }
-  if (months > 1 || data.gift) {
-    await plan.incrementPerkCounterAndReward(recipient._id, months);
-  } else {
-    // Make sure the perkMonthCount field is initialized.
-    await plan.incrementPerkCounterAndReward(recipient._id, 0);
-  }
-
   if (recipient !== group) {
     recipient.items.pets['Jackalope-RoyalPurple'] = 5;
     recipient.markModified('items.pets');
@@ -278,23 +256,24 @@ async function createSubscription (data) {
     txnEmail(data.user, emailType);
   }
 
-  if (!group && !data.promo) data.user.purchased.txnCount += 1;
+  if (months > 0) {
+    if (block.months === 12) {
+      recipient.purchased.plan.consecutive.gemCapExtra = 26;
+    }
+    const { lastHourglassReceived } = recipient.purchased.plan.consecutive;
 
-  if (!data.promo) {
-    analytics.trackPurchase({
-      uuid: data.user._id,
-      groupId,
-      itemPurchased,
-      sku: `${data.paymentMethod.toLowerCase()}-subscription`,
-      purchaseType,
-      paymentMethod: data.paymentMethod,
-      quantity: 1,
-      gift: Boolean(data.gift),
-      purchaseValue: block.price,
-      headers: data.headers || { 'x-client': 'habitica-web' },
-      firstPurchase: !group && data.user.purchased.txnCount === 1,
-    });
+    if (block.months === 12 && autoRenews && !data.gift
+      && !recipient.purchased.plan.hourglassPromoReceived) {
+      recipient.purchased.plan.hourglassPromoReceived = new Date();
+      await plan.updateHourglasses(recipient._id, 12, 'subscription_bonus');
+    }
+    if (isNewSubscription
+      && (lastHourglassReceived === null || lastHourglassReceived === undefined || !moment().isSame(lastHourglassReceived, 'month'))) {
+      await plan.updateHourglasses(recipient._id, 1, 'subscription_perks');
+    }
   }
+
+  if (!group && !data.promo) data.user.purchased.txnCount += 1;
 
   if (data.gift) {
     const byUserName = getUserInfo(data.user, ['name']).name;
@@ -349,7 +328,7 @@ async function createSubscription (data) {
     // Only send push notifications if sending to a user other than yourself
     if (data.gift.member._id !== data.user._id) {
       const currentEventList = getCurrentEventList();
-      const currentEvent = _.find(currentEventList, event => Boolean(event.promo));
+      const currentEvent = find(currentEventList, event => Boolean(event.promo));
       if (currentEvent && currentEvent.promo === 'g1g1') {
         const promoData = {
           user: data.user,
@@ -384,6 +363,16 @@ async function createSubscription (data) {
   if (data.user && data.user.isModified()) await data.user.save();
   if (data.gift) await data.gift.member.save();
 
+  await trackSubscriptionEvent({
+    eventType: subscriptionEventType,
+    user: data.gift ? data.gift.member : data.user,
+    gifted: data.gift !== undefined,
+    autoRenews,
+    paymentMethod: data.paymentMethod,
+    planId: block.key,
+    customerId: plan.customerId,
+  });
+
   slack.sendSubscriptionNotification({
     buyer: {
       id: data.user._id,
@@ -406,8 +395,6 @@ async function createSubscription (data) {
 async function cancelSubscription (data) {
   let plan;
   let group;
-  let cancelType = 'unsubscribe';
-  let groupId;
   let emailType;
   const emailMergeData = [];
   let sendEmail = true;
@@ -465,18 +452,13 @@ async function cancelSubscription (data) {
     txnEmail(data.user, emailType, emailMergeData);
   }
 
-  if (group) {
-    cancelType = 'group-unsubscribe';
-    groupId = group._id;
-  }
-
-  analytics.track(cancelType, {
-    uuid: data.user._id,
-    groupId,
-    gaCategory: 'commerce',
-    gaLabel: data.paymentMethod,
-    paymentMethod: data.paymentMethod,
-    headers: data.headers,
+  await trackSubscriptionEvent({
+    eventType: 'cancelled',
+    user: data.user,
+    cancellationReason: data.cancellationReason,
+    paymentMethod: plan.paymentMethod,
+    planId: plan.planId,
+    customerId: plan.customerId,
   });
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <fragment v-if="allowedToChangeClass">
+  <div class="d-content" v-if="allowedToChangeClass">
     <tr
       v-if="!mixinData.inlineSettingMixin.modalVisible"
     >
@@ -66,15 +66,16 @@
           <your-balance
             :amount-needed="amountNeeded"
             currency-needed="gems"
+            class="d-flex align-items-center"
           />
         </div>
       </td>
     </tr>
-  </fragment>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 input {
   margin-right: 2rem;
@@ -161,7 +162,7 @@ import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import { GenericUserPreferencesMixin } from '../components/genericUserPreferencesMixin';
 import YourBalance from '@/pages/settings/components/yourBalance.vue';
 import GemPrice from '@/components/shops/gemPrice.vue';
-import checkIcon from '@/assets/svg/check.svg';
+import checkIcon from '@/assets/svg/check.svg?raw';
 import ClassIconLabel from '@/pages/settings/components/classIconLabel.vue';
 
 export default {
@@ -216,8 +217,18 @@ export default {
       }
     },
     async changeClassAndClose () {
-      if (!this.classDisabled && !window.confirm(this.$t('changeClassConfirmCost'))) {
-        return;
+      if (!this.classDisabled) {
+        const confirmed = await new Promise(resolve => {
+          this.$root.$emit('habitica:purchase-confirm', {
+            message: this.$t('changeClassConfirmCost'),
+            currency: 'gems',
+            cost: 3,
+            resolve,
+          });
+        });
+        if (!confirmed) {
+          return;
+        }
       }
 
       this.$root.$once('bv::hide::modal', () => {

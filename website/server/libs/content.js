@@ -9,6 +9,15 @@ import packageInfo from '../../../package.json';
 export const CONTENT_CACHE_PATH = path.join(__dirname, '/../../../content_cache/');
 const SWITCHOVER_TIME = nconf.get('CONTENT_SWITCHOVER_TIME_OFFSET') || 0;
 
+const MOBILE_FILTER = ['achievements', 'questSeriesAchievements', 'animalColorAchievements', 'animalSetAchievements',
+  'stableAchievements', 'bundles', 'loginIncentives', 'pets', 'premiumPets', 'specialPets', 'questPets',
+  'wackyPets', 'mounts', 'premiumMounts,specialMounts,questMounts', 'events', 'dropEggs', 'questEggs', 'dropHatchingPotions',
+  'premiumHatchingPotions', 'wackyHatchingPotions', 'backgroundsFlat', 'questsByLevel', 'gear.tree', 'tasksByCategory',
+  'userDefaults', 'timeTravelStable', 'gearTypes', 'cardTypes'];
+
+export const ANDROID_FILTER = [...MOBILE_FILTER, 'appearances.background'].join(',');
+export const IOS_FILTER = [...MOBILE_FILTER, 'backgrounds'].join(',');
+
 function getDay (date) {
   if (date === undefined) {
     return 0;
@@ -29,6 +38,22 @@ let CACHED_DATE = null;
 let CACHED_HASHES = [
 
 ];
+
+// Load existing cached hashes
+try {
+  const files = fs.readdirSync(CONTENT_CACHE_PATH);
+  files.forEach(file => {
+    if (file.endsWith('.json')) {
+      const fileName = file.substring(0, file.length - 5);
+      CACHED_HASHES.push(fileName);
+    }
+  });
+  if (CACHED_HASHES.length > 0) {
+    CACHED_DATE = new Date();
+  }
+} catch (err) {
+  // Folder does not exist yet
+}
 
 function walkContent (obj, lang, removedKeys = {}) {
   _.each(obj, (item, key, source) => {
@@ -72,8 +97,7 @@ export function hashForFilter (filter) {
   return String(hash);
 }
 
-export function serveContent (res, language, filter, isProd) {
-  // Build usable filter object
+export function buildFilterObject (filter) {
   const filterObj = {};
   filter.split(',').forEach(item => {
     if (item.includes('.')) {
@@ -86,7 +110,12 @@ export function serveContent (res, language, filter, isProd) {
       filterObj[item.trim()] = true;
     }
   });
+  return filterObj;
+}
 
+export function serveContent (res, language, filter, isProd) {
+  // Build usable filter object
+  const filterObj = buildFilterObject(filter);
   if (isProd) {
     const today = new Date();
     if (CACHED_DATE && (getDay(today) !== getDay(CACHED_DATE)
@@ -95,22 +124,23 @@ export function serveContent (res, language, filter, isProd) {
       CACHED_HASHES = [];
       CACHED_DATE = undefined;
     }
-    const filterHash = language + hashForFilter(filter);
-    if (CACHED_HASHES.includes(filterHash)) {
+    const cachedName = language + hashForFilter(filter);
+    if (CACHED_HASHES.includes(cachedName)) {
       // Content is already cached, so just send it.
-      res.sendFile(`${CONTENT_CACHE_PATH}${filterHash}.json`);
+      res.sendFile(`${CONTENT_CACHE_PATH}${cachedName}.json`);
     } else {
+      console.log(`Caching content for language ${language} with filter ${filter}`);
       // Content is not cached, so cache it and send it.
       res.set({
         'Content-Type': 'application/json',
       });
       const jsonResString = getLocalizedContentResponse(language, filterObj);
       fs.writeFileSync(
-        `${CONTENT_CACHE_PATH}${filterHash}.json`,
+        `${CONTENT_CACHE_PATH}${cachedName}.json`,
         jsonResString,
         'utf8',
       );
-      CACHED_HASHES.push(filterHash);
+      CACHED_HASHES.push(cachedName);
       CACHED_DATE = new Date();
       res.status(200).send(jsonResString);
     }

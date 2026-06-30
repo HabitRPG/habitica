@@ -3,7 +3,8 @@ import { v4 as uuid } from 'uuid';
 
 import { model as User } from '../../website/server/models/user';
 
-const MIGRATION_NAME = '20181203_take_this';
+const MIGRATION_NAME = 'YYYYMMDD_take_this';
+const CHALLENGE_ID = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';
 
 const progressCount = 1000;
 let count = 0;
@@ -41,15 +42,15 @@ async function updateUser (user) {
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
   if (push) {
-    return User.update({ _id: user._id }, { $set: set, $push: push }).exec();
+    return User.updateOne({ _id: user._id }, { $set: set, $push: push }).exec();
   }
-  return User.update({ _id: user._id }, { $set: set }).exec();
+  return User.updateOne({ _id: user._id }, { $set: set }).exec();
 }
 
 export default async function processUsers () {
   const query = {
     migration: { $ne: MIGRATION_NAME },
-    challenges: '00708425-d477-41a5-bf27-6270466e7976',
+    challenges: CHALLENGE_ID,
   };
 
   const fields = {
@@ -72,7 +73,7 @@ export default async function processUsers () {
       break;
     } else {
       query._id = {
-        $gt: users[users.length - 1],
+        $gt: users[users.length - 1]._id,
       };
     }
 

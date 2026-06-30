@@ -1,6 +1,7 @@
 import passport from 'passport';
 import common from '../../../common';
-import { BadRequest, NotAuthorized } from '../errors';
+import { verifyUsername } from '../user/validation';
+import { BadRequest, NotAuthorized, NotFound } from '../errors';
 import logger from '../logger';
 import {
   generateUsername,
@@ -10,6 +11,8 @@ import { appleProfile } from './apple';
 import { model as User } from '../../models/user';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../email';
+import { apiError } from '../apiError';
+import { trackRegistrationEvent } from '../localAnalytics';
 
 function _passportProfile (network, accessToken) {
   return new Promise((resolve, reject) => {
@@ -33,14 +36,14 @@ export async function socialEmailToLocal (user) {
       { 'auth.local.email': socialEmail },
       { _id: 1 },
     ).exec();
-    if (!conflictingUser) return socialEmail;
+    if (!conflictingUser) return socialEmail.toLowerCase();
   }
   return undefined;
 }
 
 export async function loginSocial (req, res) { // eslint-disable-line import/prefer-default-export
   let existingUser = res.locals.user;
-  const { network } = req.body;
+  const { network, allowRegister = true, username = generateUsername() } = req.body;
 
   const isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS
     .find(supportedNetwork => supportedNetwork.key === network);
@@ -67,10 +70,10 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     }
     if (!user.auth.local.email) {
       user.auth.local.email = await socialEmailToLocal(user);
-      if (user.auth.local.email) {
-        await user.save();
-      }
     }
+    // Force the updated timestamp to save, so that we know they logged in
+    user.auth.timestamps.updated = new Date();
+    await user.save();
     return loginRes(user, req, res);
   }
 
@@ -80,7 +83,35 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
   }
 
   if (!existingUser && email) {
+    // TODO we load the whole user object here. Is that necessary?
     existingUser = await User.findOne({ 'auth.local.email': email }).exec();
+  }
+
+  if (!allowRegister && !existingUser) {
+    if (network === 'apple') {
+      return res.status(200).send({
+        message: res.t('userNotFound'),
+        email,
+        id_token: profile.idToken,
+      });
+    }
+    if (email) {
+      throw new NotFound(`${apiError('socialFlowUserNotFound')} ${email}`);
+    }
+    throw new NotFound(res.t('userNotFound'));
+  }
+
+  let sanitizedUsername = username.replace(/[^a-zA-Z0-9_-]/g, '');
+  const issues = verifyUsername(sanitizedUsername, res, true);
+  if (issues.length > 0) {
+    sanitizedUsername = generateUsername();
+  } else {
+    const conflictingUser = await User.findOne({
+      'auth.local.lowerCaseUsername': sanitizedUsername.toLowerCase(),
+    }, { _id: 1 });
+    if (conflictingUser) {
+      sanitizedUsername = generateUsername();
+    }
   }
 
   if (existingUser) {
@@ -90,8 +121,6 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     };
     user = existingUser;
   } else {
-    const generatedUsername = generateUsername();
-
     user = {
       auth: {
         [network]: {
@@ -99,8 +128,8 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
           emails: profile.emails,
         },
         local: {
-          username: generatedUsername,
-          lowerCaseUsername: generatedUsername,
+          username: sanitizedUsername,
+          lowerCaseUsername: sanitizedUsername.toLowerCase(),
           email,
         },
       },
@@ -116,6 +145,7 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     };
     user = new User(user);
     user.registeredThrough = req.headers['x-client']; // Not saved, used to create the correct tasks based on the device used
+    trackRegistrationEvent({ user, method: network, ipAddress: req.ip });
   }
 
   const savedUser = await user.save();
@@ -141,17 +171,6 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
         }
       })
       .catch(err => logger.error(err)); // eslint-disable-line max-nested-callbacks
-  }
-
-  if (!existingUser) {
-    res.analytics.track('register', {
-      category: 'acquisition',
-      type: network,
-      gaLabel: network,
-      uuid: savedUser._id,
-      headers: req.headers,
-      user: savedUser,
-    });
   }
 
   return response;

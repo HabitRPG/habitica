@@ -8,7 +8,7 @@
     "rebirthOrb": "達到等級<%= level %>後即可使用重生球並開始新的冒險。",
     "rebirthOrb100": "使用重生球在達到100級或更高級別後重新開始。",
     "rebirthOrbNoLevel": "使用了重生球來重生。",
-    "rebirthPop": "立即重置你的角色成為1級戰士，同時保留成就、物品、裝備。將保留你的任務和歷史，但重置為黃色；移除挑戰任務和團隊套餐任務之外的任務歷史；移除金幣、經驗值以及魔法值和技能。上述內容將立即生效。更多信息請查看wiki<a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>重生球</a>頁面。",
+    "rebirthPop": "立即將你的角色重置為 1 級戰士，同時保留成就、收藏品和裝備。你的任務及其歷史紀錄將保留，但會重置為黃色。你的連擊紀錄將被移除，但屬於進行中的挑戰和團體計畫的任務除外。你的金幣、經驗值、魔力以及所有技能效果都將被清除。以上變更將立即生效。",
     "rebirthName": "重生球",
     "rebirthComplete": "你已經重生了！",
     "nextFreeRebirth": "下個<strong>免費</strong>的重生球會在<strong><%= days %>天</strong>後出現"

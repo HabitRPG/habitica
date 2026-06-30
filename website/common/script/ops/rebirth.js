@@ -1,7 +1,6 @@
 import each from 'lodash/each';
 import i18n from '../i18n';
 import { capByLevel } from '../statHelpers';
-import { MAX_LEVEL } from '../constants';
 import {
   NotAuthorized,
 } from '../libs/errors';
@@ -13,30 +12,15 @@ import updateUserBalance from './updateUserBalance';
 
 const USERSTATSLIST = ['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'];
 
-export default async function rebirth (user, tasks = [], req = {}, analytics) {
+export default async function rebirth (user, tasks = [], req = {}) {
   const notFree = !isFreeRebirth(user);
 
   if (user.balance < 1.5 && notFree) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
 
-  const analyticsData = {
-    uuid: user._id,
-    category: 'behavior',
-  };
-
   if (notFree) {
     await updateUserBalance(user, -1.5, 'rebirth');
-    analyticsData.currency = 'Gems';
-    analyticsData.gemCost = 6;
-  } else {
-    analyticsData.currency = 'Free';
-    analyticsData.gemCost = 0;
-  }
-
-  if (analytics) {
-    analyticsData.headers = req.headers;
-    analytics.track('Rebirth', analyticsData);
   }
 
   const lvl = capByLevel(user.stats.lvl);
@@ -101,9 +85,9 @@ export default async function rebirth (user, tasks = [], req = {}, analytics) {
   if (!user.achievements.rebirths) {
     user.achievements.rebirths = 1;
     user.achievements.rebirthLevel = lvl;
-  } else if (lvl > user.achievements.rebirthLevel || lvl === MAX_LEVEL) {
+  } else {
     user.achievements.rebirths += 1;
-    user.achievements.rebirthLevel = lvl;
+    user.achievements.rebirthLevel = Math.max(user.achievements.rebirthLevel || 0, lvl);
   }
 
   if (!notFree) {

@@ -163,14 +163,7 @@
                   slot="itemBadge"
                   slot-scope="ctx"
                 >
-                  <span
-                    class="badge-top"
-                    @click.prevent.stop="togglePinned(ctx.item)"
-                  >
-                    <pin-badge
-                      :pinned="ctx.item.pinned"
-                    />
-                  </span>
+                  <category-item :item="ctx.item" />
                 </template>
               </shopItem>
             </div>
@@ -178,13 +171,30 @@
         </div>
       </div>
     </div>
+    <buy-quest-modal
+      :item="selectedItemToBuy || {}"
+      :price-type="selectedItemToBuy ? selectedItemToBuy.currency : ''"
+      :with-pin="true"
+    >
+      <template
+        slot="item"
+        slot-scope="ctx"
+      >
+        <item
+          class="flat"
+          :item="ctx.item"
+          :item-content-class="ctx.item.class"
+          :show-popover="false"
+        />
+      </template>
+    </buy-quest-modal>
   </div>
 </template>
 
 <!-- eslint-disable max-len -->
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/variables.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/variables.scss';
 
   // these styles may be applied to other pages too
 
@@ -341,16 +351,22 @@ import buyMixin from '@/mixins/buy';
 import currencyMixin from '../_currencyMixin';
 import pinUtils from '@/mixins/pinUtils';
 
-import svgWarrior from '@/assets/svg/warrior.svg';
-import svgWizard from '@/assets/svg/wizard.svg';
-import svgRogue from '@/assets/svg/rogue.svg';
-import svgHealer from '@/assets/svg/healer.svg';
+import svgWarrior from '@/assets/svg/warrior.svg?raw';
+import svgWizard from '@/assets/svg/wizard.svg?raw';
+import svgRogue from '@/assets/svg/rogue.svg?raw';
+import svgHealer from '@/assets/svg/healer.svg?raw';
 
+import BuyQuestModal from '../quests/buyQuestModal.vue';
+import CategoryItem from '../market/categoryItem';
+import FilterGroup from '@/components/ui/filterGroup';
 import FilterSidebar from '@/components/ui/filterSidebar';
 import { worldStateMixin } from '@/mixins/worldState';
 
 export default {
   components: {
+    BuyQuestModal,
+    CategoryItem,
+    FilterGroup,
     FilterSidebar,
     Checkbox,
     PinBadge,
@@ -386,6 +402,7 @@ export default {
       featuredGearBought: false,
       currentEvent: null,
       backgroundUpdate: new Date(),
+      selectedItemToBuy: null,
       imageURLs: {
         background: '',
         npc: '',
@@ -481,8 +498,13 @@ export default {
 
     await this.triggerGetWorldState();
     this.currentEvent = _find(this.currentEventList, event => Boolean(event.season));
-    this.imageURLs.background = `url(/static/npc/${this.currentEvent.season}/seasonal_shop_opened_background.png)`;
-    this.imageURLs.npc = `url(/static/npc/${this.currentEvent.season}/seasonal_shop_opened_npc.png)`;
+    if (this.currentEvent.season === 'valentines') {
+      this.imageURLs.background = 'url(/static/npc/spring/seasonal_shop_opened_background.png)';
+      this.imageURLs.npc = 'url(/static/npc/spring/seasonal_shop_opened_npc.png)';
+    } else {
+      this.imageURLs.background = `url(/static/npc/${this.currentEvent.season}/seasonal_shop_opened_background.png)`;
+      this.imageURLs.npc = `url(/static/npc/${this.currentEvent.season}/seasonal_shop_opened_npc.png)`;
+    }
   },
   beforeDestroy () {
     this.$root.$off('buyModal::boughtItem');
@@ -550,7 +572,12 @@ export default {
       return false;
     },
     itemSelected (item) {
-      this.$root.$emit('buyModal::showItem', item);
+      if (item.type === 'quests') {
+        this.selectedItemToBuy = item;
+        this.$root.$emit('bv::show::modal', 'buy-quest-modal');
+      } else {
+        this.$root.$emit('buyModal::showItem', item);
+      }
     },
   },
 };

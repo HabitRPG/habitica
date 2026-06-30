@@ -632,9 +632,81 @@ const backgrounds = {
   backgrounds092024: {
     magic_door_in_forest: { },
   },
+  backgrounds102024: {
+    surrounded_by_ghosts: { },
+  },
+  backgrounds112024: {
+    castle_hall_with_hearth: { },
+  },
+  backgrounds122024: {
+    first_snow_forest: { },
+  },
+  backgrounds012025: {
+    winter_landscape_with_cabin: { },
+  },
+  backgrounds022025: {
+    old_fashioned_tea_shop: { },
+  },
+  backgrounds032025: {
+    mountain_scene_with_blossoms: { },
+  },
+  backgrounds042025: {
+    garden_with_flower_beds: { },
+  },
+  backgrounds052025: {
+    trail_through_a_forest: { },
+  },
+  backgrounds062025: {
+    summer_seashore: { },
+  },
+  backgrounds072025: {
+    sirens_lair: { },
+  },
+  backgrounds082025: {
+    sunny_street_with_shops: { },
+  },
+  backgrounds092025: {
+    autumn_swamp: { },
+  },
+  backgrounds102025: {
+    inside_forest_witchs_cottage: { },
+  },
+  backgrounds112025: {
+    castle_keep_with_banners: { },
+  },
+  backgrounds122025: {
+    nighttime_street_with_shops: { },
+  },
+  backgrounds012026: {
+    winter_desert_with_saguaros: { },
+  },
+  backgrounds022026: {
+    elegant_palace: { },
+  },
+  backgrounds032026: {
+    waterfall_with_rainbow: { },
+  },
+  backgrounds042026: {
+    riding_a_comet: { },
+  },
+  backgrounds052026: {
+    elven_citadel: { },
+  },
+  backgrounds062026: {
+    beach_with_volcano: { },
+  },
+  backgrounds072026: {
+    tropical_coral_garden: { },
+  },
+  backgrounds082026: {
+    vegetable_garden: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,
+    },
+    on_a_strange_planet: {
+      price: 1,
     },
   },
   timeTravelBackgrounds: {

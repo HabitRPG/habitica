@@ -59,7 +59,7 @@ describe('POST /debug/jump-time', () => {
     expect(resultDate.getDate()).to.eql(today.getDate());
     expect(resultDate.getMonth()).to.eql(today.getMonth());
     expect(resultDate.getFullYear()).to.eql(today.getFullYear());
-    const newResultDate = new Date((await user.post('/debug/jump-time', { offsetDays: 355 })).time);
+    const newResultDate = new Date((await user.post('/debug/jump-time', { offsetDays: 365 })).time);
     expect(newResultDate.getFullYear()).to.eql(today.getFullYear() + 1);
   });
 

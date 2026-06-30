@@ -1,5 +1,5 @@
 <template>
-  <fragment>
+  <div class="d-content">
     <tr
       v-if="!mixinData.inlineSettingMixin.modalVisible"
     >
@@ -90,11 +90,11 @@
         />
       </td>
     </tr>
-  </fragment>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 input {
   margin-right: 2rem;

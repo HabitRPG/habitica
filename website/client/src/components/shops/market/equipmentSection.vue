@@ -86,10 +86,10 @@ import ItemRows from '@/components/ui/itemRows';
 import PinBadge from '@/components/ui/pinBadge';
 import ShopItem from '../shopItem';
 
-import svgWarrior from '@/assets/svg/warrior.svg';
-import svgWizard from '@/assets/svg/wizard.svg';
-import svgRogue from '@/assets/svg/rogue.svg';
-import svgHealer from '@/assets/svg/healer.svg';
+import svgWarrior from '@/assets/svg/warrior.svg?raw';
+import svgWizard from '@/assets/svg/wizard.svg?raw';
+import svgRogue from '@/assets/svg/rogue.svg?raw';
+import svgHealer from '@/assets/svg/healer.svg?raw';
 
 import pinUtils from '../../../mixins/pinUtils';
 

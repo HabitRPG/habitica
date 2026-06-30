@@ -1,5 +1,6 @@
 /* eslint-disable key-spacing */
 import moment from 'moment';
+import { getMatchingSwap, makeSubstitutionMap } from './aprilFools';
 
 // gem block: number of gems
 const gemsPromo = {
@@ -11,8 +12,8 @@ const gemsPromo = {
 
 export const REPEATING_EVENTS = {
   nye: {
-    start: new Date('1970-12-28T08:00-05:00'),
-    end: new Date('1970-01-04T23:59-05:00'),
+    start: new Date('1970-12-28T04:00-05:00'),
+    end: new Date('1970-01-04T03:59-05:00'),
     season: 'nye',
     npcImageSuffix: '_nye',
     content: [
@@ -25,15 +26,15 @@ export const REPEATING_EVENTS = {
     ],
   },
   birthday: {
-    start: new Date('1970-01-30T08:00-05:00'),
-    end: new Date('1970-02-08T23:59-05:00'),
+    start: new Date('1970-01-30T04:00-05:00'),
+    end: new Date('1970-02-01T03:59-05:00'),
     season: 'birthday',
     npcImageSuffix: '_birthday',
     foodSeason: 'Cake',
   },
   valentines: {
-    start: new Date('1970-02-13T08:00-05:00'),
-    end: new Date('1970-02-17T23:59-05:00'),
+    start: new Date('1970-02-10T04:00-05:00'),
+    end: new Date('1970-02-17T03:59-05:00'),
     season: 'valentines',
     npcImageSuffix: '_valentines',
     content: [
@@ -46,13 +47,18 @@ export const REPEATING_EVENTS = {
     ],
   },
   piDay: {
-    start: new Date('1970-03-13T08:00-05:00'),
-    end: new Date('1970-03-15T23:59-05:00'),
+    start: new Date('1970-03-14T04:00-04:00'),
+    end: new Date('1970-03-16T03:59-04:00'),
     foodSeason: 'Pie',
   },
+  aprilFools: {
+    start: new Date('1970-04-01T04:00-04:00'),
+    end: new Date('1970-04-02T03:59-04:00'),
+    spriteSubstitutions: makeSubstitutionMap(getMatchingSwap()),
+  },
   aprilFoolsResale: {
-    start: new Date('1970-04-07T08:00-05:00'),
-    end: new Date('1970-04-30T23:59-05:00'),
+    start: new Date('1970-04-03T04:00-04:00'),
+    end: new Date('1970-05-01T03:59-04:00'),
     content: [
       {
         type: 'hatchingPotionQuests',
@@ -60,11 +66,13 @@ export const REPEATING_EVENTS = {
           'virtualpet',
           'waffle',
           'fungi',
+          'alien',
         ],
       },
       {
         type: 'premiumHatchingPotions',
         items: [
+          'Cryptid',
           'Veggie',
           'TeaShop',
         ],
@@ -72,35 +80,40 @@ export const REPEATING_EVENTS = {
     ],
   },
   namingDay: {
-    start: new Date('1970-07-30T08:00-05:00'),
-    end: new Date('1970-08-01T23:59-05:00'),
+    start: new Date('1970-07-31T04:00-04:00'),
+    end: new Date('1970-08-02T03:59-04:00'),
     foodSeason: 'Cake',
   },
-  habitoween: {
-    start: new Date('1970-10-30T08:00-05:00'),
-    end: new Date('1970-11-01T23:59-05:00'),
-    foodSeason: 'Candy',
-    season: 'habitoween',
-    npcImageSuffix: '_halloween',
-  },
   fallGemSale: {
-    start: new Date('1970-09-23T04:00-04:00'),
-    end: new Date('1970-09-27T23:59-04:00'),
+    start: new Date('1970-08-27T04:00-04:00'),
+    end: new Date('1970-09-03T23:59-04:00'),
     event: 'fall_extra_gems',
     gemsPromo,
   },
   spookyGemSale: {
-    start: new Date('1970-10-28T04:00-04:00'),
-    end: new Date('1970-11-01T23:59-04:00'),
+    start: new Date('1970-10-27T04:00-04:00'),
+    end: new Date('1970-10-31T23:59-04:00'),
     event: 'spooky_extra_gems',
     gemsPromo,
   },
+  habitoween: {
+    start: new Date('1970-10-30T04:00-04:00'),
+    end: new Date('1970-11-01T23:59-04:00'),
+    foodSeason: 'Candy',
+    season: 'habitoween',
+    npcImageSuffix: '_halloween',
+  },
   harvestFeast: {
-    start: new Date('1970-11-22T08:00-05:00'),
-    end: new Date('1970-11-27T20:00-05:00'),
+    start: new Date('1970-11-20T04:00-05:00'),
+    end: new Date('1970-12-01T03:59-05:00'),
     season: 'thanksgiving',
     npcImageSuffix: '_thanksgiving',
     foodSeason: 'Pie',
+  },
+  giftOneGetOne: {
+    start: new Date('1970-12-16T04:00-05:00'),
+    end: new Date('1970-01-09T23:59-05:00'),
+    promo: 'g1g1',
   },
 };
 
@@ -141,7 +154,6 @@ export const EVENTS = {
     start: '2024-04-09T08:00-04:00',
     end: '2024-04-30T23:59-04:00',
   },
-
   aprilFools2024: {
     start: '2024-04-01T00:00-04:00',
     end: '2024-04-02T08:00-04:00',

@@ -45,7 +45,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/mixins.scss';
+  @import '@/assets/scss/mixins.scss';
 
   #generic-achievement {
     @include centeredModal();
@@ -61,7 +61,7 @@
 </style>
 
 <style scoped lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .content {
     text-align: center;
@@ -98,7 +98,7 @@
 <script>
 import achievements from '@/../../common/script/content/achievements';
 import { mapState } from '@/libs/store';
-import svgClose from '@/assets/svg/close.svg';
+import svgClose from '@/assets/svg/close.svg?raw';
 import Sprite from '@/components/ui/sprite.vue';
 
 export default {

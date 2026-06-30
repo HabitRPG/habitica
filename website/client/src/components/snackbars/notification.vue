@@ -119,7 +119,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
   .notification-holder {
     display: flex;
@@ -225,11 +225,11 @@
 </style>
 
 <script>
-import health from '@/assets/svg/health.svg';
-import gold from '@/assets/svg/gold.svg';
-import star from '@/assets/svg/star.svg';
-import mana from '@/assets/svg/mana.svg';
-import sword from '@/assets/svg/sword.svg';
+import health from '@/assets/svg/health.svg?raw';
+import gold from '@/assets/svg/gold.svg?raw';
+import star from '@/assets/svg/star.svg?raw';
+import mana from '@/assets/svg/mana.svg?raw';
+import sword from '@/assets/svg/sword.svg?raw';
 import CloseIcon from '../shared/closeIcon';
 import Sprite from '@/components/ui/sprite';
 

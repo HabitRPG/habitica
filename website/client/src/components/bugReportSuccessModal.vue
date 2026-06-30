@@ -70,7 +70,7 @@
 </style>
 
 <style scoped lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 h2 {
   color: $white;
@@ -134,7 +134,7 @@ label {
 
 <script>
 import closeIcon from '@/components/shared/closeIcon';
-import checkCircleIcon from '@/assets/svg/check_circle.svg';
+import checkCircleIcon from '@/assets/svg/check_circle.svg?raw';
 import { MODALS } from '@/libs/consts';
 
 export default {

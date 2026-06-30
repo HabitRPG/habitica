@@ -24,28 +24,28 @@
               v-if="eventInfo?.name === 'fall_extra_gems'"
               :alt="$t('supportHabitica')"
               srcset="
-          ~@/assets/images/gems/fall-header.png,
-          ~@/assets/images/gems/fall-header@2x.png 2x,
-          ~@/assets/images/gems/fall-header@3x.png 3x"
-              src="~@/assets/images/gems/fall-header.png"
+          @/assets/images/gems/fall-header.png,
+          @/assets/images/gems/fall-header@2x.png 2x,
+          @/assets/images/gems/fall-header@3x.png 3x"
+              src="@/assets/images/gems/fall-header.png"
             >
             <img
               v-else-if="eventInfo?.name === 'spooky_extra_gems'"
               :alt="$t('supportHabitica')"
               srcset="
-          ~@/assets/images/gems/spooky-header.png,
-          ~@/assets/images/gems/spooky-header@2x.png 2x,
-          ~@/assets/images/gems/spooky-header@3x.png 3x"
-              src="~@/assets/images/gems/spooky-header.png"
+          @/assets/images/gems/spooky-header.png,
+          @/assets/images/gems/spooky-header@2x.png 2x,
+          @/assets/images/gems/spooky-header@3x.png 3x"
+              src="@/assets/images/gems/spooky-header.png"
             >
             <img
               v-else
               :alt="$t('supportHabitica')"
               srcset="
-          ~@/assets/images/gems/support-habitica.png,
-          ~@/assets/images/gems/support-habitica@2x.png 2x,
-          ~@/assets/images/gems/support-habitica@3x.png 3x"
-              src="~@/assets/images/gems/support-habitica.png"
+          @/assets/images/gems/support-habitica.png,
+          @/assets/images/gems/support-habitica@2x.png 2x,
+          @/assets/images/gems/support-habitica@3x.png 3x"
+              src="@/assets/images/gems/support-habitica.png"
             >
           </div>
         </div>
@@ -183,21 +183,47 @@
               eventStartMonth: eventInfo.startMonth,
               eventStartOrdinal: eventInfo.startOrdinal,
               eventStartTime: eventInfo.startTime,
-              eventStartUTC: eventInfo.startUTC,
               eventEndMonth: eventInfo.endMonth,
               eventEndOrdinal: eventInfo.endOrdinal,
               eventEndTime: eventInfo.endTime,
-              eventEndUTC: eventInfo.endUTC,
+              timeZone: eventInfo.timeZoneAbbrev,
             }) }}
           </small>
         </div>
+      </div>
+      <div class="gift-gems-prompt">
+        <div class="gift-art">
+          <div
+            v-once
+            class="sparkles"
+            v-html="icons.sparkles"
+          ></div>
+          <div
+            v-once
+            class="gift"
+            v-html="icons.giftPurple"
+          ></div>
+          <div
+            v-once
+            class="sparkles sparkles-right"
+            v-html="icons.sparkles"
+          ></div>
+        </div>
+        <a
+          class="prompt-text"
+          tabindex="0"
+          @click="showSelectUserForGems"
+          @keyup.enter="showSelectUserForGems"
+        >
+          {{ $t('giftGems') }}
+        </a>
       </div>
     </b-modal>
   </div>
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   #buy-gems {
     small {
@@ -220,7 +246,6 @@
 
     .modal-body {
       padding: 0;
-      padding-bottom: 2rem;
       background: $white;
       border-radius: 0px 0px 8px 8px;
     }
@@ -267,21 +292,21 @@
 
   #buy-gems.event-fall_extra_gems {
     .header-wrap {
-      background-image: url('~@/assets/images/gems/fall-header-bg@2x.png');
+      background-image: url('@/assets/images/gems/fall-header-bg@2x.png');
       background-size: 100%;
     }
   }
 
   #buy-gems.event-spooky_extra_gems {
     .header-wrap {
-      background-image: url('~@/assets/images/gems/spooky-header-bg@2x.png');
+      background-image: url('@/assets/images/gems/spooky-header-bg@2x.png');
       background-size: 100%;
     }
   }
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .gem-btn {
     min-width: 4.813rem;
@@ -336,6 +361,57 @@
     margin-bottom: 0.5rem;
     font-size: 0.875rem;
     line-height: 1.71;
+  }
+
+  .gift-gems-prompt {
+    margin-top: 2rem;
+    padding: 1.5rem 1rem 1.25rem;
+    background: $gray-10;
+    border-radius: 0 0 8px 8px;
+    text-align: center;
+
+    .gift-art {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+
+      ::v-deep svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .sparkles {
+        width: 2rem;
+      }
+
+      .gift {
+        width: 1.5rem;
+      }
+
+      .sparkles-right {
+        transform: scaleX(-1);
+      }
+    }
+
+    .prompt-text {
+      display: inline-block;
+      margin-bottom: 0;
+      font-family: Roboto;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 24px;
+      color: $white;
+      cursor: pointer;
+
+      &:hover {
+        color: $white;
+        text-decoration: underline;
+      }
+    }
   }
 
   .gift-promo-banner {
@@ -393,19 +469,21 @@
 
 <script>
 import find from 'lodash/find';
-import moment from 'moment-timezone';
+import moment from 'moment';
 import { mapState } from '@/libs/store';
 import markdown from '@/directives/markdown';
 import paymentsMixin from '@/mixins/payments';
 
-import checkIcon from '@/assets/svg/check.svg';
+import checkIcon from '@/assets/svg/check.svg?raw';
 
-import fourGems from '@/assets/svg/4-gems.svg';
-import twentyOneGems from '@/assets/svg/21-gems.svg';
-import fortyTwoGems from '@/assets/svg/42-gems.svg';
-import eightyFourGems from '@/assets/svg/84-gems.svg';
-import svgClose from '@/assets/svg/close.svg';
-import gifts from '@/assets/svg/gifts.svg';
+import fourGems from '@/assets/svg/4-gems.svg?raw';
+import twentyOneGems from '@/assets/svg/21-gems.svg?raw';
+import fortyTwoGems from '@/assets/svg/42-gems.svg?raw';
+import eightyFourGems from '@/assets/svg/84-gems.svg?raw';
+import svgClose from '@/assets/svg/close.svg?raw';
+import gifts from '@/assets/svg/gifts.svg?raw';
+import giftPurple from '@/assets/svg/gift-purple-600.svg?raw';
+import sparkles from '@/assets/svg/sparkles-left-purple-600-500.svg?raw';
 
 import paymentsButtons from '@/components/payments/buttons/list';
 import { worldStateMixin } from '@/mixins/worldState';
@@ -428,6 +506,8 @@ export default {
         '42gems': fortyTwoGems,
         '84gems': eightyFourGems,
         gifts,
+        giftPurple,
+        sparkles,
       }),
       selectedGemsBlock: null,
       alreadyTracked: false,
@@ -445,25 +525,28 @@ export default {
       );
       if (!currentEvent) return null;
 
-      const zone = moment.tz.guess();
+      // https://stackoverflow.com/questions/1954397/detect-timezone-abbreviation-using-javascript#answer-66180857
+      const timeZoneAbbrev = new Intl.DateTimeFormat('en-us', { timeZoneName: 'short' })
+        .formatToParts(new Date())
+        .find(part => part.type === 'timeZoneName')
+        .value;
 
       return {
         name: currentEvent.event,
         class: currentEvent.gemsPromo ? `event-${currentEvent.event}` : '',
         gemsPromo: currentEvent.gemsPromo,
         promo: currentEvent.promo,
+        timeZoneAbbrev,
         startMonth: moment(currentEvent.start).format('MMMM'),
         startOrdinal: moment(currentEvent.start).format('Do'),
-        startTime: moment.tz(currentEvent.start, zone).format('hh:mm A z'),
-        startUTC: moment(currentEvent.start).utc().format('hh:mm A'),
+        startTime: moment(currentEvent.start).format('hh:mm A'),
         endMonth: moment(currentEvent.end).format('MMMM'),
         endOrdinal: moment(currentEvent.end).format('Do'),
-        endTime: moment.tz(currentEvent.end, zone).format('hh:mm A z'),
-        endUTC: moment(currentEvent.end).utc().format('hh:mm A'),
+        endTime: moment(currentEvent.end).format('hh:mm A'),
       };
     },
     isGemsPromoActive () {
-      return Boolean(this.eventInfo);
+      return Boolean(this.eventInfo?.gemsPromo);
     },
     gemsBlocks () {
       // We don't want to modify the original gems blocks when a promotion is running
@@ -514,6 +597,11 @@ export default {
     showSelectUser () {
       this.$root.$emit('bv::show::modal', 'select-user-modal');
       this.close();
+    },
+    showSelectUserForGems () {
+      // Open the Send Gift flow on the Gems tab (instead of the default Subscription tab)
+      this.$store.state.giftModalOptions.startingPage = 'buyGems';
+      this.showSelectUser();
     },
   },
 };

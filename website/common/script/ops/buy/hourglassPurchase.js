@@ -12,7 +12,7 @@ import getItemInfo from '../../libs/getItemInfo';
 import { removeItemByPath } from '../pinnedGearUtils';
 import updateUserHourglasses from '../updateUserHourglasses';
 
-export default async function purchaseHourglass (user, req = {}, analytics, quantity = 1) {
+export default async function purchaseHourglass (user, req = {}, quantity = 1) {
   const key = get(req, 'params.key');
   if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
@@ -91,17 +91,6 @@ export default async function purchaseHourglass (user, req = {}, analytics, quan
       });
       removeItemByPath(user, itemInfo.path);
     }
-  }
-
-  if (analytics) {
-    analytics.track('buy', {
-      uuid: user._id,
-      itemKey: key,
-      itemType: type,
-      currency: 'Hourglass',
-      category: 'behavior',
-      headers: req.headers,
-    });
   }
 
   return [

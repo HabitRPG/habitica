@@ -38,6 +38,7 @@ import stripePayments from '../libs/payments/stripe'; // eslint-disable-line imp
 import { getGroupChat, translateMessage } from '../libs/chat/group-chat'; // eslint-disable-line import/no-cycle
 import { model as UserNotification } from './userNotification';
 import { sendChatPushNotifications } from '../libs/chat'; // eslint-disable-line import/no-cycle
+import { model as UserHistory } from './userHistory'; // eslint-disable-line import/no-cycle
 
 const questScrolls = shared.content.quests;
 const { questSeriesAchievements } = shared.content;
@@ -155,7 +156,16 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'bannedWordsAllowed', 'challengeCount', 'tasksOrder', 'purchased', 'managers'],
   private: ['purchased.plan'],
   toJSONTransform (plainObj, originalDoc) {
-    if (plainObj.purchased) plainObj.purchased.active = originalDoc.hasActiveGroupPlan();
+    if (plainObj.purchased) {
+      plainObj.purchased.active = originalDoc.hasActiveGroupPlan();
+      const plan = originalDoc.purchased && originalDoc.purchased.plan;
+      if (plan && plan.dateCreated) {
+        plainObj.purchased.wasUpgraded = true;
+        if (plan.dateTerminated) {
+          plainObj.purchased.dateTerminated = plan.dateTerminated;
+        }
+      }
+    }
   },
 });
 
@@ -251,11 +261,11 @@ schema.statics.getGroup = async function getGroup (options = {}) {
   } else if (isTavern) {
     query = { _id: TAVERN_ID };
   } else if (optionalMembership === true) {
-    query = { _id: groupId };
+    query = { privacy: 'private', _id: groupId };
   } else if (isUserGuild) {
-    query = { type: 'guild', _id: groupId };
+    query = { type: 'guild', privacy: 'private', _id: groupId };
   } else {
-    query = { type: 'guild', privacy: 'public', _id: groupId };
+    return null;
   }
 
   const mQuery = this.findOne(query);
@@ -307,14 +317,17 @@ schema.statics.getGroups = async function getGroups (options = {}) {
           type: 'guild',
           privacy: 'private',
           _id: { $in: user.guilds },
-          'purchased.plan.customerId': { $exists: true },
-          $or: [
+          'purchased.plan.dateCreated': { $exists: true },
+        };
+        if (!filters.includeExpiredPlans) {
+          query.$or = [
             { 'purchased.plan.dateTerminated': null },
             { 'purchased.plan.dateTerminated': { $exists: false } },
             { 'purchased.plan.dateTerminated': { $gt: new Date() } },
-          ],
-        };
-        _.assign(query, filters);
+          ];
+        }
+        const filtersWithoutCustom = _.omit(filters, ['includeExpiredPlans']);
+        _.assign(query, filtersWithoutCustom);
         const privateGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) privateGuildsQuery.populate('leader', nameFields);
         privateGuildsQuery.sort(sort);
@@ -344,12 +357,12 @@ schema.statics.getGroups = async function getGroups (options = {}) {
 // unless the user is an admin or said chat is posted by that user
 // Not putting into toJSON because there we can't access user
 // It also removes the _meta field that can be stored inside a chat message
-schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, user) {
+schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, user, options = {}) {
   // @TODO: Adding this here for support the old chat,
   // but we should depreciate accessing chat like this
   // Also only return chat if requested, eventually we don't want to return chat here
   if (group && group.chat) {
-    await getGroupChat(group);
+    await getGroupChat(group, options);
   }
 
   const groupToJson = group.toJSON();
@@ -359,7 +372,11 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
     .map(chatMsg => {
       // Translate system messages
       if (!_.isEmpty(chatMsg.info)) {
-        chatMsg.text = translateMessage(userLang, chatMsg.info);
+        chatMsg.unformattedText = translateMessage(userLang, chatMsg.info);
+        chatMsg.text = chatMsg.unformattedText;
+        if (!chatMsg.text.includes('`')) {
+          chatMsg.text = `\`${chatMsg.text}\``;
+        }
       }
 
       // Convert to timestamps because Android expects it
@@ -480,6 +497,17 @@ schema.statics.validateInvitations = async function getInvitationErr (invites, r
   }
 };
 
+schema.methods.getEffectiveChatLimit = function getEffectiveChatLimit (limit) {
+  let maxChatCount = MAX_CHAT_COUNT;
+  if (this.chatLimitCount && this.chatLimitCount >= MAX_CHAT_COUNT) {
+    maxChatCount = this.chatLimitCount;
+  } else if (this.hasActiveGroupPlan()) {
+    maxChatCount = MAX_SUBBED_GROUP_CHAT_COUNT;
+  }
+
+  return limit !== undefined ? Math.min(limit, maxChatCount) : maxChatCount;
+};
+
 schema.methods.getParticipatingQuestMembers = function getParticipatingQuestMembers () {
   return Object.keys(this.quest.members).filter(member => this.quest.members[member]);
 };
@@ -516,11 +544,19 @@ schema.methods.isMember = function isGroupMember (user) {
   return user.guilds.indexOf(this._id) !== -1;
 };
 
-schema.methods.getMemberCount = async function getMemberCount () {
+schema.methods.getMemberCount = async function getMemberCount (options) {
+  let excludeUserId = null;
+  if (options && options.excludeUserId) {
+    excludeUserId = options.excludeUserId;
+  }
   let query = { guilds: this._id };
 
   if (this.type === 'party') {
     query = { 'party._id': this._id };
+  }
+
+  if (excludeUserId) {
+    query._id = { $ne: excludeUserId };
   }
 
   return User.countDocuments(query).exec();
@@ -629,7 +665,20 @@ schema.methods.sendChat = async function sendChat (options = {}) {
   return newChatMessage;
 };
 
-schema.methods.handleQuestInvitation = async function handleQuestInvitation (user, accept) {
+schema.methods.trimChat = async function trimChat (limit) {
+  const query = Chat.find({ groupId: this._id })
+    .sort('-timestamp')
+    .skip(limit || (this.getEffectiveChatLimit() * 2))
+    .limit(1);
+  const lastMessage = await query.exec();
+  if (lastMessage && lastMessage.length > 0) {
+    const lastMessageTimestamp = lastMessage[0].timestamp;
+    await Chat.deleteMany({ groupId: this._id, timestamp: { $lte: lastMessageTimestamp } }).exec();
+  }
+};
+
+// eslint-disable-next-line max-len
+schema.methods.handleQuestInvitation = async function handleQuestInvitation (user, accept, session) {
   if (!user) throw new InternalServerError('Must provide user to handle quest invitation');
   if (accept !== true && accept !== false) throw new InternalServerError('Must provide accept param handle quest invitation');
 
@@ -637,12 +686,14 @@ schema.methods.handleQuestInvitation = async function handleQuestInvitation (use
   // to prevent multiple concurrent requests overriding updates
   // see https://github.com/HabitRPG/habitica/issues/11398
   const Group = this.constructor;
+  const options = session ? { session } : {};
   const result = await Group.updateOne(
     {
       _id: this._id,
       [`quest.members.${user._id}`]: { $type: 10 }, // match BSON Type Null (type number 10)
     },
     { $set: { [`quest.members.${user._id}`]: accept } },
+    options,
   ).exec();
 
   if (result.modifiedCount) {
@@ -679,7 +730,7 @@ schema.methods.startQuest = async function startQuest (user) {
   }
 
   const nonMembers = Object.keys(_.pickBy(this.quest.members, member => !member));
-
+  const noResponseMembers = Object.keys(_.pickBy(this.quest.members, member => member === null));
   // Changes quest.members to only include participating members
   this.quest.members = _.pickBy(this.quest.members, _.identity);
 
@@ -751,6 +802,12 @@ schema.methods.startQuest = async function startQuest (user) {
     _id: { $in: nonMembers },
   }, _cleanQuestParty()).exec();
 
+  noResponseMembers.forEach(member => {
+    UserHistory.beginUserHistoryUpdate(member)
+      .withQuestInviteResponse(this.quest.key, 'no response')
+      .commit();
+  });
+
   const newMessage = await this.sendChat({
     message: `\`${shared.i18n.t('chatQuestStarted', { questName: quest.text('en') }, 'en')}\``,
     metaData: {
@@ -766,22 +823,27 @@ schema.methods.startQuest = async function startQuest (user) {
   const membersToEmail = [];
 
   // send notifications and webhooks in the background without blocking
-  await members.forEach(async member => {
-    if (member._id !== user._id) {
-      // send push notifications and filter users that disabled emails
-      if (member.preferences.emailNotifications.questStarted !== false) {
-        membersToEmail.push(member);
-      }
+  for (const member of members) {
+    if (member._id === user._id) {
+      // early "exit", saving one indention level
+      // eslint-disable-next-line no-continue
+      continue;
+    }
 
-      // send push notifications and filter users that disabled emails
-      if (member.preferences.pushNotifications.questStarted !== false) {
-        const memberLang = member.preferences.language;
-        await sendPushNotification(member, {
-          title: quest.text(memberLang),
-          message: shared.i18n.t('questStarted', memberLang),
-          identifier: 'questStarted',
-        });
-      }
+    // add email to send if that user did not disabled this email
+    if (member.preferences.emailNotifications.questStarted !== false) {
+      membersToEmail.push(member);
+    }
+
+    // send push notifications if that user did not disabled this notifications
+    if (member.preferences.pushNotifications.questStarted !== false) {
+      const memberLang = member.preferences.language;
+      // eslint-disable-next-line no-await-in-loop
+      await sendPushNotification(member, {
+        title: quest.text(memberLang),
+        message: shared.i18n.t('questStarted', memberLang),
+        identifier: 'questStarted',
+      });
     }
 
     // Send webhooks
@@ -790,7 +852,7 @@ schema.methods.startQuest = async function startQuest (user) {
       group: this,
       quest,
     });
-  });
+  }
 
   // Send emails in bulk
   sendTxnEmail(membersToEmail, 'quest-started', [
@@ -1338,6 +1400,10 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     throw new NotAuthorized(shared.i18n.t('leaderCannotLeaveGroupWithActiveGroup'));
   }
 
+  if (group.purchased.plan.customerId) {
+    await payments.cancelGroupSubscriptionForUser(user, this);
+  }
+
   // only remove user from challenges if it's set to leave-challenges
   if (keepChallenges === 'leave-challenges') {
     const challenges = await Challenge.find({
@@ -1377,10 +1443,6 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     update.$unset = { [`quest.members.${user._id}`]: 1 };
   }
 
-  if (group.purchased.plan.customerId) {
-    promises.push(payments.cancelGroupSubscriptionForUser(user, this));
-  }
-
   // If user is the last one in group and group is private, delete it
   if (group.memberCount <= 1 && group.privacy === 'private') {
     // double check the member count is correct
@@ -1395,6 +1457,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
 
     if (members.length === 0) {
       promises.push(group.deleteOne());
+      promises.push(Chat.deleteMany({ groupId: group._id }));
       return Promise.all(promises);
     }
   }
@@ -1479,8 +1542,13 @@ schema.methods.unlinkTask = async function groupUnlinkTask (
     'group.assignedUsers': user._id,
   };
 
-  delete unlinkingTask.group.assignedUsersDetail[user._id];
-  unlinkingTask.group.assignedUsers = _.keys(unlinkingTask.group.assignedUsersDetail);
+  if (unlinkingTask.group.assignedUsersDetail) {
+    delete unlinkingTask.group.assignedUsersDetail[user._id];
+    unlinkingTask.group.assignedUsers = _.keys(unlinkingTask.group.assignedUsersDetail);
+  } else {
+    // Task was created before assignedUsersDetail was added
+    removeFromArray(unlinkingTask.group.assignedUsers, user._id);
+  }
   unlinkingTask.markModified('group');
 
   const promises = [unlinkingTask.save()];

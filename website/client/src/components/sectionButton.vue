@@ -21,7 +21,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .toggle {
     border: 0;
@@ -48,8 +48,8 @@
 </style>
 
 <script>
-import upIcon from '@/assets/svg/up.svg';
-import downIcon from '@/assets/svg/down.svg';
+import upIcon from '@/assets/svg/up.svg?raw';
+import downIcon from '@/assets/svg/down.svg?raw';
 
 export default {
   props: {

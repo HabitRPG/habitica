@@ -46,10 +46,15 @@
       </div>
     </div>
     <div
-      class="col-12 d-flex "
-      :class="{'justify-content-center': applyNarrowView}"
+      class="col-12 d-flex"
+      :class="{'justify-content-center': applyNarrowView || maxWidthView}"
     >
-      <div :class="{'settings-content': applyNarrowView, 'full-width-content': !applyNarrowView}">
+      <div
+        :class="{
+          'settings-content': applyNarrowView,
+          'full-width-content': !applyNarrowView && !maxWidthView,
+        }"
+      >
         <router-view />
       </div>
     </div>
@@ -57,7 +62,7 @@
 </template>
 
 <style scoped lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   strong {
     font-size: 1rem;
@@ -93,16 +98,10 @@
   }
 
   .settings-content {
-    flex: 0 0 732px;
+    flex: 0 0 751px;
     max-width: unset;
 
     ::v-deep {
-      line-height: 1.71;
-
-      .small {
-        line-height: 1.33;
-      }
-
       table td {
         padding: 0.5rem;
       }
@@ -116,6 +115,14 @@
         color: $gray-50;
 
         width: 23%;
+      }
+
+      small {
+        line-height: 1.33;
+      }
+
+      .settings-label, .settings-value, a, p {
+        line-height: 1.71;
       }
 
       .input-area .settings-label {
@@ -173,7 +180,7 @@
 import find from 'lodash/find';
 import { mapState } from '@/libs/store';
 import SecondaryMenu from '@/components/secondaryMenu';
-import gifts from '@/assets/svg/gifts-vertical.svg';
+import gifts from '@/assets/svg/gifts-vertical.svg?raw';
 import { userStateMixin } from '@/mixins/userState';
 
 export default {
@@ -207,8 +214,11 @@ export default {
       if (!this.currentEvent || !this.currentEvent.promo) return 'none';
       return this.currentEvent.promo;
     },
+    maxWidthView () {
+      return this.$route.name === 'subscription';
+    },
     applyNarrowView () {
-      return !['subscription', 'transactions'].includes(this.$route.name);
+      return !this.maxWidthView && this.$route.name !== 'transactions';
     },
   },
   methods: {

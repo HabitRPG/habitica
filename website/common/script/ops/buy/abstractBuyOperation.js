@@ -1,6 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import _merge from 'lodash/merge';
-import _get from 'lodash/get';
+import get from 'lodash/get';
 import i18n from '../../i18n';
 import {
   NotAuthorized,
@@ -14,14 +13,12 @@ export class AbstractBuyOperation {
   /**
    * @param {User} user - the User-Object
    * @param {Request} req - the Request-Object
-   * @param {analytics} analytics
    */
-  constructor (user, req, analytics) {
+  constructor (user, req) {
     this.user = user;
     this.req = req || {};
-    this.analytics = analytics;
 
-    const quantity = _get(req, 'quantity');
+    const quantity = get(req, 'quantity');
 
     this.quantity = quantity ? Number(quantity) : 1;
     if (this.quantity < 1 || !Number.isInteger(this.quantity)) throw new BadRequest(this.i18n('invalidQuantity'));
@@ -86,10 +83,6 @@ export class AbstractBuyOperation {
     throw new NotImplementedError('executeChanges');
   }
 
-  analyticsData () { // eslint-disable-line class-methods-use-this
-    throw new NotImplementedError('sendToAnalytics');
-  }
-
   async purchase () {
     if (!this.multiplePurchaseAllowed() && this.quantity > 1) {
       throw new NotAuthorized(this.i18n('messageNotAbleToBuyInBulk'));
@@ -97,33 +90,9 @@ export class AbstractBuyOperation {
 
     this.extractAndValidateParams(this.user, this.req);
 
-    const resultObj = await this.executeChanges(this.user, this.item, this.req, this.analytics);
-
-    if (this.analytics) {
-      this.sendToAnalytics(this.analyticsData());
-    }
+    const resultObj = await this.executeChanges(this.user, this.item, this.req);
 
     return resultObj;
-  }
-
-  analyticsLabel () { // eslint-disable-line class-methods-use-this
-    return 'buy';
-  }
-
-  sendToAnalytics (additionalData = {}) {
-    // spread-operator produces an "unexpected token" error
-    const analyticsData = _merge(additionalData, {
-      // ...additionalData,
-      uuid: this.user._id,
-      category: 'behavior',
-      headers: this.req.headers,
-    });
-
-    if (this.multiplePurchaseAllowed()) {
-      analyticsData.quantityPurchased = this.quantity;
-    }
-
-    this.analytics.track(this.analyticsLabel(), analyticsData);
   }
 }
 
@@ -148,15 +117,6 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
 
     user.stats.gp -= itemValue * this.quantity;
   }
-
-  analyticsData () {
-    return {
-      itemKey: this.getItemKey(this.item),
-      itemType: this.getItemType(this.item),
-      currency: 'Gold',
-      goldCost: this.getItemValue(this.item),
-    };
-  }
 }
 
 export class AbstractGemItemOperation extends AbstractBuyOperation {
@@ -178,15 +138,6 @@ export class AbstractGemItemOperation extends AbstractBuyOperation {
 
     await updateUserBalance(user, -(itemValue * this.quantity), 'spend', item.key, item.text());
   }
-
-  analyticsData () {
-    return {
-      itemKey: this.getItemKey(this.item),
-      itemType: this.getItemType(this.item),
-      currency: 'Gems',
-      gemCost: this.getItemValue(this.item) * 4,
-    };
-  }
 }
 
 export class AbstractHourglassItemOperation extends AbstractBuyOperation {
@@ -200,12 +151,5 @@ export class AbstractHourglassItemOperation extends AbstractBuyOperation {
 
   async subtractCurrency (user, item) { // eslint-disable-line class-methods-use-this
     await updateUserHourglasses(user, -1, 'spend', item.key);
-  }
-
-  analyticsData () {
-    return {
-      itemKey: this.item.key,
-      currency: 'Hourglass',
-    };
   }
 }

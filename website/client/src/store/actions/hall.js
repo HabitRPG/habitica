@@ -32,3 +32,15 @@ export async function getHeroParty (store, payload) {
   const response = await axios.get(url);
   return response.data.data;
 }
+
+export async function getHeroGroupPlans (store, payload) {
+  const url = `/api/v4/hall/heroes/${payload.heroId}/group-plans`;
+  const response = await axios.get(url);
+  return response.data.data;
+}
+
+export async function deleteHero (store, payload) {
+  const url = `/api/v4/members/${payload.uuid}?deleteAccount=${payload.deleteHabiticaAccount}&deleteAmplitude=${payload.deleteAmplitudeData}`;
+  const response = await axios.delete(url);
+  return response.data.data;
+}

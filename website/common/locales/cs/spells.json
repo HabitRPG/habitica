@@ -7,7 +7,6 @@
     "spellWizardEarthNotes": "Tvá psychická síla otřásá zemí a tvá družina získává bonus k Inteligenci! (Vypočteno na základě: INT před bonusem)",
     "spellWizardFrostText": "Ledový mráz",
     "spellWizardFrostNotes": "S jedním sesláním kouzla led zmrazil všechny tvé série, takže se žádná zítra nezresetuje na 0!",
-    "spellWizardFrostAlreadyCast": "Toto kouzlo už jsi dnes seslal. Tvé série jsou zmraženy a tak není důvod sesílat tohle kouzlo znovu.",
     "spellWarriorSmashText": "Brutální rána",
     "spellWarriorSmashNotes": "Úkoly ti více zmodrají/méně zčervenají, a uštědříš extra poškození Bossům! (Vypočteno na základě: SÍL)",
     "spellWarriorDefensiveStanceText": "Obranný postoj",
@@ -25,7 +24,6 @@
     "spellRogueStealthText": "Plížení",
     "spellRogueStealthNotes": "S každým sesláním kouzla ti pár z tvých nesplněných úkolů dnes v noci neublíží. Jejich série a barva zůstane nezměněna. (Vypočteno na základě: VNM)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Počet denních úkolů, kterým se vyhneš: <%= number %>.",
-    "spellRogueStealthMaxedOut": "Už ses vyhnul všem svým denním úkolům, takže není důvod tuto schopnost používat znovu.",
     "spellHealerHealText": "Léčivé světlo",
     "spellHealerHealNotes": "Zářivé světlo obnovuje tvé zdraví! (Vypočteno na základě: OBR a INT)",
     "spellHealerBrightnessText": "Spalující záře",
@@ -54,7 +52,7 @@
     "targetIdUUID": "„targetId\" musí být platné ID uživatele.",
     "challengeTasksNoCast": "Použití schopnosti na úkol z výzvy není povoleno.",
     "groupTasksNoCast": "Používání schopností na skupinové úkoly není povoleno.",
-    "spellNotOwned": "Nevlastníš tuto schopnost.",
-    "spellLevelTooHigh": "Pro použití této schopnosti musíš být úroveň <%= level %>.",
+    "spellNotOwned": "Tuto dovednost nevlastníte.",
+    "spellLevelTooHigh": "Musíte být na úrovni <%= level %>, abyste mohli tuto dovednost použít.",
     "spellAlreadyCast": "Použití této dovednosti nebude mít žádný další efekt."
 }

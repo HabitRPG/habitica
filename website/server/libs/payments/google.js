@@ -72,6 +72,53 @@ api.verifyPurchase = async function verifyPurchase (options) {
   return googleRes;
 };
 
+async function findSubscriptionPurchase (additionalData) {
+  const googleRes = await iap.validate(iap.GOOGLE, additionalData);
+
+  const isValidated = iap.isValidated(googleRes);
+  if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
+
+  const purchases = iap.getPurchaseData(googleRes);
+  if (purchases.length === 0) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
+
+  let purchase;
+  let newestDate;
+
+  for (const i in purchases) {
+    if (Object.prototype.hasOwnProperty.call(purchases, i)) {
+      const thisPurchase = purchases[i];
+      const purchaseDate = new Date(Number(thisPurchase.startTimeMillis));
+      if (!newestDate || purchaseDate > newestDate) {
+        newestDate = purchaseDate;
+        purchase = purchases[i];
+      }
+    }
+  }
+  return {
+    purchase,
+    isCanceled: iap.isCanceled(purchase),
+    isExpired: iap.isExpired(purchase),
+    expirationDate: new Date(Number(purchase.expirationDate)),
+  };
+}
+
+api.getSubscriptionPaymentDetails = async function getDetails (userId, subscriptionPlan) {
+  if (!subscriptionPlan || !subscriptionPlan.additionalData) {
+    throw new NotAuthorized(shared.i18n.t('missingSubscription'));
+  }
+  const details = await findSubscriptionPurchase(subscriptionPlan.additionalData);
+  return {
+    customerId: details.purchase.purchaseToken,
+    originalPurchaseDate: new Date(Number(details.purchase.startTimeMillis)),
+    expirationDate: details.isCanceled || details.isExpired ? details.expirationDate : null,
+    nextPaymentDate: details.isCanceled || details.isExpired ? null : details.expirationDate,
+    productId: details.purchase.productId,
+    transactionId: details.purchase.orderId,
+    isCanceled: details.isCanceled,
+    isExpired: details.isExpired,
+  };
+};
+
 api.subscribe = async function subscribe (
   sku,
   user,
@@ -213,22 +260,11 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
   let dateTerminated;
 
   try {
-    const googleRes = await iap.validate(iap.GOOGLE, plan.additionalData);
-
-    const isValidated = iap.isValidated(googleRes);
-    if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
-
-    const purchases = iap.getPurchaseData(googleRes);
-    if (purchases.length === 0) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
-    for (const i in purchases) {
-      if (Object.prototype.hasOwnProperty.call(purchases, i)) {
-        const purchase = purchases[i];
-        if (purchase.autoRenewing !== false) return;
-        if (!dateTerminated || Number(purchase.expirationDate) > Number(dateTerminated)) {
-          dateTerminated = new Date(Number(purchase.expirationDate));
-        }
-      }
+    const details = await findSubscriptionPurchase(plan.additionalData);
+    if (!details.isCanceled && !details.isExpired) {
+      throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
     }
+    dateTerminated = details.expirationDate;
   } catch (err) {
     // Status:410 means that the subsctiption isn't active anymore and we can safely delete it
     if (err && err.message === 'Status:410') {

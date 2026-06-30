@@ -7,12 +7,15 @@ import { model as Group } from '../../models/group';
 import common from '../../../common';
 import {
   NotFound,
+  BadRequest,
 } from '../../libs/errors';
 import { apiError } from '../../libs/apiError';
 import {
   validateItemPath,
   castItemVal,
 } from '../../libs/items/utils';
+import { addSubToGroupUser } from '../../libs/payments/groupPayments';
+import { leaveGroup } from '../../libs/groups';
 
 const api = {};
 
@@ -146,7 +149,7 @@ api.getHeroes = {
 // Note, while the following routes are called getHero / updateHero
 // they can be used by admins to get/update any user
 
-const heroAdminFields = 'auth balance contributor flags items lastCron party preferences profile purchased secret permissions achievements';
+const heroAdminFields = 'auth balance contributor flags items lastCron party preferences profile purchased secret permissions achievements stats';
 const heroAdminFieldsToFetch = heroAdminFields; // these variables will make more sense when...
 const heroAdminFieldsToShow = heroAdminFields; // ... apiTokenObscured is added
 
@@ -206,9 +209,9 @@ api.getHero = {
   },
 };
 
-// e.g., tier 5 gives 4 gems. Tier 8 = moderator. Tier 9 = staff
+// e.g., tier 5 gives 50 gems. Tier 8 = moderator. Tier 9 = staff
 const gemsPerTier = {
-  1: 3, 2: 3, 3: 3, 4: 4, 5: 4, 6: 4, 7: 4, 8: 0, 9: 0,
+  1: 10, 2: 20, 3: 30, 4: 40, 5: 50, 6: 60, 7: 70, 8: 0, 9: 0,
 };
 
 /**
@@ -288,9 +291,6 @@ api.updateHero = {
       if (plan.dateTerminated !== hero.purchased.plan.dateTerminated) {
         hero.purchased.plan.dateTerminated = plan.dateTerminated;
       }
-      if (plan.perkMonthCount) {
-        hero.purchased.plan.perkMonthCount = plan.perkMonthCount;
-      }
       if (plan.consecutive) {
         if (plan.consecutive.trinkets) {
           const changedHourglassTrinkets = plan.consecutive.trinkets
@@ -313,9 +313,79 @@ api.updateHero = {
         if (plan.consecutive.count) {
           hero.purchased.plan.consecutive.count = plan.consecutive.count; // eslint-disable-line max-len
         }
-        if (plan.consecutive.offset) {
-          hero.purchased.plan.consecutive.offset = plan.consecutive.offset; // eslint-disable-line max-len
+      }
+      if (plan.cumulativeCount) {
+        hero.purchased.plan.cumulativeCount = plan.cumulativeCount;
+      }
+      if (plan.extraMonths || plan.extraMonths === 0) {
+        hero.purchased.plan.extraMonths = plan.extraMonths;
+      }
+      if (plan.customerId || plan.customerId === '') {
+        hero.purchased.plan.customerId = plan.customerId;
+      }
+      if (plan.paymentMethod || plan.customerId === '') {
+        hero.purchased.plan.paymentMethod = plan.paymentMethod;
+      }
+      if (plan.planId || plan.customerId === '') {
+        hero.purchased.plan.planId = plan.planId;
+      }
+      if (plan.owner || plan.customerId === '') {
+        hero.purchased.plan.owner = plan.owner;
+      }
+      if (plan.hourglassPromoReceived) {
+        hero.purchased.plan.hourglassPromoReceived = plan.hourglassPromoReceived;
+      }
+
+      if (plan.convertToGroupPlan) {
+        const groupID = plan.convertToGroupPlan;
+        const group = await Group.getGroup({ user: hero, groupId: groupID });
+        if (!group) throw new NotFound(res.t('groupNotFound'));
+        if (group.hasNotCancelled()) {
+          hero.purchased.plan.paymentMethod = 'groupPlan';
+          await addSubToGroupUser(hero, group);
+          await group.updateGroupPlan();
+        } else {
+          throw new BadRequest('Group does not have a plan');
         }
+      }
+    }
+
+    if (updateData.stats) {
+      if (updateData.stats.hp || updateData.stats.hp === 0) {
+        hero.stats.hp = updateData.stats.hp;
+      }
+      if (updateData.stats.mp || updateData.stats.mp === 0) {
+        hero.stats.mp = updateData.stats.mp;
+      }
+      if (updateData.stats.exp || updateData.stats.exp === 0) {
+        hero.stats.exp = updateData.stats.exp;
+      }
+      if (updateData.stats.gp || updateData.stats.gp === 0) {
+        hero.stats.gp = updateData.stats.gp;
+      }
+      if (updateData.stats.lvl || updateData.stats.lvl === 0) {
+        hero.stats.lvl = updateData.stats.lvl;
+      }
+      if (updateData.stats.points || updateData.stats.points === 0) {
+        hero.stats.points = updateData.stats.points;
+      }
+      if (updateData.stats.str || updateData.stats.str === 0) {
+        hero.stats.str = updateData.stats.str;
+      }
+      if (updateData.stats.int || updateData.stats.int === 0) {
+        hero.stats.int = updateData.stats.int;
+      }
+      if (updateData.stats.per || updateData.stats.per === 0) {
+        hero.stats.per = updateData.stats.per;
+      }
+      if (updateData.stats.con || updateData.stats.con === 0) {
+        hero.stats.con = updateData.stats.con;
+      }
+      if (updateData.stats.buffs) {
+        hero.stats.buffs = updateData.stats.buffs;
+      }
+      if (updateData.stats.class) {
+        hero.stats.class = updateData.stats.class;
       }
     }
 
@@ -329,9 +399,19 @@ api.updateHero = {
       let tierDiff = newTier - oldTier; // can be 2+ tier increases at once
       while (tierDiff) {
         await hero.updateBalance(gemsPerTier[newTier] / 4, 'contribution', newTier); // eslint-disable-line no-await-in-loop
+        if (newTier === 2 || newTier === '2') {
+          hero.items.gear.owned.armor_special_1 = true;
+        } else if (newTier === 3 || newTier === '3') {
+          hero.items.gear.owned.head_special_1 = true;
+        } else if (newTier === 4 || newTier === '4') {
+          hero.items.gear.owned.weapon_special_1 = true;
+        } else if (newTier === 5 || newTier === '5') {
+          hero.items.gear.owned.shield_special_1 = true;
+        }
         tierDiff -= 1;
         newTier -= 1; // give them gems for the next tier down if they weren't already that tier
       }
+      hero.markModified('items.gear.owned');
 
       hero.addNotification('NEW_CONTRIBUTOR_LEVEL');
     }
@@ -398,7 +478,7 @@ api.updateHero = {
       }
 
       if (updateData.auth.local && updateData.auth.local.email) {
-        hero.auth.local.email = updateData.auth.local.email;
+        hero.auth.local.email = updateData.auth.local.email.toLowerCase();
       }
     }
 
@@ -428,6 +508,17 @@ api.updateHero = {
     }
 
     const savedHero = await hero.save();
+
+    if (updateData.removeFromParty) {
+      await leaveGroup({
+        user: savedHero,
+        groupId: savedHero.party._id,
+        res,
+        keep: false,
+        keepChallenges: false,
+      });
+    }
+
     const heroJSON = savedHero.toJSON();
     heroJSON.secret = savedHero.getSecretData();
     const responseHero = { _id: heroJSON._id }; // only respond with important fields
@@ -481,6 +572,68 @@ api.getHeroParty = { // @TODO XXX add tests
     if (!party) throw new NotFound(apiError('groupWithIDNotFound', { groupId }));
     const partyRes = party.toJSON();
     res.respond(200, partyRes);
+  },
+};
+
+/**
+ * @api {get} /api/v3/hall/heroes/:heroId Get Group Plans for a user
+ * @apiParam (Path) {UUID} groupId party's group ID
+ * @apiName GetHeroGroupPlans
+ * @apiGroup Hall
+ * @apiPermission userSupport
+ *
+ * @apiDescription Returns some basic information about group plans,
+ * to assist admins with user support.
+ *
+ * @apiSuccess {Object} data The active group plans
+ *
+ * @apiUse NoAuthHeaders
+ * @apiUse NoAccount
+ * @apiUse NoUser
+ * @apiUse NoPrivs
+ */
+api.getHeroGroupPlans = {
+  method: 'GET',
+  url: '/hall/heroes/:heroId/group-plans',
+  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  async handler (req, res) {
+    req.checkParams('heroId', res.t('heroIdRequired')).notEmpty();
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const { heroId } = req.params;
+
+    let query;
+    if (validator.isUUID(heroId)) {
+      query = { _id: heroId };
+    } else {
+      query = { 'auth.local.lowerCaseUsername': heroId.toLowerCase() };
+    }
+
+    const hero = await User
+      .findOne(query)
+      .select('guilds party')
+      .exec();
+
+    if (!hero) throw new NotFound(res.t('userWithIDNotFound', { userId: heroId }));
+    const heroGroups = hero.getGroups();
+
+    if (heroGroups.length === 0) {
+      res.respond(200, []);
+      return;
+    }
+
+    const groups = await Group
+      .find({
+        _id: { $in: heroGroups },
+      })
+      .select('leaderOnly leader purchased name managers memberCount')
+      .exec();
+
+    const groupPlans = groups.filter(group => group.hasActiveGroupPlan());
+
+    res.respond(200, groupPlans);
   },
 };
 

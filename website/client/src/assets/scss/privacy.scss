@@ -1,0 +1,16 @@
+.privacy-banner {
+  position: fixed;
+  bottom: 24px;
+  border-radius: 8px;
+  background-color: $white;
+  z-index: 5;
+  box-shadow: 0px 3px 6px 0px rgba(26, 24, 29, 0.16), 0px 3px 6px 0px rgba(26, 24, 29, 0.24);
+  width: calc(66vw + 96px);
+
+  @media only screen and (max-width: 992px) {
+    margin: auto 12.5%;
+  }
+  @media only screen and (min-width: 992px) {
+    margin: auto 14.5%;
+  }
+}

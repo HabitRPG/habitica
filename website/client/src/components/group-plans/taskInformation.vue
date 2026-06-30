@@ -3,7 +3,6 @@
     class="standard-page"
     @click="openCreateBtn ? openCreateBtn = false : null"
   >
-    <group-plan-overview-modal />
     <task-modal
       ref="taskModal"
       :task="workingTask"
@@ -126,8 +125,8 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/create-task.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/create-task.scss';
 
   h1 {
     color: $purple-300;
@@ -187,20 +186,18 @@ import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import TaskColumn from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
 import TaskSummary from '../tasks/taskSummary';
-import GroupPlanOverviewModal from './groupPlanOverviewModal';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 
 import sync from '../../mixins/sync';
 
-import positiveIcon from '@/assets/svg/positive.svg';
-import filterIcon from '@/assets/svg/filter.svg';
-import deleteIcon from '@/assets/svg/delete.svg';
-import habitIcon from '@/assets/svg/habit.svg';
-import dailyIcon from '@/assets/svg/daily.svg';
-import todoIcon from '@/assets/svg/todo.svg';
-import rewardIcon from '@/assets/svg/reward.svg';
+import positiveIcon from '@/assets/svg/positive.svg?raw';
+import filterIcon from '@/assets/svg/filter.svg?raw';
+import deleteIcon from '@/assets/svg/delete.svg?raw';
+import habitIcon from '@/assets/svg/habit.svg?raw';
+import dailyIcon from '@/assets/svg/daily.svg?raw';
+import todoIcon from '@/assets/svg/todo.svg?raw';
+import rewardIcon from '@/assets/svg/reward.svg?raw';
 
-import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 
 export default {
@@ -208,7 +205,6 @@ export default {
     TaskColumn,
     TaskModal,
     TaskSummary,
-    GroupPlanOverviewModal,
     toggleSwitch,
   },
   mixins: [sync],
@@ -308,10 +304,6 @@ export default {
   mounted () {
     if (!this.searchId) this.searchId = this.groupId;
     this.load();
-
-    if (this.$route.query.showGroupOverview) {
-      this.$root.$emit('bv::show::modal', 'group-plan-overview');
-    }
 
     this.$root.$on('habitica:team-sync', () => {
       this.loadTasks();
@@ -445,14 +437,6 @@ export default {
       return false;
     },
     changeMirrorPreference (newVal) {
-      Analytics.track({
-        eventName: 'mirror tasks',
-        eventAction: 'mirror tasks',
-        eventCategory: 'behavior',
-        hitType: 'event',
-        mirror: newVal,
-        group: this.group._id,
-      }, { trackOnClient: true });
       const groupsToMirror = this.user.preferences.tasks.mirrorGroupTasks || [];
       if (newVal) { // we're turning copy ON for this group
         groupsToMirror.push(this.group._id);

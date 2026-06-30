@@ -13,13 +13,7 @@
           <hr>
         </div>
         <p>
-          <span v-html="$t('overviewQuestionsRevised')"></span>
-          <a
-            target="_blank"
-            @click.prevent="openBugReportModal(true)"
-          >
-            {{ $t('askQuestion') }}
-          </a>
+          <span v-html="$t('overviewQuestionsRevised', overviewLinks)"></span>
         </p>
       </div>
     </div>
@@ -27,7 +21,7 @@
 </template>
 
 <style lang='scss'>
-@import '~@/assets/scss/static.scss';
+@import '@/assets/scss/static.scss';
 </style>
 
 <style lang='scss' scoped>
@@ -38,13 +32,11 @@
 
 <script>
 import markdownDirective from '@/directives/markdown';
-import reportBug from '@/mixins/reportBug.js';
 
 export default {
   directives: {
     markdown: markdownDirective,
   },
-  mixins: [reportBug],
   data () {
     return {
       stepsNum: ['1', '2', '3'],
@@ -56,6 +48,11 @@ export default {
           equipUrl: '/inventory/equipment',
           shopUrl: '/shops/market',
         },
+      },
+      overviewLinks: {
+        faqLink: '<a href="/static/faq">',
+        adminLink: '<a href="mailto:admin@habitica.com?subject=Habitica Web Question">',
+        linkClose: '</a>',
       },
     };
   },

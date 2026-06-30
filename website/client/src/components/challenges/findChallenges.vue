@@ -63,7 +63,7 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   @media only screen and (max-width: 768px) {
     .header-row {
@@ -122,7 +122,7 @@ import challengeModal from './challengeModal';
 import externalLinks from '@/mixins/externalLinks';
 import challengeUtilities from '@/mixins/challengeUtilities';
 
-import positiveIcon from '@/assets/svg/positive.svg';
+import positiveIcon from '@/assets/svg/positive.svg?raw';
 
 export default {
   components: {

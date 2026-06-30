@@ -40,6 +40,7 @@ export function createAnimal (egg, potion, type, _content, userItems) {
     imageName: type === 'pet' ? `stable_Pet-${animalKey}` : `stable_Mount_Icon_${animalKey}`,
     eggKey: egg.key,
     eggName: getText(egg.text),
+    mountName: getText(egg.mountText),
     potionKey: potion.key,
     potionName: getText(potion.text),
     name: _content[`${type}Info`][animalKey].text(),

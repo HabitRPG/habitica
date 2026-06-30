@@ -225,7 +225,7 @@ function _updateLastHistoryEntry (lastHistoryEntry, task, direction, times) {
   }
 }
 
-export default function scoreTask (options = {}, req = {}, analytics) {
+export default function scoreTask (options = {}, req = {}) {
   const {
     user, task, direction, times = 1, cron = false,
   } = options;
@@ -425,7 +425,7 @@ export default function scoreTask (options = {}, req = {}, analytics) {
 
   if (!user.achievements.completedTask && cron === false && direction === 'up' && user.addAchievement) {
     user.addAchievement('completedTask');
-    checkOnboardingStatus(user, req, analytics);
+    checkOnboardingStatus(user, req);
   }
 
   return delta;

@@ -1,12 +1,7 @@
 <template>
   <div>
     <div
-      v-if="!user && userLoaded"
-    >
-      <error404 />
-    </div>
-    <div
-      v-else-if="userLoaded"
+      v-if="userLoaded"
       class="profile mt-n3"
     >
       <!-- HEADER -->
@@ -382,7 +377,7 @@
           <div class="">
             <div
               class="alert alert-info alert-sm"
-              v-html="$t('communityGuidelinesWarning', managerEmail)"
+              v-html="$t('communityGuidelinesWarning', communityGuidelineLinks)"
             ></div>
             <!-- TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak-->
             <div class="form-group">
@@ -403,14 +398,29 @@
                 :placeholder="$t('imageUrl')"
               >
             </div>
-            <div class="form-group">
+            <div class="form-group" style="position: relative;">
               <label>{{ $t('about') }}</label>
               <textarea
+                ref="blurbTextarea"
                 v-model="editingProfile.blurb"
                 class="form-control"
                 rows="5"
                 :placeholder="$t('displayBlurbPlaceholder')"
+                @keydown="autoCompleteMixinUpdateCarretPosition"
+                @keydown.tab="autoCompleteMixinHandleTab($event)"
+                @keydown.up="autoCompleteMixinSelectPreviousAutocomplete($event)"
+                @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
+                @keypress.enter="autoCompleteMixinSelectAutocomplete($event)"
+                @keydown.esc="autoCompleteMixinHandleEscape($event)"
               ></textarea>
+              <emoji-auto-complete
+                ref="emojiAutocomplete"
+                :text="editingProfile.blurb"
+                :textbox="textbox"
+                :coords="mixinData.autoComplete.coords"
+                :caret-position="mixinData.autoComplete.caretPosition"
+                @select="selectedAutocomplete"
+              />
               <!-- include ../../shared/formatting-help-->
             </div>
           </div>
@@ -557,7 +567,7 @@
 </template>
 
 <style lang="scss" >
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   #userProfile {
 
@@ -680,7 +690,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .avatar {
     width: fit-content;
@@ -979,6 +989,7 @@
 import moment from 'moment';
 import axios from 'axios';
 import each from 'lodash/each';
+import find from 'lodash/find';
 import cloneDeep from 'lodash/cloneDeep';
 import achievementsLib from '@/../../common/script/libs/achievements';
 import Content from '@/../../common/script/content';
@@ -989,23 +1000,24 @@ import MemberDetails from '../memberDetails';
 import markdown from '@/directives/markdown';
 import profileStats from './profileStats';
 
-import message from '@/assets/svg/message.svg';
-import gift from '@/assets/svg/gift.svg';
-import block from '@/assets/svg/block.svg';
-import positive from '@/assets/svg/positive.svg';
-import dots from '@/assets/svg/dots.svg';
-import megaphone from '@/assets/svg/broken-megaphone.svg';
-import lock from '@/assets/svg/lock.svg';
-import challenge from '@/assets/svg/challenge.svg';
-import member from '@/assets/svg/member-icon.svg';
-import staff from '@/assets/svg/tier-staff.svg';
-import report from '@/assets/svg/report.svg';
-import crown from '@/assets/svg/crown.svg';
-import mute from '@/assets/svg/mute.svg';
-import shadowMute from '@/assets/svg/shadow-mute.svg';
-import error404 from '../404';
+import message from '@/assets/svg/message.svg?raw';
+import gift from '@/assets/svg/gift.svg?raw';
+import block from '@/assets/svg/block.svg?raw';
+import positive from '@/assets/svg/positive.svg?raw';
+import dots from '@/assets/svg/dots.svg?raw';
+import megaphone from '@/assets/svg/broken-megaphone.svg?raw';
+import lock from '@/assets/svg/lock.svg?raw';
+import challenge from '@/assets/svg/challenge.svg?raw';
+import member from '@/assets/svg/member-icon.svg?raw';
+import staff from '@/assets/svg/tier-staff.svg?raw';
+import report from '@/assets/svg/report.svg?raw';
+import crown from '@/assets/svg/crown.svg?raw';
+import mute from '@/assets/svg/mute.svg?raw';
+import shadowMute from '@/assets/svg/shadow-mute.svg?raw';
 import externalLinks from '../../mixins/externalLinks';
 import { userCustomStateMixin } from '../../mixins/userState';
+import emojiAutoComplete from '@/components/chat/emojiAutoComplete';
+import { autoCompleteHelperMixin } from '@/mixins/autoCompleteHelper';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
 
@@ -1016,10 +1028,10 @@ export default {
   components: {
     MemberDetails,
     profileStats,
-    error404,
     toggleSwitch,
+    emojiAutoComplete,
   },
-  mixins: [externalLinks, userCustomStateMixin('userLoggedIn')],
+  mixins: [externalLinks, userCustomStateMixin('userLoggedIn'), autoCompleteHelperMixin],
   props: ['userId', 'startingPage'],
   data () {
     return {
@@ -1039,6 +1051,7 @@ export default {
         mute,
         shadowMute,
       }),
+      textbox: null,
       userIdToMessage: '',
       editing: false,
       editingProfile: {
@@ -1047,8 +1060,10 @@ export default {
         blurb: '',
       },
       hero: {},
-      managerEmail: {
-        hrefBlankCommunityManagerEmail: `<a href="mailto:${COMMUNITY_MANAGER_EMAIL}">${COMMUNITY_MANAGER_EMAIL}</a>`,
+      communityGuidelineLinks: {
+        linkOpen: '<a href="https://habitica.com/static/community-guidelines" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+        adminEmail: `<a href="mailto:${COMMUNITY_MANAGER_EMAIL}">${COMMUNITY_MANAGER_EMAIL}</a>`,
       },
       selectedPage: 'profile',
       achievements: {},
@@ -1062,8 +1077,12 @@ export default {
   },
   computed: {
     ...mapState({
+      currentEventList: 'worldState.data.currentEventList',
       flatGear: 'content.gear.flat',
     }),
+    currentEvent () {
+      return find(this.currentEventList, event => Boolean(event.promo));
+    },
     userJoinedDate () {
       return moment(this.user.auth.timestamps.created)
         .format(this.userLoggedIn.preferences.dateFormat.toUpperCase());
@@ -1123,12 +1142,24 @@ export default {
     userLoggedIn () {
       this.loadUser();
     },
+    editing (val) {
+      if (val) {
+        this.$nextTick(() => {
+          this.textbox = this.$refs.blurbTextarea;
+        });
+      }
+    },
   },
   mounted () {
     this.loadUser();
     this.oldTitle = this.$store.state.title;
     this.handleExternalLinks();
-    this.selectPage(this.startingPage);
+    // Check if there's a hash in the URL to determine the starting page
+    let pageToSelect = this.startingPage;
+    if (window.location.hash && (window.location.hash === '#stats' || window.location.hash === '#achievements')) {
+      pageToSelect = window.location.hash.substring(1);
+    }
+    this.selectPage(pageToSelect);
     this.$root.$on('habitica:report-profile-result', () => {
       this.loadUser();
     });
@@ -1205,14 +1236,23 @@ export default {
         this.hero = await this.$store.dispatch('hall:getHero', { uuid: this.user._id });
       }
 
+      if (!this.user) {
+        this.$router.push('/404');
+      }
+
       this.userLoaded = true;
     },
     selectPage (page) {
       this.selectedPage = page || 'profile';
-      window.history.replaceState(null, null, '');
+      const profileUserId = this.userId || this.userLoggedIn._id;
+      let newPath = `/profile/${profileUserId}`;
+      if (page !== 'profile') {
+        newPath += `#${page}`;
+      }
+      window.history.replaceState(null, null, newPath);
       this.$store.dispatch('common:setTitle', {
         section: this.$t('user'),
-        subSection: this.$t(this.startingPage),
+        subSection: this.$t(page),
       });
     },
     getNextIncentive () {
@@ -1257,6 +1297,7 @@ export default {
     },
 
     openSendGemsModal () {
+      this.user.g1g1 = this.currentEvent?.promo === 'g1g1';
       this.$store.state.giftModalOptions.startingPage = 'buyGems';
       this.$root.$emit('habitica::send-gift', this.user);
     },
@@ -1318,6 +1359,13 @@ export default {
       this.$emit('toggled', this.isOpened);
     },
 
+    selectedAutocomplete (newText, newCaret) {
+      this.editingProfile.blurb = newText;
+      this.$nextTick(() => {
+        this.textbox.setSelectionRange(newCaret, newCaret);
+        this.textbox.focus();
+      });
+    },
     reportPlayer () {
       this.$root.$emit('habitica::report-profile', {
         memberId: this.user._id,
@@ -1327,7 +1375,7 @@ export default {
     },
 
     openAdminPanel () {
-      this.$router.push(`/admin-panel/${this.hero._id}`);
+      this.$router.push(`/admin/panel/${this.hero._id}`);
     },
   },
 };

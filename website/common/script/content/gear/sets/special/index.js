@@ -779,6 +779,90 @@ const armor = {
   fall2024Rogue: {
     set: 'fall2024BlackCatRogueSet',
   },
+  winter2025Warrior: {
+    set: 'winter2025MooseWarriorSet',
+  },
+  winter2025Mage: {
+    set: 'winter2025AuroraMageSet',
+  },
+  winter2025Healer: {
+    set: 'winter2025StringLightsHealerSet',
+  },
+  winter2025Rogue: {
+    set: 'winter2025SnowRogueSet',
+  },
+  spring2025Warrior: {
+    set: 'spring2025SunshineWarriorSet',
+  },
+  spring2025Rogue: {
+    set: 'spring2025CrystalPointRogueSet',
+  },
+  spring2025Healer: {
+    set: 'spring2025PlumeriaHealerSet',
+  },
+  spring2025Mage: {
+    set: 'spring2025MantisMageSet',
+  },
+  summer2025Warrior: {
+    set: 'summer2025ScallopWarriorSet',
+  },
+  summer2025Rogue: {
+    set: 'summer2025SquidRogueSet',
+  },
+  summer2025Healer: {
+    set: 'summer2025SeaAngelHealerSet',
+  },
+  summer2025Mage: {
+    set: 'summer2025FairyWrasseMageSet',
+  },
+  fall2025Warrior: {
+    set: 'fall2025SasquatchWarriorSet',
+  },
+  fall2025Mage: {
+    set: 'fall2025MaskedGhostMageSet',
+  },
+  fall2025Healer: {
+    set: 'fall2025KoboldHealerSet',
+  },
+  fall2025Rogue: {
+    set: 'fall2025SkeletonRogueSet',
+  },
+  winter2026Warrior: {
+    set: 'winter2026RimeReaperWarriorSet',
+  },
+  winter2026Mage: {
+    set: 'winter2026MidwinterCandleMageSet',
+  },
+  winter2026Healer: {
+    set: 'winter2026PolarBearHealerSet',
+  },
+  winter2026Rogue: {
+    set: 'winter2026SkiRogueSet',
+  },
+  spring2026Warrior: {
+    set: 'spring2026FrogWarriorSet',
+  },
+  spring2026Rogue: {
+    set: 'spring2026BranchRogueSet',
+  },
+  spring2026Healer: {
+    set: 'spring2026SnowdropHealerSet',
+  },
+  spring2026Mage: {
+    set: 'spring2026MaypoleMageSet',
+  },
+  summer2026Warrior: {
+    set: 'summer2026AlligatorWarriorSet',
+  },
+  summer2026Rogue: {
+    set: 'summer2026TsunamiRogueSet',
+  },
+  summer2026Healer: {
+    set: 'summer2026PuffinHealerSet',
+  },
+  summer2026Mage: {
+    set: 'summer2026TigerSharkMageSet',
+  },
 };
 
 const armorStats = {
@@ -1868,6 +1952,90 @@ const head = {
   fall2024Rogue: {
     set: 'fall2024BlackCatRogueSet',
   },
+  winter2025Warrior: {
+    set: 'winter2025MooseWarriorSet',
+  },
+  winter2025Mage: {
+    set: 'winter2025AuroraMageSet',
+  },
+  winter2025Healer: {
+    set: 'winter2025StringLightsHealerSet',
+  },
+  winter2025Rogue: {
+    set: 'winter2025SnowRogueSet',
+  },
+  spring2025Warrior: {
+    set: 'spring2025SunshineWarriorSet',
+  },
+  spring2025Rogue: {
+    set: 'spring2025CrystalPointRogueSet',
+  },
+  spring2025Healer: {
+    set: 'spring2025PlumeriaHealerSet',
+  },
+  spring2025Mage: {
+    set: 'spring2025MantisMageSet',
+  },
+  summer2025Warrior: {
+    set: 'summer2025ScallopWarriorSet',
+  },
+  summer2025Rogue: {
+    set: 'summer2025SquidRogueSet',
+  },
+  summer2025Healer: {
+    set: 'summer2025SeaAngelHealerSet',
+  },
+  summer2025Mage: {
+    set: 'summer2025FairyWrasseMageSet',
+  },
+  fall2025Warrior: {
+    set: 'fall2025SasquatchWarriorSet',
+  },
+  fall2025Mage: {
+    set: 'fall2025MaskedGhostMageSet',
+  },
+  fall2025Healer: {
+    set: 'fall2025KoboldHealerSet',
+  },
+  fall2025Rogue: {
+    set: 'fall2025SkeletonRogueSet',
+  },
+  winter2026Warrior: {
+    set: 'winter2026RimeReaperWarriorSet',
+  },
+  winter2026Mage: {
+    set: 'winter2026MidwinterCandleMageSet',
+  },
+  winter2026Healer: {
+    set: 'winter2026PolarBearHealerSet',
+  },
+  winter2026Rogue: {
+    set: 'winter2026SkiRogueSet',
+  },
+  spring2026Warrior: {
+    set: 'spring2026FrogWarriorSet',
+  },
+  spring2026Rogue: {
+    set: 'spring2026BranchRogueSet',
+  },
+  spring2026Healer: {
+    set: 'spring2026SnowdropHealerSet',
+  },
+  spring2026Mage: {
+    set: 'spring2026MaypoleMageSet',
+  },
+  summer2026Warrior: {
+    set: 'summer2026AlligatorWarriorSet',
+  },
+  summer2026Rogue: {
+    set: 'summer2026TsunamiRogueSet',
+  },
+  summer2026Healer: {
+    set: 'summer2026PuffinHealerSet',
+  },
+  summer2026Mage: {
+    set: 'summer2026TigerSharkMageSet',
+  },
 };
 
 const headStats = {
@@ -2558,6 +2726,74 @@ const shield = {
   fall2024Rogue: {
     set: 'fall2024BlackCatRogueSet',
   },
+  winter2025Warrior: {
+    set: 'winter2025MooseWarriorSet',
+  },
+  winter2025Healer: {
+    set: 'winter2025StringLightsHealerSet',
+  },
+  winter2025Rogue: {
+    set: 'winter2025SnowRogueSet',
+  },
+  spring2025Warrior: {
+    set: 'spring2025SunshineWarriorSet',
+  },
+  spring2025Rogue: {
+    set: 'spring2025CrystalPointRogueSet',
+    text: t('shieldSpecialSpring2025RogueText'),
+    notes: t('shieldSpecialSpring2025RogueNotes', { str: 8 }),
+  },
+  spring2025Healer: {
+    set: 'spring2025PlumeriaHealerSet',
+  },
+  summer2025Warrior: {
+    set: 'summer2025ScallopWarriorSet',
+  },
+  summer2025Rogue: {
+    set: 'summer2025SquidRogueSet',
+    notes: t('shieldSpecialSummer2025RogueNotes', { str: 8 }),
+  },
+  summer2025Healer: {
+    set: 'summer2025SeaAngelHealerSet',
+  },
+  fall2025Warrior: {
+    set: 'fall2025SasquatchWarriorSet',
+  },
+  fall2025Healer: {
+    set: 'fall2025KoboldHealerSet',
+  },
+  fall2025Rogue: {
+    set: 'fall2025SkeletonRogueSet',
+    notes: t('shieldSpecialFall2025RogueNotes', { str: 8 }),
+  },
+  winter2026Warrior: {
+    set: 'winter2026RimeReaperWarriorSet',
+  },
+  winter2026Healer: {
+    set: 'winter2026PolarBearHealerSet',
+  },
+  winter2026Rogue: {
+    set: 'winter2026SkiRogueSet',
+  },
+  spring2026Warrior: {
+    set: 'spring2026FrogWarriorSet',
+  },
+  spring2026Rogue: {
+    set: 'spring2026BranchRogueSet',
+    notes: t('shieldSpecialSpring2026RogueNotes', { str: 8 }),
+  },
+  spring2026Healer: {
+    set: 'spring2026SnowdropHealerSet',
+  },
+  summer2026Warrior: {
+    set: 'summer2026AlligatorWarriorSet',
+  },
+  summer2026Rogue: {
+    set: 'summer2026TsunamiRogueSet',
+  },
+  summer2026Healer: {
+    set: 'summer2026PuffinHealerSet',
+  },
 };
 
 const shieldStats = {
@@ -3236,6 +3472,90 @@ const weapon = {
   },
   fall2024Rogue: {
     set: 'fall2024BlackCatRogueSet',
+  },
+  winter2025Warrior: {
+    set: 'winter2025MooseWarriorSet',
+  },
+  winter2025Mage: {
+    set: 'winter2025AuroraMageSet',
+  },
+  winter2025Healer: {
+    set: 'winter2025StringLightsHealerSet',
+  },
+  winter2025Rogue: {
+    set: 'winter2025SnowRogueSet',
+  },
+  spring2025Warrior: {
+    set: 'spring2025SunshineWarriorSet',
+  },
+  spring2025Rogue: {
+    set: 'spring2025CrystalPointRogueSet',
+  },
+  spring2025Healer: {
+    set: 'spring2025PlumeriaHealerSet',
+  },
+  spring2025Mage: {
+    set: 'spring2025MantisMageSet',
+  },
+  summer2025Warrior: {
+    set: 'summer2025ScallopWarriorSet',
+  },
+  summer2025Rogue: {
+    set: 'summer2025SquidRogueSet',
+  },
+  summer2025Healer: {
+    set: 'summer2025SeaAngelHealerSet',
+  },
+  summer2025Mage: {
+    set: 'summer2025FairyWrasseMageSet',
+  },
+  fall2025Warrior: {
+    set: 'fall2025SasquatchWarriorSet',
+  },
+  fall2025Mage: {
+    set: 'fall2025MaskedGhostMageSet',
+  },
+  fall2025Healer: {
+    set: 'fall2025KoboldHealerSet',
+  },
+  fall2025Rogue: {
+    set: 'fall2025SkeletonRogueSet',
+  },
+  winter2026Warrior: {
+    set: 'winter2026RimeReaperWarriorSet',
+  },
+  winter2026Mage: {
+    set: 'winter2026MidwinterCandleMageSet',
+  },
+  winter2026Healer: {
+    set: 'winter2026PolarBearHealerSet',
+  },
+  winter2026Rogue: {
+    set: 'winter2026SkiRogueSet',
+  },
+  spring2026Warrior: {
+    set: 'spring2026FrogWarriorSet',
+  },
+  spring2026Rogue: {
+    set: 'spring2026BranchRogueSet',
+  },
+  spring2026Healer: {
+    set: 'spring2026SnowdropHealerSet',
+  },
+  spring2026Mage: {
+    set: 'spring2026MaypoleMageSet',
+  },
+  summer2026Warrior: {
+    set: 'summer2026AlligatorWarriorSet',
+  },
+  summer2026Rogue: {
+    set: 'summer2026TsunamiRogueSet',
+  },
+  summer2026Healer: {
+    set: 'summer2026PuffinHealerSet',
+  },
+  summer2026Mage: {
+    set: 'summer2026TigerSharkMageSet',
   },
 };
 

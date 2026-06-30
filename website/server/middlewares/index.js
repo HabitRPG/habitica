@@ -23,7 +23,7 @@ import {
   forceSSL,
   forceHabitica,
 } from './redirects';
-import ipBlocker from './ipBlocker';
+import blocker from './blocker';
 import v1 from './v1';
 import v2 from './v2';
 import appRoutes from './appRoutes';
@@ -33,12 +33,17 @@ import {
 } from './language';
 import {
   logRequestData,
+  logSlowRequests,
 } from './requestLogHandler';
+import sitemap from './sitemap';
 
 const IS_PROD = nconf.get('IS_PROD');
 const DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING') === 'true';
 const ENABLE_HTTP_AUTH = nconf.get('SITE_HTTP_AUTH_ENABLED') === 'true';
 const LOG_REQUESTS_EXCESSIVE_MODE = nconf.get('LOG_REQUESTS_EXCESSIVE_MODE') === 'true';
+const SLOW_REQUEST_THRESHOLD = nconf.get('SLOW_REQUEST_THRESHOLD');
+const DISABLE_SSL_ENFORCEMENT = nconf.get('DISABLE_SSL_ENFORCEMENT') === 'true';
+const DISABLE_BASE_URL_ENFORCEMENT = nconf.get('DISABLE_BASE_URL_ENFORCEMENT') === 'true';
 // const PUBLIC_DIR = path.join(__dirname, '/../../client');
 
 const SESSION_SECRET = nconf.get('SESSION_SECRET');
@@ -49,6 +54,10 @@ export default function attachMiddlewares (app, server) {
 
   if (LOG_REQUESTS_EXCESSIVE_MODE) {
     app.use(logRequestData);
+  }
+
+  if (SLOW_REQUEST_THRESHOLD > 0) {
+    app.use(logSlowRequests);
   }
 
   if (ENABLE_CLUSTER) {
@@ -66,6 +75,8 @@ export default function attachMiddlewares (app, server) {
     referrerPolicy: false,
   }));
 
+  app.use(sitemap);
+
   // add res.respond and res.t
   app.use(responseHandler);
   app.use(attachTranslateFunction);
@@ -75,11 +86,15 @@ export default function attachMiddlewares (app, server) {
 
   app.use(maintenanceMode);
 
-  app.use(ipBlocker);
+  app.use(blocker);
 
   app.use(cors);
-  app.use(forceSSL);
-  app.use(forceHabitica);
+  if (!DISABLE_SSL_ENFORCEMENT) {
+    app.use(forceSSL);
+  }
+  if (!DISABLE_BASE_URL_ENFORCEMENT) {
+    app.use(forceHabitica);
+  }
 
   app.use(bodyParser.urlencoded({
     extended: true, // Uses 'qs' library as old connect middleware

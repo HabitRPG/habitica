@@ -1,5 +1,5 @@
 <template>
-  <fragment>
+  <div class="d-content">
     <tr
       v-if="!mixinData.inlineSettingMixin.modalVisible"
     >
@@ -66,11 +66,11 @@
         />
       </td>
     </tr>
-  </fragment>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .input-group {
   position: relative;
@@ -158,15 +158,19 @@ export default {
           confirmPassword: this.passwordUpdates.confirmPassword,
         };
 
-        await axios.put('/api/v4/user/auth/update-password', localAuthData);
+        const updatePasswordResult = await axios.put('/api/v4/user/auth/update-password', localAuthData);
+
+        const newToken = updatePasswordResult.data.data.apiToken;
+
+        this.$store.dispatch('auth:setNewToken', {
+          userId: this.user._id,
+          apiToken: newToken,
+        });
 
         this.passwordUpdates = {};
-        this.$store.dispatch('snackbars:add', {
-          title: 'Habitica',
-          text: this.$t('passwordSuccess'),
-          type: 'success',
-          timeout: true,
-        });
+        // Store a flag to show success message after reload
+        sessionStorage.setItem('passwordChangeSuccess', 'true');
+        window.location.reload();
       });
     },
 

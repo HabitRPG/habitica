@@ -1,5 +1,5 @@
 <template>
-  <fragment>
+  <div class="d-content">
     <tr>
       <td class="settings-label">
         {{ $t("showHeader") }}
@@ -26,11 +26,11 @@
         />
       </td>
     </tr>
-  </fragment>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 ::v-deep {
    .toggle-switch-outer {

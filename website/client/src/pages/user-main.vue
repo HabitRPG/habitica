@@ -4,6 +4,7 @@
     :class="{
       'casting-spell': castingSpell,
     }"
+    @dragover.prevent
   >
     <!-- <banned-account-modal /> -->
     <amazon-payments-modal v-if="!isStaticPage" />
@@ -14,8 +15,10 @@
     <bug-report-success-modal v-if="isUserLoaded" />
     <external-link-modal />
     <birthday-modal />
+    <purchase-confirm-modal v-if="isUserLoaded" />
+    <delete-task-confirm-modal v-if="isUserLoaded" />
     <template v-if="isUserLoaded">
-      <chat-banner />
+      <privacy-banner />
       <damage-paused-banner />
       <gems-promo-banner />
       <gift-promo-banner />
@@ -24,7 +27,7 @@
       <app-menu />
       <div
         class="container-fluid"
-        :class="{'no-margin': noMargin}"
+        :class="{'no-margin': noMargin, 'groups-background': $route.fullPath === '/group-plans' }"
       >
         <app-header />
         <buyModal
@@ -52,54 +55,64 @@
   </div>
 </template>
 
-  <style lang='scss' scoped>
-    @import '~@/assets/scss/colors.scss';
+<style lang='scss' scoped>
+  @import '@/assets/scss/colors.scss';
 
-    #app {
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
+  #app {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  .casting-spell {
+    cursor: crosshair;
+  }
+
+  .container-fluid {
+    flex: 1 0 auto;
+
+    &.groups-background {
+      background-color: white;
+      background-image: url('../assets/images/group-plans-static/top.svg?raw');
+      background-repeat: no-repeat;
     }
+  }
 
-    .casting-spell {
-      cursor: crosshair;
-    }
+  .no-margin {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
 
-    .container-fluid {
-      flex: 1 0 auto;
-    }
+  .notification {
+    border-radius: 1000px;
+    background-color: $green-10;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+    padding: .5em 1em;
+    color: $white;
+    margin-top: .5em;
+    margin-bottom: .5em;
+  }
+</style>
 
-    .no-margin {
-      margin-left: 0;
-      margin-right: 0;
-      padding-left: 0;
-      padding-right: 0;
-    }
+<style lang='scss'>
+  @import '@/assets/scss/sprites.scss';
 
-    .notification {
-      border-radius: 1000px;
-      background-color: $green-10;
-      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-      padding: .5em 1em;
-      color: $white;
-      margin-top: .5em;
-      margin-bottom: .5em;
-    }
-  </style>
+  @import '@/assets/scss/colors.scss';
+  @import '~/intro.js/minified/introjs.min.css';
+  @import '~/axios-progress-bar/dist/nprogress.css';
 
-  <style lang='scss'>
-    @import '~@/assets/scss/colors.scss';
+  .modal-backdrop {
+    opacity: .9 !important;
+    background-color: $purple-100 !important;
+  }
 
-    .modal-backdrop {
-      opacity: .9 !important;
-      background-color: $purple-100 !important;
-    }
-
-    /* Push progress bar above modals */
-    #nprogress .bar {
-      z-index: 1600 !important; /* Must stay above nav bar */
-    }
-  </style>
+  /* Push progress bar above modals */
+  #nprogress .bar {
+    z-index: 1600 !important; /* Must stay above nav bar */
+  }
+</style>
 
 <script>
 import axios from 'axios';
@@ -108,15 +121,14 @@ import { loadProgressBar } from 'axios-progress-bar';
 import birthdayModal from '@/components/news/birthdayModal';
 import AppMenu from '@/components/header/menu';
 import AppHeader from '@/components/header/index';
-import ChatBanner from '@/components/header/banners/chatBanner';
+import BirthdayBanner from '@/components/header/banners/birthdayBanner';
 import DamagePausedBanner from '@/components/header/banners/damagePaused';
 import GemsPromoBanner from '@/components/header/banners/gemsPromo';
 import GiftPromoBanner from '@/components/header/banners/giftPromo';
-import BirthdayBanner from '@/components/header/banners/birthdayBanner';
+import PrivacyBanner from '@/components/header/banners/privacy';
 import AppFooter from '@/components/appFooter';
 import notificationsDisplay from '@/components/notifications';
 import { mapState } from '@/libs/store';
-import * as Analytics from '@/libs/analytics';
 import BuyModal from '@/components/shops/buyModal.vue';
 import SelectMembersModal from '@/components/selectMembersModal.vue';
 import notifications from '@/mixins/notifications';
@@ -126,6 +138,8 @@ import paymentsSuccessModal from '@/components/payments/successModal';
 import subCancelModalConfirm from '@/components/payments/cancelModalConfirm';
 import subCanceledModal from '@/components/payments/canceledModal';
 import externalLinkModal from '@/components/externalLinkModal.vue';
+import purchaseConfirmModal from '@/components/shops/purchaseConfirmModal.vue';
+import deleteTaskConfirmModal from '@/components/tasks/deleteTaskConfirmModal.vue';
 
 import spellsMixin from '@/mixins/spells';
 import {
@@ -134,10 +148,8 @@ import {
   removeLocalSetting,
 } from '@/libs/userlocalManager';
 
-const bugReportModal = () => import(/* webpackChunkName: "bug-report-modal" */'@/components/bugReportModal');
-const bugReportSuccessModal = () => import(/* webpackChunkName: "bug-report-success-modal" */'@/components/bugReportSuccessModal');
-
-  const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
+const bugReportModal = () => import('@/components/bugReportModal');
+const bugReportSuccessModal = () => import('@/components/bugReportSuccessModal');
 
 export default {
   name: 'App',
@@ -146,11 +158,11 @@ export default {
     AppHeader,
     AppFooter,
     birthdayModal,
-    ChatBanner,
     DamagePausedBanner,
     GemsPromoBanner,
     GiftPromoBanner,
     BirthdayBanner,
+    PrivacyBanner,
     notificationsDisplay,
     BuyModal,
     SelectMembersModal,
@@ -161,6 +173,8 @@ export default {
     bugReportModal,
     bugReportSuccessModal,
     externalLinkModal,
+    purchaseConfirmModal,
+    deleteTaskConfirmModal,
   },
   mixins: [notifications, spellsMixin],
   data () {
@@ -251,33 +265,17 @@ export default {
       this.$store.dispatch('user:fetch'),
       this.$store.dispatch('tasks:fetchUserTasks'),
     ]).then(() => {
-      this.$store.state.isUserLoaded = true;
-      Analytics.setUser();
-      Analytics.updateUser();
-      if (window && window['habitica-i18n']) {
-        if (this.user.preferences.language === window['habitica-i18n'].language.code) {
-          return null;
+      let analyticsConsent = localStorage.getItem('analyticsConsent');
+      if (analyticsConsent !== null) {
+        analyticsConsent = analyticsConsent === 'true';
+        if (analyticsConsent !== this.user.preferences.analyticsConsent) {
+          this.$store.dispatch('user:set', { 'preferences.analyticsConsent': analyticsConsent });
         }
       }
-      if (window && window['habitica-i18n']) {
-        if (this.user.preferences.language === window['habitica-i18n'].language.code) {
-          return null;
-        }
-      }
-      return axios.get(
-        '/api/v4/i18n/browser-script',
-        {
-          language: this.user.preferences.language,
-          headers: {
-            'Cache-Control': 'no-cache',
-            Pragma: 'no-cache',
-            Expires: '0',
-          },
-        },
-      );
+
+      return this.loadAllTranslations();
     }).then(() => {
-      const i18nData = window && window['habitica-i18n'];
-      this.$loadLocale(i18nData);
+      this.$store.state.isUserLoaded = true;
       this.hideLoadingScreen();
 
       // Adjust the timezone offset
@@ -293,6 +291,10 @@ export default {
         appState = JSON.parse(appState);
         if (appState.paymentCompleted) {
           removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+          if (appState.paymentType === 'groupPlan') {
+            this.$store.state.upgradingGroup = {};
+            this.$store.dispatch('guilds:getGroupPlans', true);
+          }
           this.$root.$emit('habitica:payment-success', appState);
         }
       }
@@ -315,29 +317,6 @@ export default {
     if (loadingScreen) document.body.removeChild(loadingScreen);
   },
   methods: {
-    checkForBannedUser (error) {
-      const AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
-      const parseSettings = JSON.parse(AUTH_SETTINGS);
-      const errorMessage = error.response.data.message;
-
-      // Case where user is not logged in
-      if (!parseSettings) {
-        return false;
-      }
-
-      const bannedMessage = this.$t('accountSuspended', {
-        communityManagerEmail: COMMUNITY_MANAGER_EMAIL,
-        userId: parseSettings.auth.apiId,
-      });
-
-      if (errorMessage !== bannedMessage) return false;
-
-      this.$store.dispatch('auth:logout', { redirectToLogin: true });
-      return true;
-    },
-    itemSelected (item) {
-      this.selectedItemToBuy = item;
-    },
     genericPurchase (item) {
       if (!item) return false;
 
@@ -380,9 +359,36 @@ export default {
     hideLoadingScreen () {
       this.loading = false;
     },
+    async loadContentTranslations () {
+      const contentTranslations = await axios.get(
+        '/api/v4/i18n/content',
+        {
+          language: this.user.preferences.language,
+        },
+      );
+      const i18nData = window && window['habitica-i18n'];
+      i18nData.strings = { ...i18nData.strings, ...contentTranslations.data };
+      this.$loadLocale(i18nData);
+    },
+    async loadAllTranslations () {
+      if (window && window['habitica-i18n']) {
+        if (this.user.preferences.language === window['habitica-i18n'].language.code) {
+          return this.loadContentTranslations();
+        }
+      }
+      await axios.get(
+        '/api/v4/i18n/core',
+        {
+          language: this.user.preferences.language,
+          headers: {
+            'Cache-Control': 'no-cache',
+            Pragma: 'no-cache',
+            Expires: '0',
+          },
+        },
+      );
+      return this.loadContentTranslations();
+    },
   },
 };
 </script>
-
-  <style src="intro.js/minified/introjs.min.css"></style>
-  <style src="axios-progress-bar/dist/nprogress.css"></style>

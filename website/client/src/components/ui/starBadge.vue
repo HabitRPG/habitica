@@ -14,7 +14,7 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
   .badge-star {
     cursor: pointer;
@@ -46,7 +46,7 @@
 </style>
 
 <script>
-import svgStar from '@/assets/svg/star-badge.svg';
+import svgStar from '@/assets/svg/star-badge.svg?raw';
 
 export default {
   props: {

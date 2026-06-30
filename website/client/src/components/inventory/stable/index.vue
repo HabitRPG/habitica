@@ -265,8 +265,9 @@
     <hatchedPetDialog :hide-text="true" />
     <ItemPopover
       :dragged-item="currentDraggingFood"
-      popoverTextKey="clickOnPetToFeed"
-      translationKey="foodName" />
+      popover-text-key="clickOnPetToFeed"
+      translation-key="foodName"
+    />
     <mount-raised-modal />
     <welcome-modal />
     <hatching-modal :hatchable-pet.sync="hatchablePet" />
@@ -285,8 +286,8 @@
 </style>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/mixins.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/mixins.scss';
 
   .inventory-item-container {
     padding: 20px;
@@ -381,7 +382,7 @@ import DragDropDirective from '@/directives/dragdrop.directive';
 
 import { createAnimal } from '@/libs/createAnimal';
 
-import svgInformation from '@/assets/svg/information.svg';
+import svgInformation from '@/assets/svg/information.svg?raw';
 
 import notifications from '@/mixins/notifications';
 import openedItemRowsMixin from '@/mixins/openedItemRows';
@@ -627,6 +628,8 @@ export default {
             animals.push({
               key: specialKey,
               eggKey,
+              eggName: text(),
+              mountName: text(),
               potionKey,
               name: text(),
               canFind,
@@ -657,7 +660,6 @@ export default {
       }
 
       this.cachedAnimalList[key] = animals;
-
       return animals;
     },
     listAnimals (animalGroup, type, hideMissing, sort, searchText) {
@@ -670,7 +672,9 @@ export default {
       }
 
       if (searchText && searchText !== '') {
-        animals = _filter(animals, a => a.name.toLowerCase().indexOf(searchText) !== -1);
+        animals = _filter(animals, a => a.name.toLowerCase().indexOf(searchText) !== -1
+        || a.eggName.toLowerCase().indexOf(searchText) !== -1
+        || a.mountName.toLowerCase().indexOf(searchText) !== -1);
       }
 
       // 2. Sort
@@ -693,7 +697,6 @@ export default {
       }
 
       this.viewOptions[animalGroup.key].animalCount = animals.length;
-
       return animals;
     },
     countOwnedAnimals (animalGroup, type) {

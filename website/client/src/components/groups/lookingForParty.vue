@@ -128,7 +128,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   h1 {
     color: $purple-300;
@@ -252,12 +252,12 @@ import Avatar from '../avatar';
 import userLink from '../userLink';
 import { mapState } from '@/libs/store';
 
-import syncIcon from '@/assets/svg/sync-2.svg';
-import usersIcon from '@/assets/svg/users.svg';
-import warriorIcon from '@/assets/svg/warrior.svg';
-import rogueIcon from '@/assets/svg/rogue.svg';
-import healerIcon from '@/assets/svg/healer.svg';
-import wizardIcon from '@/assets/svg/wizard.svg';
+import syncIcon from '@/assets/svg/sync-2.svg?raw';
+import usersIcon from '@/assets/svg/users.svg?raw';
+import warriorIcon from '@/assets/svg/warrior.svg?raw';
+import rogueIcon from '@/assets/svg/rogue.svg?raw';
+import healerIcon from '@/assets/svg/healer.svg?raw';
+import wizardIcon from '@/assets/svg/wizard.svg?raw';
 
 export default {
   components: {

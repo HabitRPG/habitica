@@ -1,5 +1,5 @@
 <template>
-  <fragment>
+  <div class="d-content">
     <tr
       v-if="!mixinData.inlineSettingMixin.modalVisible"
     >
@@ -48,11 +48,11 @@
         />
       </td>
     </tr>
-  </fragment>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .api-key-input {
   margin-top: 20px;

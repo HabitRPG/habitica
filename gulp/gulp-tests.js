@@ -49,15 +49,14 @@ function integrationTestCommand (testDir) {
 }
 
 /* Test task definitions */
-gulp.task('test:nodemon', gulp.series(done => {
-  process.env.PORT = TEST_SERVER_PORT; // eslint-disable-line no-process-env
-  process.env.NODE_DB_URI = TEST_DB_URI; // eslint-disable-line no-process-env
-  done();
-}, 'nodemon'));
-
 gulp.task('test:prepare:mongo', cb => {
   const mongooseOptions = getDefaultConnectionOptions();
   const connectionUrl = getDevelopmentConnectionUrl(TEST_DB_URI);
+
+  console.info({
+    mongooseOptions,
+    connectionUrl,
+  });
 
   mongoose.connect(connectionUrl, mongooseOptions)
     .then(() => mongoose.connection.dropDatabase())

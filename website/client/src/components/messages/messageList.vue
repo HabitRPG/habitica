@@ -1,9 +1,9 @@
 <template>
   <div
     ref="container"
-    class="container-fluid"
+    class="message-list"
   >
-    <div class="row loadmore">
+    <div class="loadmore">
       <div v-if="canLoadMore && !isLoading">
         <div class="loadmore-divider-holder">
           <div class="loadmore-divider"></div>
@@ -28,7 +28,7 @@
     <div
       v-for="(msg) in messages"
       :key="msg.id"
-      class="row message-row"
+      class="message-row"
       :class="{ 'margin-right': user._id !== msg.uuid}"
     >
       <div
@@ -39,28 +39,33 @@
           class="avatar-left"
           :member="conversationOpponentUser"
           :avatar-only="true"
-          :override-top-padding="'14px'"
+          :show-weapon="true"
+          :debug-mode="false"
+          :height="null"
+          :override-top-padding="'0'"
           :hide-class-badge="true"
           @click.native="showMemberModal(msg.uuid)"
         />
-        <div
-          class="card"
-          :class="{'card-right': user._id !== msg.uuid, 'card-left': user._id === msg.uuid}"
-        >
-          <message-card
-            :msg="msg"
-            @message-removed="messageRemoved"
-            @show-member-modal="showMemberModal"
-            @message-card-mounted="itemWasMounted"
-          />
-        </div>
+        <message-card
+          :msg="msg"
+          :user-sent-message="user._id === msg.uuid"
+          :group-id="'privateMessage'"
+          :private-message-mode="true"
+          @message-liked="messageLiked"
+          @message-removed="messageRemoved"
+          @show-member-modal="showMemberModal"
+          @message-card-mounted="itemWasMounted"
+        />
         <avatar
           v-if="user && user._id === msg.uuid"
           class="avatar-right"
           :member="user"
+          :height="null"
           :avatar-only="true"
+          :show-weapon="true"
+          :debug-mode="false"
           :hide-class-badge="true"
-          :override-top-padding="'14px'"
+          :override-top-padding="'0'"
           @click.native="showMemberModal(msg.uuid)"
         />
       </div>
@@ -69,121 +74,110 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
-  .avatar {
-    width: 170px;
-    min-width: 8rem;
-    height: 120px;
-    padding-top: 0 !important;
+.avatar-left, .avatar-right {
+  align-self: center;
+
+  ::v-deep .character-sprites {
+    margin-bottom: -5px !important;
+    padding-bottom: 0 !important;
+    margin-top: -1px !important;
   }
 
-  .avatar-right {
-    margin-left: -1rem;
+  ::v-deep .avatar {
+    margin-left: -1.75rem;
+    margin-right: -0.5rem;
+  }
+}
 
-    ::v-deep .character-sprites {
-      margin-right: 1rem !important;
+.card {
+  border: 0px;
+  margin-bottom: 1rem;
+  padding: 0rem;
+  width: 684px;
+
+}
+
+.message-list {
+  width: 100%;
+  padding-right: 10px;
+  margin-right: 0 !important;
+}
+
+.message-row {
+  margin-left: 12px;
+  margin-right: 0;
+  margin-bottom: 1.2rem;
+
+  &:not(.margin-right) {
+    .d-flex {
+      justify-content: flex-end;
     }
   }
+}
 
-  .card {
-    border: 0px;
-    margin-bottom: 1rem;
-    padding: 0rem;
-    width: 684px;
-  }
-  .message-row {
-    margin-left: 12px;
-    margin-right: 12px;
+.hr {
+  width: 100%;
+  height: 20px;
+  border-bottom: 1px solid $gray-500;
+  text-align: center;
+  margin: 2em 0;
+}
 
-    &:not(.margin-right) {
-      .d-flex {
-        justify-content: flex-end;
-      }
-    }
-  }
-  @media only screen and (max-width: 1200px) {
-    .card {
-      width: 100%;
-    }
-  }
+.hr-middle {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'Roboto Condensed';
+  line-height: 1.5;
+  text-align: center;
+  color: $gray-200;
+  background-color: $gray-700;
+  padding: .2em;
+  margin-top: .2em;
+  display: inline-block;
+  width: 100px;
+}
 
-  @media only screen and (min-width: 1400px) {
-    .message-row {
-      margin-left: -15px;
-      margin-right: -30px;
-    }
-  }
+.loadmore {
+  justify-content: center;
+  margin-right: 12px;
+  margin-top: 12px;
+  margin-bottom: 24px;
 
-  .card-left {
-    border: 1px solid $purple-500;
-  }
-
-  .card-right {
-    border: 1px solid $gray-500;
-  }
-
-  .hr {
+  > div {
+    display: flex;
     width: 100%;
-    height: 20px;
-    border-bottom: 1px solid $gray-500;
-    text-align: center;
-    margin: 2em 0;
-  }
+    align-items: center;
 
-  .hr-middle {
-    font-size: 16px;
-    font-weight: bold;
-    font-family: 'Roboto Condensed';
-    line-height: 1.5;
-    text-align: center;
-    color: $gray-200;
-    background-color: $gray-700;
-    padding: .2em;
-    margin-top: .2em;
-    display: inline-block;
-    width: 100px;
-  }
-
-  .loadmore {
-    justify-content: center;
-    margin-right: 12px;
-    margin-top: 12px;
-    margin-bottom: 24px;
-
-    > div {
-      display: flex;
-      width: 100%;
-      align-items: center;
-
-      button {
-        text-align: center;
-        color: $gray-50;
-      }
+    button {
+      text-align: center;
+      color: $gray-50;
     }
   }
+}
 
-  .loadmore-divider-holder {
-    flex: 1;
-    margin-left: 24px;
-    margin-right: 24px;
+.loadmore-divider-holder {
+  flex: 1;
+  margin-left: 24px;
+  margin-right: 24px;
 
-    &:last-of-type {
-      margin-right: 0;
-    }
+  &:last-of-type {
+    margin-right: 0;
   }
+}
 
-  .loadmore-divider {
-    height: 1px;
-    border-top: 1px $gray-500 solid;
-    width: 100%;
+.loadmore-divider {
+  height: 1px;
+  border-top: 1px $gray-500 solid;
+  width: 100%;
 
-  }
+}
 
-  .loading {
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-  }
+.loading {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
 
 </style>
 
@@ -280,6 +274,9 @@ export default {
         // container.style.overflowY = 'scroll';
       }
     }, 50),
+    messageLiked (message) {
+      this.$emit('message-liked', message);
+    },
     messageRemoved (message) {
       this.$emit('message-removed', message);
     },

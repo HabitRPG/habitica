@@ -7,7 +7,7 @@
       {{ $t('commGuideHeadingWelcome') }}
     </h2>
     <img
-      src="~@/assets/images/community-guidelines/intro.png"
+      src="@/assets/images/community-guidelines/intro.png"
       class="mb-3"
     >
     <p v-html="$t('commGuidePara001')"></p>
@@ -19,16 +19,16 @@
     <p v-html="$t('commGuidePara015')"></p>
     <p v-html="$t('commGuidePara016')"></p>
     <div class="media align-items-center">
-      <img src="~@/assets/images/community-guidelines/publicSpaces.png">
+      <img src="@/assets/images/community-guidelines/publicSpaces.png">
     </div>
     <ul>
       <li><strong>{{ $t('commGuideList01A') }}</strong></li>
       <li v-html="$t('commGuideList02C')"></li>
-      <li v-html="$t('commGuideList02N')"></li>
+      <li v-html="$t('commGuideList02N', { adminEmail })"></li>
       <li v-html="$t('commGuideList02H')"></li>
       <li v-html="$t('commGuideList02A')"></li>
       <li v-html="$t('commGuideList02I')"></li>
-      <li v-html="$t('commGuideList02G')"></li>
+      <li v-html="$t('commGuideList02G', { adminEmail })"></li>
       <li v-html="$t('commGuideList02D')"></li>
       <li v-html="$t('commGuideList02E')"></li>
       <li v-html="$t('commGuideList02O')"></li>
@@ -36,7 +36,7 @@
       <li v-html="$t('commGuideList02P')"></li>
       <li v-html="$t('commGuideList02Q')"></li>
       <li v-html="$t('commGuideList02M')"></li>
-      <li v-html="$t('commGuideList02L')"></li>
+      <li v-html="$t('commGuideList02L', { adminEmail })"></li>
       <li v-html="$t('commGuideList02J')"></li>
       <li v-html="$t('commGuideList02K')"></li>
     </ul>
@@ -47,7 +47,7 @@
       {{ $t('commGuideHeadingInfractions') }}
     </h3>
     <img
-      src="~@/assets/images/community-guidelines/infractions.png"
+      src="@/assets/images/community-guidelines/infractions.png"
       class="mb-3"
     >
     <p v-html="$t('commGuidePara050')"></p>
@@ -69,7 +69,7 @@
     <p v-html="$t('commGuidePara054')"></p>
     <p v-html="$t('commGuidePara055')"></p>
     <ul>
-      <li v-html="$t('commGuideList06A')"></li>
+      <li v-html="$t('commGuideList06A', { adminEmail })"></li>
       <li v-html="$t('commGuideList06C')"></li>
       <li v-html="$t('commGuideList06E')"></li>
     </ul>
@@ -79,7 +79,7 @@
       {{ $t('commGuideHeadingConsequences') }}
     </h3>
     <p v-html="$t('commGuidePara059')"></p>
-    <img src="~@/assets/images/community-guidelines/consequences.png">
+    <img src="@/assets/images/community-guidelines/consequences.png">
     <h4>{{ $t('commGuideHeadingSevereConsequences') }}</h4>
     <ul>
       <li v-html="$t('commGuideList09A')"></li>
@@ -104,25 +104,25 @@
       {{ $t('commGuideHeadingRestoration') }}
     </h3>
     <img
-      src="~@/assets/images/community-guidelines/restoration.png"
+      src="@/assets/images/community-guidelines/restoration.png"
       class="mb-3"
     >
     <p v-html="$t('commGuidePara061')"></p>
-    <p v-html="$t('commGuidePara063')"></p>
+    <p v-html="$t('commGuidePara063', { adminEmail })"></p>
     <h2 id="meet-the-mods">
       {{ $t('commGuideHeadingMeet') }}
     </h2>
     <p v-html="$t('commGuidePara007')"></p>
     <p v-html="$t('commGuidePara009')"></p>
     <img
-      src="~@/assets/images/community-guidelines/staff.png"
+      src="@/assets/images/community-guidelines/staff.png"
       class="mb-3"
     >
     <ul>
       <li>
-        {{ $t('commGuideAKA', {habitName: 'heyeilatan', realName: 'Natalie'}) }}
-        ({{ $t('commGuideOnGitHub', {gitHubName: 'CuriousMagpie'}) }})
-        - Web Developer
+        {{ $t('commGuideAKA', {habitName: 'Viirus', realName: 'Phillip'}) }}
+        ({{ $t('commGuideOnGitHub', {gitHubName: 'phillipthelen'}) }})
+        - Developer
       </li>
       <li>
         {{ $t('commGuideAKA', {habitName: 'redphoenix', realName: 'Vicky'}) }}
@@ -134,10 +134,6 @@
         - Art, Community Management, Many Hats
       </li>
       <li>
-        {{ $t('commGuideAKA', {habitName: 'SabreCat', realName: 'Sabe'}) }}
-        - Web Developer
-      </li>
-      <li>
         {{ $t('commGuideAKA', {habitName: 'Apollo', realName: 'Tressley'}) }}
         - Designer
       </li>
@@ -146,8 +142,12 @@
         - Mobile Designer
       </li>
       <li>
-        {{ $t('commGuideAKA', {habitName: 'Viirus', realName: 'Phillip'}) }}
-        - Mobile Developer
+        {{ $t('commGuideAKA', {habitName: 'SabreCat', realName: 'Kalista'}) }}
+        - Web Developer
+      </li>
+      <li>
+        {{ $t('commGuideAKA', {habitName: 'fizself', realName: 'Hafiz'}) }}
+        - Developer
       </li>
     </ul>
     <p v-html="$t('commGuidePara013')"></p>
@@ -156,21 +156,21 @@
       <em>
         Lemoness, lefnire, Slappybag, litenull, Shaner, Bobbyroberts99, wc8,
         Breadstrings, Megan, Blade, Daniel the Bard, deilann, shanaqui, Nakonana,
-        Dewines, Alys, Fox_town, MaybeSteveRogers, and Cantras.
+        Dewines, Alys, Fox_town, MaybeSteveRogers, Cantras, and heyeilatan.
       </em>
     </p>
     <h2 id="final">
       {{ $t('commGuideHeadingFinal') }}
     </h2>
-    <p v-html="$t('commGuidePara067')"></p>
+    <p v-html="$t('commGuidePara067', { adminEmail })"></p>
     <p v-html="$t('commGuidePara068')"></p>
     <h2 id="links">
       {{ $t('commGuideHeadingLinks') }}
     </h2>
     <ul>
       <li><a href="/static/faq">{{ $t('faq') }}</a></li>
-      <li v-html="$t('commGuideLink03')"></li>
-      <li v-html="$t('commGuideLink04')"></li>
+      <li v-html="$t('commGuideLink03', gitHubLinks)"></li>
+      <li v-html="$t('commGuideLink04', feedbackLinks)"></li>
     </ul>
     <p v-html="$t('commGuidePara069')"></p>
     <ul>
@@ -187,3 +187,23 @@
     </ul>
   </div>
 </template>
+
+<script>
+
+export default {
+  data () {
+    return {
+      adminEmail: '<a href="mailto:admin@habitica.com">admin@habitica.com</a>',
+      gitHubLinks: {
+        linkOpen: '<a href="https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
+      feedbackLinks: {
+        linkOpen: '<a href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
+    };
+  },
+};
+
+</script>

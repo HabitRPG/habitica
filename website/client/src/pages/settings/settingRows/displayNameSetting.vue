@@ -1,5 +1,5 @@
 <template>
-  <fragment>
+  <div class="d-content">
     <tr
       v-if="!mixinData.inlineSettingMixin.modalVisible"
     >
@@ -78,11 +78,11 @@
         </div>
       </td>
     </tr>
-  </fragment>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .input-group {
   position: relative;
@@ -135,7 +135,7 @@ import isEmail from 'validator/es/lib/isEmail';
 import debounce from 'lodash/debounce';
 import { mapState } from '@/libs/store';
 
-import checkIcon from '@/assets/svg/check.svg';
+import checkIcon from '@/assets/svg/check.svg?raw';
 import SaveCancelButtons from '../components/saveCancelButtons.vue';
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
 import NotificationMixins from '@/mixins/notifications';

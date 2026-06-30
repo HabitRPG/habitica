@@ -48,14 +48,14 @@
         <br>
         <div
           v-if="!user.achievements.ultimateGearSets.healer
-            && user.achievements.ultimateGearSets.wizard
-            && user.achievements.ultimateGearSets.rogue
-            && user.achievements.ultimateGearSets.warrior"
+            || !user.achievements.ultimateGearSets.wizard
+            || !user.achievements.ultimateGearSets.rogue
+            || !user.achievements.ultimateGearSets.warrior"
         >
-          <p v-html="$t('moreGearAchievements')"></p>
+          <p v-html="$t('moreGearAchievements', gearAchievementLinks)"></p>
           <br>
         </div>
-        <div class="shop_armoire"></div>
+        <Sprite image-name="shop_armoire" />
         <p v-html="$t('armoireUnlocked')"></p>
         <br>
         <button
@@ -87,11 +87,21 @@
 import achievementFooter from './achievementFooter';
 import achievementAvatar from './achievementAvatar';
 import { mapState } from '@/libs/store';
+import Sprite from '@/components/ui/sprite.vue';
 
 export default {
   components: {
     achievementFooter,
     achievementAvatar,
+    Sprite,
+  },
+  data () {
+    return {
+      gearAchievementLinks: {
+        linkOpen: '<a href="/user/settings/general" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
+    };
   },
   computed: {
     ...mapState({ user: 'user.data' }),

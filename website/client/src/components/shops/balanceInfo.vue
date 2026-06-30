@@ -3,6 +3,7 @@
     <div
       v-for="currency of currencies"
       :key="currency.key"
+      :needed-currency-only="neededCurrencyOnly"
       class="d-flex align-items-center"
     >
       <div
@@ -20,7 +21,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .currency-value {
     font-size: 0.75rem;
@@ -39,9 +40,9 @@
 </style>
 
 <script>
-import svgGem from '@/assets/svg/gem.svg';
-import svgGold from '@/assets/svg/gold.svg';
-import svgHourglasses from '@/assets/svg/hourglass.svg';
+import svgGem from '@/assets/svg/gem.svg?raw';
+import svgGold from '@/assets/svg/gold.svg?raw';
+import svgHourglasses from '@/assets/svg/hourglass.svg?raw';
 
 import currencyMixin from './_currencyMixin';
 
@@ -53,6 +54,9 @@ export default {
     },
     amountNeeded: {
       type: Number,
+    },
+    neededCurrencyOnly: {
+      type: Boolean,
     },
   },
   data () {
@@ -66,34 +70,34 @@ export default {
   },
   computed: {
     currencies () {
-      const currencies = [];
-      currencies.push({
+      const currencies = [{
         type: 'hourglasses',
         icon: this.icons.hourglasses,
         value: this.userHourglasses,
-      });
+      },
 
-      currencies.push({
+      {
         type: 'gems',
         icon: this.icons.gem,
         value: this.userGems,
-      });
+      },
 
-      currencies.push({
+      {
         type: 'gold',
         icon: this.icons.gold,
         value: this.userGold,
-      });
+      }];
 
       for (const currency of currencies) {
-        if (
-          currency.type === this.currencyNeeded
-          && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)
+        if (currency.type === this.currencyNeeded
+        && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)
         ) {
           currency.notEnough = true;
         }
       }
-
+      if (this.neededCurrencyOnly) {
+        return currencies.filter(curr => curr.type === this.currencyNeeded);
+      }
       return currencies;
     },
   },

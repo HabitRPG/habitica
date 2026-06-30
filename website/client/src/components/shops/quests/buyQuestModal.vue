@@ -118,8 +118,8 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/mixins.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/mixins.scss';
 
   #buy-quest-modal {
     @include centeredModal();
@@ -163,8 +163,38 @@
     }
 
     .modal-dialog {
-      margin-top: 8%;
       width: 448px !important;
+      max-width: calc(100vw - 20px);
+      display: flex;
+
+      @media (max-width: 468px) {
+        width: 100% !important;
+        margin: 3rem auto 0.5rem;
+      }
+
+      @media (max-width: 353px) {
+        margin: 2.5rem auto 0.25rem;
+      }
+    }
+
+    .badge-dialog {
+      left: -8px;
+      top: -8px;
+
+      .badge-pin {
+        width: 32px;
+        height: 32px;
+      }
+    }
+
+    .modal-content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      @media (max-width: 300px) {
+        border-radius: 0;
+      }
     }
 
     .content {
@@ -198,7 +228,7 @@
       top: 25px;
       border-radius: 8px;
       background-color: $gray-600;
-      box-shadow: 0 2px 16px 0 rgba(26, 24, 29, 0.32);
+      box-shadow: 0 2px 16px 0 rgba($black, 0.32);
       display: flex;
       align-items: center;
       flex-direction: column;
@@ -208,12 +238,17 @@
     }
 
     button.btn.btn-primary {
-      margin-top: 14px;
-      padding: 4px 16px;
-      height: 32px;
+      margin-top: 16px;
+      padding: 2px 12px;
+      line-height: 1.714;
 
       &:focus {
-        border: 2px solid black;
+        border: 2px solid $purple-400;
+      }
+
+      &:active {
+        border: 2px solid $purple-400;
+        box-shadow: none;
       }
     }
 
@@ -249,7 +284,7 @@
 
           &.gems {
             color: $green-10;
-            background-color: rgba(36, 204, 143, 0.15);
+            background-color: rgba($green-100, 0.15);
             line-height: 1.4;
             margin: 0 0 0 -4px;
             border-radius: 20px;
@@ -257,7 +292,7 @@
 
           &.gold {
             color: $yellow-5;
-            background-color: rgba(255, 190, 93, 0.15);
+            background-color: rgba($yellow-100, 0.15);
             line-height: 1.4;
             margin: 0 0 0 -4px;
             border-radius: 20px;
@@ -265,7 +300,7 @@
 
           &.hourglasses {
             color: $hourglass-color;
-            background-color: rgba(41, 149, 205, 0.15);
+            background-color: rgba($blue-10, 0.15);
             line-height: 1.4;
             margin: 0 0 0 -4px;
             border-radius: 20px;
@@ -354,7 +389,7 @@
 </style>
 
 <!-- <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .value {
     width: 28px;
@@ -383,14 +418,14 @@
 import moment from 'moment';
 import { mapState } from '@/libs/store';
 
-import svgClock from '@/assets/svg/clock.svg';
-import svgClose from '@/assets/svg/close.svg';
-import svgExperience from '@/assets/svg/experience.svg';
-import svgGem from '@/assets/svg/gem.svg';
-import svgGold from '@/assets/svg/gold.svg';
-import svgHourglasses from '@/assets/svg/hourglass.svg';
-import svgPositive from '@/assets/svg/positive.svg';
-import svgNegative from '@/assets/svg/negative.svg';
+import svgClock from '@/assets/svg/clock.svg?raw';
+import svgClose from '@/assets/svg/close.svg?raw';
+import svgExperience from '@/assets/svg/experience.svg?raw';
+import svgGem from '@/assets/svg/gem.svg?raw';
+import svgGold from '@/assets/svg/gold.svg?raw';
+import svgHourglasses from '@/assets/svg/hourglass.svg?raw';
+import svgPositive from '@/assets/svg/positive.svg?raw';
+import svgNegative from '@/assets/svg/negative.svg?raw';
 
 import BalanceInfo from '../balanceInfo.vue';
 import currencyMixin from '../_currencyMixin';
@@ -480,8 +515,12 @@ export default {
       this.selectedAmountToBuy = 1;
       this.$emit('change', $event);
     },
-    buyItem () {
-      if (!this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)) {
+    async buyItem () {
+      const confirmed = await this.confirmPurchase(
+        this.item.currency,
+        this.item.value * this.selectedAmountToBuy,
+      );
+      if (!confirmed) {
         return;
       }
       this.makeGenericPurchase(this.item, 'buyQuestModal', this.selectedAmountToBuy);

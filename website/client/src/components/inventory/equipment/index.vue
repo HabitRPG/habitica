@@ -106,7 +106,7 @@
         </div>
         <div slot="drawer-header">
           <div class="drawer-tab-container">
-            <div class="clearfix">
+            <div class="clearfix mb-2">
               <toggle-switch
                 class="float-right align-with-tab"
                 :label="$t(costumeMode ? 'useCostume' : 'autoEquipBattleGear')"
@@ -219,7 +219,7 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .pointer {
   cursor: pointer;
@@ -241,7 +241,7 @@
 </style>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .page-header.btn-flat {
   background: transparent;
@@ -410,7 +410,8 @@ export default {
           const ownedItem = this.flatGear[gearKey];
 
           const isSearched = !searchText
-            || ownedItem.text().toLowerCase().indexOf(searchText) !== -1;
+            || ownedItem.text().toLowerCase().indexOf(searchText) !== -1
+            || ownedItem.notes().toLowerCase().indexOf(searchText) !== -1;
 
           if (ownedItem.klass !== 'base' && isSearched) {
             const { type } = ownedItem;

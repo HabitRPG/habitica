@@ -3,7 +3,6 @@
     "earnedRewardForDevotion": "Você recebeu <%= reward %> por estar empenhado(a) em melhorar a sua vida.",
     "nextRewardUnlocksIn": "Próximo prêmio em <%= numberOfCheckinsLeft %> check-ins",
     "awesome": "Fantástico!",
-    "countLeft": "Próxima recompensa após <%= count %> check-ins",
     "incentivesDescription": "Quando se trata de construir hábitos, a consistência é fundamental. A cada check-in, você se aproxima de um prêmio.",
     "checkinEarned": "Seu contador de check-in aumentou!",
     "unlockedCheckInReward": "Você desbloqueou uma recompensa de check-in!",
@@ -17,8 +16,8 @@
     "fourOfEachFood": "quatro de cada Comida Padrão de Mascote",
     "twoSaddles": "duas Selas",
     "threeSaddles": "três Selas",
-    "incentiveAchievement": "a conquista Realmente Fiel",
-    "royallyLoyal": "Realmente Fiel",
+    "incentiveAchievement": "a conquista Habiticano Leal",
+    "royallyLoyal": "Habiticano Leal",
     "royallyLoyalText": "Este usuário fez check-in mais de 500 vezes e conquistou todos os prêmios de Check-In!",
     "checkInRewards": "Recompensas de Check-In",
     "backloggedCheckInRewards": "Você recebeu prêmios de Check-In! Visite seu Inventário e Equipamentos para ver o que há de novo."

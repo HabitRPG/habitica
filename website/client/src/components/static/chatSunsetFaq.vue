@@ -107,7 +107,7 @@
       <div class="body-text">
         <p v-html="$t('sunsetFaqPara12')"></p>
         <p v-html="$t('sunsetFaqPara13')"></p>
-        <p v-html="$t('sunsetFaqPara14')"></p>
+        <p v-html="$t('sunsetFaqPara14', translationLinks)"></p>
         <p v-html="$t('sunsetFaqPara15')"></p>
         <p v-html="$t('sunsetFaqPara16')"></p>
         <p v-html="$t('sunsetFaqPara17')"></p>
@@ -138,9 +138,9 @@
       </div>
       <div class="body-text">
         <ul>
-          <li v-html="$t('sunsetFaqList8')"></li>
-          <li v-html="$t('sunsetFaqList9')"></li>
-          <li v-html="$t('sunsetFaqList10')"></li>
+          <li v-html="$t('sunsetFaqList8', faqLinks)"></li>
+          <li v-html="$t('sunsetFaqList9', beginnerLinks)"></li>
+          <li v-html="$t('sunsetFaqList10', { adminEmail })"></li>
         </ul>
       </div>
 
@@ -159,7 +159,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/faq.scss';
+  @import '@/assets/scss/faq.scss';
 </style>
 
 <script>
@@ -168,6 +168,23 @@ import FaqSidebar from '@/components/shared/faqSidebar';
 export default {
   components: {
     FaqSidebar,
+  },
+  data () {
+    return {
+      adminEmail: '<a href="mailto:admin@habitica.com">admin@habitica.com</a>',
+      translationLinks: {
+        linkOpen: '<a href="https://translate.habitica.com/projects/habitica/#information" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
+      faqLinks: {
+        linkOpen: '<a href="https://habitica.com/static/faq">',
+        linkClose: '</a>',
+      },
+      beginnerLinks: {
+        linkOpen: '<a href="https://habitica.wordpress.com/beginning-adventurers-guide/"  target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
+    };
   },
   mounted () {
     this.$store.dispatch('common:setTitle', {

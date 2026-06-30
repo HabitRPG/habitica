@@ -30,8 +30,9 @@
 
 <script>
 import markdownDirective from '@/directives/markdown';
+import { LOCALSTORAGE_AUTH_KEY } from '@/libs/auth';
 
-const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
+const COMMUNITY_MANAGER_EMAIL = import.meta.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
   directives: {
@@ -39,12 +40,14 @@ export default {
   },
   computed: {
     bannedMessage () {
-      const AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
+      const AUTH_SETTINGS = localStorage.getItem(LOCALSTORAGE_AUTH_KEY);
       const parseSettings = JSON.parse(AUTH_SETTINGS);
       const userId = parseSettings ? parseSettings.auth.apiId : '';
+      const username = this.$store?.state?.user?.data?.auth?.local?.username || '';
 
       return this.$t('accountSuspended', {
         userId,
+        username,
         communityManagerEmail: COMMUNITY_MANAGER_EMAIL,
       });
     },

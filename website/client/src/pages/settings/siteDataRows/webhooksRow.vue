@@ -8,7 +8,7 @@
     <div
       v-once
       class="webhooks-info mb-3"
-      v-html="$t('webhooksInfo')"
+      v-html="$t('webhooksInfo', hookLinks)"
     >
     </div>
 
@@ -137,7 +137,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .webhooks-info {
   line-height: 1.71;
@@ -213,12 +213,12 @@ import uuid from '@/../../common/script/libs/uuid';
 import { mapState } from '@/libs/store';
 
 import { InlineSettingMixin } from '../components/inlineSettingMixin';
-import positiveIcon from '@/assets/svg/positive.svg';
+import positiveIcon from '@/assets/svg/positive.svg?raw';
 import ToggleSwitch from '@/components/ui/toggleSwitch.vue';
-import menuIcon from '@/assets/svg/menu.svg';
-import deleteIcon from '@/assets/svg/delete.svg';
+import menuIcon from '@/assets/svg/menu.svg?raw';
+import deleteIcon from '@/assets/svg/delete.svg?raw';
 import ValidatedTextInput from '@/components/ui/validatedTextInput.vue';
-import editIcon from '@/assets/svg/edit.svg';
+import editIcon from '@/assets/svg/edit.svg?raw';
 
 export default {
   components: { ValidatedTextInput, ToggleSwitch },
@@ -233,6 +233,10 @@ export default {
       }),
       webhooks: [], // view copy of state
       unsaved: [],
+      hookLinks: {
+        linkOpen: '<a target="_blank" rel="noreferrer noopener" href="https://apidoc.habitica.com/#api-Webhook-AddWebhook">',
+        linkClose: '</a>',
+      },
     };
   },
   mounted () {

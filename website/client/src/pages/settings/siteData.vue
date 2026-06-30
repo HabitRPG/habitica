@@ -16,6 +16,7 @@
       <table class="table">
         <user-id-row />
         <user-data-row />
+        <privacy-preferences-row />
         <tr>
           <td colspan="3">
           </td>
@@ -45,6 +46,7 @@
 <script>
 import UserIdRow from '@/pages/settings/siteDataRows/userIdRow.vue';
 import UserDataRow from '@/pages/settings/siteDataRows/userDataRow.vue';
+import PrivacyPreferencesRow from '@/pages/settings/siteDataRows/privacyPreferencesRow.vue';
 import ApiRow from '@/pages/settings/siteDataRows/apiRow.vue';
 import WebhooksRow from '@/pages/settings/siteDataRows/webhooksRow.vue';
 import DeveloperModeRow from '@/pages/settings/siteDataRows/developerModeRow.vue';
@@ -56,6 +58,7 @@ export default {
     ApiRow,
     UserDataRow,
     UserIdRow,
+    PrivacyPreferencesRow,
   },
   mounted () {
     this.$store.dispatch('common:setTitle', {

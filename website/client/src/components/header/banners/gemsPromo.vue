@@ -15,62 +15,62 @@
         v-if="eventName === 'fall_extra_gems'"
         class="d-none d-xl-block"
         srcset="
-    ~@/assets/images/gems/fall-confetti-left/confetti.png,
-    ~@/assets/images/gems/fall-confetti-left/confetti@2x.png 2x,
-    ~@/assets/images/gems/fall-confetti-left/confetti@3x.png 3x"
-        src="~@/assets/images/gems/fall-confetti-left/confetti.png"
+    @/assets/images/gems/fall-confetti-left/confetti.png,
+    @/assets/images/gems/fall-confetti-left/confetti@2x.png 2x,
+    @/assets/images/gems/fall-confetti-left/confetti@3x.png 3x"
+        src="@/assets/images/gems/fall-confetti-left/confetti.png"
       >
       <img
         v-else-if="eventName === 'spooky_extra_gems'"
         class="d-none d-xl-block"
         srcset="
-    ~@/assets/images/gems/spooky-confetti-left/confetti.png,
-    ~@/assets/images/gems/spooky-confetti-left/confetti@2x.png 2x,
-    ~@/assets/images/gems/spooky-confetti-left/confetti@3x.png 3x"
-        src="~@/assets/images/gems/spooky-confetti-left/confetti.png"
+    @/assets/images/gems/spooky-confetti-left/confetti.png,
+    @/assets/images/gems/spooky-confetti-left/confetti@2x.png 2x,
+    @/assets/images/gems/spooky-confetti-left/confetti@3x.png 3x"
+        src="@/assets/images/gems/spooky-confetti-left/confetti.png"
       >
       <div class="promo-test">
         <img
           v-if="eventName === 'fall_extra_gems'"
           srcset="
-      ~@/assets/images/gems/fall-text/text.png,
-      ~@/assets/images/gems/fall-text/text@2x.png 2x,
-      ~@/assets/images/gems/fall-text/text@3x.png 3x"
-          src="~@/assets/images/gems/fall-text/text.png"
+      @/assets/images/gems/fall-text/text.png,
+      @/assets/images/gems/fall-text/text@2x.png 2x,
+      @/assets/images/gems/fall-text/text@3x.png 3x"
+          src="@/assets/images/gems/fall-text/text.png"
         >
         <img
           v-else-if="eventName === 'spooky_extra_gems'"
           srcset="
-      ~@/assets/images/gems/spooky-text/text.png,
-      ~@/assets/images/gems/spooky-text/text@2x.png 2x,
-      ~@/assets/images/gems/spooky-text/text@3x.png 3x"
-          src="~@/assets/images/gems/spooky-text/text.png"
+      @/assets/images/gems/spooky-text/text.png,
+      @/assets/images/gems/spooky-text/text@2x.png 2x,
+      @/assets/images/gems/spooky-text/text@3x.png 3x"
+          src="@/assets/images/gems/spooky-text/text.png"
         >
       </div>
       <img
         v-if="eventName === 'fall_extra_gems'"
         class="d-none d-xl-block"
         srcset="
-    ~@/assets/images/gems/fall-confetti-right/confetti.png,
-    ~@/assets/images/gems/fall-confetti-right/confetti@2x.png 2x,
-    ~@/assets/images/gems/fall-confetti-right/confetti@3x.png 3x"
-        src="~@/assets/images/gems/fall-confetti-right/confetti.png"
+    @/assets/images/gems/fall-confetti-right/confetti.png,
+    @/assets/images/gems/fall-confetti-right/confetti@2x.png 2x,
+    @/assets/images/gems/fall-confetti-right/confetti@3x.png 3x"
+        src="@/assets/images/gems/fall-confetti-right/confetti.png"
       >
       <img
         v-else-if="eventName === 'spooky_extra_gems'"
         class="d-none d-xl-block"
         srcset="
-    ~@/assets/images/gems/spooky-confetti-right/confetti.png,
-    ~@/assets/images/gems/spooky-confetti-right/confetti@2x.png 2x,
-    ~@/assets/images/gems/spooky-confetti-right/confetti@3x.png 3x"
-        src="~@/assets/images/gems/spooky-confetti-right/confetti.png"
+    @/assets/images/gems/spooky-confetti-right/confetti.png,
+    @/assets/images/gems/spooky-confetti-right/confetti@2x.png 2x,
+    @/assets/images/gems/spooky-confetti-right/confetti@3x.png 3x"
+        src="@/assets/images/gems/spooky-confetti-right/confetti.png"
       >
     </div>
   </base-banner>
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .gems-promo-banner-fall_extra_gems {
   background: $gray-10;

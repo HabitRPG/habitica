@@ -12,7 +12,7 @@ import updateUserHourglasses from '../updateUserHourglasses';
 import { removeItemByPath } from '../pinnedGearUtils';
 import getItemInfo from '../../libs/getItemInfo';
 
-export default async function buyMysterySet (user, req = {}, analytics) {
+export default async function buyMysterySet (user, req = {}) {
   const key = get(req, 'params.key');
   if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
@@ -33,17 +33,6 @@ export default async function buyMysterySet (user, req = {}, analytics) {
 
   const itemInfo = getItemInfo(user, 'mystery_set', mysterySet);
   removeItemByPath(user, itemInfo.path);
-
-  if (analytics) {
-    analytics.track('buy', {
-      uuid: user._id,
-      itemKey: mysterySet.key,
-      itemType: 'Subscriber Gear',
-      currency: 'Hourglass',
-      category: 'behavior',
-      headers: req.headers,
-    });
-  }
 
   // Here we need to trigger vue reactivity through reassign object
   user.items.gear.owned = {

@@ -12,20 +12,22 @@
       <strong> {{ notification.data.title }} </strong>
       <span> {{ notification.data.text }} </span>
     </div>
-    <div
+    <Sprite
       slot="icon"
       class="mt-3"
-      :class="notification.data.icon"
-    ></div>
+      :image-name="notification.data.icon"
+    />
   </base-notification>
 </template>
 
 <script>
 import BaseNotification from './base';
+import Sprite from '@/components/ui/sprite.vue';
 
 export default {
   components: {
     BaseNotification,
+    Sprite,
   },
   props: {
     notification: {
@@ -41,7 +43,8 @@ export default {
   },
   methods: {
     action () {
-      if (!this.notification || !this.notification.data) {
+      if (!this.notification || !this.notification.data
+        || this.notification.data.destination === this.$route.path) {
         return;
       }
       if (this.notification.data.destination.indexOf('backgrounds') !== -1) {

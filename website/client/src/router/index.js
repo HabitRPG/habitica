@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import * as Analytics from '@/libs/analytics';
 import getStore from '@/store';
 import handleRedirect from './handleRedirect';
 
@@ -8,68 +7,66 @@ import { PAGES } from '@/libs/consts';
 import { STATIC_ROUTES } from './static-routes';
 import { USER_ROUTES } from './user-routes';
 import { DEPRECATED_ROUTES } from '@/router/deprecated-routes';
+import { NotFoundPage } from './shared-route-imports';
 
 // NOTE: when adding a page make sure to implement the `common:setTitle` action
 
-const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'@/components/auth/registerLoginReset');
-const Logout = () => import(/* webpackChunkName: "auth" */'@/components/auth/logout');
+const Logout = () => import('@/components/auth/logout');
 
 // Hall
-const HallPage = () => import(/* webpackChunkName: "hall" */'@/components/hall/index');
-const PatronsPage = () => import(/* webpackChunkName: "hall" */'@/components/hall/patrons');
-const HeroesPage = () => import(/* webpackChunkName: "hall" */'@/components/hall/heroes');
+const HallPage = () => import('@/components/hall/index');
+const PatronsPage = () => import('@/components/hall/patrons');
+const HeroesPage = () => import('@/components/hall/heroes');
 
-// Admin Panel
-const AdminPanelPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel');
-const AdminPanelUserPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel/user-support');
-const AdminPanelSearchPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel/search');
-
-// Except for tasks that are always loaded all the other main level
-// All the main level
-// components are loaded in separate webpack chunks.
-// See https://webpack.js.org/guides/code-splitting-async/
-// for docs
+// Admin Pages
+const AdminContainerPage = () => import('@/components/admin/container');
+const AdminPanelPage = () => import('@/components/admin/admin-panel');
+const AdminPanelUserPage = () => import('@/components/admin/admin-panel/user-support');
+const AdminPanelSearchPage = () => import('@/components/admin/admin-panel/search');
+const GroupAdminPage = () => import('@/components/admin/groups');
+const GroupAdminGroupPage = () => import('@/components/admin/groups/group-support');
+const BlockerPage = () => import('@/components/admin/blocker');
 
 // Tasks
-const UserTasks = () => import(/* webpackChunkName: "userTasks" */'@/components/tasks/user');
+const UserTasks = () => import('@/components/tasks/user');
 
 // Inventory
-const InventoryContainer = () => import(/* webpackChunkName: "inventory" */'@/components/inventory/index');
-const ItemsPage = () => import(/* webpackChunkName: "inventory" */'@/components/inventory/items/index');
-const EquipmentPage = () => import(/* webpackChunkName: "inventory" */'@/components/inventory/equipment/index');
-const StablePage = () => import(/* webpackChunkName: "inventory" */'@/components/inventory/stable/index');
+const InventoryContainer = () => import('@/components/inventory/index');
+const ItemsPage = () => import('@/components/inventory/items/index');
+const EquipmentPage = () => import('@/components/inventory/equipment/index');
+const StablePage = () => import('@/components/inventory/stable/index');
 
 // Guilds & Parties
-const GroupPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/group');
-const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/groupPlan');
-const LookingForParty = () => import(/* webpackChunkName: "guilds" */ '@/components/groups/lookingForParty');
+const GroupPage = () => import('@/components/groups/group');
+const GroupPlansAppPage = () => import('@/components/static/groupPlans');
+const LookingForParty = () => import('@/components/groups/lookingForParty');
 
 // Group Plans
-const GroupPlanIndex = () => import(/* webpackChunkName: "group-plans" */ '@/components/group-plans/index');
-const GroupPlanTaskInformation = () => import(/* webpackChunkName: "group-plans" */ '@/components/group-plans/taskInformation');
-const GroupPlanBilling = () => import(/* webpackChunkName: "group-plans" */ '@/components/group-plans/billing');
+const GroupPlanIndex = () => import('@/components/group-plans/index');
+const GroupPlanTaskInformation = () => import('@/components/group-plans/taskInformation');
+const GroupPlanBilling = () => import('@/components/group-plans/billing');
 
-const MessagesIndex = () => import(/* webpackChunkName: "private-messages" */ '@/pages/private-messages');
+const MessagesIndex = () => import('@/pages/private-messages/index.vue');
 
 // Challenges
-const ChallengeIndex = () => import(/* webpackChunkName: "challenges" */ '@/components/challenges/index');
-const MyChallenges = () => import(/* webpackChunkName: "challenges" */ '@/components/challenges/myChallenges');
-const FindChallenges = () => import(/* webpackChunkName: "challenges" */ '@/components/challenges/findChallenges');
-const ChallengeDetail = () => import(/* webpackChunkName: "challenges" */ '@/components/challenges/challengeDetail');
+const ChallengeIndex = () => import('@/components/challenges/index');
+const MyChallenges = () => import('@/components/challenges/myChallenges');
+const FindChallenges = () => import('@/components/challenges/findChallenges');
+const ChallengeDetail = () => import('@/components/challenges/challengeDetail');
 
 // Shops
-const ShopsContainer = () => import(/* webpackChunkName: "shops" */'@/components/shops/index');
-const MarketPage = () => import(/* webpackChunkName: "shops-market" */'@/components/shops/market/index');
-const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'@/components/shops/quests/index');
-const CustomizationsPage = () => import(/* webpackChunkName: "shops-customizations" */'@/components/shops/customizations/index');
-const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'@/components/shops/seasonal/index');
-const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'@/components/shops/timeTravelers/index');
+const ShopsContainer = () => import('@/components/shops/index');
+const MarketPage = () => import('@/components/shops/market/index');
+const QuestsPage = () => import('@/components/shops/quests/index');
+const CustomizationsPage = () => import('@/components/shops/customizations/index');
+const SeasonalPage = () => import('@/components/shops/seasonal/index');
+const TimeTravelersPage = () => import('@/components/shops/timeTravelers/index');
 
 Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.NODE_ENV === 'production' ? '/' : __dirname, // eslint-disable-line no-process-env
+  base: '/',
   linkActiveClass: 'active',
   // When navigating to another route always scroll to the top
   // To customize the behavior see https://router.vuejs.org/en/advanced/scroll-behavior.html
@@ -80,24 +77,23 @@ const router = new VueRouter({
   // NOTE: when adding a new route entry make sure to implement the `common:setTitle` action
   // in the route component to set a specific subtitle for the page.
   routes: [
-    {
-      name: 'register', path: '/register', component: RegisterLoginReset, meta: { requiresLogin: false },
-    },
-    {
-      name: 'login', path: '/login', component: RegisterLoginReset, meta: { requiresLogin: false },
-    },
     { name: 'logout', path: '/logout', component: Logout },
-    {
-      name: 'resetPassword', path: '/reset-password', component: RegisterLoginReset, meta: { requiresLogin: false },
-    }, {
-      name: 'forgotPassword', path: '/forgot-password', component: RegisterLoginReset, meta: { requiresLogin: false },
-    },
     { name: 'tasks', path: '/', component: UserTasks },
     {
       name: 'userProfile',
       path: '/profile/:userId',
       props: true,
     },
+    { name: 'profile', path: '/user/profile' },
+    {
+      name: 'avatar',
+      path: '/avatar',
+      children: [
+        { name: 'backgrounds', path: 'backgrounds' },
+      ],
+    },
+    { name: 'stats', path: '/user/stats' },
+    { name: 'achievements', path: '/user/achievements' },
     {
       path: '/inventory',
       component: InventoryContainer,
@@ -184,33 +180,77 @@ const router = new VueRouter({
     },
 
     {
-      name: 'adminPanel',
-      path: '/admin-panel',
-      component: AdminPanelPage,
+      name: 'adminSection',
+      path: '/admin',
+      component: AdminContainerPage,
       meta: {
         privilegeNeeded: [ // any one of these is enough to give access
           'userSupport',
-          'newsPoster',
+          'accessControl',
         ],
       },
       children: [
         {
-          name: 'adminPanelSearch',
-          path: 'search/:userIdentifier',
-          component: AdminPanelSearchPage,
+          name: 'adminPanel',
+          path: 'panel',
+          component: AdminPanelPage,
           meta: {
-            privilegeNeeded: [
+            privilegeNeeded: [ // any one of these is enough to give access
               'userSupport',
             ],
           },
+          children: [
+            {
+              name: 'adminPanelSearch',
+              path: 'search/:userIdentifier',
+              component: AdminPanelSearchPage,
+              meta: {
+                privilegeNeeded: [
+                  'userSupport',
+                ],
+              },
+            },
+            {
+              name: 'adminPanelUser',
+              path: ':userIdentifier',
+              component: AdminPanelUserPage,
+              meta: {
+                privilegeNeeded: [
+                  'userSupport',
+                ],
+              },
+            },
+          ],
         },
         {
-          name: 'adminPanelUser',
-          path: ':userIdentifier',
-          component: AdminPanelUserPage,
+          name: 'groupAdmin',
+          path: 'groups',
+          component: GroupAdminPage,
           meta: {
-            privilegeNeeded: [
-              'userSupport',
+            privilegeNeeded: [ // any one of these is enough to give access
+              'groupSupport',
+            ],
+          },
+          children: [
+            {
+              name: 'groupAdminGroup',
+              path: ':groupId',
+              component: GroupAdminGroupPage,
+              meta: {
+                privilegeNeeded: [
+                  'groupsSupport',
+                ],
+              },
+            },
+          ],
+        },
+        {
+          name: 'blockers',
+          path: 'blockers',
+          component: BlockerPage,
+          meta: {
+            privilegeNeeded: [ // any one of these is enough to give access
+              'accessControl',
             ],
           },
         },
@@ -219,7 +259,14 @@ const router = new VueRouter({
 
     // Only used to handle some redirects
     // See router.beforeEach
-    { path: '/static/faq/tavern-and-guilds', redirect: '/static/tavern-and-guilds' },
+    { path: '/static/tavern-and-guilds', redirect: '/static/faq/tavern-and-guilds' },
+    {
+      path: '/apidoc',
+      component: NotFoundPage,
+      beforeEnter () {
+        window.location.href = 'https://apidoc.habitica.com';
+      },
+    },
     { path: '/redirect/:redirect', name: 'redirect' },
     { path: '*', redirect: { name: 'notFound' } },
   ],
@@ -278,15 +325,6 @@ router.beforeEach(async (to, from, next) => {
     router.app.$root.$emit('update-party');
   }
 
-  if (to.name === 'lookingForParty') {
-    Analytics.track({
-      hitType: 'event',
-      eventName: 'View Find Members',
-      eventAction: 'View Find Members',
-      eventCategory: 'behavior',
-    }, { trackOnClient: true });
-  }
-
   // Redirect old guild urls
   if (to.hash.indexOf('#/options/groups/guilds/') !== -1) {
     const splits = to.hash.split('/');
@@ -333,6 +371,10 @@ router.beforeEach(async (to, from, next) => {
     if (to.params.startingPage !== undefined) {
       startingPage = to.params.startingPage;
     }
+    // Check if there's a hash in the URL for stats or achievements
+    if (to.hash === '#stats' || to.hash === '#achievements') {
+      startingPage = to.hash.substring(1);
+    }
     if (from.name === null) {
       store.state.postLoadModal = `profile/${to.params.userId}`;
       return next({ name: 'tasks' });
@@ -353,16 +395,31 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if ((to.name === 'stats' || to.name === 'achievements' || to.name === 'profile') && from.name !== null) {
+    const userId = store.state.user.data._id;
+    let redirectPath = `/profile/${userId}`;
+    if (to.name === 'stats') {
+      redirectPath += '#stats';
+    } else if (to.name === 'achievements') {
+      redirectPath += '#achievements';
+    }
     router.app.$emit('habitica:show-profile', {
+      userId,
       startingPage: to.name,
       fromPath: from.path,
-      toPath: to.path,
+      toPath: redirectPath,
     });
     return null;
   }
 
   if (from.name === 'userProfile' || from.name === 'stats' || from.name === 'achievements' || from.name === 'profile') {
     router.app.$root.$emit('bv::hide::modal', 'profile');
+  }
+
+  if (to.name === 'backgrounds') {
+    store.state.avatarEditorOptions.editingUser = true;
+    store.state.avatarEditorOptions.startingPage = 'backgrounds';
+    router.app.$root.$emit('bv::show::modal', 'avatar-modal');
+    return null;
   }
 
   return next();

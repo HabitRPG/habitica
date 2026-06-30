@@ -5,7 +5,7 @@ import {
 } from '../libs/errors';
 import updateUserBalance from './updateUserBalance';
 
-export default async function reroll (user, tasks = [], req = {}, analytics) {
+export default async function reroll (user, tasks = [], req = {}) {
   if (user.balance < 1) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
@@ -20,16 +20,6 @@ export default async function reroll (user, tasks = [], req = {}, analytics) {
       }
     }
   });
-
-  if (analytics) {
-    analytics.track('Fortify Potion', {
-      uuid: user._id,
-      currency: 'Gems',
-      gemCost: 4,
-      category: 'behavior',
-      headers: req.headers,
-    });
-  }
 
   return [
     { user, tasks },

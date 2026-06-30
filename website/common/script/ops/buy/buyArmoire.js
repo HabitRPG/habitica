@@ -69,18 +69,6 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
     ];
   }
 
-  _trackDropAnalytics (userId, key) {
-    this.analytics.track(
-      'Enchanted Armoire',
-      {
-        uuid: userId,
-        itemKey: key,
-        category: 'behavior',
-        headers: this.req.headers,
-      },
-    );
-  }
-
   _gearResult (user, eligibleEquipment) {
     const emptied = eligibleEquipment.length === 1;
     eligibleEquipment.sort();
@@ -103,10 +91,6 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
     });
 
     removeItemByPath(user, `gear.flat.${drop.key}`);
-
-    if (this.analytics) {
-      this._trackDropAnalytics(user._id, drop.key);
-    }
 
     const armoireResp = {
       type: 'gear',
@@ -133,9 +117,6 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
     user.items.food[drop.key] += 1;
     if (user.markModified) user.markModified('items.food');
 
-    if (this.analytics) {
-      this._trackDropAnalytics(user._id, drop.key);
-    }
     return {
       message: this.i18n('armoireFood', {
         image: `<span class="Pet_Food_${drop.key} pull-left"></span>`,

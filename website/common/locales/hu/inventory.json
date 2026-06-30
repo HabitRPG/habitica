@@ -1,10 +1,10 @@
 {
-    "noItemsAvailableForType": "Nincsen <%= type %>.",
+    "noItemsAvailableForType": "Nincs <%= type %> a leltáradban.",
     "foodItemType": "Állateledel",
-    "eggsItemType": "Tojások",
-    "hatchingPotionsItemType": "Keltetőfőzetek",
-    "specialItemType": "Különleges tárgyak",
-    "lockedItem": "Lezárt tárgyak",
+    "eggsItemType": "Tojás",
+    "hatchingPotionsItemType": "Keltetőfőzet",
+    "specialItemType": "Különleges tárgy",
+    "lockedItem": "Zárolt tárgy",
     "allItems": "Minden tárgy",
-    "petAndMount": "Háziállatok és hátasok"
+    "petAndMount": "Kisállat és hátas"
 }

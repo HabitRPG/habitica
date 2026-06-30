@@ -40,7 +40,7 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 #subscription-canceled-modal .modal-header {
   border-top: 8px solid #1CA372;
@@ -83,8 +83,8 @@
 </style>
 
 <script>
-import checkIcon from '@/assets/svg/check.svg';
-import closeIcon from '@/assets/svg/close.svg';
+import checkIcon from '@/assets/svg/check.svg?raw';
+import closeIcon from '@/assets/svg/close.svg?raw';
 import paymentsMixin from '@/mixins/payments';
 
 export default {

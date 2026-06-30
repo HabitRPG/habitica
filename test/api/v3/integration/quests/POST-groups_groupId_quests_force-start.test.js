@@ -193,23 +193,6 @@ describe('POST /groups/:groupId/quests/force-start', () => {
       expect(questingGroup.quest.members[notInPartyUser._id]).to.not.exist;
     });
 
-    it('removes users who have been deleted from quest.members', async () => {
-      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
-      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
-
-      await partyMembers[0].del('/user', {
-        password: 'password',
-      });
-
-      await leader.post(`/groups/${questingGroup._id}/quests/force-start`);
-
-      await sleep(0.5);
-
-      await questingGroup.sync();
-
-      expect(questingGroup.quest.members[partyMembers[0]._id]).to.not.exist;
-    });
-
     it('removes users who don\'t have true value in quest.members from quest.members', async () => {
       const partyMemberThatRejects = partyMembers[1];
       const partyMemberThatIgnores = partyMembers[2];

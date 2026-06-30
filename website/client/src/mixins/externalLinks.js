@@ -8,11 +8,15 @@
  */
 export function isTrustedDomain (linkUrl, trustedDomains) {
   const parsedURL = new URL(linkUrl);
+  let { hostname } = parsedURL;
+  if (parsedURL.protocol === 'mailto:') {
+    hostname = parsedURL.pathname.split('@')[1]; // eslint-disable-line prefer-destructuring
+  }
 
-  return trustedDomains.some(domain => parsedURL.hostname.includes(domain.hostname));
+  return trustedDomains.some(domain => hostname.includes(domain.hostname));
 }
 
-const TRUSTED_DOMAINS = process.env.TRUSTED_DOMAINS.split(',')
+const TRUSTED_DOMAINS = (import.meta.env.TRUSTED_DOMAINS ?? 'localhost').split(',')
   .map(u => (u === 'localhost' ? new URL('http://localhost') : new URL(u)));
 
 export default {

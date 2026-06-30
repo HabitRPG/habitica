@@ -3,7 +3,7 @@
     <div class="row standard-page">
       <small
         class="muted"
-        v-html="$t('blurbHallContributors')"
+        v-html="$t('blurbHallContributors', hallLinks)"
       ></small>
     </div>
     <div class="row standard-page">
@@ -68,6 +68,7 @@
                   <a
                     href="https://habitica.fandom.com/wiki/Contributor_Rewards"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >More details</a>
                 </small>
               </div>
@@ -286,7 +287,7 @@
                       :to="{ name: 'adminPanelUser',
                              params: { userIdentifier: hero._id } }"
                     >
-                      admin panel
+                      {{ $t("adminPanel") }}
                     </router-link>
                   </span>
                 </td>
@@ -296,6 +297,7 @@
                   <div
                     v-markdown="hero.contributor.contributions"
                     target="_blank"
+                    rel="noopener noreferrer"
                   ></div>
                 </td>
               </tr>
@@ -360,6 +362,12 @@ export default {
       expandItems: false,
       expandAuth: false,
       expandTransactions: false,
+      hallLinks: {
+        linkRewards: '<a href="https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards" target="_blank" rel="noreferrer noopener">',
+        linkTiers: '<a href="https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tiers" target="_blank" rel="noreferrer noopener">',
+        linkContributing: '<a href="https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
     };
   },
   async mounted () {

@@ -25,7 +25,7 @@ describe('GET /user/auth/apple', () => {
   });
 
   it('registers a new user', async () => {
-    const response = await api.get(appleEndpoint);
+    const response = await api.get(`${appleEndpoint}?allowRegister=true`);
 
     expect(response.apiToken).to.exist;
     expect(response.id).to.exist;
@@ -35,7 +35,7 @@ describe('GET /user/auth/apple', () => {
   });
 
   it('logs an existing user in', async () => {
-    const registerResponse = await api.get(appleEndpoint);
+    const registerResponse = await api.get(`${appleEndpoint}?allowRegister=true`);
 
     const response = await api.get(appleEndpoint);
 

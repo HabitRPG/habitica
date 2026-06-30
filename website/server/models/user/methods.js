@@ -2,6 +2,7 @@ import moment from 'moment';
 import {
   defaults, map, flatten, flow, compact, uniq, partialRight, remove,
 } from 'lodash';
+import { v4 as uuid } from 'uuid';
 import common from '../../../common';
 
 import { // eslint-disable-line import/no-cycle
@@ -122,11 +123,15 @@ schema.methods.getObjectionsToInteraction = function getObjectionsToInteraction 
 schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, options) {
   const sender = this;
   const senderMsg = options.senderMsg || options.receiverMsg;
+  const { fakeSending } = options;
   // whether to save users after sending the message, defaults to true
   const saveUsers = options.save !== false;
 
+  const uniqueMessageId = uuid();
+
   const newReceiverMessage = new Inbox({
     ownerId: userToReceiveMessage._id,
+    uniqueMessageId,
   });
   Object.assign(newReceiverMessage, messageDefaults(options.receiverMsg, sender));
   setUserStyles(newReceiverMessage, sender);
@@ -161,21 +166,23 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
   // Do not add the message twice when sending it to yourself
   let newSenderMessage;
 
-  if (!sendingToYourself) {
+  if (!sendingToYourself || fakeSending) {
     newSenderMessage = new Inbox({
       sent: true,
       ownerId: sender._id,
+      uniqueMessageId,
     });
     Object.assign(newSenderMessage, messageDefaults(senderMsg, userToReceiveMessage));
     setUserStyles(newSenderMessage, sender);
   }
 
-  const promises = [newReceiverMessage.save()];
-  if (!sendingToYourself) promises.push(newSenderMessage.save());
+  const promises = [];
+  if (!fakeSending) promises.push(newReceiverMessage.save());
+  if (!sendingToYourself || fakeSending) promises.push(newSenderMessage.save());
 
   if (saveUsers) {
     promises.push(sender.save());
-    if (!sendingToYourself) promises.push(userToReceiveMessage.save());
+    if (!sendingToYourself && !fakeSending) promises.push(userToReceiveMessage.save());
   }
 
   await Promise.all(promises);

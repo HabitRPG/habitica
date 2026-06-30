@@ -26,7 +26,10 @@ async function emailUnsubscribe (req, res) {
 
     if (userUpdated.modifiedCount !== 1) throw new NotFound(res.t('userNotFound'));
 
-    res.send(`<h1>${res.t('unsubscribedSuccessfully')}</h1> ${res.t('unsubscribedTextUsers')}`);
+    res.send(`<h1>${res.t('unsubscribedSuccessfully')}</h1> ${res.t('unsubscribedTextUsers', {
+      linkOpen: '<a href="/user/settings/notifications">',
+      linkClose: '</a>',
+    })}`);
   } else {
     const unsubscribedEmail = await EmailUnsubscription
       .findOne({ email: data.email.toLowerCase() }).exec();

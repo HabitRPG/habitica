@@ -26,8 +26,6 @@ export function getDefaultConnectionOptions () {
   // with keepAlive deprecated, we don't need a separate set of production options
   // Keeping the structure here in case the distinction is useful later
   const commonOptions = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
   };
 
   return !IS_PROD ? commonOptions : {

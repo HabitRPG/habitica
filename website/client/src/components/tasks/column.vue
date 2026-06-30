@@ -83,11 +83,11 @@
         </div>
       </div>
       <draggable
-        v-if="taskList.length > 0"
+        v-if="taskList.length > 0 && !rerendering"
         ref="tasksList"
         class="sortable-tasks"
-        :options="{disabled: activeFilter.label === 'scheduled' || !canBeDragged(),
-                   scrollSensitivity: 64}"
+        :disabled="activeFilter.label === 'scheduled' || !canBeDragged()"
+        scroll-sensitivity="64"
         :delay-on-touch-only="true"
         :delay="100"
         @update="taskSorted"
@@ -147,7 +147,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   ::v-deep .draggable-cursor {
     cursor: grabbing;
@@ -348,7 +348,6 @@
 import throttle from 'lodash/throttle';
 import isEmpty from 'lodash/isEmpty';
 import draggable from 'vuedraggable';
-import { shouldDo } from '@/../../common/script/cron';
 import inAppRewards from '@/../../common/script/libs/inAppRewards';
 import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import Task from './task';
@@ -370,10 +369,10 @@ import {
   sortAndFilterTasks,
 } from '@/libs/store/helpers/filterTasks';
 
-import habitIcon from '@/assets/svg/habit.svg';
-import dailyIcon from '@/assets/svg/daily.svg';
-import todoIcon from '@/assets/svg/todo.svg';
-import rewardIcon from '@/assets/svg/reward.svg';
+import habitIcon from '@/assets/svg/habit.svg?raw';
+import dailyIcon from '@/assets/svg/daily.svg?raw';
+import todoIcon from '@/assets/svg/todo.svg?raw';
+import rewardIcon from '@/assets/svg/reward.svg?raw';
 import { EVENTS } from '@/libs/events';
 
 export default {
@@ -433,6 +432,7 @@ export default {
 
       selectedItemToBuy: {},
       dragging: false,
+      rerendering: false,
     };
   },
   computed: {
@@ -482,25 +482,10 @@ export default {
       return this.$t('addATask', { type });
     },
     badgeCount () {
-      // 0 means the badge will not be shown
-      // It is shown for the all and due views of dailies
-      // and for the active and scheduled views of todos.
-      if (this.type === 'todo' && this.activeFilter.label !== 'complete2') {
-        return this.taskList.length;
-      } if (this.type === 'daily') {
-        if (this.activeFilter.label === 'due') {
-          return this.taskList.length;
-        } if (this.activeFilter.label === 'all') {
-          return this.taskList
-            .reduce(
-              (count, t) => (!t.completed
-                && shouldDo(new Date(), t, this.getUserPreferences) ? count + 1 : count),
-              0,
-            );
-        }
+      if (this.type === 'reward') {
+        return 0;
       }
-
-      return 0;
+      return this.taskList.length;
     },
   },
   watch: {
@@ -564,8 +549,8 @@ export default {
       if (this.taskListOverride) originTasks = this.taskListOverride;
 
       // Server
-      const taskIdToReplace = filteredList[data.newIndex];
-      const newIndexOnServer = originTasks.findIndex(taskId => taskId === taskIdToReplace);
+      const taskIdToReplace = filteredList[data.newIndex]._id;
+      const newIndexOnServer = originTasks.findIndex(task => task._id === taskIdToReplace);
 
       let newOrder;
       if (taskToMove.group.id && !this.isUser) {
@@ -584,6 +569,9 @@ export default {
       // Client
       const deleted = originTasks.splice(data.oldIndex, 1);
       originTasks.splice(data.newIndex, 0, deleted[0]);
+      this.rerendering = true;
+      await this.$nextTick();
+      this.rerendering = false;
     },
     async moveTo (task, where) { // where is 'top' or 'bottom'
       const taskIdToMove = task._id;
@@ -594,7 +582,7 @@ export default {
       const newPosition = where === 'top' ? 0 : list.length;
       list.splice(newPosition, 0, moved[0]);
 
-      if (!this.isUser) {
+      if (task.group.id && !this.isUser) {
         await this.$store.dispatch('tasks:moveGroupTask', {
           taskId: taskIdToMove,
           position: newPosition,
@@ -604,7 +592,7 @@ export default {
           taskId: taskIdToMove,
           position: newPosition,
         });
-        this.user.tasksOrder[`${this.type}s`] = newOrder;
+        if (!this.taskListOverride) this.user.tasksOrder[`${this.type}s`] = newOrder;
       }
     },
     async rewardSorted (data) {

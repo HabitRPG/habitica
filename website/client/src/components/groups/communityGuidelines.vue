@@ -6,7 +6,7 @@
     <div
       v-once
       class="col col-sm-12 col-xl-8"
-      v-html="$t('communityGuidelinesIntro')"
+      v-html="$t('communityGuidelinesIntro', guidelineLinks)"
     ></div>
     <div class="col-md-auto col-md-12 col-xl-4">
       <button
@@ -21,7 +21,7 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .community-guidelines {
   background-color: rgba(135, 129, 144, 0.84);
@@ -60,6 +60,14 @@
 import { mapState } from '@/libs/store';
 
 export default {
+  data () {
+    return {
+      guidelineLinks: {
+        linkOpen: '<a href="/static/community-guidelines" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
+    };
+  },
   computed: {
     ...mapState({ user: 'user.data' }),
     communityGuidelinesAccepted () {

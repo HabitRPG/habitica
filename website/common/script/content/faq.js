@@ -26,12 +26,32 @@ const questionList = [
     translationIndex: 30,
   },
   {
+    heading: 'prevent-damage',
+    translationIndex: 68,
+  },
+  {
     heading: 'lose-hp',
     translationIndex: 31,
   },
   {
+    heading: 'what-classes',
+    translationIndex: 67,
+  },
+  {
     heading: 'choose-class',
     translationIndex: 32,
+  },
+  {
+    heading: 'character-stats',
+    translationIndex: 69,
+  },
+  {
+    heading: 'stat-points',
+    translationIndex: 70,
+  },
+  {
+    heading: 'automatic-allocation',
+    translationIndex: 71,
   },
   {
     heading: 'blue-bar',

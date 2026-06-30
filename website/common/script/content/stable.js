@@ -1,6 +1,4 @@
 import each from 'lodash/each';
-import moment from 'moment';
-import { EVENTS } from './constants/events';
 import allEggs from './eggs';
 import allPotions from './hatching-potions';
 import t from './translation';
@@ -115,6 +113,7 @@ const canFindSpecial = {
     'Hippogriff-Hopeful': true,
 
     // Contributor/Backer pets
+    'Dragon-Hydra': true, // Contributor level 7
     'LionCub-Ethereal': false, // Backer tier 90
     'Jackalope-RoyalPurple': true, // subscription
     'Gryphon-Gryphatrice': false, // Pet once granted to kickstarter
@@ -152,6 +151,7 @@ const specialPets = {
 
 const specialMounts = {
   'BearCub-Polar': 'polarBear',
+  'Dragon-Hydra': 'hydra',
   'LionCub-Ethereal': 'etherealLion',
   'MantisShrimp-Base': 'mantisShrimp',
   'Turkey-Base': 'turkey',
@@ -191,7 +191,7 @@ function buildInfo () {
 
   Object.assign(petInfo['Gryphatrice-Jubilant'], {
     canBuy () {
-      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
+      return false;
     },
     currency: 'gems',
     event: 'birthday10',

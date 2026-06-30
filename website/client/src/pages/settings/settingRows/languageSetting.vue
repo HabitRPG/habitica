@@ -1,5 +1,5 @@
 <template>
-  <fragment>
+  <div class="d-content">
     <tr
       v-if="!mixinData.inlineSettingMixin.modalVisible"
     >
@@ -34,7 +34,7 @@
           class="dialog-disclaimer"
         >
           <span>{{ $t("americanEnglishGovern") }} </span>
-          <span v-html="$t('helpWithTranslation')"></span>
+          <span v-html="$t('helpWithTranslation', translateLinks)"></span>
         </div>
         <div class="input-area">
           <div class="settings-label">
@@ -67,11 +67,11 @@
         />
       </td>
     </tr>
-  </fragment>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 input {
   margin-right: 2rem;
@@ -97,6 +97,10 @@ export default {
   data () {
     return {
       selectedLanguage: '',
+      translateLinks: {
+        linkOpen: '<a href="https://translate.habitica.com" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {

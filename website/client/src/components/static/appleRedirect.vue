@@ -5,7 +5,7 @@
 </template>
 
 <style lang='scss'>
-@import '~@/assets/scss/static.scss';
+@import '@/assets/scss/static.scss';
 </style>
 
 <style lang='scss' scoped>
@@ -16,7 +16,7 @@
 
 .static-view p {
   padding-top: 100px;
-  font-size: 2em
+  font-size: 2em;
 }
 </style>
 
@@ -26,13 +26,22 @@ export default {
   async mounted () {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const reqParams = { code: urlParams.get('code') };
+    const reqParams = { code: urlParams.get('code'), allowRegister: false };
     if (urlParams.has('name')) {
       reqParams.name = urlParams.get('name');
+      window.sessionStorage.setItem('apple-name', reqParams.name);
     }
-    await this.$store.dispatch('auth:appleAuth', reqParams);
-
-    window.location.href = '/';
+    const response = await this.$store.dispatch('auth:appleAuth', reqParams);
+    if (response.id) {
+      window.sessionStorage.removeItem('apple-token');
+      window.location.href = '/';
+    } else {
+      window.sessionStorage.setItem('apple-token', response.idToken);
+      if (response.email) {
+        window.sessionStorage.setItem('apple-email', response.email);
+      }
+      window.location.href = '/username';
+    }
   },
 };
 </script>

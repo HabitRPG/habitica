@@ -1,3 +1,6 @@
+import {
+  describe, expect, test, beforeEach,
+} from 'vitest';
 import generateStore from '@/store';
 
 describe('canEdit getter', () => {
@@ -33,45 +36,45 @@ describe('canEdit getter', () => {
 
     task = { userId: 1, challenge: { id: 2 } };
   });
-  it('can Edit task in own dashboard', () => {
+  test('can Edit task in own dashboard', () => {
     expect(store.getters['tasks:canEdit'](task, 'challenge', true, null, challenge)).to.equal(true);
   });
 
-  it('cannot Edit group task in own dashboard', () => {
+  test('cannot Edit group task in own dashboard', () => {
     expect(store.getters['tasks:canEdit'](task, 'group', true, group, null)).to.equal(false);
   });
 
-  it('can Edit any challenge task if admin', () => {
+  test('can Edit any challenge task if admin', () => {
     store.state.user.data.permissions = { challengeAdmin: true };
 
     expect(store.getters['tasks:canEdit'](task, 'challenge', true, null, challenge)).to.equal(true);
     expect(store.getters['tasks:canEdit'](task, 'challenge', false, null, challenge)).to.equal(true);
   });
 
-  it('can Edit own challenge task if leader', () => {
+  test('can Edit own challenge task if leader', () => {
     store.state.user.data.id = 123;
 
     expect(store.getters['tasks:canEdit'](task, 'challenge', true, null, challenge)).to.equal(true);
     expect(store.getters['tasks:canEdit'](task, 'challenge', false, null, challenge)).to.equal(true);
   });
 
-  it('cannot Edit challenge task if not leader on challenge page', () => {
+  test('cannot Edit challenge task if not leader on challenge page', () => {
     expect(store.getters['tasks:canEdit'](task, 'challenge', false, null, challenge)).to.equal(false);
   });
 
-  it('can Edit group task as leader on group page', () => {
+  test('can Edit group task as leader on group page', () => {
     store.state.user.data.id = 123;
 
     expect(store.getters['tasks:canEdit'](task, 'group', false, group)).to.equal(true);
   });
 
-  it('can Edit group task if manager on group page', () => {
+  test('can Edit group task if manager on group page', () => {
     store.state.user.data.id = 123984;
 
     expect(store.getters['tasks:canEdit'](task, 'group', false, group)).to.equal(true);
   });
 
-  it('cannot Edit group task if not leader on group page', () => {
+  test('cannot Edit group task if not leader on group page', () => {
     expect(store.getters['tasks:canEdit'](task, 'group', false, group)).to.equal(false);
   });
 });

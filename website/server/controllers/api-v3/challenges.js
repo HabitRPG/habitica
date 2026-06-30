@@ -1,5 +1,8 @@
-import _ from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
+import escapeRegExp from 'lodash/escapeRegExp';
+import merge from 'lodash/merge';
+import reduce from 'lodash/reduce';
+import times from 'lodash/times';
 import { authWithHeaders, authWithSession } from '../../middlewares/auth';
 import { model as Challenge } from '../../models/challenge';
 import bannedWords from '../../libs/bannedWords';
@@ -286,18 +289,6 @@ api.createChallenge = {
     };
     response.group = getChallengeGroupResponse(group);
 
-    res.analytics.track('challenge create', {
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      challengeID: response._id,
-      groupID: group._id,
-      groupName: group.privacy === 'private' ? null : group.name,
-      groupType: group._id === TAVERN_ID ? 'tavern' : group.type,
-      prize: response.prize,
-      headers: req.headers,
-    });
-
     res.respond(201, response);
   },
 };
@@ -354,17 +345,6 @@ api.joinChallenge = {
     const chalLeader = await User.findById(response.leader).select(nameFields).exec();
     response.leader = chalLeader ? chalLeader.toJSON({ minimize: true }) : null;
 
-    res.analytics.track('challenge join', {
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      challengeID: challenge._id,
-      groupID: group._id,
-      groupName: group.privacy === 'private' ? null : group.name,
-      groupType: group._id === TAVERN_ID ? 'tavern' : group.type,
-      headers: req.headers,
-    });
-
     res.respond(200, response);
   },
 };
@@ -403,17 +383,6 @@ api.leaveChallenge = {
 
     // Unlink challenge's tasks from user's tasks and save the challenge
     await challenge.unlinkTasks(user, keep);
-
-    res.analytics.track('challenge leave', {
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      challengeID: challenge._id,
-      groupID: challenge.group._id,
-      groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
-      groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
-      headers: req.headers,
-    });
 
     res.respond(200, {});
   },
@@ -519,7 +488,7 @@ api.getUserChallenges = {
 
     if (search) {
       const searchOr = { $or: [] };
-      const searchWords = _.escapeRegExp(search).split(' ').join('|');
+      const searchWords = escapeRegExp(search).split(' ').join('|');
       const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
       searchOr.$or.push({ name: searchQuery });
       searchOr.$or.push({ description: searchQuery });
@@ -775,14 +744,14 @@ api.exportChallengeCsv = {
 
     // The first row is going to be UUID name Task Value Notes
     // repeated n times for the n challenge tasks
-    const challengeTasks = _.reduce(
+    const challengeTasks = reduce(
       challenge.tasksOrder.toObject(),
       (result, array) => result.concat(array),
       [],
     ).sort();
     resArray.unshift(['UUID', 'Display Name', 'Username']);
 
-    _.times(challengeTasks.length, () => resArray[0].push('Task', 'Value', 'Notes', 'Streak'));
+    times(challengeTasks.length, () => resArray[0].push('Task', 'Value', 'Notes', 'Streak'));
 
     // Remove lines for users without tasks info
     resArray = resArray.filter(line => {
@@ -847,7 +816,7 @@ api.updateChallenge = {
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderUpdateChal'));
     group.purchased = undefined;
-    _.merge(challenge, Challenge.sanitizeUpdate(req.body));
+    merge(challenge, Challenge.sanitizeUpdate(req.body));
 
     const savedChal = await challenge.save();
     const response = savedChal.toJSON();
@@ -887,18 +856,6 @@ api.deleteChallenge = {
 
     // Close channel in background, some ops are run in the background without `await`ing
     await challenge.closeChal({ broken: 'CHALLENGE_DELETED' });
-
-    res.analytics.track('challenge delete', {
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      challengeID: challenge._id,
-      groupID: challenge.group._id,
-      groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
-      groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
-      prize: challenge.prize,
-      headers: req.headers,
-    });
 
     res.respond(200, {});
   },
@@ -947,19 +904,6 @@ api.selectChallengeWinner = {
 
     // Close channel in background, some ops are run in the background without `await`ing
     await challenge.closeChal({ broken: 'CHALLENGE_CLOSED', winner });
-
-    res.analytics.track('challenge close', {
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      challengeID: challenge._id,
-      challengeWinnerID: winner._id,
-      groupID: challenge.group._id,
-      groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
-      groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
-      prize: challenge.prize,
-      headers: req.headers,
-    });
 
     res.respond(200, {});
   },

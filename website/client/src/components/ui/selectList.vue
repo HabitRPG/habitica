@@ -12,7 +12,7 @@
       <template #button-content>
         <slot
           name="item"
-          :item="selected || placeholder"
+          :item="selectedItem || placeholder"
           :button="true"
         >
           <!-- Fallback content -->
@@ -51,7 +51,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .select-list ::v-deep {
   .dropdown-toggle {
@@ -87,7 +87,7 @@
 </style>
 
 <script>
-import svgCheck from '@/assets/svg/check.svg';
+import svgCheck from '@/assets/svg/check.svg?raw';
 
 export default {
   props: {
@@ -133,6 +133,14 @@ export default {
         check: svgCheck,
       }),
     };
+  },
+  computed: {
+    selectedItem () {
+      if (this.activeKeyProp) {
+        return this.items.find(item => item[this.activeKeyProp] === this.selected);
+      }
+      return this.items.find(item => item === this.selected);
+    },
   },
   methods: {
     getKeyProp (item) {

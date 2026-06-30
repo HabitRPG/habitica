@@ -4,13 +4,37 @@ import shared from '../../../common';
 import { // eslint-disable-line import/no-cycle
   getDefaultOwnedGear,
 } from '../../libs/items/utils';
+import {
+  RESTRICTED_EMAIL_DOMAINS,
+  isRestrictedEmailDomain,
+} from '../../libs/auth/utils';
 import { schema as PushDeviceSchema } from '../pushDevice';
 import { schema as SubscriptionPlanSchema } from '../subscriptionPlan';
 import { schema as TagSchema } from '../tag';
 import { schema as UserNotificationSchema } from '../userNotification';
 import { schema as WebhookSchema } from '../webhook';
+import { model as Blocker } from '../blocker';
 
-const RESTRICTED_EMAIL_DOMAINS = Object.freeze(['habitica.com', 'habitrpg.com']);
+const BLOCKED_EMAILS = [];
+
+Blocker.watchBlockers({
+  type: 'email',
+  area: 'full',
+}, {
+  initial: true,
+}).on('change', async change => {
+  const { operation, blocker: { value } } = change;
+  if (operation === 'add') {
+    if (value && !BLOCKED_EMAILS.includes(value)) {
+      BLOCKED_EMAILS.push(value);
+    }
+  } else if (operation === 'delete') {
+    const index = BLOCKED_EMAILS.indexOf(value);
+    if (index !== -1) {
+      BLOCKED_EMAILS.splice(index, 1);
+    }
+  }
+});
 
 // User schema definition
 export const UserSchema = new Schema({
@@ -38,11 +62,15 @@ export const UserSchema = new Schema({
           message: shared.i18n.t('invalidEmail'),
         }, {
           validator (email) {
-            const lowercaseEmail = email.toLowerCase();
-
-            return RESTRICTED_EMAIL_DOMAINS.every(domain => !lowercaseEmail.endsWith(`@${domain}`));
+            return !isRestrictedEmailDomain(email);
           },
           message: shared.i18n.t('invalidEmailDomain', { domains: RESTRICTED_EMAIL_DOMAINS.join(', ') }),
+        }, {
+          validator (email) {
+            const lowercaseEmail = email.toLowerCase();
+            return BLOCKED_EMAILS.every(block => lowercaseEmail.indexOf(block) === -1);
+          },
+          message: shared.i18n.t('emailBlockedRegistration'),
         }],
       },
       username: {
@@ -196,6 +224,7 @@ export const UserSchema = new Schema({
     userSupport: Boolean, // access User Support feature in Admin Panel
     challengeAdmin: Boolean, // Can manage and administrate challenges
     moderator: Boolean, // Can ban, flag users and manage social spaces
+    accessControl: Boolean, // Can manage IP and client blockers
     coupons: Boolean, // Can generate and request coupons
   },
   balance: { $type: Number, default: 0 },
@@ -313,6 +342,7 @@ export const UserSchema = new Schema({
     warnedLowHealth: { $type: Boolean, default: false },
     verifiedUsername: { $type: Boolean, default: false },
     thirdPartyTools: { $type: Date },
+    initializedUserHistory: { $type: Boolean, default: false },
   },
 
   history: {
@@ -625,6 +655,7 @@ export const UserSchema = new Schema({
         return isValidCategory;
       },
     },
+    analyticsConsent: Boolean,
   },
   profile: {
     blurb: String,

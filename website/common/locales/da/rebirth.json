@@ -8,7 +8,7 @@
     "rebirthOrb": "Brugte en Genfødselskugle til at starte forfra efter at have opnået Niveau <%= level %>.",
     "rebirthOrb100": "Brugte en Genfødselskugle til at starte forfra efter at have opnået Niveau 100 eller mere.",
     "rebirthOrbNoLevel": "Brugte en Genfødselskugle til at starte forfra.",
-    "rebirthPop": "Genstart omgående din karakter som Niveau 1 Kriger, men behold præstationer, samlerobjekter og udstyr. Du vil beholde dine opgaver og deres historie, men de vil blive nulstillet til gul. Dine striber vil blive fjernet, bortset fra opgaver tilhørende aktive Udfordringer og Gruppeplaner. Dit Guld, Erfaring, Mana, og alle effekter fra Evner vil blive fjernet. Alt dette vil ske omgående. For mere information, se siden <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> på wiki'en (engelsk).",
+    "rebirthPop": "Genstart din karakter med det samme som en niveau 1 Kriger, mens du beholder præstationer, samleobjekter og udstyr. Dine opgaver og deres historie forbliver, men de vil blive nulstillet til gul. Dine streger vil blive fjernet undtagen fra opgaver, der hører til aktive udfordringer og gruppeplaner. Dit guld, erfaring, mana og virkningerne af alle færdigheder vil blive fjernet. Alt dette træder i kraft med det samme.",
     "rebirthName": "Genfødselskugle",
     "rebirthComplete": "Du er blevet genfødt!",
     "nextFreeRebirth": "<strong><%= days %> dage</strong> til <strong>GRATIS</strong> Genfødselskugle"

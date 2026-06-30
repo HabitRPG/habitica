@@ -1,6 +1,8 @@
-import _ from 'lodash';
+import mongoose from 'mongoose';
+import get from 'lodash/get';
 import sinon from 'sinon';
 import moment from 'moment';
+import { v4 as uuid } from 'uuid';
 import { authWithHeaders } from '../../middlewares/auth';
 import ensureDevelopmentMode from '../../middlewares/ensureDevelopmentMode';
 import ensureTimeTravelMode from '../../middlewares/ensureTimeTravelMode';
@@ -10,6 +12,8 @@ import {
   model as Group,
   // basicFields as basicGroupFields,
 } from '../../models/group';
+import { chatModel as Chat, inboxModel as Inbox } from '../../models/message';
+import connectToMongoDB from '../../libs/mongoose';
 
 const { content } = common;
 
@@ -183,7 +187,7 @@ api.questProgress = {
   middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
-    const key = _.get(user, 'party.quest.key');
+    const key = get(user, 'party.quest.key');
     const quest = content.quests[key];
 
     if (!quest) {
@@ -286,7 +290,10 @@ api.timeTravelAdjust = {
     } else if (disable) {
       clock.restore();
       clock = undefined;
-    } else if (clock !== undefined) {
+    } else if (offsetDays) {
+      if (clock === undefined) {
+        fakeClock();
+      }
       try {
         clock.setSystemTime(moment().add(offsetDays, 'days').toDate());
       } catch (e) {
@@ -296,9 +303,102 @@ api.timeTravelAdjust = {
       throw new BadRequest('Invalid command');
     }
 
+    if (mongoose.connection.readyState === 0) {
+      await connectToMongoDB();
+    }
+
     res.respond(200, {
       time: new Date(),
     });
+  },
+};
+
+api.seedPartyChat = {
+  method: 'POST',
+  url: '/debug/seed-party-chat',
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+    const messageCount = Number(req.body.messageCount);
+
+    if (!Number.isInteger(messageCount) || messageCount < 1) {
+      throw new BadRequest('messageCount must be a positive integer.');
+    }
+
+    if (!user.party._id) {
+      throw new BadRequest('You are not in a party.');
+    }
+
+    const party = await Group.findOne({ _id: user.party._id, type: 'party' }).exec();
+    if (!party) {
+      throw new BadRequest('Party not found.');
+    }
+
+    const messages = [];
+    const baseTimestamp = Date.now();
+
+    for (let i = 1; i <= messageCount; i += 1) {
+      const id = uuid();
+      messages.push({
+        _id: id,
+        id,
+        groupId: party._id,
+        text: `#${i}`,
+        unformattedText: `#${i}`,
+        timestamp: new Date(baseTimestamp - (messageCount - i) * 1000),
+        likes: {},
+        flags: {},
+        flagCount: 0,
+        uuid: 'system',
+        user: 'System',
+        client: 'debug-seed',
+      });
+    }
+
+    await Chat.insertMany(messages);
+
+    res.respond(200, { messageCount });
+  },
+};
+
+// Messaging ourselves for testing
+api.seedInbox = {
+  method: 'POST',
+  url: '/debug/seed-inbox',
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+    const messageCount = Number(req.body.messageCount);
+
+    if (!Number.isInteger(messageCount) || messageCount < 1) {
+      throw new BadRequest('messageCount must be a positive integer.');
+    }
+
+    const messages = [];
+    const baseTimestamp = Date.now();
+
+    for (let i = 1; i <= messageCount; i += 1) {
+      const id = uuid();
+      messages.push({
+        _id: id,
+        id,
+        ownerId: user._id,
+        uuid: user._id,
+        user: user.profile.name,
+        text: `#${i}`,
+        unformattedText: `#${i}`,
+        timestamp: new Date(baseTimestamp - (messageCount - i) * 1000),
+        likes: {},
+        flags: {},
+        flagCount: 0,
+        sent: true,
+        client: 'debug-seed',
+      });
+    }
+
+    await Inbox.insertMany(messages);
+
+    res.respond(200, { messageCount });
   },
 };
 

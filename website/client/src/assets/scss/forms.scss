@@ -1,0 +1,168 @@
+// Inputs and textareas
+
+input, textarea, input.form-control, textarea.form-control {
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 1.714;
+  padding: 4px 12px;
+  color: $gray-50;
+  border: 1px solid $gray-400;
+
+  &:hover:not(:disabled):not(:read-only):not(:focus):not(:disabled):not(.input-valid):not(.input-invalid):not(.dark) {
+    border-color: $gray-200;
+  }
+
+  &:active:not(:disabled):not(:read-only), &:focus:not(:disabled):not(:read-only),
+  &:active:not(:disabled):not(:read-only).dark, &:focus:not(:disabled):not(:read-only).dark {
+    border: 1px solid $purple-400;
+    outline: 1px solid $purple-400;
+    box-shadow: none;
+  }
+
+  &.input-valid {
+    padding-right: 27px;
+    background-image: url(@/assets/svg/for-css/check.svg);
+    background-size: 1rem;
+    border-color: $green-10;
+  }
+
+  &.input-invalid, .input-invalid:hover {
+    padding-right: 40px;
+    background-image: url(@/assets/svg/for-css/alert.svg);
+    background-size: 16px 16px;
+    border-color: $red-100;
+  }
+
+  &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: $gray-200;
+  }
+  &::-moz-placeholder { /* Firefox 19+ */
+    color: $gray-200;
+  }
+  &:-ms-input-placeholder { /* IE 10+ */
+    color: $gray-200;
+  }
+  &:-moz-placeholder { /* Firefox 18- */
+    color: $gray-200;
+  }
+  &::placeholder { //  Standard browsers
+    color: $gray-200;
+  }
+
+  .input-invalid.input-with-error {
+    margin-bottom: 0.5em;
+  }
+
+  &.dark {
+    background-color: $purple-100;
+    color: $white;
+
+    &:not(.input-valid):not(.input-invalid) {
+      border: 1px solid $purple-300;
+    }
+
+    &:focus {
+      background-color: $purple-100;
+      color: $white;
+    }
+
+    &:hover:not(:focus):not(:disabled):not(.input-valid):not(.input-invalid) {
+      border-color: $purple-400;
+    }
+
+    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      color: $purple-500;
+    }
+    &::-moz-placeholder { /* Firefox 19+ */
+      color: $purple-500;
+    }
+    &:-ms-input-placeholder { /* IE 10+ */
+      color: $purple-500;
+    }
+    &:-moz-placeholder { /* Firefox 18- */
+      color: $purple-500;
+    }
+    &::placeholder { //  Standard browsers
+      color: $purple-500;
+    }
+  }
+}
+
+.input-error {
+  font-size: 12px;
+  line-height: 1.33;
+  color: $maroon-500;
+}
+
+// checkboxes
+.custom-checkbox {
+  .custom-control-label::before {
+    border-radius: 2px;
+  }
+
+  .custom-control-input {
+    &:hover~.custom-control-label::before {
+      border-color: $gray-100;
+    }
+
+    &:checked~.custom-control-label::before {
+      background-color: $purple-300;
+      border-color: $purple-300;
+    }
+
+    &:hover:checked:not(:disabled)~.custom-control-label::before,
+    &:active:not(:disabled)~.custom-control-label::before {
+      background-color: $purple-400;
+      border-color: $purple-400;
+    }
+
+    &:checked~.custom-control-label::after {
+      width: 18px;
+      height: 18px;
+      background-image: url(@/assets/svg/for-css/checkbox-white.svg);
+      background-size: 13px 10px;
+    }
+
+    &:checked:disabled~.custom-control-label::after {
+      background-image: url(@/assets/svg/for-css/checkbox-gray.svg);
+    }
+
+    &:active~.custom-control-label::before {
+      background-color: inherit;
+    }
+
+    &:focus~.custom-control-label::before,
+    &:active~.custom-control-label::before  {
+      border-color: $purple-400;
+      box-shadow: none;
+    }
+
+    &:disabled~.custom-control-label::before, &:disabled:checked~.custom-control-label::before {
+      border-color: $gray-400;
+      background-color: $gray-400;
+    }
+
+    &.dark {
+      ~.custom-control-label::before {
+        border-color: $purple-100;
+      }
+      &:hover~.custom-control-label::before,
+      &:active~.custom-control-label::before {
+        border-color: $purple-50;
+      }
+      &:checked~.custom-control-label::before {
+        background-color: $purple-100;
+        border-color: $purple-100;
+      }
+      &:focus~.custom-control-label::before,
+      &:active~.custom-control-label::before  {
+        border-color: $purple-400;
+        box-shadow: none;
+      }
+      &:disabled~.custom-control-label::before, &:disabled:checked~.custom-control-label::before {
+        border-color: $gray-400;
+        background-color: $gray-400;
+      }
+    }
+  }
+}

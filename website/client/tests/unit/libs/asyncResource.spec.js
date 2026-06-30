@@ -1,10 +1,21 @@
+import {
+  describe, expect, test, afterEach, beforeEach, chai,
+} from 'vitest';
 import axios from 'axios';
 import { sleep } from '@/../../../test/helpers/sleep';
-import { asyncResourceFactory, loadAsyncResource } from '@/libs/asyncResource';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+import chaiAsPromised from 'chai-as-promised';
 import generateStore from '@/store';
+import { asyncResourceFactory, loadAsyncResource } from '@/libs/asyncResource';
+
+chai.use(sinonChai);
+chai.use(chaiAsPromised);
+
+const sandbox = sinon.createSandbox();
 
 describe('async resource', () => {
-  it('asyncResourceFactory', () => {
+  test('asyncResourceFactory', () => {
     const resource = asyncResourceFactory();
     expect(resource.loadingStatus).to.equal('NOT_LOADED');
     expect(resource.data).to.equal(null);
@@ -16,29 +27,29 @@ describe('async resource', () => {
       if (axios.get && axios.get.restore) axios.get.restore();
     });
 
-    context('errors', () => {
-      it('store is missing', () => {
+    describe('errors', () => {
+      test('store is missing', () => {
         expect(() => loadAsyncResource({})).to.throw;
       });
-      it('path is missing', () => {
+      test('path is missing', () => {
         expect(() => loadAsyncResource({
           store: 'store',
         })).to.throw;
       });
-      it('url is missing', () => {
+      test('url is missing', () => {
         expect(() => loadAsyncResource({
           store: 'store',
           path: 'path',
         })).to.throw;
       });
-      it('deserialize is missing', () => {
+      test('deserialize is missing', () => {
         expect(() => loadAsyncResource({
           store: 'store',
           path: 'path',
           url: 'url',
         })).to.throw;
       });
-      it('resource not found', () => {
+      test('resource not found', () => {
         const store = generateStore();
 
         expect(() => loadAsyncResource({
@@ -49,7 +60,7 @@ describe('async resource', () => {
         })).to.throw;
       });
 
-      it('invalid loading status', () => {
+      test('invalid loading status', () => {
         const store = generateStore();
         store.state.user.loadingStatus = 'INVALID';
 
@@ -62,7 +73,7 @@ describe('async resource', () => {
       });
     });
 
-    it('returns the resource if it is already loaded and forceLoad is false', async () => {
+    test('returns the resource if it is already loaded and forceLoad is false', async () => {
       const store = generateStore();
       store.state.user.loadingStatus = 'LOADED';
       store.state.user.data = { _id: 1 };
@@ -80,7 +91,7 @@ describe('async resource', () => {
       expect(axios.get).to.not.have.been.called;
     });
 
-    it('load the resource if it is not loaded', async () => {
+    test('load the resource if it is not loaded', async () => {
       const store = generateStore();
       store.state.user = asyncResourceFactory();
 
@@ -101,7 +112,7 @@ describe('async resource', () => {
       expect(axios.get).to.have.been.calledOnce;
     });
 
-    it('load the resource if it is loaded but forceLoad is true', async () => {
+    test('load the resource if it is loaded but forceLoad is true', async () => {
       const store = generateStore();
       store.state.user.loadingStatus = 'LOADED';
 
@@ -133,7 +144,7 @@ describe('async resource', () => {
         store.state.worldState.appVersionOnLoad = 1;
       });
 
-      it('load the resource if it is loaded but the appVersion has changed', async () => {
+      test('load the resource if it is loaded but the appVersion has changed', async () => {
         store.state.serverAppVersion = 2;
         sandbox.stub(axios, 'get').withArgs('/api/v4/world-state').returns(Promise.resolve({
           data: { data: { _id: 1 } },
@@ -155,7 +166,7 @@ describe('async resource', () => {
         expect(axios.get).to.have.been.calledOnce;
       });
 
-      it('does not load the resource if it is loaded but the appVersion has changed', async () => {
+      test('does not load the resource if it is loaded but the appVersion has changed', async () => {
         sandbox.stub(axios, 'get').returns(Promise.resolve({ data: { data: { _id: 1 } } }));
 
         const resource = await loadAsyncResource({
@@ -173,7 +184,7 @@ describe('async resource', () => {
       });
     });
 
-    it('does not send multiple requests if the resource is being loaded', async () => {
+    test('does not send multiple requests if the resource is being loaded', async () => {
       const store = generateStore();
       store.state.user.loadingStatus = 'LOADING';
 

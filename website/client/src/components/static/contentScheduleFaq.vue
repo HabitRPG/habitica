@@ -84,8 +84,11 @@
         <li>{{ $t('contentAnswer71') }}</li>
       </ul>
       <p
-        v-html="$t('contentFaqPara3',
-                   { mailto: '<a href=mailto:admin@habitica.com>admin@habitica.com</a>'}
+        v-html="$t(
+          'contentFaqPara3',
+          { mailto:
+            '<a href=mailto:admin@habitica.com>admin@habitica.com</a>', // eslint-disable-line max-len
+          },
         )"
       ></p>
     </div>
@@ -94,7 +97,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/faq.scss';
+  @import '@/assets/scss/faq.scss';
 </style>
 
 <script>

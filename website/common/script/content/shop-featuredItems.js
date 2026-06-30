@@ -11,10 +11,13 @@ const potentialFeaturedPetQuests = [
   'cat',
 
   'frog',
+  'otter',
 
   'monkey',
+  'alpaca',
 
   'sloth',
+  'platypus',
 
   'hippo',
   'giraffe',
@@ -29,6 +32,7 @@ const potentialFeaturedPetQuests = [
   'raccoon',
 
   'snail',
+  'dog',
 
   'kangaroo',
   'owl',

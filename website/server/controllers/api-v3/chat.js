@@ -1,6 +1,6 @@
 import moment from 'moment';
 import nconf from 'nconf';
-import { authWithHeaders } from '../../middlewares/auth';
+import { authWithHeaders, chatPrivilegesRequired } from '../../middlewares/auth';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import {
@@ -22,9 +22,6 @@ import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
 import { apiError } from '../../libs/apiError';
 import highlightMentions from '../../libs/highlightMentions';
-import { getAnalyticsServiceByEnvironment } from '../../libs/analyticsService';
-
-const analytics = getAnalyticsServiceByEnvironment();
 
 const ACCOUNT_MIN_CHAT_AGE = Number(nconf.get('ACCOUNT_MIN_CHAT_AGE'));
 
@@ -63,6 +60,8 @@ function textContainsBannedSlur (message) {
  *
  * @apiParam (Path) {String} groupId The group _id ('party' for the user party and
  *                                   'habitrpg' for tavern are accepted).
+ * @apiParam (Query) {Number} [limit=50] The number of messages to fetch (max 400).
+ * @apiParam (Query) {String} [before] Fetch messages older than this message ID.
  *
  * @apiSuccess {Array} data An array of <a href='https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js#L51' target='_blank'>chat messages</a>
  *
@@ -77,18 +76,21 @@ api.getChat = {
     const { user } = res.locals;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
+    req.checkQuery('before').optional().isUUID();
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     const { groupId } = req.params;
+    const limit = req.query.limit ? Math.min(parseInt(req.query.limit, 10), 400) : 50;
+    const { before } = req.query;
     const group = await Group.getGroup({ user, groupId, fields: 'chat privacy' });
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.privacy === 'public') {
       throw new BadRequest(res.t('featureRetired'));
     }
 
-    const groupChat = await Group.toJSONCleanChat(group, user);
+    const groupChat = await Group.toJSONCleanChat(group, user, { limit, before });
     res.respond(200, groupChat.chat);
   },
 };
@@ -117,7 +119,7 @@ function getBannedWordsFromText (message) {
 api.postChat = {
   method: 'POST',
   url: '/groups/:groupId/chat',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(), chatPrivilegesRequired()],
   async handler (req, res) {
     const { user } = res.locals;
     const { groupId } = req.params;
@@ -160,10 +162,6 @@ api.postChat = {
       throw new BadRequest(res.t('bannedSlurUsed'));
     }
 
-    if (group.privacy === 'public' && user.flags.chatRevoked) {
-      throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
-    }
-
     // prevent banned words being posted, except in private guilds/parties
     // and in certain public guilds with specific topics
     if (group.privacy === 'public' && !group.bannedWordsAllowed) {
@@ -185,12 +183,6 @@ api.postChat = {
 
     // Check if account is newer than the minimum age for chat participation
     if (moment().diff(user.auth.timestamps.created, 'minutes') < ACCOUNT_MIN_CHAT_AGE) {
-      analytics.track('chat age error', {
-        uuid: user._id,
-        hitType: 'event',
-        category: 'behavior',
-        headers: req.headers,
-      });
       throw new BadRequest(res.t('chatTemporarilyUnavailable'));
     }
 
@@ -202,7 +194,7 @@ api.postChat = {
     }
 
     let flagCount = 0;
-    if (group.privacy === 'public' && user.flags.chatShadowMuted) {
+    if (user.flags.chatShadowMuted) {
       flagCount = common.constants.CHAT_FLAG_FROM_SHADOW_MUTE;
 
       // Email the mods
@@ -235,26 +227,7 @@ api.postChat = {
     }
 
     await Promise.all(toSave);
-
-    const analyticsObject = {
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      groupType: group.type,
-      privacy: group.privacy,
-      headers: req.headers,
-    };
-
-    if (mentions) {
-      analyticsObject.mentionsCount = mentions.length;
-    } else {
-      analyticsObject.mentionsCount = 0;
-    }
-    if (group.privacy === 'public') {
-      analyticsObject.groupName = group.name;
-    }
-
-    res.analytics.track('group chat', analyticsObject);
+    await group.trimChat();
 
     if (chatUpdated) {
       res.respond(200, { chat: chatRes.chat });

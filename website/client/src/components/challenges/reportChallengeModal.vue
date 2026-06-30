@@ -102,7 +102,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .modal-body {
     padding: 0px 8px 0px 8px;
@@ -207,8 +207,8 @@ import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 import { userStateMixin } from '../../mixins/userState';
 import markdownDirective from '@/directives/markdown';
-import svgClose from '@/assets/svg/close.svg';
-import svgReport from '@/assets/svg/report.svg';
+import svgClose from '@/assets/svg/close.svg?raw';
+import svgReport from '@/assets/svg/report.svg?raw';
 
 export default {
   directives: {
@@ -217,8 +217,8 @@ export default {
   mixins: [notifications, userStateMixin],
   data () {
     const abuseFlagModalBody = {
-      firstLinkStart: '<a href="/static/community-guidelines" target="_blank">',
-      secondLinkStart: '<a href="/static/terms" target="_blank">',
+      firstLinkStart: '<a href="/static/community-guidelines" target="_blank" rel="noopener noreferrer">',
+      secondLinkStart: '<a href="/static/terms" target="_blank" rel="noopener noreferrer">',
       linkEnd: '</a>',
     };
 

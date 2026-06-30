@@ -153,3 +153,27 @@ export class DatabaseError extends InternalServerError {
     this.message = customMessage || 'A database error occurred.';
   }
 }
+
+/**
+ * @apiDefine InvalidCredentials
+ * @apiError InvalidCredentials The user’s credentials are no longer valid.
+ *
+ * @apiNote
+ *   The 'invalid_credentials' error code is language-agnostic:
+ *   clients should use this code (regardless of locale or translated message)
+ *   to unambiguously trigger a user logout.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *     {
+ *       "error": "invalid_credentials",
+ *       "message": "There is no account that uses those credentials."
+ *     }
+ */
+export class InvalidCredentialsError extends NotAuthorized {
+  constructor (message) {
+    super(message);
+    this.name = this.constructor.name;
+    this.code = 'invalid_credentials';
+  }
+}

@@ -11,7 +11,7 @@ const progressCount = 1000;
 let count = 0;
 
 /*
- * Award users every extant pet and mount
+ * Award every extant piece of equippable gear
  */
 
 async function updateUser (user) {
@@ -27,13 +27,13 @@ async function updateUser (user) {
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
-  return User.update({ _id: user._id }, { $set: set }).exec();
+  return User.updateOne({ _id: user._id }, { $set: set }).exec();
 }
 
 export default async function processUsers () {
   const query = {
     migration: { $ne: MIGRATION_NAME },
-    'auth.local.lowerCaseUsername': 'olson1',
+    'auth.local.username': 'ExampleHabitican',
   };
 
   const fields = {

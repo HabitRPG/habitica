@@ -72,7 +72,7 @@ describe('food', () => {
     });
 
     it('sets canDrop for pie if it is pie season', () => {
-      clock = sinon.useFakeTimers(new Date(2024, 2, 14));
+      clock = sinon.useFakeTimers(new Date(2024, 2, 15));
       const datedContent = require('../../website/common/script/content').default;
       each(datedContent.food, foodItem => {
         if (foodItem.key.indexOf('Pie_') !== -1) {

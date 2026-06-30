@@ -207,7 +207,7 @@ function buildResponse ({ purchased, preference, items }, ownsAlready, language)
 // If item is already purchased -> equip it
 // Otherwise unlock it
 // @TODO refactor and take as parameter the set name, for single items use the buy ops
-export default async function unlock (user, req = {}, analytics) {
+export default async function unlock (user, req = {}) {
   const path = get(req.query, 'path');
 
   if (!path) {
@@ -287,14 +287,16 @@ export default async function unlock (user, req = {}, analytics) {
   if (isFullSet) {
     paths.forEach(pathPart => purchaseItem(pathPart, setType, user));
 
-    if (isBackground) {
-      paths.forEach(pathPart => {
+    paths.forEach(pathPart => {
+      if (isBackground) {
         const [key, value] = splitPathItem(pathPart);
         const backgroundContent = content.backgroundsFlat[value];
         const itemInfo = getItemInfo(user, key, backgroundContent);
         removeItemByPath(user, itemInfo.path);
-      });
-    }
+      } else {
+        removeItemByPath(user, path);
+      }
+    });
   } else {
     const [key, value] = splitPathItem(path);
 
@@ -308,24 +310,14 @@ export default async function unlock (user, req = {}, analytics) {
         const backgroundContent = content.backgroundsFlat[value];
         const itemInfo = getItemInfo(user, 'background', backgroundContent);
         removeItemByPath(user, itemInfo.path);
+      } else {
+        removeItemByPath(user, path);
       }
     }
   }
 
   if (!unlockedAlready) {
     await updateUserBalance(user, -cost, 'spend', path);
-
-    if (analytics) {
-      analytics.track('buy', {
-        uuid: user._id,
-        itemKey: path,
-        itemType: 'customization',
-        currency: 'Gems',
-        gemCost: cost / 0.25,
-        category: 'behavior',
-        headers: req.headers,
-      });
-    }
   }
 
   return buildResponse(user, unlockedAlready, req.language);

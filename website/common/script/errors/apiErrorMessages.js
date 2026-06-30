@@ -32,8 +32,9 @@ export default {
   postIdRequired: '"postId" must be a valid UUID.',
   noNewsPosterAccess: 'You don\'t have news poster access.',
 
-  ipAddressBlocked: 'Your access to Habitica has been blocked. This may be due to a breach of our Terms of Service or for other reasons. For details or to ask to be unblocked, please email admin@habitica.com or ask your parent or guardian to email them. Include your Habitica @Username or User Id in the email if you know it.',
-  clientRateLimited: 'This User ID or IP address has been rate limited due to an excess amount of requests to the Habitica API v3. More info can be found in the response headers and at https://habitica.fandom.com/wiki/Guidance_for_Comrades#Rules_for_Third-Party_Tools under the section Rate Limiting.',
+  ipAddressBlocked: 'Your connection to Habitica has been blocked. For additional information, or to request an appeal, email admin@habitica.com with your Habitica username or User ID.',
+  clientBlocked: 'This client or third-party tool has been blocked. For additional information, email admin@habitica.com with your Habitica username or User ID.',
+  clientRateLimited: 'This User ID or IP address has been rate limited due to an excess amount of requests to the Habitica API v3. More info can be found in the response headers and at https://github.com/HabitRPG/habitica/wiki/API-Usage-Guidelines#rate-limiting .',
 
   invalidPlatform: 'Invalid platform specified',
 
@@ -41,4 +42,6 @@ export default {
   invalidTaskIdentifier: 'A task is identified by its UUID or alias.',
   invalidTaskScorings: 'This API route expects a body in the form of [{id, direction}].',
   summaryLengthExceedsMax: 'Summary length is too high.',
+
+  socialFlowUserNotFound: 'User not found, but social auth OK with email:',
 };
