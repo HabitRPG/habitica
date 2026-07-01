@@ -240,7 +240,7 @@
     "titleCustomizations": "Customisations",
     "newMessage": "New Message",
     "targetUserNotExist": "Target User: '<%= userName %>' does not exist.",
-    "rememberToBeKind": "Please remember to be kind, respectful, and follow the &lt;%= linkOpen %&gt;Community Guidelines&lt;%= linkClose %&gt;.",
+    "rememberToBeKind": "Please remember to be kind, respectful, and follow the <%= linkOpen %>Community Guidelines<%= linkClose %>.",
     "gem": "Gem",
     "confirmPurchase": "Confirm Purchase",
     "avoidSPI": "Avoid SPI",
