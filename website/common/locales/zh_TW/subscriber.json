@@ -167,7 +167,7 @@
     "mysterySet202008": "貓頭鷹神諭套裝",
     "organization": "組織",
     "cancelSubInfoGoogle": "如要取消你的訂閱或查看你訂閱期的結尾，請用Google商店。",
-    "cancelSubInfoApple": "請遵照 <a href=\"https://support.apple.com/zh-tw/HT202039\">蘋果公司官方網站指示</a> 去取消您的訂閱或去查看您的訂閱終止日期如果您已經取消它了。 這個視窗是不會顯示您無論您的訂閱是否已取消。",
+    "cancelSubInfoApple": "請遵照 <%= linkOpen %>蘋果公司官方網站指示<%= linkClose %> 去取消您的訂閱或去查看您的訂閱終止日期如果您已經取消它了。 這個視窗是不會顯示您無論您的訂閱是否已取消。",
     "mysterySet202102": "迷媚冠軍套裝",
     "mysterySet202009": "驚奇飛蛾套裝",
     "mysterySet202105": "星雲飛龍套裝",

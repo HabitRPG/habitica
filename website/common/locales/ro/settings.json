@@ -94,7 +94,7 @@
     "kickedGroup": "Înlăturat din grup",
     "remindersToLogin": "Memento-uri pentru check-in în Habitica",
     "unsubscribedSuccessfully": "Neabonat cu succes!",
-    "unsubscribedTextUsers": "Te-ai dezabonat cu succes de la toate email-urile de la Habitica. Poți activa doar email-urile pe care vreu să le primești din <%= linkOpen %>Setări > &gt; Notificări<%= linkClose %> (necesită logare).",
+    "unsubscribedTextUsers": "Te-ai dezabonat cu succes de la toate email-urile de la Habitica. Poți activa doar email-urile pe care vreu să le primești din <%= linkOpen %>Setări > > Notificări<%= linkClose %> (necesită logare).",
     "unsubscribedTextOthers": "Nu veți primi niciun alt email de la Habitica.",
     "unsubscribeAllEmails": "Bifați ca să vă dezabonați de la emailuri",
     "unsubscribeAllEmailsText": "Bifând această casetă, certific faptul că înțeleg că prin dezabonarea de la toate emailurile, Habitica nu va putea niciodată să mă anunțe prin email despre modificări importante ale site-ului sau ale contului meu.",

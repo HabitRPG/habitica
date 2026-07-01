@@ -114,8 +114,8 @@
     "emailTaken": "Ya existe una cuenta con esa dirección de correo electrónico.",
     "newEmailRequired": "Falta la nueva dirección de correo electrónico.",
     "usernameTime": "¡Es la hora de establecer tu nombre de usuario!",
-    "usernameInfo": "Los nombres de inicio de sesión ahora son nombres de usuario únicos que serán visibles junto a tu nombre público, y se utilizarán para invitaciones, @menciones en los chats y mensajes. <br><br>Si quieres saber más sobre este cambio, <a href='https://habitica.fandom.com/wiki/Player_Names' target='_blank'>visita nuestra wiki</a>.",
-    "usernameTOSRequirements": "Los nombres de usuario deben adecuarse a nuestros <a href='/static/terms' target='_blank'>Términos de Servicio</a> y <a href='/static/community-guidelines' target='_blank'>Normas de la Comunidad</a>. Si no has establecido un nombre de inicio de sesión, tu nombre de usuario será autogenerado.",
+    "usernameInfo": "Los nombres de inicio de sesión ahora son nombres de usuario únicos que serán visibles junto a tu nombre público, y se utilizarán para invitaciones, @menciones en los chats y mensajes. <br><br>Si quieres saber más sobre este cambio, <%= linkOpen %>visita nuestra wiki<%= linkClose %>.",
+    "usernameTOSRequirements": "Los nombres de usuario deben adecuarse a nuestros <%= termsLink %>Términos de Servicio<%= linkClose %> y <%= guidelinesLink %>Normas de la Comunidad<%= linkClose %>. Si no has establecido un nombre de inicio de sesión, tu nombre de usuario será autogenerado.",
     "usernameTaken": "Este nombre de usuario ya está cogido.",
     "passwordConfirmationMatch": "Las contraseñas no coinciden.",
     "passwordResetPage": "Restablecer Contraseña",
@@ -185,7 +185,7 @@
     "minPasswordLengthLogin": "Tu contraseña contiene al menos 8 caracteres.",
     "enterValidEmail": "Por favor introduce una dirección de correo electrónico válida.",
     "whatToCallYou": "¿Cómo debemos llamarte?",
-    "acceptPrivacyTOS": "Confirmas que tienes al menos 18 años y que has leído y estás de acuerdo con nuestros <a href='/static/terms' target='_blank'>Terminos de Servicio</a>y<a href='/static/privacy' target='_blank'>Política de Privacidad</a>",
+    "acceptPrivacyTOS": "Confirmas que tienes al menos 18 años y que has leído y estás de acuerdo con nuestros <%= termsLink %>Terminos de Servicio<%= linkClose %>y<%= privacyLink %>Política de Privacidad<%= linkClose %>",
     "emailAddress": "Dirección de correo electrónico",
     "emailRequiredForSupport": "Necesitamos una dirección de correo electrónico para brindarte asistencia. Por favor, introduce una dirección de correo electrónico para continuar creando tu cuenta."
 }

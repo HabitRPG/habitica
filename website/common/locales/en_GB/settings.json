@@ -94,7 +94,7 @@
     "kickedGroup": "Removed from group",
     "remindersToLogin": "Reminders to check in to Habitica",
     "unsubscribedSuccessfully": "Unsubscribed successfully!",
-    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica e-mails. You can enable only the e-mails you want to receive from <%= linkOpen %>Settings > &gt; Notifications<%= linkClose %> (requires login).",
+    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica e-mails. You can enable only the e-mails you want to receive from <%= linkOpen %>Settings > > Notifications<%= linkClose %> (requires login).",
     "unsubscribedTextOthers": "You won't receive any other mail from Habitica.",
     "unsubscribeAllEmails": "Unsubscribe from E-mails",
     "unsubscribeAllEmailsText": "Habitica will be unable to notify you via e-mail about important changes to the site or your account.",

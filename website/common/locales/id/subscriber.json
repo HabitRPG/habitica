@@ -138,7 +138,7 @@
     "viewSubscriptions": "Lihat Langganan",
     "giftASubscription": "Hadiahkan Langganan",
     "mysticHourglassNeededNoSub": "Barang ini membutuhkan Jam pasir mistis. Kamu bisa mendapatkannya dengan berlangganan di Habitica.",
-    "cancelSubInfoApple": "Silahkan ikuti <a href=\"https://support.apple.com/en-us/HT202039\">instruksi resmi Apple</a> untuk berhenti berlangganan atau melihat tanggal langganan berakhir jika kamu telah membatalkan langgananmu. Layar ini tidak ditampilkan ke kamu jika langgananmu telah berhenti.",
+    "cancelSubInfoApple": "Silahkan ikuti <%= linkOpen %>instruksi resmi Apple<%= linkClose %> untuk berhenti berlangganan atau melihat tanggal langganan berakhir jika kamu telah membatalkan langgananmu. Layar ini tidak ditampilkan ke kamu jika langgananmu telah berhenti.",
     "cancelSubInfoGoogle": "Untuk membatalkan langgananmu atau untuk melihat tanggal penghentian langgananmu, silakan buka bagian \"Akun\" > \"Langganan\" di aplikasi Google Play Store. Sisa kredit langganan selama beberapa bulan akan ditambahkan ke tanggal akhir setelah pembatalan.",
     "mysterySet201904": "Set Opal Mewah",
     "mysterySet201902": "Set Crush Samar",

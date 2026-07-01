@@ -86,7 +86,7 @@
     "teams": "Équipes",
     "terms": "Conditions d'Utilisation",
     "tumblr": "Tumblr",
-    "localStorageTryFirst": "Si vous rencontrez des problèmes avec Habitica, cliquez sur le bouton ci-dessous pour effacer les données locales et les cookies de ce site (les autres sites ne seront pas affectés). Vous devrez vous reconnecter par la suite, il faudra de ce fait que vous vous souveniez de vos identifiant et mot de passe, que vous pourrez retrouver dans : &lt;%= linkStart %&gt;Paramètres -&gt; Site&lt;%= linkEnd %&gt;.",
+    "localStorageTryFirst": "Si vous rencontrez des problèmes avec Habitica, cliquez sur le bouton ci-dessous pour effacer les données locales et les cookies de ce site (les autres sites ne seront pas affectés). Vous devrez vous reconnecter par la suite, il faudra de ce fait que vous vous souveniez de vos identifiant et mot de passe, que vous pourrez retrouver dans : <%= linkStart %>Paramètres -> Site<%= linkEnd %>.",
     "localStorageTryNext": "Si le problème persiste, alors <%= linkStart %>signalez un bug<%= linkEnd %> si vous ne l'avez pas déjà fait.",
     "localStorageClear": "Effacer les données",
     "localStorageClearExplanation": "Ce bouton va effacer les données locales et les cookies, puis vous déconnectera.",

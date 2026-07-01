@@ -61,7 +61,7 @@
     "costumeDisabled": "You have disabled your costume.",
     "gearAchievement": "You have earned the “Ultimate Gear” Achievement for upgrading to the maximum gear set for a class! You have attained the following complete sets:",
     "gearAchievementNotification": "You have earned the “Ultimate Gear” Achievement for upgrading to the maximum gear set for a class!",
-    "moreGearAchievements": "To attain more Ultimate Gear badges, change classes on <%= linkOpen %>the Settings &gt; Site page<%= linkClose %> and buy your new class's gear!",
+    "moreGearAchievements": "To attain more Ultimate Gear badges, change classes on <%= linkOpen %>the Settings > Site page<%= linkClose %> and buy your new class's gear!",
     "armoireUnlocked": "For more equipment, check out the <strong>Enchanted Armoire!</strong> Click on the Enchanted Armoire Reward for a random chance at special Equipment! It may also give you random XP or food items.",
     "ultimGearName": "Ultimate Gear—<%= ultClass %>",
     "ultimGearText": "Has upgraded to the maximum weapon and armour set for the <%= ultClass %> class.",

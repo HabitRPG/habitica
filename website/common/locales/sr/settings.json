@@ -94,7 +94,7 @@
     "kickedGroup": "Izbačen iz grupe",
     "remindersToLogin": "Podsetnici da se prijavite na Habitica",
     "unsubscribedSuccessfully": "Pretplata uspešno prekinuta!",
-    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica emails. You can enable only the emails you want to receive from <%= linkOpen %>Settings > &gt; Notifications<%= linkClose %> (requires login).",
+    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica emails. You can enable only the emails you want to receive from <%= linkOpen %>Settings > > Notifications<%= linkClose %> (requires login).",
     "unsubscribedTextOthers": "Habitica Vam neće slati druge mejlove.",
     "unsubscribeAllEmails": "Kliknite ovde ako ne želite da Vam šaljemo poruke",
     "unsubscribeAllEmailsText": "Ovim potrvrđujem da razumem da, ako otkažem dozvolu Habitica-u da mi šalje poruke, Habitica više neće moći da me obaveštava mejlovima o bitnim promenama u igri ili na mom nalogu.",

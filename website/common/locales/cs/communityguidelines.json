@@ -74,7 +74,7 @@
     "commGuidePara068": "Nyní kupředu, chrabrý dobrodruhu, a přemož nějaké Denní úkoly!",
     "commGuideHeadingLinks": "Užitečné odkazy",
     "commGuideLink03": "<%= linkOpen %>GitHub<%= linkClose %>: for bug reports or helping with code!",
-    "commGuideLink04": "<a href='https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link' target='_blank'>Formulář na zpětnou vazbu</a>: s návrhy na nové funkce webu a aplikace.",
+    "commGuideLink04": "<%= linkOpen %>Formulář na zpětnou vazbu<%= linkClose %>: s návrhy na nové funkce webu a aplikace.",
     "commGuidePara069": "Následují talentovaní umělci přispěli ilustracemi:",
     "commGuideList09D": "",
     "commGuideList01A": "",

@@ -94,7 +94,7 @@
     "kickedGroup": "Expulsé·e du groupe",
     "remindersToLogin": "Rappels de vérification d'Habitica",
     "unsubscribedSuccessfully": "Désinscription prise en compte !",
-    "unsubscribedTextUsers": "Vous venez de vous désabonner de tous les courriels d'Habitica avec succès. Vous pouvez activer uniquement les courriels que vous souhaitez recevoir dans<%= linkOpen %> Paramètres > &gt; Notifications <%= linkClose %> (nécessite d'être connecté).",
+    "unsubscribedTextUsers": "Vous venez de vous désabonner de tous les courriels d'Habitica avec succès. Vous pouvez activer uniquement les courriels que vous souhaitez recevoir dans<%= linkOpen %> Paramètres > > Notifications <%= linkClose %> (nécessite d'être connecté).",
     "unsubscribedTextOthers": "Vous ne recevrez plus d'autre courriel de Habitica.",
     "unsubscribeAllEmails": "Se désabonner des Courriels",
     "unsubscribeAllEmailsText": "Habitica n'aura pas la possibilité de vous avertir par courriel de changements importants au niveau du site ou de votre compte.",

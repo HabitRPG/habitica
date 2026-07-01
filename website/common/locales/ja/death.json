@@ -3,7 +3,7 @@
     "dontDespair": "がっかりしないで！",
     "deathPenaltyDetails": "レベル、ゴールド、そして装備の一部を失ってしまいました。しかし、努力すればすべて取り戻せます！ あなたなら、きっとできる！",
     "refillHealthTryAgain": "体力を復活させて、もう一度やってみよう",
-    "dyingOftenTips": "よく体力がなくなってしまいますか？ <a href='/static/faq#prevent-damage' target='_blank'>ここにヒントがあります！ </a>",
+    "dyingOftenTips": "よく体力がなくなってしまいますか？ <%= linkOpen %>ここにヒントがあります！ <%= linkClose %>",
     "losingHealthWarning": "気をつけて - 体力が減っています！",
     "losingHealthWarning2": "体力をゼロにしないように！体力がゼロになると、レベルとゴールド、いくつかの装備を失います。",
     "toRegainHealth": "体力を回復するには：",

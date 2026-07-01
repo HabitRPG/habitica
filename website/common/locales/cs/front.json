@@ -115,7 +115,7 @@
     "newEmailRequired": "Chybějící e-mailová adresa.",
     "usernameTime": "Je čas nastavit si uživatelské jméno!",
     "usernameInfo": "Login names are now unique usernames that will be visible beside your display name and used for invitations, chat @mentions, and messaging.<br><br>If you'd like to learn more about this change, <%= linkOpen %>visit our wiki<%= linkClose %>.",
-    "usernameTOSRequirements": "Usernames must conform to our <a href='/static/terms' target='_blank'>Terms of Service</a> and <a href='/static/community-guidelines' target='_blank'>Community Guidelines</a>. If you didn’t previously set a login name, your username was auto-generated.",
+    "usernameTOSRequirements": "Usernames must conform to our <%= termsLink %>Terms of Service<%= linkClose %> and <%= guidelinesLink %>Community Guidelines<%= linkClose %>. If you didn’t previously set a login name, your username was auto-generated.",
     "usernameTaken": "Uživatelské jméno je již používá někdo jiný.",
     "passwordConfirmationMatch": "Hesla se neshodují.",
     "passwordResetPage": "Obnovit heslo",

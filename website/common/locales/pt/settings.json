@@ -94,7 +94,7 @@
     "kickedGroup": "Expulso do grupo",
     "remindersToLogin": "Lembretes para se conectar ao Habitica",
     "unsubscribedSuccessfully": "Sua inscrição foi terminada com sucesso!",
-    "unsubscribedTextUsers": "Sua inscrição foi terminada com sucesso e você não receberá mais nenhum e-mail do Habitica. Você pode ativar apenas os e-mails que deseja receber em <%= linkOpen %>Definições > &gt; Notificações<%= linkClose %>(requer login).",
+    "unsubscribedTextUsers": "Sua inscrição foi terminada com sucesso e você não receberá mais nenhum e-mail do Habitica. Você pode ativar apenas os e-mails que deseja receber em <%= linkOpen %>Definições > > Notificações<%= linkClose %>(requer login).",
     "unsubscribedTextOthers": "Você não recebera mais nehum outro e-mail de Habitica.",
     "unsubscribeAllEmails": "Marque para cancelar assinatura de E-mails",
     "unsubscribeAllEmailsText": "Marcando esta caixa, eu certifico que entendo que, por não assinar nenhum e-mail, Habitica nunca será capaz de me notificar via e-mail sobre mudanças importantes do site ou da minha conta.",

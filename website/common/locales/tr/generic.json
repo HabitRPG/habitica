@@ -240,7 +240,7 @@
     "submitQuestion": "Soruyu Gönder",
     "newMessage": "Yeni Mesaj",
     "targetUserNotExist": "Hedef Kullanıcı: '<%= userName %>' mevcut değil.",
-    "rememberToBeKind": "Lütfen nazik, saygılı olun ve <a href='/static/community-guidelines' target='_blank'>Topluluk Kurallarına</a> uyun.",
+    "rememberToBeKind": "Lütfen nazik, saygılı olun ve <%= linkOpen %>Topluluk Kurallarına<%= linkClose %> uyun.",
     "gem": "Mücevher",
     "confirmPurchase": "Satın Alımı Onayla",
     "avoidSPI": "",

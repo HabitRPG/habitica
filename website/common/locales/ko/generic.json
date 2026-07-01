@@ -218,7 +218,7 @@
     "whyReportingPlayerPlaceholder": "신고 이유",
     "playerReportModalBody": "<%= firstLinkStart %>커뮤니티 가이드라인<%= linkEnd %> 과 <%= secondLinkStart %>이용약관<%= linkEnd %> 을 위반하는 플레이어만 신고하셔야합니다. 허위 신고를 제출하는 것은 Habitica 커뮤니티 가이드라인을 위반하는 것입니다.",
     "targetUserNotExist": "Target User: '<%= userName %>' 존재하지 않습니다.",
-    "rememberToBeKind": "항상 서로에게 친절하고 존중하면서 <a href='/static/community-guidelines' target='_blank'>커뮤니티 가이드라인</a> 을 따라주세요.",
+    "rememberToBeKind": "항상 서로에게 친절하고 존중하면서 <%= linkOpen %>커뮤니티 가이드라인<%= linkClose %> 을 따라주세요.",
     "askQuestionHeaderDescribe": "Habitica 에 처음 오셔서 무엇을 해야하는지 모르시나요? 베테랑이지만 특정 기능에 대해 어떻게 사용해야하는지 궁금하신가요? 이 폼을 입력하여 저희 팀이 응답할 수 있게 도와주세요.",
     "questionEmailText": "해당 연락정보는 문의하신 내용을 대답하기 위해만 사용될것입니다.",
     "question": "질문",

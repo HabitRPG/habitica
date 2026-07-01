@@ -2,7 +2,7 @@
     "settings": "Indstillinger",
     "language": "Sprog",
     "americanEnglishGovern": "Hvis der er forskelle mellem oversættelsen og den amerikansk-engelske original, vil originalversionen anses for at være den korrekte.",
-    "helpWithTranslation": "Er du interesseret i at hjælpe med oversættelsen af Habitica? Fedt! Besøg <a href=\"https://translate.habitica.com\">Habiticas Weblate websted</a>!",
+    "helpWithTranslation": "Er du interesseret i at hjælpe med oversættelsen af Habitica? Fedt! Besøg <%= linkOpen %>Habiticas Weblate websted<%= linkClose %>!",
     "stickyHeader": "Fastgjort sidehoved",
     "newTaskEdit": "Åbn nye opgaver i redigeringstilstand",
     "reverseChatOrder": "Vis beskeder i omvendt rækkefølge",

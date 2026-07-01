@@ -2,7 +2,7 @@
     "settings": "Ajustes",
     "language": "Idioma",
     "americanEnglishGovern": "En caso de una discrepancia en las traducciones, la versión en inglés americano es la que regula.",
-    "helpWithTranslation": "¿Estas interesado en ayudar con la traducción de Habitica? ¡Genial! ¡Visita <a href=\"https://translate.habitica.com\">sitio Weblate de Habitica</a>!",
+    "helpWithTranslation": "¿Estas interesado en ayudar con la traducción de Habitica? ¡Genial! ¡Visita <%= linkOpen %>sitio Weblate de Habitica<%= linkClose %>!",
     "stickyHeader": "Cabecera fija",
     "newTaskEdit": "Abrir nuevas tareas en el modo de revisión",
     "reverseChatOrder": "Mostrar mensajes del chat en orden inverso",

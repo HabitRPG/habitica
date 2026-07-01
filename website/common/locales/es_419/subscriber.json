@@ -129,7 +129,7 @@
     "gemsRemaining": "restantes",
     "notEnoughGemsToBuy": "No hay más Gemas disponibles para comprar este mes. Más serán disponibles dentro de los primeros 3 días de cada mes.",
     "viewSubscriptions": "Ver suscripciones",
-    "cancelSubInfoApple": "Por favor sigue las <a href=\"https://support.apple.com/en-us/HT202039\">instrucciones oficiales de Apple</a> para cancelar tu suscripción o para ver la fecha de terminación de tu suscripción si ya la cancelaste. Esta pantalla no te puede mostrar si tu suscripción ha sido cancelada.",
+    "cancelSubInfoApple": "Por favor sigue las <%= linkOpen %>instrucciones oficiales de Apple<%= linkClose %> para cancelar tu suscripción o para ver la fecha de terminación de tu suscripción si ya la cancelaste. Esta pantalla no te puede mostrar si tu suscripción ha sido cancelada.",
     "usuallyGems": "Usualmente <%= originalGems %>",
     "supportHabitica": "Apoya a Habitica",
     "subCanceledTitle": "Suscripción Cancelada",

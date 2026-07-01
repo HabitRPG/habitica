@@ -216,7 +216,7 @@
     "banPlayer": "Banaj Igrača",
     "unbanPlayer": "Odbanaj Igrača",
     "targetUserNotExist": "Ciljani Korisnik: '<%= userName %>' ne postoji.",
-    "rememberToBeKind": "Molimo vas da zapamtite da morate biti ljubazni, puni poštovanja, te da slijedite <a href='/static/community-guidelines' target='_blank'>Smjernice Zajednice</a>.",
+    "rememberToBeKind": "Molimo vas da zapamtite da morate biti ljubazni, puni poštovanja, te da slijedite <%= linkOpen %>Smjernice Zajednice<%= linkClose %>.",
     "shadowMute": "Utišavanje iz Sjene",
     "adminTools": "Adminski Alati",
     "viewAdminPanel": "Pregledaj Adminski Panel",

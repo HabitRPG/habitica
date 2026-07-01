@@ -153,7 +153,7 @@
     "wantToSendOwnGems": "Vil du sende dine egne Ædelsten?",
     "giftASubscription": "Giv et abonnement",
     "cancelSubInfoGoogle": "Gå venligst til sektionen Konto > Abonnementer i Google Play Store app'en for at afmelde dit abonnement, eller for at se hvornår det udløber, hvis du allerede har opsagt det. Denne skærm kan ikke fortælle dig, hvorvidt dit abonnement er blevet afmeldt.",
-    "cancelSubInfoApple": "Følg venligst <a href=\"https://support.apple.com/en-us/HT202039\">Apples officielle instruktioner</a> for at opsige dit abonnement, eller for at se hvornår det udløber, hvis du allerede har afmeldt det. Denne skærm kan ikke vise dig, hvorvidt dit abonnement er blevet afmeldt.",
+    "cancelSubInfoApple": "Følg venligst <%= linkOpen %>Apples officielle instruktioner<%= linkClose %> for at opsige dit abonnement, eller for at se hvornår det udløber, hvis du allerede har afmeldt det. Denne skærm kan ikke vise dig, hvorvidt dit abonnement er blevet afmeldt.",
     "mysterySet202312": "",
     "mysterySet202508": "",
     "immediate12Hourglasses": "",

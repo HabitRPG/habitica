@@ -114,8 +114,8 @@
     "emailTaken": "邮件地址已经和其他账户关联。",
     "newEmailRequired": "未输入新的邮件地址。",
     "usernameTime": "是时候设置你的用户名啦！",
-    "usernameInfo": "登录名现在是唯一的用户名，它将显示在你的昵称旁边，用于邀请、聊天时的@提及和发送信息。<br><br>如果你想了解更多有关此变动的信息，请访问我们的<a href='https://habitica.fandom.com/zh/wiki/玩家名' target='_blank'>维基</a>。",
-    "usernameTOSRequirements": "用户名必须符合我们的<a href='/static/terms' target='_blank'>服务条款</a>和<a href='/static/community-guidelines' target='_blank'>社区准则</a>。如果您之前未设置登录名，我们将会自动生成您的用户名。",
+    "usernameInfo": "登录名现在是唯一的用户名，它将显示在你的昵称旁边，用于邀请、聊天时的@提及和发送信息。<br><br>如果你想了解更多有关此变动的信息，请访问我们的<%= linkOpen %>维基<%= linkClose %>。",
+    "usernameTOSRequirements": "用户名必须符合我们的<%= termsLink %>服务条款<%= linkClose %>和<%= guidelinesLink %>社区准则<%= linkClose %>。如果您之前未设置登录名，我们将会自动生成您的用户名。",
     "usernameTaken": "用户名已被使用。",
     "passwordConfirmationMatch": "密码不匹配。",
     "passwordResetPage": "重置密码",
@@ -185,7 +185,7 @@
     "enterValidEmail": "请输入一个有效的电子邮箱地址。",
     "minPasswordLengthLogin": "您的密码长度至少为8个字符。",
     "whatToCallYou": "我们应该如何称呼您？",
-    "acceptPrivacyTOS": "请确认您已年满18周岁，而且已经阅读并同意了我们的 <a href='/static/terms' target='_blank'>服务条款</a> 和 <a href='/static/privacy' target='_blank'>隐私政策</a>",
+    "acceptPrivacyTOS": "请确认您已年满18周岁，而且已经阅读并同意了我们的 <%= termsLink %>服务条款<%= linkClose %> 和 <%= privacyLink %>隐私政策<%= linkClose %>",
     "emailRequiredForSupport": "我们需要一个电子邮件地址来为您提供用户支持。请输入电子邮件地址以继续创建您的账户。",
     "emailAddress": "电子邮件地址"
 }

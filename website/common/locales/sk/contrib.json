@@ -43,6 +43,6 @@
     "surveysSingle": "Pomohol Habitice rásť vyplnením dotazníka alebo s testovaním. Ďakujeme!",
     "surveysMultiple": "Pomohol Habitice rásť v <%= count %> prípadoch, buď vyplnením dotazníka alebo pomocou pri veľkom testovaní. Ďakujeme!",
     "blurbHallPatrons": "Toto je Sieň Patrónov, kde si uctievame ušľachtilých dobrodruhov, ktorí podporili pôvodnú Habitiku na Kickstarteri. Ďakujeme im za to, že nám pomohli priviesť Habitiku k životu!",
-    "blurbHallContributors": "Toto je Sieň Prispievateľov, kde je vzdaná česť open-source prispievateľom Habitici. Či už kódom, ilustráciami, hudbou, písaním alebo len pomáhaním, získali<a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards' target='_blank'> drahokamy, exkluzívne vybavenie</a>, a <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tiers' target='_blank'>prestížne tituly</a>. Aj ty môžeš prispieť do Habitiky!<a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica' target='_blank'>Zisti viac tu.</a>",
+    "blurbHallContributors": "Toto je Sieň Prispievateľov, kde je vzdaná česť open-source prispievateľom Habitici. Či už kódom, ilustráciami, hudbou, písaním alebo len pomáhaním, získali<%= linkRewards %> drahokamy, exkluzívne vybavenie<%= linkClose %>, a <%= linkTiers %>prestížne tituly<%= linkClose %>. Aj ty môžeš prispieť do Habitiky!<%= linkContributing %>Zisti viac tu.<%= linkClose %>",
     "noPrivAccess": "Nemáš požadované privilégiá."
 }

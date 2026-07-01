@@ -2,7 +2,7 @@
     "settings": "Impostazioni",
     "language": "Lingua",
     "americanEnglishGovern": "Gli elementi del sito non ancora tradotti verranno visualizzati in inglese.",
-    "helpWithTranslation": "Vorresti aiutare a tradurre Habitica? Grandioso! Visita <a href=\"https://translate.habitica.com\">Habitica's Weblate site</a>!",
+    "helpWithTranslation": "Vorresti aiutare a tradurre Habitica? Grandioso! Visita <%= linkOpen %>Habitica's Weblate site<%= linkClose %>!",
     "stickyHeader": "Header sempre visibile",
     "newTaskEdit": "Apri le nuove attività in modalità di modifica",
     "reverseChatOrder": "Mostra i messaggi nella chat in ordine inverso",
@@ -94,7 +94,7 @@
     "kickedGroup": "Rimossa/o da un gruppo",
     "remindersToLogin": "Promemoria per accedere ad Habitica",
     "unsubscribedSuccessfully": "Disattivazione avvenuta con successo!",
-    "unsubscribedTextUsers": "Hai disattivato con successo tutte le notifiche via email di Habitica. Puoi abilitare solo le email che vuoi ricevere in <%= linkOpen %>Impostazioni > &gt; Notifiche<%= linkClose %> (richiede il login).",
+    "unsubscribedTextUsers": "Hai disattivato con successo tutte le notifiche via email di Habitica. Puoi abilitare solo le email che vuoi ricevere in <%= linkOpen %>Impostazioni > > Notifiche<%= linkClose %> (richiede il login).",
     "unsubscribedTextOthers": "Non riceverai altre email da Habitica.",
     "unsubscribeAllEmails": "Disattiva tutte le notifiche email",
     "unsubscribeAllEmailsText": "Habitica non potrà informarti via email di modifiche importanti che interessano il sito o il tuo account.",
@@ -115,7 +115,7 @@
     "generate": "Genera",
     "getCodes": "Ottieni codici",
     "webhooks": "Webhooks",
-    "webhooksInfo": "Habitica provvede webhook in modo tale che quando alcune azioni avvengono nel tuo account, le informazioni possono essere inviate a uno script su un altro sito. Puoi specificare questi script qui. Fai attenzione con questa funzione perché se specifichi un URL non corretto questo può causare errori e lentezza in Habitica. Per ulterioni informazioni vedi l'articolo in inglese sulla wiki <a target=\"_blank\" href=\"https://apidoc.habitica.com/#api-Webhook-AddWebhook\">Webhooks</a>.",
+    "webhooksInfo": "Habitica provvede webhook in modo tale che quando alcune azioni avvengono nel tuo account, le informazioni possono essere inviate a uno script su un altro sito. Puoi specificare questi script qui. Fai attenzione con questa funzione perché se specifichi un URL non corretto questo può causare errori e lentezza in Habitica. Per ulterioni informazioni vedi l'articolo in inglese sulla wiki <%= linkOpen %>Webhooks<%= linkClose %>.",
     "enabled": "Abilitato",
     "webhookURL": "URL Webhook",
     "invalidUrl": "URL non valido",
@@ -270,6 +270,6 @@
     "strictlyNecessary": "Strettamente Necessario",
     "requiredToRun": "Sono necessari affinché il nostro sito web e le nostre applicazioni funzionino al meglio.",
     "usedForSupport": "Questi dati vengono usati per migliorare l'esperienza dell'utente, le prestazioni e i servizi del nostro sito web e delle nostre applicazioni. Il nostro team di assistenza li utilizza per gestire le richieste e le segnalazioni di bug.",
-    "gpcWarning": "<a href=‘<%= url %>’ target=‘_blank’>GPC<%= linkClose %> è attivo. Se attivi il tracciamento qui sotto, questa impostazione verrà ignorata e i dati verranno inviati ai nostri partner di analisi.",
-    "gpcPlusAnalytics": "<a href=‘<%= url %>’ target=‘_blank’>GPC<%= linkClose %> è attivo. Hai acconsentito al tracciamento e all'invio dei dati ai nostri partner di analisi."
+    "gpcWarning": "<%= linkOpen %>GPC<%= linkClose %> è attivo. Se attivi il tracciamento qui sotto, questa impostazione verrà ignorata e i dati verranno inviati ai nostri partner di analisi.",
+    "gpcPlusAnalytics": "<%= linkOpen %>GPC<%= linkClose %> è attivo. Hai acconsentito al tracciamento e all'invio dei dati ai nostri partner di analisi."
 }
