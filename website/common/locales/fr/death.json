@@ -3,7 +3,7 @@
     "dontDespair": "Ne désespérez pas !",
     "deathPenaltyDetails": "Vous avez perdu un niveau, tout votre or, et une pièce d'équipement, mais vous pouvez tous les récupérer en travaillant dur ! Bonne chance--vous y arriverez.",
     "refillHealthTryAgain": "Reprendre vie et essayer à nouveau",
-    "dyingOftenTips": "Cela vous arrive trop souvent ? &lt;%= linkOpen %&gt;Voici quelques astuces !&lt;%= linkClose %&gt;",
+    "dyingOftenTips": "Cela vous arrive trop souvent ? <%= linkOpen %>Voici quelques astuces !<%= linkClose %>",
     "losingHealthWarning": "Attention - Vous perdez de la santé !",
     "losingHealthWarning2": "Ne laissez pas votre santé tomber à zéro ! Si cela arrive, vous perdrez un niveau, votre or, et un élément d'équipement.",
     "toRegainHealth": "Pour regagner de la Santé :",

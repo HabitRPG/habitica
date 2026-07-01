@@ -1,6 +1,6 @@
 {
     "backgrounds": "Окружения",
-    "background": "Окружение",
+    "background": "Фоновая",
     "backgroundShop": "Магазин окружений",
     "noBackground": "Фон не выбран",
     "backgrounds062014": "Набор 1: Выпущен в июне 2014",
@@ -941,14 +941,5 @@
     "backgrounds052026": "Комплект 144: Выпущен в мае 2026 года",
     "backgroundElvenCitadelText": "Эльфийская цитадель",
     "backgroundElvenCitadelNotes": "Совершите живописное путешествие к эльфийской цитадели.",
-    "backgroundElegantPalaceNotes": "Любуйтесь красочными залами изящного дворца.",
-    "backgroundBeachWithVolcanoText": "Пляж с вулканом",
-    "backgroundBeachWithVolcanoNotes": "Полюбуйтесь чудом природы на пляже с вулканом.",
-    "backgroundTropicalCoralGardenText": "Тропический коралловый сад",
-    "backgroundTropicalCoralGardenNotes": "Окунитесь в тропический коралловый сад.",
-    "backgroundVegetableGardenText": "Огород",
-    "backgroundVegetableGardenNotes": "Посадите вкусную зелень в огороде.",
-    "backgrounds062026": "Набор 145: Выпущен в июне 2026",
-    "backgrounds072026": "Набор 146: Выпущен в июне 2026",
-    "backgrounds082026": "НАБОР 147: Выпущен в августе 2026 года"
+    "backgroundElegantPalaceNotes": "Любуйтесь красочными залами изящного дворца."
 }

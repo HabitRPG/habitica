@@ -238,7 +238,7 @@
     "playerReportModalBody": "Merci de ne signaler que les joueu·r·se· qui enfreignent les <%= firstLinkStart %>Guide de la Communauté<%= linkEnd %> et/ou <%= secondLinkStart %>Conditions d'utilisation<%= linkEnd %>. Déposer un faux signalement est une violation du Guide de la Communauté d'Habitica.",
     "unblockPlayer": "Débloquer l·e·a Joueu·r·se",
     "titleCustomizations": "Personnalisations",
-    "rememberToBeKind": "N'oubliez pas d'être bienveillant·e, respectueu·x·se, et de suivre le &lt;%= linkOpen %&gt;Guide de la Communauté&lt;%= linkClose %&gt;.",
+    "rememberToBeKind": "N'oubliez pas d'être bienveillant·e, respectueu·x·se, et de suivre le <%= linkOpen %>Guide de la Communauté<%= linkClose %>.",
     "newMessage": "Nouveau Message",
     "targetUserNotExist": "L'Utilisat·eur·rice '<%= userName %>' n'existe pas.",
     "gem": "Gemme",
