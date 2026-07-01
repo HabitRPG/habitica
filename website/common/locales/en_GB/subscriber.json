@@ -263,7 +263,6 @@
     "maxGemCapGift": "They'll have the max <strong>Gem Cap</strong>",
     "subscriptionBillingFYIShort": "Subscriptions automatically renew unless you cancel at least 24 hours before the end of the current period. Your account will be charged within 24 hours of your renewal date, at the same price you initially paid.",
     "maxGemCap": "Instantly start at the max <strong>Gem Cap</strong>",
-    "subscriptionChangeAnnouncement": "<strong>Subscription benefits and the way they are sent out will be changing on 19 November.</strong> <%= linkStart %>Click here<%= linkClose %> to read more about this change.",
     "recurringNMonthly": "Recurring every <%= length %> months",
     "unlockNGems": "Unlock <strong><%= count %> Gems</strong> per month in the Market",
     "earn2Gems": "Earn <strong>+2 Gems</strong> every month you're subscribed",
