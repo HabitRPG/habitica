@@ -3,7 +3,7 @@ import moment from 'moment';
 import { getMatchingSwap, makeSubstitutionMap } from './aprilFools';
 
 // gem block: number of gems
-const gemsPromo = {
+export const gemsPromo = {
   '4gems': 5,
   '21gems': 30,
   '42gems': 60,
