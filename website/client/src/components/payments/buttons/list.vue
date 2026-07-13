@@ -9,8 +9,8 @@
       @click="stripeFn()"
     >
       <div
-        class="svg-icon icon-16 color"
-        :class="{'mr-2 white': !disabled, 'gray-200': disabled}"
+        v-once
+        class="svg-icon color credit-card-icon"
         v-html="icons.creditCardIcon"
       ></div>
       {{ $t('card') }}
@@ -40,10 +40,6 @@
     width: 296px;
     justify-content: center;
 
-    .svg-icon {
-      transition: none;
-    }
-
     .payment-item {
       margin-bottom: 12px;
       display: flex;
@@ -53,8 +49,13 @@
         justify-content: center;
         align-items: center;
 
+        .credit-card-icon {
+          width: 21.3px;
+          height: 16px;
+          margin-right: 8.7px;
+        }
+
         &.paypal-checkout {
-          height: 32px;
           background: #009cde;
 
           img {
