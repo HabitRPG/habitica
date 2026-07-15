@@ -271,8 +271,8 @@ describe('Google Payments', () => {
         additionalData: {
           data: {
             token,
-            purchaseToken: token,
             productId: sku,
+            purchaseToken: token,
           },
           signature,
         },
