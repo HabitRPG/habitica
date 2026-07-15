@@ -331,9 +331,9 @@ async function cancelSubscription (transactionType, paymentId) {
     if (user.hasCancelled()) return;
 
     if (transactionType === 'recurring_payment_skipped') {
-      await this.paypalBillingAgreementCancel(paymentId, { note: 'Missed payment' });
+      await api.paypalBillingAgreementCancel(paymentId, { note: 'Missed payment' });
     }
-    await payments.cancelSubscription({ user, paymentMethod: this.constants.PAYMENT_METHOD });
+    await payments.cancelSubscription({ user, paymentMethod: api.constants.PAYMENT_METHOD });
     return;
   }
 
@@ -351,7 +351,7 @@ async function cancelSubscription (transactionType, paymentId) {
 
     await payments.cancelSubscription({
       groupId: group._id,
-      paymentMethod: this.constants.PAYMENT_METHOD,
+      paymentMethod: api.constants.PAYMENT_METHOD,
     });
   }
 }
