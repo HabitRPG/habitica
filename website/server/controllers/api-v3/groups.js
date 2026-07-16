@@ -40,7 +40,6 @@ import {
   leaveGroup,
   removeMessagesFromMember,
 } from '../../libs/groups';
-import { session } from 'passport';
 
 const { MAX_SUMMARY_SIZE_FOR_GUILDS } = common.constants;
 const MAX_EMAIL_INVITES_BY_USER = 200;
@@ -540,7 +539,8 @@ api.joinGroup = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
-    let inviter, session;
+    let inviter;
+    let session;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
 
@@ -679,8 +679,6 @@ api.joinGroup = {
       if (inviter) {
         await inviter.save({ session });
       }
-    } catch (err) {
-      throw err;
     } finally {
       await session.endSession();
     }
@@ -902,7 +900,7 @@ api.removeGroupMember = {
     }
 
     if (isInGroup) {
-        group.memberCount -= 1;
+      group.memberCount -= 1;
 
       if (group.quest && group.quest.leader === member._id) {
         throw new NotAuthorized(res.t('cannotRemoveQuestOwner'));
@@ -951,8 +949,6 @@ api.removeGroupMember = {
         await member.save({ session });
         await group.save({ session });
       });
-    } catch (err) {
-      throw err;
     } finally {
       await session.endSession();
     }
