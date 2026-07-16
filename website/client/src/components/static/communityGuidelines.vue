@@ -2,7 +2,7 @@
   <div class="container-fluid w-75 mx-auto">
     <h1>{{ $t('communityGuidelines') }}</h1>
     <hr>
-    <p>{{ $t('lastUpdated') }} June 8, 2023</p>
+    <p>{{ $t('lastUpdated') }} June 16, 2023</p>
     <h2 id="welcome">
       {{ $t('commGuideHeadingWelcome') }}
     </h2>
@@ -36,6 +36,7 @@
       <li v-html="$t('commGuideList02P')"></li>
       <li v-html="$t('commGuideList02Q')"></li>
       <li v-html="$t('commGuideList02M')"></li>
+      <li v-html="$t('commGuideList02R', { adminEmail })"></li>
       <li v-html="$t('commGuideList02L', { adminEmail })"></li>
       <li v-html="$t('commGuideList02J')"></li>
       <li v-html="$t('commGuideList02K')"></li>
@@ -63,6 +64,7 @@
       <li v-html="$t('commGuideList05F')"></li>
       <li v-html="$t('commGuideList05G')"></li>
       <li v-html="$t('commGuideList05H')"></li>
+      <li v-html="$t('commGuideList05I')"></li>
       <li v-html="$t('commGuideList05A')"></li>
     </ul>
     <h4>{{ $t('commGuideHeadingModerateInfractions') }}</h4>
