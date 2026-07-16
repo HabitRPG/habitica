@@ -153,5 +153,5 @@
     "everyYear": "毎年",
     "everyXYears": "<%= count %>年ごと",
     "fifthWeekWarning": "このタスクは<%= day %>が少ない月には表示されません",
-    "every": ""
+    "every": "毎"
 }

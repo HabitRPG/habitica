@@ -177,5 +177,15 @@
     "socialAlreadyExists": "Este login social já está ligado a uma conta Habitica que já existe.",
     "translateHabitica": "Traduzir Habitica",
     "enterHabitica": "Entre no Habitica",
-    "incorrectResetPhrase": "Por favor escreva <%= magicWord %> para resetar a sua conta."
+    "incorrectResetPhrase": "Por favor escreva <%= magicWord %> para resetar a sua conta.",
+    "marketing3Lead1Title": "Aplicativos para Android e iOS",
+    "marketing4Lead3Button": "Comece hoje mesmo!",
+    "missingClientHeader": "Cabeçalhos x-client ausentes.",
+    "emailBlockedRegistration": "Este endereço de e-mail está bloqueado para cadastros. Se você acredita que isso foi um engano, entre em contato conosco pelo endereço admin@habitica.com.",
+    "minPasswordLengthLogin": "Sua senha deve ter pelo menos 8 caracteres.",
+    "enterValidEmail": "Por favor, insira um endereço de e-mail válido.",
+    "whatToCallYou": "Como devemos te chamar?",
+    "acceptPrivacyTOS": "Você confirma que tem pelo menos 18 anos de idade e que leu e concorda com nossos <%= termsLink %>Termos de Serviço<%= linkClose %> e <%= privacyLink %>Política de Privacidade<%= linkClose %>.",
+    "emailAddress": "Endereço de email",
+    "emailRequiredForSupport": "Precisamos de um endereço de e-mail para suporte ao usuário. Por favor, insira um endereço de e-mail para continuar criando sua conta."
 }

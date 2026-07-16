@@ -41,7 +41,7 @@
     "marketing3Header": "Meer manieren om Habitica te gebruiken",
     "marketing3Lead1": "Je kunt Habitica op je Android- of iOS-apparaat gebruiken om overal taken af te vinken. Bekijk onze bekroonde apps voor een vernieuwende aanpak om dingen gedaan te krijgen.",
     "marketing3Lead2Title": "Open-source community",
-    "marketing3Lead2": "We zijn er trots op een open-source-project te zijn dat bijdragen van onze toegewijde community verwelkomt. Pas Habitica aan je eigen wensen aan of draag bij aan het verbeteren van de ervaring voor alle spelers wereldwijd. Bezoek ons op [GitHub](https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica) voor meer informatie!",
+    "marketing3Lead2": "We zijn er trots op een open-source-project te zijn dat bijdragen van onze toegewijde community verwelkomt. Pas Habitica aan je eigen wensen aan of draag bij aan het verbeteren van de ervaring voor alle spelers wereldwijd. Bezoek ons op [GitHub](<%= githubLink %>) voor meer informatie!",
     "marketing4Header": "Meer dan alleen huishoudelijke klusjes",
     "marketing4Lead1": "Lesgeven is een van de beste gebieden voor gamificatie! Doorbreek de eentonigheid van het dagelijkse schoolwerk door wat gameplay toe te voegen. Habitica kan een leuke manier zijn om huiswerk bij te houden, uitdagingen in de klas te creëren en je leerlingen hun prestaties te laten zien.",
     "marketing4Lead1Title": "Gamificatie in het onderwijs",
@@ -86,7 +86,7 @@
     "teams": "Teams",
     "terms": "Algemene Voorwaarden",
     "tumblr": "Tumblr",
-    "localStorageTryFirst": "Als je problemen ondervindt met Habitica, klik dan op de knop hieronder om lokaal opgeslagen gegevens en de meeste cookies voor deze website te verwijderen (dit heeft geen invloed op andere websites). Nadat je dit gedaan hebt zal je opnieuw moeten inloggen, dus zorg er eerst voor dat je je inloggegevens kent. Die kan je vinden onder Instellingen -> <%= linkStart %>Site<%= linkEnd %>.",
+    "localStorageTryFirst": "Als je problemen ondervindt met Habitica, klik dan op de knop hieronder om lokaal opgeslagen gegevens en de meeste cookies voor deze website te verwijderen (dit heeft geen invloed op andere websites). Nadat je dit gedaan hebt zal je opnieuw moeten inloggen, dus zorg er eerst voor dat je je inloggegevens kent. Die kan je vinden onder <%= linkStart %> Instellingen ->Site<%= linkEnd %>.",
     "localStorageTryNext": "Als het probleem blijft bestaan, <%= linkStart %>Meld dan een bug<%= linkEnd %> als je dat nog niet gedaan hebt.",
     "localStorageClear": "Gegevens wissen",
     "localStorageClearExplanation": "Deze knop zal je lokaal opgeslagen gegevens en de meeste cookies verwijderen en je uitloggen.",
@@ -186,6 +186,6 @@
     "whatToCallYou": "Hoe moeten we je noemen?",
     "acceptPrivacyTOS": "Ik bevestig dat ik ten minste 18 jaar oud ben en dat ik akkoord ga met de <%= termsLink %>Algemene Voorwaarden<%= linkClose %> en het <%= privacyLink %>Privacybeleid<%= linkClose %> en deze heb gelezen",
     "translateHabitica": "Habitica vertalen",
-    "emailAddress": "",
+    "emailAddress": "e-mailadres",
     "emailRequiredForSupport": ""
 }
