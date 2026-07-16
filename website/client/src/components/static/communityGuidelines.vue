@@ -2,7 +2,7 @@
   <div class="container-fluid w-75 mx-auto">
     <h1>{{ $t('communityGuidelines') }}</h1>
     <hr>
-    <p>{{ $t('lastUpdated') }} June 16, 2023</p>
+    <p>{{ $t('lastUpdated') }} July 16, 2026</p>
     <h2 id="welcome">
       {{ $t('commGuideHeadingWelcome') }}
     </h2>
