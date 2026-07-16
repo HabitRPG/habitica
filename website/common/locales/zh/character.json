@@ -129,7 +129,7 @@
     "healerText": "医者不惧伤害，并将这种保护延伸到他人身上。未完成的日常任务和坏习惯都不会让他们感到害怕，而且他们有办法在失败后恢复生命值。如果你喜欢在队伍中协助他人，或者通过努力工作来救死扶伤的想法更能激励你，那就选择医者吧！",
     "optOutOfClasses": "退出选择",
     "chooseClass": "选择你的职业",
-    "chooseClassLearnMarkdown": "[了解更多有关Habitica职业系统的信息](/static/faq#what-classes)",
+    "chooseClassLearnMarkdown": "[了解更多有关Habitica职业系统的信息](<%= classLink %>)",
     "optOutOfClassesText": "还没做好选择的准备？不用着急！ 如果选择退出，你可以在<%= linkOpen %>常见问题<%= linkClose %>中阅读每个职业的相关信息，然后在做好准备时访问设置以启用职业系统。",
     "selectClass": "选择 <%= heroClass %>",
     "select": "选择",

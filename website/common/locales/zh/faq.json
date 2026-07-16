@@ -1,8 +1,8 @@
 {
     "frequentlyAskedQuestions": "常见问题",
-    "iosFaqStillNeedHelp": "如果您有本列表或[Wiki FAQ](https://habitica.fandom.com/zh/wiki/FAQ)中没有的问题，请使用[LINK NEEDED]进行提问！我们很乐意为您提供帮助。",
-    "androidFaqStillNeedHelp": "如果您有本列表或[Wiki FAQ](https://habitica.fandom.com/zh/wiki/FAQ)中没有的问题，请使用[LINK NEEDED]进行提问！我们很乐意为您提供帮助。",
-    "webFaqStillNeedHelp": "如果您有本列表或[Wiki FAQ](https://habitica.fandom.com/zh/wiki/FAQ)中没有的问题，请使用[LINK NEEDED]进行提问！我们很乐意为您提供帮助。",
+    "iosFaqStillNeedHelp": "如果您有的问题既不在此列表中，也不在常见问题（FAQ）中，请使用“提问”表单！我们很乐意为您提供帮助。",
+    "androidFaqStillNeedHelp": "如果您有的问题既不在此列表中，也不在常见问题（FAQ）中，请使用“提问”表单！我们很乐意为您提供帮助。",
+    "webFaqStillNeedHelp": "如果您有的问题既不在此列表中，也不在常见问题（FAQ）中，请使用“提问”表单！我们很乐意为您提供帮助。",
     "parties": "队伍",
     "commonQuestions": "常见问题",
     "faqQuestion25": "有哪些不同的任务类型？",

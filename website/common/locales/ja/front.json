@@ -86,7 +86,7 @@
     "teams": "チーム",
     "terms": "利用規約",
     "tumblr": "Tumblr",
-    "localStorageTryFirst": "Habitica で問題があったら、下のボタンをクリックして、このWebサイトのローカル保存領域を消去してください(他のWebサイトには影響を与えません)。この作業後には、再度ログインする必要があり、そのためにはログイン情報を確認してください。確認するには、設定 -> <%= linkStart %>サイト<%= linkEnd %>へ。",
+    "localStorageTryFirst": "Habitica で問題があったら、下のボタンをクリックして、このウェブサイトのローカルストレージを削除してください（他のサイトに影響は与えられません）。再びログインする必要があるので、先に<%= linkStart %>設定 → サイト<%= linkEnd %>からログイン情報を確認してください。",
     "localStorageTryNext": "問題が解決せず、まだ報告していない場合は、<%= linkStart %>バグを報告<%= linkEnd %>してください。",
     "localStorageClear": "データ クリーニング",
     "localStorageClearExplanation": "このボタンを押すと、ローカル保存領域とほとんどのクッキーが消去されログアウトします。",
