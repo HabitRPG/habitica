@@ -621,6 +621,8 @@ api.joinGroup = {
       group.leader = user._id; // If new user is only member -> set as leader
     }
 
+    group.memberCount += 1;
+
     try {
       session = await mongoose.startSession();
 
@@ -670,8 +672,6 @@ api.joinGroup = {
             { session },
           );
         }
-      } else {
-        group.memberCount += 1;
       }
 
       await user.save({ session });
