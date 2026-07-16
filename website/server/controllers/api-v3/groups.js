@@ -916,7 +916,9 @@ api.removeGroupMember = {
         removeFromArray(member.guilds, group._id);
       }
       if (isInGroup === 'party') {
-        member.party._id = undefined; // TODO remove quest information too? Use group.leave()?
+        member.party._id = undefined;
+        member.party.quest.key = null;
+        member.party.quest.RSVPNeeded = false;
       }
 
       removeMessagesFromMember(member, group._id);
