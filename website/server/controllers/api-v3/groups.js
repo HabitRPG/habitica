@@ -948,7 +948,7 @@ api.removeGroupMember = {
       await session.withTransaction(async () => {
         await member.save({ session });
         await group.save({ session });
-      });
+      }, { readPreference: 'primary' });
     } finally {
       await session.endSession();
     }
