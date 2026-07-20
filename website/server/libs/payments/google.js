@@ -291,6 +291,7 @@ api.subscribe = async function subscribe (
   if (!sub) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
 
   const token = getPurchaseToken(purchase, googleRes, receiptObj);
+  console.log('token', token);
   if (!token) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
 
   if (existingSub === sub && user.purchased.plan.customerId === token) {
@@ -328,7 +329,11 @@ api.subscribe = async function subscribe (
     additionalData: buildAdditionalData(receipt, signature, purchase),
   };
   if (existingSub) {
-    if (deferredSku) {
+    if (purchase.linkedPurchaseToken) {
+      const purchaseToken = purchase.linkedPurchaseToken;
+      const res = iap.validate(iap.GOOGLE, existingSub.additionalData);
+      const pData = iap.getPurchaseData(res);
+      console.log(purchaseToken, pData);
       const deferredSubCode = getSubCodeFromSku(deferredSku);
       if (!deferredSubCode) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
 
