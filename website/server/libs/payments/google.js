@@ -329,17 +329,13 @@ api.subscribe = async function subscribe (
     additionalData: buildAdditionalData(receipt, signature, purchase),
   };
   if (existingSub) {
-    if (purchase.linkedPurchaseToken) {
-      const purchaseToken = purchase.linkedPurchaseToken;
+    if (deferredSku && purchase.linkedPurchaseToken) {
       const res = await iap.validate(iap.GOOGLE, user.purchased.plan.additionalData);
-      const pData = iap.getPurchaseData(res);
-      console.log("additionalData", user.purchased.plan.additionalData);
-      console.log(res);
-      console.log(purchaseToken, pData);
+      const previousPurchases = iap.getPurchaseData(res);
       const deferredSubCode = getSubCodeFromSku(deferredSku);
       if (!deferredSubCode) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
 
-      const previousPurchase = purchases
+      const previousPurchase = previousPurchases
         .find(item => getSubCodeFromSku(item.productId) === deferredSubCode);
 
       if (!previousPurchase || !previousPurchase.expirationDate) {
