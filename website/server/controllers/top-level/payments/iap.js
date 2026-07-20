@@ -47,7 +47,6 @@ api.iapSubscriptionAndroid = {
   async handler (req, res) {
     if (!req.body.sku) throw new BadRequest(res.t('missingSubscriptionCode'));
     await googlePayments.subscribe(
-      req.body.sku,
       res.locals.user,
       req.body.transaction.receipt,
       req.body.transaction.signature,
@@ -74,7 +73,6 @@ api.iapSubscriptionAndroidNoRenew = {
     if (!req.body.transaction) throw new BadRequest(res.t('missingReceipt'));
 
     await googlePayments.noRenewSubscribe({
-      sku: req.body.sku,
       user: res.locals.user,
       receipt: req.body.transaction.receipt,
       signature: req.body.transaction.signature,

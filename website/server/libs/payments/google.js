@@ -252,18 +252,12 @@ function getSubCodeFromSku (sku) {
 }
 
 api.subscribe = async function subscribe (
-  sku,
   user,
   receipt,
   signature,
   headers,
   deferredSku = undefined,
 ) {
-  if (!sku) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
-  const subCode = getSubCodeFromSku(sku);
-  const sub = subCode ? shared.content.subscriptionBlocks[subCode] : false;
-  if (!sub) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
-
   await iap.setup();
 
   const testObj = {
@@ -292,9 +286,9 @@ api.subscribe = async function subscribe (
   });
 
   const validatedProductId = purchase.productId || googleRes.productId;
-  if (validatedProductId !== sku) {
-    throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
-  }
+  const subCode = getSubCodeFromSku(validatedProductId);
+  const sub = subCode ? shared.content.subscriptionBlocks[subCode] : false;
+  if (!sub) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
 
   const token = getPurchaseToken(purchase, googleRes, receiptObj);
   if (!token) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
@@ -365,13 +359,8 @@ api.subscribe = async function subscribe (
 
 api.noRenewSubscribe = async function noRenewSubscribe (options) {
   const {
-    sku, gift, user, receipt, signature, headers,
+    gift, user, receipt, signature, headers,
   } = options;
-  if (!sku) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
-  const subCode = getNoRenewSubCodeFromSku(sku);
-  const sub = subCode ? shared.content.subscriptionBlocks[subCode] : false;
-  if (!sub) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
-
   await iap.setup();
 
   const testObj = {
@@ -391,9 +380,9 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
   });
 
   const validatedProductId = purchase.productId || googleRes.productId;
-  if (validatedProductId !== sku) {
-    throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
-  }
+  const subCode = getNoRenewSubCodeFromSku(validatedProductId);
+  const sub = subCode ? shared.content.subscriptionBlocks[subCode] : false;
+  if (!sub) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
 
   const token = getPurchaseToken(
     purchase,
