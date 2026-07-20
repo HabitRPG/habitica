@@ -331,7 +331,7 @@ api.subscribe = async function subscribe (
   if (existingSub) {
     if (purchase.linkedPurchaseToken) {
       const purchaseToken = purchase.linkedPurchaseToken;
-      const res = iap.validate(iap.GOOGLE, user.purchased.plan.additionalData);
+      const res = await iap.validate(iap.GOOGLE, user.purchased.plan.additionalData);
       const pData = iap.getPurchaseData(res);
       console.log("additionalData", user.purchased.plan.additionalData);
       console.log(res);
