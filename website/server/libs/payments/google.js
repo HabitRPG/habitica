@@ -284,6 +284,8 @@ api.subscribe = async function subscribe (
   if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
 
   const { purchase, purchases } = getPurchasesFromValidatedResponse(googleRes);
+  console.log('purchase', purchase);
+  console.log('purchases', purchases);
   validateSubscriptionLifecycleState(purchase, {
     allowExpired: false,
     allowSystemCanceled: false,
