@@ -336,7 +336,7 @@ api.subscribe = async function subscribe (
       if (!deferredSubCode) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
 
       const previousPurchase = previousPurchases
-        .find(item => item.productId === deferredSku);
+        .find(item => getSubCodeFromSku(item.productId) === user.purchased.plan.planId);
       console.log('previousPurchases', previousPurchases);
       console.log('previousPurchase', previousPurchase);
       if (!previousPurchase || !previousPurchase.expirationDate) {
@@ -345,7 +345,7 @@ api.subscribe = async function subscribe (
 
       nextBillingDate = new Date(Number(previousPurchase.expirationDate));
       user.purchased.plan.deferred = {
-        planId: sub.key,
+        planId: deferredSubCode,
         deferredUntil: nextBillingDate,
       };
       user.purchased.plan.customerId = token;
