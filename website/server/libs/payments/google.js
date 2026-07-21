@@ -297,6 +297,7 @@ api.subscribe = async function subscribe (
     // This is a renewal of the same subscription, but with a different plan.
     // This can happen if the user downgrades their subscription.
     user.purchased.plan.planId = subCode;
+    user.purchased.plan.deferred = undefined;
     await user.save();
     return;
   }
