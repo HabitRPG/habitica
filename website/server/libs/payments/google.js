@@ -336,8 +336,8 @@ api.subscribe = async function subscribe (
       if (!deferredSubCode) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
 
       const previousPurchase = previousPurchases
-        .find(item => getSubCodeFromSku(item.productId) === deferredSku);
-      console.log('deferredSubCode', deferredSubCode);
+        .find(item => item.productId === deferredSku);
+      console.log('previousPurchases', previousPurchases);
       console.log('previousPurchase', previousPurchase);
       if (!previousPurchase || !previousPurchase.expirationDate) {
         throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
