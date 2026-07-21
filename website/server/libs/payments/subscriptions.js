@@ -363,6 +363,7 @@ async function createSubscription (data) {
       }
     }
   }
+  recipient.purchased.plan.deferred = undefined;
 
   if (group) await group.save();
   if (data.user && data.user.isModified()) await data.user.save();
