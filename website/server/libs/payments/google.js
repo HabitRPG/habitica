@@ -277,9 +277,7 @@ api.subscribe = async function subscribe (
   const isValidated = iap.isValidated(googleRes);
   if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
 
-  const { purchase, purchases } = getPurchasesFromValidatedResponse(googleRes);
-  console.log('purchase', purchase);
-  console.log('purchases', purchases);
+  const { purchase } = getPurchasesFromValidatedResponse(googleRes);
   validateSubscriptionLifecycleState(purchase, {
     allowExpired: false,
     allowSystemCanceled: false,
@@ -291,11 +289,16 @@ api.subscribe = async function subscribe (
   if (!sub) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
 
   const token = getPurchaseToken(purchase, googleRes, receiptObj);
-  console.log('token', token);
   if (!token) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
 
   if (existingSub === sub && user.purchased.plan.customerId === token) {
     throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+  } else if (existingSub !== sub && user.purchased.plan.customerId === token) {
+    // This is a renewal of the same subscription, but with a different plan.
+    // This can happen if the user downgrades their subscription.
+    user.purchased.plan.planId = subCode;
+    await user.save();
+    return;
   }
 
   const existingUser = await User.findOne({
@@ -337,8 +340,6 @@ api.subscribe = async function subscribe (
 
       const previousPurchase = previousPurchases
         .find(item => getSubCodeFromSku(item.productId) === user.purchased.plan.planId);
-      console.log('previousPurchases', previousPurchases);
-      console.log('previousPurchase', previousPurchase);
       if (!previousPurchase || !previousPurchase.expirationDate) {
         throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
       }
