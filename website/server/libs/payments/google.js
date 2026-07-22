@@ -4,7 +4,6 @@ import iap from '../inAppPurchases';
 import payments from './payments';
 import {
   NotAuthorized,
-  BadRequest,
 } from '../errors';
 import { model as IapPurchaseReceipt } from '../../models/iapPurchaseReceipt';
 import { model as User } from '../../models/user';
@@ -451,7 +450,7 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
     }
     dateTerminated = details.expirationDate;
   } catch (err) {
-    // Status:410 means that the subsctiption isn't active anymore and we can safely delete it
+    // Status:410 means that the subscription isn't active anymore and we can safely delete it
     if (err && err.message === 'Status:410') {
       const replacement = await findReplacementSubscriptionPurchase(plan.additionalData);
 
