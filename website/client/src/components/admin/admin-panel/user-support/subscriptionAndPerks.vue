@@ -391,6 +391,36 @@
             >
           </div>
         </div>
+        <div class="form-group row" v-if="hero.purchased.plan.deferred">
+          <label class="col-sm-3 col-form-label">
+            Deferred Plan ID:
+          </label>
+          <div class="col-sm-9">
+            <input
+              v-model="hero.purchased.plan.deferred.planId"
+              class="form-control"
+              type="text"
+            >
+          </div>
+            <small class="text-secondary">
+              If the user downgraded their subscription on Android, the future subscription plan will be noted here until the current one expires.
+            </small>
+        </div>
+        <div class="form-group row" v-if="hero.purchased.plan.deferred">
+          <label class="col-sm-3 col-form-label">
+            Deferral Date:
+          </label>
+          <div class="col-sm-9">
+            <input
+              v-model="hero.purchased.plan.deferred.deferredUntil"
+              class="form-control"
+              type="text"
+            >
+          </div>
+            <small class="text-secondary">
+              Date the current subscription should expire and the deferred plan will take effect.
+            </small>
+        </div>
         <div class="form-group row">
           <label class="col-sm-3 col-form-label">
             Mystery Items:

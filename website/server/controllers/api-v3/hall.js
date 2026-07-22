@@ -336,6 +336,10 @@ api.updateHero = {
         hero.purchased.plan.hourglassPromoReceived = plan.hourglassPromoReceived;
       }
 
+      if (plan.deferred) {
+        hero.purchased.plan.deferred = plan.deferred;
+      }
+
       if (plan.convertToGroupPlan) {
         const groupID = plan.convertToGroupPlan;
         const group = await Group.getGroup({ user: hero, groupId: groupID });
