@@ -1,7 +1,7 @@
 <template>
   <div
     class="member-details d-flex"
-    :class="{ condensed, expanded }"
+    :class="{ condensed, expanded, 'is-header': isHeader}"
     @click="showMemberModal(member)"
   >
     <div class="avatar-container">
@@ -95,15 +95,31 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/colors.scss';
+.member-details {
+  white-space: nowrap;
+  transition: all 0.15s ease-out;
 
-  .member-details {
-    white-space: nowrap;
-    transition: all 0.15s ease-out;
+  .avatar-container {
+    margin-bottom: 20px;
+  }
+}
 
+// Smaller header avatar on phones so HP/XP bars stay visible
+@media (max-width: 575.98px) {
+  .member-details.is-header {
     .avatar-container {
-      margin-bottom: 20px;
+      margin-bottom: 8px;
+      max-width: 96px;
+    }
+
+    ::v-deep .avatar {
+      width: 96px !important;
+      height: auto !important;
+      transform: scale(0.72);
+      transform-origin: top left;
     }
   }
+}
 
   .standard-page .member-details {
     padding-left: 24px;
