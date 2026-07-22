@@ -603,8 +603,12 @@ export default {
       this.memberToRemove.index = index;
       this.$root.$emit('bv::show::modal', 'remove-member');
     },
-    memberRemoved () {
-      this.members.splice(this.memberToRemove.index, 1);
+    memberRemoved (removedMember) {
+      // Wrong member is getting removed, let's make sure we've got the right one
+      const memberIndex = this.members.findIndex(member => {
+        member._id === removedMember._id;
+      });
+      this.members.splice(memberIndex, 1);
       this.group.memberCount -= 1;
       this.memberToRemove = {};
     },
