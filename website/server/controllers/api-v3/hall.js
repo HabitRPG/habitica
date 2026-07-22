@@ -323,13 +323,13 @@ api.updateHero = {
       if (plan.customerId || plan.customerId === '') {
         hero.purchased.plan.customerId = plan.customerId;
       }
-      if (plan.paymentMethod || plan.customerId === '') {
+      if (plan.paymentMethod || plan.paymentMethod === '') {
         hero.purchased.plan.paymentMethod = plan.paymentMethod;
       }
-      if (plan.planId || plan.customerId === '') {
+      if (plan.planId || plan.planId === '') {
         hero.purchased.plan.planId = plan.planId;
       }
-      if (plan.owner || plan.customerId === '') {
+      if (plan.owner || plan.owner === '') {
         hero.purchased.plan.owner = plan.owner;
       }
       if (plan.hourglassPromoReceived) {
