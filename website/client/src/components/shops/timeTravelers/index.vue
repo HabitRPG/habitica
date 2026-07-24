@@ -1,7 +1,6 @@
 <template>
   <div class="row timeTravelers">
     <div
-      v-if="!closed"
       class="standard-sidebar d-none d-sm-block"
     >
       <filter-sidebar>
@@ -42,53 +41,89 @@
     <div class="standard-page">
       <div class="featuredItems">
         <div
+          v-if="isSubscribed || (hasTrinket && !isSubscribed)"
           class="background"
-          :class="{'background-closed': closed, 'background-open': !closed }"
           :style="{'background-image': imageURLs.background}"
         >
           <div
             class="npc"
-            :class="{'closed': closed }"
             :style="{'background-image': imageURLs.npc}"
           >
             <div class="featured-label">
-              <span class="rectangle"></span><span
+              <span class="rectangle"></span>
+              <span
                 v-once
                 class="text"
-              >{{ $t('timeTravelers') }}</span><span class="rectangle"></span>
-            </div>
-          </div><div
-            v-if="closed"
-            class="content"
-          >
-            <div class="featured-label with-border closed">
-              <span class="rectangle"></span><span
-                v-once
-                class="text"
-              >{{ $t('timeTravelersPopoverNoSubMobile') }}</span><span class="rectangle"></span>
+              >
+                {{ $t('timeTravelers') }}
+              </span>
+              <span class="rectangle"></span>
             </div>
           </div>
         </div>
-      </div><div
-        v-if="!closed"
-        class="clearfix"
-      >
-        <div class="float-right">
-          <span class="dropdown-label">{{ $t('sortBy') }}</span>
-          <select-translated-array
-            :right="true"
-            :value="selectedSortItemsBy"
-            :items="sortItemsBy"
-            :inline-dropdown="false"
-            class="inline"
-            @select="selectedSortItemsBy = $event"
-          />
+        <div class="content">
+          <div
+            class="background"
+            :style="{'background-image': imageURLs.background}"
+          >
+            <div
+              class="npc"
+              :style="{'background-image': imageURLs.npc}"
+            >
+              <div class="featured-label">
+                <span class="rectangle"></span>
+                <span
+                  v-once
+                  class="text"
+                >
+                  {{ $t('timeTravelers') }}
+                </span>
+                <span class="rectangle"></span>
+              </div>
+            </div>
+            <div
+              v-if="!isSubscribed && !hasTrinket"
+              class="shop-message featured-label with-border closed"
+            >
+              <span class="rectangle"></span>
+              <span
+                v-once
+                class="text"
+              >
+                {{ $t('timeTravelersPopoverNoSubMobile') }}
+              </span>
+              <span class="rectangle"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between w-items">
+        <h1
+          v-once
+          class="page-header mt-4 mb-4"
+        >
+          {{ $t('timeTravelers') }}
+        </h1>
+        <div
+          class="clearfix mt-4"
+        >
+          <div class="float-right">
+            <span class="dropdown-label">{{ $t('sortBy') }}</span>
+            <select-translated-array
+              :right="true"
+              :value="selectedSortItemsBy"
+              :items="sortItemsBy"
+              :inline-dropdown="false"
+              class="inline"
+              @select="selectedSortItemsBy = $event"
+            />
+          </div>
         </div>
       </div>
       <!-- eslint-disable vue/no-use-v-if-with-v-for -->
       <div
         v-for="category in categories"
-        v-if="!anyFilterSelected || (!closed && viewOptions[category.identifier].selected)"
+        v-if="!anyFilterSelected || viewOptions[category.identifier].selected"
         :key="category.identifier"
         :class="category.identifier"
       >
@@ -100,6 +135,9 @@
           :item-width="94"
           :item-margin="24"
           :type="category.identifier"
+          :fold-button="false"
+          :no-items-label="$t('allEquipmentOwned', equipmentLinks)"
+          :click-handler="false"
         >
           <template
             slot="item"
@@ -112,38 +150,12 @@
               :price-type="ctx.item.currency"
               :empty-item="false"
               @click="selectItemToBuy(ctx.item)"
-            >
-              <span
-                v-if="category !== 'quests'"
-                slot="popoverContent"
-                slot-scope="ctx"
-              ><div><h4 class="popover-content-title">{{ ctx.item.text }}</h4></div></span>
-              <span
-                v-if="category === 'quests'"
-                slot="popoverContent"
-              ><div class="questPopover">
-                <h4 class="popover-content-title">{{ item.text }}</h4>
-                <questInfo :quest="item" />
-              </div></span>
-              <template
-                slot="itemBadge"
-                slot-scope="ctx"
-              >
-                <span
-                  v-if="ctx.item.pinType !== 'IGNORE'"
-                  class="badge-top"
-                  @click.prevent.stop="togglePinned(ctx.item)"
-                >
-                  <pin-badge
-                    :pinned="ctx.item.pinned"
-                  />
-                </span>
-              </template>
-            </shopItem>
+            />
           </template>
         </itemRows>
       </div>
-    </div><buyQuestModal
+    </div>
+    <buyQuestModal
       :item="selectedItemToBuy || {}"
       :price-type="selectedItemToBuy ? selectedItemToBuy.currency : ''"
       :with-pin="true"
@@ -164,108 +176,14 @@
   </div>
 </template>
 
-<!-- eslint-disable max-len -->
-<style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+<style lang="scss" scoped>
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/shops.scss';
 
-  // these styles may be applied to other pages too
-
-  .featured-label {
-    margin: 24px auto;
-  }
-
-  .group {
-    display: inline-block;
-    width: 33%;
-    margin-bottom: 24px;
-
-    .items {
-      border-radius: 2px;
-      background-color: #edecee;
-      display: inline-block;
-      padding: 8px;
-    }
-
-    .item-wrapper {
-      margin-bottom: 0;
-    }
-
-    .items > div:not(:last-of-type) {
-      margin-right: 16px;
-    }
-  }
-
-  .timeTravelers {
-    .standard-page {
-      position: relative;
-    }
-
-    .badge-pin:not(.pinned) {
-        display: none;
-      }
-
-    .item:hover .badge-pin {
-      display: block;
-    }
-
-    .avatar {
-      cursor: default;
-      margin: 0 auto;
-    }
-
-    .featuredItems {
-      height: 216px;
-
-      .background {
-        background-repeat: repeat-x;
-
-        width: 100%;
-        position: absolute;
-
-        top: 0;
-        left: 0;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-      .background-open {
-        height: 188px;
-      }
-      .background-closed {
-        height: 216px;
-      }
-
-      .content {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .npc {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 216px;
-        background-repeat: no-repeat;
-
-        &.closed {
-          background-repeat: no-repeat;
-        }
-
-        .featured-label {
-          position: absolute;
-          bottom: -14px;
-          margin: 0;
-          left: 40px;
-        }
-      }
-    }
-
+  .w-items {
+    max-width: 920px;
   }
 </style>
-<!-- eslint-enable max-len -->
 
 <script>
 import _filter from 'lodash/filter';
@@ -273,21 +191,20 @@ import _sortBy from 'lodash/sortBy';
 import _throttle from 'lodash/throttle';
 import _groupBy from 'lodash/groupBy';
 import _map from 'lodash/map';
+import _find from 'lodash/find';
+import moment from 'moment';
+import isPinned from '@/../../common/script/libs/isPinned';
+import shops from '@/../../common/script/libs/shops';
 import { mapState } from '@/libs/store';
 
 import ShopItem from '../shopItem';
 import Item from '@/components/inventory/item';
 import ItemRows from '@/components/ui/itemRows';
-import QuestInfo from '../quests/questInfo.vue';
-import PinBadge from '@/components/ui/pinBadge';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 
 import BuyQuestModal from '../quests/buyQuestModal.vue';
 
-import svgHourglass from '@/assets/svg/hourglass.svg';
-
-import isPinned from '@/../../common/script/libs/isPinned';
-import shops from '@/../../common/script/libs/shops';
+import svgHourglass from '@/assets/svg/hourglass.svg?raw';
 
 import pinUtils from '@/mixins/pinUtils';
 import FilterSidebar from '@/components/ui/filterSidebar';
@@ -304,9 +221,7 @@ export default {
     ShopItem,
     Item,
     ItemRows,
-    PinBadge,
     toggleSwitch,
-    QuestInfo,
 
     BuyQuestModal,
   },
@@ -314,22 +229,25 @@ export default {
   data () {
     return {
       viewOptions: {},
-
       searchText: null,
       searchTextThrottled: null,
-
       icons: Object.freeze({
         hourglass: svgHourglass,
       }),
-
       sortItemsBy: ['AZ', 'sortByNumber'],
       selectedSortItemsBy: 'AZ',
-
       selectedItemToBuy: null,
-
       hidePinned: false,
-
       backgroundUpdate: new Date(),
+      currentEvent: null,
+      imageURLs: {
+        background: '',
+        npc: '',
+      },
+      equipmentLinks: {
+        linkOpen: '<a href="/inventory/equipment">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {
@@ -339,17 +257,20 @@ export default {
       user: 'user.data',
       userStats: 'user.data.stats',
       userItems: 'user.data.items',
-      currentEvent: 'worldState.data.currentEvent',
+      currentEventList: 'worldState.data.currentEventList',
     }),
-
-    closed () {
-      return this.user.purchased.plan.consecutive.trinkets === 0;
+    isSubscribed () {
+      const now = new Date();
+      const { plan } = this.user.purchased;
+      return plan && plan.customerId
+        && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
     },
-
+    hasTrinket () {
+      return this.user.purchased.plan.consecutive.trinkets > 0;
+    },
     shop () {
       return shops.getTimeTravelersShop(this.user);
     },
-
     categories () {
       const apiCategories = this.shop.categories;
 
@@ -390,19 +311,6 @@ export default {
     anyFilterSelected () {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
-    imageURLs () {
-      if (!this.currentEvent || !this.currentEvent.season || this.currentEvent.season === 'thanksgiving') {
-        return {
-          background: 'url(/static/npc/normal/time_travelers_background.png)',
-          npc: this.closed ? 'url(/static/npc/normal/time_travelers_closed_banner.png)'
-            : 'url(/static/npc/normal/time_travelers_open_banner.png)',
-        };
-      }
-      return {
-        background: `url(/static/npc/${this.currentEvent.season}/time_travelers_background.png)`,
-        npc: `url(/static/npc/${this.currentEvent.season}/time_travelers_open_banner.png)`,
-      };
-    },
   },
   watch: {
     searchText: _throttle(function throttleSearch () {
@@ -422,6 +330,13 @@ export default {
         this.$root.$emit('buyModal::hidden', this.selectedItemToBuy.key);
       }
     });
+    this.currentEvent = _find(this.currentEventList, event => Boolean(['winter', 'spring', 'summer', 'fall'].includes(event.season)));
+    if (!this.currentEvent || !this.currentEvent.season || this.currentEvent.season === 'thanksgiving') {
+      this.imageURLs.background = 'url(/static/npc/normal/time_travelers_background.png)';
+    } else {
+      this.imageURLs.background = `url(/static/npc/${this.currentEvent.season}/time_travelers_background.png)`;
+      this.imageURLs.npc = `url(/static/npc/${this.currentEvent.season}/time_travelers_open_banner.png)`;
+    }
   },
   beforeDestroy () {
     this.$root.$off('buyModal::boughtItem');

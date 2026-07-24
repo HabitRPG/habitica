@@ -12,6 +12,8 @@
 </template>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/colors.scss';
+
   .modal-close {
     position: absolute;
     right: 16px;
@@ -19,20 +21,20 @@
     cursor: pointer;
 
     .svg-close {
+      color: $gray-50;
       width: 18px;
       height: 18px;
-      vertical-align: middle;
-      opacity: 0.75;
+      opacity: 0.5;
 
       &:hover {
-        opacity: 1;
+        opacity: 0.75;
       }
     }
   }
 </style>
 
 <script>
-import close from '@/assets/svg/close.svg';
+import close from '@/assets/svg/close.svg?raw';
 
 export default {
   data () {

@@ -51,10 +51,10 @@
       :class="{'not-participating': !userIsOnQuest}"
     >
       <div class="col-12 text-center">
-        <div
+        <Sprite
           class="quest-boss"
-          :class="'quest_' + questData.key"
-        ></div>
+          :image-name="'quest_' + questData.key"
+        />
         <div class="quest-box">
           <div
             v-if="questData.collect"
@@ -66,7 +66,7 @@
               class="quest-item-row"
             >
               <div class="quest-item-icon">
-                <div :class="'quest_' + questData.key + '_' + key"></div>
+                <Sprite :image-name="'quest_' + questData.key + '_' + key" />
               </div>
               <div class="quest-item-info">
                 <span class="label quest-label">{{ value.text() }}</span>
@@ -225,10 +225,10 @@
         </a>
       </div>
       <div class="quest-icon">
-        <div
+        <Sprite
           class="quest"
-          :class="`inventory_quest_scroll_${questData.key}`"
-        ></div>
+          :image-name="`inventory_quest_scroll_${questData.key}`"
+        />
       </div>
     </div>
     <div
@@ -269,7 +269,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .svg-icon {
     height: 25px;
@@ -638,21 +638,23 @@
 </style>
 
 <script>
-import { mapState } from '@/libs/store';
 
 import * as quests from '@/../../common/script/content/quests';
 import percent from '@/../../common/script/libs/percent';
+import { mapState } from '@/libs/store';
 import sidebarSection from '../sidebarSection';
+import Sprite from '../ui/sprite';
 
-import questIcon from '@/assets/svg/quest.svg';
-import swordIcon from '@/assets/svg/sword.svg';
-import rageIcon from '@/assets/svg/rage.svg';
-import healthNoPaddingIcon from '@/assets/svg/health_no_padding.svg';
+import questIcon from '@/assets/svg/quest.svg?raw';
+import swordIcon from '@/assets/svg/sword.svg?raw';
+import rageIcon from '@/assets/svg/rage.svg?raw';
+import healthNoPaddingIcon from '@/assets/svg/health_no_padding.svg?raw';
 import questActionsMixin from '@/components/groups/questActions.mixin';
 
 export default {
   components: {
     sidebarSection,
+    Sprite,
   },
   mixins: [questActionsMixin],
   props: ['group'],

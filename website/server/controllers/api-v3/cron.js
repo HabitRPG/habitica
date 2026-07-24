@@ -1,5 +1,5 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import cron from '../../middlewares/cron';
+import { cronWrapper } from '../../libs/cron';
 
 const api = {};
 
@@ -16,8 +16,9 @@ const api = {};
 api.cron = {
   method: 'POST',
   url: '/cron',
-  middlewares: [authWithHeaders(), cron],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
+    await cronWrapper(req, res);
     res.respond(200, {});
   },
 };

@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import find from 'lodash/find';
+import includes from 'lodash/includes';
 
 import { encrypt } from '../encryption';
 import { sendNotification as sendPushNotification } from '../pushNotifications';
@@ -16,12 +17,12 @@ import {
   model as Group,
 } from '../../models/group';
 
-function sendInvitePushNotification (userToInvite, groupLabel, group, publicGuild, res) {
+async function sendInvitePushNotification (userToInvite, groupLabel, group, publicGuild, res) {
   if (userToInvite.preferences.pushNotifications[`invited${groupLabel}`] === false) return;
 
   const identifier = group.type === 'guild' ? 'invitedGuild' : 'invitedParty';
 
-  sendPushNotification(
+  await sendPushNotification(
     userToInvite,
     {
       title: group.name,
@@ -58,11 +59,11 @@ function sendInviteEmail (userToInvite, groupLabel, group, inviter) {
 function inviteUserToGuild (userToInvite, group, inviter, publicGuild, res) {
   const uuid = userToInvite._id;
 
-  if (_.includes(userToInvite.guilds, group._id)) {
+  if (includes(userToInvite.guilds, group._id)) {
     throw new NotAuthorized(res.t('userAlreadyInGroup', { userId: uuid, username: userToInvite.profile.name }));
   }
 
-  if (_.find(userToInvite.invitations.guilds, { id: group._id })) {
+  if (find(userToInvite.invitations.guilds, { id: group._id })) {
     throw new NotAuthorized(res.t('userAlreadyInvitedToGroup', { userId: uuid, username: userToInvite.profile.name }));
   }
 
@@ -82,7 +83,7 @@ async function inviteUserToParty (userToInvite, group, inviter, res) {
   const uuid = userToInvite._id;
 
   // Do not add to invitations.parties array if the user is already invited to that party
-  if (_.find(userToInvite.invitations.parties, { id: group._id })) {
+  if (find(userToInvite.invitations.parties, { id: group._id })) {
     throw new NotAuthorized(res.t('userAlreadyPendingInvitation', { userId: uuid, username: userToInvite.profile.name }));
   }
 
@@ -110,7 +111,7 @@ async function addInvitationToUser (userToInvite, group, inviter, res) {
 
   const groupLabel = group.type === 'guild' ? 'Guild' : 'Party';
   sendInviteEmail(userToInvite, groupLabel, group, inviter);
-  sendInvitePushNotification(userToInvite, groupLabel, group, publicGuild, res);
+  await sendInvitePushNotification(userToInvite, groupLabel, group, publicGuild, res);
 
   const userInvited = await userToInvite.save();
   if (group.type === 'guild') {
@@ -140,22 +141,6 @@ async function inviteByUUID (uuid, group, inviter, req, res) {
       { userId: uuid, username: userToInvite.profile.name },
     ));
   }
-
-  const analyticsObject = {
-    hitType: 'event',
-    category: 'behavior',
-    uuid: inviter._id,
-    invitee: uuid,
-    groupId: group._id,
-    groupType: group.type,
-    headers: req.headers,
-  };
-
-  if (group.type === 'party') {
-    analyticsObject.seekingParty = Boolean(userToInvite.party.seeking);
-  }
-
-  res.analytics.track('group invite', analyticsObject);
 
   return addInvitationToUser(userToInvite, group, inviter, res);
 }
@@ -189,7 +174,7 @@ async function inviteByEmail (invite, group, inviter, req, res) {
       sentAt: Date.now(), // so we can let it expire
       cancelledPlan,
     });
-    const link = `/static/home?groupInvite=${encrypt(groupQueryString)}`;
+    const link = `/register?groupInvite=${encrypt(groupQueryString)}`;
 
     const variables = [
       { name: 'LINK', content: link },
@@ -197,25 +182,13 @@ async function inviteByEmail (invite, group, inviter, req, res) {
     ];
 
     if (group.type === 'guild') {
-      variables.push({ name: 'GUILD_NAME', content: group.name });
+      variables.push({ name: 'GROUP_NAME', content: group.name });
     }
 
     // Check for the email address not to be unsubscribed
     const userIsUnsubscribed = await EmailUnsubscription.findOne({ email: invite.email }).exec();
     const groupLabel = group.type === 'guild' ? '-guild' : '';
     if (!userIsUnsubscribed) sendTxnEmail(invite, `invite-friend${groupLabel}`, variables);
-
-    const analyticsObject = {
-      hitType: 'event',
-      category: 'behavior',
-      uuid: inviter._id,
-      invitee: 'email',
-      groupId: group._id,
-      groupType: group.type,
-      headers: req.headers,
-    };
-
-    res.analytics.track('group invite', analyticsObject);
   }
 
   return userReturnInfo;
@@ -241,23 +214,6 @@ async function inviteByUserName (username, group, inviter, req, res) {
       { userId: userToInvite._id, username: userToInvite.profile.name },
     ));
   }
-
-  const analyticsObject = {
-    hitType: 'event',
-    category: 'behavior',
-    uuid: inviter._id,
-    invitee: userToInvite._id,
-    groupId: group._id,
-    groupType: group.type,
-    headers: req.headers,
-  };
-
-  if (group.type === 'party') {
-    analyticsObject.seekingParty = Boolean(userToInvite.party.seeking);
-  }
-
-  res.analytics.track('group invite', analyticsObject);
-
   return addInvitationToUser(userToInvite, group, inviter, res);
 }
 

@@ -23,16 +23,14 @@
         {{ $t('foundNewItems') }}
       </h2>
       <div class="d-flex justify-content-center">
-        <div
+        <Sprite
           class="item-box ml-auto mr-3"
-          :class="eggClass"
-        >
-        </div>
-        <div
+          :image-name="eggClass"
+        />
+        <Sprite
           class="item-box mr-auto"
-          :class="potionClass"
-        >
-        </div>
+          :image-name="potionClass"
+        />
       </div>
       <p
         v-once
@@ -72,7 +70,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   h2 {
     color: $purple-200;
@@ -102,9 +100,13 @@
 </style>
 
 <script>
-import closeIcon from '@/assets/svg/close.svg';
+import closeIcon from '@/assets/svg/close.svg?raw';
+import Sprite from '@/components/ui/sprite.vue';
 
 export default {
+  components: {
+    Sprite,
+  },
   data () {
     return {
       icons: Object.freeze({

@@ -1,6 +1,6 @@
 import {
+  createAndPopulateGroup,
   generateUser,
-  generateGroup,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
 import amzLib from '../../../../../../website/server/libs/payments/amazon';
@@ -50,22 +50,21 @@ describe('payments : amazon #subscribeCancel', () => {
     });
 
     it('cancels a group subscription', async () => {
-      user = await generateUser({
-        'profile.name': 'sender',
-        'purchased.plan.customerId': 'customer-id',
-        'purchased.plan.planId': 'basic_3mo',
-        'purchased.plan.lastBillingDate': new Date(),
-        balance: 2,
-      });
-
-      group = await generateGroup(user, {
-        name: 'test group',
-        type: 'guild',
-        privacy: 'public',
-        'purchased.plan.customerId': 'customer-id',
-        'purchased.plan.planId': 'basic_3mo',
-        'purchased.plan.lastBillingDate': new Date(),
-      });
+      ({ group, groupLeader: user } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'test group',
+          type: 'guild',
+          privacy: 'private',
+        },
+        leaderDetails: {
+          'profile.name': 'sender',
+          'purchased.plan.customerId': 'customer-id',
+          'purchased.plan.planId': 'basic_3mo',
+          'purchased.plan.lastBillingDate': new Date(),
+          balance: 2,
+        },
+        upgradeToGroupPlan: true,
+      }));
 
       await user.get(`${endpoint}&groupId=${group._id}`);
 

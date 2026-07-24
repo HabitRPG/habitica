@@ -21,10 +21,10 @@
         <slot
           name="itemBadge"
           :item="item"
-        ></slot><span
+        ></slot><Sprite
           class="item-content"
-          :class="itemContentClass"
-        ></span>
+          :image-name="itemContentClass"
+        />
       </div><span
         v-if="label"
         class="item-label"
@@ -46,8 +46,12 @@
 
 <script>
 import { v4 as uuid } from 'uuid';
+import Sprite from '@/components/ui/sprite';
 
 export default {
+  components: {
+    Sprite,
+  },
   props: {
     item: {
       type: Object,

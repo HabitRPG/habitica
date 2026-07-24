@@ -8,10 +8,10 @@
         v-if="notification.type === 'drop'"
         class="icon-item"
       >
-        <div
-          :class="notification.icon"
+        <Sprite
+          :image-name="notification.icon"
           class="icon-negative-margin"
-        ></div>
+        />
       </div>
 
       <div
@@ -119,7 +119,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
   .notification-holder {
     display: flex;
@@ -225,15 +225,19 @@
 </style>
 
 <script>
-import health from '@/assets/svg/health.svg';
-import gold from '@/assets/svg/gold.svg';
-import star from '@/assets/svg/star.svg';
-import mana from '@/assets/svg/mana.svg';
-import sword from '@/assets/svg/sword.svg';
+import health from '@/assets/svg/health.svg?raw';
+import gold from '@/assets/svg/gold.svg?raw';
+import star from '@/assets/svg/star.svg?raw';
+import mana from '@/assets/svg/mana.svg?raw';
+import sword from '@/assets/svg/sword.svg?raw';
 import CloseIcon from '../shared/closeIcon';
+import Sprite from '@/components/ui/sprite';
 
 export default {
-  components: { CloseIcon },
+  components: {
+    CloseIcon,
+    Sprite,
+  },
   props: ['notification', 'visibleAmount'],
   data () {
     return {
@@ -269,6 +273,11 @@ export default {
     classes () {
       return `${this.notification.type} ${this.negative}`;
     },
+  },
+  mounted () {
+    if (this.notification.type === 'drop' && this.notification.emptied) {
+      this.$root.$emit('bv::show::modal', 'armoire-empty');
+    }
   },
   methods: {
     handleOnClick () {

@@ -13,21 +13,20 @@
     </span>
     <label
       v-once
-      class="mb-1"
       v-html="text"
     ></label>
   </div>
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   label {
-    height: 1.5rem;
     font-size: 14px;
     font-weight: bold;
     line-height: 1.71;
     letter-spacing: normal;
+    margin: 0;
   }
 
   .gray-200 {
@@ -40,7 +39,7 @@
 </style>
 
 <script>
-import lockIcon from '@/assets/svg/lock.svg';
+import lockIcon from '@/assets/svg/lock.svg?raw';
 
 export default {
   props: {

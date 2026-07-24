@@ -44,8 +44,8 @@
 <script>
 import moment from 'moment';
 import datepicker from 'vuejs-datepicker';
-import calendarIcon from '@/assets/svg/calendar.svg';
-import closeIcon from '@/assets/svg/close.svg';
+import calendarIcon from '@/assets/svg/calendar.svg?raw';
+import closeIcon from '@/assets/svg/close.svg?raw';
 
 export default {
   components: {
@@ -68,8 +68,12 @@ export default {
   },
   methods: {
     upDate (after) {
-      this.value = after;
-      this.$emit('update:date', after);
+      // zero out the time so the server doesn't shift the day across a DST boundary on save
+      const normalized = after
+        ? new Date(after.getFullYear(), after.getMonth(), after.getDate())
+        : null;
+      this.value = normalized;
+      this.$emit('update:date', normalized);
     },
     setToday () {
       this.upDate(moment().toDate());
@@ -82,7 +86,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .vdp-datepicker__calendar {
     bottom: 2.125rem;  // 2rem input control height + 0.125rem margin above

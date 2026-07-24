@@ -2,7 +2,6 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { model as Group } from '../../../../../website/server/models/group';
 import { MAX_SUMMARY_SIZE_FOR_GUILDS } from '../../../../../website/common/script/constants';
 
 describe('POST /group', () => {
@@ -35,8 +34,8 @@ describe('POST /group', () => {
 
     it('sets the group leader to the user who created the group', async () => {
       const group = await user.post('/groups', {
-        name: 'Test Public Guild',
-        type: 'guild',
+        name: 'Test Party',
+        type: 'party',
       });
 
       expect(group.leader).to.eql({
@@ -51,7 +50,7 @@ describe('POST /group', () => {
       const name = 'Test Group';
       const group = await user.post('/groups', {
         name,
-        type: 'guild',
+        type: 'party',
       });
 
       const updatedGroup = await user.get(`/groups/${group._id}`);
@@ -64,7 +63,7 @@ describe('POST /group', () => {
       const summary = 'Test Summary';
       const group = await user.post('/groups', {
         name,
-        type: 'guild',
+        type: 'party',
         summary,
       });
 
@@ -78,163 +77,12 @@ describe('POST /group', () => {
       const summary = 'A'.repeat(MAX_SUMMARY_SIZE_FOR_GUILDS + 1);
       await expect(user.post('/groups', {
         name,
-        type: 'guild',
+        type: 'party',
         summary,
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
         message: t('invalidReqParams'),
-      });
-    });
-  });
-
-  context('Guilds', () => {
-    it('returns an error when a user with insufficient funds attempts to create a guild', async () => {
-      await user.update({ balance: 0 });
-
-      await expect(
-        user.post('/groups', {
-          name: 'Test Public Guild',
-          type: 'guild',
-        }),
-      ).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('messageInsufficientGems'),
-      });
-    });
-
-    it('adds guild to user\'s list of guilds', async () => {
-      const guild = await user.post('/groups', {
-        name: 'some guild',
-        type: 'guild',
-        privacy: 'public',
-      });
-
-      const updatedUser = await user.get('/user');
-
-      expect(updatedUser.guilds).to.include(guild._id);
-    });
-
-    it('awards the Joined Guild achievement', async () => {
-      await user.post('/groups', {
-        name: 'some guild',
-        type: 'guild',
-        privacy: 'public',
-      });
-
-      const updatedUser = await user.get('/user');
-
-      expect(updatedUser.achievements.joinedGuild).to.eql(true);
-    });
-
-    context('public guild', () => {
-      it('creates a group', async () => {
-        const groupName = 'Test Public Guild';
-        const groupType = 'guild';
-        const groupPrivacy = 'public';
-
-        const publicGuild = await user.post('/groups', {
-          name: groupName,
-          type: groupType,
-          privacy: groupPrivacy,
-        });
-
-        expect(publicGuild._id).to.exist;
-        expect(publicGuild.name).to.equal(groupName);
-        expect(publicGuild.type).to.equal(groupType);
-        expect(publicGuild.memberCount).to.equal(1);
-        expect(publicGuild.privacy).to.equal(groupPrivacy);
-        expect(publicGuild.leader).to.eql({
-          _id: user._id,
-          profile: {
-            name: user.profile.name,
-          },
-        });
-      });
-
-      it('returns an error when a user with no chat privileges attempts to create a public guild', async () => {
-        await user.update({ 'flags.chatRevoked': true });
-
-        await expect(
-          user.post('/groups', {
-            name: 'Test Public Guild',
-            type: 'guild',
-            privacy: 'public',
-          }),
-        ).to.eventually.be.rejected.and.eql({
-          code: 401,
-          error: 'NotAuthorized',
-          message: t('chatPrivilegesRevoked'),
-        });
-      });
-    });
-
-    context('private guild', () => {
-      const groupName = 'Test Private Guild';
-      const groupType = 'guild';
-      const groupPrivacy = 'private';
-
-      it('creates a group', async () => {
-        const privateGuild = await user.post('/groups', {
-          name: groupName,
-          type: groupType,
-          privacy: groupPrivacy,
-        });
-
-        expect(privateGuild._id).to.exist;
-        expect(privateGuild.name).to.equal(groupName);
-        expect(privateGuild.type).to.equal(groupType);
-        expect(privateGuild.memberCount).to.equal(1);
-        expect(privateGuild.privacy).to.equal(groupPrivacy);
-        expect(privateGuild.leader).to.eql({
-          _id: user._id,
-          profile: {
-            name: user.profile.name,
-          },
-        });
-      });
-
-      it('creates a private guild when the user has no chat privileges', async () => {
-        await user.update({ 'flags.chatRevoked': true });
-        const privateGuild = await user.post('/groups', {
-          name: groupName,
-          type: groupType,
-          privacy: groupPrivacy,
-        });
-
-        expect(privateGuild._id).to.exist;
-      });
-
-      it('deducts gems from user and adds them to guild bank', async () => {
-        const privateGuild = await user.post('/groups', {
-          name: groupName,
-          type: groupType,
-          privacy: groupPrivacy,
-        });
-
-        expect(privateGuild.balance).to.eql(1);
-
-        const updatedUser = await user.get('/user');
-
-        expect(updatedUser.balance).to.eql(user.balance - 1);
-      });
-
-      it('does not deduct the gems from user when guild creation fails', async () => {
-        const stub = sinon.stub(Group.prototype, 'save').rejects();
-        const promise = user.post('/groups', {
-          name: groupName,
-          type: groupType,
-          privacy: groupPrivacy,
-        });
-
-        await expect(promise).to.eventually.be.rejected;
-
-        const updatedUser = await user.get('/user');
-
-        expect(updatedUser.balance).to.eql(user.balance);
-
-        stub.restore();
       });
     });
   });
@@ -262,7 +110,7 @@ describe('POST /group', () => {
     });
 
     it('creates a party when the user has no chat privileges', async () => {
-      await user.update({ 'flags.chatRevoked': true });
+      await user.updateOne({ 'flags.chatRevoked': true });
       const party = await user.post('/groups', {
         name: partyName,
         type: partyType,
@@ -272,7 +120,7 @@ describe('POST /group', () => {
     });
 
     it('does not require gems to create a party', async () => {
-      await user.update({ balance: 0 });
+      await user.updateOne({ balance: 0 });
 
       const party = await user.post('/groups', {
         name: partyName,
@@ -295,6 +143,18 @@ describe('POST /group', () => {
       const updatedUser = await user.get('/user');
 
       expect(updatedUser.party._id).to.eql(party._id);
+    });
+
+    it('removes seeking from user', async () => {
+      await user.updateOne({ 'party.seeking': new Date() });
+      await user.post('/groups', {
+        name: partyName,
+        type: partyType,
+      });
+
+      const updatedUser = await user.get('/user');
+
+      expect(updatedUser.party.seeking).to.not.exist;
     });
 
     it('does not award Party Up achievement to solo partier', async () => {

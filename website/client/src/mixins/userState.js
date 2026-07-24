@@ -3,7 +3,7 @@ import { mapState } from '@/libs/store';
 export const userCustomStateMixin = fieldname => {
   const map = { };
   map[fieldname] = 'user.data';
-  return { // eslint-disable-line import/prefer-default-export
+  return {
     computed: {
       ...mapState(map),
     },

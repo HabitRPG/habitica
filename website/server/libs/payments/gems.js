@@ -1,5 +1,4 @@
 import find from 'lodash/find';
-import { getAnalyticsServiceByEnvironment } from '../analyticsService';
 import { getCurrentEventList } from '../worldState'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
   getUserInfo,
@@ -10,9 +9,7 @@ import shared from '../../../common';
 import {
   BadRequest,
 } from '../errors';
-import apiError from '../apiError';
-
-const analytics = getAnalyticsServiceByEnvironment();
+import { apiError } from '../apiError';
 
 function getGiftMessage (data, byUsername, gemAmount, language) {
   const senderMsg = shared.i18n.t('giftedGemsFull', {
@@ -50,7 +47,7 @@ async function buyGemGift (data) {
     data.gift.member._id !== data.user._id
     && data.gift.member.preferences.pushNotifications.giftedGems !== false
   ) {
-    sendPushNotification(
+    await sendPushNotification(
       data.gift.member,
       {
         title: shared.i18n.t('giftedGems', languages[1]),
@@ -112,19 +109,6 @@ export async function buyGems (data) {
   data.user.purchased.txnCount += 1;
 
   if (!data.gift) txnEmail(data.user, 'donation');
-
-  analytics.trackPurchase({
-    uuid: data.user._id,
-    itemPurchased: 'Gems',
-    sku: `${data.paymentMethod.toLowerCase()}-checkout`,
-    purchaseType: 'checkout',
-    paymentMethod: data.paymentMethod,
-    quantity: 1,
-    gift: Boolean(data.gift),
-    purchaseValue: amt,
-    headers: data.headers,
-    firstPurchase: data.user.purchased.txnCount === 1,
-  });
 
   if (data.gift) await buyGemGift(data);
 

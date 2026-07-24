@@ -30,8 +30,8 @@ export default [
     uuid: '61b2c855-0a30-444c-bcc6-1cac876460b0',
   },
   {
-    name: 'heyeilatan',
+    name: 'fizself',
     type: 'Staff',
-    uuid: 'f4e5c6da-0617-48bf-b3bd-9f97636774a8',
+    uuid: 'e39ea3eb-28d2-48da-8568-7a5b0e64498e',
   },
 ];

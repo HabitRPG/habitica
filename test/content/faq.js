@@ -15,12 +15,6 @@ describe('FAQ Locales', () => {
       });
     });
 
-    it('has a valid ios answers', () => {
-      each(questions, question => {
-        expectValidTranslationString(question.ios);
-      });
-    });
-
     it('has a valid web answers', () => {
       each(questions, question => {
         expectValidTranslationString(question.web);
@@ -29,10 +23,6 @@ describe('FAQ Locales', () => {
   });
 
   describe('Still Need Help Message', () => {
-    it('has a valid ios message', () => {
-      expectValidTranslationString(stillNeedHelp.ios);
-    });
-
     it('has a valid web message', () => {
       expectValidTranslationString(stillNeedHelp.web);
     });

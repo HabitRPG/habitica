@@ -23,7 +23,7 @@ describe('POST /groups/:groupId/quests/force-start', () => {
     leader = groupLeader;
     partyMembers = members;
 
-    await leader.update({
+    await leader.updateOne({
       [`items.quests.${PET_QUEST}`]: 1,
     });
   });
@@ -43,6 +43,7 @@ describe('POST /groups/:groupId/quests/force-start', () => {
     it('does not force start quest for a guild', async () => {
       const { group: guild, groupLeader: guildLeader } = await createAndPopulateGroup({
         groupDetails: { type: 'guild', privacy: 'private' },
+        upgradeToGroupPlan: true,
       });
 
       await expect(guildLeader.post(`/groups/${guild._id}/quests/force-start`))
@@ -92,7 +93,7 @@ describe('POST /groups/:groupId/quests/force-start', () => {
   context('successfully force starting a quest', () => {
     it('allows quest leader to force start quest', async () => {
       const questLeader = partyMembers[0];
-      await questLeader.update({ [`items.quests.${PET_QUEST}`]: 1 });
+      await questLeader.updateOne({ [`items.quests.${PET_QUEST}`]: 1 });
       await questLeader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
 
       await questLeader.post(`/groups/${questingGroup._id}/quests/force-start`);
@@ -104,7 +105,7 @@ describe('POST /groups/:groupId/quests/force-start', () => {
 
     it('allows group leader to force start quest', async () => {
       const questLeader = partyMembers[0];
-      await questLeader.update({ [`items.quests.${PET_QUEST}`]: 1 });
+      await questLeader.updateOne({ [`items.quests.${PET_QUEST}`]: 1 });
       await questLeader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
 
       await leader.post(`/groups/${questingGroup._id}/quests/force-start`);
@@ -176,7 +177,7 @@ describe('POST /groups/:groupId/quests/force-start', () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
       const notInPartyUser = await generateUser();
 
-      await questingGroup.update({
+      await questingGroup.updateOne({
         [`quest.members.${notInPartyUser._id}`]: true,
       });
       await questingGroup.sync();
@@ -192,23 +193,6 @@ describe('POST /groups/:groupId/quests/force-start', () => {
       expect(questingGroup.quest.members[notInPartyUser._id]).to.not.exist;
     });
 
-    it('removes users who have been deleted from quest.members', async () => {
-      await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
-      await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
-
-      await partyMembers[0].del('/user', {
-        password: 'password',
-      });
-
-      await leader.post(`/groups/${questingGroup._id}/quests/force-start`);
-
-      await sleep(0.5);
-
-      await questingGroup.sync();
-
-      expect(questingGroup.quest.members[partyMembers[0]._id]).to.not.exist;
-    });
-
     it('removes users who don\'t have true value in quest.members from quest.members', async () => {
       const partyMemberThatRejects = partyMembers[1];
       const partyMemberThatIgnores = partyMembers[2];
@@ -216,7 +200,7 @@ describe('POST /groups/:groupId/quests/force-start', () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
       await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
 
-      await questingGroup.update({
+      await questingGroup.updateOne({
         [`quest.members.${partyMemberThatRejects._id}`]: false,
         [`quest.members.${partyMemberThatIgnores._id}`]: null,
       });
@@ -235,7 +219,7 @@ describe('POST /groups/:groupId/quests/force-start', () => {
 
     it('allows group leader to force start quest and verifies chat', async () => {
       const questLeader = partyMembers[0];
-      await questLeader.update({ [`items.quests.${PET_QUEST}`]: 1 });
+      await questLeader.updateOne({ [`items.quests.${PET_QUEST}`]: 1 });
       await questLeader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
 
       await leader.post(`/groups/${questingGroup._id}/quests/force-start`);

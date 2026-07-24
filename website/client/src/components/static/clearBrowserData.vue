@@ -7,13 +7,19 @@
         <br>
         <p class="text-center">
           <button
+            id="buttonClearBrowserData"
             class="btn btn-lg btn-danger"
-            popover-trigger="mouseover"
-            :popover="$t('localStorageClearExplanation')"
             @click="clearLocalStorage()"
           >
             {{ $t('localStorageClear') }}
           </button>
+          <b-popover
+            target="buttonClearBrowserData"
+            triggers="hover focus"
+            placement="right"
+            :prevent-overflow="false"
+            :content="$t('localStorageClearExplanation')"
+          />
         </p>
         <br>
         <p v-html="$t('localStorageTryNext', localStorageTryNext) "></p>
@@ -27,11 +33,11 @@ export default {
   data () {
     return {
       localStorageTryFirst: {
-        linkStart: '<a href="/user/settings/site" target="_blank">',
+        linkStart: '<a href="/user/settings/siteData" target="_blank" rel="noopener noreferrer">',
         linkEnd: '</a>',
       },
       localStorageTryNext: {
-        linkStart: '<a href="https://github.com/HabitRPG/habitica/issues/2760" target="_blank">',
+        linkStart: '<a href="mailto:admin@habitica.com?subject=Habitica Web Bug Report">',
         linkEnd: '</a>',
       },
     };

@@ -43,7 +43,7 @@
       </div>
       <div class="summary-block">
         <h3> {{ $t('description') }} </h3>
-        <p v-html="summarySentence" ></p>
+        <p v-html="summarySentence"></p>
       </div>
       <div
         v-if="task.checklist && task.checklist.length > 0"
@@ -51,13 +51,13 @@
       >
         <checklist
           :items.sync="task.checklist"
-          :disableDrag="true"
-          :disableEdit="true"
+          :disable-drag="true"
+          :disable-edit="true"
         />
       </div>
       <div
-        class="summary-block"
         v-if="assignedUsernames.length > 0"
+        class="summary-block"
       >
         <h3> {{ $t('assignedTo') }} </h3>
         <div
@@ -87,7 +87,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
   #task-summary {
     overflow-y: hidden;
 
@@ -116,7 +116,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .assigned-member {
     border: 1px solid $gray-400;
@@ -182,7 +182,7 @@ import pickBy from 'lodash/pickBy';
 import checklist from './modal-controls/checklist';
 import { mapGetters, mapState } from '@/libs/store';
 
-import closeIcon from '@/assets/svg/close.svg';
+import closeIcon from '@/assets/svg/close.svg?raw';
 
 export default {
   components: {
@@ -222,14 +222,22 @@ export default {
       return usernames;
     },
     summarySentence () {
+      let fifthWeekWarning = '';
+      if (this.task.type === 'daily' && this.task.frequency === 'monthly'
+        && this.task.weeksOfMonth && this.task.weeksOfMonth.length > 0
+        && this.task.weeksOfMonth[0] === 4) {
+        const activeDays = keys(pickBy(this.task.repeat, value => value === true));
+        const dayName = this.expandDayString[activeDays[0]];
+        fifthWeekWarning = ` ${this.$t('fifthWeekWarning', { day: dayName })}`;
+      }
       if (this.task.type === 'daily' && moment().isBefore(this.task.startDate)) {
         return `This is ${this.formattedDifficulty(this.task.priority)} task that will repeat
         ${this.formattedRepeatInterval(this.task.frequency, this.task.everyX)}${this.formattedDays(this.task.frequency, this.task.repeat, this.task.daysOfMonth, this.task.weeksOfMonth, this.task.startDate)}
-        starting on <strong>${moment(this.task.startDate).format('MM/DD/YYYY')}</strong>.`;
+        starting on <strong>${moment(this.task.startDate).format('MM/DD/YYYY')}</strong>.${fifthWeekWarning}`;
       }
       if (this.task.type === 'daily') {
         return `This is ${this.formattedDifficulty(this.task.priority)} task that repeats
-        ${this.formattedRepeatInterval(this.task.frequency, this.task.everyX)}${this.formattedDays(this.task.frequency, this.task.repeat, this.task.daysOfMonth, this.task.weeksOfMonth, this.task.startDate)}.`;
+        ${this.formattedRepeatInterval(this.task.frequency, this.task.everyX)}${this.formattedDays(this.task.frequency, this.task.repeat, this.task.daysOfMonth, this.task.weeksOfMonth, this.task.startDate)}.${fifthWeekWarning}`;
       }
       if (this.task.date) {
         return `This is ${this.formattedDifficulty(this.task.priority)} task that is due <strong>${moment(this.task.date).format('MM/DD/YYYY')}.`;
@@ -287,25 +295,14 @@ export default {
             });
             dayStringArray.push('</strong>');
           } else if (weeksOfMonth.length > 0) {
-            switch (weeksOfMonth[0]) {
-              case 0:
-                dayStringArray.push('first');
-                break;
-              case 1:
-                dayStringArray.push('second');
-                break;
-              case 2:
-                dayStringArray.push('third');
-                break;
-              case 3:
-                dayStringArray.push('fourth');
-                break;
-              case 4:
-                dayStringArray.push('fifth');
-                break;
-              default:
-                break;
-            }
+            const weekNum = weeksOfMonth[0] + 1;
+            const weekNumStr = String(weekNum);
+            const lastDigit = weekNumStr.slice(-1);
+            let ordinalSuffix = 'th';
+            if (lastDigit === '1' && weekNumStr !== '11') ordinalSuffix = 'st';
+            if (lastDigit === '2' && weekNumStr !== '12') ordinalSuffix = 'nd';
+            if (lastDigit === '3' && weekNumStr !== '13') ordinalSuffix = 'rd';
+            dayStringArray.push(`${weekNum}${ordinalSuffix}`);
             activeDays = keys(pickBy(repeat, value => value === true));
             dayStringArray.push(` ${this.expandDayString[activeDays[0]]} of the month</strong>`);
           }
@@ -343,9 +340,8 @@ export default {
           if (numericX === 2) return '<strong>every other week</strong>';
           return `<strong>every ${numericX} weeks</strong>`;
         case 'monthly':
-          if (numericX === 1) return '<strong>every month</strong>';
-          if (numericX === 2) return '<strong>every other month</strong>';
-          return `<strong>every ${numericX} months</strong>`;
+          if (numericX === 1) return `<strong>${this.$t('everyMonth')}</strong>`;
+          return `<strong>${this.$t('everyXMonths', { count: numericX })}</strong>`;
         case 'yearly':
           if (numericX === 1) return '<strong>every year</strong>';
           return `<strong>every ${everyX} years</strong>`;

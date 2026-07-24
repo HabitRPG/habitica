@@ -12,7 +12,7 @@
   }
 
   &.color {
-    svg path {
+    svg path, svg polygon {
       fill: currentColor;
     }
   }

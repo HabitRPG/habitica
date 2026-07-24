@@ -1,12 +1,10 @@
 import each from 'lodash/each';
-import moment from 'moment';
 import t from './translation';
 import { NotAuthorized, BadRequest } from '../libs/errors';
 import statsComputed from '../libs/statsComputed'; // eslint-disable-line import/no-cycle
 import setDebuffPotionItems from '../libs/setDebuffPotionItems'; // eslint-disable-line import/no-cycle
 import crit from '../fns/crit'; // eslint-disable-line import/no-cycle
 import updateStats from '../fns/updateStats';
-import { EVENTS } from './constants';
 
 /*
   ---------------------------------------------------------------
@@ -48,9 +46,13 @@ function calculateBonus (value, stat, critVal = 1, statScale = 0.5) {
 }
 
 export function stealthBuffsToAdd (user) {
-  return Math.ceil(diminishingReturns(
-    statsComputed(user).per, user.tasksOrder.dailys.length * 0.64, 55,
-  ));
+  return Math.ceil(
+    diminishingReturns(
+      statsComputed(user).per,
+      user.tasksOrder.dailys.length * 0.64,
+      55,
+    ),
+  );
 }
 
 const spells = {};
@@ -281,9 +283,7 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialSnowballAuraNotes'),
-    canOwn () {
-      return moment().isBetween('2022-12-27T08:00-05:00', EVENTS.winter2023.end);
-    },
+    limited: true,
     cast (user, target, req) {
       if (!user.items.special.snowball) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = true;
@@ -317,9 +317,7 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialSpookySparklesNotes'),
-    canOwn () {
-      return moment().isBetween('2021-10-11T08:00-04:00', EVENTS.fall2022.end);
-    },
+    limited: true,
     cast (user, target, req) {
       if (!user.items.special.spookySparkles) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
@@ -353,10 +351,7 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialShinySeedNotes'),
-    event: EVENTS.spring2023,
-    canOwn () {
-      return moment().isBetween('2023-04-18T08:00-05:00', EVENTS.spring2023.end);
-    },
+    limited: true,
     cast (user, target, req) {
       if (!user.items.special.shinySeed) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
@@ -390,9 +385,7 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialSeafoamNotes'),
-    canOwn () {
-      return moment().isBetween('2022-07-12T08:00-04:00', EVENTS.summer2022.end);
-    },
+    limited: true,
     cast (user, target, req) {
       if (!user.items.special.seafoam) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
@@ -427,9 +420,7 @@ spells.special = {
     silent: true,
     target: 'user',
     notes: t('nyeCardNotes'),
-    canOwn () {
-      return moment().isBetween('2022-12-28T08:00-05:00', '2023-01-02T20:00-05:00');
-    },
+    limited: true,
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.nye) user.achievements.nye = 0;
@@ -467,9 +458,7 @@ spells.special = {
     silent: true,
     target: 'user',
     notes: t('valentineCardNotes'),
-    canOwn () {
-      return moment().isBetween('2023-02-13T08:00-05:00', '2023-02-17T23:59-05:00');
-    },
+    limited: true,
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.valentine) user.achievements.valentine = 0;

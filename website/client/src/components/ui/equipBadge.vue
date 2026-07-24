@@ -7,13 +7,13 @@
   >
     <div
       v-once
-      class="svg-icon color equip-icon"
+      class="svg svg-icon color equip-icon"
       v-html="icons.equip"
     >
     </div>
     <div
       v-once
-      class="svg-icon color unequip-icon"
+      class="svg svg-icon color unequip-icon"
       v-html="icons.unEquip"
     >
     </div>
@@ -21,7 +21,7 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
   .badge-equip {
     cursor: pointer;
@@ -70,8 +70,8 @@
 </style>
 
 <script>
-import svgEquip from '@/assets/svg/equip.svg';
-import svgUnEquip from '@/assets/svg/unequip.svg';
+import svgEquip from '@/assets/svg/equip.svg?raw';
+import svgUnEquip from '@/assets/svg/unequip.svg?raw';
 
 export default {
   props: {

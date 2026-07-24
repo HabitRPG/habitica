@@ -1,10 +1,14 @@
 import defaults from 'lodash/defaults';
 import find from 'lodash/find';
 import forEach from 'lodash/forEach';
+import moment from 'moment';
 import upperFirst from 'lodash/upperFirst';
 import { ownsItem } from '../gear-helper';
 import { ATTRIBUTES } from '../../../constants';
 import t from '../../translation';
+import memoize from '../../../fns/datedMemoize';
+import { ARMOIRE_RELEASE_DATES as releaseDates } from '../../constants/releaseDates';
+import { buildReleaseDate } from '../../is_released';
 
 const armor = {
   lunarArmor: {
@@ -424,6 +428,160 @@ const armor = {
     con: 10,
     set: 'painters',
   },
+  stripedRainbowShirt: {
+    str: 7,
+    int: 7,
+    set: 'rainbow',
+  },
+  diagonalRainbowShirt: {
+    con: 7,
+    per: 7,
+    set: 'rainbow',
+  },
+  admiralsUniform: {
+    con: 7,
+    str: 7,
+    set: 'admiralsSet',
+  },
+  karateGi: {
+    str: 10,
+    set: 'karateSet',
+  },
+  greenFluffTrimmedCoat: {
+    str: 8,
+    int: 8,
+    set: 'greenTrapper',
+  },
+  schoolUniformSkirt: {
+    int: 5,
+    set: 'schoolUniform',
+  },
+  schoolUniformPants: {
+    int: 5,
+    set: 'schoolUniform',
+  },
+  softWhiteSuit: {
+    con: 7,
+    per: 10,
+    set: 'whiteLoungeWear',
+  },
+  hattersSuit: {
+    con: 9,
+    set: 'hatterSet',
+  },
+  smileyShirt: {
+    int: 4,
+    per: 4,
+    set: 'optimistSet',
+  },
+  pottersApron: {
+    str: 8,
+    set: 'pottersSet',
+  },
+  yellowStripedSwimsuit: {
+    con: 13,
+    set: 'beachsideSet',
+  },
+  blueStripedSwimsuit: {
+    con: 13,
+    set: 'beachsideSet',
+  },
+  corsairsCoatAndCape: {
+    con: 14,
+    set: 'corsairSet',
+  },
+  dragonKnightsArmor: {
+    str: 8,
+    set: 'dragonKnightSet',
+  },
+  funnyFoolCostume: {
+    str: 15,
+    set: 'funnyFoolSet',
+  },
+  stormKnightArmor: {
+    per: 11,
+    set: 'stormKnightSet',
+  },
+  festiveHelperOveralls: {
+    con: 12,
+    set: 'festiveHelperSet',
+  },
+  snowyFluffTrimmedCoat: {
+    str: 6,
+    int: 6,
+    set: 'snowyTrapperSet',
+  },
+  springPetalYukata: {
+    con: 8,
+    str: 8,
+    set: 'springPetalSet',
+  },
+  sillyOrangeTuxedo: {
+    con: 12,
+    set: 'sillyTuxedoSet',
+  },
+  sillierBlueTuxedo: {
+    str: 12,
+    set: 'sillierTuxedoSet',
+  },
+  gildedKnightsPlate: {
+    per: 11,
+    set: 'gildedKnightSet',
+  },
+  beekeepersSuit: {
+    con: 12,
+    set: 'beekeepersSet',
+  },
+  flyFishingWaders: {
+    str: 7,
+    con: 7,
+    set: 'flyFishingSet',
+  },
+  redWaistcoat: {
+    con: 8,
+    str: 8,
+    set: 'redWaistcoatSet',
+  },
+  softOrangeSuit: {
+    con: 8,
+    str: 8,
+    set: 'orangeLoungewear',
+  },
+  blackPartyDress: {
+    con: 7,
+    int: 7,
+    str: 7,
+    set: 'blackHairbow',
+  },
+  blacksmithsApron: {
+    con: 11,
+    set: 'blacksmith',
+  },
+  loneCowpokeOutfit: {
+    con: 10,
+    set: 'loneCowpoke',
+  },
+  softYellowSuit: {
+    con: 9,
+    str: 9,
+    set: 'yellowLoungewear',
+  },
+  handstandOutfit: {
+    per: 10,
+    set: 'handstand',
+  },
+  kendoBogu: {
+    con: 7,
+    set: 'kendo',
+  },
+};
+
+const back = {
+  harpsichord: {
+    int: 6,
+    per: 6,
+    set: 'musicalInstrumentTwo',
+  },
 };
 
 const body = {
@@ -442,6 +600,42 @@ const body = {
     con: 2,
     per: 2,
     set: 'clown',
+  },
+  karateYellowBelt: {
+    per: 3,
+    set: 'karateSet',
+  },
+  karateWhiteBelt: {
+    int: 3,
+    set: 'karateSet',
+  },
+  karateRedBelt: {
+    per: 3,
+    set: 'karateSet',
+  },
+  karatePurpleBelt: {
+    con: 3,
+    set: 'karateSet',
+  },
+  karateOrangeBelt: {
+    con: 3,
+    set: 'karateSet',
+  },
+  karateGreenBelt: {
+    str: 3,
+    set: 'karateSet',
+  },
+  karateBrownBelt: {
+    str: 3,
+    set: 'karateSet',
+  },
+  karateBlueBelt: {
+    con: 3,
+    set: 'karateSet',
+  },
+  karateBlackBelt: {
+    int: 3,
+    set: 'karateSet',
   },
 };
 
@@ -466,6 +660,10 @@ const eyewear = {
   jewelersEyeLoupe: {
     per: 10,
     set: 'jewelers',
+  },
+  roseColoredGlasses: {
+    per: 8,
+    set: 'optimistSet',
   },
 };
 
@@ -859,6 +1057,134 @@ const head = {
     per: 9,
     set: 'painters',
   },
+  admiralsBicorne: {
+    int: 7,
+    per: 7,
+    set: 'admiralsSet',
+  },
+  blackSpookySorceryHat: {
+    int: 5,
+    con: 3,
+    set: 'somethingSpooky',
+  },
+  purpleSpookySorceryHat: {
+    per: 5,
+    con: 3,
+    set: 'somethingSpooky',
+  },
+  greenTrapperHat: {
+    con: 6,
+    per: 6,
+    set: 'greenTrapper',
+  },
+  whiteFloppyHat: {
+    str: 5,
+    int: 5,
+    con: 5,
+    set: 'whiteLoungeWear',
+  },
+  hattersTopHat: {
+    per: 10,
+    set: 'hatterSet',
+  },
+  pottersBandana: {
+    int: 8,
+    set: 'pottersSet',
+  },
+  corsairsBandana: {
+    int: 7,
+    set: 'corsairSet',
+  },
+  dragonKnightsHelm: {
+    int: 8,
+    set: 'dragonKnightSet',
+  },
+  funnyFoolCap: {
+    con: 15,
+    set: 'funnyFoolSet',
+  },
+  stormKnightHelm: {
+    con: 11,
+    set: 'stormKnightSet',
+  },
+  festiveHelperHat: {
+    int: 12,
+    set: 'festiveHelperSet',
+  },
+  snowyTrapperHat: {
+    con: 6,
+    per: 6,
+    set: 'snowyTrapperSet',
+  },
+  fancyFloralHat: {
+    int: 14,
+    set: 'fancyFloralSet',
+  },
+  sillyOrangeTophat: {
+    str: 6,
+    con: 6,
+    set: 'sillyTuxedoSet',
+  },
+  sillierBlueTophat: {
+    str: 6,
+    con: 6,
+    set: 'sillierTuxedoSet',
+  },
+  gildedKnightsHelm: {
+    con: 11,
+    set: 'gildedKnightSet',
+  },
+  beekeepersHat: {
+    per: 12,
+    set: 'beekeepersSet',
+  },
+  flyFishingHat: {
+    str: 7,
+    per: 7,
+    set: 'flyFishingSet',
+  },
+  redNewsieHat: {
+    per: 8,
+    int: 8,
+    set: 'redWaistcoatSet',
+  },
+  floppyOrangeHat: {
+    con: 4,
+    int: 4,
+    per: 4,
+    str: 4,
+    set: 'orangeLoungewear',
+  },
+  blackHairbow: {
+    con: 5,
+    int: 5,
+    str: 5,
+    set: 'blackHairbow',
+  },
+  blacksmithsGoggles: {
+    per: 11,
+    set: 'blacksmith',
+  },
+  loneCowpokeHat: {
+    per: 10,
+    set: 'loneCowpoke',
+  },
+  floppyYellowHat: {
+    con: 3,
+    int: 3,
+    per: 3,
+    str: 3,
+    set: 'yellowLoungewear',
+  },
+  verdantArmingCap: {
+    con: 5,
+    per: 5,
+    set: 'verdantPage',
+  },
+  kendoMen: {
+    per: 7,
+    set: 'kendo',
+  },
 };
 
 const shield = {
@@ -1172,6 +1498,95 @@ const shield = {
   paintersPalette: {
     str: 7,
     set: 'painters',
+  },
+  bucket: {
+    str: 4,
+    int: 4,
+    set: 'cleaningSuppliesTwo',
+  },
+  saucepan: {
+    per: 10,
+    set: 'cookingImplementsTwo',
+  },
+  trustyPencil: {
+    int: 10,
+    set: 'schoolUniform',
+  },
+  softWhitePillow: {
+    int: 6,
+    per: 6,
+    set: 'whiteLoungeWear',
+  },
+  hattersPocketWatch: {
+    int: 9,
+    set: 'hatterSet',
+  },
+  happyThoughts: {
+    int: 4,
+    per: 4,
+    con: 4,
+    str: 4,
+    set: 'optimistSet',
+  },
+  thrownVessel: {
+    con: 8,
+    set: 'pottersSet',
+  },
+  buoyantBeachBall: {
+    str: 12,
+    set: 'beachsideSet',
+  },
+  safetyFlashlight: {
+    con: 10,
+    set: 'frightNightSet',
+  },
+  fancyFloralFan: {
+    per: 14,
+    set: 'fancyFloralSet',
+  },
+  springPetalUchiwa: {
+    int: 8,
+    per: 8,
+    set: 'springPetalSet',
+  },
+  beekeepersHive: {
+    str: 12,
+    set: 'beekeepersSet',
+  },
+  flyFishingRod: {
+    str: 7,
+    int: 7,
+    set: 'flyFishingSet',
+  },
+  softOrangePillow: {
+    int: 8,
+    per: 8,
+    set: 'orangeLoungewear',
+  },
+  doubleBass: {
+    con: 6,
+    str: 6,
+    set: 'musicalInstrumentTwo',
+  },
+  prettyPinkGiftBox: {
+    con: 2,
+    int: 2,
+    per: 2,
+    str: 2,
+    set: 'prettyInPink',
+  },
+  softYellowPillow: {
+    int: 9,
+    per: 9,
+    set: 'yellowLoungewear',
+  },
+  verdantBanner: {
+    int: 10,
+    set: 'verdantPage',
+  },
+  gardenHose: {
+    per: 8,
+    set: 'gardener2',
   },
 };
 
@@ -1619,10 +2034,120 @@ const weapon = {
     int: 8,
     set: 'painters',
   },
+  mop: {
+    con: 4,
+    per: 4,
+    set: 'cleaningSuppliesTwo',
+  },
+  cleaningCloth: {
+    str: 4,
+    con: 4,
+    set: 'cleaningSuppliesTwo',
+  },
+  ridingBroom: {
+    str: 5,
+    int: 3,
+    set: 'somethingSpooky',
+  },
+  rollingPin: {
+    str: 10,
+    set: 'cookingImplementsTwo',
+  },
+  scholarlyTextbooks: {
+    int: 10,
+    set: 'schoolUniform',
+  },
+  hattersShears: {
+    str: 10,
+    set: 'hatterSet',
+  },
+  optimistsClover: {
+    str: 4,
+    con: 4,
+    set: 'optimistSet',
+  },
+  pottersWheel: {
+    per: 8,
+    set: 'pottersSet',
+  },
+  shadyBeachUmbrella: {
+    per: 12,
+    set: 'beachsideSet',
+  },
+  corsairsBlade: {
+    str: 7,
+    set: 'corsairSet',
+  },
+  dragonKnightsLance: {
+    con: 8,
+    set: 'dragonKnightSet',
+  },
+  funnyFoolBaton: {
+    con: 15,
+    str: 15,
+    set: 'funnyFoolSet',
+  },
+  spookyCandyBucket: {
+    int: 10,
+    set: 'frightNightSet',
+  },
+  stormKnightAxe: {
+    str: 11,
+    set: 'stormKnightSet',
+  },
+  gildedKnightsSpear: {
+    str: 11,
+    set: 'gildedKnightSet',
+  },
+  beekeepersSmoker: {
+    int: 12,
+    set: 'beekeepersSet',
+  },
+  blacksmithsHammer: {
+    str: 11,
+    set: 'blacksmith',
+  },
+  bambooFlute: {
+    con: 6,
+    int: 6,
+    set: 'musicalInstrumentTwo',
+  },
+  prettyPinkParasol: {
+    con: 2,
+    int: 2,
+    per: 2,
+    str: 2,
+    set: 'prettyInPink',
+  },
+  brightRainbowKite: {
+    con: 3,
+    int: 3,
+    per: 3,
+    str: 3,
+    set: 'rainbowKite',
+  },
+  pastelRainbowKite: {
+    con: 3,
+    int: 3,
+    per: 3,
+    str: 3,
+    set: 'rainbowKite',
+  },
+  kendoShinai: {
+    str: 7,
+    set: 'kendo',
+  },
+  gardenRake: {
+    con: 8,
+    set: 'gardener2',
+  },
 };
+
+const releaseDay = 7;
 
 forEach({
   armor,
+  back,
   body,
   eyewear,
   head,
@@ -1662,12 +2187,63 @@ forEach({
   });
 });
 
-export {
-  armor,
-  body,
-  eyewear,
-  head,
-  headAccessory,
-  shield,
-  weapon,
+function updateReleased (type) {
+  const today = moment();
+  const returnType = {};
+  forEach(type, (gearItem, gearKey) => {
+    let released;
+    if (releaseDates[gearItem.set]) {
+      const components = releaseDates[gearItem.set];
+      const releaseDateString = buildReleaseDate(components.year, components.month, releaseDay);
+      released = today.isAfter(releaseDateString);
+    } else {
+      released = true;
+    }
+    if (released) {
+      returnType[gearKey] = gearItem;
+    }
+  });
+  return returnType;
+}
+
+const memoizedUpdateReleased = memoize(updateReleased);
+
+export default {
+  get armor () {
+    return memoizedUpdateReleased({ identifier: 'armor', memoizeConfig: true }, armor);
+  },
+  get back () {
+    return memoizedUpdateReleased({ identifier: 'back', memoizeConfig: true }, back);
+  },
+  get body () {
+    return memoizedUpdateReleased({ identifier: 'body', memoizeConfig: true }, body);
+  },
+  get eyewear () {
+    return memoizedUpdateReleased({ identifier: 'eyewear', memoizeConfig: true }, eyewear);
+  },
+  get head () {
+    return memoizedUpdateReleased({ identifier: 'head', memoizeConfig: true }, head);
+  },
+  get headAccessory () {
+    return memoizedUpdateReleased({ identifier: 'headAccessory', memoizeConfig: true }, headAccessory);
+  },
+  get shield () {
+    return memoizedUpdateReleased({ identifier: 'shield', memoizeConfig: true }, shield);
+  },
+  get weapon () {
+    return memoizedUpdateReleased({ identifier: 'weapon', memoizeConfig: true }, weapon);
+  },
+  // convenience method for tests mostly. Not used in the app
+  get all () {
+    const items = [];
+    items.push(...Object.values(this.armor));
+    items.push(...Object.values(this.back));
+    items.push(...Object.values(this.body));
+    items.push(...Object.values(this.eyewear));
+    items.push(...Object.values(this.head));
+    items.push(...Object.values(this.headAccessory));
+    items.push(...Object.values(this.shield));
+    items.push(...Object.values(this.weapon));
+    return items;
+  },
 };

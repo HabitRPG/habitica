@@ -13,8 +13,8 @@
       class="w-100 d-flex pt-2 justify-content-center"
     >
       <h2
-        class="mx-auto mt-4"
         v-once
+        class="mx-auto mt-4"
       >
         {{ $t('newGroupsWelcome') }}
       </h2>
@@ -28,9 +28,9 @@
       ></div>
       <img
         class="task-columns"
-        src="~@/assets/images/group-plans/task-columns.png"
-        srcset="~@/assets/images/group-plans/task-columns@2x.png 2x,
-          ~@/assets/images/group-plans/task-columns@3x.png 3x"
+        src="@/assets/images/group-plans/task-columns.png"
+        srcset="@/assets/images/group-plans/task-columns@2x.png 2x,
+          @/assets/images/group-plans/task-columns@3x.png 3x"
       >
     </div>
     <div
@@ -43,8 +43,8 @@
         >
         </div>
         <h3
-          class="my-auto"
           v-once
+          class="my-auto"
         >
           {{ $t('newGroupsWhatsNew') }}
         </h3>
@@ -66,7 +66,8 @@
         <li>{{ $t('newGroupsBullet07') }}</li>
         <li>{{ $t('newGroupsBullet08') }}</li>
         <li>{{ $t('newGroupsBullet09') }}</li>
-        <li>{{ $t('newGroupsBullet10') }}
+        <li>
+          {{ $t('newGroupsBullet10') }}
           <ul class="p-0">
             <li v-html="$t('newGroupsBullet10a')"></li>
             <li v-html="$t('newGroupsBullet10b')"></li>
@@ -76,26 +77,26 @@
       </ul>
       <div
         class="mx-auto"
-        v-html="$t('newGroupsVisitFAQ')"
+        v-html="$t('newGroupsVisitFAQ', faqLinks)"
       ></div>
       <div
         class="mx-auto"
       >
         {{ $t('newGroupsEnjoy') }}
       </div>
-    <button
-      class="btn btn-primary mt-4 mb-1 mx-auto"
-      @click="close()"
-      @keypress.enter="close()"
-    >
-      {{ $t('getStarted') }}
-    </button>
+      <button
+        class="btn btn-primary mt-4 mb-1 mx-auto"
+        @click="close()"
+        @keypress.enter="close()"
+      >
+        {{ $t('getStarted') }}
+      </button>
     </div>
   </b-modal>
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
   #group-plans-update {
     .modal-content {
       border-top-left-radius: 10px;
@@ -124,7 +125,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
   h2 {
     color: $white;
     line-height: 28px;
@@ -182,8 +183,8 @@
 </style>
 
 <script>
-import closeIcon from '@/assets/svg/close.svg';
-import sparkles from '@/assets/svg/sparkles-left.svg';
+import closeIcon from '@/assets/svg/close.svg?raw';
+import sparkles from '@/assets/svg/sparkles-left.svg?raw';
 
 export default {
   data () {
@@ -192,6 +193,10 @@ export default {
         close: closeIcon,
         sparkles,
       }),
+      faqLinks: {
+        linkOpen: '<a href="/static/faq#group-plans" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
     };
   },
   methods: {

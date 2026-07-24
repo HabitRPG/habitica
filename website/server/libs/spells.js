@@ -1,4 +1,5 @@
 import { model as User } from '../models/user';
+import { chatModel as Chat } from '../models/message';
 import * as Tasks from '../models/task';
 import {
   NotFound,
@@ -9,7 +10,7 @@ import common from '../../common';
 import {
   model as Group,
 } from '../models/group';
-import apiError from './apiError';
+import { apiError } from './apiError';
 
 const partyMembersFields = 'profile.name stats achievements items.special pinnedItems notifications flags';
 // Excluding notifications and flags from the list of public fields to return.
@@ -217,8 +218,13 @@ async function castSpell (req, res, { isV3 = false }) {
       partyMembers = await castPartySpell(req, party, user, spell, quantity);
     } else {
       partyMembers = await castUserSpell(
-        res, req, party,
-        targetId, user, spell, quantity,
+        res,
+        req,
+        party,
+        targetId,
+        user,
+        spell,
+        quantity,
       );
     }
 
@@ -241,26 +247,72 @@ async function castSpell (req, res, { isV3 = false }) {
     });
 
     if (party && !spell.silent) {
-      if (targetType === 'user') {
-        const newChatMessage = party.sendChat({
-          message: `\`${common.i18n.t('chatCastSpellUser', { username: user.profile.name, spell: spell.text(), target: partyMembers.profile.name }, 'en')}\``,
+      const lastMessage = await Chat.findOne({ groupId: party._id })
+        .sort('-timestamp')
+        .exec();
+      if (targetType === 'user') { // Single target spell, check for repeat
+        if (lastMessage && lastMessage.info.spell === spellId
+          && lastMessage.info.user === user.profile.name
+          && lastMessage.info.target === partyMembers.profile.name) {
+          const newChatMessage = await party.sendChat({
+            message: `\`${common.i18n.t('chatCastSpellUserTimes', {
+              username: user.profile.name,
+              spell: spell.text(),
+              target: partyMembers.profile.name,
+              times: lastMessage.info.times + 1,
+            }, 'en')}\``,
+            info: {
+              type: 'spell_cast_user_multi',
+              user: user.profile.name,
+              class: klass,
+              spell: spellId,
+              target: partyMembers.profile.name,
+              times: lastMessage.info.times + 1,
+            },
+          });
+          await newChatMessage.save();
+          await lastMessage.deleteOne();
+        } else { // Single target spell, not repeated
+          const newChatMessage = await party.sendChat({
+            message: `\`${common.i18n.t('chatCastSpellUser', { username: user.profile.name, spell: spell.text(), target: partyMembers.profile.name }, 'en')}\``,
+            info: {
+              type: 'spell_cast_user',
+              user: user.profile.name,
+              class: klass,
+              spell: spellId,
+              target: partyMembers.profile.name,
+              times: 1,
+            },
+          });
+          await newChatMessage.save();
+        }
+      } else if (lastMessage && lastMessage.info.spell === spellId // Party spell, check for repeat
+        && lastMessage.info.user === user.profile.name) {
+        const newChatMessage = await party.sendChat({
+          message: `\`${common.i18n.t('chatCastSpellPartyTimes', {
+            username: user.profile.name,
+            spell: spell.text(),
+            times: lastMessage.info.times + 1,
+          }, 'en')}\``,
           info: {
-            type: 'spell_cast_user',
+            type: 'spell_cast_party_multi',
             user: user.profile.name,
             class: klass,
             spell: spellId,
-            target: partyMembers.profile.name,
+            times: lastMessage.info.times + 1,
           },
         });
         await newChatMessage.save();
+        await lastMessage.deleteOne();
       } else {
-        const newChatMessage = party.sendChat({
+        const newChatMessage = await party.sendChat({ // Non-repetitive partywide spell
           message: `\`${common.i18n.t('chatCastSpellParty', { username: user.profile.name, spell: spell.text() }, 'en')}\``,
           info: {
             type: 'spell_cast_party',
             user: user.profile.name,
             class: klass,
             spell: spellId,
+            times: 1,
           },
         });
         await newChatMessage.save();

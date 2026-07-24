@@ -5,7 +5,7 @@ import path from 'path';
 import babel from 'gulp-babel';
 import os from 'os';
 import fs from 'fs';
-import spawn from 'cross-spawn'; // eslint-disable-line import/no-extraneous-dependencies
+import spawn from 'cross-spawn';
 import clean from 'rimraf';
 
 gulp.task('build:babel:server', () => gulp.src('website/server/**/*.js')
@@ -26,7 +26,6 @@ gulp.task('build:cache', gulp.parallel(
 
 gulp.task('build:prod', gulp.series(
   'build:babel',
-  'apidoc',
   'build:cache',
   done => done(),
 ));
@@ -35,7 +34,7 @@ gulp.task('build:prod', gulp.series(
 // When used on windows `run-rs` must first be run without the `--keep` option
 // in order to be setup correctly, afterwards it can be used.
 
-const MONGO_PATH = path.join(__dirname, '/../mongodb-data/');
+const MONGO_PATH = path.join(__dirname, '/../mongodb-data-docker/');
 
 gulp.task('build:prepare-mongo', async () => {
   if (fs.existsSync(MONGO_PATH)) {
@@ -51,29 +50,32 @@ gulp.task('build:prepare-mongo', async () => {
   console.log('MongoDB data folder is missing, setting up.'); // eslint-disable-line no-console
 
   // use run-rs without --keep, kill it as soon as the replica set starts
-  const runRsProcess = spawn('run-rs', ['-v', '4.2.8', '-l', 'ubuntu1804', '--dbpath', 'mongodb-data', '--number', '1', '--quiet']);
+  const dockerMongoProcess = spawn('npm', ['run', 'docker:mongo:dev']);
 
-  for await (const chunk of runRsProcess.stdout) {
+  let manuallyStopped = false;
+
+  for await (const chunk of dockerMongoProcess.stdout) {
     const stringChunk = chunk.toString();
     console.log(stringChunk); // eslint-disable-line no-console
     // kills the process after the replica set is setup
-    if (stringChunk.includes('Started replica set')) {
+    if (stringChunk.includes('mongod startup complete')) {
       console.log('MongoDB setup correctly.'); // eslint-disable-line no-console
-      runRsProcess.kill();
+      dockerMongoProcess.kill();
+      manuallyStopped = true;
     }
   }
 
   let error = '';
-  for await (const chunk of runRsProcess.stderr) {
+  for await (const chunk of dockerMongoProcess.stderr) {
     const stringChunk = chunk.toString();
     error += stringChunk;
   }
 
   const exitCode = await new Promise(resolve => {
-    runRsProcess.on('close', resolve);
+    dockerMongoProcess.on('close', resolve);
   });
 
-  if (exitCode || error.length > 0) {
+  if (!manuallyStopped && (exitCode || error.length > 0)) {
     // remove any leftover files
     clean.sync(MONGO_PATH);
 

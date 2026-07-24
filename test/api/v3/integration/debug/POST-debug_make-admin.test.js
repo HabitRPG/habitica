@@ -5,16 +5,23 @@ import {
 
 describe('POST /debug/make-admin', () => {
   let user;
+  let nconfStub;
 
   before(async () => {
     user = await generateUser();
   });
 
+  beforeEach(() => {
+    nconfStub = sandbox.stub(nconf, 'get');
+    nconfStub.withArgs('BASE_URL').returns('https://example.com');
+  });
+
   afterEach(() => {
-    nconf.set('IS_PROD', false);
+    nconfStub.restore();
   });
 
   it('makes user an admin', async () => {
+    nconfStub.withArgs('DEBUG_ENABLED').returns(true);
     await user.post('/debug/make-admin');
 
     await user.sync();
@@ -23,7 +30,7 @@ describe('POST /debug/make-admin', () => {
   });
 
   it('returns error when not in production mode', async () => {
-    nconf.set('IS_PROD', true);
+    nconfStub.withArgs('DEBUG_ENABLED').returns(false);
 
     await expect(user.post('/debug/make-admin'))
       .eventually.be.rejected.and.to.deep.equal({

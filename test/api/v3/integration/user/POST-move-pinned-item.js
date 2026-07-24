@@ -52,7 +52,7 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
     // For this test put seasonal items at the end so they stay out of the way
     testPinnedItemsOrder = testPinnedItemsOrder.concat(officialPinnedItemPaths);
 
-    await user.update({
+    await user.updateOne({
       pinnedItems: testPinnedItems,
       pinnedItemsOrder: testPinnedItemsOrder,
     });
@@ -96,7 +96,7 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
       'potion',
     ];
 
-    await user.update({
+    await user.updateOne({
       pinnedItems: testPinnedItems,
       pinnedItemsOrder: testPinnedItemsOrder,
     });
@@ -138,7 +138,7 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
       'potion',
     ];
 
-    await user.update({
+    await user.updateOne({
       pinnedItems: testPinnedItems,
       pinnedItemsOrder: testPinnedItemsOrder,
     });
@@ -171,7 +171,7 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
     // add item to pinned
     officialPinnedItems.push({ type: 'armoire', path: 'armoire' });
 
-    await user.update({
+    await user.updateOne({
       pinnedItems: testPinnedItems,
       pinnedItemsOrder: testPinnedItemsOrder,
     });
@@ -201,7 +201,7 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
       'potion',
     ];
 
-    await user.update({
+    await user.updateOne({
       pinnedItems: testPinnedItems,
       pinnedItemsOrder: testPinnedItemsOrder,
     });
@@ -225,7 +225,7 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
       'potion',
     ];
 
-    await user.update({
+    await user.updateOne({
       pinnedItems: testPinnedItems,
       pinnedItemsOrder: testPinnedItemsOrder,
     });

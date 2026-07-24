@@ -30,12 +30,14 @@ describe('Amazon Payments - Subscribe', () => {
     group = generateGroup({
       name: 'test group',
       type: 'guild',
-      privacy: 'public',
+      privacy: 'private',
       leader: user._id,
     });
     group.purchased.plan.customerId = 'customer-id';
     group.purchased.plan.planId = subKey;
     await group.save();
+    user.guilds.push(group._id);
+    await user.save();
 
     amount = common.content.subscriptionBlocks[subKey].price;
     billingAgreementId = 'billingAgreementId';
@@ -242,11 +244,6 @@ describe('Amazon Payments - Subscribe', () => {
   });
 
   it('subscribes with amazon with price to existing users', async () => {
-    user = new User();
-    user.guilds.push(groupId);
-    await user.save();
-
-    // Add existing users
     user = new User();
     user.guilds.push(groupId);
     await user.save();

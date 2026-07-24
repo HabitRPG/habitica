@@ -1,6 +1,6 @@
 import { CONSTANTS, getLocalSetting, setLocalSetting } from '@/libs/userlocalManager';
 
-export default function (to, from, next) {
+export default function handleRedirect (to, from, next) {
   const { redirect } = to.params;
 
   switch (redirect) {
@@ -22,30 +22,19 @@ export default function (to, from, next) {
         newAppState.paymentCompleted = true;
         setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(newAppState));
 
-        if (newAppState.isStripeEdit) {
-          if (newAppState.paymentType === 'subscription') {
-            return next({ name: 'subscription' });
-          }
+        if (newAppState.isStripeEdit && newAppState.paymentType === 'groupPlan') {
+          return next({
+            name: 'groupPlanBilling',
+            params: { groupId: newAppState.groupId },
+          });
+        }
 
-          if (newAppState.paymentType === 'groupPlan') {
-            return next({
-              name: 'groupPlanBilling',
-              params: { groupId: newAppState.groupId },
-            });
-          }
+        if (newAppState.paymentType === 'subscription' || newAppState.paymentType === 'gift-subscription') {
+          return next({ name: 'subscription' });
         }
 
         const newGroup = newAppState.group;
         if (newGroup && newGroup._id) {
-          // Handle new user signup
-          if (newAppState.newSignup === true) {
-            return next({
-              name: 'groupPlanDetailTaskInformation',
-              params: { groupId: newGroup._id },
-              query: { showGroupOverview: 'true' },
-            });
-          }
-
           return next({
             name: 'groupPlanDetailTaskInformation',
             params: { groupId: newGroup._id },

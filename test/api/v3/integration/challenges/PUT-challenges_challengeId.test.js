@@ -18,6 +18,7 @@ describe('PUT /challenges/:challengeId', () => {
         privacy: 'private',
       },
       members: 1,
+      upgradeToGroupPlan: true,
     });
 
     privateGuild = group;

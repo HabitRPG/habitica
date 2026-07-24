@@ -11,6 +11,7 @@ import {
 import { model as Group } from '../../models/group';
 import { model as Challenge } from '../../models/challenge';
 import {
+  BadRequest,
   NotFound,
   NotAuthorized,
 } from '../../libs/errors';
@@ -21,12 +22,8 @@ import {
 } from '../../libs/email';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import common from '../../../common';
-import { sentMessage } from '../../libs/inbox';
-import {
-  sanitizeText as sanitizeMessageText,
-} from '../../models/message';
-import highlightMentions from '../../libs/highlightMentions';
 import { handleGetMembersForChallenge } from '../../libs/challenges/handleGetMembersForChallenge';
+import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 
 const { achievements } = common;
 
@@ -103,7 +100,7 @@ const api = {};
 api.getMember = {
   method: 'GET',
   url: '/members/:memberId',
-  middlewares: [],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
 
@@ -132,7 +129,7 @@ api.getMember = {
 api.getMemberByUsername = {
   method: 'GET',
   url: '/members/username/:username',
-  middlewares: [],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('username', res.t('invalidReqParams')).notEmpty();
 
@@ -144,14 +141,24 @@ api.getMemberByUsername = {
 
     const member = await User
       .findOne({ 'auth.local.lowerCaseUsername': username, 'flags.verifiedUsername': true })
-      .select(memberFields)
+      .select(`${memberFields} blocks`)
       .exec();
 
     if (!member) throw new NotFound(res.t('userNotFound'));
 
+    const blocksArray = member.blocks || [];
+
+    delete member.blocks;
+
     // manually call toJSON with minimize: true so empty paths aren't returned
     const memberToJSON = member.toJSON({ minimize: true });
     User.addComputedStatsToJSONObj(memberToJSON.stats, member);
+
+    const { user } = res.locals;
+
+    const isRequestingUserBlocked = blocksArray.includes(user._id);
+
+    memberToJSON.inbox.canReceive = !(memberToJSON.inbox.optOut || isRequestingUserBlocked) || user.hasPermission('moderator');
 
     res.respond(200, memberToJSON);
   },
@@ -251,7 +258,7 @@ api.getMemberByUsername = {
 api.getMemberAchievements = {
   method: 'GET',
   url: '/members/:memberId/achievements',
-  middlewares: [],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
 
@@ -326,7 +333,7 @@ function _getMembersForItem (type) {
         const escapedSearch = escapeRegExp(req.query.search);
         query.$or = [
           { 'profile.name': { $regex: new RegExp(escapedSearch, 'i') } },
-          { 'auth.local.username': { $regex: new RegExp(req.query.search, 'i') } },
+          { 'auth.local.username': { $regex: new RegExp(escapedSearch, 'i') } },
         ];
       }
     } else if (type === 'group-invites') {
@@ -637,46 +644,6 @@ api.getObjectionsToInteraction = {
 };
 
 /**
- * @api {post} /api/v3/members/send-private-message Send a private message to a member
- * @apiName SendPrivateMessage
- * @apiGroup Member
- *
- * @apiParam (Body) {String} message The message
- * @apiParam (Body) {UUID} toUserId The id of the user to contact
- *
- * @apiSuccess {Object} data.message The message just sent
- *
- * @apiUse UserNotFound
- */
-api.sendPrivateMessage = {
-  method: 'POST',
-  url: '/members/send-private-message',
-  middlewares: [authWithHeaders()],
-  async handler (req, res) {
-    req.checkBody('message', res.t('messageRequired')).notEmpty();
-    req.checkBody('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();
-
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    const sender = res.locals.user;
-    const sanitizedMessageText = sanitizeMessageText(req.body.message);
-    const message = (await highlightMentions(sanitizedMessageText))[0];
-
-    const receiver = await User.findById(req.body.toUserId).exec();
-    if (!receiver) throw new NotFound(res.t('userNotFound'));
-    if (!receiver.flags.verifiedUsername) delete receiver.auth.local.username;
-
-    const objections = sender.getObjectionsToInteraction('send-private-message', receiver);
-    if (objections.length > 0 && !sender.hasPermission('moderator')) throw new NotAuthorized(res.t(objections[0]));
-
-    const messageSent = await sentMessage(sender, receiver, message, res.t);
-
-    res.respond(200, { message: messageSent });
-  },
-};
-
-/**
  * @api {post} /api/v3/members/transfer-gems Send a gem gift to a member
  * @apiName TransferGems
  * @apiGroup Member
@@ -754,26 +721,106 @@ api.transferGems = {
       ]);
     }
     if (receiver.preferences.pushNotifications.giftedGems !== false) {
-      sendPushNotification(receiver,
+      await sendPushNotification(
+        receiver,
         {
           title: res.t('giftedGems', receiverLang),
           message: res.t('giftedGemsInfo', { amount: gemAmount, name: byUsername }, receiverLang),
           identifier: 'giftedGems',
           payload: { replyTo: sender._id },
-        });
+        },
+      );
     }
 
     res.respond(200, {});
+  },
+};
 
-    if (res.analytics) {
-      res.analytics.track('transfer gems', {
-        uuid: sender._id,
-        hitType: 'event',
-        category: 'behavior',
-        headers: req.headers,
-        quantity: gemAmount,
-      });
+/**
+ * @api {post} /api/v3/members/:memberId/flag Flag (report) a user
+ * @apiDescription Sends an email to staff about another user or their profile
+ * @apiName FlagUser
+ * @apiGroup Members
+ *
+ * @apiParam (Path) {UUID} memberId The unique ID of the user being flagged
+ * @apiParam (Body) {String} [comment] explain why the user was flagged
+ * @apiParam (Body) {String} [source] URL or view from which the user was flagged
+ *
+ * @apiSuccess {Object} data The flagged user
+ * @apiSuccess {UUID} data.id The id of the flagged user
+ * @apiSuccess {String} data.username The username of the flagged user
+ * @apiSuccess {Object} data.profile The flagged user's profile information
+ * @apiSuccess {String} data.profile.blurb Text of the flagged user's profile bio
+ * @apiSuccess {Object} data.profile.flags Data about flags the profile has received.
+ *                                         Restricted to the reporting user's own flag
+ *                                         unless the reporting user is a moderator.
+ *                                         Each key is a UUID, and fields are comment,
+ *                                         source, and timestamp.
+ * @apiSuccess {String} data.profile.imageUrl URL of the flagged user's profile image
+ * @apiSuccess {String} data.profile.name The flagged user's display name
+ *
+ * @apiError (400) {BadRequest} AlreadyFlagged A profile cannot be flagged
+ *                                             more than once by the same user.
+ * @apiError (400) {BadRequest} MemberIdRequired The `memberId` param is required
+ *                                               and must be a valid `UUID`.
+ * @apiError (404) {NotFound} UserWithIdNotFound The `memberId` param did not
+ *                                               belong to an existing user.
+ */
+api.flagUser = {
+  method: 'POST',
+  url: '/members/:memberId/flag',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    const chatReporter = chatReporterFactory('User', req, res);
+    const flaggedUser = await chatReporter.flag();
+    res.respond(200, flaggedUser);
+  },
+};
+
+/**
+ * @api {post} /api/v3/members/:memberId/clear-flags Delete flags from a user
+ * @apiDescription Removes any abuse reports flagged on a user profile.
+ * @apiPermission Admin
+ * @apiName ClearUserFlags
+ * @apiGroup Members
+ *
+ * @apiParam (Path) {UUID} memberId The unique ID of the flagged user to reset
+ *
+ * @apiSuccess {Object} data An empty object
+ *
+ * @apiError (400) {BadRequest} MemberIdRequired The `memberId` param is required
+ *                                               and must be a valid `UUID`.
+ * @apiError (400) {BadRequest} MustBeAdmin Must be a moderator to use this route
+ * @apiError (404) {NotFound} UserWithIdNotFound The `memberId` param did not
+ *                                               belong to an existing user.
+ */
+
+api.clearUserFlags = {
+  method: 'POST',
+  url: '/members/:memberId/clear-flags',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+    const { memberId } = req.params;
+
+    req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    if (!user.hasPermission('moderator')) {
+      throw new BadRequest('Only a moderator may clear reports from a profile.');
     }
+    const flaggedUser = await User.findOne(
+      { _id: memberId },
+      { profile: 1 },
+    ).exec();
+    if (!flaggedUser) {
+      throw new NotFound(res.t('userWithIDNotFound', { userId: memberId }));
+    }
+    flaggedUser.profile.flags = {};
+    await flaggedUser.save();
+
+    res.respond(200, {});
   },
 };
 

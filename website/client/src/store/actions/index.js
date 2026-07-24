@@ -1,5 +1,6 @@
 import { flattenAndNamespace } from '@/libs/store/helpers/internals';
 
+import * as admin from './admin';
 import * as common from './common';
 import * as user from './user';
 import * as tasks from './tasks';
@@ -17,13 +18,14 @@ import * as shops from './shops';
 import * as snackbars from './snackbars';
 import * as worldState from './worldState';
 import * as news from './news';
-import * as analytics from './analytics';
 import * as faq from './faq';
+import * as blockers from './blockers';
 
 // Actions should be named as 'actionName' and can be accessed as 'namespace:actionName'
 // Example: fetch in user.js -> 'user:fetch'
 
 const actions = flattenAndNamespace({
+  admin,
   common,
   user,
   tasks,
@@ -41,8 +43,8 @@ const actions = flattenAndNamespace({
   snackbars,
   worldState,
   news,
-  analytics,
   faq,
+  blockers,
 });
 
 export default actions;

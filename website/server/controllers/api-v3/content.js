@@ -1,6 +1,7 @@
 import nconf from 'nconf';
 import { langCodes } from '../../libs/i18n';
-import { CONTENT_CACHE_PATH, getLocalizedContentResponse } from '../../libs/content';
+import { serveContent, ANDROID_FILTER, IOS_FILTER } from '../../libs/content';
+import { authWithHeaders } from '../../middlewares/auth';
 
 const IS_PROD = nconf.get('IS_PROD');
 
@@ -57,24 +58,34 @@ api.getContent = {
   method: 'GET',
   url: '/content',
   noLanguage: true,
+  middlewares: [authWithHeaders({ optional: true })],
   async handler (req, res) {
     let language = 'en';
     const proposedLang = req.query.language;
 
     if (proposedLang && langCodes.includes(proposedLang)) {
       language = proposedLang;
+    } else if (res.locals.user
+      && res.locals.user.preferences
+      && res.locals.user.preferences.language
+    ) {
+      const userLang = res.locals.user.preferences.language;
+      if (langCodes.includes(userLang)) {
+        language = userLang;
+      }
     }
 
-    if (IS_PROD) {
-      res.sendFile(`${CONTENT_CACHE_PATH}${language}.json`);
-    } else {
-      res.set({
-        'Content-Type': 'application/json',
-      });
-
-      const jsonResString = getLocalizedContentResponse(language);
-      res.status(200).send(jsonResString);
+    let filter = req.query.filter || '';
+    // apply defaults for mobile clients
+    if (filter === '') {
+      if (req.headers['x-client'] === 'habitica-android') {
+        filter = ANDROID_FILTER;
+      } else if (req.headers['x-client'] === 'habitica-ios') {
+        filter = IOS_FILTER;
+      }
     }
+
+    serveContent(res, language, filter, IS_PROD);
   },
 };
 

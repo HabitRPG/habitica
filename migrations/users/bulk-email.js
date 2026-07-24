@@ -16,6 +16,7 @@ async function updateUser (user) {
 
   if (count % progressCount === 0) {
     console.warn(`${count} ${user._id}`);
+    // eslint-disable-next-line no-promise-executor-return
     await new Promise(resolve => setTimeout(resolve, 5000));
   }
 
@@ -25,7 +26,7 @@ async function updateUser (user) {
     [{ name: 'BASE_URL', content: BASE_URL }], // Add variables from template
   );
 
-  return User.update({ _id: user._id }, { $set: { migration: MIGRATION_NAME } }).exec();
+  return User.updateOne({ _id: user._id }, { $set: { migration: MIGRATION_NAME } }).exec();
 }
 
 export default async function processUsers () {

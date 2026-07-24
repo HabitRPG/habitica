@@ -1,6 +1,5 @@
 import {
-  generateUser,
-  generateGroup,
+  createAndPopulateGroup,
 } from '../../../../../helpers/api-integration/v3';
 
 describe('POST group-tasks/:taskId/move/to/:position', () => {
@@ -8,8 +7,12 @@ describe('POST group-tasks/:taskId/move/to/:position', () => {
     guild;
 
   beforeEach(async () => {
-    user = await generateUser({ balance: 1 });
-    guild = await generateGroup(user, { type: 'guild' }, { 'purchased.plan.customerId': 'group-unlimited' });
+    const { group, groupLeader } = await createAndPopulateGroup({
+      groupDetails: { type: 'guild', privacy: 'private' },
+      upgradeToGroupPlan: true,
+    });
+    guild = group;
+    user = groupLeader;
   });
 
   it('can move task to new position', async () => {

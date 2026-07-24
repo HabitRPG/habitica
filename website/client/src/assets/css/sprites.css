@@ -22,7 +22,15 @@
   height: 219px;
 }
 
-.Pet_HatchingPotion_Dessert, .Pet_HatchingPotion_Veggie, .Pet_HatchingPotion_Windup, .Pet_HatchingPotion_VirtualPet {
+.quest_alien {
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/quest_alien.gif") no-repeat;
+  width: 219px;
+  height: 219px;
+}
+
+.Pet_HatchingPotion_Dessert, .Pet_HatchingPotion_Veggie, .Pet_HatchingPotion_Windup,
+.Pet_HatchingPotion_VirtualPet, .Pet_HatchingPotion_Fungi, .Pet_HatchingPotion_Cryptid,
+.Pet_HatchingPotion_Alien {
   width: 68px;
   height: 68px;
 }
@@ -41,6 +49,18 @@
 
 .Pet_HatchingPotion_VirtualPet {
   background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet_HatchingPotion_VirtualPet.gif") no-repeat;
+}
+
+.Pet_HatchingPotion_Fungi {
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet_HatchingPotion_Fungi.gif") no-repeat;
+}
+
+.Pet_HatchingPotion_Cryptid {
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet_HatchingPotion_Cryptid.gif") no-repeat;
+}
+
+.Pet_HatchingPotion_Alien {
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/Pet_HatchingPotion_Alien.gif") no-repeat;
 }
 
 .Gems {
@@ -92,6 +112,12 @@
 .broad_armor_special_1, .slim_armor_special_1, .head_special_1 {
   width: 90px;
   height: 90px;
+}
+
+.back_special_heroicAureole {
+  width: 114px;
+  height: 90px;
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/back_special_heroicAureole.gif") no-repeat;
 }
 
 .head_special_0 {
@@ -162,7 +188,7 @@
   height: 96px;
 }
 
-.Mount_Head_Gryphon-Gryphatrice, .Mount_Body_Gryphon-Gryphatrice {
+.Mount_Head_Gryphon-Gryphatrice, .Mount_Body_Gryphon-Gryphatrice, .Mount_Head_Dragon-Hydra, .Mount_Body_Dragon-Hydra {
   width: 135px;
   height: 135px;
 }
@@ -173,6 +199,14 @@
 
 .Mount_Body_Gryphon-Gryphatrice {
   background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/BackerOnly-Mount-Body-Gryphatrice.gif") no-repeat;
+}
+
+.Mount_Head_Dragon-Hydra {
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Head_Dragon-Hydra.gif") no-repeat;
+}
+
+.Mount_Body_Dragon-Hydra {
+  background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/Mount_Body_Dragon-Hydra.gif") no-repeat;
 }
 
 .background_airship, .background_clocktower, .background_steamworks {
@@ -191,14 +225,6 @@
 .background_steamworks {
   background: url("https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_steamworks.gif") no-repeat;
 }
-
-/* FIXME figure out how to handle customize menu!!
-.customize-menu .f_head_0 {
-  width: 60px;
-  height: 60px;
-  background-position: -1917px -9px;
-}
-*/
 
 [class*="Mount_Head_"],
 [class*="Mount_Body_"] {

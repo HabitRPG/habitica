@@ -225,7 +225,7 @@ function _updateLastHistoryEntry (lastHistoryEntry, task, direction, times) {
   }
 }
 
-export default function scoreTask (options = {}, req = {}, analytics) {
+export default function scoreTask (options = {}, req = {}) {
   const {
     user, task, direction, times = 1, cron = false,
   } = options;
@@ -249,7 +249,7 @@ export default function scoreTask (options = {}, req = {}, analytics) {
   // Thanks to open group tasks, userId is not guaranteed. Don't allow scoring inaccessible tasks
   if (task.userId && task.userId !== user._id) {
     throw new BadRequest('Cannot score task belonging to another user.');
-  } else if (task.group.id && user.guilds.indexOf(task.group.id) === -1
+  } else if (task.group && task.group.id && user.guilds.indexOf(task.group.id) === -1
     && user.party._id !== task.group.id) {
     throw new BadRequest('Cannot score task belonging to another user.');
   }
@@ -425,7 +425,7 @@ export default function scoreTask (options = {}, req = {}, analytics) {
 
   if (!user.achievements.completedTask && cron === false && direction === 'up' && user.addAchievement) {
     user.addAchievement('completedTask');
-    checkOnboardingStatus(user, req, analytics);
+    checkOnboardingStatus(user, req);
   }
 
   return delta;

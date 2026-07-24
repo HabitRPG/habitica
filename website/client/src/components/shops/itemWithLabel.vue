@@ -17,10 +17,10 @@
           :emptyItem="emptyItem"
         ></slot>
         <div class="image">
-          <div
+          <Sprite
             v-once
-            :class="item.class"
-          ></div>
+            :image-name="item.class"
+          />
           <slot
             name="itemImage"
             :item="item"
@@ -53,7 +53,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .item-wrapper {
     z-index: 10;
@@ -157,9 +157,11 @@
 
 <script>
 import { v4 as uuid } from 'uuid';
+import Sprite from '@/components/ui/sprite';
 
 export default {
   components: {
+    Sprite,
   },
   props: {
     item: {

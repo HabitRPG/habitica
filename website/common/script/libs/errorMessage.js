@@ -5,7 +5,7 @@ import _template from 'lodash/template';
 
 import messages from '../errors/commonErrorMessages';
 
-export default function (msgKey, vars = {}) {
+function errorMessage (msgKey, vars = {}) {
   const message = messages[msgKey];
   if (!message) throw new Error(`Error processing the common message "${msgKey}".`);
 
@@ -14,3 +14,7 @@ export default function (msgKey, vars = {}) {
   // TODO cache the result of template() ? More memory usage, faster output
   return _template(message)(clonedVars);
 }
+
+export {
+  errorMessage,
+};

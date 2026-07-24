@@ -42,7 +42,7 @@
               :hide-class-badge="true"
               :with-background="true"
               :override-avatar-gear="getAvatarOverrides(item)"
-              :sprites-margin="'0px auto 0px -24px'"
+              :sprites-margin="'0px auto 0px -2px'"
             />
           </div>
           <item
@@ -89,19 +89,19 @@
           v-if="item.value > 0 && !(item.key === 'gem' && gemsLeft < 1)"
           class="purchase-amount"
         >
-          <!-- this is where the pretty item cost element lives -->
-          <div class="item-cost">
+          <div class="item-cost justify-content-center my-3">
             <span
-              class="cost"
+              class="cost d-flex mx-auto"
               :class="getPriceClass()"
             >
               <span
-                class="svg-icon inline icon-24"
+                class="svg-icon icon-24 my-auto mr-1"
                 aria-hidden="true"
                 v-html="icons[getPriceClass()]"
               >
               </span>
               <span
+                class="my-auto"
                 :class="getPriceClass()"
               >{{ item.value }}</span>
             </span>
@@ -152,7 +152,7 @@
         <button
           v-if="getPriceClass() === 'gems'
             && !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
-          class="btn btn-primary"
+          class="btn btn-primary mb-3"
           @click="purchaseGems()"
         >
           {{ $t('purchaseGems') }}
@@ -181,7 +181,7 @@
       </div>
     </div>
     <countdown-banner
-      v-if="item.event && item.owned == null"
+      v-if="item.end && item.owned == null"
       :end-date="endDate"
       class="limitedTime available"
     />
@@ -218,11 +218,10 @@
     </div>
     <div
       slot="modal-footer"
-      class="clearfix"
     >
-      <span class="user-balance float-left">{{ $t('yourBalance') }}</span>
+      <span class="user-balance ml-3 my-auto">{{ $t('yourBalance') }}</span>
       <balanceInfo
-        class="currency-totals"
+        class="mr-3"
         :currency-needed="getPriceClass()"
         :amount-needed="item.value"
       />
@@ -231,8 +230,8 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/mixins.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/mixins.scss';
 
   #buy-modal {
     @include centeredModal();
@@ -250,35 +249,43 @@
       border-bottom-left-radius: 8px;
       display: block;
       margin: 24px 0 0 0;
-      padding: 16px 24px;
-      align-content: center;
+      padding: 0px;
+
+      > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0px;
+        height: 100%;
+      }
 
       .user-balance {
-        width: 150px;
-        height: 16px;
         font-size: 0.75rem;
         font-weight: bold;
         line-height: 1.33;
         color: $gray-100;
-        margin-bottom: 16px;
-        margin-top: -4px;
-        margin-left: -4px;
-      }
-
-      .currency-totals {
-        margin-right: -8px;
-        float: right;
       }
     }
 
     .modal-dialog {
       width: 448px;
+      max-width: calc(100vw - 20px);
       box-sizing: border-box;
+      display: flex;
+
+      @media (max-width: 468px) {
+        width: 100%;
+      }
     }
 
     .badge-dialog {
       left: -8px;
       top: -8px;
+
+      .badge-pin {
+        width: 32px;
+        height: 32px;
+      }
     }
 
     .avatar {
@@ -350,7 +357,23 @@
 
     .content {
       text-align: center;
-      width: 448px;
+      width: 100%;
+      max-width: 448px;
+      margin: 0 auto;
+
+      @media (max-width: 468px) {
+        max-width: 100%;
+      }
+    }
+
+    .modal-content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      @media (max-width: 300px) {
+        border-radius: 0;
+      }
     }
 
     .item-wrapper {
@@ -382,7 +405,7 @@
         height: 40px;
         border-radius: 2px;
         background-color: $white;
-        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+        box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
         margin-right: 24px;
 
         input {
@@ -452,14 +475,11 @@
     }
 
     .item-cost {
-      display: inline-flex;
-      margin: 16px 0;
-      align-items: center;
       height: 40px;
     }
 
     .cost {
-      display: inline-block;
+      width: fit-content;
       font-family: sans-serif;
       font-size: 1.25rem;
       font-weight: bold;
@@ -469,20 +489,17 @@
 
       &.gems {
         color: $green-10;
-        background-color: rgba(36, 204, 143, 0.15);
-        align-items: center;
+        background-color: rgba($green-100, 0.15);
       }
 
       &.gold {
         color: $yellow-5;
-        background-color: rgba(255, 190, 93, 0.15);
-        align-items: center;
+        background-color: rgba($yellow-100, 0.15);
       }
 
       &.hourglasses {
         color: $hourglass-color;
-        background-color: rgba(41, 149, 205, 0.15);
-        align-items: center;
+        background-color: rgba($blue-10, 0.15);
       }
     }
 
@@ -526,11 +543,16 @@
 
     button.btn.btn-primary {
       margin-top: 16px;
-      padding: 4px 16px;
-      height: 32px;
+      padding: 2px 12px;
+      line-height: 1.714;
 
       &:focus {
-        border: 2px solid black;
+        border: 2px solid $purple-400;
+      }
+
+      &:active {
+        border: 2px solid $purple-400 !important;
+        box-shadow:none;
       }
     }
 
@@ -544,13 +566,8 @@
         color: $white;
         height: 2rem;
         line-height: 16px;
-        margin: auto -1rem -1rem;
+        margin: 24px auto -24px;
       }
-
-      // .pt-015 {
-      //   padding-top: 0.15rem;
-      // }
-
 
     .gems-left {
       height: 32px;
@@ -574,7 +591,7 @@
 
     .limitedTime {
       height: 32px;
-      width: 446px;
+      width: 100%;
       font-size: 0.75rem;
       margin: 24px 0 0 0;
       background-color: $purple-300;
@@ -586,7 +603,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .hourglass-nonsub {
     color: $yellow-5;
@@ -600,18 +617,22 @@ import size from 'lodash/size';
 import reduce from 'lodash/reduce';
 import moment from 'moment';
 
-import spellsMixin from '@/mixins/spells';
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
+import eggs from '@/../../common/script/content/eggs';
+import hatchingPotions from '@/../../common/script/content/hatching-potions';
+import { avatarEditorUtilities } from '@/mixins/avatarEditUtilities';
 import numberInvalid from '@/mixins/numberInvalid';
+import spellsMixin from '@/mixins/spells';
+import sync from '@/mixins/sync';
 
-import svgClose from '@/assets/svg/close.svg';
-import svgGold from '@/assets/svg/gold.svg';
-import svgGem from '@/assets/svg/gem.svg';
-import svgHourglasses from '@/assets/svg/hourglass.svg';
-import svgClock from '@/assets/svg/clock.svg';
-import svgWhiteClock from '@/assets/svg/clock-white.svg';
-import svgPositive from '@/assets/svg/positive.svg';
-import svgNegative from '@/assets/svg/negative.svg';
+import svgClose from '@/assets/svg/close.svg?raw';
+import svgGold from '@/assets/svg/gold.svg?raw';
+import svgGem from '@/assets/svg/gem.svg?raw';
+import svgHourglasses from '@/assets/svg/hourglass.svg?raw';
+import svgClock from '@/assets/svg/clock.svg?raw';
+import svgWhiteClock from '@/assets/svg/clock-white.svg?raw';
+import svgPositive from '@/assets/svg/positive.svg?raw';
+import svgNegative from '@/assets/svg/negative.svg?raw';
 
 import BalanceInfo from './balanceInfo.vue';
 import PinBadge from '@/components/ui/pinBadge';
@@ -628,8 +649,8 @@ import EquipmentAttributesGrid from '../inventory/equipment/attributesGrid.vue';
 import Item from '@/components/inventory/item';
 import Avatar from '@/components/avatar';
 
-import { drops as dropEggs } from '@/../../common/script/content/eggs';
-import { drops as dropPotions } from '@/../../common/script/content/hatching-potions';
+const dropEggs = eggs.drops;
+const dropPotions = hatchingPotions.drops;
 
 const dropEggKeys = keys(dropEggs);
 
@@ -639,7 +660,7 @@ const amountOfDropPotions = size(dropPotions);
 const hideAmountSelectionForPurchaseTypes = [
   'gear', 'backgrounds', 'mystery_set', 'card',
   'rebirth_orb', 'fortify', 'armoire', 'keys',
-  'debuffPotion', 'pets', 'mounts',
+  'debuffPotion', 'pets', 'mounts', 'customization',
 ];
 
 export default {
@@ -652,7 +673,15 @@ export default {
     CountdownBanner,
     numberIncrement,
   },
-  mixins: [buyMixin, currencyMixin, notifications, numberInvalid, spellsMixin],
+  mixins: [
+    avatarEditorUtilities,
+    buyMixin,
+    currencyMixin,
+    notifications,
+    numberInvalid,
+    spellsMixin,
+    sync,
+  ],
   props: {
     // eslint-disable-next-line vue/require-default-prop
     item: {
@@ -692,7 +721,8 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
     showAvatar () {
-      return ['backgrounds', 'gear', 'mystery_set'].includes(this.item.purchaseType);
+      return ['backgrounds', 'gear', 'mystery_set', 'customization']
+        .includes(this.item.purchaseType);
     },
 
     preventHealthPotion () {
@@ -716,6 +746,12 @@ export default {
     itemNotes () {
       if (this.item.notes instanceof Function) {
         return this.item.notes();
+      }
+      if (this.item.items) {
+        if (this.item.items[0].notes instanceof Function) {
+          return this.item.items[0].notes();
+        }
+        return this.item.items[0].notes;
       }
       return this.item.notes;
     },
@@ -743,7 +779,7 @@ export default {
       return (!this.user.purchased.plan.customerId && !this.user.purchased.plan.consecutive.trinkets && this.getPriceClass() === 'hourglasses');
     },
     endDate () {
-      return moment(this.item.event.end);
+      return moment(this.item.end);
     },
     totalOwned () {
       return this.user.items[this.item.purchaseType][this.item.key] || 0;
@@ -761,7 +797,7 @@ export default {
       this.selectedAmountToBuy = 1;
     },
 
-    buyItem () {
+    async buyItem () {
       // @TODO: I  think we should buying to the items.
       // Turn the items into classes, and use polymorphism
       if (this.item.buy) {
@@ -820,23 +856,46 @@ export default {
           - ownedMounts
           - ownedItems;
 
-        if (
-          petsRemaining < 0
-          && !window.confirm(this.$t('purchasePetItemConfirm', { itemText: this.item.text })) // eslint-disable-line no-alert
-        ) return;
+        if (petsRemaining < 0) {
+          const confirmed = await new Promise(resolve => {
+            this.$root.$emit('habitica:purchase-confirm', {
+              message: this.$t('purchasePetItemConfirm', { itemText: this.item.text }),
+              currency: this.item.currency,
+              cost: this.item.value * this.selectedAmountToBuy,
+              resolve,
+            });
+          });
+          if (!confirmed) return;
+        }
       }
 
-      const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';
-      if (
-        shouldConfirmPurchase
-        && !this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)
-      ) {
-        return;
-      }
-
-      if (this.genericPurchase) {
-        this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
+      if (this.item.purchaseType === 'customization') {
+        const buySuccess = await this.unlock(this.item.path);
+        if (!buySuccess) return;
+        this.sync();
+        this.$root.$emit('playSound', 'Reward');
+        this.$root.$emit('buyModal::boughtItem', this.item);
         this.purchased(this.item.text);
+      } else {
+        const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';
+        if (shouldConfirmPurchase) {
+          const confirmed = await this.confirmPurchase(
+            this.item.currency,
+            this.item.value * this.selectedAmountToBuy,
+          );
+          if (!confirmed) {
+            return;
+          }
+        }
+        if (this.genericPurchase) {
+          if (this.item.key === 'rebirth_orb') {
+            localStorage.setItem('show-rebirth-confirmation', 'true');
+          }
+          await this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
+          if (this.item.key !== 'rebirth_orb') {
+            await this.purchased(this.item.text);
+          }
+        }
       }
 
       this.$emit('buyPressed', this.item);
@@ -849,8 +908,8 @@ export default {
     purchaseGems () {
       this.$root.$emit('bv::show::modal', 'buy-gems');
     },
-    togglePinned () {
-      this.isPinned = this.$store.dispatch('user:togglePinnedItem', { type: this.item.pinType, path: this.item.path });
+    async togglePinned () {
+      this.isPinned = await this.$store.dispatch('user:togglePinnedItem', { type: this.item.pinType, path: this.item.path });
 
       if (!this.isPinned) {
         this.text(this.$t('unpinnedItem', { item: this.item.text }));
@@ -892,6 +951,27 @@ export default {
           });
 
           return gear;
+        }
+        case 'customization': {
+          if (item.type === 'skin') {
+            return {
+              skin: item.key,
+            };
+          }
+          if (item.type === 'shirt') {
+            return {
+              shirt: item.key,
+              armor: 'armor_base_0',
+            };
+          }
+          if (['base', 'beard', 'color', 'mustache'].includes(item.type)) {
+            return {
+              hair: {
+                [item.type]: item.key,
+              },
+              head: 'head_base_0',
+            };
+          }
         }
       }
 

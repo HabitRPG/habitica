@@ -6,6 +6,8 @@ import {
   translate as t,
 } from '../../../helpers/api-integration/v4';
 
+const RESET_CONFIRMATION = 'RESET';
+
 describe('POST /user/reset', () => {
   let user;
 
@@ -21,7 +23,9 @@ describe('POST /user/reset', () => {
       type: 'habit',
     });
 
-    await user.post('/user/reset');
+    await user.post('/user/reset', {
+      password: 'password',
+    });
     await user.sync();
 
     await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
@@ -39,7 +43,9 @@ describe('POST /user/reset', () => {
       type: 'daily',
     });
 
-    await user.post('/user/reset');
+    await user.post('/user/reset', {
+      password: 'password',
+    });
     await user.sync();
 
     await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
@@ -57,7 +63,9 @@ describe('POST /user/reset', () => {
       type: 'todo',
     });
 
-    await user.post('/user/reset');
+    await user.post('/user/reset', {
+      password: 'password',
+    });
     await user.sync();
 
     await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
@@ -75,7 +83,9 @@ describe('POST /user/reset', () => {
       type: 'reward',
     });
 
-    await user.post('/user/reset');
+    await user.post('/user/reset', {
+      password: 'password',
+    });
     await user.sync();
 
     await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
@@ -85,6 +95,26 @@ describe('POST /user/reset', () => {
     });
 
     expect(user.tasksOrder.rewards).to.be.empty;
+  });
+
+  it('does not allow to reset if the password is missing', async () => {
+    await expect(user.post('/user/reset', {
+      password: '',
+    })).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('missingPassword'),
+    });
+  });
+
+  it('does not allow to reset if the password is wrong', async () => {
+    await expect(user.post('/user/reset', {
+      password: 'passdw',
+    })).to.eventually.be.rejected.and.eql({
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('wrongPassword'),
+    });
   });
 
   it('does not delete challenge or group tasks', async () => {
@@ -102,7 +132,9 @@ describe('POST /user/reset', () => {
     });
     await user.post(`/tasks/${groupTask._id}/assign`, [user._id]);
 
-    await user.post('/user/reset');
+    await user.post('/user/reset', {
+      password: 'password',
+    });
     await user.sync();
 
     await user.put('/user', {
@@ -133,11 +165,77 @@ describe('POST /user/reset', () => {
       },
     });
 
-    await hero.post('/user/reset');
+    await user.post('/user/reset', {
+      password: 'password',
+    });
 
     const heroRes = await admin.get(`/hall/heroes/${hero.auth.local.username}`);
 
     expect(heroRes.secret).to.exist;
     expect(heroRes.secret.text).to.be.eq('Super-Hero');
+  });
+
+  context('user with Google auth', async () => {
+    beforeEach(async () => {
+      user = await generateUser({
+        auth: {
+          google: {
+            id: 'google-id',
+          },
+        },
+      });
+    });
+
+    it('resets a Google user', async () => {
+      const task = await user.post('/tasks/user', {
+        text: 'test habit',
+        type: 'habit',
+      });
+
+      await user.post('/user/reset', {
+        password: RESET_CONFIRMATION,
+      });
+      await user.sync();
+
+      await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('messageTaskNotFound'),
+      });
+
+      expect(user.tasksOrder.habits).to.be.empty;
+    });
+  });
+
+  context('user with Apple auth', async () => {
+    beforeEach(async () => {
+      user = await generateUser({
+        auth: {
+          apple: {
+            id: 'apple-id',
+          },
+        },
+      });
+    });
+
+    it('resets an Apple user', async () => {
+      const task = await user.post('/tasks/user', {
+        text: 'test habit',
+        type: 'habit',
+      });
+
+      await user.post('/user/reset', {
+        password: RESET_CONFIRMATION,
+      });
+      await user.sync();
+
+      await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('messageTaskNotFound'),
+      });
+
+      expect(user.tasksOrder.habits).to.be.empty;
+    });
   });
 });

@@ -1,8 +1,15 @@
+import {
+  describe, expect, test, beforeEach, chai,
+} from 'vitest';
 import { shallowMount, createLocalVue } from '@vue/test-utils';
+import { toNextLevel } from '@/../../common/script/statHelpers';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 import NotificationsComponent from '@/components/notifications.vue';
 import Store from '@/libs/store';
 import { hasClass } from '@/store/getters/members';
-import { toNextLevel } from '@/../../common/script/statHelpers';
+
+chai.use(sinonChai);
 
 const localVue = createLocalVue();
 localVue.use(Store);
@@ -46,7 +53,7 @@ describe('Notifications', () => {
     });
   });
 
-  it('set user has class computed prop', () => {
+  test('set user has class computed prop', () => {
     expect(wrapper.vm.userHasClass).to.be.false;
 
     store.state.user.data.stats.lvl = 10;
@@ -57,7 +64,7 @@ describe('Notifications', () => {
   });
 
   describe('user exp notifcation', () => {
-    it('notifies when user gets more exp', () => {
+    test('notifies when user gets more exp', () => {
       const expSpy = sinon.spy(wrapper.vm, 'exp');
 
       const userLevel = 10;
@@ -72,7 +79,7 @@ describe('Notifications', () => {
       expSpy.restore();
     });
 
-    it('when user levels with exact xp', () => {
+    test('when user levels with exact xp', () => {
       const expSpy = sinon.spy(wrapper.vm, 'exp');
 
       const userLevelBefore = 9;
@@ -84,14 +91,17 @@ describe('Notifications', () => {
       const userExpAfter = 0;
       wrapper.vm
         .displayUserExpAndLvlNotifications(
-          userExpAfter, userExpBefore, userLevelAfter, userLevelBefore,
+          userExpAfter,
+          userExpBefore,
+          userLevelAfter,
+          userLevelBefore,
         );
 
       expect(expSpy).to.be.calledWith(expEarned);
       expSpy.restore();
     });
 
-    it('when user levels with exact more exp than needed', () => {
+    test('when user levels with exact more exp than needed', () => {
       const expSpy = sinon.spy(wrapper.vm, 'exp');
 
       const userLevelBefore = 9;
@@ -103,14 +113,17 @@ describe('Notifications', () => {
       const userExpBefore = toNextLevel(userLevelBefore) - expNeeded;
       const userExpAfter = 5;
       wrapper.vm.displayUserExpAndLvlNotifications(
-        userExpAfter, userExpBefore, userLevelAfter, userLevelBefore,
+        userExpAfter,
+        userExpBefore,
+        userLevelAfter,
+        userLevelBefore,
       );
 
       expect(expSpy).to.be.calledWith(expEarned);
       expSpy.restore();
     });
 
-    it('when user has more exp than needed then levels', () => {
+    test('when user has more exp than needed then levels', () => {
       const expSpy = sinon.spy(wrapper.vm, 'exp');
 
       const userLevelBefore = 9;
@@ -122,14 +135,17 @@ describe('Notifications', () => {
       const userExpBefore = toNextLevel(userLevelBefore) - expNeeded;
       const userExpAfter = 15;
       wrapper.vm.displayUserExpAndLvlNotifications(
-        userExpAfter, userExpBefore, userLevelAfter, userLevelBefore,
+        userExpAfter,
+        userExpBefore,
+        userLevelAfter,
+        userLevelBefore,
       );
 
       expect(expSpy).to.be.calledWith(expEarned);
       expSpy.restore();
     });
 
-    it('when user multilevels', () => {
+    test('when user multilevels', () => {
       const expSpy = sinon.spy(wrapper.vm, 'exp');
 
       const userLevelBefore = 8;
@@ -141,14 +157,17 @@ describe('Notifications', () => {
       const userExpBefore = toNextLevel(userLevelBefore) - expNeeded;
       const userExpAfter = 5;
       wrapper.vm.displayUserExpAndLvlNotifications(
-        userExpAfter, userExpBefore, userLevelAfter, userLevelBefore,
+        userExpAfter,
+        userExpBefore,
+        userLevelAfter,
+        userLevelBefore,
       );
 
       expect(expSpy).to.be.calledWith(expEarned);
       expSpy.restore();
     });
 
-    it('when user looses xp', () => {
+    test('when user looses xp', () => {
       const expSpy = sinon.spy(wrapper.vm, 'exp');
 
       const userLevel = 10;
@@ -157,14 +176,17 @@ describe('Notifications', () => {
       const userExpBefore = 10;
       const userExpAfter = 5;
       wrapper.vm.displayUserExpAndLvlNotifications(
-        userExpAfter, userExpBefore, userLevel, userLevel,
+        userExpAfter,
+        userExpBefore,
+        userLevel,
+        userLevel,
       );
 
       expect(expSpy).to.be.calledWith(userExpAfter - userExpBefore);
       expSpy.restore();
     });
 
-    it('when user looses xp under 0', () => {
+    test('when user looses xp under 0', () => {
       const expSpy = sinon.spy(wrapper.vm, 'exp');
 
       const userLevel = 10;
@@ -173,14 +195,17 @@ describe('Notifications', () => {
       const userExpBefore = 5;
       const userExpAfter = -3;
       wrapper.vm.displayUserExpAndLvlNotifications(
-        userExpAfter, userExpBefore, userLevel, userLevel,
+        userExpAfter,
+        userExpBefore,
+        userLevel,
+        userLevel,
       );
 
       expect(expSpy).to.be.calledWith(userExpAfter - userExpBefore);
       expSpy.restore();
     });
 
-    it('when user dies', () => {
+    test('when user dies', () => {
       const expSpy = sinon.spy(wrapper.vm, 'exp');
 
       const userLevelBefore = 10;
@@ -191,7 +216,10 @@ describe('Notifications', () => {
       const userExpBefore = 20;
       const userExpAfter = 0;
       wrapper.vm.displayUserExpAndLvlNotifications(
-        userExpAfter, userExpBefore, userLevelAfter, userLevelBefore,
+        userExpAfter,
+        userExpBefore,
+        userLevelAfter,
+        userLevelBefore,
       );
 
       expect(expSpy).to.be.calledWith(expEarned);

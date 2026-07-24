@@ -22,7 +22,7 @@ describe('DELETE social registration', () => {
 
   context('Google', () => {
     it('fails if user does not have an alternative registration method', async () => {
-      await user.update({
+      await user.updateOne({
         'auth.google.id': 'some-google-id',
         'auth.local': { ok: true },
       });
@@ -34,7 +34,7 @@ describe('DELETE social registration', () => {
     });
 
     it('succeeds if user has a local registration', async () => {
-      await user.update({
+      await user.updateOne({
         'auth.google.id': 'some-google-id',
       });
 
@@ -47,7 +47,7 @@ describe('DELETE social registration', () => {
 
   context('Apple', () => {
     it('fails if user does not have an alternative registration method', async () => {
-      await user.update({
+      await user.updateOne({
         'auth.apple.id': 'some-apple-id',
         'auth.local': { ok: true },
       });
@@ -59,7 +59,7 @@ describe('DELETE social registration', () => {
     });
 
     it('succeeds if user has a local registration', async () => {
-      await user.update({
+      await user.updateOne({
         'auth.apple.id': 'some-apple-id',
       });
 

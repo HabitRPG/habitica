@@ -5,9 +5,11 @@ import splitWhitespace from '../../libs/splitWhitespace';
 import {
   BadRequest,
   NotFound,
+  NotAuthorized,
 } from '../../libs/errors';
 import { AbstractGoldItemOperation } from './abstractBuyOperation';
-import errorMessage from '../../libs/errorMessage';
+import { errorMessage } from '../../libs/errorMessage';
+import { getScheduleMatchingGroup } from '../../content/constants/schedule';
 
 export class BuySpellOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
   getItemKey () {
@@ -20,6 +22,23 @@ export class BuySpellOperation extends AbstractGoldItemOperation { // eslint-dis
 
   multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
     return true;
+  }
+
+  canUserPurchase (user, item) {
+    super.canUserPurchase(user, item);
+
+    if (item.limited) {
+      let matcherGroup;
+      if (content.cardTypes[item.key]) {
+        matcherGroup = 'card';
+      } else {
+        matcherGroup = 'seasonalSpells';
+      }
+      const matcher = getScheduleMatchingGroup(matcherGroup);
+      if (!matcher.match(item.key)) {
+        throw new NotAuthorized(this.i18n('cannotBuyItem'));
+      }
+    }
   }
 
   extractAndValidateParams (user, req) {

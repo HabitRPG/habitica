@@ -8,6 +8,7 @@ import {
   TAVERN_ID,
 } from '../../models/group';
 import {
+  BadRequest,
   NotFound,
   NotAuthorized,
 } from '../errors';
@@ -41,6 +42,9 @@ export async function createChallenge (user, req, res) {
   });
   if (!group) throw new NotFound(res.t('groupNotFound'));
   if (!group.isMember(user)) throw new NotAuthorized(res.t('mustBeGroupMember'));
+  if (group.type === 'guild' && group._id !== TAVERN_ID && !group.hasActiveGroupPlan()) {
+    throw new BadRequest(res.t('featureRetired'));
+  }
 
   if (group.leaderOnly && group.leaderOnly.challenges && group.leader !== user._id) {
     throw new NotAuthorized(res.t('onlyGroupLeaderChal'));
@@ -57,6 +61,14 @@ export async function createChallenge (user, req, res) {
   }
   req.body.leader = user._id;
   req.body.official = !!(user.hasPermission('challengeAdmin') && req.body.official);
+  const categories = req.body.categories || [];
+  categories.forEach(category => {
+    if (category.slug === 'habitica_official' && !user.hasPermission('challengeAdmin')) {
+      throw new NotAuthorized(res.t('noPrivAccess'));
+    } else if (category.slug === 'habitica_official' && user.hasPermission('challengeAdmin')) {
+      req.body.official = true;
+    }
+  });
   const challenge = new Challenge(Challenge.sanitize(req.body));
 
   // First validate challenge so we don't save group if it's invalid (only runs sync validators)
@@ -85,6 +97,11 @@ export async function createChallenge (user, req, res) {
       // User pays for all of prize
       await user.updateBalance(-prizeCost, 'create_challenge', challenge._id, challenge.name);
     }
+  }
+
+  if (challenge.flagCount > 0) {
+    challenge.flagCount = 0;
+    challenge.flags = {};
   }
 
   const results = await Promise.all([challenge.save({

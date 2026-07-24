@@ -18,7 +18,7 @@
     </h2>
     <p
       class="text-center"
-      v-html="$t('usernameInfo')"
+      v-html="$t('usernameInfo', usernameLinks)"
     ></p>
     <username-form />
     <div class="scene_veteran_pets center-block"></div>
@@ -27,7 +27,7 @@
     </div>
     <div
       class="small text-center tos-footer"
-      v-html="$t('usernameTOSRequirements')"
+      v-html="$t('usernameTOSRequirements', requirementsLinks)"
     ></div>
   </b-modal>
 </template>
@@ -44,7 +44,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .center-block {
     margin: 0 auto 1em auto;
@@ -82,7 +82,7 @@
 </style>
 
 <script>
-import helloNametag from '@/assets/svg/hello-habitican.svg';
+import helloNametag from '@/assets/svg/hello-habitican.svg?raw';
 import usernameForm from './usernameForm';
 
 export default {
@@ -94,6 +94,15 @@ export default {
       icons: Object.freeze({
         helloNametag,
       }),
+      usernameLinks: {
+        linkOpen: '<a href="https://habitica.fandom.com/wiki/Player_Names" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
+      requirementsLinks: {
+        termsLink: '<a href="/static/terms" target="_blank" rel="noreferrer noopener">',
+        guidelinesLink: '<a href="/static/community-guidelines" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
     };
   },
 };

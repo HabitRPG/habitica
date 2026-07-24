@@ -23,7 +23,7 @@ describe('POST /user/read-card/:cardType', () => {
   // More tests in common code unit tests
 
   it('reads a card', async () => {
-    await user.update({
+    await user.updateOne({
       'items.special.greetingReceived': [true],
       'flags.cardReceived': true,
       notifications: [{

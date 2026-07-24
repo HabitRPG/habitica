@@ -27,27 +27,16 @@
         @changedPosition="tabSelected($event)"
       >
         <div slot="right-item">
-          <div
+          <a
             v-once
             id="petLikeToEatMarket"
             class="drawer-help-text"
+            href="/static/faq#pet-foods"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <span>{{ $t('petLikeToEat') + ' ' }}</span>
-            <span
-              class="svg-icon inline icon-16"
-              v-html="icons.information"
-            ></span>
-          </div>
-          <b-popover
-            target="petLikeToEatMarket"
-            :placement="'top'"
-          >
-            <div
-              v-once
-              class="popover-content-text"
-              v-html="$t('petLikeToEatText')"
-            ></div>
-          </b-popover>
+            <span>{{ $t('petLikeToEat', eatLinks) }}</span>
+          </a>
         </div>
       </drawer-header-tabs>
     </div>
@@ -80,7 +69,6 @@
 import _filter from 'lodash/filter';
 import { mapState } from '@/libs/store';
 import inventoryUtils from '@/mixins/inventoryUtils';
-import svgInformation from '@/assets/svg/information.svg';
 
 import Drawer from '@/components/ui/drawer';
 import DrawerSlider from '@/components/ui/drawerSlider';
@@ -127,10 +115,10 @@ export default {
         },
       ],
       selectedDrawerTab: this.defaultSelectedTab,
-
-      icons: Object.freeze({
-        information: svgInformation,
-      }),
+      eatLinks: {
+        linkOpen: '<a href="/static/faq#pet-foods" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {

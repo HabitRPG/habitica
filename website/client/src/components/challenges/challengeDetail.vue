@@ -1,19 +1,35 @@
 <template>
   <div class="row">
+    <report-challenge-modal />
     <challenge-modal @updatedChallenge="updatedChallenge" />
     <leave-challenge-modal
       :challenge-id="challenge._id"
       @update-challenge="updateChallenge"
     />
     <close-challenge-modal
-      :members="members"
       :challenge-id="challenge._id"
       :prize="challenge.prize"
+      :flag-count="challenge.flagCount"
     />
     <challenge-member-progress-modal :challenge-id="challenge._id" />
     <div class="col-12 col-md-8 standard-page">
       <div class="row">
         <div class="col-12 col-md-6">
+          <div
+            v-if="canViewFlags"
+            class="flagged"
+          >
+            <div
+              v-if="flaggedNotHidden"
+            >
+              {{ $t("flaggedNotHidden") }}
+            </div>
+            <div
+              v-else-if="flaggedAndHidden"
+            >
+              {{ $t("flaggedAndHidden") }}
+            </div>
+          </div>
           <h1 v-markdown="challenge.name"></h1>
           <div>
             <span class="mr-1 ml-0 d-block">
@@ -41,7 +57,7 @@
              createdBy string (helps with RTL languages)-->
             <!-- @TODO: Implement in V2 strong.margin-left
             (v-once).svg-icon.calendar-icon(v-html="icons.calendarIcon")
-| {{$t('endDate')}}
+            {{$t('endDate')}}
             // "endDate": "End Date: <% endDate %>",-->
             <!-- span {{challenge.endDate}}-->
           </div>
@@ -55,32 +71,40 @@
         </div>
         <div class="col-12 col-md-6 text-right">
           <div
-            class="box member-count"
+            class="box member-count p-2"
             @click="showMemberModal()"
           >
-            <div
-              class="svg-icon member-icon"
-              v-html="icons.memberIcon"
-            ></div>
-            {{ challenge.memberCount }}
-            <div
-              v-once
-              class="details"
-            >
-              {{ $t('participantsTitle') }}
+            <div class="box-content">
+              <div class="icon-number-row">
+                <div
+                  class="svg-icon member-icon"
+                  v-html="icons.memberIcon"
+                ></div>
+                <span class="number">{{ challenge.memberCount }}</span>
+              </div>
+              <div
+                v-once
+                class="details"
+              >
+                {{ $t('participantsTitle') }}
+              </div>
             </div>
           </div>
-          <div class="box">
-            <div
-              class="svg-icon gem-icon"
-              v-html="icons.gemIcon"
-            ></div>
-            {{ challenge.prize || 0 }}
-            <div
-              v-once
-              class="details"
-            >
-              {{ $t('prize') }}
+          <div class="box prize-count p-2">
+            <div class="box-content">
+              <div class="icon-number-row">
+                <div
+                  class="svg-icon gem-icon"
+                  v-html="icons.gemIcon"
+                ></div>
+                <span class="number">{{ challenge.prize || 0 }}</span>
+              </div>
+              <div
+                v-once
+                class="details"
+              >
+                {{ $t('prize') }}
+              </div>
             </div>
           </div>
         </div>
@@ -169,13 +193,17 @@
         v-if="isLeader || isAdmin"
         class="button-container"
       >
-        <button
-          v-once
-          class="btn btn-primary"
-          @click="cloneChallenge()"
-        >
-          {{ $t('clone') }}
-        </button>
+        <div>
+          <button
+            class="btn"
+            :disabled="flaggedAndHidden || chatRevocation"
+            :class="flaggedAndHidden || chatRevocation
+              ? 'disabled btn-disabled' : 'btn-primary'"
+            @click="cloneChallenge()"
+          >
+            {{ $t('clone') }}
+          </button>
+        </div>
       </div>
       <div
         v-if="isLeader || isAdmin"
@@ -199,6 +227,18 @@
           @click="closeChallenge()"
         >
           {{ $t('endChallenge') }}
+        </button>
+      </div>
+      <div
+        v-if="!isOfficial"
+        class="button-container"
+      >
+        <button
+          v-once
+          class="btn btn-danger"
+          @click="reportChallenge()"
+        >
+          {{ $t('report') }}
         </button>
       </div>
       <div>
@@ -226,7 +266,7 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   h1 {
     color: $purple-200;
@@ -271,7 +311,6 @@
 
   .box {
     display: inline-block;
-    padding: 1em;
     border-radius: 2px;
     background-color: $white;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
@@ -281,22 +320,88 @@
     text-align: center;
     font-size: 20px;
     vertical-align: bottom;
+    overflow: hidden;
+    position: relative;
 
     &.member-count:hover {
       cursor: pointer;
     }
 
+    .box-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+    }
+
+    .icon-number-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.1em;
+
+      .number {
+        font-size: 20px;
+        font-weight: normal;
+        margin-left: 0.2em;
+      }
+    }
+
     .svg-icon {
       width: 30px;
       display: inline-block;
-      margin-right: .2em;
       vertical-align: bottom;
     }
 
     .details {
       font-size: 12px;
-      margin-top: 0.4em;
       color: $gray-200;
+      width: 100%;
+      padding: 0 4px;
+      line-height: 1.15;
+      word-break: break-word;
+      max-height: 2.3em;
+      overflow: visible;
+    }
+
+    &.member-count {
+      .icon-number-row {
+        .svg-icon {
+          width: 24px;
+          height: 24px;
+        }
+
+        .number {
+          font-size: 18px;
+        }
+      }
+
+      .details {
+        font-size: 11px;
+        line-height: 1.1;
+        max-height: 2.2em;
+      }
+    }
+
+    &.prize-count {
+      .icon-number-row {
+        .svg-icon {
+          width: 24px;
+          height: 24px;
+        }
+
+        .number {
+          font-size: 18px;
+        }
+      }
+
+      .details {
+        font-size: 11px;
+        line-height: 1.1;
+        max-height: 2.2em;
+      }
     }
   }
 
@@ -312,6 +417,15 @@
       margin-right: .5em;
     }
   }
+
+  .flagged {
+    margin-left: 0em;
+    color: $red-10;
+
+    span {
+      margin-left: 0em;
+    }
+  }
 </style>
 
 <script>
@@ -321,6 +435,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import omit from 'lodash/omit';
 import { v4 as uuid } from 'uuid';
 
+import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import { userStateMixin } from '../../mixins/userState';
 import externalLinks from '../../mixins/externalLinks';
 import memberSearchDropdown from '@/components/members/memberSearchDropdown';
@@ -332,14 +447,14 @@ import challengeModal from './challengeModal';
 import challengeMemberProgressModal from './challengeMemberProgressModal';
 import challengeMemberSearchMixin from '@/mixins/challengeMemberSearch';
 import leaveChallengeModal from './leaveChallengeModal';
+import reportChallengeModal from './reportChallengeModal';
 import sidebarSection from '../sidebarSection';
 import userLink from '../userLink';
 import groupLink from '../groupLink';
-import taskDefaults from '@/../../common/script/libs/taskDefaults';
 
-import gemIcon from '@/assets/svg/gem.svg';
-import memberIcon from '@/assets/svg/member-icon.svg';
-import calendarIcon from '@/assets/svg/calendar.svg';
+import gemIcon from '@/assets/svg/gem.svg?raw';
+import memberIcon from '@/assets/svg/member-icon.svg?raw';
+import calendarIcon from '@/assets/svg/calendar.svg?raw';
 
 const TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'history', 'id', 'streak', 'createdAt', 'challenge'];
 
@@ -350,6 +465,7 @@ export default {
   components: {
     closeChallengeModal,
     leaveChallengeModal,
+    reportChallengeModal,
     challengeModal,
     challengeMemberProgressModal,
     memberSearchDropdown,
@@ -360,6 +476,11 @@ export default {
     groupLink,
   },
   mixins: [challengeMemberSearchMixin, externalLinks, userStateMixin],
+  async beforeRouteUpdate (to, from, next) {
+    this.searchId = to.params.challengeId;
+    await this.loadChallenge();
+    next();
+  },
   props: ['challengeId'],
   data () {
     return {
@@ -385,6 +506,7 @@ export default {
       taskFormPurpose: 'create',
       searchTerm: '',
       memberResults: [],
+      isOfficial: true,
     };
   },
   computed: {
@@ -401,6 +523,24 @@ export default {
     canJoin () {
       return !this.isMember;
     },
+    // canViewFlags should allow only moderators/admins to see flags
+    canViewFlags () {
+      const isModerator = this.hasPermission(this.user, 'moderator');
+      if (isModerator && this.challenge.flagCount > 0) return true;
+      return false;
+    },
+    // flaggedNotHidden should allow mods/admins & challenge owner to see flags
+    flaggedNotHidden () {
+      return this.challenge.flagCount === 1;
+    },
+    // flaggedAndHidden should only allow admin to see challenge & flags
+    flaggedAndHidden () {
+      return this.challenge.flagCount > 1;
+    },
+    chatRevocation () {
+      return this.user.flags.chatRevoked
+        && this.challenge.group && this.challenge.group.name === 'Tavern';
+    },
   },
   watch: {
     'challenge.name': {
@@ -412,18 +552,15 @@ export default {
       },
     },
   },
-  mounted () {
+  async mounted () {
     if (!this.searchId) this.searchId = this.challengeId;
-    if (!this.challenge._id) this.loadChallenge();
+    if (!this.challenge._id) await this.loadChallenge();
+    this.isOfficial = this.challenge.official
+      || this.challenge.categories?.some(category => category.name === 'habitica_official');
     this.handleExternalLinks();
   },
   updated () {
     this.handleExternalLinks();
-  },
-  async beforeRouteUpdate (to, from, next) {
-    this.searchId = to.params.challengeId;
-    await this.loadChallenge();
-    next();
   },
   methods: {
     cleanUpTask (task) {
@@ -559,7 +696,6 @@ export default {
       this.members = [];
     },
     closeChallenge () {
-      this.initialMembersLoad();
       this.$root.$emit('bv::show::modal', 'close-challenge-modal');
     },
     edit () {
@@ -579,15 +715,20 @@ export default {
       });
     },
     async exportChallengeCsv () {
-      // let response = await this.$store.dispatch('challenges:exportChallengeCsv', {
-      //   challengeId: this.searchId,
-      // });
       window.location = `/api/v4/challenges/${this.searchId}/export/csv`;
     },
     cloneChallenge () {
       this.$root.$emit('habitica:clone-challenge', {
         challenge: this.challenge,
       });
+    },
+    reportChallenge () {
+      this.$root.$emit('habitica::report-challenge', {
+        challenge: this.challenge,
+      });
+    },
+    async showCannotCloneModal () {
+      this.$root.$emit('bv::show::modal', 'cannot-clone-modal');
     },
   },
 };

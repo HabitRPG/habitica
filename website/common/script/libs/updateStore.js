@@ -13,7 +13,7 @@ const sortOrder = reduce(content.gearTypes, (accumulator, val, key) => {
   return accumulator;
 }, {});
 
-export default function updateStore (user) {
+export default function updateStore (user, items) {
   let changes = [];
 
   each(content.gearTypes, type => {
@@ -26,6 +26,7 @@ export default function updateStore (user) {
   });
 
   changes = changes.concat(filter(content.gear.flat, val => {
+    if (items && items.indexOf(val.key) === -1) return false;
     if (['special', 'mystery', 'armoire'].indexOf(val.klass) !== -1 && !user.items.gear.owned[val.key] && (val.canOwn ? val.canOwn(user) : false)) {
       return true;
     }

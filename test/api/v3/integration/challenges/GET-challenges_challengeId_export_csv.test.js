@@ -74,7 +74,7 @@ describe('GET /challenges/:challengeId/export/csv', () => {
   });
 
   it('should successfully return when it contains erroneous residue user data', async () => {
-    await members[0].update({ challenges: [] });
+    await members[0].updateOne({ challenges: [] });
     const res = await members[1].get(`/challenges/${challenge._id}/export/csv`);
     const sortedMembers = _.sortBy([members[1], members[2], groupLeader], '_id');
     const splitRes = res.split('\n');

@@ -1,7 +1,8 @@
 <template>
   <div
     id="body"
-    class="section customize-section"
+    class="customize-section d-flex flex-column"
+    :class="{ 'justify-content-between': editing }"
   >
     <sub-menu
       class="text-center"
@@ -17,17 +18,11 @@
     </div>
     <div v-if="activeSubPage === 'shirt'">
       <customize-options
-        :items="freeShirts"
+        :items="userShirts"
         :current-value="user.preferences.shirt"
-      />
-      <customize-options
-        v-if="editing"
-        :items="specialShirts"
-        :current-value="user.preferences.shirt"
-        :full-set="!userOwnsSet('shirt', specialShirtKeys)"
-        @unlock="unlock(`shirt.${specialShirtKeys.join(',shirt.')}`)"
       />
     </div>
+    <customize-banner v-if="editing" />
   </div>
 </template>
 
@@ -35,33 +30,27 @@
 import appearance from '@/../../common/script/content/appearance';
 import { subPageMixin } from '../../mixins/subPage';
 import { userStateMixin } from '../../mixins/userState';
-import { avatarEditorUtilies } from '../../mixins/avatarEditUtilities';
-import subMenu from './sub-menu';
+import { avatarEditorUtilities } from '../../mixins/avatarEditUtilities';
+import customizeBanner from './customize-banner.vue';
 import customizeOptions from './customize-options';
-import gem from '@/assets/svg/gem.svg';
-
-const freeShirtKeys = Object.keys(appearance.shirt).filter(k => appearance.shirt[k].price === 0);
-const specialShirtKeys = Object.keys(appearance.shirt).filter(k => appearance.shirt[k].price !== 0);
+import subMenu from './sub-menu';
 
 export default {
   components: {
     subMenu,
+    customizeBanner,
     customizeOptions,
   },
   mixins: [
     subPageMixin,
     userStateMixin,
-    avatarEditorUtilies,
+    avatarEditorUtilities,
   ],
   props: [
     'editing',
   ],
   data () {
     return {
-      specialShirtKeys,
-      icons: Object.freeze({
-        gem,
-      }),
       items: [
         {
           id: 'size',
@@ -78,25 +67,19 @@ export default {
     sizes () {
       return ['slim', 'broad'].map(s => this.mapKeysToFreeOption(s, 'size'));
     },
-    freeShirts () {
-      return freeShirtKeys.map(s => this.mapKeysToFreeOption(s, 'shirt'));
-    },
-    specialShirts () {
-        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-      const keys = this.specialShirtKeys;
-      const options = keys.map(key => this.mapKeysToOption(key, 'shirt'));
-      return options;
+    userShirts () {
+      const freeShirts = Object.keys(appearance.shirt)
+        .filter(k => appearance.shirt[k].price === 0)
+        .map(s => this.mapKeysToFreeOption(s, 'shirt'));
+      const ownedShirts = Object.keys(this.user.purchased.shirt)
+        .filter(k => this.user.purchased.shirt[k])
+        .map(s => this.mapKeysToFreeOption(s, 'shirt'));
+
+      return [...freeShirts, ...ownedShirts];
     },
   },
   mounted () {
     this.changeSubPage('size');
   },
-  methods: {
-
-  },
 };
 </script>
-
-<style scoped>
-
-</style>

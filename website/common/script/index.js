@@ -11,6 +11,7 @@ import {
   MAX_INCENTIVES,
   MAX_LEVEL,
   MAX_LEVEL_HARD_CAP,
+  MAX_FIELD_HARD_CAP,
   MAX_STAT_POINTS,
   MAX_SUMMARY_SIZE_FOR_CHALLENGES,
   MAX_SUMMARY_SIZE_FOR_GUILDS,
@@ -24,6 +25,7 @@ import {
   MAX_GIFT_MESSAGE_LENGTH,
 } from './constants';
 import content from './content/index';
+import { getCurrentGalaEvent, getScheduleMatchingGroup } from './content/constants/schedule';
 import * as count from './count';
 // TODO under api.libs.cron?
 import {
@@ -84,7 +86,7 @@ import reset from './ops/reset';
 import revive from './ops/revive';
 import scoreTask from './ops/scoreTask';
 import sell from './ops/sell';
-import sleep from './ops/sleep';
+import { sleep } from './ops/sleep';
 import allocate from './ops/stats/allocate';
 import allocateBulk from './ops/stats/allocateBulk';
 import allocateNow from './ops/stats/allocateNow';
@@ -94,6 +96,7 @@ import updateTask from './ops/updateTask';
 import * as statHelpers from './statHelpers';
 import { unEquipByType } from './ops/unequip';
 import getOfficialPinnedItems from './libs/getOfficialPinnedItems';
+import cleanupPinnedItems from './libs/cleanupPinnedItems';
 import { sleepAsync } from './libs/sleepAsync';
 
 const api = {
@@ -105,6 +108,10 @@ const api = {
   getPlanMonths,
   daysSince,
   DAY_MAPPING,
+  schedule: {
+    getCurrentGalaEvent,
+    getScheduleMatchingGroup,
+  },
 };
 
 api.constants = {
@@ -124,6 +131,7 @@ api.constants = {
   MAX_MESSAGE_LENGTH,
   MAX_GIFT_MESSAGE_LENGTH,
   MAX_LEVEL_HARD_CAP,
+  MAX_FIELD_HARD_CAP,
 };
 // TODO Move these under api.constants
 api.maxLevel = MAX_LEVEL;
@@ -157,6 +165,7 @@ api.onboarding = onboarding;
 api.setDebuffPotionItems = setDebuffPotionItems;
 api.getDebuffPotionItems = getDebuffPotionItems;
 api.getOfficialPinnedItems = getOfficialPinnedItems;
+api.cleanupPinnedItems = cleanupPinnedItems;
 api.sleepAsync = sleepAsync;
 
 api.fns = {

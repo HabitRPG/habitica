@@ -51,13 +51,13 @@ async function updateUser (user) {
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
-  return User.update({ _id: user._id }, { $set: set }).exec();
+  return User.updateOne({ _id: user._id }, { $set: set }).exec();
 }
 
 export default async function processUsers () {
   const query = {
     migration: { $ne: MIGRATION_NAME },
-    'auth.local.username': 'SabreTest',
+    'auth.local.username': 'ExampleHabitican',
   };
 
   const fields = {

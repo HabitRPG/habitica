@@ -6,7 +6,7 @@ import nconf from 'nconf';
 import baseModel from '../libs/baseModel';
 import shared from '../../common';
 import { BadRequest } from '../libs/errors';
-import apiError from '../libs/apiError';
+import { apiError } from '../libs/apiError';
 
 const IS_PRODUCTION = nconf.get('IS_PROD');
 const { Schema } = mongoose;

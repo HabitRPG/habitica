@@ -38,6 +38,7 @@ import stripePayments from '../libs/payments/stripe'; // eslint-disable-line imp
 import { getGroupChat, translateMessage } from '../libs/chat/group-chat'; // eslint-disable-line import/no-cycle
 import { model as UserNotification } from './userNotification';
 import { sendChatPushNotifications } from '../libs/chat'; // eslint-disable-line import/no-cycle
+import { model as UserHistory } from './userHistory'; // eslint-disable-line import/no-cycle
 
 const questScrolls = shared.content.quests;
 const { questSeriesAchievements } = shared.content;
@@ -50,7 +51,6 @@ export const { TAVERN_ID } = shared;
 const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
 const { LARGE_GROUP_COUNT_MESSAGE_CUTOFF } = shared.constants;
 const { MAX_SUMMARY_SIZE_FOR_GUILDS } = shared.constants;
-const { GUILDS_PER_PAGE } = shared.constants;
 
 const { CHAT_FLAG_LIMIT_FOR_HIDING } = shared.constants;
 
@@ -68,7 +68,7 @@ export const SPAM_MESSAGE_LIMIT = 2;
 export const SPAM_WINDOW_LENGTH = 60000; // 1 minute
 export const SPAM_MIN_EXEMPT_CONTRIB_LEVEL = 4;
 
-export const MAX_CHAT_COUNT = 200;
+export const MAX_CHAT_COUNT = 400;
 export const MAX_SUBBED_GROUP_CHAT_COUNT = 400;
 
 export const schema = new Schema({
@@ -156,7 +156,16 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'bannedWordsAllowed', 'challengeCount', 'tasksOrder', 'purchased', 'managers'],
   private: ['purchased.plan'],
   toJSONTransform (plainObj, originalDoc) {
-    if (plainObj.purchased) plainObj.purchased.active = originalDoc.hasActiveGroupPlan();
+    if (plainObj.purchased) {
+      plainObj.purchased.active = originalDoc.hasActiveGroupPlan();
+      const plan = originalDoc.purchased && originalDoc.purchased.plan;
+      if (plan && plan.dateCreated) {
+        plainObj.purchased.wasUpgraded = true;
+        if (plan.dateTerminated) {
+          plainObj.purchased.dateTerminated = plan.dateTerminated;
+        }
+      }
+    }
   },
 });
 
@@ -182,7 +191,7 @@ schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
 // Basic fields to fetch for populating a group info
 export const basicFields = 'name type privacy leader summary categories';
 
-schema.pre('remove', true, async function preRemoveGroup (next, done) {
+schema.pre('deleteOne', { document: true }, async function preRemoveGroup (next, done) {
   next();
   try {
     await this.removeGroupInvitations();
@@ -252,11 +261,11 @@ schema.statics.getGroup = async function getGroup (options = {}) {
   } else if (isTavern) {
     query = { _id: TAVERN_ID };
   } else if (optionalMembership === true) {
-    query = { _id: groupId };
+    query = { privacy: 'private', _id: groupId };
   } else if (isUserGuild) {
-    query = { type: 'guild', _id: groupId };
+    query = { type: 'guild', privacy: 'private', _id: groupId };
   } else {
-    query = { type: 'guild', privacy: 'public', _id: groupId };
+    return null;
   }
 
   const mQuery = this.findOne(query);
@@ -280,13 +289,12 @@ schema.statics.getGroup = async function getGroup (options = {}) {
   return group;
 };
 
-export const VALID_QUERY_TYPES = ['party', 'guilds', 'privateGuilds', 'publicGuilds', 'tavern'];
+export const VALID_QUERY_TYPES = ['party', 'guilds', 'privateGuilds', 'tavern'];
 
 schema.statics.getGroups = async function getGroups (options = {}) {
   const {
     user, types, groupFields = basicFields,
     sort = '-memberCount', populateLeader = false,
-    paginate = false, page = 0, // optional pagination for public guilds
     filters = {},
   } = options;
   const queries = [];
@@ -303,51 +311,27 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         }));
         break;
       }
-      case 'guilds': {
-        const query = {
-          type: 'guild',
-          _id: { $in: user.guilds, $ne: TAVERN_ID },
-        };
-        _.assign(query, filters);
-        const userGuildsQuery = this.find(query).select(groupFields);
-        if (populateLeader === true) userGuildsQuery.populate('leader', nameFields);
-        userGuildsQuery.sort(sort).exec();
-        queries.push(userGuildsQuery);
-        break;
-      }
+      case 'guilds':
       case 'privateGuilds': {
         const query = {
           type: 'guild',
           privacy: 'private',
           _id: { $in: user.guilds },
+          'purchased.plan.dateCreated': { $exists: true },
         };
-        _.assign(query, filters);
+        if (!filters.includeExpiredPlans) {
+          query.$or = [
+            { 'purchased.plan.dateTerminated': null },
+            { 'purchased.plan.dateTerminated': { $exists: false } },
+            { 'purchased.plan.dateTerminated': { $gt: new Date() } },
+          ];
+        }
+        const filtersWithoutCustom = _.omit(filters, ['includeExpiredPlans']);
+        _.assign(query, filtersWithoutCustom);
         const privateGuildsQuery = this.find(query).select(groupFields);
         if (populateLeader === true) privateGuildsQuery.populate('leader', nameFields);
-        privateGuildsQuery.sort(sort).exec();
+        privateGuildsQuery.sort(sort);
         queries.push(privateGuildsQuery);
-        break;
-      }
-      // NOTE: when returning publicGuilds we use `.lean()` so all
-      // mongoose methods won't be available.
-      // Docs are going to be plain javascript objects
-      case 'publicGuilds': {
-        const query = {
-          type: 'guild',
-          privacy: 'public',
-          _id: { $ne: TAVERN_ID },
-        };
-        _.assign(query, filters);
-
-        const publicGuildsQuery = this.find(query).select(groupFields);
-
-        if (populateLeader === true) publicGuildsQuery.populate('leader', nameFields);
-        if (paginate === true) {
-          publicGuildsQuery.limit(GUILDS_PER_PAGE).skip(page * GUILDS_PER_PAGE);
-        }
-        publicGuildsQuery.sort(sort).lean().exec();
-        queries.push(publicGuildsQuery);
-
         break;
       }
       case 'tavern': {
@@ -373,12 +357,12 @@ schema.statics.getGroups = async function getGroups (options = {}) {
 // unless the user is an admin or said chat is posted by that user
 // Not putting into toJSON because there we can't access user
 // It also removes the _meta field that can be stored inside a chat message
-schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, user) {
+schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, user, options = {}) {
   // @TODO: Adding this here for support the old chat,
   // but we should depreciate accessing chat like this
   // Also only return chat if requested, eventually we don't want to return chat here
   if (group && group.chat) {
-    await getGroupChat(group);
+    await getGroupChat(group, options);
   }
 
   const groupToJson = group.toJSON();
@@ -388,7 +372,11 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
     .map(chatMsg => {
       // Translate system messages
       if (!_.isEmpty(chatMsg.info)) {
-        chatMsg.text = translateMessage(userLang, chatMsg.info);
+        chatMsg.unformattedText = translateMessage(userLang, chatMsg.info);
+        chatMsg.text = chatMsg.unformattedText;
+        if (!chatMsg.text.includes('`')) {
+          chatMsg.text = `\`${chatMsg.text}\``;
+        }
       }
 
       // Convert to timestamps because Android expects it
@@ -443,7 +431,7 @@ function getInviteError (uuids, emails, usernames) {
   return errorString;
 }
 
-function getInviteCount (uuids, emails) {
+function getInviteCount (uuids, emails, usernames) {
   let totalInvites = 0;
 
   if (uuids) {
@@ -452,6 +440,10 @@ function getInviteCount (uuids, emails) {
 
   if (emails) {
     totalInvites += emails.length;
+  }
+
+  if (usernames) {
+    totalInvites += usernames.length;
   }
 
   return totalInvites;
@@ -474,7 +466,7 @@ schema.statics.validateInvitations = async function getInvitationErr (invites, r
   const errorString = getInviteError(uuids, emails, usernames);
   if (errorString) throw new BadRequest(res.t(errorString));
 
-  const totalInvites = getInviteCount(uuids, emails);
+  const totalInvites = getInviteCount(uuids, emails, usernames);
   if (totalInvites > INVITES_LIMIT) {
     throw new BadRequest(res.t('canOnlyInviteMaxInvites', { maxInvites: INVITES_LIMIT }));
   }
@@ -500,9 +492,20 @@ schema.statics.validateInvitations = async function getInvitationErr (invites, r
     memberCount += totalInvites;
 
     if (memberCount > shared.constants.PARTY_LIMIT_MEMBERS) {
-      throw new BadRequest(res.t('partyExceedsMembersLimit', { maxMembersParty: shared.constants.PARTY_LIMIT_MEMBERS + 1 }));
+      throw new BadRequest(res.t('partyExceedsMembersLimit', { maxMembersParty: shared.constants.PARTY_LIMIT_MEMBERS }));
     }
   }
+};
+
+schema.methods.getEffectiveChatLimit = function getEffectiveChatLimit (limit) {
+  let maxChatCount = MAX_CHAT_COUNT;
+  if (this.chatLimitCount && this.chatLimitCount >= MAX_CHAT_COUNT) {
+    maxChatCount = this.chatLimitCount;
+  } else if (this.hasActiveGroupPlan()) {
+    maxChatCount = MAX_SUBBED_GROUP_CHAT_COUNT;
+  }
+
+  return limit !== undefined ? Math.min(limit, maxChatCount) : maxChatCount;
 };
 
 schema.methods.getParticipatingQuestMembers = function getParticipatingQuestMembers () {
@@ -541,17 +544,25 @@ schema.methods.isMember = function isGroupMember (user) {
   return user.guilds.indexOf(this._id) !== -1;
 };
 
-schema.methods.getMemberCount = async function getMemberCount () {
+schema.methods.getMemberCount = async function getMemberCount (options) {
+  let excludeUserId = null;
+  if (options && options.excludeUserId) {
+    excludeUserId = options.excludeUserId;
+  }
   let query = { guilds: this._id };
 
   if (this.type === 'party') {
     query = { 'party._id': this._id };
   }
 
+  if (excludeUserId) {
+    query._id = { $ne: excludeUserId };
+  }
+
   return User.countDocuments(query).exec();
 };
 
-schema.methods.sendChat = function sendChat (options = {}) {
+schema.methods.sendChat = async function sendChat (options = {}) {
   const {
     message, user, metaData,
     client, flagCount = 0, info = {},
@@ -621,7 +632,7 @@ schema.methods.sendChat = function sendChat (options = {}) {
     sendChatPushNotifications(user, this, newChatMessage, mentions, translate);
   }
   if (mentionedMembers) {
-    mentionedMembers.forEach(member => {
+    await mentionedMembers.forEach(async member => {
       if (member._id === user._id) return;
       const pushNotifPrefs = member.preferences.pushNotifications;
       if (this.type === 'party') {
@@ -642,7 +653,7 @@ schema.methods.sendChat = function sendChat (options = {}) {
       }
 
       if (newChatMessage.unformattedText) {
-        sendPushNotification(member, {
+        await sendPushNotification(member, {
           identifier: 'chatMention',
           title: `${user.profile.name} mentioned you in ${this.name}`,
           message: newChatMessage.unformattedText,
@@ -654,7 +665,20 @@ schema.methods.sendChat = function sendChat (options = {}) {
   return newChatMessage;
 };
 
-schema.methods.handleQuestInvitation = async function handleQuestInvitation (user, accept) {
+schema.methods.trimChat = async function trimChat (limit) {
+  const query = Chat.find({ groupId: this._id })
+    .sort('-timestamp')
+    .skip(limit || (this.getEffectiveChatLimit() * 2))
+    .limit(1);
+  const lastMessage = await query.exec();
+  if (lastMessage && lastMessage.length > 0) {
+    const lastMessageTimestamp = lastMessage[0].timestamp;
+    await Chat.deleteMany({ groupId: this._id, timestamp: { $lte: lastMessageTimestamp } }).exec();
+  }
+};
+
+// eslint-disable-next-line max-len
+schema.methods.handleQuestInvitation = async function handleQuestInvitation (user, accept, session) {
   if (!user) throw new InternalServerError('Must provide user to handle quest invitation');
   if (accept !== true && accept !== false) throw new InternalServerError('Must provide accept param handle quest invitation');
 
@@ -662,20 +686,22 @@ schema.methods.handleQuestInvitation = async function handleQuestInvitation (use
   // to prevent multiple concurrent requests overriding updates
   // see https://github.com/HabitRPG/habitica/issues/11398
   const Group = this.constructor;
+  const options = session ? { session } : {};
   const result = await Group.updateOne(
     {
       _id: this._id,
       [`quest.members.${user._id}`]: { $type: 10 }, // match BSON Type Null (type number 10)
     },
     { $set: { [`quest.members.${user._id}`]: accept } },
+    options,
   ).exec();
 
-  if (result.nModified) {
+  if (result.modifiedCount) {
     // update also current instance so future operations will work correctly
     this.quest.members[user._id] = accept;
   }
 
-  return Boolean(result.nModified);
+  return Boolean(result.modifiedCount);
 };
 
 schema.methods.startQuest = async function startQuest (user) {
@@ -704,7 +730,7 @@ schema.methods.startQuest = async function startQuest (user) {
   }
 
   const nonMembers = Object.keys(_.pickBy(this.quest.members, member => !member));
-
+  const noResponseMembers = Object.keys(_.pickBy(this.quest.members, member => member === null));
   // Changes quest.members to only include participating members
   this.quest.members = _.pickBy(this.quest.members, _.identity);
 
@@ -776,7 +802,13 @@ schema.methods.startQuest = async function startQuest (user) {
     _id: { $in: nonMembers },
   }, _cleanQuestParty()).exec();
 
-  const newMessage = this.sendChat({
+  noResponseMembers.forEach(member => {
+    UserHistory.beginUserHistoryUpdate(member)
+      .withQuestInviteResponse(this.quest.key, 'no response')
+      .commit();
+  });
+
+  const newMessage = await this.sendChat({
     message: `\`${shared.i18n.t('chatQuestStarted', { questName: quest.text('en') }, 'en')}\``,
     metaData: {
       participatingMembers: this.getParticipatingQuestMembers().join(', '),
@@ -791,22 +823,27 @@ schema.methods.startQuest = async function startQuest (user) {
   const membersToEmail = [];
 
   // send notifications and webhooks in the background without blocking
-  members.forEach(member => {
-    if (member._id !== user._id) {
-      // send push notifications and filter users that disabled emails
-      if (member.preferences.emailNotifications.questStarted !== false) {
-        membersToEmail.push(member);
-      }
+  for (const member of members) {
+    if (member._id === user._id) {
+      // early "exit", saving one indention level
+      // eslint-disable-next-line no-continue
+      continue;
+    }
 
-      // send push notifications and filter users that disabled emails
-      if (member.preferences.pushNotifications.questStarted !== false) {
-        const memberLang = member.preferences.language;
-        sendPushNotification(member, {
-          title: quest.text(memberLang),
-          message: shared.i18n.t('questStarted', memberLang),
-          identifier: 'questStarted',
-        });
-      }
+    // add email to send if that user did not disabled this email
+    if (member.preferences.emailNotifications.questStarted !== false) {
+      membersToEmail.push(member);
+    }
+
+    // send push notifications if that user did not disabled this notifications
+    if (member.preferences.pushNotifications.questStarted !== false) {
+      const memberLang = member.preferences.language;
+      // eslint-disable-next-line no-await-in-loop
+      await sendPushNotification(member, {
+        title: quest.text(memberLang),
+        message: shared.i18n.t('questStarted', memberLang),
+        identifier: 'questStarted',
+      });
     }
 
     // Send webhooks
@@ -815,7 +852,7 @@ schema.methods.startQuest = async function startQuest (user) {
       group: this,
       quest,
     });
-  });
+  }
 
   // Send emails in bulk
   sendTxnEmail(membersToEmail, 'quest-started', [
@@ -1013,7 +1050,10 @@ schema.methods.finishQuest = async function finishQuest (quest) {
       };
 
       promises.push(participants.map(userId => _updateUserWithRetries(
-        userId, questAchievementUpdate, null, questAchievementQuery,
+        userId,
+        questAchievementUpdate,
+        null,
+        questAchievementQuery,
       )));
     }
   });
@@ -1043,7 +1083,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
 
   group.quest.progress.hp -= progress.up;
   if (CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE) {
-    const groupMessage = group.sendChat({
+    const groupMessage = await group.sendChat({
       message: `\`${shared.i18n.t('chatBossDontAttack', { bossName: quest.boss.name('en') }, 'en')}\``,
       info: {
         type: 'boss_dont_attack',
@@ -1054,7 +1094,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
     });
     promises.push(groupMessage.save());
   } else {
-    const groupMessage = group.sendChat({
+    const groupMessage = await group.sendChat({
       message: `\`${shared.i18n.t('chatBossDamage', {
         username: user.profile.name, bossName: quest.boss.name('en'), userDamage: progress.up.toFixed(1), bossDamage: Math.abs(down).toFixed(1),
       }, user.preferences.language)}\``,
@@ -1073,7 +1113,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
   if (quest.boss.rage) {
     group.quest.progress.rage += Math.abs(down);
     if (group.quest.progress.rage >= quest.boss.rage.value) {
-      const rageMessage = group.sendChat({
+      const rageMessage = await group.sendChat({
         message: quest.boss.rage.effect('en'),
         info: {
           type: 'boss_rage',
@@ -1090,7 +1130,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
       }
       if (group.quest.progress.hp > quest.boss.hp) group.quest.progress.hp = quest.boss.hp;
       if (quest.boss.rage.mpDrain) {
-        updates.$set = { 'stats.mp': 0 };
+        updates.$mul = { 'stats.mp': 1 - quest.boss.rage.mpDrain };
       }
       if (quest.boss.rage.progressDrain) {
         updates.$mul = { 'party.quest.progress.up': quest.boss.rage.progressDrain };
@@ -1116,7 +1156,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
 
   // Boss slain, finish quest
   if (group.quest.progress.hp <= 0) {
-    const questFinishChat = group.sendChat({
+    const questFinishChat = await group.sendChat({
       message: `\`${shared.i18n.t('chatBossDefeated', { bossName: quest.boss.name('en') }, 'en')}\``,
       info: {
         type: 'boss_defeated',
@@ -1170,7 +1210,7 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   }, []);
 
   foundText = foundText.join(', ');
-  const foundChat = group.sendChat({
+  const foundChat = await group.sendChat({
     message: `\`${shared.i18n.t('chatFindItems', { username: user.profile.name, items: foundText }, 'en')}\``,
     info: {
       type: 'user_found_items',
@@ -1186,7 +1226,7 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   const questFinished = collectedItems.length === remainingItems.length;
   if (questFinished) {
     await group.finishQuest(quest);
-    const allItemsFoundChat = group.sendChat({
+    const allItemsFoundChat = await group.sendChat({
       message: `\`${shared.i18n.t('chatItemQuestFinish', 'en')}\``,
       info: {
         type: 'all_items_found',
@@ -1220,7 +1260,7 @@ schema.statics.processQuestProgress = async function processQuestProgress (user,
 };
 
 // to set a boss:
-// `db.groups.update({_id:TAVERN_ID},
+// `db.groups.updateOne({_id:TAVERN_ID},
 // {$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}}).exec()`
 // we export an empty object that is then populated with the query-returned data
 export const tavernQuest = {};
@@ -1258,7 +1298,7 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
   const chatPromises = [];
 
   if (tavern.quest.progress.hp <= 0) {
-    const completeChat = tavern.sendChat({
+    const completeChat = await tavern.sendChat({
       message: quest.completionChat('en'),
       info: {
         type: 'tavern_quest_completed',
@@ -1295,7 +1335,7 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
     }
 
     if (!scene) {
-      const tiredChat = tavern.sendChat({
+      const tiredChat = await tavern.sendChat({
         message: `\`${shared.i18n.t('tavernBossTired', { rageName: quest.boss.rage.title('en'), bossName: quest.boss.name('en') }, 'en')}\``,
         info: {
           type: 'tavern_boss_rage_tired',
@@ -1305,7 +1345,7 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
       chatPromises.push(tiredChat.save());
       tavern.quest.progress.rage = 0; // quest.boss.rage.value;
     } else {
-      const rageChat = tavern.sendChat({
+      const rageChat = await tavern.sendChat({
         message: quest.boss.rage[scene]('en'),
         info: {
           type: 'tavern_boss_rage',
@@ -1328,7 +1368,7 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
     && tavern.quest.progress.hp < quest.boss.desperation.threshold
     && !tavern.quest.extra.desperate
   ) {
-    const progressChat = tavern.sendChat({
+    const progressChat = await tavern.sendChat({
       message: quest.boss.desperation.text('en'),
       info: {
         type: 'tavern_boss_desperation',
@@ -1358,6 +1398,10 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
 
   if (group.leader === user._id && group.hasNotCancelled()) {
     throw new NotAuthorized(shared.i18n.t('leaderCannotLeaveGroupWithActiveGroup'));
+  }
+
+  if (group.purchased.plan.customerId) {
+    await payments.cancelGroupSubscriptionForUser(user, this);
   }
 
   // only remove user from challenges if it's set to leave-challenges
@@ -1399,10 +1443,6 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     update.$unset = { [`quest.members.${user._id}`]: 1 };
   }
 
-  if (group.purchased.plan.customerId) {
-    promises.push(payments.cancelGroupSubscriptionForUser(user, this));
-  }
-
   // If user is the last one in group and group is private, delete it
   if (group.memberCount <= 1 && group.privacy === 'private') {
     // double check the member count is correct
@@ -1416,7 +1456,8 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     _.remove(members, { _id: user._id });
 
     if (members.length === 0) {
-      promises.push(group.remove());
+      promises.push(group.deleteOne());
+      promises.push(Chat.deleteMany({ groupId: group._id }));
       return Promise.all(promises);
     }
   }
@@ -1432,7 +1473,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     // with 1 member who is leaving
     if (seniorMember) update.$set = { leader: seniorMember._id };
   }
-  promises.push(group.update(update).exec());
+  promises.push(group.updateOne(update).exec());
 
   return Promise.all(promises);
 };
@@ -1457,11 +1498,6 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, users, assig
       completed: false,
     };
 
-    if (!taskToSync.group.assignedUsers) {
-      taskToSync.group.assignedUsers = [];
-    }
-    taskToSync.group.assignedUsers.push(user._id);
-
     if (!taskToSync.group.assignedUsersDetail) {
       taskToSync.group.assignedUsersDetail = {};
     }
@@ -1469,6 +1505,8 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, users, assig
       taskToSync.group.assignedUsersDetail[user._id] = assignmentData;
     }
     taskToSync.markModified('group.assignedUsersDetail');
+
+    taskToSync.group.assignedUsers = _.keys(taskToSync.group.assignedUsersDetail);
 
     // Sync tags
     const userTags = user.tags;
@@ -1494,17 +1532,23 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, users, assig
 };
 
 schema.methods.unlinkTask = async function groupUnlinkTask (
-  unlinkingTask, user,
-  keep, saveUser = true,
+  unlinkingTask,
+  user,
+  keep,
+  saveUser = true,
 ) {
   const findQuery = {
     'group.taskId': unlinkingTask._id,
     'group.assignedUsers': user._id,
   };
 
-  delete unlinkingTask.group.assignedUsersDetail[user._id];
-  const assignedUserIndex = unlinkingTask.group.assignedUsers.indexOf(user._id);
-  unlinkingTask.group.assignedUsers.splice(assignedUserIndex, 1);
+  if (unlinkingTask.group.assignedUsersDetail) {
+    delete unlinkingTask.group.assignedUsersDetail[user._id];
+    unlinkingTask.group.assignedUsers = _.keys(unlinkingTask.group.assignedUsersDetail);
+  } else {
+    // Task was created before assignedUsersDetail was added
+    removeFromArray(unlinkingTask.group.assignedUsers, user._id);
+  }
   unlinkingTask.markModified('group');
 
   const promises = [unlinkingTask.save()];
@@ -1526,7 +1570,7 @@ schema.methods.unlinkTask = async function groupUnlinkTask (
     }
 
     if (task) {
-      promises.push(task.remove());
+      promises.push(task.deleteOne());
     }
     // When multiple tasks are being unlinked at the same time,
     // save the user once outside of this function
@@ -1575,7 +1619,7 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
       assignedUser.notifications.splice(notificationIndex, 1);
     }
 
-    await Tasks.Task.remove({ _id: userTask._id });
+    await Tasks.Task.deleteOne({ _id: userTask._id });
     removeFromArray(assignedUser.tasksOrder[`${task.type}s`], userTask._id);
     removalPromises.push(assignedUser.save());
   });
@@ -1665,15 +1709,15 @@ export const model = mongoose.model('Group', schema);
 // initialize tavern if !exists (fresh installs)
 // do not run when testing as it's handled by the tests and can easily cause a race condition
 if (!nconf.get('IS_TEST')) {
-  model.countDocuments({ _id: TAVERN_ID }, (err, ct) => {
-    if (err) throw err;
-    if (ct > 0) return;
-    new model({ // eslint-disable-line new-cap
-      _id: TAVERN_ID,
-      leader: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0', // Siena Leslie
-      name: 'Tavern',
-      type: 'guild',
-      privacy: 'public',
-    }).save();
+  model.countDocuments({ _id: TAVERN_ID }).then(count => {
+    if (count === 0) {
+      new model({ // eslint-disable-line new-cap
+        _id: TAVERN_ID,
+        leader: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0', // Siena Leslie
+        name: 'Tavern',
+        type: 'guild',
+        privacy: 'public',
+      }).save();
+    }
   });
 }

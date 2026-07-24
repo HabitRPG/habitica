@@ -3,7 +3,7 @@
     <div class="row standard-page">
       <small
         class="muted"
-        v-html="$t('blurbHallContributors')"
+        v-html="$t('blurbHallContributors', hallLinks)"
       ></small>
     </div>
     <div class="row standard-page">
@@ -68,6 +68,7 @@
                   <a
                     href="https://habitica.fandom.com/wiki/Contributor_Rewards"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >More details</a>
                 </small>
               </div>
@@ -258,13 +259,22 @@
                 :key="hero._id"
               >
                 <td>
-                  <user-link
+                  <div
                     v-if="hasPermission(hero, 'userSupport')"
-                    :user="hero"
-                    :popover="$t('gamemaster')"
-                    popover-trigger="mouseenter"
-                    popover-placement="right"
-                  />
+                    class="width-content"
+                  >
+                    <user-link
+                      :id="hero._id"
+                      :user="hero"
+                    />
+                    <b-popover
+                      :target="hero._id"
+                      triggers="hover focus"
+                      placement="right"
+                      :prevent-overflow="false"
+                      :content="$t('gamemaster')"
+                    />
+                  </div>
                   <user-link
                     v-else
                     :user="hero"
@@ -277,7 +287,7 @@
                       :to="{ name: 'adminPanelUser',
                              params: { userIdentifier: hero._id } }"
                     >
-                      admin panel
+                      {{ $t("adminPanel") }}
                     </router-link>
                   </span>
                 </td>
@@ -287,6 +297,7 @@
                   <div
                     v-markdown="hero.contributor.contributions"
                     target="_blank"
+                    rel="noopener noreferrer"
                   ></div>
                 </td>
               </tr>
@@ -302,20 +313,26 @@
   h4.expand-toggle::after {
     margin-left: 5px;
   }
+
+  .width-content {
+    width: fit-content;
+  }
 </style>
 
 <script>
 import each from 'lodash/each';
-import markdownDirective from '@/directives/markdown';
-import styleHelper from '@/mixins/styleHelper';
 import * as quests from '@/../../common/script/content/quests';
-import { mountInfo, petInfo } from '@/../../common/script/content/stable';
+import stable from '@/../../common/script/content/stable';
 import content from '@/../../common/script/content';
 import gear from '@/../../common/script/content/gear';
+import styleHelper from '@/mixins/styleHelper';
+import markdownDirective from '@/directives/markdown';
 import notifications from '@/mixins/notifications';
 import userLink from '../userLink';
 import PurchaseHistoryTable from '../ui/purchaseHistoryTable.vue';
 import { userStateMixin } from '../../mixins/userState';
+
+const { mountInfo, petInfo } = stable;
 
 export default {
   components: {
@@ -345,6 +362,12 @@ export default {
       expandItems: false,
       expandAuth: false,
       expandTransactions: false,
+      hallLinks: {
+        linkRewards: '<a href="https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards" target="_blank" rel="noreferrer noopener">',
+        linkTiers: '<a href="https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tiers" target="_blank" rel="noreferrer noopener">',
+        linkContributing: '<a href="https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
     };
   },
   async mounted () {

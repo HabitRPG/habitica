@@ -12,18 +12,19 @@ describe('POST /groups/:id/chat/seen', () => {
       const { group, groupLeader, members } = await createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
-          privacy: 'public',
+          privacy: 'private',
         },
         members: 1,
         leaderDetails: {
           'auth.timestamps.created': new Date('2022-01-01'),
           balance: 10,
         },
+        upgradeToGroupPlan: true,
       });
 
       guild = group;
       guildLeader = groupLeader;
-      guildMember = members[0]; // eslint-disable-line prefer-destructuring
+      [guildMember] = members;
 
       guildMessage = await guildLeader.post(`/groups/${guild._id}/chat`, { message: 'Some guild message' });
       guildMessage = guildMessage.message;

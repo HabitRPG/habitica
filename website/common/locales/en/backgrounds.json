@@ -245,7 +245,7 @@
   "backgroundWindyAutumnText": "Windy Autumn",
   "backgroundWindyAutumnNotes": "Chase leaves during a Windy Autumn.",
 
-  "incentiveBackgrounds": "Plain Background Set",
+  "incentiveBackgrounds": "Standard Backgrounds",
   "backgroundVioletText": "Violet",
   "backgroundVioletNotes": "A vibrant violet backdrop.",
   "backgroundBlueText": "Blue",
@@ -838,7 +838,7 @@
   "backgrounds122022": "SET 103: Released December 2022",
   "backgroundBranchesOfAHolidayTreeText": "Branches of a Holiday Tree",
   "backgroundBranchesOfAHolidayTreeNotes": "Frolic on the Branches of a Holiday Tree.",
-  "backgroundInsideACrystalText": "Inside A Crystal", 
+  "backgroundInsideACrystalText": "Inside A Crystal",
   "backgroundInsideACrystalNotes": "Peer out from Inside A Crystal.",
   "backgroundSnowyVillageText": "Snowy Village",
   "backgroundSnowyVillageNotes": "Admire a Snowy Village.",
@@ -883,6 +883,210 @@
   "backgroundCretaceousForestText": "Cretaceous Forest",
   "backgroundCretaceousForestNotes": "Take in the ancient greenery of a Cretaceous Forest.",
 
+  "backgrounds062023": "SET 109: Released June 2023",
+  "backgroundInAnAquariumText": "In an Aquarium",
+  "backgroundInAnAquariumNotes": "Take a peaceful swim with the fish In an Aquarium.",
+  "backgroundInsideAdventurersHideoutText": "Inside an Adventurer's Hideout",
+  "backgroundInsideAdventurersHideoutNotes": "Plan a journey inside an Adventurer's Hideout.",
+  "backgroundCraterLakeText": "Crater Lake",
+  "backgroundCraterLakeNotes": "Admire a lovely Crater Lake.",
+
+  "backgrounds072023": "SET 110: Released July 2023",
+  "backgroundOnAPaddlewheelBoatText": "On a Paddlewheel Boat",
+  "backgroundOnAPaddlewheelBoatNotes": "Ride on a Paddlewheel Boat.",
+  "backgroundColorfulCoralText": "Colorful Coral",
+  "backgroundColorfulCoralNotes": "Dive among Colorful Coral.",
+  "backgroundBoardwalkIntoSunsetText": "Boardwalk into the Sunset",
+  "backgroundBoardwalkIntoSunsetNotes": "Stroll on a Boardwalk into the Sunset.",
+
+  "backgrounds082023": "SET 111: Released August 2023",
+  "backgroundBonsaiCollectionText": "Bonsai Collection",
+  "backgroundBonsaiCollectionNotes": "Admire a gorgeous Bonsai Collection.",
+  "backgroundDreamyIslandText": "Dreamy Island",
+  "backgroundDreamyIslandNotes": "Enjoy the scenery on a Dreamy Island.",
+  "backgroundRockGardenText": "Rock Garden",
+  "backgroundRockGardenNotes": "Relax in a Rock Garden.",
+
+  "backgrounds092023": "SET 112: Released September 2023",
+  "backgroundMovingDayText": "Moving Day",
+  "backgroundMovingDayNotes": "Pack up for Moving Day.",
+  "backgroundCoveredBridgeInAutumnText": "Covered Bridge in Autumn",
+  "backgroundCoveredBridgeInAutumnNotes": "Traverse a Covered Bridge in Autumn.",
+  "backgroundBaobabForestText": "Baobab Forest",
+  "backgroundBaobabForestNotes": "Gaze in wonder at the Baobab Forest.",
+
+  "backgrounds102023": "SET 113: Released October 2023",
+  "backgroundSpectralCandleRoomText": "Room of Spectral Candles",
+  "backgroundSpectralCandleRoomNotes": "Commune with spirits in a Room of Spectral Candles.",
+  "backgroundMonstrousCaveText": "Monstrous Cave",
+  "backgroundMonstrousCaveNotes": "Gaze into the maw of the Monstrous Cave.",
+  "backgroundJackOLanternStacksText": "Jack O'Lantern Stacks",
+  "backgroundJackOLanternStacksNotes": "Admire a field of Jack O’Lantern Stacks.",
+
+  "backgrounds112023": "SET 114: Released November 2023",
+  "backgroundGiantCatText": "Giant Cat",
+  "backgroundGiantCatNotes": "Take a nap with a Giant Cat.",
+  "backgroundBarrelCellarText": "Barrel Cellar",
+  "backgroundBarrelCellarNotes": "Look for culinary delights in a Barrel Cellar.",
+  "backgroundAutumnTreeTunnelText": "Autumn Tree Tunnel",
+  "backgroundAutumnTreeTunnelNotes": "Take in the beauty of an Autumn Tree Tunnel.",
+
+  "backgrounds122023": "SET 115: Released December 2023",
+  "backgroundHolidayTreeForestText": "Holiday Tree Forest",
+  "backgroundHolidayTreeForestNotes": "Decorate a Holiday Tree in a Forest.",
+  "backgroundIceSculptureFestivalText": "Ice Sculpture Festival",
+  "backgroundIceSculptureFestivalNotes": "Tour an Ice Sculpture Festival.",
+  "backgroundWinterFullMoonText": "WinterFullMoon",
+  "backgroundWinterFullMoonNotes": "Gaze at the Winter Full Moon.",
+
+  "backgrounds012024": "SET 116: Released January 2024",
+  "backgroundWinterMountainRangeText": "Winter Mountain Range",
+  "backgroundWinterMountainRangeNotes": "Climb a Winter Mountain Range.",
+  "backgroundFrozenBluePondText": "Frozen Blue Pond",
+  "backgroundFrozenBluePondNotes": "Chill out by the Frozen Blue Pond.",
+  "backgroundIceBubbleLakeText": "Ice Bubble Lake",
+  "backgroundIceBubbleLakeNotes": "Stand carefully on the Ice Bubble Lake.",
+
+  "backgrounds022024": "SET 117: Released February 2024",
+  "backgroundColorfulStreetText": "Colorful Street",  
+  "backgroundColorfulStreetNotes": "Viewing a Colorful Street.",
+  "backgroundSwanBoatText": "Swan Boat",
+  "backgroundSwanBoatNotes": "Take a ride in a Swan Boat.",
+  "backgroundHeartTreeTunnelText": "Heart Tree Tunnel",
+  "backgroundHeartTreeTunnelNotes": "Drift through the Heart Tree Tunnel.",
+
+  "backgrounds032024": "SET 118: Released March 2024",
+  "backgroundFloweringForestText": "Flowering Forest",
+  "backgroundFloweringForestNotes": "Breathe in the perfume of a Flowering Forest.",
+  "backgroundRainyRainforestText": "Rainy Rainforest",
+  "backgroundRainyRainforestNotes": "Enjoy a refreshing downpour in the Rainy Ranforest.",
+  "backgroundDogParkText": "Dog Park",
+  "backgroundDogParkNotes": "Frolic at the Dog Park.",
+
+  "backgrounds042024": "SET 119: Released April 2024",
+  "backgroundForestSunsetText": "Forest Sunset",
+  "backgroundForestSunsetNotes": "Bask in the glow of a Forest Sunset.",
+  "backgroundWallFloweringVinesText": "Wall with Flowering Vines",
+  "backgroundWallFloweringVinesNotes": "Hang out by a wall of Flowering Vines.",
+  "backgroundContainerGardenText": "Container Garden",
+  "backgroundContainerGardenNotes": "Get your hands dirty wth the Container Garden.",
+
+  "backgrounds052024": "SET 120: Released May 2024",
+  "backgroundDragonsBackText": "Dragon's Back",
+  "backgroundDragonsBackNotes": "Sail the sky on a Dragon's Back.",
+  "backgroundMaypoleText": "Maypole",
+  "backgroundMaypoleNotes": "Dance around a merry Maypole.",
+  "backgroundPottersStudioText": "Potter's Studio",
+  "backgroundPottersStudioNotes": "Create art in the Potter's Studio.",
+
+  "backgrounds062024": "SET 121: Released June 2024",
+  "backgroundShellGateText": "Shell Gate",
+  "backgroundShellGateNotes": "March through the decorated coral of a Shell Gate.",
+
+  "backgrounds072024": "SET 122: Released July 2024",
+  "backgroundRiverBottomText": "River Bottom",
+  "backgroundRiverBottomNotes": "Explore a River Bottom.",
+
+  "backgrounds082024": "SET 123: Released August 2024",
+  "backgroundSavannaText": "Hazy Grasslands",
+  "backgroundSavannaNotes": "Hike through Hazy Grasslands.",
+
+  "backgrounds092024": "SET 124: Released September 2024",
+  "backgroundMagicDoorInForestText": "Magic Door in the Forest",
+  "backgroundMagicDoorInForestNotes": "Dare to step through the Magic Door in the Forest.",
+
+  "backgrounds102024": "SET 125: Released October 2024",
+  "backgroundSurroundedByGhostsText": "Surrounded by Ghosts",
+  "backgroundSurroundedByGhostsNotes": "Spend a spooky evening Surrounded by Ghosts.",
+
+  "backgrounds112024": "SET 126: Released November 2024",
+  "backgroundCastleHallWithHearthText": "Castle Hall with Hearth",
+  "backgroundCastleHallWithHearthNotes": "Bask in the warmth of a Castle Hall with a Hearth.",
+
+  "backgrounds122024": "SET 127: Released December 2024",
+  "backgroundFirstSnowForestText": "First Snow in the Forest",
+  "backgroundFirstSnowForestNotes": "Step into the First Snow in the Forest.",
+
+  "backgrounds012025": "SET 128: Released January 2025",
+  "backgroundWinterLandscapeWithCabinText": "Winter Landscape with Cabin",
+  "backgroundWinterLandscapeWithCabinNotes": "Stay cozy in a Winter Landscape with a Cabin.",
+
+  "backgrounds022025": "SET 129: Released February 2025",
+  "backgroundOldFashionedTeaShopText": "Old Fashioned Tea Shop",
+  "backgroundOldFashionedTeaShopNotes": "Enjoy a cozy beverage in an Old Fashioned Tea Shop.",
+
+  "backgrounds032025": "SET 130: Released March 2025",
+  "backgroundMountainSceneWithBlossomsText": "Mountain Scene with Blossoms",
+  "backgroundMountainSceneWithBlossomsNotes": "Take in the lovely sights and scents of a Mountain Scene with Blossoms.",  
+
+  "backgrounds0420205": "SET 131: Released April 2025",
+  "backgroundGardenWithFlowerBedsText": "Garden with Flower Beds",
+  "backgroundGardenWithFlowerBedsNotes": "Enjoy the blooms of spring in a Garden with Flower Beds.",
+
+  "backgrounds052025": "SET 132: Released May 2025",
+  "backgroundTrailThroughAForestText": "Trail Through a Forest",
+  "backgroundTrailThroughAForestNotes": "Wander down a Trail Through a Forest.",
+
+  "backgrounds062025": "SET 133: Released June 2025",
+  "backgroundSummerSeashoreText": "Summer Seashore",
+  "backgroundSummerSeashoreNotes": "Catch a wave at a Summer Seashore.",
+
+  "backgrounds072025": "SET 134: Released July 2025",
+  "backgroundSirensLairText": "Siren's Lair",
+  "backgroundSirensLairNotes": "Dare to dive into a Siren’s Lair.",
+
+  "backgrounds082025": "SET 135: Released August 2025",
+  "backgroundSunnyStreetWithShopsText": "Sunny Street with Shops",
+  "backgroundSunnyStreetWithShopsNotes": "Enjoy the sights and sounds of a Sunny Street with Shops.",
+
+  "backgrounds092025": "SET 136: Released September 2025",
+  "backgroundAutumnSwampText": "Autumn Swamp",
+  "backgroundAutumnSwampNotes": "Take in the haunting vibes of an Autumn Swamp.",
+
+  "backgrounds102025": "SET 137: Released October 2025",
+  "backgroundInsideForestWitchsCottageText": "Forest Witch's Cottage",
+  "backgroundInsideForestWitchsCottageNotes": "Weave spells inside a Forest Witch's Cottage.",
+
+  "backgrounds112025": "SET 138: Released November 2025",
+  "backgroundCastleKeepWithBannersText": "Castle Hall with Banners",
+  "backgroundCastleKeepWithBannersNotes": "Sing tales of heroic deeds in a Castle Hall with Banners.",
+
+  "backgrounds122025": "SET 139: Released December 2025",
+  "backgroundNighttimeStreetWithShopsText": "Nighttime Street with Shops",
+  "backgroundNighttimeStreetWithShopsNotes": "Enjoy the warm glow of a Nighttime Street with Shops.",
+
+  "backgrounds012026": "SET 140: Released January 2026",
+  "backgroundWinterDesertWithSaguarosText": "Winter Desert with Saguaros",
+  "backgroundWinterDesertWithSaguarosNotes": "Breathe the crisp air of a Winter Desert with Saguaros.",
+
+  "backgrounds022026": "SET 141: Released February 2026",
+  "backgroundElegantPalaceText": "Elegant Palace",
+  "backgroundElegantPalaceNotes": "Admire the colorful halls of an Elegant Palace.",
+
+  "backgrounds032026": "SET 142: Released March 2026",
+  "backgroundWaterfallWithRainbowText": "Waterfall with Rainbow",
+  "backgroundWaterfallWithRainbowNotes": "Admire the breathtaking beauty of a Waterfall with a Rainbow.",
+
+  "backgrounds042026": "SET 143: Released April 2026",
+  "backgroundRidingACometText": "Riding a Comet",
+  "backgroundRidingACometNotes": "Travel through space while Riding a Comet!",
+
+  "backgrounds052026": "SET 144: Released May 2026",
+  "backgroundElvenCitadelText": "Elven Citadel",
+  "backgroundElvenCitadelNotes": "Take the scenic journey to an Elven Citadel.",
+
+  "backgrounds062026": "SET 145: Released June 2026",
+  "backgroundBeachWithVolcanoText": "Beach with Volcano",
+  "backgroundBeachWithVolcanoNotes": "Watch nature's wonder on a Beach with a Volcano.",
+
+  "backgrounds072026": "SET 146: Released July 2026",
+  "backgroundTropicalCoralGardenText": "Tropical Coral Garden",
+  "backgroundTropicalCoralGardenNotes": "Dive into a Tropical Coral Garden.",
+
+  "backgrounds082026": "SET 147: Released August 2026",
+  "backgroundVegetableGardenText": "Vegetable Garden",
+  "backgroundVegetableGardenNotes": "Plant tasty greens in a Vegetable Garden.",
+
   "timeTravelBackgrounds": "Steampunk Backgrounds",
   "backgroundAirshipText": "Airship",
   "backgroundAirshipNotes": "Become a sky sailor on board your very own Airship.",
@@ -893,5 +1097,9 @@
 
   "eventBackgrounds": "Event Backgrounds",
   "backgroundBirthdayBashText": "Birthday Bash",
-  "backgroundBirthdayBashNotes": "Habitica's having a birthday party, and everyone's invited!"
+  "backgroundBirthdayBashNotes": "Habitica's having a birthday party, and everyone's invited!",
+  "backgroundOnAStrangePlanetText": "On a Strange Planet",
+  "backgroundOnAStrangePlanetNotes": "Venture where no Habitican has gone before: On a Strange Planet.",
+
+  "monthlyBackgrounds": "Monthly Backgrounds"
 }

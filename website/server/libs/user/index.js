@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import * as slack from '../slack';
+import { getUserInfo } from '../email';
 import common from '../../../common';
 import * as Tasks from '../../models/task';
 import { model as Groups } from '../../models/group';
@@ -95,6 +97,7 @@ const requiresPurchase = {
 };
 
 function checkPreferencePurchase (user, path, item) {
+  if (path === 'background' && item === '') return true;
   const itemPath = `${path}.${item}`;
   const appearance = _.get(common.content.appearances, itemPath);
   if (!appearance) return false;
@@ -105,19 +108,6 @@ function checkPreferencePurchase (user, path, item) {
   return _.get(user.purchased, itemPath);
 }
 
-async function checkNewInputForProfanity (user, res, newValue) {
-  const containsSlur = stringContainsProfanity(newValue, 'slur');
-  const containsBannedWord = stringContainsProfanity(newValue);
-  if (containsSlur || containsBannedWord) {
-    if (containsSlur) {
-      user.flags.chatRevoked = true;
-      await user.save();
-      throw new BadRequest(res.t('bannedSlurUsedInProfile'));
-    }
-    throw new BadRequest(res.t('bannedWordUsedInProfile'));
-  }
-}
-
 export async function update (req, res, { isV3 = false }) {
   const { user } = res.locals;
 
@@ -126,29 +116,48 @@ export async function update (req, res, { isV3 = false }) {
   if (req.body['party.seeking'] !== undefined && req.body['party.seeking'] !== null) {
     user.invitations.party = {};
     user.invitations.parties = [];
-    res.analytics.track('Starts Looking for Party', {
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      headers: req.headers,
-    });
   }
+
+  let slurWasUsed = false;
+  let problemContent = '';
 
   if (req.body['profile.name'] !== undefined) {
     const newName = req.body['profile.name'];
     if (newName === null) throw new BadRequest(res.t('invalidReqParams'));
     if (newName.length > 30) throw new BadRequest(res.t('displaynameIssueLength'));
     if (nameContainsNewline(newName)) throw new BadRequest(res.t('displaynameIssueNewline'));
-    await checkNewInputForProfanity(user, res, newName);
+    if (stringContainsProfanity(newName, 'slur')) {
+      slurWasUsed = true;
+      problemContent += `Profile Name: ${newName}\n\n`;
+    }
   }
 
   if (req.body['profile.blurb'] !== undefined) {
     const newBlurb = req.body['profile.blurb'];
-    await checkNewInputForProfanity(user, res, newBlurb);
+    if (stringContainsProfanity(newBlurb, 'slur')) {
+      slurWasUsed = true;
+      problemContent += `Profile Blurb: ${newBlurb}`;
+    }
   }
 
+  if (slurWasUsed) {
+    const authorEmail = getUserInfo(user, ['email']).email;
+    user.flags.chatRevoked = true;
+    await user.save();
+    slack.sendProfileSlurNotification({
+      authorEmail,
+      author: user.auth.local.username,
+      uuid: user.id,
+      language: user.preferences.language,
+      problemContent,
+    });
+    throw new BadRequest(res.t('bannedSlurUsedInProfile'));
+  }
+
+  let groupsToMirror;
+  let matchingGroupsArray;
   if (req.body['preferences.tasks.mirrorGroupTasks'] !== undefined) {
-    const groupsToMirror = req.body['preferences.tasks.mirrorGroupTasks'];
+    groupsToMirror = req.body['preferences.tasks.mirrorGroupTasks'];
     if (!Array.isArray(groupsToMirror)) {
       throw new BadRequest('Groups to copy tasks from must be an array.');
     }
@@ -160,7 +169,7 @@ export async function update (req, res, { isV3 = false }) {
       }
     }
 
-    const matchingGroupsCount = await Groups.countDocuments({
+    const matchingGroups = await Groups.find({
       _id: { $in: groupsToMirror },
       'purchased.plan.customerId': { $exists: true },
       $or: [
@@ -168,11 +177,11 @@ export async function update (req, res, { isV3 = false }) {
         { 'purchased.plan.dateTerminated': null },
         { 'purchased.plan.dateTerminated': { $gt: new Date() } },
       ],
+    }, {
+      _id: 1,
     }).exec();
 
-    if (matchingGroupsCount !== groupsToMirror.length) {
-      throw new BadRequest('Groups to copy tasks from must have subscriptions.');
-    }
+    matchingGroupsArray = _.map(matchingGroups, groupRecord => groupRecord._id);
   }
 
   _.each(req.body, (val, key) => {
@@ -184,12 +193,6 @@ export async function update (req, res, { isV3 = false }) {
 
     if (key === 'party.seeking' && val === null) {
       user.party.seeking = undefined;
-      res.analytics.track('Leaves Looking for Party', {
-        uuid: user._id,
-        hitType: 'event',
-        category: 'behavior',
-        headers: req.headers,
-      });
     } else if (key === 'tags') {
       if (!Array.isArray(val)) throw new BadRequest('Tag list must be an array.');
 
@@ -234,6 +237,8 @@ export async function update (req, res, { isV3 = false }) {
       if (lastNewsPost) {
         user.flags.lastNewStuffRead = lastNewsPost._id;
       }
+    } else if (key === 'preferences.tasks.mirrorGroupTasks') {
+      user.preferences.tasks.mirrorGroupTasks = _.intersection(groupsToMirror, matchingGroupsArray);
     } else if (acceptablePUTPaths[key]) {
       let adjustedVal = val;
       if (key === 'stats.lvl' && val > common.constants.MAX_LEVEL_HARD_CAP) {
@@ -268,16 +273,9 @@ export async function reset (req, res, { isV3 = false }) {
   }
 
   await Promise.all([
-    Tasks.Task.remove({ _id: { $in: resetRes[0].tasksToRemove }, userId: user._id }),
+    Tasks.Task.deleteMany({ _id: { $in: resetRes[0].tasksToRemove }, userId: user._id }),
     user.save(),
   ]);
-
-  res.analytics.track('account reset', {
-    uuid: user._id,
-    hitType: 'event',
-    category: 'behavior',
-    headers: req.headers,
-  });
 
   res.respond(200, ...resetRes);
 }
@@ -290,7 +288,7 @@ export async function reroll (req, res, { isV3 = false }) {
     ...Tasks.taskIsGroupOrChallengeQuery,
   };
   const tasks = await Tasks.Task.find(query).exec();
-  const rerollRes = await common.ops.reroll(user, tasks, req, res.analytics);
+  const rerollRes = await common.ops.reroll(user, tasks, req);
   if (isV3) {
     rerollRes[0].user = await rerollRes[0].user.toJSONWithInbox();
   }
@@ -311,7 +309,7 @@ export async function rebirth (req, res, { isV3 = false }) {
     ...Tasks.taskIsGroupOrChallengeQuery,
   }).exec();
 
-  const rebirthRes = await common.ops.rebirth(user, tasks, req, res.analytics);
+  const rebirthRes = await common.ops.rebirth(user, tasks, req);
   if (isV3) {
     rebirthRes[0].user = await rebirthRes[0].user.toJSONWithInbox();
   }

@@ -1,6 +1,5 @@
 import {
-  generateUser,
-  generateGroup,
+  createAndPopulateGroup,
 } from '../../../../helpers/api-integration/v3';
 
 describe('GET /group-plans', () => {
@@ -8,20 +7,15 @@ describe('GET /group-plans', () => {
   let groupPlan;
 
   before(async () => {
-    user = await generateUser({ balance: 4 });
-    groupPlan = await generateGroup(user,
-      {
-        name: 'public guild - is member',
+    ({ group: groupPlan, groupLeader: user } = await createAndPopulateGroup({
+      groupDetails: {
+        name: 'group plan - is member',
         type: 'guild',
-        privacy: 'public',
+        privacy: 'private',
       },
-      {
-        purchased: {
-          plan: {
-            customerId: 'existings',
-          },
-        },
-      });
+      upgradeToGroupPlan: true,
+      leaderDetails: { balance: 4 },
+    }));
   });
 
   it('returns group plans for the user', async () => {

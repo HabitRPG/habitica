@@ -1,51 +1,49 @@
-import find from 'lodash/find';
 import upperFirst from 'lodash/upperFirst';
-import moment from 'moment';
 import {
-  EVENTS,
-  SEASONAL_SETS,
+  getCurrentGalaKey,
 } from '../content/constants';
+import {
+  armor,
+} from '../content/gear/sets/special';
 
-const CURRENT_EVENT = find(
-  EVENTS, event => moment().isBetween(event.start, event.end)
-    && ['winter', 'spring', 'summer', 'fall'].includes(event.season),
-);
-
-export default {
-  opened: CURRENT_EVENT,
-
-  currentSeason: CURRENT_EVENT ? upperFirst(CURRENT_EVENT.season) : 'Closed',
-
-  dateRange: {
-    start: CURRENT_EVENT ? moment(CURRENT_EVENT.start) : moment().subtract(1, 'days').toDate(),
-    end: CURRENT_EVENT ? moment(CURRENT_EVENT.end) : moment().subtract(1, 'seconds').toDate(),
-  },
-
-  availableSets: CURRENT_EVENT
-    ? [
-      ...SEASONAL_SETS[CURRENT_EVENT.season],
-    ]
-    : [],
-
-  pinnedSets: CURRENT_EVENT
-    ? {
-      rogue: 'spring2023CaterpillarRogueSet',
-      warrior: 'spring2023HummingbirdWarriorSet',
-      wizard: 'spring2023MoonstoneMageSet',
-      healer: 'spring2023LilyHealerSet',
+function safeGetSet (currentEvent, year, className) {
+  const set = armor[`${currentEvent}${year}${className}`];
+  if (set) {
+    return set.set;
+  }
+  let checkedYear = year - 1;
+  while (checkedYear >= 2014) {
+    const oldSet = armor[`${currentEvent}${checkedYear}${className}`];
+    if (oldSet) {
+      return oldSet.set;
     }
-    : {},
-  availableSpells: CURRENT_EVENT && moment().isBetween('2023-04-18T08:00-05:00', CURRENT_EVENT.end)
-    ? [
-      'shinySeed',
-    ]
-    : [],
+    checkedYear -= 1;
+  }
+  return null;
+}
 
-  availableQuests: CURRENT_EVENT && moment().isBetween('2023-03-28T08:00-05:00', CURRENT_EVENT.end)
-    ? [
-      'egg',
-    ]
-    : [],
+function getCurrentSeasonalSets (currentEvent) {
+  const now = new Date();
+  const year = now.getMonth() === 11 ? now.getFullYear() + 1 : now.getFullYear();
+  return {
+    rogue: safeGetSet(currentEvent, year, 'Rogue'),
+    warrior: safeGetSet(currentEvent, year, 'Warrior'),
+    wizard: safeGetSet(currentEvent, year, 'Mage'),
+    healer: safeGetSet(currentEvent, year, 'Healer'),
+  };
+}
 
-  featuredSet: 'spring2022MagpieRogueSet',
+export default () => {
+  const currentEvent = getCurrentGalaKey();
+  const pinnedSets = getCurrentSeasonalSets(currentEvent);
+  return {
+    currentSeason: currentEvent ? upperFirst(currentEvent) : 'Closed',
+    pinnedSets,
+    featuredSet: user => {
+      if (user.stats.class) {
+        return pinnedSets[user.stats.class];
+      }
+      return null;
+    },
+  };
 };

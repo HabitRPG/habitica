@@ -15,6 +15,9 @@ import {
 import {
   model as NewsPost,
 } from '../newsPost';
+import {
+  model as UserHistory,
+} from '../userHistory';
 import { // eslint-disable-line import/no-cycle
   userActivityWebhook,
 } from '../../libs/webhook';
@@ -24,7 +27,7 @@ schema.plugin(baseModel, {
   // noSet is not used as updating uses a whitelist and creating only accepts
   // specific params (password, email, username, ...)
   noSet: [],
-  private: ['auth.local.hashed_password', 'auth.local.passwordHashMethod', 'auth.local.salt', '_cronSignature', '_ABtests', 'secret'],
+  private: ['auth.local.hashed_password', 'auth.local.passwordHashMethod', 'auth.local.salt', '_cronSignature', '_ABtests', 'secret', 'profile.flags'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
 
@@ -237,7 +240,7 @@ schema.pre('validate', function preValidateUser (next) {
   next();
 });
 
-schema.pre('save', true, function preSaveUser (next, done) {
+schema.pre('save', true, async function preSaveUser (next, done) {
   next();
 
   // VERY IMPORTANT NOTE: when only some fields from an user document are selected
@@ -360,7 +363,19 @@ schema.pre('save', true, function preSaveUser (next, done) {
       // Unset the field so this is run only once
       this.flags.lastWeeklyRecapDiscriminator = undefined;
     }
+    if (!this.flags.initializedUserHistory) {
+      this.flags.initializedUserHistory = true;
+      // Ensure that it does not try to create a new history if it already exists
+      const existingHistory = await UserHistory.findOne({ userId: this._id });
+      if (!existingHistory) {
+        const history = UserHistory();
+        history.userId = this._id;
+        await history.save();
+      }
+    }
   }
+
+  // Enforce min/max values without displaying schema errors to end user
 
   if (this.isDirectSelected('preferences')) {
     if (
@@ -372,6 +387,20 @@ schema.pre('save', true, function preSaveUser (next, done) {
     }
   }
 
+  if (this.isSelected('stats')) {
+    const statMaximum = common.constants.MAX_FIELD_HARD_CAP;
+    const levelMaximum = common.constants.MAX_LEVEL_HARD_CAP;
+
+    _.each(['hp', 'mp', 'exp', 'gp'], stat => {
+      if (this.stats[stat] > statMaximum) {
+        this.stats[stat] = statMaximum;
+      }
+    });
+    if (this.stats.lvl > levelMaximum) {
+      this.stats.lvl = levelMaximum;
+    }
+  }
+
   // our own version incrementer
   if (this.isDirectSelected('_v')) {
     if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
@@ -380,16 +409,9 @@ schema.pre('save', true, function preSaveUser (next, done) {
 
   // Populate new users with default content
   if (this.isNew) {
-    _setUpNewUser(this)
-      .then(() => done())
-      .catch(done);
-  } else {
-    done();
+    await _setUpNewUser(this);
   }
-});
-
-schema.pre('update', function preUpdateUser () {
-  this.update({}, { $inc: { _v: 1 } });
+  done();
 });
 
 schema.pre('updateOne', function preUpdateUser () {

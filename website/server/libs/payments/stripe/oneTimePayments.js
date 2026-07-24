@@ -42,9 +42,7 @@ export async function getOneTimePaymentInfo (gemsBlockKey, gift, user) {
   if (gift) {
     const member = await User.findById(gift.uuid).exec();
     if (!member) {
-      throw new NotFound(shared.i18n.t(
-        'userWithIDNotFound', { userId: gift.uuid }, user.preferences.language,
-      ));
+      throw new NotFound(shared.i18n.t('userWithIDNotFound', { userId: gift.uuid }, user.preferences.language));
     }
     receiver = member;
   }
@@ -97,7 +95,10 @@ export async function applyGemPayment (session) {
   };
 
   if (gift) {
-    if (gift.type === 'subscription') method = 'createSubscription';
+    if (gift.type === 'subscription') {
+      method = 'createSubscription';
+      data.autoRenews = false;
+    }
     data.paymentMethod = 'Gift';
 
     const member = await User.findById(gift.uuid).exec();

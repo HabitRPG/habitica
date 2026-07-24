@@ -84,9 +84,9 @@
 
 <script>
 import throttle from 'lodash/throttle';
+import CategoryOptions from '@/../../common/script/content/categoryOptions';
 import FilterSidebar from '@/components/ui/filterSidebar';
 import FilterGroup from '@/components/ui/filterGroup';
-import CategoryOptions from '@/../../common/script/content/categoryOptions';
 
 // TODO use checkbox-component to add/remove entries to *Filters, but without the v-model binding
 

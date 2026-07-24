@@ -46,7 +46,7 @@ api.addPushDevice = {
 
     // Concurrency safe update
     const pushDevice = (new PushDevice(item)).toJSON(); // Create a mongo doc
-    await user.update({
+    await user.updateOne({
       $push: { pushDevices: pushDevice },
     }).exec();
 
@@ -92,7 +92,7 @@ api.removePushDevice = {
 
     // Concurrency safe update
     const pullQuery = { $pull: { pushDevices: { regId } } };
-    await user.update(pullQuery).exec();
+    await user.updateOne(pullQuery).exec();
 
     // Update the response
     pushDevices.splice(indexOfPushDevice, 1);

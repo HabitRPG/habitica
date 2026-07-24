@@ -6,7 +6,7 @@ import {
 } from '../../../helpers/api-unit.helper';
 import { ensurePermission } from '../../../../website/server/middlewares/ensureAccessRight';
 import { NotAuthorized } from '../../../../website/server/libs/errors';
-import apiError from '../../../../website/server/libs/apiError';
+import { apiError } from '../../../../website/server/libs/apiError';
 
 describe('ensure access middlewares', () => {
   let res; let req; let

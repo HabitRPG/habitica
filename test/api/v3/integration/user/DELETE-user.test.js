@@ -1,14 +1,7 @@
 import {
-  find,
-  each,
-  map,
-} from 'lodash';
-import {
   checkExistence,
-  createAndPopulateGroup,
   generateGroup,
   generateUser,
-  generateChallenge,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 import {
@@ -16,6 +9,7 @@ import {
   sha1Encrypt as sha1EncryptPassword,
 } from '../../../../../website/server/libs/password';
 import * as email from '../../../../../website/server/libs/email';
+import sendJob from '../../../../../website/server/libs/worker';
 
 const DELETE_CONFIRMATION = 'DELETE';
 
@@ -48,11 +42,13 @@ describe('DELETE /user', () => {
       });
     });
 
-    it('deletes the user', async () => {
+    it('sends deletion job to worker', async () => {
+      const workerStub = sandbox.stub(sendJob, 'sendJob');
       await user.del('/user', {
         password,
       });
-      await expect(checkExistence('users', user._id)).to.eventually.eql(false);
+      expect(workerStub).to.be.calledOnce;
+      workerStub.restore();
     });
 
     it('returns an error if excessive feedback is supplied', async () => {
@@ -82,53 +78,6 @@ describe('DELETE /user', () => {
         error: 'NotAuthorized',
         message: t('cannotDeleteActiveAccount'),
       });
-    });
-
-    it('deletes the user\'s tasks', async () => {
-      await user.post('/tasks/user', {
-        text: 'test habit',
-        type: 'habit',
-      });
-      await user.sync();
-
-      // gets the user's tasks ids
-      const ids = [];
-      each(user.tasksOrder, idsForOrder => {
-        ids.push(...idsForOrder);
-      });
-
-      expect(ids.length).to.be.above(0); // make sure the user has some task to delete
-
-      await user.del('/user', {
-        password,
-      });
-
-      await Promise.all(map(ids, id => expect(checkExistence('tasks', id)).to.eventually.eql(false)));
-    });
-
-    it('reduces memberCount in challenges user is linked to', async () => {
-      const populatedGroup = await createAndPopulateGroup({
-        members: 2,
-      });
-
-      const { group } = populatedGroup;
-      const authorizedUser = populatedGroup.members[1];
-
-      const challenge = await generateChallenge(populatedGroup.groupLeader, group);
-      await populatedGroup.groupLeader.post(`/challenges/${challenge._id}/join`);
-      await authorizedUser.post(`/challenges/${challenge._id}/join`);
-
-      await challenge.sync();
-
-      expect(challenge.memberCount).to.eql(2);
-
-      await authorizedUser.del('/user', {
-        password,
-      });
-
-      await challenge.sync();
-
-      expect(challenge.memberCount).to.eql(1);
     });
 
     it('sends feedback to the admin email', async () => {
@@ -161,8 +110,9 @@ describe('DELETE /user', () => {
       const textPassword = 'mySecretPassword';
       const salt = sha1MakeSalt();
       const sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
+      const workerStub = sandbox.stub(sendJob, 'sendJob');
 
-      await user.update({
+      await user.updateOne({
         'auth.local.hashed_password': sha1HashedPassword,
         'auth.local.passwordHashMethod': 'sha1',
         'auth.local.salt': salt,
@@ -178,7 +128,8 @@ describe('DELETE /user', () => {
       await user.del('/user', {
         password: textPassword,
       });
-      await expect(checkExistence('users', user._id)).to.eventually.eql(false);
+      expect(workerStub).to.be.calledOnce;
+      workerStub.restore();
     });
 
     context('last member of a party', () => {
@@ -198,95 +149,6 @@ describe('DELETE /user', () => {
         await expect(checkExistence('party', party._id)).to.eventually.eql(false);
       });
     });
-
-    context('last member of a private guild', () => {
-      let privateGuild;
-
-      beforeEach(async () => {
-        privateGuild = await generateGroup(user, {
-          type: 'guild',
-          privacy: 'private',
-        });
-      });
-
-      it('deletes guild when user is the only member', async () => {
-        await user.del('/user', {
-          password,
-        });
-        await expect(checkExistence('groups', privateGuild._id)).to.eventually.eql(false);
-      });
-    });
-
-    context('groups user is leader of', () => {
-      let guild; let oldLeader; let
-        newLeader;
-
-      beforeEach(async () => {
-        const { group, groupLeader, members } = await createAndPopulateGroup({
-          groupDetails: {
-            type: 'guild',
-            privacy: 'public',
-          },
-          members: 1,
-        });
-
-        guild = group;
-        newLeader = members[0]; // eslint-disable-line prefer-destructuring
-        oldLeader = groupLeader;
-      });
-
-      it('chooses new group leader for any group user was the leader of', async () => {
-        await oldLeader.del('/user', {
-          password,
-        });
-
-        const updatedGuild = await newLeader.get(`/groups/${guild._id}`);
-
-        expect(updatedGuild.leader).to.exist;
-        expect(updatedGuild.leader._id).to.not.eql(oldLeader._id);
-      });
-    });
-
-    context('groups user is a part of', () => {
-      let group1; let group2; let userToDelete; let
-        otherUser;
-
-      beforeEach(async () => {
-        userToDelete = await generateUser({ balance: 10 });
-
-        group1 = await generateGroup(userToDelete, {
-          type: 'guild',
-          privacy: 'public',
-        });
-
-        const { group, members } = await createAndPopulateGroup({
-          groupDetails: {
-            type: 'guild',
-            privacy: 'public',
-          },
-          members: 3,
-        });
-
-        group2 = group;
-        otherUser = members[0]; // eslint-disable-line prefer-destructuring
-
-        await userToDelete.post(`/groups/${group2._id}/join`);
-      });
-
-      it('removes user from all groups user was a part of', async () => {
-        await userToDelete.del('/user', {
-          password,
-        });
-
-        const updatedGroup1Members = await otherUser.get(`/groups/${group1._id}/members`);
-        const updatedGroup2Members = await otherUser.get(`/groups/${group2._id}/members`);
-        const userInGroup = find(updatedGroup2Members, member => member._id === userToDelete._id);
-
-        expect(updatedGroup1Members).to.be.empty;
-        expect(updatedGroup2Members).to.not.be.empty;
-        expect(userInGroup).to.not.exist;
-      });
-    });
   });
 
   context('user with Google auth', async () => {
@@ -301,10 +163,12 @@ describe('DELETE /user', () => {
     });
 
     it('deletes a Google user', async () => {
+      const workerStub = sandbox.stub(sendJob, 'sendJob');
       await user.del('/user', {
         password: DELETE_CONFIRMATION,
       });
-      await expect(checkExistence('users', user._id)).to.eventually.eql(false);
+      expect(workerStub).to.be.calledOnce;
+      workerStub.restore();
     });
   });
 
@@ -319,11 +183,13 @@ describe('DELETE /user', () => {
       });
     });
 
-    it('deletes a Apple user', async () => {
+    it('deletes an Apple user', async () => {
+      const workerStub = sandbox.stub(sendJob, 'sendJob');
       await user.del('/user', {
         password: DELETE_CONFIRMATION,
       });
-      await expect(checkExistence('users', user._id)).to.eventually.eql(false);
+      expect(workerStub).to.be.calledOnce;
+      workerStub.restore();
     });
   });
 });

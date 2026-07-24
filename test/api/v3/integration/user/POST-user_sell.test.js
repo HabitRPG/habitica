@@ -25,7 +25,7 @@ describe('POST /user/sell/:type/:key', () => {
   });
 
   it('sells an item', async () => {
-    await user.update({
+    await user.updateOne({
       items: {
         eggs: {
           Wolf: 1,

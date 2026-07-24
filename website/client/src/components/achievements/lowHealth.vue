@@ -97,10 +97,10 @@
 </style>
 
 <script>
-import Avatar from '../avatar';
-import { mapState } from '@/libs/store';
 import percent from '@/../../common/script/libs/percent';
 import { MAX_HEALTH as maxHealth } from '@/../../common/script/constants';
+import Avatar from '../avatar';
+import { mapState } from '@/libs/store';
 
 export default {
   components: {

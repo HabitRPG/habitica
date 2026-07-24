@@ -1,8 +1,9 @@
 <template>
   <div
+    v-if="member.preferences"
     class="avatar"
     :style="{width, height, paddingTop}"
-    :class="backgroundClass"
+    :class="topLevelClassList"
     @click.prevent="castEnd()"
   >
     <div
@@ -34,7 +35,7 @@
         <span :class="[skinClass, specialMountClass]"></span>
         <!-- eslint-disable max-len-->
         <span
-          :class="[member.preferences.size + '_shirt_' + member.preferences.shirt, specialMountClass]"
+          :class="[shirtClass, specialMountClass]"
         ></span>
         <!-- eslint-enable max-len-->
         <span :class="['head_0', specialMountClass]"></span>
@@ -45,18 +46,20 @@
         <template
           v-for="type in ['bangs', 'base', 'mustache', 'beard']"
         >
-          <!-- eslint-disable max-len-->
           <span
             :key="type"
-            :class="['hair_' + type + '_' + member.preferences.hair[type] + '_' + member.preferences.hair.color, specialMountClass]"
+            :class="[hairClass(type), specialMountClass]"
           ></span>
-          <!-- eslint-enable max-len-->
         </template>
         <span :class="[getGearClass('body'), specialMountClass]"></span>
         <span :class="[getGearClass('eyewear'), specialMountClass]"></span>
         <span :class="[getGearClass('head'), specialMountClass]"></span>
         <span :class="[getGearClass('headAccessory'), specialMountClass]"></span>
-        <span :class="['hair_flower_' + member.preferences.hair.flower, specialMountClass]"></span>
+        <span
+          :class="[
+            'hair_flower_' + member.preferences.hair.flower, specialMountClass
+          ]"
+        ></span>
         <span
           v-if="!hideGear('shield')"
           :class="[getGearClass('shield'), specialMountClass]"
@@ -64,6 +67,7 @@
         <span
           v-if="!hideGear('weapon')"
           :class="[getGearClass('weapon'), specialMountClass]"
+          class="weapon"
         ></span>
       </template>
       <!-- Resting-->
@@ -93,19 +97,27 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .avatar {
     width: 141px;
-    height: 147px;
     image-rendering: pixelated;
     position: relative;
     cursor: pointer;
+
+    &.centered-avatar {
+      margin: 0 auto;
+    }
+
+    // resetting the additional padding
+    margin-bottom: -0.5rem !important;
   }
 
   .character-sprites {
     width: 90px;
     height: 90px;
+
+    display: inline-flex;
   }
 
   .character-sprites span {
@@ -124,22 +136,49 @@
   .invert {
     filter: invert(100%);
   }
+
+  .debug {
+    border: 1px solid red;
+
+    .character-sprites {
+      border: 1px solid blue;
+    }
+
+    .weapon {
+      border: 1px solid green;
+    }
+
+    span {
+      border: 1px solid yellow;
+    }
+  }
 </style>
 
 <script>
-import some from 'lodash/some';
 import moment from 'moment';
 import { mapState } from '@/libs/store';
 import foolPet from '../mixins/foolPet';
 
 import ClassBadge from '@/components/members/classBadge';
 
+/**
+ * TODO replace avatarOnly with multiple options like
+ *    - showMount
+ *    - showPet
+ *    - showBackground
+ *    - showWeapons
+ */
+
 export default {
-  mixins: [foolPet],
   components: {
     ClassBadge,
   },
+  mixins: [foolPet],
   props: {
+    debugMode: {
+      type: Boolean,
+      default: false,
+    },
     member: {
       type: Object,
       required: true,
@@ -157,14 +196,21 @@ export default {
     },
     overrideAvatarGear: {
       type: Object,
+      default (data) {
+        return data;
+      },
     },
     width: {
-      type: Number,
-      default: 140,
+      type: String,
+      default: '141px',
     },
     height: {
-      type: Number,
-      default: 147,
+      type: String,
+      default: '147px',
+    },
+    centerAvatar: {
+      type: Boolean,
+      default: false,
     },
     spritesMargin: {
       type: String,
@@ -172,8 +218,13 @@ export default {
     },
     overrideTopPadding: {
       type: String,
+      default: null,
     },
     showVisualBuffs: {
+      type: Boolean,
+      default: true,
+    },
+    showWeapon: {
       type: Boolean,
       default: true,
     },
@@ -184,9 +235,11 @@ export default {
       currentEventList: 'worldState.data.currentEventList',
     }),
     hasClass () {
+      if (!this.member) return false;
       return this.$store.getters['members:hasClass'](this.member);
     },
     isBuffed () {
+      if (!this.member) return false;
       return this.$store.getters['members:isBuffed'](this.member);
     },
     paddingTop () {
@@ -197,28 +250,43 @@ export default {
       let val = '24px';
 
       if (!this.avatarOnly) {
-        if (this.member.items.currentPet) val = '24px';
-        if (this.member.items.currentMount) val = '0px';
+        if (this.member?.items.currentPet) val = '24px';
+        if (this.member?.items.currentMount) val = '0px';
       }
 
       return val;
     },
+    topLevelClassList () {
+      const classes = [this.backgroundClass];
+
+      if (this.debugMode) {
+        classes.push('debug');
+      }
+
+      if (this.centerAvatar) {
+        classes.push('centered-avatar');
+      }
+
+      return classes.join(' ');
+    },
     backgroundClass () {
-      const { background } = this.member.preferences;
+      if (this.member) {
+        const { background } = this.member.preferences;
 
-      const allowToShowBackground = !this.avatarOnly || this.withBackground;
+        const allowToShowBackground = !this.avatarOnly || this.withBackground;
 
-      if (this.overrideAvatarGear && this.overrideAvatarGear.background) {
-        return `background_${this.overrideAvatarGear.background}`;
+        if (this.overrideAvatarGear && this.overrideAvatarGear.background) {
+          return `background_${this.overrideAvatarGear.background}`;
+        }
+
+        if (background && allowToShowBackground) {
+          return `background_${this.member.preferences.background}`;
+        }
       }
-
-      if (background && allowToShowBackground) {
-        return `background_${this.member.preferences.background}`;
-      }
-
       return '';
     },
     visualBuffs () {
+      if (!this.member) return {};
       return {
         snowball: `avatar_snowball_${this.member.stats.class}`,
         spookySparkles: 'ghost',
@@ -227,33 +295,45 @@ export default {
       };
     },
     skinClass () {
+      if (!this.member) return '';
+      if (this.overrideAvatarGear?.skin) {
+        return `skin_${this.overrideAvatarGear.skin}`;
+      }
       const baseClass = `skin_${this.member.preferences.skin}`;
 
       return `${baseClass}${this.member.preferences.sleep ? '_sleep' : ''}`;
     },
+    shirtClass () {
+      if (!this.member) return '';
+      if (this.overrideAvatarGear?.shirt) {
+        return `${this.member.preferences.size}_shirt_${this.overrideAvatarGear.shirt}`;
+      }
+      return `${this.member.preferences.size}_shirt_${this.member.preferences.shirt}`;
+    },
     costumeClass () {
-      return this.member.preferences.costume ? 'costume' : 'equipped';
+      return this.member?.preferences.costume ? 'costume' : 'equipped';
     },
     specialMountClass () {
-      if (!this.avatarOnly && this.member.items.currentMount && this.member.items.currentMount.includes('Kangaroo')) {
+      if (!this.avatarOnly && this.member?.items.currentMount && this.member?.items.currentMount.includes('Kangaroo')) {
         return 'offset-kangaroo';
       }
 
       return null;
     },
     petClass () {
-      if (some(
-        this.currentEventList,
-        event => moment().isBetween(event.start, event.end) && event.aprilFools && event.aprilFools === 'teaShop',
-      )) {
-        return this.foolPet(this.member.items.currentPet);
+      const substitutionEvent = this.currentEventList?.find(event => event.spriteSubstitutions
+        && moment().isBetween(event.start, event.end));
+      if (substitutionEvent && substitutionEvent.spriteSubstitutions.pets) {
+        return this.foolPet(`Pet-${this.member.items.currentPet}`,
+          substitutionEvent.spriteSubstitutions.pets);
       }
-      if (this.member.items.currentPet) return `Pet-${this.member.items.currentPet}`;
+      if (this.member?.items.currentPet) return `Pet-${this.member.items.currentPet}`;
       return '';
     },
   },
   methods: {
     getGearClass (gearType) {
+      if (!this.member) return '';
       let result = this.member.items.gear[this.costumeClass][gearType];
 
       if (this.overrideAvatarGear && this.overrideAvatarGear[gearType]) {
@@ -262,7 +342,23 @@ export default {
 
       return result;
     },
+    hairClass (slot) {
+      if (this.overrideAvatarGear?.hair) {
+        if (this.overrideAvatarGear.hair[slot]) {
+          return `hair_${slot}_${this.overrideAvatarGear.hair[slot]}_${this.member.preferences.hair.color}`;
+        }
+        if (this.overrideAvatarGear.hair.color) {
+          return `hair_${slot}_${this.member.preferences.hair[slot]}_${this.overrideAvatarGear.hair.color}`;
+        }
+      }
+      return `hair_${slot}_${this.member.preferences.hair[slot]}_${this.member.preferences.hair.color}`;
+    },
     hideGear (gearType) {
+      if (!this.member) return true;
+      if (!this.showWeapon) {
+        return true;
+      }
+
       if (gearType === 'weapon') {
         const equippedWeapon = this.member.items.gear[this.costumeClass][gearType];
 
@@ -288,6 +384,7 @@ export default {
       this.$root.$emit('castEnd', this.member, 'user', e);
     },
     showAvatar () {
+      if (!this.member) return false;
       if (!this.showVisualBuffs) return true;
 
       const { buffs } = this.member.stats;

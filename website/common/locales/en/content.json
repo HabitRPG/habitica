@@ -251,7 +251,43 @@
   "questEggRobotMountText": "Robot",
   "questEggRobotAdjective": "a futuristic",
 
-  "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
+  "questEggGiraffeText": "Giraffe",
+  "questEggGiraffeMountText": "Giraffe",
+  "questEggGiraffeAdjective": "a towering",
+
+  "questEggChameleonText": "Chameleon",
+  "questEggChameleonMountText": "Chameleon",
+  "questEggChameleonAdjective": "a chaotic",
+
+  "questEggCrabText": "Crab",
+  "questEggCrabMountText": "Crab",
+  "questEggCrabAdjective": "a fiddling",
+
+  "questEggRaccoonText": "Raccoon",
+  "questEggRaccoonMountText": "Raccoon",
+  "questEggRaccoonAdjective": "a ravenous",  
+
+  "questEggDogText": "Puppy",
+  "questEggDogMountText": "Dog",
+  "questEggDogAdjective": "a friendly",
+
+  "questEggCatText": "Kitten",
+  "questEggCatMountText": "Cat",
+  "questEggCatAdjective": "a mischievous",
+
+  "questEggOtterText": "Otter",
+  "questEggOtterMountText": "Otter",
+  "questEggOtterAdjective": "a perfidious",
+
+  "questEggAlpacaText": "Alpaca",
+  "questEggAlpacaMountText": "Alpaca",
+  "questEggAlpacaAdjective": "an overpacked",
+
+  "questEggPlatypusText": "Platypus",
+  "questEggPlatypusMountText": "Platypus",
+  "questEggPlatypusAdjective": "a perfectionist",
+
+  "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective %> <%= eggText %>.",
 
   "hatchingPotionBase": "Base",
   "hatchingPotionWhite": "White",
@@ -312,10 +348,20 @@
   "hatchingPotionPorcelain": "Porcelain",
   "hatchingPotionPinkMarble": "Pink Marble",
   "hatchingPotionTeaShop": "Tea Shop",
+  "hatchingPotionRoseGold": "Rose Gold",
+  "hatchingPotionFungi": "Fungi",
+  "hatchingPotionKoi": "Koi",
+  "hatchingPotionGingerbread": "Gingerbread",
+  "hatchingPotionJade": "Jade",
+  "hatchingPotionBalloon": "Balloon",
+  "hatchingPotionCryptid": "Cryptid",
+  "hatchingPotionOpal": "Opal",
+  "hatchingPotionAlien": "Alien",
 
-  "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
-  "premiumPotionAddlNotes": "Not usable on quest pet eggs. Available for purchase until <%= date(locale) %>.",
-  "premiumPotionUnlimitedNotes": "Not usable on quest pet eggs.",
+  "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText %> Pet.",
+  "premiumPotionUnlimitedNotes": "Not usable on Quest Pet eggs.",
+  "wackyPotionNotes": "Pour this on an egg, and it will hatch as a Wacky <%= potText %> Pet.",
+  "wackyPotionAddlNotes": "Cannot be raised to Mounts or used on Quest Pet eggs.",
 
   "foodMeat": "Meat",
   "foodMeatThe": "the Meat",

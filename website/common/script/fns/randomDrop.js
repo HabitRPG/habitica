@@ -5,7 +5,6 @@ import reduce from 'lodash/reduce';
 import filter from 'lodash/filter';
 import pickBy from 'lodash/pickBy';
 import size from 'lodash/size';
-import moment from 'moment';
 import content from '../content/index';
 import i18n from '../i18n';
 import { daysSince } from '../cron';
@@ -27,7 +26,7 @@ function trueRandom () {
   return Math.random();
 }
 
-export default function randomDrop (user, options, req = {}, analytics) {
+export default function randomDrop (user, options, req = {}) {
   let acceptableDrops;
   let drop;
   let dropMultiplier;
@@ -57,7 +56,8 @@ export default function randomDrop (user, options, req = {}, analytics) {
     // +50% per checklist item complete. TODO: make this into X individual drop chances instead
     * (user._tmp.crit || 1)
     * (1 + 0.5 * (reduce(
-      task.checklist, (m, i) => m + (i.completed ? 1 : 0), // eslint-disable-line indent
+      task.checklist,
+(m, i) => m + (i.completed ? 1 : 0), // eslint-disable-line indent
       0,
 ) || 0)); // eslint-disable-line indent
   chance = diminishingReturns(chance, 0.75);
@@ -155,14 +155,5 @@ export default function randomDrop (user, options, req = {}, analytics) {
     user._tmp.drop = drop;
     user.items.lastDrop.date = Number(new Date());
     user.items.lastDrop.count += 1;
-
-    if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
-      analytics.track('dropped item', {
-        uuid: user._id,
-        itemKey: drop.key,
-        category: 'behavior',
-        headers: req.headers,
-      });
-    }
   }
 }

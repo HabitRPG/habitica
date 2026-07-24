@@ -4,7 +4,7 @@
     right="right"
     toggle-class="with-icon"
   >
-    <template v-slot:button-content>
+    <template #button-content>
       <span
         class="svg-icon inline color"
         v-html="icons.unequipIcon"
@@ -55,9 +55,9 @@ import {
   UNEQUIP_EQUIPPED,
   UNEQUIP_BACKGROUND,
   UNEQUIP_PET_MOUNT,
-} from '../../../../../common/script/ops/unequip';
+} from '@/../../common/script/ops/unequip';
 
-import unequipIcon from '@/assets/svg/unequip.svg';
+import unequipIcon from '@/assets/svg/unequip.svg?raw';
 
 export default {
   name: 'UnequipDropdown',
@@ -104,7 +104,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .select-list {
   ::v-deep {

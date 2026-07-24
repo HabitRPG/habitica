@@ -9,7 +9,7 @@ import {
 import {
   BadRequest,
 } from '../../../libs/errors';
-import apiError from '../../../libs/apiError';
+import { apiError } from '../../../libs/apiError';
 
 const api = {};
 
@@ -180,6 +180,8 @@ api.ipn = {
   url: '/paypal/ipn',
   async handler (req, res) {
     res.sendStatus(200);
+
+    logger.info('PayPal IPN', req.body);
 
     paypalPayments
       .ipn(req.body)

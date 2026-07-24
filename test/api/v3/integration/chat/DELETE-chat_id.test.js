@@ -1,7 +1,6 @@
 import { v4 as generateUUID } from 'uuid';
 import {
   createAndPopulateGroup,
-  generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
@@ -10,27 +9,30 @@ describe('DELETE /groups/:groupId/chat/:chatId', () => {
     admin;
 
   before(async () => {
-    const { group, groupLeader } = await createAndPopulateGroup({
+    const { group, groupLeader, members } = await createAndPopulateGroup({
       groupDetails: {
         type: 'guild',
-        privacy: 'public',
+        privacy: 'private',
       },
       leaderDetails: {
         'auth.timestamps.created': new Date('2022-01-01'),
         balance: 10,
       },
+      members: 2,
+      upgradeToGroupPlan: true,
     });
 
     groupWithChat = group;
     user = groupLeader;
     message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: 'Some message' });
     message = message.message;
-    userThatDidNotCreateChat = await generateUser();
-    admin = await generateUser({ 'permissions.moderator': true });
+    userThatDidNotCreateChat = members[0]; // eslint-disable-line prefer-destructuring
+    admin = members[1]; // eslint-disable-line prefer-destructuring
+    await admin.updateOne({ permissions: { moderator: true } });
   });
 
   context('Chat errors', () => {
-    it('returns an error is message does not exist', async () => {
+    it('returns an error if message does not exist', async () => {
       const fakeChatId = generateUUID();
       await expect(user.del(`/groups/${groupWithChat._id}/chat/${fakeChatId}`)).to.eventually.be.rejected.and.eql({
         code: 404,
@@ -56,7 +58,7 @@ describe('DELETE /groups/:groupId/chat/:chatId', () => {
       nextMessage = nextMessage.message;
     });
 
-    it('allows creator to delete a their message', async () => {
+    it('allows creator to delete their message', async () => {
       await user.del(`/groups/${groupWithChat._id}/chat/${nextMessage.id}`);
 
       const returnedMessages = await user.get(`/groups/${groupWithChat._id}/chat/`);

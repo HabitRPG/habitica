@@ -10,7 +10,7 @@ import { BuyQuestWithGoldOperation } from './buyQuestGold';
 import { BuySpellOperation } from './buySpell';
 import purchaseOp from './purchase';
 import hourglassPurchase from './hourglassPurchase';
-import errorMessage from '../../libs/errorMessage';
+import { errorMessage } from '../../libs/errorMessage';
 import { BuyGemOperation } from './buyGem';
 import { BuyQuestWithGemOperation } from './buyQuestGem';
 import { BuyPetWithGemOperation } from './buyPetGem';
@@ -22,7 +22,9 @@ import { BuyHourglassMountOperation } from './buyMount';
 // @TODO: when we are sure buy is the only function used, let's move the buy files to a folder
 
 export default async function buy (
-  user, req = {}, analytics, options = { quantity: 1, hourglass: false },
+  user,
+  req = {},
+  options = { quantity: 1, hourglass: false },
 ) {
   const key = get(req, 'params.key');
   const { hourglass } = options;
@@ -39,35 +41,35 @@ export default async function buy (
 
   switch (type) {
     case 'armoire': {
-      const buyOp = new BuyArmoireOperation(user, req, analytics);
+      const buyOp = new BuyArmoireOperation(user, req);
 
       buyRes = await buyOp.purchase();
       break;
     }
     case 'backgrounds':
       if (!hourglass) throw new BadRequest(errorMessage('useUnlockForCosmetics'));
-      buyRes = await hourglassPurchase(user, req, analytics);
+      buyRes = await hourglassPurchase(user, req);
       break;
     case 'mystery':
-      buyRes = await buyMysterySet(user, req, analytics);
+      buyRes = await buyMysterySet(user, req);
       break;
     case 'potion': {
-      const buyOp = new BuyHealthPotionOperation(user, req, analytics);
+      const buyOp = new BuyHealthPotionOperation(user, req);
 
       buyRes = await buyOp.purchase();
       break;
     }
     case 'gems': {
-      const buyOp = new BuyGemOperation(user, req, analytics);
+      const buyOp = new BuyGemOperation(user, req);
 
       buyRes = await buyOp.purchase();
       break;
     }
     case 'quests': {
       if (hourglass) {
-        buyRes = await hourglassPurchase(user, req, analytics, quantity);
+        buyRes = await hourglassPurchase(user, req, quantity);
       } else {
-        const buyOp = new BuyQuestWithGemOperation(user, req, analytics);
+        const buyOp = new BuyQuestWithGemOperation(user, req);
 
         buyRes = await buyOp.purchase();
       }
@@ -78,36 +80,36 @@ export default async function buy (
     case 'food':
     case 'gear':
     case 'bundles':
-      buyRes = await purchaseOp(user, req, analytics);
+      buyRes = await purchaseOp(user, req);
       break;
     case 'mounts': {
-      const buyOp = new BuyHourglassMountOperation(user, req, analytics);
+      const buyOp = new BuyHourglassMountOperation(user, req);
 
       buyRes = await buyOp.purchase();
       break;
     }
     case 'pets':
       if (key === 'Gryphatrice-Jubilant') {
-        const buyOp = new BuyPetWithGemOperation(user, req, analytics);
+        const buyOp = new BuyPetWithGemOperation(user, req);
         buyRes = await buyOp.purchase();
       } else {
-        buyRes = hourglassPurchase(user, req, analytics);
+        buyRes = hourglassPurchase(user, req);
       }
       break;
     case 'quest': {
-      const buyOp = new BuyQuestWithGoldOperation(user, req, analytics);
+      const buyOp = new BuyQuestWithGoldOperation(user, req);
 
       buyRes = await buyOp.purchase();
       break;
     }
     case 'special': {
-      const buyOp = new BuySpellOperation(user, req, analytics);
+      const buyOp = new BuySpellOperation(user, req);
 
       buyRes = await buyOp.purchase();
       break;
     }
     default: {
-      const buyOp = new BuyMarketGearOperation(user, req, analytics);
+      const buyOp = new BuyMarketGearOperation(user, req);
 
       buyRes = await buyOp.purchase();
       break;

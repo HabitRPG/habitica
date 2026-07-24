@@ -1,4 +1,3 @@
-import moment from 'moment';
 import axios from 'axios';
 
 import get from 'lodash/get';
@@ -6,10 +5,12 @@ import unlock from '@/../../common/script/ops/unlock';
 import buy from '@/../../common/script/ops/buy/buy';
 
 import appearanceSets from '@/../../common/script/content/appearance/sets';
+import appearances from '@/../../common/script/content/appearance';
+import { getScheduleMatchingGroup } from '@/../../common/script/content/constants/schedule';
 
 import { userStateMixin } from './userState';
 
-export const avatarEditorUtilies = { // eslint-disable-line import/prefer-default-export
+export const avatarEditorUtilities = { // eslint-disable-line import/prefer-default-export
   mixins: [userStateMixin],
   data () {
     return {
@@ -18,13 +19,8 @@ export const avatarEditorUtilies = { // eslint-disable-line import/prefer-defaul
   },
   methods: {
     hideSet (setKey) {
-      if (appearanceSets[setKey].availableFrom) {
-        return !moment().isBetween(
-          appearanceSets[setKey].availableFrom,
-          appearanceSets[setKey].availableUntil,
-        );
-      }
-      return moment(appearanceSets[setKey].availableUntil).isBefore(moment());
+      const matcher = getScheduleMatchingGroup('customizations');
+      return !matcher.match(setKey);
     },
     mapKeysToFreeOption (key, type, subType) {
       const userPreference = subType
@@ -36,8 +32,11 @@ export const avatarEditorUtilies = { // eslint-disable-line import/prefer-defaul
       option.key = key;
       option.pathKey = pathKey;
       option.active = userPreference === key;
-      option.class = this.createClass(type, subType, key);
+      option.imageName = this.createImageName(type, subType, key);
       option.click = optionParam => (option.gemLocked ? this.unlock(`${optionParam.pathKey}.${key}`) : this.set({ [`preferences.${optionParam.pathKey}`]: optionParam.key }));
+      option.text = subType ? appearances[type][subType][key].text()
+        : appearances[type][key].text();
+
       return option;
     },
     mapKeysToOption (key, type, subType, set) {
@@ -61,8 +60,8 @@ export const avatarEditorUtilies = { // eslint-disable-line import/prefer-defaul
 
       return option;
     },
-    createClass (type, subType, key) {
-      let str = `${type} ${subType} `;
+    createImageName (type, subType, key) {
+      let str = '';
 
       switch (type) {
         case 'shirt': {
@@ -75,19 +74,18 @@ export const avatarEditorUtilies = { // eslint-disable-line import/prefer-defaul
         }
         case 'hair': {
           if (subType === 'color') {
-            str += `hair_bangs_1_${key}`; // todo get current hair-bang setting
+            str += `color_hair_bangs_${this.user.preferences.hair.bangs || 1}_${key}`;
           } else {
             str += `hair_${subType}_${key}_${this.user.preferences.hair.color}`;
           }
           break;
         }
         case 'skin': {
-          str += `skin skin_${key}`;
+          str += `skin_${key}`;
           break;
         }
         default: {
-          // `hair_base_${option.key}_${user.preferences.hair.color}`
-          // console.warn('unknown type', type, key);
+          throw new Error(`unknown type ${type} ${subType} ${key}`);
         }
       }
 
@@ -126,6 +124,9 @@ export const avatarEditorUtilies = { // eslint-disable-line import/prefer-defaul
     async unlock (path) {
       const fullSet = path.indexOf(',') !== -1;
       const isBackground = path.indexOf('background.') !== -1;
+      if (isBackground && path === 'background.') {
+        return this.set({ 'preferences.background': '' });
+      }
 
       let cost;
 
@@ -146,13 +147,9 @@ export const avatarEditorUtilies = { // eslint-disable-line import/prefer-defaul
 
       if (loginIncentives.indexOf(path) === -1) {
         if (fullSet) {
-          if (window.confirm(this.$t('purchaseFor', { cost: cost * 4 })) !== true) return; // eslint-disable-line no-alert
-          // @TODO: implement gem modal
-          // if (this.user.balance < cost) return $rootScope.openModal('buyGems');
+          if (window.confirm(this.$t('purchaseFor', { cost: cost * 4 })) !== true) return false; // eslint-disable-line no-alert
         } else if (!get(this.user, `purchased.${path}`)) {
-          if (window.confirm(this.$t('purchaseFor', { cost: cost * 4 })) !== true) return; // eslint-disable-line no-alert
-          // @TODO: implement gem modal
-          // if (this.user.balance < cost) return $rootScope.openModal('buyGems');
+          if (window.confirm(this.$t('purchaseFor', { cost: cost * 4 })) !== true) return false; // eslint-disable-line no-alert
         }
       }
 
@@ -164,8 +161,10 @@ export const avatarEditorUtilies = { // eslint-disable-line import/prefer-defaul
           },
         });
         this.backgroundUpdate = new Date();
+        return true;
       } catch (e) {
         window.alert(e.message); // eslint-disable-line no-alert
+        return false;
       }
     },
     async buy (item) {

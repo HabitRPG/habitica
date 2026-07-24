@@ -27,13 +27,13 @@
           </td>
         </tr>
         <tr
-          v-if="group.purchased.plan.consecutive.count || group.purchased.plan.consecutive.offset"
+          v-if="group.purchased.plan.consecutive.count"
         >
           <td>
             <span class="glyphicon glyphicon-forward"></span>
             {{ $t('consecutiveSubscription') }}
             <ul class="list-unstyled">
-              <li>{{ $t('consecutiveMonths') }} {{ group.purchased.plan.consecutive.count + group.purchased.plan.consecutive.offset }}</li> <!-- eslint-disable-line max-len -->
+              <li>{{ $t('consecutiveMonths') }} {{ group.purchased.plan.consecutive.count }}</li> <!-- eslint-disable-line max-len -->
               <li>{{ $t('gemCapExtra') }} {{ group.purchased.plan.consecutive.gemCapExtra }}</li>
               <li>{{ $t('mysticHourglasses') }} {{ group.purchased.plan.consecutive.trinkets }}</li>
             </ul>
@@ -52,17 +52,21 @@
       <div
         v-if="!group.purchased.plan.dateTerminated
           && group.purchased.plan.paymentMethod === 'Stripe'"
-        class="btn btn-primary"
+        class="btn btn-primary mb-3"
         @click="redirectToStripeEdit({groupId: group.id})"
       >
         {{ $t('subUpdateCard') }}
       </div>
-      <div
-        v-if="!group.purchased.plan.dateTerminated"
-        class="btn btn-sm btn-danger"
-        @click="cancelSubscriptionConfirm({group: group})"
-      >
-        {{ $t('cancelGroupSub') }}
+      <div v-if="!group.purchased.plan.dateTerminated">
+        <div class="small gray-50 mb-3" v-once>
+          {{ $t('groupPlanBillingFYIShort') }}
+        </div>
+        <div
+          class="btn btn-sm btn-danger"
+          @click="cancelSubscriptionConfirm({group: group})"
+        >
+          {{ $t('cancelGroupSub') }}
+        </div>
       </div>
     </div>
   </div>

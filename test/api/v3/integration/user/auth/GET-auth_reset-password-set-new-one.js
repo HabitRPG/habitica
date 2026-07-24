@@ -44,7 +44,7 @@ xdescribe('GET /user/auth/local/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().subtract({ minutes: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': code,
     });
 
@@ -69,7 +69,7 @@ xdescribe('GET /user/auth/local/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().add({ days: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       auth: 'not an object with valid fields',
     });
 
@@ -84,7 +84,7 @@ xdescribe('GET /user/auth/local/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().add({ days: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': 'invalid',
     });
 
@@ -101,7 +101,7 @@ xdescribe('GET /user/auth/local/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().add({ days: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': code,
     });
 

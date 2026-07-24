@@ -92,7 +92,7 @@
                 :item="item"
                 :price="item.goldValue ? item.goldValue : item.value"
                 :price-type="item.goldValue ? 'gold' : 'gem'"
-                :item-content-class="'inventory_quest_scroll_'+item.key"
+                :item-content-class="`inventory_quest_scroll_${item.key}`"
                 :empty-item="false"
                 :popover-position="'top'"
                 @click="selectItem(item)"
@@ -115,23 +115,25 @@
           </div>
         </div>
       </div>
-      <h1
-        v-once
-        class="mb-4 page-header"
-      >
-        {{ $t('quests') }}
-      </h1>
-      <div class="clearfix">
-        <div class="float-right">
-          <span class="dropdown-label">{{ $t('sortBy') }}</span>
-          <select-translated-array
-            :right="true"
-            :value="selectedSortItemsBy"
-            :items="sortItemsBy"
-            :inline-dropdown="false"
-            class="inline"
-            @select="selectedSortItemsBy = $event"
-          />
+      <div class="d-flex justify-content-between w-75">
+        <h1
+          v-once
+          class="mb-4 page-header"
+        >
+          {{ $t('quests') }}
+        </h1>
+        <div class="clearfix">
+          <div class="float-right">
+            <span class="dropdown-label">{{ $t('sortBy') }}</span>
+            <select-translated-array
+              :right="true"
+              :value="selectedSortItemsBy"
+              :items="sortItemsBy"
+              :inline-dropdown="false"
+              class="inline"
+              @select="selectedSortItemsBy = $event"
+            />
+          </div>
         </div>
       </div>
       <!-- eslint-disable vue/no-use-v-if-with-v-for -->
@@ -197,48 +199,52 @@
         </itemRows>
         <div
           v-else-if="category.identifier === 'unlockable' || category.identifier === 'gold'"
-          class="grouped-parent"
+          class="d-flex justify-content-between flex-wrap w-75"
         >
-          <!-- eslint-disable vue/no-use-v-if-with-v-for, max-len -->
           <div
-            v-for="(items, key) in getGrouped(questItems(category, selectedSortItemsBy,searchTextThrottled, hideLocked, hidePinned))"
+            v-for="(items, key) in getGrouped(
+              questItems(
+                category, selectedSortItemsBy,searchTextThrottled, hideLocked, hidePinned
+              )
+            )"
             :key="key"
-            class="group"
+            class="quest-group mb-3"
           >
-            <!-- eslint-enable vue/no-use-v-if-with-v-for, max-len -->
-            <h3>{{ $t(key) }}</h3>
-            <div class="items">
-              <shopItem
-                v-for="item in items"
-                :key="item.key"
-                :item="item"
-                :price="item.value"
-                :empty-item="false"
-                :popover-position="'top'"
-                :owned="!isNaN(userItems.quests[item.key])"
-                @click="selectItem(item)"
-              >
-                <span slot="popoverContent">
-                  <quest-popover :item="item" />
-                </span>
-                <template
-                  slot="itemBadge"
-                  slot-scope="ctx"
+            <div class="quest-container">
+              <h3>{{ $t(key) }}</h3>
+              <div class="items d-flex justify-content-left">
+                <shopItem
+                  v-for="item in items"
+                  :key="item.key"
+                  :item="item"
+                  :price="item.value"
+                  :empty-item="false"
+                  :popover-position="'top'"
+                  :owned="!isNaN(userItems.quests[item.key])"
+                  @click="selectItem(item)"
                 >
-                  <span
-                    class="badge-top"
-                    @click.prevent.stop="togglePinned(ctx.item)"
-                  >
-                    <pin-badge
-                      :pinned="ctx.item.pinned"
-                    />
+                  <span slot="popoverContent">
+                    <quest-popover :item="item" />
                   </span>
-                  <countBadge
-                    :show="userItems.quests[ctx.item.key] > 0"
-                    :count="userItems.quests[ctx.item.key] || 0"
-                  />
-                </template>
-              </shopItem>
+                  <template
+                    slot="itemBadge"
+                    slot-scope="ctx"
+                  >
+                    <span
+                      class="badge-top"
+                      @click.prevent.stop="togglePinned(ctx.item)"
+                    >
+                      <pin-badge
+                        :pinned="ctx.item.pinned"
+                      />
+                    </span>
+                    <countBadge
+                      :show="userItems.quests[ctx.item.key] > 0"
+                      :count="userItems.quests[ctx.item.key] || 0"
+                    />
+                  </template>
+                </shopItem>
+              </div>
             </div>
           </div>
         </div>
@@ -308,8 +314,8 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/variables.scss';
+  @import '@/assets/scss/colors.scss';
+  @import '@/assets/scss/variables.scss';
 
   // these styles may be applied to other pages too
 
@@ -317,18 +323,16 @@
     margin: 24px auto;
   }
 
-  .group {
-    display: inline-block;
-    width: 33%;
-    margin-bottom: 24px;
-    vertical-align: top;
+  .quest-container {
+    min-width: 330px;
+  }
 
+  .quest-group {
     .items {
       border-radius: 2px;
+      width: fit-content;
       background-color: #edecee;
-      display: inline-block;
       padding: 0;
-      margin-right: 12px;
     }
 
     .item-wrapper {
@@ -389,7 +393,7 @@
           position: absolute;
           bottom: -14px;
           margin: 0;
-          left: 70px;
+          left: 62px;
         }
       }
     }
@@ -405,6 +409,8 @@ import _groupBy from 'lodash/groupBy';
 import _map from 'lodash/map';
 import _each from 'lodash/each';
 import * as stopword from 'stopword/dist/stopword.esm.mjs';
+import shops from '@/../../common/script/libs/shops';
+import isPinned from '@/../../common/script/libs/isPinned';
 import { mapState } from '@/libs/store';
 
 import ShopItem from '../shopItem';
@@ -420,9 +426,6 @@ import BuyModal from './buyQuestModal.vue';
 import PinBadge from '@/components/ui/pinBadge';
 import QuestInfo from './questInfo.vue';
 
-import shops from '@/../../common/script/libs/shops';
-
-import isPinned from '@/../../common/script/libs/isPinned';
 import FilterSidebar from '@/components/ui/filterSidebar';
 import FilterGroup from '@/components/ui/filterGroup';
 import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
@@ -447,7 +450,6 @@ function removeStopwordsFromText (text, language) {
     de: stopword.deu,
     en: stopword.eng,
     en_GB: stopword.eng,
-    'en@pirate': stopword.eng.concat(["th'"]),
     es: stopword.spa,
     es_419: stopword.spa,
     fr: stopword.fra,
@@ -463,7 +465,6 @@ function removeStopwordsFromText (text, language) {
     ro: stopword.ron,
     ru: stopword.rus,
     sk: stopword.slv,
-    // sr: stopword.,
     sv: stopword.swe,
     tr: stopword.tur,
     uk: stopword.ukr,
@@ -529,7 +530,7 @@ export default {
           }
         });
 
-        return this.shop.categories;
+        return this.shop.categories.filter(category => category.items.length > 0);
       }
       return [];
     },

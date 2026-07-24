@@ -47,7 +47,7 @@ describe('POST /user/release-both', () => {
   // More tests in common code unit tests
 
   it('grants triad bingo with gems', async () => {
-    await user.update();
+    await user.updateOne();
 
     const response = await user.post('/user/release-both');
     await user.sync();

@@ -1,12 +1,17 @@
 .dropdown > .btn {
-  padding: 0.219rem 0.75rem;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: normal;
+  line-height: 1.714;
+  padding: 2px 12px;
 }
 
 .dropdown-toggle:hover {
   --caret-color: #{$purple-300};
+
+  &.disabled {
+    pointer-events: none;
+  }
 }
 
 .dropdown.show > .dropdown-toggle:not(.btn-success) {
@@ -29,11 +34,16 @@
 }
 
 .dropdown-menu {
-  padding: 0px;
-  border: none;
+  border: transparent;
   border-radius: 2px;
-  box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
+  box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
+  padding: 0;
+}
 
+.no-min-width {
+  .dropdown-menu {
+    min-width: 0 !important;
+  }
 }
 
 // shared dropdown-item styles
@@ -48,6 +58,8 @@
   line-height: 1.71;
   color: $gray-50 !important;
   cursor: pointer;
+
+  --dropdown-item-hover-icon-color: #{$gray-200};
 
   &:focus {
     outline: none;
@@ -83,7 +95,7 @@
 
   &:not(:hover) {
     .with-icon .svg-icon {
-      color: $gray-200;
+      color: var(dropdown-item-hover-icon-color);
     }
   }
 }
@@ -109,6 +121,10 @@
 }
 
 .dropdown-icon-item {
+  line-height: 1;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+
   .svg-icon {
     margin: 0px 16px 0px 0px;
     vertical-align: middle;
@@ -124,7 +140,6 @@
 
   .dropdown-toggle {
     width: 100% !important;
-    height: 32px;
     text-align: left;
   }
 
@@ -136,12 +151,14 @@
 
   .dropdown-menu.show {
     min-width: 100% !important;
+    overflow: scroll;
+    max-height: 400px;
   }
 }
 
 // selectList.vue items sizing
 .selectListItem .dropdown-item {
-  padding: 0.25rem 0.75rem;
+  padding: 0.25rem 1rem 0.25rem 0.75rem;
   height: 32px;
 
   &:active, &:hover, &:focus, &.active {

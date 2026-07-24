@@ -66,9 +66,10 @@
             :right="true"
             :hide-icon="false"
             :inline-dropdown="false"
+            :direct-select="true"
             @select="groupBy = $event"
           >
-            <template v-slot:item="{ item }">
+            <template #item="{ item }">
               <span class="label">{{ groupByLabel(item) }}</span>
             </template>
           </select-list>
@@ -105,7 +106,7 @@
         </div>
         <div slot="drawer-header">
           <div class="drawer-tab-container">
-            <div class="clearfix">
+            <div class="clearfix mb-2">
               <toggle-switch
                 class="float-right align-with-tab"
                 :label="$t(costumeMode ? 'useCostume' : 'autoEquipBattleGear')"
@@ -218,7 +219,7 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .pointer {
   cursor: pointer;
@@ -240,7 +241,7 @@
 </style>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .page-header.btn-flat {
   background: transparent;
@@ -297,6 +298,7 @@ import map from 'lodash/map';
 import throttle from 'lodash/throttle';
 import _sortBy from 'lodash/sortBy';
 import _reverse from 'lodash/reverse';
+import i18n from '@/../../common/script/i18n';
 import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
 import { mapState } from '@/libs/store';
 
@@ -305,8 +307,6 @@ import Item from '@/components/inventory/item';
 import ItemRows from '@/components/ui/itemRows';
 import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
 import Drawer from '@/components/ui/drawer';
-
-import i18n from '@/../../common/script/i18n';
 
 import EquipGearModal from './equipGearModal';
 
@@ -410,7 +410,8 @@ export default {
           const ownedItem = this.flatGear[gearKey];
 
           const isSearched = !searchText
-            || ownedItem.text().toLowerCase().indexOf(searchText) !== -1;
+            || ownedItem.text().toLowerCase().indexOf(searchText) !== -1
+            || ownedItem.notes().toLowerCase().indexOf(searchText) !== -1;
 
           if (ownedItem.klass !== 'base' && isSearched) {
             const { type } = ownedItem;

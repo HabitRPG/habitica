@@ -6,14 +6,14 @@
         :to="!isUserLoggedIn ? '/static/home' : '/'"
       >
         <div
-          v-if="this.$route.name === 'plans'"
-          class="logo svg-icon"
+          v-if="$route.name === 'plans'"
+          class="habitica-logo svg-icon"
           v-html="icons.purpleLogo"
         ></div>
         <div
           v-else
-          class="logo svg-icon"
-          v-html="icons.logo"
+          class="habitica-logo svg-icon"
+          v-html="icons.habiticaLogo"
         ></div>
       </router-link>
     </div>
@@ -47,6 +47,7 @@
             class="nav-link"
             href="https://habitica.wordpress.com/"
             target="_blank"
+            rel="noopener noreferrer"
           >{{ $t('companyBlog') }}</a>
         </li>
         <li class="nav-item">
@@ -54,6 +55,7 @@
             class="nav-link"
             href="https://blog.habitrpg.com/"
             target="_blank"
+            rel="noopener noreferrer"
           >{{ $t('tumblr') }}</a>
         </li>
         <router-link
@@ -66,16 +68,13 @@
             class="nav-link"
           >{{ $t('presskit') }}</a>
         </router-link>
-        <router-link
-          class="nav-item"
-          tag="li"
-          to="/static/contact"
-        >
+        <li class="nav-item">
           <a
             v-once
             class="nav-link"
+            href="mailto:admin@habitica.com"
           >{{ $t('contactUs') }}</a>
-        </router-link>
+        </li>
       </ul>
       <ul
         v-else
@@ -137,13 +136,13 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
-  @media only screen and (max-width : 750px) {
-    .login-button {
-      margin: 0 auto !important;
-      margin-top: 1.8em !important;
-    }
+  .habitica-logo {
+    height: 64px;
+    margin: 28px auto 0px auto;
+    width: 175px;
+    z-index: 0;
   }
 
   .home-header, .home-header .btn {
@@ -152,13 +151,16 @@
   }
 
   .btn-primary.pull-right {
-    height: 2.5em;
+    line-height: 2.25;
     margin: auto 0px auto auto;
+    &:focus, :active {
+      border: 2px solid $purple-400;
+    }
   }
 
   nav.navbar {
-    background: $purple-100 url(~@/assets/svg/for-css/bits.svg) right no-repeat;
-    padding-left: 25px;
+    background: $purple-100 url(@/assets/svg/for-css/bits.svg) right no-repeat;
+    padding-left: 24px;
     padding-right: 12.5px;
     height: 56px;
     box-shadow: 0 1px 2px 0 rgba($black, 0.24);
@@ -168,8 +170,9 @@
     margin-right: 48px;
 
     .logo {
-      width: 128px;
-      height: 28px;
+      color: $white;
+      height: 32px;
+      object-fit: contain;
     }
   }
 
@@ -257,18 +260,30 @@
       }
     }
   }
+
+  @media only screen and (max-width : 750px) {
+    .login-button {
+      margin: 0 auto !important;
+      margin-top: 18px !important;
+    }
+    .habitica-logo {
+      margin: 4px auto 0px auto;
+    }
+  }
 </style>
 
 <script>
-import logo from '@/assets/svg/logo.svg';
-import purpleLogo from '@/assets/svg/purple-logo.svg';
+import habiticaLogo from '@/assets/svg/logo-horizontal.svg?raw';
+import purpleLogo from '@/assets/svg/logo-horizontal-purple.svg?raw';
+import melior from '@/assets/svg/melior.svg?raw';
 
 export default {
   data () {
     return {
       icons: Object.freeze({
-        logo,
+        habiticaLogo,
         purpleLogo,
+        melior,
       }),
     };
   },

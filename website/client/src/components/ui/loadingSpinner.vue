@@ -2,6 +2,7 @@
   <div
     v-once
     class="loading-spinner"
+    :class="{'loading-spinner-purple': darkColor}"
     role="text"
     :aria-label="$t('loading')"
   >
@@ -12,7 +13,7 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   // NOTE: the loader is currently set to work inside standard buttons
   // To properly work outside of them some abstraction will be needed
@@ -39,6 +40,10 @@
     border-color: $white transparent transparent transparent;
   }
 
+  .loading-spinner-purple div {
+    border-color: $purple-200 transparent transparent transparent;
+  }
+
   .loading-spinner div:nth-child(1) {
     animation-delay: -0.45s;
   }
@@ -58,3 +63,16 @@
     }
   }
 </style>
+
+<script>
+
+export default {
+  props: {
+    darkColor: {
+      type: Boolean,
+      default: false,
+    },
+  },
+};
+
+</script>

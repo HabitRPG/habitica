@@ -87,6 +87,9 @@ async function buyArmoire (store, params) {
         icon: getDropClass({ type: item.type, key: item.dropKey }),
       };
 
+    if (resData.armoire.emptied) {
+      notificationOptions.emptied = resData.armoire.emptied;
+    }
     store.dispatch('snackbars:add', {
       title: '',
       timeout: true,

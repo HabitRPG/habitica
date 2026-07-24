@@ -1,26 +1,25 @@
 import _ from 'lodash';
 import { chatModel as Chat } from '../../models/message';
 import shared from '../../../common';
-import { // eslint-disable-line import/no-cycle
-  MAX_CHAT_COUNT,
-  MAX_SUBBED_GROUP_CHAT_COUNT,
-} from '../../models/group';
 
 const questScrolls = shared.content.quests;
 
 // @TODO: Don't use this method when the group can be saved.
-export async function getGroupChat (group) {
-  let maxChatCount = MAX_CHAT_COUNT;
-  if (group.chatLimitCount && group.chatLimitCount >= MAX_CHAT_COUNT) {
-    maxChatCount = group.chatLimitCount;
-  } else if (group.hasActiveGroupPlan()) {
-    maxChatCount = MAX_SUBBED_GROUP_CHAT_COUNT;
+export async function getGroupChat (group, options = {}) {
+  const { limit, before } = options;
+  const effectiveLimit = group.getEffectiveChatLimit(limit);
+
+  let query = Chat.find({ groupId: group._id })
+    .sort('-timestamp');
+
+  if (before) {
+    const beforeMessage = await Chat.findOne({ _id: before }).exec();
+    if (beforeMessage) {
+      query = query.where('timestamp').lt(beforeMessage.timestamp);
+    }
   }
 
-  const groupChat = await Chat.find({ groupId: group._id })
-    .limit(maxChatCount)
-    .sort('-timestamp')
-    .exec();
+  const groupChat = await query.limit(effectiveLimit).exec();
 
   // @TODO: Concat old chat to keep continuity of chat stored on group object
   const currentGroupChat = group.chat || [];
@@ -85,6 +84,19 @@ export function translateMessage (lang, info) {
       msg = shared.i18n.t('chatCastSpellUser', { username: info.user, spell: spells[info.class][info.spell].text(lang), target: info.target }, lang);
       break;
 
+    case 'spell_cast_party_multi':
+      msg = shared.i18n.t('chatCastSpellPartyTimes', { username: info.user, spell: spells[info.class][info.spell].text(lang), times: info.times }, lang);
+      break;
+
+    case 'spell_cast_user_multi':
+      msg = shared.i18n.t('chatCastSpellUserTimes', {
+        username: info.user,
+        spell: spells[info.class][info.spell].text(lang),
+        target: info.target,
+        times: info.times,
+      }, lang);
+      break;
+
     case 'quest_cancel':
       msg = shared.i18n.t('chatQuestCancelled', { username: info.user, questName: questScrolls[info.quest].text(lang) }, lang);
       break;
@@ -112,10 +124,9 @@ export function translateMessage (lang, info) {
     case 'claim_task':
       msg = shared.i18n.t('userIsClamingTask', { username: info.user, task: info.task }, lang);
       break;
-  }
 
-  if (!msg.includes('`')) {
-    msg = `\`${msg}\``;
+    default:
+      msg = 'Error translating party chat. Unknown message type.';
   }
   return msg;
 }

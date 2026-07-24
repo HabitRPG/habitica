@@ -1,15 +1,22 @@
 {
     "rebirthNew": "Renascimento: Nova Aventura Disponível!",
     "rebirthUnlock": "Você liberou o Renascimento! Esse item especial do Mercado te permite começar um novo jogo no nível 1 mantendo suas tarefas, conquistas, mascotes e mais. Use-o para dar nova vida ao Habitica se sentir que já conquistou tudo ou para experimentar novas funcionalidades com os olhos frescos de um personagem iniciante!",
-    "rebirthAchievement": "Você iniciou uma nova aventura! Esse é o seu Renascimento número <%= number %>. O nível mais alto que você atingiu foi <%= level %>. Para acumular essa Conquista, comece sua próxima nova aventura quando atingir um Nível ainda maior!",
-    "rebirthAchievement100": "Você iniciou uma nova aventura! Esse é seu <%= number %>º Renascimento e o nível mais alto que você atingiu foi 100 ou maior. Para acumular essa Conquista, comece sua próxima aventura quando atingir pelo menos nível 100!",
+    "rebirthAchievement": "Você usou o Orbe do Renascimento <strong><%= number %></strong> vezes e o seu nível mais alto alcançado é <strong><%= level %></strong>.",
+    "rebirthAchievement100": "Você usou o Orbe do Renascimento <strong><%= number %></strong> vezes e o seu nível mais alto alcançado é <strong>100</strong> ou superior.",
     "rebirthBegan": "Iniciou uma Nova Aventura",
     "rebirthText": "Iniciou <%= rebirths %> Novas Aventuras",
     "rebirthOrb": "Usou um Orbe do Renascimento para recomeçar depois de alcançar o Nível <%= level %>.",
     "rebirthOrb100": "Usou um Orbe do Renascimento para recomeçar depois de alcançar Nível 100 ou mais.",
     "rebirthOrbNoLevel": "Usou um Orbe do Renascimento para recomeçar.",
-    "rebirthPop": "Recomece seu personagem no Nível 1 enquanto mantém conquistas, colecionáveis e equipamentos. Suas tarefas, incluindo o histórico, continuarão, mas se tornarão amarelas. Seus combos das tarefas serão removidos, com exceção das tarefas pertencentes a Desafios ativos ou a Planos de Grupo. Seu Ouro, Experiência, Mana e efeitos de todas as Habilidades serão removidos. Tudo isso terá efeito imediatamente. Para mais informações, confira <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe de Renascimento</a> na Wiki.",
+    "rebirthPop": "Recomece seu personagem no Nível 1 enquanto mantém conquistas, colecionáveis e equipamentos. Suas tarefas, incluindo o histórico, continuarão, mas se tornarão amarelas. Seus combos das tarefas serão removidos, com exceção das tarefas pertencentes a Desafios ativos ou a Planos de Grupo. Seu Ouro, Experiência, Mana e efeitos de todas as Habilidades serão removidos. Tudo isso terá efeito imediatamente.",
     "rebirthName": "Orbe do Renascimento",
     "rebirthComplete": "Você renasceu!",
-    "nextFreeRebirth": "<strong><%= days %> dias</strong> até Orbe de Renascimento <strong>GRÁTIS</strong>"
+    "nextFreeRebirth": "<strong><%= days %> dias</strong> até Orbe de Renascimento <strong>GRÁTIS</strong>",
+    "rebirthUnlockedOrb": "Nova aventura disponível!",
+    "rebirthNewAchievement": "Nova conquista",
+    "rebirthNewAdventure": "Uma nova aventura começa agora!",
+    "rebirthUnlockedNewItem": "Orbe do Renascimento desbloqueado",
+    "rebirthUnlockedDesc": "Use o Orbe do Renascimento para dar uma nova vida à sua aventura no Habitica quando você sentir que já conquistou tudo! Comece novamente do nível 1 mantendo suas Tarefas, Conquistas e Mascotes com esse item especial que pode ser encontrado no Mercado.",
+    "rebirthStackInfo": "Essa conquista acumula a cada vez que você usar o Orbe do Renascimento.",
+    "rebirthAchievementPlural": "Você usou o Orbe do Renascimento <strong><%= number %></strong> vezes, e o nível mais alto que você atingiu foi <strong><%= level %></strong>."
 }

@@ -31,7 +31,7 @@
             <strong> @{{ completion.userName }} </strong>
           </div>
           <div
-            v-if='completion.completedDate'
+            v-if="completion.completedDate"
             :class="{'green-10': completion.completed}"
           >
             {{ completion.completedDateString }}
@@ -54,16 +54,16 @@
         v-html="message"
       ></div>
       <div
-        class="d-flex ml-auto mr-1 my-auto"
         v-if="task.group.assignedUsers && ['daily','todo'].indexOf(task.type) !== -1"
+        class="d-flex ml-auto mr-1 my-auto"
       >
         <span
           v-if="assignedUsersCount > 1"
           class="d-flex mr-1 my-auto"
         >
           <span
-            class="small-check"
             v-if="!showStatus && completionsCount"
+            class="small-check"
           >
             <div
               class="svg-icon color"
@@ -73,9 +73,9 @@
             </div>
           </span>
           <span
+            v-if="!showStatus && completionsCount"
             class="ml-1 mr-2 my-auto"
             :class="{'green-10': completionsCount === assignedUsersCount}"
-            v-if="!showStatus && completionsCount"
           >
             {{ completionsCount }}/{{ assignedUsersCount }}
           </span>
@@ -98,10 +98,10 @@
           class="mr-1 d-inline-flex"
         >
           <span
-            v-html="icons.lastComplete"
             v-b-tooltip.hover.bottom="$t('lastCompleted')"
             class="svg-icon color last-completed mr-1 my-auto"
             :class="{'gray-200': completionsCount !== assignedUsersCount}"
+            v-html="icons.lastComplete"
           >
           </span>
           <span
@@ -116,7 +116,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
   .claim-bottom-message {
     background-color: $gray-600;
     border-bottom-left-radius: 4px;
@@ -213,10 +213,10 @@
 import moment from 'moment';
 import reduce from 'lodash/reduce';
 import { mapState } from '@/libs/store';
-import checkIcon from '@/assets/svg/check.svg';
-import lockIcon from '@/assets/svg/lock.svg';
-import usersIcon from '@/assets/svg/users.svg';
-import lastComplete from '@/assets/svg/last-complete.svg';
+import checkIcon from '@/assets/svg/check.svg?raw';
+import lockIcon from '@/assets/svg/lock.svg?raw';
+import usersIcon from '@/assets/svg/users.svg?raw';
+import lastComplete from '@/assets/svg/last-complete.svg?raw';
 
 export default {
   props: ['task', 'group'],

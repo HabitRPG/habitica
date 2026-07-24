@@ -8,7 +8,6 @@ import defaults from 'lodash/defaults';
 import invert from 'lodash/invert';
 import moment from 'moment';
 import 'moment-recur';
-import subscriptionBlocks from './content/subscriptionBlocks';
 
 export const DAY_MAPPING = {
   0: 'su',
@@ -257,7 +256,7 @@ export function getPlanMonths (plan) {
   // (which doesn't matter because we don't need to reapply perks
   // for them and by this point they should have expired anyway)
   if (!plan.planId) return 1;
-  const planIdRegExp = new RegExp('_([0-9]+)mo'); // e.g., matches 'google_6mo' / 'basic_12mo' and captures '6' / '12'
+  const planIdRegExp = /_([0-9]+)mo/; // e.g., matches 'google_6mo' / 'basic_12mo' and captures '6' / '12'
   const match = plan.planId.match(planIdRegExp);
   if (match !== null && match[0] !== null) {
     // 3 for 3-month recurring subscription, etc
@@ -287,23 +286,16 @@ export function getPlanContext (user, now) {
   const dateUpdatedMoment = moment(plan.dateUpdated).startOf('month');
   const elapsedMonths = moment(subscriptionEndDate).diff(dateUpdatedMoment, 'months');
 
-  const planMonths = subscriptionBlocks[plan.planId] ? subscriptionBlocks[plan.planId].months : 1;
-  let monthsTillNextHourglass;
-  if (planMonths > 1) {
-    monthsTillNextHourglass = plan.consecutive.offset + 1;
-  } else {
-    monthsTillNextHourglass = 3 - plan.perkMonthCount;
+  let nextHourglassDate = moment(nowMoment).add(1, 'month');
+  if (plan.dateTerminated && moment(plan.dateTerminated).isBefore(nextHourglassDate)) {
+    nextHourglassDate = null;
   }
-
-  const possibleNextHourglassDate = moment(plan.dateUpdated)
-    .add(monthsTillNextHourglass, 'months');
 
   return {
     plan,
     subscriptionEndDate,
     dateUpdatedMoment,
     elapsedMonths,
-    offset: plan.consecutive.offset, // months until the new hourglass is added
-    nextHourglassDate: possibleNextHourglassDate,
+    nextHourglassDate,
   };
 }

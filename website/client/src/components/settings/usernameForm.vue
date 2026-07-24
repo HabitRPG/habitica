@@ -90,7 +90,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   button {
     margin: 0.25rem auto 1rem;
@@ -115,8 +115,6 @@
   }
 
   .input-error {
-    color: $red-50;
-    font-size: 90%;
     width: 100%;
   }
 

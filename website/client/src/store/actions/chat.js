@@ -1,9 +1,8 @@
 import axios from 'axios';
 import Vue from 'vue';
-import * as Analytics from '@/libs/analytics';
 
 export async function getChat (store, payload) {
-  const response = await axios.get(`/api/v4/groups/${payload.groupId}/chat`);
+  const response = await axios.get(`/api/v4/groups/${payload.groupId}/chat?limit=400`);
 
   return response.data.data;
 }
@@ -15,13 +14,6 @@ export async function postChat (store, payload) {
 
   if (payload.previousMsg) {
     url += `?previousMsg=${payload.previousMsg}`;
-  }
-
-  if (group.type === 'party') {
-    Analytics.updateUser({
-      partyID: group.id,
-      partySize: group.memberCount,
-    });
   }
 
   const response = await axios.post(url, {
@@ -43,7 +35,14 @@ export async function deleteChat (store, payload) {
 }
 
 export async function like (store, payload) {
-  const url = `/api/v4/groups/${payload.groupId}/chat/${payload.chatId}/like`;
+  let url = '';
+
+  if (payload.groupId === 'privateMessage') {
+    url = `/api/v4/inbox/like-private-message/${payload.chatMessageId}`;
+  } else {
+    url = `/api/v4/groups/${payload.groupId}/chat/${payload.chatMessageId}/like`;
+  }
+
   const response = await axios.post(url);
   return response.data.data;
 }

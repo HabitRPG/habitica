@@ -7,7 +7,7 @@ import encodeParams from '@/libs/encodeParams';
 import notificationsMixin from '@/mixins/notifications';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
 
-const { STRIPE_PUB_KEY } = process.env;
+const { STRIPE_PUB_KEY } = import.meta.env;
 
 let stripeInstance = null;
 
@@ -70,6 +70,7 @@ export default {
         giftData,
         gemsBlock,
         sku,
+        g1g1,
       } = data;
       let { url } = data;
 
@@ -78,6 +79,10 @@ export default {
         paymentCompleted: false,
         paymentType: type,
       };
+
+      if (type === 'gift-subscription') {
+        appState.g1g1 = g1g1;
+      }
 
       if (type === 'subscription') {
         appState.subscriptionKey = this.subscriptionPlan || this.subscription.key;
@@ -163,6 +168,9 @@ export default {
         paymentCompleted: false,
         paymentType,
       };
+      if (paymentType === 'gift-subscription') {
+        appState.g1g1 = data.g1g1;
+      }
       if (paymentType === 'subscription') {
         appState.subscriptionKey = sub.key;
       } else if (paymentType === 'groupPlan') {
@@ -369,6 +377,21 @@ export default {
       } catch (e) {
         window.alert(e.response.data.message); // eslint-disable-line no-alert
       }
+    },
+    stripeGroup (options = { group: {}, upgrade: false }) {
+      const paymentData = {
+        subscription: 'group_monthly',
+        coupon: null,
+      };
+
+      if (options.upgrade && options.group._id) {
+        paymentData.groupId = options.group._id;
+        paymentData.group = options.group;
+      } else {
+        paymentData.groupToCreate = options.group;
+      }
+
+      this.redirectToStripe(paymentData);
     },
   },
 };

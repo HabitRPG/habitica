@@ -16,7 +16,7 @@ describe('POST /user/hatch/:egg/:hatchingPotion', () => {
   // More tests in common code unit tests
 
   it('hatch a new pet', async () => {
-    await user.update({
+    await user.updateOne({
       'items.eggs.Wolf': 1,
       'items.hatchingPotions.Base': 1,
     });
@@ -54,7 +54,7 @@ describe('POST /user/hatch/:egg/:hatchingPotion', () => {
         },
       });
 
-      await user.update({
+      await user.updateOne({
         'items.eggs.Wolf': 1,
         'items.hatchingPotions.Base': 1,
       });

@@ -1,10 +1,13 @@
+import {
+  describe, expect, test, beforeEach, afterEach,
+} from 'vitest';
 import Vue from 'vue';
 import merge from 'lodash/merge';
 
 import Avatar from '@/components/avatar';
 import generateStore from '@/store';
 
-context('avatar.vue', () => {
+describe('avatar.vue', () => {
   let Constructr;
   let vm;
 
@@ -38,41 +41,70 @@ context('avatar.vue', () => {
   });
 
   describe('hasClass', () => {
-    beforeEach(() => {
+    test('returns false if user is too low of level', () => {
+      vm.member = merge({
+        stats: { lvl: 3 },
+        preferences: { disableClasses: false },
+        flags: { classSelected: true },
+      }, baseMember);
+      expect(vm.hasClass).to.equal(false);
+    });
+
+    test('returns false if user has disabled the class system', () => {
       vm.member = merge({
         stats: { lvl: 17 },
         preferences: { disableClasses: true },
-        flags: { classSelected: false },
+        flags: { classSelected: true },
       }, baseMember);
+      expect(vm.hasClass).to.equal(false);
     });
 
-    it('accurately reports class status', () => {
+    test('returns false if user has not yet selected a class', () => {
+      vm.member = merge({
+        stats: { lvl: 20 },
+        preferences: { disableClasses: false },
+        flags: { classSelected: false },
+      }, baseMember);
       expect(vm.hasClass).to.equal(false);
+    });
 
-      vm.member.preferences.disableClasses = false;
-      vm.member.flags.classSelected = true;
-
+    test('returns true if user meets all prereqs for having a class', () => {
+      vm.member = merge({
+        stats: { lvl: 13 },
+        preferences: { disableClasses: false },
+        flags: { classSelected: true },
+      }, baseMember);
       expect(vm.hasClass).to.equal(true);
     });
   });
 
   describe('isBuffed', () => {
-    it('accurately reports if buffed', () => {
+    test('returns undefined if user is not buffed', () => {
       expect(vm.isBuffed).to.equal(undefined);
+    });
 
-      vm.member.stats.buffs = { str: 1 };
+    test('returns a value if user has buffs', () => {
+      vm.member = merge({
+        stats: {
+          buffs: {
+            str: 2,
+            int: 8,
+          },
+        },
+      }, baseMember);
 
-      expect(vm.isBuffed).to.equal(1);
+      expect(vm.isBuffed).to.be.a('Number');
+      expect(vm.isBuffed).to.be.gt(0);
     });
   });
 
   describe('paddingTop', () => {
-    xit('defaults to 27px', () => {
+    test('defaults to 24px', () => {
       vm.avatarOnly = true;
-      expect(vm.paddingTop).to.equal('27px');
+      expect(vm.paddingTop).to.equal('24px');
     });
 
-    it('is 24px if user has a pet', () => {
+    test('is 24px if user has a pet', () => {
       vm.member.items = merge({
         currentPet: { name: 'Foo' },
       }, baseMember.items);
@@ -80,7 +112,7 @@ context('avatar.vue', () => {
       expect(vm.paddingTop).to.equal('24px');
     });
 
-    it('is 0px if user has a mount', () => {
+    test('is 0px if user has a mount', () => {
       vm.member.items = merge({
         currentMount: 'Bar',
       }, baseMember.items);
@@ -88,18 +120,18 @@ context('avatar.vue', () => {
       expect(vm.paddingTop).to.equal('0px');
     });
 
-    it('can be overriden', () => {
+    test('can be overriden', () => {
       vm.overrideTopPadding = '27px';
       expect(vm.paddingTop).to.equal('27px');
     });
   });
 
   describe('costumeClass', () => {
-    it('returns if showing equipped gear', () => {
+    test('returns if showing equipped gear', () => {
       expect(vm.costumeClass).to.equal('equipped');
     });
 
-    it('returns if wearing a costume', () => {
+    test('returns if wearing a costume', () => {
       vm.member.preferences = { costume: true, hair: {} };
       vm.member.items.gear.costume = {};
 
@@ -108,7 +140,7 @@ context('avatar.vue', () => {
   });
 
   describe('visualBuffs', () => {
-    it('returns an array of buffs', () => {
+    test('returns an array of buffs', () => {
       vm.member = merge({
         stats: {
           class: 'warrior',
@@ -130,17 +162,17 @@ context('avatar.vue', () => {
       };
     });
 
-    it('shows the background', () => {
+    test('shows the background', () => {
       expect(vm.backgroundClass).to.equal('background_pony');
     });
 
-    it('can be overridden', () => {
+    test('can be overridden', () => {
       vm.overrideAvatarGear = { background: 'character' };
 
       expect(vm.backgroundClass).to.equal('background_character');
     });
 
-    it('returns to a blank string if not showing background', () => {
+    test('returns to a blank string if not showing background', () => {
       vm.withBackground = false;
       vm.avatarOnly = true;
 
@@ -149,30 +181,19 @@ context('avatar.vue', () => {
   });
 
   describe('specialMountClass', () => {
-    it('checks if riding a Kangaroo', () => {
+    test('returns null if not riding a Kangaroo', () => {
       expect(vm.specialMountClass).to.equal(null);
+    });
 
-      vm.member.items = {
-        currentMount: 'Kangaroo',
-        gear: { equipped: {} },
-      };
+    test('returns corresponding offset class if riding a Kangaroo', () => {
+      vm.member.items.currentMount = 'Kangaroo-Base';
 
       expect(vm.specialMountClass).to.equal('offset-kangaroo');
     });
   });
 
   describe('skinClass', () => {
-    it('returns current skin color', () => {
-      vm.member = merge({
-        preferences: {
-          skin: 'blue',
-        },
-      }, baseMember);
-
-      expect(vm.skinClass).to.equal('skin_blue');
-    });
-
-    it('returns if sleep or not', () => {
+    test('returns current skin color', () => {
       vm.member = merge({
         preferences: {
           skin: 'blue',
@@ -181,14 +202,21 @@ context('avatar.vue', () => {
       }, baseMember);
 
       expect(vm.skinClass).to.equal('skin_blue');
+    });
 
-      vm.member.preferences.sleep = true;
+    test('adds sleep if Dailies paused', () => {
+      vm.member = merge({
+        preferences: {
+          skin: 'blue',
+          sleep: true,
+        },
+      }, baseMember);
 
       expect(vm.skinClass).to.equal('skin_blue_sleep');
     });
   });
 
-  context('methods', () => {
+  describe('methods', () => {
     describe('getGearClass', () => {
       beforeEach(() => {
         vm.member = merge({
@@ -201,15 +229,15 @@ context('avatar.vue', () => {
         }, baseMember);
       });
 
-      it('returns undefined if no match', () => {
+      test('returns undefined if no match', () => {
         expect(vm.getGearClass('foo')).to.equal(undefined);
       });
 
-      it('returns the matching gear', () => {
+      test('returns the matching gear', () => {
         expect(vm.getGearClass('Hat')).to.equal('Fancy Tophat');
       });
 
-      it('can be overridden', () => {
+      test('can be overridden', () => {
         vm.overrideAvatarGear = { Hat: 'Dapper Bowler' };
 
         expect(vm.getGearClass('Hat')).to.equal('Dapper Bowler');
@@ -217,7 +245,7 @@ context('avatar.vue', () => {
     });
 
     describe('hideGear', () => {
-      it('returns no weapon equipped', () => {
+      test('returns no weapon equipped', () => {
         vm.member.items.gear.equipped = {};
         expect(vm.hideGear('weapon')).to.equal(false);
       });
@@ -252,7 +280,7 @@ context('avatar.vue', () => {
           },
         }, baseMember);
       });
-      it('does if not showing visual buffs', () => {
+      test('does if not showing visual buffs', () => {
         expect(vm.showAvatar()).to.equal(true);
 
         const { buffs } = vm.member.stats;

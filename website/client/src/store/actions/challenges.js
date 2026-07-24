@@ -97,3 +97,15 @@ export async function selectChallengeWinner (store, payload) {
 
   return response.data.data;
 }
+
+export async function flag (store, payload) {
+  const response = await axios.post(`/api/v3/challenges/${payload.challengeId}/flag`, {
+    comment: payload.comment,
+  });
+  return response.data.data;
+}
+
+export async function clearFlagCount (store, payload) {
+  const response = await axios.post(`/api/v3/challenges/${payload.challengeId}/clearflags`);
+  return response.data.data;
+}

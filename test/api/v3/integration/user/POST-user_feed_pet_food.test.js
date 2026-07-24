@@ -19,7 +19,7 @@ describe('POST /user/feed/:pet/:food', () => {
   // More tests in common code unit tests
 
   it('does not enjoy the food', async () => {
-    await user.update({
+    await user.updateOne({
       'items.pets.Wolf-Base': 5,
       'items.food.Milk': 2,
     });
@@ -42,7 +42,7 @@ describe('POST /user/feed/:pet/:food', () => {
   });
 
   it('bulk feeding pet with non-preferred food', async () => {
-    await user.update({
+    await user.updateOne({
       'items.pets.Wolf-Base': 5,
       'items.food.Milk': 3,
     });
@@ -85,7 +85,7 @@ describe('POST /user/feed/:pet/:food', () => {
         },
       });
 
-      await user.update({
+      await user.updateOne({
         'items.pets.Wolf-Base': 49,
         'items.food.Milk': 2,
       });
@@ -113,7 +113,7 @@ describe('POST /user/feed/:pet/:food', () => {
         },
       });
 
-      await user.update({
+      await user.updateOne({
         'items.pets.Wolf-Base': 47,
         'items.food.Milk': 3,
       });

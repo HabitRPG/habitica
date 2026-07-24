@@ -74,7 +74,7 @@
             class="no-quest-to-start"
           >
             <b>{{ $t('noQuestToStartTitle') }}</b> <br>
-            <span v-html="$t('noQuestToStart', { questShop: '/shops/quests' })"></span>
+            <span v-html="$t('noQuestToStart', questLinks)"></span>
           </span>
         </div>
       </div>
@@ -151,7 +151,7 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   h2 {
     color: $purple-300;
@@ -218,12 +218,18 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 0.5rem;
-
-    // somehow the browser felt like setting this 398px instead
-    // now its fixed to 400 :)
-    width: 400px;
-
+    max-width: 400px;
+    width: 100%;
     margin-bottom: 1.5rem;
+
+    @media (max-width: 589px) {
+      max-width: 100%;
+      justify-content: center;
+    }
+
+    @media (max-width: 353px) {
+      gap: 0.25rem;
+    }
 
     .quest-col {
       ::v-deep {
@@ -251,6 +257,28 @@
     ::v-deep & {
       .modal-dialog {
         width: 448px !important;
+        max-width: calc(100vw - 20px);
+        margin: 0.5rem auto;
+        display: flex;
+
+        @media (max-width: 468px) {
+          width: 100% !important;
+        }
+
+        @media (max-width: 353px) {
+          width: 100% !important;
+          margin: 0.25rem auto;
+        }
+      }
+
+      .modal-content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        @media (max-width: 300px) {
+          border-radius: 0;
+        }
       }
     }
 
@@ -303,12 +331,11 @@
 
 <script>
 import orderBy from 'lodash/orderBy';
-import { mapState } from '@/libs/store';
-import * as Analytics from '@/libs/analytics';
-
 import * as quests from '@/../../common/script/content/quests';
+import getItemInfo from '@/../../common/script/libs/getItemInfo';
+import { mapState } from '@/libs/store';
 
-import navigationBack from '@/assets/svg/navigation_back.svg';
+import navigationBack from '@/assets/svg/navigation_back.svg?raw';
 import questDialogContent from '../shops/quests/questDialogContent';
 import closeIcon from '../shared/closeIcon';
 import QuestRewards from '../shops/quests/questRewards';
@@ -316,7 +343,6 @@ import questActionsMixin from './questActions.mixin';
 import SelectTranslatedArray from '../tasks/modal-controls/selectTranslatedArray';
 import QuestInfo from '../shops/quests/questInfo';
 import Item from '@/components/inventory/item';
-import getItemInfo from '../../../../common/script/libs/getItemInfo';
 import CountBadge from '../ui/countBadge';
 
 export default {
@@ -343,6 +369,10 @@ export default {
       shareUserIdShown: false,
       quests,
       sortBy: 'AZ',
+      questLinks: {
+        linkOpen: '<a href="/shops/quests">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {
@@ -393,11 +423,6 @@ export default {
     },
     async questInit () {
       this.loading = true;
-
-      Analytics.updateUser({
-        partyID: this.group._id,
-        partySize: this.group.memberCount,
-      });
 
       const groupId = this.group._id || this.user.party._id;
 

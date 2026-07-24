@@ -11,7 +11,6 @@ import {
 
 describe('GET /groups/:id', () => {
   const typesOfGroups = {};
-  typesOfGroups['public guild'] = { type: 'guild', privacy: 'public' };
   typesOfGroups['private guild'] = { type: 'guild', privacy: 'private' };
   typesOfGroups.party = { type: 'party', privacy: 'private' };
 
@@ -24,10 +23,11 @@ describe('GET /groups/:id', () => {
         const groupData = await createAndPopulateGroup({
           members: 30,
           groupDetails,
+          upgradeToGroupPlan: groupDetails.type === 'guild',
         });
 
         leader = groupData.groupLeader;
-        member = groupData.members[0]; // eslint-disable-line prefer-destructuring
+        [member] = groupData.members;
         createdGroup = groupData.group;
       });
 
@@ -49,34 +49,6 @@ describe('GET /groups/:id', () => {
     });
   });
 
-  context('Non-member of a public guild', () => {
-    let nonMember; let
-      createdGroup;
-
-    before(async () => {
-      const groupData = await createAndPopulateGroup({
-        members: 1,
-        groupDetails: {
-          name: 'test guild',
-          type: 'guild',
-          privacy: 'public',
-        },
-      });
-
-      createdGroup = groupData.group;
-      nonMember = await generateUser();
-    });
-
-    it('returns the group object for a non-member', async () => {
-      const group = await nonMember.get(`/groups/${createdGroup._id}`);
-
-      expect(group._id).to.eql(createdGroup._id);
-      expect(group.name).to.eql(createdGroup.name);
-      expect(group.type).to.eql(createdGroup.type);
-      expect(group.privacy).to.eql(createdGroup.privacy);
-    });
-  });
-
   context('Non-member of a private guild', () => {
     let nonMember; let
       createdGroup;
@@ -89,6 +61,7 @@ describe('GET /groups/:id', () => {
           type: 'guild',
           privacy: 'private',
         },
+        upgradeToGroupPlan: true,
       });
 
       createdGroup = groupData.group;
@@ -180,7 +153,7 @@ describe('GET /groups/:id', () => {
     it('removes non-existent guild from user\'s guild list', async () => {
       const guildId = generateUUID();
 
-      await user.update({
+      await user.updateOne({
         guilds: [guildId, generateUUID()],
       });
 
@@ -200,7 +173,7 @@ describe('GET /groups/:id', () => {
     it('removes non-existent party from user\'s party object', async () => {
       const partyId = generateUUID();
 
-      await user.update({
+      await user.updateOne({
         party: { _id: partyId },
       });
 
@@ -218,7 +191,7 @@ describe('GET /groups/:id', () => {
   });
 
   context('Flagged messages', () => {
-    let group;
+    let group; let members;
 
     const chat1 = {
       id: 'chat1',
@@ -268,7 +241,7 @@ describe('GET /groups/:id', () => {
         groupDetails: {
           name: 'test guild',
           type: 'guild',
-          privacy: 'public',
+          privacy: 'private',
           chat: [
             chat1,
             chat2,
@@ -277,9 +250,11 @@ describe('GET /groups/:id', () => {
             chat5,
           ],
         },
+        members: 1,
+        upgradeToGroupPlan: true,
       });
 
-      group = groupData.group;
+      ({ group, members } = groupData);
 
       await group.addChat([chat1, chat2, chat3, chat4, chat5]);
     });
@@ -287,8 +262,8 @@ describe('GET /groups/:id', () => {
     context('non-admin', () => {
       let nonAdmin;
 
-      beforeEach(async () => {
-        nonAdmin = await generateUser();
+      beforeEach(() => {
+        [nonAdmin] = members;
       });
 
       it('does not include messages with a flag count of 2 or greater', async () => {
@@ -314,9 +289,8 @@ describe('GET /groups/:id', () => {
       let admin;
 
       beforeEach(async () => {
-        admin = await generateUser({
-          'permissions.moderator': true,
-        });
+        [admin] = members;
+        await admin.updateOne({ permissions: { moderator: true } });
       });
 
       it('includes all messages', async () => {

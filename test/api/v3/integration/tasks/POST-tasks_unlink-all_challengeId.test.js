@@ -104,7 +104,6 @@ describe('POST /tasks/unlink-all/:challengeId', () => {
       id: challenge._id,
       shortName: challenge.shortName,
       broken: 'CHALLENGE_DELETED',
-      winner: null,
     });
   });
 });

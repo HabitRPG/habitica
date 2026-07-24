@@ -6,10 +6,10 @@
     >
       <div class="potionEggGroup">
         <div class="potionEggBackground">
-          <div :class="'Pet_HatchingPotion_'+hatchablePet.potionKey"></div>
+          <Sprite :image-name="`Pet_HatchingPotion_${hatchablePet.potionKey}`" />
         </div>
         <div class="potionEggBackground">
-          <div :class="'Pet_Egg_'+hatchablePet.eggKey"></div>
+          <Sprite :image-name="`Pet_Egg_${hatchablePet.eggKey}`" />
         </div>
       </div>
       <h4 class="title">
@@ -46,8 +46,8 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/mixins.scss';
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/mixins.scss';
+  @import '@/assets/scss/colors.scss';
 
   #hatching-modal {
     @include centeredModal();
@@ -105,7 +105,7 @@
         margin-right: 24px;
       }
 
-      div {
+      img {
         margin: 0 auto;
       }
     }
@@ -113,11 +113,15 @@
 </style>
 
 <script>
-import svgClose from '@/assets/svg/close.svg';
+import svgClose from '@/assets/svg/close.svg?raw';
 
 import petMixin from '@/mixins/petMixin';
+import Sprite from '@/components/ui/sprite';
 
 export default {
+  components: {
+    Sprite,
+  },
   mixins: [petMixin],
   props: ['hatchablePet'],
   data () {

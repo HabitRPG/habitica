@@ -7,12 +7,12 @@ import {
   NotAuthorized,
   NotFound,
 } from '../../libs/errors';
-import errorMessage from '../../libs/errorMessage';
+import { errorMessage } from '../../libs/errorMessage';
 import updateUserHourglasses from '../updateUserHourglasses';
 import { removeItemByPath } from '../pinnedGearUtils';
 import getItemInfo from '../../libs/getItemInfo';
 
-export default async function buyMysterySet (user, req = {}, analytics) {
+export default async function buyMysterySet (user, req = {}) {
   const key = get(req, 'params.key');
   if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
@@ -20,7 +20,7 @@ export default async function buyMysterySet (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('notEnoughHourglasses', req.language));
   }
 
-  const ref = content.timeTravelerStore(user);
+  const ref = content.timeTravelerStore(user, new Date());
   const mysterySet = ref ? ref[key] : undefined;
 
   if (!mysterySet) {
@@ -33,17 +33,6 @@ export default async function buyMysterySet (user, req = {}, analytics) {
 
   const itemInfo = getItemInfo(user, 'mystery_set', mysterySet);
   removeItemByPath(user, itemInfo.path);
-
-  if (analytics) {
-    analytics.track('buy', {
-      uuid: user._id,
-      itemKey: mysterySet.key,
-      itemType: 'Subscriber Gear',
-      currency: 'Hourglass',
-      category: 'behavior',
-      headers: req.headers,
-    });
-  }
 
   // Here we need to trigger vue reactivity through reassign object
   user.items.gear.owned = {

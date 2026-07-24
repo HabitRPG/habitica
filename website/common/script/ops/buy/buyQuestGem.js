@@ -6,8 +6,9 @@ import {
 } from '../../libs/errors';
 import content from '../../content/index';
 
-import errorMessage from '../../libs/errorMessage';
+import { errorMessage } from '../../libs/errorMessage';
 import { AbstractGemItemOperation } from './abstractBuyOperation';
+import { getScheduleMatchingGroup } from '../../content/constants/schedule';
 
 export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // eslint-disable-line import/prefer-default-export, max-len
   multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
@@ -49,6 +50,28 @@ export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // esli
           throw new NotAuthorized(this.i18n('mustComplete', { quest: prereq }));
         }
       }
+    }
+
+    let matchers = [];
+    if (item.category === 'hatchingPotion') {
+      matchers = [
+        getScheduleMatchingGroup('hatchingPotionQuests'),
+      ];
+    } else if (item.category === 'pet') {
+      matchers = [
+        getScheduleMatchingGroup('seasonalQuests'),
+        getScheduleMatchingGroup('petQuests'),
+      ];
+    }
+    let isAvailable = matchers.length === 0;
+    matchers.forEach(matcher => {
+      if (matcher.match(item.key)) {
+        isAvailable = true;
+      }
+    });
+
+    if (!isAvailable) {
+      throw new NotAuthorized(this.i18n('notAvailable', { key: item.key }));
     }
 
     super.canUserPurchase(user, item);

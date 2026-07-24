@@ -9,6 +9,7 @@ import {
 } from '../../../../../helpers/api-integration/v3';
 import { ApiUser } from '../../../../../helpers/api-integration/api-classes';
 import { encrypt } from '../../../../../../website/server/libs/encryption';
+import { RegistrationEventModel } from '../../../../../../website/server/models/analytics/registrationEvent';
 
 function generateRandomUserName () {
   return (Date.now() + uuid()).substring(0, 20);
@@ -39,6 +40,25 @@ describe('POST /user/auth/local/register', () => {
       expect(user.auth.local.username).to.eql(username);
       expect(user.profile.name).to.eql(username);
       expect(user.newUser).to.eql(true);
+    });
+
+    it('tracks a registration event', async () => {
+      const username = generateRandomUserName();
+      const email = `${username}@example.com`;
+      const password = 'password';
+
+      const user = await api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      const registrationEvent = await RegistrationEventModel.findOne({ userId: user._id });
+      expect(registrationEvent).to.exist;
+      expect(registrationEvent).to.have.property('userId', user._id);
+      expect(registrationEvent).to.have.property('ipAddress');
+      expect(registrationEvent).to.have.property('authenticationMethod', 'local');
     });
 
     it('registers a new user and sets verifiedUsername to true', async () => {
@@ -497,7 +517,7 @@ describe('POST /user/auth/local/register', () => {
       });
     });
     it('succeeds', async () => {
-      await user.update({ 'auth.facebook.id': 'some-fb-id', 'auth.local': { ok: true } });
+      await user.updateOne({ 'auth.facebook.id': 'some-fb-id', 'auth.local': { ok: true } });
       await user.post('/user/auth/local/register', {
         username,
         email,
@@ -531,7 +551,7 @@ describe('POST /user/auth/local/register', () => {
       });
     });
     it('succeeds', async () => {
-      await user.update({ 'auth.google.id': 'some-google-id', 'auth.local': { ok: true } });
+      await user.updateOne({ 'auth.google.id': 'some-google-id', 'auth.local': { ok: true } });
       await user.post('/user/auth/local/register', {
         username,
         email,
@@ -565,7 +585,7 @@ describe('POST /user/auth/local/register', () => {
       });
     });
     it('succeeds', async () => {
-      await user.update({ 'auth.apple.id': 'some-apple-id', 'auth.local': { ok: true } });
+      await user.updateOne({ 'auth.apple.id': 'some-apple-id', 'auth.local': { ok: true } });
       await user.post('/user/auth/local/register', {
         username,
         email,
@@ -713,31 +733,6 @@ describe('POST /user/auth/local/register', () => {
       });
 
       expect(user.invitations.party).to.eql({});
-    });
-
-    it('adds a user to a guild on an invite of type other than party', async () => {
-      const { group, groupLeader } = await createAndPopulateGroup({
-        groupDetails: { type: 'guild', privacy: 'private' },
-      });
-
-      const invite = encrypt(JSON.stringify({
-        id: group._id,
-        inviter: groupLeader._id,
-        sentAt: Date.now(),
-      }));
-
-      const user = await api.post(`/user/auth/local/register?groupInvite=${invite}`, {
-        username,
-        email,
-        password,
-        confirmPassword: password,
-      });
-
-      expect(user.invitations.guilds[0]).to.eql({
-        id: group._id,
-        name: group.name,
-        inviter: groupLeader._id,
-      });
     });
   });
 

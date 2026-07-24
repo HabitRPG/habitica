@@ -11,6 +11,7 @@
     </div>
     <div
       v-for="(post, index) in posts"
+      id="bailey"
       :key="post._id"
       class="static-view bailey"
       :class="{'bailey-last': index == (posts.length - 1)}"
@@ -32,11 +33,22 @@
 </template>
 
 <style lang='scss'>
-@import '~@/assets/scss/static.scss';
+@import '@/assets/scss/static.scss';
+#bailey {
+  .markdown-img-link {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
 </style>
 
 <style lang='scss' scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 h1 {
   color: $purple-200;
@@ -69,9 +81,10 @@ import moment from 'moment';
 import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from '@/libs/store';
 import seasonalNPC from '@/mixins/seasonalNPC';
+import { userStateMixin } from '../../mixins/userState';
 
 export default {
-  mixins: [seasonalNPC],
+  mixins: [seasonalNPC, userStateMixin],
   data () {
     return {
       posts: [],
@@ -95,7 +108,7 @@ export default {
       if (lastPublishedPost) this.posts.push(lastPublishedPost);
 
       // If the user is authorized, show any draft
-      if (this.user && this.user.contributor.newsPoster) {
+      if (this.user && (this.hasPermission(this.user, 'news'))) {
         this.posts.unshift(
           ...postsFromServer
             .filter(p => !p.published || moment().isBefore(p.publishDate)),

@@ -53,6 +53,20 @@ const SEASONAL_SETS = {
     'winter2023FairyLightsMageSet',
     'winter2023CardinalHealerSet',
 
+    'winter2024SnowyOwlRogueSet',
+    'winter2024PeppermintBarkWarriorSet',
+    'winter2024NarwhalWizardMageSet',
+    'winter2024FrozenHealerSet',
+
+    'winter2025MooseWarriorSet',
+    'winter2025AuroraMageSet',
+    'winter2025StringLightsHealerSet',
+    'winter2025SnowRogueSet',
+
+    'winter2026RimeReaperWarriorSet',
+    'winter2026SkiRogueSet',
+    'winter2026PolarBearHealerSet',
+    'winter2026MidwinterCandleMageSet',
   ],
   spring: [
     // spring 2014
@@ -107,6 +121,21 @@ const SEASONAL_SETS = {
     'spring2023HummingbirdWarriorSet',
     'spring2023MoonstoneMageSet',
     'spring2023LilyHealerSet',
+
+    'spring2024FluoriteWarriorSet',
+    'spring2024HibiscusMageSet',
+    'spring2024BluebirdHealerSet',
+    'spring2024MeltingSnowRogueSet',
+
+    'spring2025SunshineWarriorSet',
+    'spring2025CrystalPointRogueSet',
+    'spring2025PlumeriaHealerSet',
+    'spring2025MantisMageSet',
+
+    'spring2026FrogWarriorSet',
+    'spring2026BranchRogueSet',
+    'spring2026SnowdropHealerSet',
+    'spring2026MaypoleMageSet',
   ],
 
   summer: [
@@ -156,6 +185,26 @@ const SEASONAL_SETS = {
     'summer2022WaterspoutWarriorSet',
     'summer2022MantaRayMageSet',
     'summer2022AngelfishHealerSet',
+
+    'summer2023GoldfishWarriorSet',
+    'summer2023CoralMageSet',
+    'summer2023GuppyRogueSet',
+    'summer2023KelpHealerSet',
+
+    'summer2024WhaleSharkWarriorSet',
+    'summer2024SeaAnemoneMageSet',
+    'summer2024SeaSnailHealerSet',
+    'summer2024NudibranchRogueSet',
+
+    'summer2025ScallopWarriorSet',
+    'summer2025SquidRogueSet',
+    'summer2025SeaAngelHealerSet',
+    'summer2025FairyWrasseMageSet',
+
+    'summer2026AlligatorWarriorSet',
+    'summer2026PuffinHealerSet',
+    'summer2026TigerSharkMageSet',
+    'summer2026TsunamiRogueSet',
   ],
   fall: [
     // fall 2014
@@ -204,6 +253,21 @@ const SEASONAL_SETS = {
     'fall2022OrcWarriorSet',
     'fall2022HarpyMageSet',
     'fall2022WatcherHealerSet',
+
+    'fall2023WitchsBrewRogueSet',
+    'fall2023BogCreatureHealerSet',
+    'fall2023ScaryMovieWarriorSet',
+    'fall2023ScarletWarlockMageSet',
+
+    'fall2024FieryImpWarriorSet',
+    'fall2024UnderworldSorcerorMageSet',
+    'fall2024SpaceInvaderHealerSet',
+    'fall2024BlackCatRogueSet',
+
+    'fall2025SasquatchWarriorSet',
+    'fall2025MaskedGhostMageSet',
+    'fall2025KoboldHealerSet',
+    'fall2025SkeletonRogueSet',
   ],
 };
 

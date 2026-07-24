@@ -45,7 +45,7 @@ describe('POST /news', () => {
 
   context('calls updateLastNewsPost', () => {
     beforeEach(async () => {
-      await NewsPost.remove({ });
+      await NewsPost.deleteMany({ });
     });
 
     afterEach(async () => {

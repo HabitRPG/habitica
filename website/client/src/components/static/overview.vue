@@ -12,19 +12,16 @@
           <p v-markdown="$t(`webStep${step}Text`, stepVars[step])"></p>
           <hr>
         </div>
-        <p
-          v-markdown="$t('overviewQuestions', {
-            faqUrl: '/static/faq/',
-            helpGuildUrl: '/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a'
-          })"
-        ></p>
+        <p>
+          <span v-html="$t('overviewQuestionsRevised', overviewLinks)"></span>
+        </p>
       </div>
     </div>
   </div>
 </template>
 
 <style lang='scss'>
-@import '~@/assets/scss/static.scss';
+@import '@/assets/scss/static.scss';
 </style>
 
 <style lang='scss' scoped>
@@ -51,6 +48,11 @@ export default {
           equipUrl: '/inventory/equipment',
           shopUrl: '/shops/market',
         },
+      },
+      overviewLinks: {
+        faqLink: '<a href="/static/faq">',
+        adminLink: '<a href="mailto:admin@habitica.com?subject=Habitica Web Question">',
+        linkClose: '</a>',
       },
     };
   },

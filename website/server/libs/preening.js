@@ -88,7 +88,10 @@ export function preenUserHistory (user, tasksByType) {
 
   if (user.history.todos.length > minHistoryLength) {
     user.history.todos = preenHistory(
-      user.history.todos, isSubscribed, timezoneUtcOffset, dayStart,
+      user.history.todos,
+      isSubscribed,
+      timezoneUtcOffset,
+      dayStart,
     );
     user.markModified('history.todos');
   }

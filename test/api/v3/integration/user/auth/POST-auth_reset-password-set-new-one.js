@@ -59,7 +59,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().subtract({ minutes: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': code,
     });
 
@@ -111,7 +111,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().add({ days: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': 'invalid',
     });
 
@@ -133,7 +133,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().add({ days: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': code,
     });
 
@@ -153,7 +153,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().add({ days: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': code,
     });
 
@@ -174,7 +174,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().add({ days: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': code,
     });
 
@@ -196,7 +196,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().add({ days: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': code,
     });
 
@@ -218,7 +218,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().add({ days: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': code,
     });
 
@@ -238,6 +238,28 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
     expect(isPassValid).to.equal(true);
   });
 
+  it('changes the apiToken on password reset', async () => {
+    const user = await generateUser();
+    const previousToken = user.apiToken;
+
+    const code = encrypt(JSON.stringify({
+      userId: user._id,
+      expiresAt: moment().add({ days: 1 }),
+    }));
+    await user.updateOne({
+      'auth.local.passwordResetCode': code,
+    });
+
+    await api.post(`${endpoint}`, {
+      newPassword: 'my new password',
+      confirmPassword: 'my new password',
+      code,
+    });
+
+    await user.sync();
+    expect(user.apiToken).to.not.eql(previousToken);
+  });
+
   it('renders the success page and convert the password from sha1 to bcrypt', async () => {
     const user = await generateUser();
 
@@ -245,7 +267,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
     const salt = sha1MakeSalt();
     const sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
 
-    await user.update({
+    await user.updateOne({
       'auth.local.hashed_password': sha1HashedPassword,
       'auth.local.passwordHashMethod': 'sha1',
       'auth.local.salt': salt,
@@ -260,7 +282,7 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().add({ days: 1 }),
     }));
-    await user.update({
+    await user.updateOne({
       'auth.local.passwordResetCode': code,
     });
 

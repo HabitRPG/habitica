@@ -1,6 +1,6 @@
 import toArray from 'lodash/toArray';
 import content from '../content/index';
-import SeasonalShopConfig from './shops-seasonal.config';
+import seasonalShopConfig from './shops-seasonal.config';
 
 const { officialPinnedItems } = content;
 
@@ -8,9 +8,9 @@ const flatGearArray = toArray(content.gear.flat);
 
 export default function getOfficialPinnedItems (user) {
   const officialItemsArray = [...officialPinnedItems];
-
-  if (SeasonalShopConfig.pinnedSets && Boolean(user) && user.stats.class) {
-    const setToAdd = SeasonalShopConfig.pinnedSets[user.stats.class];
+  const { pinnedSets } = seasonalShopConfig();
+  if (pinnedSets && Boolean(user) && user.stats.class) {
+    const setToAdd = pinnedSets[user.stats.class];
 
     // pinnedSets == current seasonal class set are always gold purchaseable
 

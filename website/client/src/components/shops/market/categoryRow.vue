@@ -22,9 +22,9 @@
 import _filter from 'lodash/filter';
 import _sortBy from 'lodash/sortBy';
 import _map from 'lodash/map';
+import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import { mapState } from '@/libs/store';
 import pinUtils from '@/mixins/pinUtils';
-import planGemLimits from '@/../../common/script/libs/planGemLimits';
 
 import ShopItem from '../shopItem';
 import CategoryItem from './categoryItem';

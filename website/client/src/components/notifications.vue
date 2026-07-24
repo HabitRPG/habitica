@@ -11,8 +11,6 @@
     <low-health />
     <level-up />
     <choose-class />
-    <testing />
-    <testingletiant />
     <rebirth-enabled />
     <contributor />
     <won-challenge />
@@ -66,7 +64,7 @@
       top: -55px;
       width: 48px;
       height: 51px;
-      background-image: url('~@/assets/images/justin_textbox.png');
+      background-image: url('@/assets/images/justin_textbox.png');
     }
   }
 
@@ -111,12 +109,11 @@ import Vue from 'vue';
 import { toNextLevel } from '@/../../common/script/statHelpers';
 import { shouldDo } from '@/../../common/script/cron';
 import { onOnboardingComplete } from '@/../../common/script/libs/onboarding';
-import { mapState } from '@/libs/store';
 import { MAX_LEVEL_HARD_CAP } from '@/../../common/script/constants';
+import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 import guide from '@/mixins/guide';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
-import * as Analytics from '@/libs/analytics';
 
 import yesterdailyModal from './tasks/yesterdailyModal';
 import newStuff from './news/modal';
@@ -127,8 +124,6 @@ import chooseClass from './achievements/chooseClass';
 import armoireEmpty from './achievements/armoireEmpty';
 import questCompleted from './achievements/questCompleted';
 import questInvitation from './achievements/questInvitation';
-import testing from './achievements/testing';
-import testingletiant from './achievements/testingletiant';
 import rebirthEnabled from './achievements/rebirthEnabled';
 import contributor from './achievements/contributor';
 import invitedFriend from './achievements/invitedFriend';
@@ -269,8 +264,6 @@ export default {
     armoireEmpty,
     questCompleted,
     questInvitation,
-    testing,
-    testingletiant,
     rebirthEnabled,
     contributor,
     loginIncentives,
@@ -300,7 +293,6 @@ export default {
       // general notifications
       'CRON',
       'FIRST_DROPS',
-      'GUILD_PROMPT',
       'LOGIN_INCENTIVE',
       'NEW_CONTRIBUTOR_LEVEL',
       'ONBOARDING_COMPLETE',
@@ -335,6 +327,9 @@ export default {
       alreadyReadNotification,
       nextCron: null,
       handledNotifications,
+      isInitialLoadComplete: false,
+      pendingRebirthNotification: null,
+      lastShownStreakCount: null, // Track last shown streak to prevent duplicates
     };
   },
   computed: {
@@ -346,7 +341,6 @@ export default {
       userMp: 'user.data.stats.mp',
       userNotifications: 'user.data.notifications',
       userAchievements: 'user.data.achievements', // @TODO: does this watch deeply?
-      armoireEmpty: 'user.data.flags.armoireEmpty',
       questCompleted: 'user.data.party.quest.completed',
     }),
     userClassSelect () {
@@ -417,10 +411,6 @@ export default {
       if (this.user.needsCron) return;
       this.handleUserNotifications(after);
     },
-    armoireEmpty (after, before) {
-      if (after === before || after === false) return;
-      this.$root.$emit('bv::show::modal', 'armoire-empty');
-    },
     questCompleted () {
       if (!this.questCompleted) return;
       this.$root.$emit('bv::show::modal', 'quest-completed');
@@ -464,6 +454,18 @@ export default {
       if (!this.user.flags.verifiedUsername) return this.$root.$emit('bv::show::modal', 'verify-username');
 
       return this.runYesterDailies();
+    },
+    async showPendingRebirthModal () {
+      if (this.pendingRebirthNotification) {
+        this.playSound('Achievement_Unlocked');
+        this.$root.$emit('bv::show::modal', 'rebirth');
+
+        await axios.post('/api/v4/notifications/read', {
+          notificationIds: [this.pendingRebirthNotification.id],
+        });
+
+        this.pendingRebirthNotification = null;
+      }
     },
     showDeathModal () {
       this.playSound('Death');
@@ -541,7 +543,7 @@ export default {
 
       // List of prompts for user on changes.
       // Sounds like we may need a refactor here, but it is clean for now
-      if (!this.user.flags.welcomed) {
+      if (!this.user.flags.welcomed && !this.$route?.name.includes('groupPlan')) {
         if (this.$store.state.avatarEditorOptions) {
           this.$store.state.avatarEditorOptions.editingUser = false;
         }
@@ -645,15 +647,6 @@ export default {
         // Reset daily analytics actions
         setLocalSetting(CONSTANTS.keyConstants.TASKS_SCORED_COUNT, 0);
         setLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT, 0);
-      } else {
-        // Note a failed cron event, for our records and investigation
-        Analytics.track({
-          eventName: 'cron failed',
-          eventAction: 'cron failed',
-          eventCategory: 'behavior',
-          hitType: 'event',
-          responseCode: response.status,
-        }, { trackOnClient: true });
       }
 
       // Sync
@@ -673,6 +666,18 @@ export default {
         this.showLevelUpNotifications(this.user.stats.lvl);
       }
       this.handleUserNotifications(this.user.notifications);
+
+      this.isInitialLoadComplete = true;
+
+      const hasRebirthConfirmationFlag = localStorage.getItem('show-rebirth-confirmation') === 'true';
+
+      if (hasRebirthConfirmationFlag) {
+        localStorage.removeItem('show-rebirth-confirmation');
+        this.playSound('Achievement_Unlocked');
+        this.$root.$emit('bv::show::modal', 'rebirth');
+      } else {
+        this.showPendingRebirthModal();
+      }
     },
     async handleUserNotifications (after) {
       if (this.$store.state.isRunningYesterdailies) return;
@@ -705,14 +710,6 @@ export default {
               this.$root.$emit('bv::show::modal', 'first-drops');
             }
             break;
-          case 'GUILD_PROMPT':
-            // @TODO: I'm pretty sure we can find better names for these
-            if (notification.data.textletiant === -1) {
-              this.$root.$emit('bv::show::modal', 'testing');
-            } else {
-              this.$root.$emit('bv::show::modal', 'testingletiant');
-            }
-            break;
           case 'REBIRTH_ENABLED':
             this.$root.$emit('bv::show::modal', 'rebirth-enabled');
             break;
@@ -720,10 +717,24 @@ export default {
             this.$root.$emit('habitica:won-challenge', notification);
             break;
           case 'REBIRTH_ACHIEVEMENT':
-            this.playSound('Achievement_Unlocked');
-            this.$root.$emit('bv::show::modal', 'rebirth');
+            if (localStorage.getItem('show-rebirth-confirmation') !== 'true') {
+              if (!this.isInitialLoadComplete) {
+                this.pendingRebirthNotification = notification;
+                markAsRead = false;
+              } else {
+                this.playSound('Achievement_Unlocked');
+                this.$root.$emit('bv::show::modal', 'rebirth');
+              }
+            }
             break;
           case 'STREAK_ACHIEVEMENT':
+            // Client-side deduplication: prevent showing duplicate streak achievements
+            if (this.lastShownStreakCount === this.user.achievements.streak) {
+              // Same streak already shown, skip this notification
+              break;
+            }
+            this.lastShownStreakCount = this.user.achievements.streak;
+
             this.text(`${this.$t('streaks')}: ${this.user.achievements.streak}`, () => {
               this.$root.$emit('bv::show::modal', 'streak');
             }, this.user.preferences.suppressModals.streak);

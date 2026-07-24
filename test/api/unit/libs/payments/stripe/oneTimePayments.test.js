@@ -1,4 +1,4 @@
-import apiError from '../../../../../../website/server/libs/apiError';
+import { apiError } from '../../../../../../website/server/libs/apiError';
 import common from '../../../../../../website/common';
 import {
   getOneTimePaymentInfo,
@@ -308,6 +308,7 @@ describe('Stripe - One Time Payments', () => {
           customerId,
           paymentMethod: 'Gift',
           gift,
+          autoRenews: false,
           gemsBlock: undefined,
         });
       });

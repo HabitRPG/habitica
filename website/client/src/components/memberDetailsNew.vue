@@ -28,7 +28,6 @@
               :name="member.profile.name"
               :backer="member.backer"
               :contributor="member.contributor"
-              :smaller-style="true"
             />
             <inline-class-badge
               v-if="member.stats"
@@ -88,7 +87,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .stats-bar {
     margin-left: 0;
@@ -147,10 +146,6 @@
 
   .small-text {
     color: $header-color;
-  }
-
-  .profile-name-character {
-
   }
 
   .character-name {
@@ -226,22 +221,21 @@
 </style>
 
 <script>
+import { toNextLevel } from '@/../../common/script/statHelpers';
+import statsComputed from '@/../../common/script/libs/statsComputed';
+import percent from '@/../../common/script/libs/percent';
+import { getClassName } from '@/../../common/script/libs/getClassName';
 import Avatar from './avatar';
 import ClassBadge from './members/classBadge';
 import { mapState } from '@/libs/store';
 import StatsBar from './ui/statsbar';
 import userLink from './userLink';
 
-import { toNextLevel } from '@/../../common/script/statHelpers';
-import statsComputed from '@/../../common/script/libs/statsComputed';
-import percent from '@/../../common/script/libs/percent';
-
-import buffIcon from '@/assets/svg/buff.svg';
-import healthIcon from '@/assets/svg/health.svg';
-import experienceIcon from '@/assets/svg/experience.svg';
-import manaIcon from '@/assets/svg/mana.svg';
+import buffIcon from '@/assets/svg/buff.svg?raw';
+import healthIcon from '@/assets/svg/health.svg?raw';
+import experienceIcon from '@/assets/svg/experience.svg?raw';
+import manaIcon from '@/assets/svg/mana.svg?raw';
 import InlineClassBadge from './members/inlineClassBadge';
-import { getClassName } from '../../../common/script/libs/getClassName';
 
 export default {
   components: {

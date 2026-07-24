@@ -24,7 +24,7 @@ describe('POST /user/custom-day-start', () => {
   it('sets lastCron to the current time to prevent an unexpected cron', async () => {
     const oldCron = moment().subtract(7, 'hours');
 
-    await user.update({ lastCron: oldCron });
+    await user.updateOne({ lastCron: oldCron });
     await user.post(endpoint, { dayStart: 1 });
     await user.sync();
 

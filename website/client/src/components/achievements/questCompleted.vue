@@ -10,10 +10,10 @@
     @hide="hide"
   >
     <div class="modal-body text-center">
-      <div
+      <Sprite
         class="quest"
-        :class="`quest_${user.party.quest.completed}`"
-      ></div>
+        :image-name="`quest_${user.party.quest.completed}`"
+      />
       <p
         v-if="questData.completion && typeof questData.completion === 'function'"
         v-html="questData.completion()"
@@ -54,14 +54,16 @@
 <script>
 import * as quests from '@/../../common/script/content/quests';
 
-import { mapState } from '@/libs/store';
 import percent from '@/../../common/script/libs/percent';
 import { MAX_HEALTH as maxHealth } from '@/../../common/script/constants';
+import { mapState } from '@/libs/store';
 import QuestRewards from '../shops/quests/questRewards';
+import Sprite from '../ui/sprite';
 
 export default {
   components: {
     QuestRewards,
+    Sprite,
   },
   data () {
     return {
@@ -91,6 +93,7 @@ export default {
       this.close();
     },
     hide () {
+      this.$store.dispatch('user:statSync');
       this.$store.dispatch('user:set', { 'party.quest.completed': '' });
     },
   },

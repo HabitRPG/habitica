@@ -8,7 +8,7 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-6 offset-3">
-          <div class="shop_armoire"></div>
+          <Sprite image-name="shop_armoire" />
           <p>{{ $t('armoireLastItem') }}</p>
           <p>{{ $t('armoireNotesEmpty') }}</p>
         </div>
@@ -34,7 +34,12 @@
 </style>
 
 <script>
+import Sprite from '@/components/ui/sprite';
+
 export default {
+  components: {
+    Sprite,
+  },
   methods: {
     close () {
       this.$root.$emit('bv::hide::modal', 'armoire-empty');

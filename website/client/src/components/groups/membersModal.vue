@@ -45,11 +45,14 @@
           <div class="col-5">
             <select-list
               :items="sortOptions"
+              :hide-icon="false"
+              :inline-dropdown="false"
+              :direct-select="true"
               :value="optionEntryBySelectedValue"
               key-prop="value"
               @select="changeSortOption($event)"
             >
-              <template v-slot:item="{ item }">
+              <template #item="{ item }">
                 <span
                   v-if="item"
                   class="label"
@@ -61,10 +64,13 @@
             <select-list
               :items="sortDirections"
               :value="directionEntryBySelectedValue"
+              :hide-icon="false"
+              :inline-dropdown="false"
+              :direct-select="true"
               key-prop="value"
               @select="changeSortDirection($event)"
             >
-              <template v-slot:item="{ item }">
+              <template #item="{ item }">
                 <span
                   v-if="item"
                   class="label"
@@ -84,7 +90,7 @@
         v-if="invites.length > 0"
         class="row"
       >
-        <div class="col-6 offset-3 nav">
+        <div class="col-6 offset-3 nav mt-2 mb-3">
           <div
             class="nav-item"
             :class="{active: selectedPage === 'members'}"
@@ -111,17 +117,18 @@
           :key="member._id"
           class="row"
         >
-          <div class="col-11 no-padding-left">
+          <div class="col-11 pl-0">
             <member-details
               :member="member"
               :class-badge-position="'next-to-name'"
+              class="ml-4"
             />
           </div>
           <div class="col-1 actions">
             <b-dropdown right="right">
               <div
                 slot="button-content"
-                class="svg-icon inline dots"
+                class="svg-icon inline dots pt-1"
                 v-html="icons.dots"
               ></div>
               <b-dropdown-item @click="sendMessage(member)">
@@ -216,7 +223,7 @@
           :key="member._id"
           class="row"
         >
-          <div class="col-11 no-padding-left">
+          <div class="col-11 pl-0">
             <member-details :member="member" />
           </div>
           <div class="col-1 actions">
@@ -259,10 +266,6 @@
       color: #878190;
     }
 
-    .no-padding-left {
-      padding-left: 0;
-    }
-
     .modal-body {
       padding-left: 0;
       padding-right: 0;
@@ -281,7 +284,7 @@
 </style>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .apply-options {
     padding: 1em;
@@ -303,20 +306,14 @@
   }
 
   .actions {
-    padding-top: 5em;
-
+    .b-dropdown {
+      position: absolute;
+      right: 24px;
+      top: 8px;
+    }
     .dots {
       height: 16px;
       width: 4px;
-    }
-
-    .btn-group {
-      margin-left: -2em;
-      margin-top: -2em;
-    }
-
-    .action-icon {
-      margin-right: 1em;
     }
   }
 
@@ -353,8 +350,6 @@
 
   .nav {
     font-weight: bold;
-    margin-bottom: .5em;
-    margin-top: .5em;
   }
 
   .nav-item {
@@ -383,10 +378,10 @@ import isEmpty from 'lodash/isEmpty';
 import removeMemberModal from '@/components/members/removeMemberModal';
 import loadingGryphon from '@/components/ui/loadingGryphon';
 import MemberDetails from '../memberDetails';
-import blockIcon from '@/assets/svg/block.svg';
-import messageIcon from '@/assets/members/message.svg';
-import starIcon from '@/assets/members/star.svg';
-import dots from '@/assets/svg/dots.svg';
+import blockIcon from '@/assets/svg/block.svg?raw';
+import messageIcon from '@/assets/members/message.svg?raw';
+import starIcon from '@/assets/members/star.svg?raw';
+import dots from '@/assets/svg/dots.svg?raw';
 import SelectList from '@/components/ui/selectList';
 import { PAGES } from '@/libs/consts';
 import { userStateMixin } from '../../mixins/userState';
@@ -608,9 +603,12 @@ export default {
       this.memberToRemove.index = index;
       this.$root.$emit('bv::show::modal', 'remove-member');
     },
-    memberRemoved () {
-      this.members.splice(this.memberToRemove.index, 1);
+    memberRemoved (removedMember) {
+      // Wrong member is getting removed, let's make sure we've got the right one
+      const memberIndex = this.members.findIndex(member => member._id === removedMember._id);
+      this.members.splice(memberIndex, 1);
       this.group.memberCount -= 1;
+      this.$store.state.memberModalOptions.memberCount -= 1;
       this.memberToRemove = {};
     },
     async quickReply (uid) {

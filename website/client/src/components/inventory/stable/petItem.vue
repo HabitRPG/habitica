@@ -13,19 +13,23 @@
           name="itemBadge"
           :item="item"
         ></slot><span
-          v-if="mountOwned() && isHatchable() && !item.isSpecial()"
+          v-if="isHatchable() && !item.isSpecial()"
           class="item-content hatchAgain"
-        ><span
+        ><Sprite
           class="egg"
-          :class="eggClass"
-        ></span><span
+          :image-name="eggClass"
+        /><Sprite
           class="potion"
-          :class="potionClass"
-        ></span></span><span
+          :image-name="potionClass"
+        />
+        </span>
+        <Sprite
           v-else
           class="item-content"
-          :class="getPetItemClass()"
-        ></span><span
+          :class="itemClass()"
+          :image-name="imageName()"
+        />
+        <span
           v-if="isAllowedToFeed() && progress() > 0"
           class="pet-progress-background"
         ><div
@@ -52,9 +56,9 @@
           v-html="$t('haveHatchablePet', { potion: item.potionName, egg: item.eggName })"
         ></div><div class="potionEggGroup">
           <div class="potionEggBackground">
-            <div :class="potionClass"></div>
+            <Sprite :image-name="potionClass" />
           </div><div class="potionEggBackground">
-            <div :class="eggClass"></div>
+            <Sprite :image-name="eggClass" />
           </div>
         </div>
       </div><div v-else>
@@ -110,7 +114,6 @@
 </style>
 
 <script>
-import some from 'lodash/some';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 import { mapState } from '@/libs/store';
@@ -118,8 +121,12 @@ import foolPet from '@/mixins/foolPet';
 import {
   isAllowedToFeed, isHatchable, isOwned, isSpecial,
 } from '../../../libs/createAnimal';
+import Sprite from '@/components/ui/sprite';
 
 export default {
+  components: {
+    Sprite,
+  },
   mixins: [foolPet],
   props: {
     item: {
@@ -168,22 +175,25 @@ export default {
     isAllowedToFeed () {
       return isAllowedToFeed(this.item, this.userItems);
     },
-    getPetItemClass () {
-      if (this.isOwned() && some(
-        this.currentEventList,
-        event => moment().isBetween(event.start, event.end) && event.aprilFools && event.aprilFools === 'teaShop',
-      )) {
-        if (this.isSpecial()) return `Pet ${this.foolPet(this.item.key)}`;
-        const petString = `${this.item.eggKey}-${this.item.key}`;
-        return `Pet ${this.foolPet(petString)}`;
+    itemClass () {
+      if (this.isOwned() || this.isHatchable()) {
+        return '';
+      }
+      return 'GreyedOut';
+    },
+    imageName () {
+      const substitutionEvent = this.currentEventList?.find(event => moment()
+        .isBetween(event.start, event.end) && event.spriteSubstitutions);
+      if (this.isOwned() && substitutionEvent && substitutionEvent.spriteSubstitutions.pets) {
+        return `stable_${this.foolPet(`Pet-${this.item.key}`, substitutionEvent.spriteSubstitutions.pets)}`;
       }
 
       if (this.isOwned() || (this.mountOwned() && this.isHatchable())) {
-        return `Pet Pet-${this.item.key} ${this.item.eggKey}`;
+        return `stable_Pet-${this.item.key}`;
       }
 
       if (!this.isOwned() && this.isSpecial()) {
-        return 'GreyedOut PixelPaw';
+        return 'PixelPaw';
       }
 
       if (this.isHatchable()) {
@@ -191,11 +201,11 @@ export default {
       }
 
       if (this.mountOwned()) {
-        return `GreyedOut Pet Pet-${this.item.key} ${this.item.eggKey}`;
+        return `stable_Pet-${this.item.key}`;
       }
 
       // Can't hatch
-      return 'GreyedOut PixelPaw';
+      return 'PixelPaw';
     },
     progress () {
       return this.userItems.pets[this.item.key];

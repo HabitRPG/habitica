@@ -12,13 +12,10 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .limitedTime {
     height: 32px;
-    width: calc(100% + 30px);
-    margin: 0 -15px; // the modal content has its own padding
-
     font-size: 12px;
     line-height: 1.33;
     text-align: center;
@@ -44,8 +41,8 @@
 
 <script>
 import moment from 'moment';
-import svgClock from '@/assets/svg/clock.svg';
-import clockWhite from '@/assets/svg/clock-white.svg';
+import svgClock from '@/assets/svg/clock.svg?raw';
+import clockWhite from '@/assets/svg/clock-white.svg?raw';
 
 export default {
   props: {

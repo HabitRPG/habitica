@@ -1,9 +1,10 @@
 <template>
   <div class="quest-content">
-    <div
+    <Sprite
       class="quest-image"
-      :class="'quest_' + item.key"
-    ></div>
+      :image-name="item.purchaseType === 'bundles'
+        ? `quest_bundle_${item.key}` : `quest_${item.key}`"
+    />
     <h3 class="text-center">
       {{ itemText }}
     </h3>
@@ -17,7 +18,7 @@
       <user-label :user="leader" />
     </div>
     <div
-      class="text"
+      class="mx-4"
       v-html="itemNotes"
     ></div>
     <questInfo
@@ -29,7 +30,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   h3 {
     color: $gray-10;
@@ -40,12 +41,7 @@
     margin: 0 auto;
     margin-bottom: 16px;
     margin-top: 24px;
-  }
-
-  .text {
-    margin: 16px 16px;
-    overflow-y: auto;
-    text-overflow: ellipsis;
+    display: block;
   }
 
   .leader-label {
@@ -73,11 +69,13 @@
 <script>
 import QuestInfo from './questInfo.vue';
 import UserLabel from '../../userLabel';
+import Sprite from '../../ui/sprite';
 
 export default {
   components: {
     UserLabel,
     QuestInfo,
+    Sprite,
   },
   props: {
     item: {

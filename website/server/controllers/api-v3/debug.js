@@ -1,8 +1,19 @@
-import _ from 'lodash';
+import mongoose from 'mongoose';
+import get from 'lodash/get';
+import sinon from 'sinon';
+import moment from 'moment';
+import { v4 as uuid } from 'uuid';
 import { authWithHeaders } from '../../middlewares/auth';
-import ensureDevelpmentMode from '../../middlewares/ensureDevelpmentMode';
+import ensureDevelopmentMode from '../../middlewares/ensureDevelopmentMode';
+import ensureTimeTravelMode from '../../middlewares/ensureTimeTravelMode';
 import { BadRequest } from '../../libs/errors';
 import common from '../../../common';
+import {
+  model as Group,
+  // basicFields as basicGroupFields,
+} from '../../models/group';
+import { chatModel as Chat, inboxModel as Inbox } from '../../models/message';
+import connectToMongoDB from '../../libs/mongoose';
 
 const { content } = common;
 
@@ -30,7 +41,7 @@ const api = {};
 api.addTenGems = {
   method: 'POST',
   url: '/debug/add-ten-gems',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -53,7 +64,7 @@ api.addTenGems = {
 api.addHourglass = {
   method: 'POST',
   url: '/debug/add-hourglass',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -76,7 +87,7 @@ api.addHourglass = {
 api.setCron = {
   method: 'POST',
   url: '/debug/set-cron',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
     const cron = req.body.lastCron;
@@ -100,7 +111,7 @@ api.setCron = {
 api.makeAdmin = {
   method: 'POST',
   url: '/debug/make-admin',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -131,7 +142,7 @@ api.makeAdmin = {
 api.modifyInventory = {
   method: 'POST',
   url: '/debug/modify-inventory',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
     const { gear } = req.body;
@@ -173,10 +184,10 @@ api.modifyInventory = {
 api.questProgress = {
   method: 'POST',
   url: '/debug/quest-progress',
-  middlewares: [ensureDevelpmentMode, authWithHeaders()],
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
-    const key = _.get(user, 'party.quest.key');
+    const key = get(user, 'party.quest.key');
     const quest = content.quests[key];
 
     if (!quest) {
@@ -198,6 +209,196 @@ api.questProgress = {
     await user.save();
 
     res.respond(200, {});
+  },
+};
+
+/**
+ * @api {post} /api/v3/debug/boss-rage Artificially trigger boss rage bar
+ * @apiName bossRage
+ * @apiGroup Development
+ * @apiPermission Developers
+ *
+ * @apiSuccess {Object} data An empty Object
+ */
+
+api.bossRage = {
+  method: 'POST',
+  url: '/debug/boss-rage',
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+    const party = await Group.getGroup({
+      user,
+      groupId: 'party',
+    });
+
+    if (!party) {
+      throw new BadRequest('User not in a party.');
+    }
+
+    if (!party.quest.progress.rage) party.quest.progress.rage = 0;
+    party.quest.progress.rage += 50;
+
+    party.markModified('party.quest.progress.rage');
+
+    await party.save();
+
+    res.respond(200, {});
+  },
+};
+
+let clock;
+
+function fakeClock () {
+  if (clock) clock.restore();
+  const time = new Date();
+  clock = sinon.useFakeTimers({
+    now: time,
+    shouldAdvanceTime: true,
+  });
+}
+
+api.timeTravelTime = {
+  method: 'GET',
+  url: '/debug/time-travel-time',
+  middlewares: [ensureTimeTravelMode, authWithHeaders()],
+  async handler (req, res) {
+    if (clock === undefined) {
+      fakeClock();
+    }
+
+    res.respond(200, {
+      time: new Date(),
+    });
+  },
+};
+
+api.timeTravelAdjust = {
+  method: 'POST',
+  url: '/debug/jump-time',
+  middlewares: [ensureTimeTravelMode, authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+
+    if (!user.permissions.fullAccess) {
+      throw new BadRequest('You do not have permission to time travel.');
+    }
+
+    const { offsetDays, reset, disable } = req.body;
+    if (reset) {
+      fakeClock();
+    } else if (disable) {
+      clock.restore();
+      clock = undefined;
+    } else if (offsetDays) {
+      if (clock === undefined) {
+        fakeClock();
+      }
+      try {
+        clock.setSystemTime(moment().add(offsetDays, 'days').toDate());
+      } catch (e) {
+        throw new BadRequest('Error adjusting time');
+      }
+    } else {
+      throw new BadRequest('Invalid command');
+    }
+
+    if (mongoose.connection.readyState === 0) {
+      await connectToMongoDB();
+    }
+
+    res.respond(200, {
+      time: new Date(),
+    });
+  },
+};
+
+api.seedPartyChat = {
+  method: 'POST',
+  url: '/debug/seed-party-chat',
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+    const messageCount = Number(req.body.messageCount);
+
+    if (!Number.isInteger(messageCount) || messageCount < 1) {
+      throw new BadRequest('messageCount must be a positive integer.');
+    }
+
+    if (!user.party._id) {
+      throw new BadRequest('You are not in a party.');
+    }
+
+    const party = await Group.findOne({ _id: user.party._id, type: 'party' }).exec();
+    if (!party) {
+      throw new BadRequest('Party not found.');
+    }
+
+    const messages = [];
+    const baseTimestamp = Date.now();
+
+    for (let i = 1; i <= messageCount; i += 1) {
+      const id = uuid();
+      messages.push({
+        _id: id,
+        id,
+        groupId: party._id,
+        text: `#${i}`,
+        unformattedText: `#${i}`,
+        timestamp: new Date(baseTimestamp - (messageCount - i) * 1000),
+        likes: {},
+        flags: {},
+        flagCount: 0,
+        uuid: 'system',
+        user: 'System',
+        client: 'debug-seed',
+      });
+    }
+
+    await Chat.insertMany(messages);
+
+    res.respond(200, { messageCount });
+  },
+};
+
+// Messaging ourselves for testing
+api.seedInbox = {
+  method: 'POST',
+  url: '/debug/seed-inbox',
+  middlewares: [ensureDevelopmentMode, authWithHeaders()],
+  async handler (req, res) {
+    const { user } = res.locals;
+    const messageCount = Number(req.body.messageCount);
+
+    if (!Number.isInteger(messageCount) || messageCount < 1) {
+      throw new BadRequest('messageCount must be a positive integer.');
+    }
+
+    const messages = [];
+    const baseTimestamp = Date.now();
+
+    for (let i = 1; i <= messageCount; i += 1) {
+      const id = uuid();
+      messages.push({
+        _id: id,
+        id,
+        ownerId: user._id,
+        uuid: user._id,
+        user: user.profile.name,
+        text: `#${i}`,
+        unformattedText: `#${i}`,
+        timestamp: new Date(baseTimestamp - (messageCount - i) * 1000),
+        likes: {},
+        flags: {},
+        flagCount: 0,
+        sent: true,
+        client: 'debug-seed',
+      });
+    }
+
+    await Inbox.insertMany(messages);
+
+    res.respond(200, { messageCount });
   },
 };
 

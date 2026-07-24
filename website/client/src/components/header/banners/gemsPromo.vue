@@ -11,69 +11,56 @@
       class="content d-flex justify-content-around align-items-center"
       @click="openGemsModal"
     >
-      <img
-        v-if="eventName === 'fall_extra_gems'"
-        class="d-none d-xl-block"
-        srcset="
-    ~@/assets/images/gems/fall-confetti-left/confetti.png,
-    ~@/assets/images/gems/fall-confetti-left/confetti@2x.png 2x,
-    ~@/assets/images/gems/fall-confetti-left/confetti@3x.png 3x"
-        src="~@/assets/images/gems/fall-confetti-left/confetti.png"
-      >
-      <img
-        v-else-if="eventName === 'spooky_extra_gems'"
-        class="d-none d-xl-block"
-        srcset="
-    ~@/assets/images/gems/spooky-confetti-left/confetti.png,
-    ~@/assets/images/gems/spooky-confetti-left/confetti@2x.png 2x,
-    ~@/assets/images/gems/spooky-confetti-left/confetti@3x.png 3x"
-        src="~@/assets/images/gems/spooky-confetti-left/confetti.png"
-      >
-      <div class="promo-test">
+      <div
+        class="w-100"
+        :class="confettiClass('left')"
+      ></div>
+      <div>
         <img
-          v-if="eventName === 'fall_extra_gems'"
-          srcset="
-      ~@/assets/images/gems/fall-text/text.png,
-      ~@/assets/images/gems/fall-text/text@2x.png 2x,
-      ~@/assets/images/gems/fall-text/text@3x.png 3x"
-          src="~@/assets/images/gems/fall-text/text.png"
-        >
-        <img
-          v-else-if="eventName === 'spooky_extra_gems'"
-          srcset="
-      ~@/assets/images/gems/spooky-text/text.png,
-      ~@/assets/images/gems/spooky-text/text@2x.png 2x,
-      ~@/assets/images/gems/spooky-text/text@3x.png 3x"
-          src="~@/assets/images/gems/spooky-text/text.png"
+          :srcset="textAssets?.srcSet"
+          :src="textAssets?.src"
         >
       </div>
-      <img
-        v-if="eventName === 'fall_extra_gems'"
-        class="d-none d-xl-block"
-        srcset="
-    ~@/assets/images/gems/fall-confetti-right/confetti.png,
-    ~@/assets/images/gems/fall-confetti-right/confetti@2x.png 2x,
-    ~@/assets/images/gems/fall-confetti-right/confetti@3x.png 3x"
-        src="~@/assets/images/gems/fall-confetti-right/confetti.png"
-      >
-      <img
-        v-else-if="eventName === 'spooky_extra_gems'"
-        class="d-none d-xl-block"
-        srcset="
-    ~@/assets/images/gems/spooky-confetti-right/confetti.png,
-    ~@/assets/images/gems/spooky-confetti-right/confetti@2x.png 2x,
-    ~@/assets/images/gems/spooky-confetti-right/confetti@3x.png 3x"
-        src="~@/assets/images/gems/spooky-confetti-right/confetti.png"
-      >
+      <div
+        class="w-100"
+        :class="confettiClass('right')"
+      ></div>
     </div>
   </base-banner>
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
-.gems-promo-banner-fall_extra_gems {
-  background: $gray-10;
+$promos: ('spring', 'summer', 'fall', 'winter', 'flash');
+$sides: ('left', 'right');
+$types: ('seasonal', 'spooky');
+
+@each $type in $types {
+  @each $side in $sides {
+    .confetti-#{$side}-#{$type} {
+      height: 48px;
+      background-image: url('/static/gems/confetti-#{$side}/#{$type}-confetti-#{$side}.png');
+      background-image: image-set(
+        url('/static/gems/confetti-#{$side}/#{$type}-confetti-#{$side}.png') 1x,
+        url('/static/gems/confetti-#{$side}/#{$type}-confetti-#{$side}@2x.png') 2x,
+        url('/static/gems/confetti-#{$side}/#{$type}-confetti-#{$side}@3x.png') 3x,
+      );
+      background-repeat: repeat-x;
+    }
+  }
+  .confetti-left-#{$type} {
+    margin-right: 60px;
+  }
+  .confetti-right-#{$type} {
+    margin-left: 60px;
+  }
+}
+
+@each $event in $promos {
+  .gems-promo-banner-#{$event}_extra_gems {
+    background: $gray-10;
+  }
 }
 
 .gems-promo-banner-spooky_extra_gems {
@@ -86,6 +73,12 @@
     cursor: pointer;
   }
 }
+
+::v-deep .modal-close .svg-close {
+  color: $white;
+  opacity: .5;
+}
+
 </style>
 
 <script>
@@ -107,6 +100,12 @@ export default {
     eventName () {
       return this.currentEvent && this.currentEvent.event;
     },
+    gemsPromoSeason () {
+      const { currentEvent } = this;
+      if (!currentEvent) return null;
+      return currentEvent.gemsPromo ? currentEvent.event.split('_')[0] // eslint-disable-line prefer-destructuring
+        : '';
+    },
     showGemsPromoBanner () {
       const currEvt = this.currentEvent;
       if (!currEvt || !currEvt.gemsPromo) return false;
@@ -118,10 +117,24 @@ export default {
       if (!this.showGemsPromoBanner) return bannerClass;
       return `${bannerClass} ${bannerClass}-${this.eventName}`;
     },
+    textAssets () {
+      return {
+        src: `/static/gems/text/${this.gemsPromoSeason}-text.png`,
+        srcSet: `/static/gems/text/${this.gemsPromoSeason}-text.png,
+          /static/gems/text/${this.gemsPromoSeason}-text@2x.png 2x,
+          /static/gems/text/${this.gemsPromoSeason}-text@3x.png 3x`,
+      };
+    },
   },
   methods: {
     openGemsModal () {
       this.$root.$emit('bv::show::modal', 'buy-gems');
+    },
+    confettiClass (side = 'left') {
+      if (this.gemsPromoSeason === 'spooky') {
+        return `confetti-${side}-spooky`;
+      }
+      return `confetti-${side}-seasonal`;
     },
   },
 };

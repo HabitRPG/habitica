@@ -1,15 +1,22 @@
 {
     "rebirthNew": "Rinascita: una nuova avventura è disponibile!",
     "rebirthUnlock": "Hai sbloccato Rinascita! Questo speciale oggetto del Mercato ti permette di iniziare una nuova partita al livello 1, mantenendo però le tue attività, gli obiettivi, gli animali ed altro. Usalo per dare nuova vita ad Habitica se senti di avere già ottenuto tutto, oppure per provare le nuove funzionalità con gli occhi di un personaggio principiante!",
-    "rebirthAchievement": "Hai iniziato una nuova avventura! Questa è la rinascita numero <%= number %> per te, il livello più alto che hai raggiunto è <%= level %>. Per ottenere un'altra medaglia, inizia una nuova avventura quando avrai raggiunto un livello ancora più alto!",
-    "rebirthAchievement100": "Hai iniziato una nuova avventura! Questa è la rinascita numero <%= number %> per te, il livello più alto che hai raggiunto è 100 o superiore. Per ottenere un'altra medaglia, inizia una nuova avventura quando avrai raggiunto almeno il livello 100!",
+    "rebirthAchievement": "Hai usato la Sfera della Rinascita <strong><%= number %></strong> volte e il livello più alto che hai raggiunto è <strong><%= level %></strong>.",
+    "rebirthAchievement100": "Hai usato la Sfera della Rinascita <strong><%= number %></strong> volte e il livello più alto che hai raggiunto è <strong>100</strong> o superiore.",
     "rebirthBegan": "Ha cominciato una nuova avventura",
     "rebirthText": "Ha cominciato <%= rebirths %> nuove avventure",
     "rebirthOrb": "Ha utilizzato una Sfera della Rinascita per ricominciare dopo aver raggiunto il livello <%= level %>.",
     "rebirthOrb100": "Ha utilizzato una Sfera della Rinascita per ricominciare dopo aver raggiunto il livello 100+.",
     "rebirthOrbNoLevel": "Ha utilizzato una Sfera della Rinascita per ricominciare da capo.",
-    "rebirthPop": "Fai ripartire subito il tuo personaggio dal Livello 1 come Guerriero mantenendo medaglie, oggetti collezionabili ed equipaggiamento. Le tue attività e la loro cronologia rimarranno, ma torneranno al colore giallo. I contatori serie verranno resettati per tutte le attività, eccetto quelle appartenenti alle Sfide ed ai Piani di Gruppo. Il tuo oro, esperienza, mana ed effetti di tutte le abilità verranno rimossi. Tutto questo avrà effetto immediatamente. Per maggiori informazioni, visita la pagina della Wiki sulla <a href='https://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Sfera della Rinascita</a>.",
+    "rebirthPop": "Fai ripartire subito il tuo personaggio dal Livello 1 come Guerriero mantenendo medaglie, oggetti collezionabili ed equipaggiamento. Le tue attività e la loro cronologia rimarranno, ma torneranno al colore giallo. I contatori serie verranno resettati per tutte le attività, eccetto quelle appartenenti alle Sfide ed ai Piani di Gruppo. Il tuo oro, esperienza, mana ed effetti di tutte le abilità verranno rimossi. Tutto questo avrà effetto immediatamente.",
     "rebirthName": "Sfera della Rinascita",
     "rebirthComplete": "Rinascita completata!",
-    "nextFreeRebirth": "<strong><%= days %> giorni </strong> alla Sfera di rinascita <strong>GRATUITA</strong>"
+    "nextFreeRebirth": "<strong><%= days %> giorni </strong> alla Sfera di rinascita <strong>GRATUITA</strong>",
+    "rebirthUnlockedNewItem": "Sfera della Rinascita Sbloccata",
+    "rebirthUnlockedOrb": "È disponibile una nuova avventura!",
+    "rebirthUnlockedDesc": "Usa la Sfera della Rinascita per dare nuova vita alla tua avventura su Habitica quando senti di aver raggiunto tutti i tuoi obiettivi! Ricomincia dal livello 1 conservando i tuoi compiti,le tue Medaglie e i tuoi Animali domestici grazie a questo oggetto speciale che trovi nel Mercato.",
+    "rebirthNewAchievement": "Nuova Medaglia",
+    "rebirthNewAdventure": "Una nuova avventura ha ora inizio!",
+    "rebirthAchievementPlural": "Hai usato la Sfera della Rinascita <strong><%= number %></strong> volte e il livello più alto che hai raggiunto è <strong><%= level %></strong>.",
+    "rebirthStackInfo": "Questa medaglia si accumulerà ogni volta che userai la Sfera della Rinascita."
 }

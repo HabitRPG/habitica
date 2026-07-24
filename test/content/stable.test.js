@@ -6,12 +6,21 @@ import {
 } from '../helpers/content.helper';
 import t from '../../website/common/script/content/translation';
 
-import * as stable from '../../website/common/script/content/stable';
-import * as eggs from '../../website/common/script/content/eggs';
-import * as potions from '../../website/common/script/content/hatching-potions';
+import stable from '../../website/common/script/content/stable';
+import eggs from '../../website/common/script/content/eggs';
+import potions from '../../website/common/script/content/hatching-potions';
 
 describe('stable', () => {
   describe('dropPets', () => {
+    let clock;
+    beforeEach(() => {
+      clock = sinon.useFakeTimers(new Date('2020-05-20'));
+    });
+
+    afterEach(() => {
+      clock.restore();
+    });
+
     it('contains a pet for each drop potion * each drop egg', () => {
       const numberOfDropPotions = Object.keys(potions.drops).length;
       const numberOfDropEggs = Object.keys(eggs.drops).length;

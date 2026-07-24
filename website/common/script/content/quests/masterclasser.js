@@ -702,7 +702,7 @@ const QUEST_MASTERCLASSER = {
         title: t('questLostMasterclasser4RageTitle'),
         description: t('questLostMasterclasser4RageDescription'),
         value: 15,
-        mpDrain: true,
+        mpDrain: 1,
         effect: t('questLostMasterclasser4RageEffect'),
       },
     },

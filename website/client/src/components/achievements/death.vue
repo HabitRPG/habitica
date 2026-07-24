@@ -55,7 +55,7 @@
         </button>
         <h4
           class="text-center"
-          v-html="$t('dyingOftenTips')"
+          v-html="$t('dyingOftenTips', tipLinks)"
         ></h4>
       </div>
     </div>
@@ -73,11 +73,11 @@
 
 <script>
 import axios from 'axios';
-import Avatar from '../avatar';
-import { mapState } from '@/libs/store';
 import percent from '@/../../common/script/libs/percent';
 import { MAX_HEALTH as maxHealth } from '@/../../common/script/constants';
 import revive from '@/../../common/script/ops/revive';
+import { mapState } from '@/libs/store';
+import Avatar from '../avatar';
 
 export default {
   components: {
@@ -86,6 +86,10 @@ export default {
   data () {
     return {
       maxHealth,
+      tipLinks: {
+        linkOpen: '<a href="/static/faq#prevent-damage" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {

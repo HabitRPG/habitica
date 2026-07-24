@@ -14,7 +14,7 @@
           :top="true"
         />
         <div
-          class="top-menu-icon svg-icon user"
+          class="top-menu-icon svg-icon mr-2"
           v-html="icons.user"
         ></div>
       </div>
@@ -35,13 +35,9 @@
         />
       </a>
       <a
-        class="topbar-dropdown-item dropdown-item"
+        class="topbar-dropdown-item dropdown-item dropdown-separated"
         @click="showAvatar('body', 'size')"
       >{{ $t('editAvatar') }}</a>
-      <a
-        class="topbar-dropdown-item dropdown-item dropdown-separated"
-        @click="showAvatar('backgrounds', '2023')"
-      >{{ $t('backgrounds') }}</a>
       <a
         class="topbar-dropdown-item dropdown-item"
         @click="showProfile('profile')"
@@ -56,7 +52,7 @@
       >{{ $t('achievements') }}</a>
       <router-link
         class="topbar-dropdown-item dropdown-item"
-        :to="{name: 'site'}"
+        :to="{name: 'general'}"
       >
         {{ $t('settings') }}
       </router-link>
@@ -84,10 +80,10 @@
         <img
           class="swords mb-3"
           srcset="
-        ~@/assets/images/swords.png,
-        ~@/assets/images/swords@2x.png 2x,
-        ~@/assets/images/swords@3x.png 3x"
-          src="~@/assets/images/swords.png"
+        @/assets/images/swords.png,
+        @/assets/images/swords@2x.png 2x,
+        @/assets/images/swords@3x.png 3x"
+          src="@/assets/images/swords.png"
         >
         <p
           v-once
@@ -108,7 +104,12 @@
 </template>
 
 <style lang='scss' scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
+@media only screen and (max-width: 992px) {
+  .item-with-icon.item-user {
+    margin-right: 0px;
+  }
+}
 
 .user-dropdown {
   width: 14.75em;
@@ -139,9 +140,9 @@
 
 <script>
 import { mapState } from '@/libs/store';
-import userIcon from '@/assets/svg/user.svg';
+import userIcon from '@/assets/svg/user.svg?raw';
 import MenuDropdown from '../ui/customMenuDropdown';
-import MessageCount from './messageCount';
+import MessageCount from './messageCount.functional.vue';
 import { EVENTS } from '@/libs/events';
 import { PAGES } from '@/libs/consts';
 
@@ -175,7 +176,12 @@ export default {
       }
     },
     showProfile (startingPage) {
-      this.$router.push({ name: startingPage });
+      const userId = this.$store.state.user.data._id;
+      let path = `/profile/${userId}`;
+      if (startingPage !== 'profile') {
+        path += `#${startingPage}`;
+      }
+      this.$router.push(path);
     },
     toLearnMore () {
       this.$router.push({ name: 'subscription' });

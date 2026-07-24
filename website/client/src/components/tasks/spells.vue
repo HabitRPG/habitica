@@ -8,10 +8,10 @@
       <div class="spell">
         <div class="spell-border">
           <div class="mana">
-            <div
+            <Sprite
               class="img"
-              :class="`shop_${spell.key} shop-sprite item-img`"
-            ></div>
+              :image-name="`shop_${spell.key}`"
+            />
           </div>
         </div>
         <div class="details">
@@ -69,16 +69,15 @@
               <div
                 class="spell-border"
                 :class="{ disabled: spellDisabled(key) || user.stats.lvl < skill.lvl,
-                 'insufficient-mana': user.stats.mp < skill.mana }"
+                          'insufficient-mana': user.stats.mp < skill.mana }"
               >
                 <div
                   class="spell"
                 >
                   <div class="details">
-                    <div
-                      class="img"
-                      :class="`shop_${skill.key} shop-sprite item-img`"
-                    ></div>
+                    <Sprite
+                      :image-name="`shop_${skill.key}`"
+                    />
                   </div>
                   <div
                     v-if="user.stats.lvl < skill.lvl"
@@ -112,7 +111,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
 .drawer-wrapper {
   width: 100vw;
@@ -395,16 +394,18 @@ import spellsMixin from '@/mixins/spells';
 import Drawer from '@/components/ui/drawer';
 import MouseMoveDirective from '@/directives/mouseposition.directive';
 
-import mana from '@/assets/svg/mana.svg';
+import mana from '@/assets/svg/mana.svg?raw';
 import {
   CONSTANTS,
   setLocalSetting,
   getLocalSetting,
 } from '@/libs/userlocalManager';
+import Sprite from '@/components/ui/sprite';
 
 export default {
   components: {
     Drawer,
+    Sprite,
   },
   directives: {
     mousePosition: MouseMoveDirective,
@@ -448,8 +449,10 @@ export default {
       this.$store.state.spellOptions.spellDrawOpen = newState;
 
       if (newState) {
-        setLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE,
-          CONSTANTS.drawerStateValues.DRAWER_OPEN);
+        setLocalSetting(
+          CONSTANTS.keyConstants.SPELL_DRAWER_STATE,
+          CONSTANTS.drawerStateValues.DRAWER_OPEN,
+        );
         return;
       }
 

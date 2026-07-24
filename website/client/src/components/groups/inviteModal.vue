@@ -75,7 +75,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   a:not([href]) {
     font-size: 16px;
@@ -84,11 +84,6 @@
   .form-control {
     border: 0px;
     color: $gray-50;
-  }
-
-  .input-error {
-    color: $red-50;
-    font-size: 90%;
   }
 
   .input-group {
@@ -127,11 +122,11 @@
 <script>
 import clone from 'lodash/clone';
 import debounce from 'lodash/debounce';
-import isEmail from 'validator/lib/isEmail';
-import isUUID from 'validator/lib/isUUID';
+import isEmail from 'validator/es/lib/isEmail';
+import isUUID from 'validator/es/lib/isUUID';
 import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
-import positiveIcon from '@/assets/svg/positive.svg';
+import positiveIcon from '@/assets/svg/positive.svg?raw';
 
 const INVITE_DEFAULTS = { text: '', error: null, valid: null };
 

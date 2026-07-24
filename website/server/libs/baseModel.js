@@ -36,10 +36,6 @@ export default function baseModel (schema, options = {}) {
       next();
     });
 
-    schema.pre('update', function preUpdateModel () {
-      this.set({}, { $set: { updatedAt: new Date() } });
-    });
-
     schema.pre('updateOne', function preUpdateModel () {
       this.set({}, { $set: { updatedAt: new Date() } });
     });

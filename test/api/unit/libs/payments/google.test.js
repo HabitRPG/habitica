@@ -11,12 +11,36 @@ const { i18n } = common;
 
 describe('Google Payments', () => {
   const subKey = 'basic_3mo';
+  let iapSetupStub;
+  let iapValidateStub;
+  let iapIsValidatedStub;
+  let paymentBuySkuStub;
+  let validateGiftMessageStub;
+
+  beforeEach(() => {
+    iapSetupStub = sinon.stub(iap, 'setup')
+      .resolves();
+    iapIsValidatedStub = sinon.stub(iap, 'isValidated')
+      .returns(true);
+    sinon.stub(iap, 'isCanceled').returns(false);
+    sinon.stub(iap, 'isExpired').returns(false);
+    paymentBuySkuStub = sinon.stub(payments, 'buySkuItem').resolves({});
+    validateGiftMessageStub = sinon.stub(gems, 'validateGiftMessage');
+  });
+
+  afterEach(() => {
+    iap.setup.restore();
+    iap.validate.restore();
+    iap.isValidated.restore();
+    iap.isCanceled.restore();
+    iap.isExpired.restore();
+    payments.buySkuItem.restore();
+    gems.validateGiftMessage.restore();
+  });
 
   describe('verifyPurchase', () => {
     let sku; let user; let token; let receipt; let signature; let
       headers;
-    let iapSetupStub; let iapValidateStub; let iapIsValidatedStub; let
-      paymentBuySkuStub; let validateGiftMessageStub;
 
     beforeEach(() => {
       sku = 'com.habitrpg.android.habitica.iap.21gems';
@@ -25,21 +49,7 @@ describe('Google Payments', () => {
       signature = '';
       headers = {};
 
-      iapSetupStub = sinon.stub(iap, 'setup')
-        .resolves();
       iapValidateStub = sinon.stub(iap, 'validate').resolves({ productId: sku });
-      iapIsValidatedStub = sinon.stub(iap, 'isValidated')
-        .returns(true);
-      paymentBuySkuStub = sinon.stub(payments, 'buySkuItem').resolves({});
-      validateGiftMessageStub = sinon.stub(gems, 'validateGiftMessage');
-    });
-
-    afterEach(() => {
-      iap.setup.restore();
-      iap.validate.restore();
-      iap.isValidated.restore();
-      payments.buySkuItem.restore();
-      gems.validateGiftMessage.restore();
     });
 
     it('should throw an error if receipt is invalid', async () => {
@@ -160,8 +170,7 @@ describe('Google Payments', () => {
   describe('subscribe', () => {
     let sub; let sku; let user; let token; let receipt; let signature; let headers; let
       nextPaymentProcessing;
-    let iapSetupStub; let iapValidateStub; let iapIsValidatedStub; let
-      paymentsCreateSubscritionStub;
+    let paymentsCreateSubscritionStub;
 
     beforeEach(() => {
       sub = common.content.subscriptionBlocks[subKey];
@@ -173,19 +182,12 @@ describe('Google Payments', () => {
       signature = '';
       nextPaymentProcessing = moment.utc().add({ days: 2 });
 
-      iapSetupStub = sinon.stub(iap, 'setup')
-        .resolves();
       iapValidateStub = sinon.stub(iap, 'validate')
         .resolves({});
-      iapIsValidatedStub = sinon.stub(iap, 'isValidated')
-        .returns(true);
       paymentsCreateSubscritionStub = sinon.stub(payments, 'createSubscription').resolves({});
     });
 
     afterEach(() => {
-      iap.setup.restore();
-      iap.validate.restore();
-      iap.isValidated.restore();
       payments.createSubscription.restore();
     });
 
@@ -243,7 +245,7 @@ describe('Google Payments', () => {
   describe('cancelSubscribe ', () => {
     let user; let token; let receipt; let signature; let headers; let customerId; let
       expirationDate;
-    let iapSetupStub; let iapValidateStub; let iapIsValidatedStub; let iapGetPurchaseDataStub; let
+    let iapGetPurchaseDataStub; let
       paymentCancelSubscriptionSpy;
 
     beforeEach(async () => {
@@ -253,17 +255,12 @@ describe('Google Payments', () => {
       signature = '';
       customerId = 'test-customerId';
       expirationDate = moment.utc();
-
-      iapSetupStub = sinon.stub(iap, 'setup')
-        .resolves();
       iapValidateStub = sinon.stub(iap, 'validate')
         .resolves({
           expirationDate,
         });
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
         .returns([{ expirationDate: expirationDate.toDate(), autoRenewing: false }]);
-      iapIsValidatedStub = sinon.stub(iap, 'isValidated')
-        .returns(true);
 
       user = new User();
       user.profile.name = 'sender';
@@ -276,9 +273,6 @@ describe('Google Payments', () => {
     });
 
     afterEach(() => {
-      iap.setup.restore();
-      iap.validate.restore();
-      iap.isValidated.restore();
       iap.getPurchaseData.restore();
       payments.cancelSubscription.restore();
     });
@@ -308,6 +302,8 @@ describe('Google Payments', () => {
     });
 
     it('should cancel a user subscription', async () => {
+      iap.isCanceled.restore();
+      iap.isCanceled = sinon.stub(iap, 'isCanceled').returns(true);
       await googlePayments.cancelSubscribe(user, headers);
 
       expect(iapSetupStub).to.be.calledOnce;
@@ -332,11 +328,20 @@ describe('Google Payments', () => {
     });
 
     it('should cancel a user subscription with multiple inactive subscriptions', async () => {
+      iap.isCanceled.restore();
+      iap.isCanceled = sinon.stub(iap, 'isCanceled').returns(true);
       const laterDate = moment.utc().add(7, 'days');
       iap.getPurchaseData.restore();
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
-        .returns([{ expirationDate, autoRenewing: false },
-          { expirationDate: laterDate, autoRenewing: false },
+        .returns([{
+          startTimeMillis: expirationDate.valueOf(),
+          expirationDate,
+          autoRenewing: false,
+        }, {
+          startTimeMillis: laterDate.valueOf(),
+          expirationDate: laterDate,
+          autoRenewing: false,
+        },
         ]);
       await googlePayments.cancelSubscribe(user, headers);
 
@@ -365,7 +370,12 @@ describe('Google Payments', () => {
       iap.getPurchaseData.restore();
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
         .returns([{ autoRenewing: true }]);
-      await googlePayments.cancelSubscribe(user, headers);
+      await expect(googlePayments.cancelSubscribe(user, headers))
+        .to.eventually.be.rejected.and.to.eql({
+          httpCode: 401,
+          name: 'NotAuthorized',
+          message: googlePayments.constants.RESPONSE_STILL_VALID,
+        });
 
       expect(iapSetupStub).to.be.calledOnce;
       expect(iapValidateStub).to.be.calledOnce;
@@ -388,8 +398,12 @@ describe('Google Payments', () => {
         .returns([{ expirationDate, autoRenewing: false },
           { autoRenewing: true },
           { expirationDate, autoRenewing: false }]);
-      await googlePayments.cancelSubscribe(user, headers);
-
+      await expect(googlePayments.cancelSubscribe(user, headers))
+        .to.eventually.be.rejected.and.to.eql({
+          httpCode: 401,
+          name: 'NotAuthorized',
+          message: googlePayments.constants.RESPONSE_STILL_VALID,
+        });
       expect(iapSetupStub).to.be.calledOnce;
       expect(iapValidateStub).to.be.calledOnce;
       expect(iapValidateStub).to.be.calledWith(iap.GOOGLE, {

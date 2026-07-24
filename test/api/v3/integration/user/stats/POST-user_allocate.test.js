@@ -2,7 +2,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import apiError from '../../../../../../website/server/libs/apiError';
+import { apiError } from '../../../../../../website/server/libs/apiError';
 
 describe('POST /user/allocate', () => {
   let user;
@@ -36,7 +36,7 @@ describe('POST /user/allocate', () => {
   });
 
   it('returns an error if the user hasn\'t selected class', async () => {
-    await user.update({ 'flags.classSelected': false });
+    await user.updateOne({ 'flags.classSelected': false });
     await expect(user.post('/user/allocate'))
       .to.eventually.be.rejected.and.eql({
         code: 401,
@@ -46,7 +46,7 @@ describe('POST /user/allocate', () => {
   });
 
   it('allocates attribute points', async () => {
-    await user.update({ 'stats.points': 1 });
+    await user.updateOne({ 'stats.points': 1 });
     const res = await user.post('/user/allocate?stat=con');
     await user.sync();
     expect(user.stats.con).to.equal(1);

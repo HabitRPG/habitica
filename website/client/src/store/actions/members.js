@@ -114,3 +114,19 @@ export async function getPurchaseHistory (store, payload) {
   const response = await axios.get(`${apiv4Prefix}/members/${payload.memberId}/purchase-history`);
   return response.data.data;
 }
+
+export async function reportMember (store, payload) {
+  const url = `${apiv4Prefix}/members/${payload.memberId}/flag`;
+  const data = {
+    comment: payload.comment,
+    source: payload.source,
+  };
+  const response = await axios.post(url, data);
+  return response;
+}
+
+export async function clearMemberFlags (store, payload) {
+  const url = `${apiv4Prefix}/members/${payload.memberId}/clear-flags`;
+  const response = await axios.post(url);
+  return response;
+}

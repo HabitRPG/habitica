@@ -12,11 +12,11 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+@import '@/assets/scss/colors.scss';
 
   .badge-pin {
     background-color: $white;
-    color: $gray-200;
+    color: $gray-100;
     transition: none;
     display: flex;
     cursor: pointer;
@@ -32,15 +32,15 @@
     }
 
     .svg-icon {
-      width: 100%;
-      height: 100%;
+      width: 16px;
+      height: 16px;
     }
   }
 
 </style>
 
 <script>
-import svgPin from '@/assets/svg/pin.svg';
+import svgPin from '@/assets/svg/pin.svg?raw';
 
 export default {
   props: {

@@ -38,7 +38,7 @@
 
 <style lang="scss">
 
-  @import '~@/assets/scss/colors.scss';
+  @import '@/assets/scss/colors.scss';
 
   .attributes-group {
     border-radius: 4px;
