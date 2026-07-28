@@ -52,6 +52,9 @@ api.readNotification = {
 
 /**
  * @api {post} /api/v3/notifications/read Mark multiple notifications as read
+ * @apiDescription Marks multiple notifications as read by removing them
+ * from the user's notification list. This differs from marking notifications
+ * as seen, which retains them but sets the `seen` field to true.
  * @apiName ReadNotifications
  * @apiGroup Notification
  *
