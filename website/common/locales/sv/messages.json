@@ -39,7 +39,7 @@
     "messageGroupChatFlagAlreadyReported": "Du har redan rapporterat det här meddelandet",
     "messageGroupChatNotFound": "Meddelandet hittades inte!",
     "messageGroupChatAdminClearFlagCount": "Endast en administratör kan rensa flagg-räknaren!",
-    "messageCannotFlagSystemMessages": "Du kan inte flagga ett systemmeddelande. Om du behöver rapportera något som är emot gemenskapens riktlinjer i samband med detta meddelande får du gärna skicka ett mail med en skärmdump och en förklaring till Lemoness på adressen <%= communityManagerEmail %>.",
+    "messageCannotFlagSystemMessages": "Du kan inte rapportera ett systemmeddelande. Om du behöver anmäla ett brott mot gemenskapens riktlinjer i samband med detta meddelande, vänligen skicka en skärmdump och en förklaring till vår Community Manager på <%= communityManagerEmail %>.",
     "messageCannotLeaveWhileQuesting": "Du kan inte acceptera denna inbjudan medan du är i ett uppdrag. Om du vill gå med i detta sällskap måste du först avbryta ditt uppdrag, vilket du kan göra på sällskapssidan. Du får då tillbaka rullen för uppdraget.",
     "messageUserOperationProtected": "sökvägen `<%= operation %>` sparades inte, eftersom det är en skyddad sökväg.",
     "messageNotificationNotFound": "Notisen hittades inte.",
@@ -49,5 +49,12 @@
     "messageDeletedUser": "Tyvärr har denna användare raderat sitt konto.",
     "messageMissingDisplayName": "Visningsnamn saknas.",
     "reportedMessage": "Du har rapporterat det här meddelandet till moderatorerna.",
-    "canDeleteNow": "Du kan radera meddelandet nu om du vill."
+    "canDeleteNow": "Du kan radera meddelandet nu om du vill.",
+    "featureRetired": "Denna funktion stöds inte längre.",
+    "messageBattleGearUnEquipped": "Stridsutrustning bortplockad.",
+    "newsPostNotFound": "Nyhetsinlägg hittades inte eller så har du inte åtkomst.",
+    "messageAllUnEquipped": "Allt bortplockat",
+    "messagePetMountUnEquipped": "Husdjur och Riddjur bortplockade",
+    "messageBackgroundUnEquipped": "Bakgrund bordplockad",
+    "messageCostumeUnEquipped": "Dräkt bortplockad"
 }

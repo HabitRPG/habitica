@@ -155,6 +155,10 @@ const wacky = {
     canBuy: hasQuestAchievementFunction('fungi'),
   },
   Cryptid: {},
+  Alien: {
+    questPotion: true,
+    canBuy: hasQuestAchievementFunction('alien'),
+  },
 };
 
 each(drops, (pot, key) => {

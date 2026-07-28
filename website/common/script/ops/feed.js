@@ -2,9 +2,7 @@ import forEach from 'lodash/forEach';
 import findIndex from 'lodash/findIndex';
 import get from 'lodash/get';
 import keys from 'lodash/keys';
-import pick from 'lodash/pick';
 import upperFirst from 'lodash/upperFirst';
-import moment from 'moment';
 import i18n from '../i18n';
 import content from '../content/index';
 import {
@@ -36,7 +34,7 @@ function evolve (user, pet, req) {
   }, req.language);
 }
 
-export default function feed (user, req = {}, analytics) {
+export default function feed (user, req = {}) {
   let pet = get(req, 'params.pet');
   const foodK = get(req, 'params.food');
   let amount = Number(get(req.query, 'amount', 1));
@@ -116,7 +114,7 @@ export default function feed (user, req = {}, analytics) {
 
     if (!user.achievements.fedPet && user.addAchievement) {
       user.addAchievement('fedPet');
-      checkOnboardingStatus(user, req, analytics);
+      checkOnboardingStatus(user, req);
     }
   }
 
@@ -140,17 +138,6 @@ export default function feed (user, req = {}, analytics) {
       }
     }
   });
-
-  if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
-    analytics.track('pet feed', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      uuid: user._id,
-      foodKey: food.key,
-      petKey: pet.key,
-      category: 'behavior',
-      headers: req.headers,
-    });
-  }
 
   return [
     user.items.pets[pet.key],

@@ -12,7 +12,6 @@
     "showLess": "להציג פחות",
     "markdownHelpLink": "עזרה בעיצוב סימון מיוחד",
     "bold": "**מודגש**",
-    "markdownImageEx": "![טקסט אלטרנטיבי - חובה](https://habitica.com/cake.png \"כותרת מעבר-עכבר אופציונלית\")",
     "code": "`קוד`",
     "achievements": "הישגים",
     "basicAchievs": "הישגים בסיסיים",
@@ -190,7 +189,7 @@
     "messages": "Messages",
     "emptyMessagesLine1": "You don't have any messages",
     "emptyMessagesLine2": "Send a message to start a conversation!",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sent you a message",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> sent you a message",
     "letsgo": "קדימה!",
     "selected": "נבחרו",
     "howManyToBuy": "כמה ברצונך לרכוש?",
@@ -239,5 +238,11 @@
     "questionDescriptionText": "תוכל לכתוב את השאלה בשפתך במידה ואינך שולט באופן מספק בשפה האנגלית.",
     "refreshList": "רענון הרשימה",
     "skipExternalLinkModal": "לחצו CTRL (ווינדוס) או Command (מאק) בעת לחיצה על קישור כדי לדלג על המודל הזה",
-    "newMessage": "הודעה חדשה"
+    "newMessage": "הודעה חדשה",
+    "gem": "",
+    "confirmPurchase": "",
+    "avoidSPI": "",
+    "avoidSPIDetails": "",
+    "targetUserNotExist": "",
+    "rememberToBeKind": ""
 }

@@ -1,6 +1,11 @@
 import isString from 'lodash/isString';
+import isFunction from 'lodash/isFunction';
 import clone from 'lodash/clone';
-import template from 'lodash/template';
+import { render } from 'micromustache';
+
+function hrender (template, vars) {
+  return render(template, vars, { tags: ['<%= ', '%>'] });
+}
 
 const i18n = {
   strings: null,
@@ -35,12 +40,17 @@ function t (stringName) {
   }
 
   const clonedVars = clone(vars) || {};
+  for (const key in clonedVars) {
+    if (Object.prototype.hasOwnProperty.call(clonedVars, key) && isFunction(clonedVars[key])) {
+      clonedVars[key] = clonedVars[key]();
+    }
+  }
 
   clonedVars.locale = locale;
 
   if (string) {
     try {
-      return template(string)(clonedVars);
+      return hrender(string, clonedVars);
     } catch (_error) {
       return `Error processing the string "${stringName}". Please see Help > Report a Bug.`;
     }
@@ -54,7 +64,7 @@ function t (stringName) {
     }
 
     try {
-      return template(stringNotFound)({
+      return hrender(stringNotFound, {
         string: stringName,
       });
     } catch (_error) {

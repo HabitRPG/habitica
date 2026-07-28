@@ -11,5 +11,12 @@
     "rebirthPop": "Starta om din karaktär omedelbart vid Nivå 1 och behåll dina prestationer, samlarföremål och utrustning. Dina uppgifter och deras historik kommer behållas men de kommer att bli återställda till gult. Dina följer kommer att bli borttagna förutom på utmanings-uppgifter. Allt ditt Guld, Erfarenhet, Mana och alla effekter från Färdigheter kommer att bli borttaget. Detta kommer att träda i kraft omedelbart.",
     "rebirthName": "Återfödelsens Sfär",
     "rebirthComplete": "Du har återfötts!",
-    "nextFreeRebirth": "<strong><%= days %> dagar</strong> till <strong>GRATIS</strong> Återfödelsens Sfär"
+    "nextFreeRebirth": "<strong><%= days %> dagar</strong> till <strong>GRATIS</strong> Återfödelsens Sfär",
+    "rebirthUnlockedOrb": "Ett nytt äventyr är tillgängligt!",
+    "rebirthNewAchievement": "Ny prestation",
+    "rebirthNewAdventure": "Ett nytt äventyr börjar!",
+    "rebirthAchievementPlural": "Du har använt Återfödelsens Sfär <strong><%number%<>/strong> gånger och den högsta nivån du uppnåt är <strong<>%=level%>",
+    "rebirthStackInfo": "Denna prestation kommer öka varje gång du använder Återfödelsens Sfär.",
+    "rebirthUnlockedNewItem": "Återfödelsens Sfär är Upplåst",
+    "rebirthUnlockedDesc": "Använd Återfödelsens Sfär för att ge nytt liv åt dina äventyr i Habitica när du tycker att du uppnåt allt! Starta om på första nivånmedans du behåller dina uppgifter, insatser och djur med detta särskilda föremål som hittas på Marknaden."
 }

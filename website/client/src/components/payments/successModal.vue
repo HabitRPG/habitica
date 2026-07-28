@@ -433,9 +433,6 @@ import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
 import notificationsMixin from '@/mixins/notifications';
 import paymentsMixin from '@/mixins/payments';
 
-// analytics
-import * as Analytics from '@/libs/analytics';
-
 export default {
   components: {
     selectTranslatedArray,
@@ -536,16 +533,6 @@ export default {
       this.close();
     },
     submit () {
-      if (this.paymentData.group && !this.paymentData.newGroup) {
-        Analytics.track({
-          hitType: 'event',
-          eventName: 'group plan upgrade',
-          eventAction: 'group plan upgrade',
-          eventCategory: 'behavior',
-          demographics: this.upgradedGroup.demographics,
-          type: this.paymentData.group.type,
-        }, { trackOnClient: true });
-      }
       this.paymentData = {};
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
     },

@@ -64,9 +64,11 @@
       <li>sexual orientation; and</li>
       <li>information collected from a known child.</li>
     </ul>
-    <p><strong>
-      NOTE: Please do not provide us “sensitive personal information” or “sensitive personal data”, as those terms are defined under applicable privacy laws, unless we directly request that you do so. If you feel, after careful consideration, that it is necessary to provide us certain sensitive personal information or data, please provide us the minimum amount of such information or data that is necessary.
-    </strong></p>
+    <p>
+      <strong>
+        NOTE: Please do not provide us “sensitive personal information” or “sensitive personal data”, as those terms are defined under applicable privacy laws, unless we directly request that you do so. If you feel, after careful consideration, that it is necessary to provide us certain sensitive personal information or data, please provide us the minimum amount of such information or data that is necessary.
+      </strong>
+    </p>
     <h3 id="section_1_1">
       1.1 Information You Provide Directly
     </h3>
@@ -98,9 +100,11 @@
       We use Google Analytics, a service which uses cookies to collect and analyze data about the use of the Services and report on activities and trends. This service may also collect data about the use of other websites, apps, and online services. You can <a
         href="https://policies.google.com/technologies/partner-sites"
         target="_blank"
+        rel="noopener noreferrer"
       >learn about</a> Google's practices, and opt out of them, by downloading the <a
         href="https://tools.google.com/dlpage/gaoptout"
         target="_blank"
+        rel="noopener noreferrer"
       >Google Analytics opt-out browser add-on</a>.
     </p>
     <h4>Controlling Cookies</h4>
@@ -617,7 +621,7 @@
       7. General Audience Services
     </h2>
     <p>
-      The Service is intended for users 18 years or older; you are not permitted to access or use the Service if you are younger than 18. We do not knowingly collect personal information from children under the age of 18 through the Service. We encourage parents and legal guardians to monitor their children’s Internet usage and to help enforce our Privacy Policy by instructing their children to never provide personal information without their permission. If you have reason to believe that a child under the age of 18 has provided personal information to us, please contact us at <a href='mailto:privacy@habitica.com'>privacy@habitica.com</a>, and we will delete that information from our databases.
+      The Service is intended for users 18 years or older; you are not permitted to access or use the Service if you are younger than 18. We do not knowingly collect personal information from children under the age of 18 through the Service. We encourage parents and legal guardians to monitor their children’s Internet usage and to help enforce our Privacy Policy by instructing their children to never provide personal information without their permission. If you have reason to believe that a child under the age of 18 has provided personal information to us, please contact us at <a href="mailto:privacy@habitica.com">privacy@habitica.com</a>, and we will delete that information from our databases.
     </p>
 
     <h2 id="section_8">
@@ -685,6 +689,7 @@
       <em>Opt - Out of the “ Sale” of Personal Information or Use of Such Information for “Targeted Advertising” or “Profiling”</em>. We engage in common marketing and advertising practices to provide more relevant content and ads to users of our Site and Services. Certain of these practices may involve the “selling” of personal information, or the use of such information for “targeted advertising” or “profiling,” as those terms are defined in the Texas Data Privacy and Security Act (“TDPSA”) and the Nebraska Data Privacy Act. We do not sell personal information under the more commonly understood meaning of that word—i.e., providing personal information to third parties in exchange for money. Nor do we have actual knowledge of selling personal information of minors under the age of 16. To opt-out of the selling of your personal information, or use of that information for targeted advertising or profiling, please submit a request to <a href="mailto:privacy@habitica.com">privacy@habitica.com</a>. Note: We also treat Global Privacy Control browser signals as opt-out of sale/disclosure for targeted advertising or profiling requests. To opt-out via the Global Privacy Control, please follow the instructions available <a
         href="https://globalprivacycontrol.org/"
         target="_blank"
+        rel="noopener noreferrer"
       >here</a>.
     </p>
     <p>
@@ -708,7 +713,7 @@
 
     <p><strong><u>Nevada Residents</u></strong></p>
     <p>
-      Nevada residents may opt out of the sale of certain “covered information” collected by operators of websites or online services. We currently do not sell covered information, as “sale” is defined by such law, and do not have plans to do so. In accordance with Nevada law, you may submit to us a verified request instructing us not to sell your covered information by sending an email to <a href='mailto:privacy@habitica.com'>privacy@habitica.com</a>.
+      Nevada residents may opt out of the sale of certain “covered information” collected by operators of websites or online services. We currently do not sell covered information, as “sale” is defined by such law, and do not have plans to do so. In accordance with Nevada law, you may submit to us a verified request instructing us not to sell your covered information by sending an email to <a href="mailto:privacy@habitica.com">privacy@habitica.com</a>.
     </p>
     <p><strong><u>Notice to United Kingdom/European/Switzerland Residents.</u></strong></p>
     <p>
@@ -728,12 +733,15 @@
       <strong>Right to lodge a complaint:</strong> Users that reside in the UK, EEA, or Switzerland have the right to seek information and assistance or lodge a complaint about our data collection and processing actions with the supervisory authority where they reside. Contact details for data protection authorities are available here. UK: <a
         href="https://ico.org.uk/"
         target="_blank"
+        rel="noopener noreferrer"
       >https://ico.org.uk/</a> EEA: <a
         href="https://edpb.europa.eu/about-edpb/board/members_en"
         target="_blank"
+        rel="noopener noreferrer"
       >https://edpb.europa.eu/about-edpb/board/members_en</a> Switzerland: <a
         href="https//www.edoeb.admin.ch/edoeb/en/home/deredoeb/kontakt.html"
         target="_blank"
+        rel="noopener noreferrer"
       >https//www.edoeb.admin.ch/edoeb/en/home/deredoeb/kontakt.html</a>.
     </p>
     <p>

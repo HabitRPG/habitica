@@ -12,7 +12,6 @@
     "showLess": "Kevesebb megjelenítése",
     "markdownHelpLink": "Markdown formázási segédlet",
     "bold": "**Félkövér**",
-    "markdownImageEx": "![kötelező szöveg](https://habitica.com/cake.png \"opcionális szöveg egér ráhúzásakor\")",
     "code": "`kódrészlet`",
     "achievements": "Kitüntetések",
     "basicAchievs": "Alap kitüntetések",
@@ -190,7 +189,7 @@
     "messages": "Üzenetek",
     "emptyMessagesLine1": "Nincsenek üzeneteid",
     "emptyMessagesLine2": "Küldj üzenetet, hogy beszélgetést kezdeményezz a csapattársaiddal vagy egy másik Habitica játékossal",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> üzenetet küldött neked",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> üzenetet küldött neked",
     "letsgo": "Gyerünk!",
     "selected": "Kiválasztva",
     "howManyToBuy": "Hány darabot szeretnél vásárolni?",
@@ -241,5 +240,9 @@
     "general": "Általános",
     "newMessage": "Új üzenet",
     "targetUserNotExist": "A megadott felhasználó ('<%= userName %>') nem létezik.",
-    "rememberToBeKind": "Ne feledd, hogy légy kedves, tisztelettudó, és tartsd be a <a href='/static/community-guidelines' target='_blank'>Közösségi irányelveket</a>."
+    "rememberToBeKind": "Ne feledd, hogy légy kedves, tisztelettudó, és tartsd be a <%= linkOpen %>Közösségi irányelveket<%= linkClose %>.",
+    "gem": "Gyémánt",
+    "confirmPurchase": "Vásárlás megerősítése",
+    "avoidSPI": "",
+    "avoidSPIDetails": ""
 }

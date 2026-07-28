@@ -8,7 +8,7 @@
         {{ label }}
       </h3>
       <div
-        v-markdown="$t('markdownFormattingHelp')"
+        v-markdown="$t('markdownFormattingHelp', { markdownLink })"
         class="float-right"
       ></div>
       <div
@@ -39,6 +39,14 @@
           :coords="mixinData.autoComplete.coords"
           :caret-position="mixinData.autoComplete.caretPosition"
           :chat="group.chat"
+          @select="selectedAutocomplete"
+        />
+        <emoji-auto-complete
+          ref="emojiAutocomplete"
+          :text="newMessage"
+          :textbox="textbox"
+          :coords="mixinData.autoComplete.coords"
+          :caret-position="mixinData.autoComplete.caretPosition"
           @select="selectedAutocomplete"
         />
       </div>
@@ -90,6 +98,7 @@ import { MAX_MESSAGE_LENGTH } from '@/../../common/script/constants';
 import externalLinks from '../../mixins/externalLinks';
 
 import autocomplete from '../chat/autoComplete';
+import emojiAutoComplete from '../chat/emojiAutoComplete';
 import communityGuidelines from './communityGuidelines';
 import chatMessages from '../chat/chatMessages';
 import { mapState } from '@/libs/store';
@@ -102,6 +111,7 @@ export default {
   },
   components: {
     autocomplete,
+    emojiAutoComplete,
     communityGuidelines,
     chatMessages,
   },
@@ -117,6 +127,7 @@ export default {
       },
       textbox: null,
       MAX_MESSAGE_LENGTH: MAX_MESSAGE_LENGTH.toString(),
+      markdownLink: 'https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica',
     };
   },
   computed: {

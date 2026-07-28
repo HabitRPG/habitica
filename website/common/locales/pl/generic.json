@@ -12,7 +12,6 @@
     "showLess": "Pokaż mniej",
     "markdownHelpLink": "Pomoc formatowania Markdown",
     "bold": "**Pogrubienie**",
-    "markdownImageEx": "![obowiązkowy alt text](https://habitica.com/cake.png \"dodatkowy tekst po najechaniu myszą\")",
     "code": "`kod`",
     "achievements": "Osiągnięcia",
     "basicAchievs": "Podstawowe Osiągnięcia",
@@ -190,7 +189,7 @@
     "messages": "Wiadomości",
     "emptyMessagesLine1": "Nie masz żadnych wiadomości",
     "emptyMessagesLine2": "Wyślij wiadomość, aby zacząć rozmowę z członkami Twojej Drużyny lub innymi graczami Habitica",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> wysłał ci wiadomość",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> wysłał ci wiadomość",
     "letsgo": "Jazda!",
     "selected": "Wybrane",
     "howManyToBuy": "Ile chcesz zakupić?",
@@ -241,6 +240,9 @@
     "whyReportingPlayerPlaceholder": "Powód zgłoszenia",
     "targetUserNotExist": "Docelowy Użytkownik: '<%= userName %>' nie istnieje.",
     "shadowMute": "Wygłuszenie Cienia",
-    "rememberToBeKind": "Pamiętaj proszę o tym, aby być uprzejmym i pełnym szacunku względem innych Graczy oraz aby przestrzegać <a href='/static/community-guidelines' target='_blank'>Regulamin Społeczności</a>.",
-    "gem": "Klejnot"
+    "rememberToBeKind": "Pamiętaj proszę o tym, aby być uprzejmym i pełnym szacunku względem innych Graczy oraz aby przestrzegać <%= linkOpen %>Regulamin Społeczności<%= linkClose %>.",
+    "gem": "Klejnot",
+    "confirmPurchase": "Potwierdź Zakup",
+    "avoidSPI": "",
+    "avoidSPIDetails": ""
 }

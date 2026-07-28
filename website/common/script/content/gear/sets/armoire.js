@@ -561,6 +561,19 @@ const armor = {
     con: 10,
     set: 'loneCowpoke',
   },
+  softYellowSuit: {
+    con: 9,
+    str: 9,
+    set: 'yellowLoungewear',
+  },
+  handstandOutfit: {
+    per: 10,
+    set: 'handstand',
+  },
+  kendoBogu: {
+    con: 7,
+    set: 'kendo',
+  },
 };
 
 const back = {
@@ -1156,6 +1169,22 @@ const head = {
     per: 10,
     set: 'loneCowpoke',
   },
+  floppyYellowHat: {
+    con: 3,
+    int: 3,
+    per: 3,
+    str: 3,
+    set: 'yellowLoungewear',
+  },
+  verdantArmingCap: {
+    con: 5,
+    per: 5,
+    set: 'verdantPage',
+  },
+  kendoMen: {
+    per: 7,
+    set: 'kendo',
+  },
 };
 
 const shield = {
@@ -1545,6 +1574,19 @@ const shield = {
     per: 2,
     str: 2,
     set: 'prettyInPink',
+  },
+  softYellowPillow: {
+    int: 9,
+    per: 9,
+    set: 'yellowLoungewear',
+  },
+  verdantBanner: {
+    int: 10,
+    set: 'verdantPage',
+  },
+  gardenHose: {
+    per: 8,
+    set: 'gardener2',
   },
 };
 
@@ -2076,6 +2118,28 @@ const weapon = {
     per: 2,
     str: 2,
     set: 'prettyInPink',
+  },
+  brightRainbowKite: {
+    con: 3,
+    int: 3,
+    per: 3,
+    str: 3,
+    set: 'rainbowKite',
+  },
+  pastelRainbowKite: {
+    con: 3,
+    int: 3,
+    per: 3,
+    str: 3,
+    set: 'rainbowKite',
+  },
+  kendoShinai: {
+    str: 7,
+    set: 'kendo',
+  },
+  gardenRake: {
+    con: 8,
+    set: 'gardener2',
   },
 };
 

@@ -42,6 +42,18 @@ const questionList = [
     translationIndex: 32,
   },
   {
+    heading: 'character-stats',
+    translationIndex: 69,
+  },
+  {
+    heading: 'stat-points',
+    translationIndex: 70,
+  },
+  {
+    heading: 'automatic-allocation',
+    translationIndex: 71,
+  },
+  {
     heading: 'blue-bar',
     translationIndex: 33,
   },

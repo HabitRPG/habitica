@@ -7,6 +7,7 @@ import {
   getProperty,
 } from '../../../../../helpers/api-integration/v3';
 import apiErrorMessages from '../../../../../../website/common/script/errors/apiErrorMessages';
+import { RegistrationEventModel } from '../../../../../../website/server/models/analytics/registrationEvent';
 
 describe('POST /user/auth/social', () => {
   let api;
@@ -63,6 +64,65 @@ describe('POST /user/auth/social', () => {
       await expect(getProperty('users', response.id, 'auth.google.id')).to.eventually.equal(randomGoogleId);
       await expect(getProperty('users', response.id, 'auth.local.email')).to.eventually.equal(`${user.auth.local.username}+google@example.com`);
       await expect(getProperty('users', response.id, 'profile.name')).to.eventually.equal('a google user');
+    });
+
+    it('tracks a registration event', async () => {
+      const socialUser = await api.post(endpoint, {
+        authResponse: { access_token: randomAccessToken }, // eslint-disable-line camelcase
+        network,
+      });
+
+      const registrationEvent = await RegistrationEventModel.findOne({ userId: socialUser.id });
+      expect(registrationEvent).to.exist;
+      expect(registrationEvent).to.have.property('userId', socialUser.id);
+      expect(registrationEvent).to.have.property('ipAddress');
+      expect(registrationEvent).to.have.property('authenticationMethod', 'google');
+    });
+
+    it('includes sanitized version of provided username', async () => {
+      const response = await api.post(endpoint, {
+        authResponse: { access_token: randomAccessToken }, // eslint-disable-line camelcase
+        network,
+        username: 'Google User Name',
+      });
+
+      await expect(getProperty('users', response.id, 'auth.local.username')).to.eventually.equal('GoogleUserName');
+      await expect(getProperty('users', response.id, 'auth.local.lowerCaseUsername')).to.eventually.equal('googleusername');
+    });
+
+    it('generates a random username if provided username contains only disallowed characters', async () => {
+      const response = await api.post(endpoint, {
+        authResponse: { access_token: randomAccessToken }, // eslint-disable-line camelcase
+        network,
+        username: 'Áîüè',
+      });
+
+      await expect(getProperty('users', response.id, 'auth.local.username')).to.eventually.contain('hb-');
+      await expect(getProperty('users', response.id, 'auth.local.lowerCaseUsername')).to.eventually.contain('hb-');
+    });
+
+    it('generates a random username if provided username contains a disallowed word', async () => {
+      const response = await api.post(endpoint, {
+        authResponse: { access_token: randomAccessToken }, // eslint-disable-line camelcase
+        network,
+        username: 'i am a TESTPLACEHOLDERSLURWORDHERE',
+      });
+
+      await expect(getProperty('users', response.id, 'auth.local.username')).to.eventually.contain('hb-');
+      await expect(getProperty('users', response.id, 'auth.local.lowerCaseUsername')).to.eventually.contain('hb-');
+    });
+
+    it('generates a random username if sanitized username conflicts with an extant user', async () => {
+      user = await generateUser({ 'auth.local.username': 'GoogleUserName' });
+
+      const response = await api.post(endpoint, {
+        authResponse: { access_token: randomAccessToken }, // eslint-disable-line camelcase
+        network,
+        username: 'Google User Name',
+      });
+
+      await expect(getProperty('users', response.id, 'auth.local.username')).to.eventually.contain('hb-');
+      await expect(getProperty('users', response.id, 'auth.local.lowerCaseUsername')).to.eventually.contain('hb-');
     });
 
     it('fails if allowRegister is false and user does not exist', async () => {
@@ -183,6 +243,17 @@ describe('POST /user/auth/social', () => {
       expect(response.apiToken).to.eql(user.apiToken);
       expect(response.id).to.eql(user._id);
       expect(response.newUser).to.be.false;
+    });
+
+    it('does not track a registration event for existing users', async () => {
+      const beforeEvents = await RegistrationEventModel.find({ userId: user._id });
+      await user.post(endpoint, {
+        authResponse: { access_token: randomAccessToken }, // eslint-disable-line camelcase
+        network,
+      });
+
+      const registrationEvents = await RegistrationEventModel.find({ userId: user._id });
+      expect(registrationEvents).to.have.lengthOf(beforeEvents.length);
     });
 
     it('does not log into other account if social auth already exists', async () => {

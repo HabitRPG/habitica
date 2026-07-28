@@ -23,6 +23,7 @@ describe('cors middleware', () => {
       'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,PUT,HEAD,DELETE',
       'Access-Control-Allow-Headers': 'Authorization,Content-Type,Accept,Content-Encoding,X-Requested-With,x-api-user,x-api-key,x-client',
       'Access-Control-Expose-Headers': 'X-RateLimit-Limit,X-RateLimit-Remaining,X-RateLimit-Reset,Retry-After',
+      'Content-Security-Policy': "default-src 'self' habitica.com *.habitica.com *.amazon.com *.amazonaws.com *.amplitude.com *.loggly.com *.payments-amazon.com *.stripe.com *.stripe.network; base-uri 'self'; font-src 'self' https: data:; form-action 'self'; frame-ancestors 'self'; img-src * data:; object-src 'none'; script-src-attr 'none'; style-src 'self' https: 'unsafe-inline'",
     });
     expect(res.sendStatus).to.not.have.been.called;
     expect(next).to.have.been.calledOnce;
@@ -36,6 +37,7 @@ describe('cors middleware', () => {
       'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,PUT,HEAD,DELETE',
       'Access-Control-Allow-Headers': 'Authorization,Content-Type,Accept,Content-Encoding,X-Requested-With,x-api-user,x-api-key,x-client',
       'Access-Control-Expose-Headers': 'X-RateLimit-Limit,X-RateLimit-Remaining,X-RateLimit-Reset,Retry-After',
+      'Content-Security-Policy': "default-src 'self' habitica.com *.habitica.com *.amazon.com *.amazonaws.com *.amplitude.com *.loggly.com *.payments-amazon.com *.stripe.com *.stripe.network; base-uri 'self'; font-src 'self' https: data:; form-action 'self'; frame-ancestors 'self'; img-src * data:; object-src 'none'; script-src-attr 'none'; style-src 'self' https: 'unsafe-inline'",
     });
     expect(res.sendStatus).to.have.been.calledWith(200);
     expect(next).to.not.have.been.called;

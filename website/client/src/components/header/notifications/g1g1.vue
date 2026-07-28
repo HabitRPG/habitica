@@ -34,7 +34,7 @@
     >
     <div
       class="close-x"
-      @click="remove()"
+      @click.stop="remove()"
     >
       <div
         class="svg-icon svg-close"
@@ -140,7 +140,7 @@ export default {
   methods: {
     remove () {
       if (this.eventKey) {
-        window.sessionStorage.setItem(`hide-g1g1-${this.eventKey}`, 'true');
+        window.localStorage.setItem(`hide-g1g1-${this.eventKey}`, 'true');
       }
       this.$emit('notification-removed');
     },

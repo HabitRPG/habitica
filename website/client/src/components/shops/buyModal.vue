@@ -42,7 +42,7 @@
               :hide-class-badge="true"
               :with-background="true"
               :override-avatar-gear="getAvatarOverrides(item)"
-              :sprites-margin="'0px auto 0px -24px'"
+              :sprites-margin="'0px auto 0px -2px'"
             />
           </div>
           <item
@@ -281,6 +281,11 @@
     .badge-dialog {
       left: -8px;
       top: -8px;
+
+      .badge-pin {
+        width: 32px;
+        height: 32px;
+      }
     }
 
     .avatar {
@@ -851,10 +856,17 @@ export default {
           - ownedMounts
           - ownedItems;
 
-        if (
-          petsRemaining < 0
-          && !window.confirm(this.$t('purchasePetItemConfirm', { itemText: this.item.text })) // eslint-disable-line no-alert
-        ) return;
+        if (petsRemaining < 0) {
+          const confirmed = await new Promise(resolve => {
+            this.$root.$emit('habitica:purchase-confirm', {
+              message: this.$t('purchasePetItemConfirm', { itemText: this.item.text }),
+              currency: this.item.currency,
+              cost: this.item.value * this.selectedAmountToBuy,
+              resolve,
+            });
+          });
+          if (!confirmed) return;
+        }
       }
 
       if (this.item.purchaseType === 'customization') {
@@ -866,11 +878,14 @@ export default {
         this.purchased(this.item.text);
       } else {
         const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';
-        if (
-          shouldConfirmPurchase
-          && !this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)
-        ) {
-          return;
+        if (shouldConfirmPurchase) {
+          const confirmed = await this.confirmPurchase(
+            this.item.currency,
+            this.item.value * this.selectedAmountToBuy,
+          );
+          if (!confirmed) {
+            return;
+          }
         }
         if (this.genericPurchase) {
           if (this.item.key === 'rebirth_orb') {
@@ -893,8 +908,8 @@ export default {
     purchaseGems () {
       this.$root.$emit('bv::show::modal', 'buy-gems');
     },
-    togglePinned () {
-      this.isPinned = this.$store.dispatch('user:togglePinnedItem', { type: this.item.pinType, path: this.item.path });
+    async togglePinned () {
+      this.isPinned = await this.$store.dispatch('user:togglePinnedItem', { type: this.item.pinType, path: this.item.path });
 
       if (!this.isPinned) {
         this.text(this.$t('unpinnedItem', { item: this.item.text }));

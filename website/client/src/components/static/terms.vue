@@ -10,6 +10,7 @@
       Our Service is provided by HabitRPG, Inc. ("HabitRPG"). By accepting these Terms of Service and our Privacy Policy located at: <a
         href="https://habitica.com/static/privacy"
         target="_blank"
+        rel="noopener noreferrer"
       >https://habitica.com/static/privacy</a> (collectively, the "Agreement"), using our website, Habitica.com, or our other features or services (collectively, “the Services”), or otherwise manifesting your assent to the Agreement, you acknowledge that you have read, understood, and agree to be legally bound by the Agreement. If you do not agree to (or cannot comply with) the Agreement, you are not permitted to access or use the Service. By accepting or agreeing to this Agreement on behalf of a company or other legal entity, you represent and warrant that you have the authority to bind that company or other legal entity to the Agreement and, in such event, "you" and "your" will refer and apply to that company or other legal entity. You further represent and warrant that your assent to this Agreement constitutes an electronic signature as defined by the Electronic Signatures in Global and National Commerce Act (“E-Sign”) and the Uniform Electronic Transactions Act (“UETA”) and that you have formed, executed, entered into, and accepted the terms of and otherwise authenticated the Agreement and acknowledged and agreed that the Agreement is an electronic record for purposes of E- Sign, UETA, and the Uniform Computer Information Transactions Act and, as such, is completely valid, has legal effect, is enforceable, and is binding on, and non- refutable by, you and/or any entity on whose behalf you are acting.
     </p>
     <p class="strong">
@@ -158,12 +159,13 @@
       BY PURCHASING PREMIUM YOU EXPRESSLY UNDERSTAND AND AGREE TO OUR REFUND POLICY:
     </p>
     <p>
-      YOU CAN REQUEST A REFUND OF YOUR MOST RECENT PAYMENT TO US BY CONTACTING US AT <a href='mailto:admin@habitica.com'>ADMIN@HABITICA.COM</a>. THE AMOUNT OF YOUR REFUND, IF ANY, WILL BE BASED ON (1) THE AMOUNT OF YOUR PURCHASED BUT UNUSED SUBSCRIPTION BENEFITS AND (2) THE TERMS IMPOSED ON US BY OUR PAYMENT PROCESSING VENDORS (E.G., WITH RESPECT TO THE DURATION OF THE REFUND PERIOD).
+      YOU CAN REQUEST A REFUND OF YOUR MOST RECENT PAYMENT TO US BY CONTACTING US AT <a href="mailto:admin@habitica.com">ADMIN@HABITICA.COM</a>. THE AMOUNT OF YOUR REFUND, IF ANY, WILL BE BASED ON (1) THE AMOUNT OF YOUR PURCHASED BUT UNUSED SUBSCRIPTION BENEFITS AND (2) THE TERMS IMPOSED ON US BY OUR PAYMENT PROCESSING VENDORS (E.G., WITH RESPECT TO THE DURATION OF THE REFUND PERIOD).
     </p>
     <p>
       FOR ANY CUSTOMER WHO PURCHASED PREMIUM IN APPLE INC.'s APP STORE ("APP STORE"), PLEASE CONTACT APPLE INC.'s SUPPORT TEAM: <a
         href="https://reportaproblem.apple.com"
         target="_blank"
+        rel="noopener noreferrer"
       >https://reportaproblem.apple.com</a>. APPLE'S APP STORE DOES NOT ALLOW DEVELOPERS TO ISSUE REFUNDS FOR APP STORE PURCHASES MADE BY CUSTOMERS.
     </p>
 
@@ -204,6 +206,7 @@
       All disputes will be resolved before a neutral arbitrator selected jointly by the parties, whose decision will be final, except for a limited right of appeal under the FAA. The arbitration shall be commenced and conducted by JAMS pursuant to its then current Comprehensive Arbitration Rules and Procedures and in accordance with the Expedited Procedures in those rules, or, where appropriate, pursuant to JAMS' Streamlined Arbitration Rules and Procedures. All applicable JAMS rules and procedures are available at the JAMS website <a
         href="https://www.jamsadr.com"
         target="_blank"
+        rel="noopener noreferrer"
       >www.jamsadr.com</a>. Each party will be responsible for paying any JAMS filing, administrative, and arbitrator fees in accordance with JAMS rules. Judgment on the arbitrator's award may be entered in any court having jurisdiction. This clause shall not preclude parties from seeking provisional remedies in aid of arbitration from a court of appropriate jurisdiction. The arbitration may be conducted in person, through the submission of documents, by phone, or online. If conducted in person, the arbitration shall take place in the United States county where you reside. The parties may litigate in court to compel arbitration, to stay a proceeding pending arbitration, or to confirm, modify, vacate, or enter judgment on the award entered by the arbitrator. The parties shall cooperate in good faith in the voluntary and informal exchange of all non-privileged documents and other information (including electronically stored information) relevant to the Dispute immediately after commencement of the arbitration. As set forth below, nothing in this Agreement will prevent us from seeking injunctive relief in any court of competent jurisdiction as necessary to protect our proprietary interests.
     </p>
     <p>

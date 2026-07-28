@@ -6,18 +6,10 @@ import moment from 'moment';
 import md from 'habitica-markdown';
 import csvStringify from '../../libs/csvStringify';
 import { marshallUserData } from '../../libs/xmlMarshaller';
-import { NotFound } from '../../libs/errors';
 import * as Tasks from '../../models/task';
 import * as inboxLib from '../../libs/inbox';
 // import { model as User } from '../../models/user';
 import { authWithSession } from '../../middlewares/auth';
-/* import {
-  S3,
-} from '../../libs/aws'; */
-
-// const S3_BUCKET = nconf.get('S3_BUCKET');
-
-// const BASE_URL = nconf.get('BASE_URL');
 
 const api = {};
 
@@ -154,122 +146,6 @@ api.exportUserDataXml = {
       'Content-disposition': 'attachment; filename=habitica-user-data.xml',
     });
     res.status(200).send(xmlData);
-  },
-};
-
-/**
- * @api {get} /export/avatar-:uuid.html Render a user avatar as an HTML page
- * @apiName ExportUserAvatarHtml
- * @apiDescription This HTML export feature is not currently working (https://github.com/HabitRPG/habitica/issues/9489).
- * @apiGroup DataExport
- *
- * @apiParam (Path) {String} uuid The User ID of the user
- *
- * @apiSuccess {HTML} File An html page rendering the user's avatar.
- *
- * @apiUse UserNotFound
- */
-// @TODO fix
-api.exportUserAvatarHtml = {
-  method: 'GET',
-  url: '/export/avatar-:memberId.html',
-  // middlewares: [locals],
-  async handler (/* req, res */) {
-    throw new NotFound('This API route is currently not available. See https://github.com/HabitRPG/habitica/issues/9489.');
-
-    /* req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
-
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    const { memberId } = req.params;
-
-    throw new NotFound('This API route is currently not available. See https://github.com/HabitRPG/habitica/issues/9489.');
-
-    const member = await User
-      .findById(memberId)
-      .select('stats profile items achievements preferences backer contributor')
-      .exec();
-
-    if (!member) throw new NotFound(res.t('userWithIDNotFound', { userId: memberId }));
-    res.render('avatar-static', {
-      title: member.profile.name,
-      env: _.defaults({ user: member }, res.locals.habitrpg),
-    }); */
-  },
-};
-
-/**
- * @api {get} /export/avatar-:uuid.png Render a user avatar as a PNG file
- * @apiName ExportUserAvatarPng
- * @apiDescription This PNG export feature is not currently working (https://github.com/HabitRPG/habitica/issues/9489).
- * @apiGroup DataExport
- *
- * @apiParam (Path) {String} uuid The User ID of the user
- *
- * @apiSuccess {PNG} File A png file of the user's avatar.
- */
-api.exportUserAvatarPng = {
-  method: 'GET',
-  url: '/export/avatar-:memberId.png',
-  async handler (/* req, res */) {
-    throw new NotFound('This API route is currently not available. See https://github.com/HabitRPG/habitica/issues/9489.');
-
-    /* req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
-
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    const { memberId } = req.params;
-
-    const filename = `avatars/${memberId}.png`;
-    const s3url = `https://${S3_BUCKET}.s3.amazonaws.com/${filename}`;
-
-    let response;
-    try {
-      response = await got.head(s3url); // TODO add timeout and retries
-    } catch (gotError) {
-      // If the file does not exist AWS S3 can return a 403 error
-      if (gotError.code !== 'ENOTFOUND' && gotError.statusCode
-      !== 404 && gotError.statusCode !== 403) {
-        throw gotError;
-      }
-    }
-
-    // cache images for 30 minutes on aws, else upload a new one
-    if (response && response.statusCode === 200 && moment()
-    .diff(response.headers['last-modified'], 'minutes') < 30) {
-      return res.redirect(s3url);
-    }
-
-    const pageBuffer = await new Pageres()
-      .src(`${BASE_URL}/export/avatar-${memberId}.html`, ['140x147'], {
-        crop: true,
-        filename: filename.replace('.png', ''),
-      })
-      .run();
-
-    const s3upload = S3.upload({
-      Bucket: S3_BUCKET,
-      Key: filename,
-      ACL: 'public-read',
-      StorageClass: 'REDUCED_REDUNDANCY',
-      ContentType: 'image/png',
-      Expires: moment().add({ minutes: 5 }).toDate(),
-      Body: pageBuffer,
-    });
-
-    const s3res = await new Promise((resolve, reject) => {
-      s3upload.send((err, s3uploadRes) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(s3uploadRes);
-        }
-      });
-    });
-
-    return res.redirect(s3res.Location); */
   },
 };
 

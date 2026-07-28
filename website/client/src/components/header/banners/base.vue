@@ -10,6 +10,10 @@
       v-if="canClose"
       @close="close()"
     />
+    <div v-else
+      class="right-spacer"
+    >
+    </div>
   </div>
 </template>
 
@@ -24,12 +28,17 @@ body.modal-open .habitica-top-banner {
 
 .habitica-top-banner {
   width: 100%;
-  padding-left: 1.5rem;
-  padding-right: 1.625rem;
+  padding-left: 56px;
   z-index: 1300;
 
   .modal-close {
+    margin-left: 16px;
+    margin-right: 16px;
     position: unset;
+  }
+
+  .right-spacer {
+    width: 56px;
   }
 }
 </style>

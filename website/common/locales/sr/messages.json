@@ -49,5 +49,12 @@
     "messageDeletedUser": "Žao nam je, ovaj korisnik je izbrisao svoj nalog.",
     "messageMissingDisplayName": "Missing display name.",
     "reportedMessage": "Prijavili ste ovu poruku moderatorima.",
-    "canDeleteNow": "Sada možete izbrisati poruku ukoliko želite."
+    "canDeleteNow": "Sada možete izbrisati poruku ukoliko želite.",
+    "featureRetired": "",
+    "messagePetMountUnEquipped": "",
+    "messageBattleGearUnEquipped": "",
+    "newsPostNotFound": "",
+    "messageBackgroundUnEquipped": "",
+    "messageCostumeUnEquipped": "",
+    "messageAllUnEquipped": ""
 }

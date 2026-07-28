@@ -74,7 +74,7 @@
             class="no-quest-to-start"
           >
             <b>{{ $t('noQuestToStartTitle') }}</b> <br>
-            <span v-html="$t('noQuestToStart', { questShop: '/shops/quests' })"></span>
+            <span v-html="$t('noQuestToStart', questLinks)"></span>
           </span>
         </div>
       </div>
@@ -334,7 +334,6 @@ import orderBy from 'lodash/orderBy';
 import * as quests from '@/../../common/script/content/quests';
 import getItemInfo from '@/../../common/script/libs/getItemInfo';
 import { mapState } from '@/libs/store';
-import * as Analytics from '@/libs/analytics';
 
 import navigationBack from '@/assets/svg/navigation_back.svg?raw';
 import questDialogContent from '../shops/quests/questDialogContent';
@@ -370,6 +369,10 @@ export default {
       shareUserIdShown: false,
       quests,
       sortBy: 'AZ',
+      questLinks: {
+        linkOpen: '<a href="/shops/quests">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {
@@ -420,11 +423,6 @@ export default {
     },
     async questInit () {
       this.loading = true;
-
-      Analytics.updateUser({
-        partyID: this.group._id,
-        partySize: this.group.memberCount,
-      });
 
       const groupId = this.group._id || this.user.party._id;
 

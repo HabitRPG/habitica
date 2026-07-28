@@ -59,7 +59,7 @@
     "loginIncentiveQuest": "Pour débloquer cette quête, connectez-vous à Habitica <%= count %> jours différents !",
     "loginReward": "<%= count %> connexion(s)",
     "questBundles": "Lots de quêtes à prix réduits",
-    "noQuestToStart": "Essayez de vérifier la <a href=\"<%= questShop %>\">boutique des quêtes</a> pour les nouvelles sorties !",
+    "noQuestToStart": "Essayez de vérifier la <%= linkOpen %>boutique des quêtes<%= linkClose %> pour les nouvelles sorties !",
     "pendingDamage": "<%= damage %> dégâts en instance",
     "pendingDamageLabel": "dégâts en cours",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Santé",

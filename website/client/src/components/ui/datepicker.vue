@@ -68,8 +68,12 @@ export default {
   },
   methods: {
     upDate (after) {
-      this.value = after;
-      this.$emit('update:date', after);
+      // zero out the time so the server doesn't shift the day across a DST boundary on save
+      const normalized = after
+        ? new Date(after.getFullYear(), after.getMonth(), after.getDate())
+        : null;
+      this.value = normalized;
+      this.$emit('update:date', normalized);
     },
     setToday () {
       this.upDate(moment().toDate());

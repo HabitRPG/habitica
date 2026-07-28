@@ -71,8 +71,6 @@
     "register": "Registracija",
     "missingNewPassword": "Nedostaje nova zaporka.",
     "pkQuestion7": "Zašto Habitica koristi pixel art?",
-    "pkQuestion8": "Kako je Habitica utjecala na stvarne živote ljudi?",
-    "pkAnswer8": "Ovdje možete pronaći mnogo svjedočanstava o tome kako je Habitica pomogla ljudima: https://habitversary.tumblr.com",
     "pkPromo": "Promocije",
     "pkLogo": "Logotipi",
     "pkSamples": "Uzorci Zaslona",
@@ -158,7 +156,7 @@
     "pkAnswer7": "Habitica koristi pixel art iz nekoliko razloga. Osim faktora zabavne nostalgije, pikselna umjetnost je vrlo pristupačna našim umjetnicima volonterima koji žele dati svoj doprinos. Mnogo je lakše održati našu pikselnu umjetnost dosljednom čak i kada puno različitih umjetnika pridonosi, a omogućuje nam brzo stvaranje gomile novih sadržaj!",
     "invalidEmailDomain": "Ne možete se registrirati s email-om sa sljedećim domenama: <%= domains %>",
     "localStorageTryFirst": "Ako imate problema s Habiticom, kliknite donji gumb za brisanje lokalne pohrane i većine kolačića za ovo web mjesto (druga web mjesta neće utjecati). Morat ćete se ponovno prijaviti nakon što to učinite, pa prvo provjerite znate li svoje podatke za prijavu, koji se mogu pronaći u Postavke -> <%= linkStart %>Site<%= linkEnd %>.",
-    "usernameTOSRequirements": "Korisnička imena moraju biti u skladu s našim <a href='/static/terms' target='_blank'>Uvjetima Korištenja</a> i <a href='/static/community-guidelines' target='_blank'>Smjernicama Zajednice</a>. Ako niste prethodno postavili ime za prijavu, vaše je korisničko ime automatski generirano.",
+    "usernameTOSRequirements": "Korisnička imena moraju biti u skladu s našim <%= termsLink %>Uvjetima Korištenja<%= linkClose %> i <%= guidelinesLink %>Smjernicama Zajednice<%= linkClose %>. Ako niste prethodno postavili ime za prijavu, vaše je korisničko ime automatski generirano.",
     "invalidLoginCredentialsLong": "Vaša email adresa, korisničko ime ili zaporka su netočni. Molimo, pokušajte ponovo ili upotrijebite \"Zaboravljena Zaporka\"",
     "accountSuspended": "Vaš račun @<%= username %> je blokiran. Za dodatne informacije ili za podnošenje žalbe, pošaljite e-mail na admin@habitica.com s vašim Habitica korisničkim imenom ili ID-jem korisnika.",
     "invalidReqParams": "Nevažeći parametri zahtjeva.",
@@ -167,7 +165,7 @@
     "muchmuchMoreDesc": "Naša potpuno prilagodljiva lista zadataka znači da Habiticu možete oblikovati tako da odgovara vašim osobnim ciljevima. Radite na kreativnim projektima, naglasite brigu o sebi ili slijedite neki drugi san — sve je na vama.",
     "learnMore": "Saznaj Više",
     "pkMoreQuestions": "Imate li pitanje koje nije na ovom popisu? Pošaljite e-mail na admin@habitica.com!",
-    "usernameInfo": "Imena za prijavu sada su jedinstvena korisnička imena koja će biti vidljiva pored vašeg imena za prikaz i koristit će se za pozivnice, @spominjanja u chatu i slanje poruka.<br><br>Ako želite saznati više o ovoj promjeni, <a href='https ://habitica.fandom.com/wiki/Player_Names' target='_blank'>posjetite naš wiki</a>.",
+    "usernameInfo": "Imena za prijavu sada su jedinstvena korisnička imena koja će biti vidljiva pored vašeg imena za prikaz i koristit će se za pozivnice, @spominjanja u chatu i slanje poruka.<br><br>Ako želite saznati više o ovoj promjeni, <%= linkOpen %>posjetite naš wiki<%= linkClose %>.",
     "privacy": "Politika Privatnosti",
     "mobileApps": "Mobilne Aplikacije",
     "newEmailRequired": "Nedostaje nova email adresa.",
@@ -187,5 +185,7 @@
     "pkBoss": "Bossevi",
     "marketing4Lead3Button": "Započnite Danas",
     "missingClientHeader": "Nedostaju zaglavlja x-klijenta.",
-    "acceptPrivacyTOS": "Potvrđujete da imate najmanje 18 godina te da ste pročitali i da se slažete s našim <a href='/static/terms' target='_blank'>Uvjetima Korištenja</a> i <a href='/static/privacy' target='_blank'>Pravilima Privatnosti</a>"
+    "acceptPrivacyTOS": "Potvrđujete da imate najmanje 18 godina te da ste pročitali i da se slažete s našim <%= termsLink %>Uvjetima Korištenja<%= linkClose %> i <%= privacyLink %>Pravilima Privatnosti<%= linkClose %>",
+    "emailAddress": "",
+    "emailRequiredForSupport": ""
 }

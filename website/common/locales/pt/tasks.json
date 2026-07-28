@@ -122,7 +122,6 @@
     "sessionOutdated": "A sua sessão está desatualizada. Recarregue ou sincronize a página, por favor.",
     "errorTemporaryItem": "Este item é temporário e não pode ser afixado.",
     "addATitle": "Adicione um título",
-    "sureDeleteType": "Tem certeza que quer deletar este <%= type %>?",
     "deleteTaskType": "Eliminar este <%= type %>",
     "addTags": "Adicionar etiquetas...",
     "pressEnterToAddTag": "Aperte Enter para adicionar etiqueta: '<%= tagName %>'",

@@ -59,7 +59,7 @@
     "loginIncentiveQuest": "你还需要登录Habitica再签到<%= count %>天才能解锁此副本！",
     "loginReward": "<%= count %>次签到",
     "questBundles": "打折中的副本包",
-    "noQuestToStart": "点击<a href=\"<%= questShop %>\">副本商店</a>查看是否有新商品！",
+    "noQuestToStart": "点击<%= linkOpen %>副本商店<%= linkClose %>查看是否有新商品！",
     "pendingDamage": "<%= damage %>点待结算伤害",
     "pendingDamageLabel": "待结算伤害",
     "bossHealth": "<%= currentHealth %>/ <%= maxHealth %>生命值",

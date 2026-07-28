@@ -1,6 +1,5 @@
 import validator from 'validator';
 import moment from 'moment';
-import pick from 'lodash/pick';
 import sortBy from 'lodash/sortBy';
 import nconf from 'nconf';
 import {
@@ -127,14 +126,6 @@ api.loginLocal = {
     user.auth.timestamps.updated = new Date();
     await user.save();
 
-    res.analytics.track('login', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      category: 'behavior',
-      type: 'local',
-      uuid: user._id,
-      headers: req.headers,
-    });
-
     return loginRes(user, req, res);
   },
 };
@@ -187,6 +178,7 @@ api.loginApple = {
     req.body.network = 'apple';
     req.body.allowRegister = req.query.allowRegister === 'true';
     req.body.username = req.query.username;
+    req.body.email = req.query.email;
     return loginSocial(req, res);
   },
 };

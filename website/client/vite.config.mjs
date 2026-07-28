@@ -122,7 +122,7 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        experimentalMinChunkSize: 1000
+        experimentalMinChunkSize: 20000
       }
     }
   },
@@ -156,10 +156,6 @@ export default defineConfig({
         changeOrigin: true,
       },
       '^/export': {
-        target: DEV_BASE_URL,
-        changeOrigin: true,
-      },
-      '^/analytics': {
         target: DEV_BASE_URL,
         changeOrigin: true,
       },

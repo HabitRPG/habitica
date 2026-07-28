@@ -53,6 +53,11 @@ gulp.task('test:prepare:mongo', cb => {
   const mongooseOptions = getDefaultConnectionOptions();
   const connectionUrl = getDevelopmentConnectionUrl(TEST_DB_URI);
 
+  console.info({
+    mongooseOptions,
+    connectionUrl,
+  });
+
   mongoose.connect(connectionUrl, mongooseOptions)
     .then(() => mongoose.connection.dropDatabase())
     .then(() => mongoose.connection.close()).then(() => {

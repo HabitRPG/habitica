@@ -240,7 +240,6 @@
 
 <script>
 import { mapState } from '@/libs/store';
-import * as Analytics from '@/libs/analytics';
 import notifications from '@/mixins/notifications';
 import closeX from '../ui/closeX';
 
@@ -275,11 +274,6 @@ export default {
       const party = await this.$store.dispatch('guilds:create', { group });
       this.$store.state.party.data = party;
       this.user.party._id = party._id;
-
-      Analytics.updateUser({
-        partyID: party._id,
-        partySize: 1,
-      });
 
       this.$root.$emit('bv::hide::modal', 'create-party-modal');
       await this.$router.push('/party');

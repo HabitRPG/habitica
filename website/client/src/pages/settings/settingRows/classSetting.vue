@@ -1,5 +1,5 @@
 <template>
-  <fragment v-if="allowedToChangeClass">
+  <div class="d-content" v-if="allowedToChangeClass">
     <tr
       v-if="!mixinData.inlineSettingMixin.modalVisible"
     >
@@ -71,7 +71,7 @@
         </div>
       </td>
     </tr>
-  </fragment>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -217,8 +217,18 @@ export default {
       }
     },
     async changeClassAndClose () {
-      if (!this.classDisabled && !window.confirm(this.$t('changeClassConfirmCost'))) {
-        return;
+      if (!this.classDisabled) {
+        const confirmed = await new Promise(resolve => {
+          this.$root.$emit('habitica:purchase-confirm', {
+            message: this.$t('changeClassConfirmCost'),
+            currency: 'gems',
+            cost: 3,
+            resolve,
+          });
+        });
+        if (!confirmed) {
+          return;
+        }
       }
 
       this.$root.$once('bv::hide::modal', () => {

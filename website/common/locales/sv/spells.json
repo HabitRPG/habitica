@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "Explosion av Eld",
-    "spellWizardFireballNotes": "Du kallar till dig XP och gör brännande skada till Bossar! (Baserat på: INT)",
+    "spellWizardFireballNotes": "Du framkallar XP och gör bossar fruktansvärd skada! (Baserat på: INT)",
     "spellWizardMPHealText": "Överjordisk svallvåg",
     "spellWizardMPHealNotes": "Du offrar Mana så att resten av ditt Sällskap, förutom Magiker, får MP! (Baserat på: INT)",
     "spellWizardEarthText": "Jordbävning",
@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeNotes": "Dina listiga talanger förbättrar hela ditt Sällskaps Uppmärksamhet! (Baserat på: oförbättrad UPP)",
     "spellRogueStealthText": "Smygande",
     "spellRogueStealthNotes": "För varje kast av besvärjelsen så kommer några av dina ogjorda Dagliga Uppgifter inte skada dig under natten. Deras färg och följder kommer inte ändras. (Baserat på: UPP)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Antal Dagliga Utmaningar undvikna: <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Antal Dagliga uppgifter som kommer att undvikas: <%= number %>.",
     "spellHealerHealText": "Helande ljus",
     "spellHealerHealNotes": "Ett sken återställer din hälsa! (Baserat på: TÅL och INT)",
     "spellHealerBrightnessText": "Brännande Ljussken",
@@ -53,5 +53,6 @@
     "challengeTasksNoCast": "Att kasta en färdighet på Utmaningsuppgifter är inte tillåtet.",
     "groupTasksNoCast": "Det är inte tillåtet att kasta en färdighet på gruppuppgifter.",
     "spellNotOwned": "Du äger inte denna färdighet.",
-    "spellLevelTooHigh": "Du måste vara level <%= level %> för att använda den här färdigheten."
+    "spellLevelTooHigh": "Du måste vara level <%= level %> för att använda den här färdigheten.",
+    "spellAlreadyCast": "Att använda denna färdighet ger ingen ytterligare effekt."
 }

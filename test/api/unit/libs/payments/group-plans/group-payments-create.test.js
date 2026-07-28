@@ -128,11 +128,12 @@ describe('Purchasing a group plan for group', () => {
     expect(publicGroup.purchased.plan.planId).to.not.exist;
     data.groupId = publicGroup._id;
 
+    // Public Guilds are no longer even findable
     await expect(api.createSubscription(data))
       .to.eventually.be.rejected.and.to.eql({
-        httpCode: 401,
-        name: 'NotAuthorized',
-        message: i18n.t('onlyPrivateGuildsCanUpgrade'),
+        httpCode: 404,
+        name: 'NotFound',
+        message: i18n.t('groupNotFound'),
       });
 
     const updatedGroup = await Group.findById(publicGroup._id).exec();

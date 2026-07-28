@@ -180,6 +180,11 @@
     .badge-dialog {
       left: -8px;
       top: -8px;
+
+      .badge-pin {
+        width: 32px;
+        height: 32px;
+      }
     }
 
     .modal-content {
@@ -510,8 +515,12 @@ export default {
       this.selectedAmountToBuy = 1;
       this.$emit('change', $event);
     },
-    buyItem () {
-      if (!this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)) {
+    async buyItem () {
+      const confirmed = await this.confirmPurchase(
+        this.item.currency,
+        this.item.value * this.selectedAmountToBuy,
+      );
+      if (!confirmed) {
         return;
       }
       this.makeGenericPurchase(this.item, 'buyQuestModal', this.selectedAmountToBuy);

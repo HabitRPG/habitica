@@ -1,12 +1,12 @@
 <template>
   <div
-    class="banner d-flex align-items-center justify-content-between py-3 px-4"
-    id="privacy-banner"
     v-if="!hidden"
+    id="privacy-banner"
+    class="banner d-flex align-items-center justify-content-between py-3 px-4"
   >
     <p
       class="mr-3 mb-0"
-      v-html="$t('privacyOverview') + ' ' + $t('learnMorePrivacy')"
+      v-html="$t('privacyOverview') + ' ' + $t('learnMorePrivacy', learnLinks)"
     >
     </p>
     <div
@@ -89,6 +89,10 @@ export default {
   data () {
     return {
       hidden: false,
+      learnLinks: {
+        linkOpen: '<a href="/static/privacy" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
     };
   },
   mounted () {

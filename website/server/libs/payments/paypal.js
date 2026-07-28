@@ -331,6 +331,7 @@ api.ipn = async function ipnApi (options = {}) {
     'recurring_payment_profile_cancel',
     'recurring_payment_failed',
     'recurring_payment_expired',
+    'recurring_payment_skipped',
     'subscr_cancel',
     'subscr_failed',
   ];
@@ -345,6 +346,9 @@ api.ipn = async function ipnApi (options = {}) {
     // resulting in the loss of subscription credits
     if (user.hasCancelled()) return;
 
+    if (txn_type === 'recurring_payment_skipped') {
+      await this.paypalBillingAgreementCancel(recurring_payment_id, { note: 'Missed payment' });
+    }
     await payments.cancelSubscription({ user, paymentMethod: this.constants.PAYMENT_METHOD });
     return;
   }

@@ -1,5 +1,5 @@
 <template>
-  <fragment>
+  <div class="d-content">
     <tr
       v-for="network in SOCIAL_AUTH_NETWORKS"
       :key="network.key"
@@ -39,7 +39,7 @@
         </a>
       </td>
     </tr>
-  </fragment>
+  </div>
 </template>
 
 <script>

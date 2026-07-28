@@ -19,6 +19,7 @@
         <router-link
           to="/forgot-password"
           target="_blank"
+          rel="noopener noreferrer"
         >
           {{ $t('forgotPassword') }}
         </router-link>

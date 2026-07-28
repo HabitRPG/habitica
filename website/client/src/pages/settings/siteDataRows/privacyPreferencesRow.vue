@@ -1,7 +1,8 @@
 <template>
   <tr>
-    <td colspan="3"
+    <td
       v-if="!mixinData.inlineSettingMixin.modalVisible"
+      colspan="3"
     >
       <div class="d-flex justify-content-between align-items-center">
         <h3
@@ -18,8 +19,9 @@
         </a>
       </div>
     </td>
-    <td colspan="3"
+    <td
       v-if="mixinData.inlineSettingMixin.modalVisible"
+      colspan="3"
     >
       <h3
         v-once
@@ -59,8 +61,8 @@
               {{ $t('performanceAnalytics') }}
             </label>
             <toggle-switch
-              class="mb-auto"
               v-model="user.preferences.analyticsConsent"
+              class="mb-auto"
               @change="prefToggled()"
             />
           </div>
@@ -151,19 +153,23 @@ import { mapState } from '@/libs/store';
 import alert from '@/assets/svg/for-css/alert.svg?raw';
 
 export default {
-  mixins: [
-    GenericUserPreferencesMixin,
-    InlineSettingMixin,
-  ],
   components: {
     SaveCancelButtons,
     ToggleSwitch,
   },
+  mixins: [
+    GenericUserPreferencesMixin,
+    InlineSettingMixin,
+  ],
   data () {
     return {
       icons: Object.freeze({
         alert,
       }),
+      gpcLinks: {
+        linkOpen: '<a href="https://globalprivacycontrol.org/" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {
@@ -174,11 +180,10 @@ export default {
       return navigator.globalPrivacyControl;
     },
     gpcInfo () {
-      const gpcUrl = 'https://globalprivacycontrol.org/';
       if (this.user.preferences.analyticsConsent) {
-        return this.$t('gpcPlusAnalytics', { url: gpcUrl });
+        return this.$t('gpcPlusAnalytics', this.gpcLinks);
       }
-      return this.$t('gpcWarning', { url: gpcUrl });
+      return this.$t('gpcWarning', this.gpcLinks);
     },
   },
   methods: {

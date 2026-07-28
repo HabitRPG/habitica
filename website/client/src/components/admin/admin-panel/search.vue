@@ -108,15 +108,15 @@ export default {
       const allEmails = [];
       if (user.auth.local.email) allEmails.push(user.auth.local.email);
       if (user.auth.google && user.auth.google.emails) {
-        const emails = user.auth.google.emails;
+        const { emails } = user.auth.google;
         allEmails.push(...this.findSocialEmails(emails));
       }
       if (user.auth.apple && user.auth.apple.emails) {
-        const emails = user.auth.apple.emails;
+        const { emails } = user.auth.apple;
         allEmails.push(...this.findSocialEmails(emails));
       }
       if (user.auth.facebook && user.auth.facebook.emails) {
-        const emails = user.auth.facebook.emails;
+        const { emails } = user.auth.facebook;
         allEmails.push(...this.findSocialEmails(emails));
       }
       return allEmails;

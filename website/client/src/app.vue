@@ -229,6 +229,11 @@ export default {
             }
             return Promise.resolve(error);
           }
+          if (error.response.status === 404
+            && error.response.config.method === 'get'
+            && error.response.config.url.indexOf('/api/v4/groups/party') !== -1) {
+            return Promise.reject(error);
+          }
         }
 
         const errorData = error.response.data;

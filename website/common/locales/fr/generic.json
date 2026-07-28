@@ -12,7 +12,6 @@
     "showLess": "En voir moins",
     "markdownHelpLink": "Aide à la saisie Markdown",
     "bold": "**Gras**",
-    "markdownImageEx": "![texte alternatif obligatoire](https://habitica.com/cake.png \"facultatif : titre affiché en passant la souris\")",
     "code": "`code`",
     "achievements": "Succès",
     "basicAchievs": "succès de base",
@@ -190,7 +189,7 @@
     "messages": "Messages",
     "emptyMessagesLine1": "Vous n'avez aucun message",
     "emptyMessagesLine2": "Envoyez un message pour démarrer une conversation avec les membres de votre Équipe ou un·e autre joueu·r·se d'Habitica",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> vous a envoyé un message",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> vous a envoyé un message",
     "letsgo": "Allons-y !",
     "selected": "Selectionné",
     "howManyToBuy": "Combien voulez-vous en acquérir ?",
@@ -239,8 +238,11 @@
     "playerReportModalBody": "Merci de ne signaler que les joueu·r·se· qui enfreignent les <%= firstLinkStart %>Guide de la Communauté<%= linkEnd %> et/ou <%= secondLinkStart %>Conditions d'utilisation<%= linkEnd %>. Déposer un faux signalement est une violation du Guide de la Communauté d'Habitica.",
     "unblockPlayer": "Débloquer l·e·a Joueu·r·se",
     "titleCustomizations": "Personnalisations",
-    "rememberToBeKind": "N'oubliez pas d'être bienveillant·e, respectueu·x·se, et de suivre le <a href='/static/community-guidelines' target='_blank'>Guide de la Communauté</a>.",
+    "rememberToBeKind": "N'oubliez pas d'être bienveillant·e, respectueu·x·se, et de suivre le <%= linkOpen %>Guide de la Communauté<%= linkClose %>.",
     "newMessage": "Nouveau Message",
     "targetUserNotExist": "L'Utilisat·eur·rice '<%= userName %>' n'existe pas.",
-    "gem": "Gemme"
+    "gem": "Gemme",
+    "confirmPurchase": "Confirmer l'Achat",
+    "avoidSPI": "Éviter SPI",
+    "avoidSPIDetails": "Dans le cadre de votre confidentialité, évitez de diffuser vos <%= firstLink %>informations personnelle<%= linkClose %> (SPI) durant votre activité sur Habitica. Vos données de compte, y compris vos tâches, sont stockées sur nos serveurs pour que vous puissiez y accéder depuis n'importe quelle plateforme.<br><br>Pour en savoir plus, consulter notre <%= secondLink %>Politique de Confidentialité<%= linkClose %>."
 }
