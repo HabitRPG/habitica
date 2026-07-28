@@ -14,20 +14,17 @@ import { errorMessage } from '../../../../website/common/script/libs/errorMessag
 describe('shared.ops.buySpecialSpell', () => {
   let user;
   let clock;
-  const analytics = { track () {} };
 
-  async function buySpecialSpell (_user, _req, _analytics) {
-    const buyOp = new BuySpellOperation(_user, _req, _analytics);
+  async function buySpecialSpell (_user, _req) {
+    const buyOp = new BuySpellOperation(_user, _req);
 
     return buyOp.purchase();
   }
   beforeEach(() => {
     user = generateUser();
-    sinon.stub(analytics, 'track');
   });
 
   afterEach(() => {
-    analytics.track.restore();
     if (clock) {
       clock.restore();
     }
@@ -78,7 +75,7 @@ describe('shared.ops.buySpecialSpell', () => {
         params: {
           key: 'thankyou',
         },
-      }, analytics);
+      });
 
       expect(user.stats.gp).to.equal(1);
       expect(user.items.special.thankyou).to.equal(1);
@@ -89,7 +86,6 @@ describe('shared.ops.buySpecialSpell', () => {
       expect(message).to.equal(i18n.t('messageBought', {
         itemText: item.text(),
       }));
-      expect(analytics.track).to.be.calledOnce;
     });
 
     it('buys a limited card when it is available', async () => {
@@ -101,7 +97,7 @@ describe('shared.ops.buySpecialSpell', () => {
         params: {
           key: 'nye',
         },
-      }, analytics);
+      });
 
       expect(user.stats.gp).to.equal(1);
       expect(user.items.special.nye).to.equal(1);
@@ -112,7 +108,6 @@ describe('shared.ops.buySpecialSpell', () => {
       expect(message).to.equal(i18n.t('messageBought', {
         itemText: item.text(),
       }));
-      expect(analytics.track).to.be.calledOnce;
     });
 
     it('throws an error if the card is not currently available', async () => {
@@ -140,7 +135,7 @@ describe('shared.ops.buySpecialSpell', () => {
         params: {
           key: 'seafoam',
         },
-      }, analytics);
+      });
 
       expect(user.stats.gp).to.equal(1);
       expect(user.items.special.seafoam).to.equal(1);
@@ -151,7 +146,6 @@ describe('shared.ops.buySpecialSpell', () => {
       expect(message).to.equal(i18n.t('messageBought', {
         itemText: item.text(),
       }));
-      expect(analytics.track).to.be.calledOnce;
     });
 
     it('throws an error if the spell is not currently available', async () => {

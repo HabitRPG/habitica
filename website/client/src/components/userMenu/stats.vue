@@ -248,7 +248,7 @@
               v-if="userLevel100Plus"
               v-once
             >
-              {{ $t('noMoreAllocate') }}
+              {{ $t('noMoreAllocate', allocateLinks) }}
             </p>
             <p
               v-if="user.stats.points || userLevel100Plus"
@@ -479,6 +479,10 @@ export default {
         int: { title: 'allocateInt', popover: 'intText', allocatepop: 'allocateIntPop' },
         con: { title: 'allocateCon', popover: 'conText', allocatepop: 'allocateConPop' },
         per: { title: 'allocatePer', popover: 'perText', allocatepop: 'allocatePerPop' },
+      },
+      allocateLinks: {
+        linkOpen: '<a href="/shops/market">',
+        linkClose: '</a>',
       },
     };
   },

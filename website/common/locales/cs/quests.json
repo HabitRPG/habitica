@@ -79,5 +79,18 @@
     "yourPartyIsNotOnQuest": "Tvoje družina se neúčastní žádné výpravy",
     "membersParticipating": "<%= accepted %> / <%= invited %> členů se zúčastní",
     "noQuestToStartTitle": "Nemůžeš najít výpravu na kterou se vydat?",
-    "chatQuestStarted": "Tvoje výprava, <%= questName %>, právě začala."
+    "chatQuestStarted": "Tvoje výprava, <%= questName %>, právě začala.",
+    "chatBossDefeated": "",
+    "chatFindItems": "",
+    "chatQuestCancelled": "",
+    "newItem": "",
+    "backToSelection": "",
+    "yourQuests": "",
+    "questOwner": "",
+    "tavernBossTired": "",
+    "ownerOnly": "",
+    "cancelQuest": "",
+    "selectQuestModal": "",
+    "chatBossDontAttack": "",
+    "chatQuestAborted": ""
 }

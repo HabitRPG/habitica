@@ -70,7 +70,7 @@
           </div>
         </div>
         <div
-          v-markdown="$t('chooseClassLearnMarkdown')"
+          v-markdown="$t('chooseClassLearnMarkdown', { classLink })"
           class="text-center"
         ></div>
         <div class="modal-actions text-center">
@@ -98,7 +98,7 @@
           <div
             v-once
             class="opt-out-description"
-            v-html="$t('optOutOfClassesText')"
+            v-html="$t('optOutOfClassesText', optOutLinks)"
           ></div>
         </div>
       </div>
@@ -214,6 +214,11 @@ export default {
         wizard: wizardIcon,
       }),
       selectedClass: 'warrior',
+      optOutLinks: {
+        linkOpen: '<a href="/static/faq#what-classes" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
+      classLink: '/static/faq#what-classes',
     };
   },
   computed: {

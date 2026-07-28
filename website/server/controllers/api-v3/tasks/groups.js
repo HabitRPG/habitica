@@ -1,4 +1,3 @@
-import pick from 'lodash/pick';
 import isUUID from 'validator/lib/isUUID';
 import { authWithHeaders } from '../../../middlewares/auth';
 import * as Tasks from '../../../models/task';
@@ -61,18 +60,6 @@ api.createGroupTasks = {
     const tasks = await createTasks(req, res, { user, group });
 
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
-
-    tasks.forEach(task => {
-      res.analytics.track('team task created', {
-        user: pick(user, ['preferences', 'registeredThrough']),
-        uuid: user._id,
-        hitType: 'event',
-        category: 'behavior',
-        taskType: task.type,
-        groupID: group._id,
-        headers: req.headers,
-      });
-    });
   },
 };
 
@@ -251,16 +238,6 @@ api.assignTask = {
     await Promise.all(promises);
 
     res.respond(200, task);
-
-    res.analytics.track('task assign', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      taskType: task.type,
-      groupID: group._id,
-      headers: req.headers,
-    });
   },
 };
 

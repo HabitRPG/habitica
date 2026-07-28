@@ -76,7 +76,21 @@
                 :empty-item="false"
                 :show-popover="Boolean(ctx.item.text)"
                 @click="selectItem(ctx.item)"
-              />
+              >
+                <template
+                  slot="itemBadge"
+                  slot-scope="slotProps"
+                >
+                  <span
+                    class="badge-top"
+                    @click.prevent.stop="togglePinned(slotProps.item)"
+                  >
+                    <pin-badge
+                      :pinned="slotProps.item.pinned"
+                    />
+                  </span>
+                </template>
+              </shop-item>
             </template>
           </item-rows>
         </div>
@@ -108,6 +122,16 @@
   }
 </style>
 
+<style lang="scss">
+  .market .badge-pin:not(.pinned) {
+    display: none;
+  }
+
+  .market .item:hover .badge-pin {
+    display: block;
+  }
+</style>
+
 <script>
 import find from 'lodash/find';
 import shops from '@/../../common/script/libs/shops';
@@ -118,7 +142,9 @@ import Checkbox from '@/components/ui/checkbox';
 import FilterGroup from '@/components/ui/filterGroup';
 import FilterSidebar from '@/components/ui/filterSidebar';
 import ItemRows from '@/components/ui/itemRows';
+import PinBadge from '@/components/ui/pinBadge';
 import ShopItem from '../shopItem';
+import pinUtils from '@/mixins/pinUtils';
 
 export default {
   components: {
@@ -126,14 +152,20 @@ export default {
     FilterGroup,
     FilterSidebar,
     ItemRows,
+    PinBadge,
     ShopItem,
   },
+  mixins: [pinUtils],
   data () {
     return {
       searchText: null,
       searchTextThrottled: null,
       unfilteredCategories: [],
       viewOptions: {},
+      customizeLinks: {
+        linkOpen: '<a href="">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {
@@ -184,8 +216,12 @@ export default {
   methods: {
     customizationsItems (options = {}) {
       const { category, searchBy } = options;
-      return category.items.filter(item => !searchBy
-        || item.text.toLowerCase().includes(searchBy));
+      return category.items
+        .filter(item => !searchBy || item.text.toLowerCase().includes(searchBy))
+        .map(item => ({
+          ...item,
+          pinned: this.isPinned(item),
+        }));
     },
     emptyClick (identifier, event) {
       if (event.target.tagName !== 'A') return;
@@ -232,21 +268,21 @@ export default {
       const { $t } = this;
       switch (identifier) {
         case 'animalEars':
-          return $t('allCustomizationsOwned');
+          return $t('allCustomizationsOwned', this.customizeLinks);
         case 'animalTails':
-          return $t('allCustomizationsOwned');
+          return $t('allCustomizationsOwned', this.customizeLinks);
         case 'backgrounds':
-          return `${$t('allCustomizationsOwned')} ${$t('checkNextMonth')}`;
+          return `${$t('allCustomizationsOwned', this.customizeLinks)} ${$t('checkNextMonth')}`;
         case 'facialHair':
-          return $t('allCustomizationsOwned');
+          return $t('allCustomizationsOwned', this.customizeLinks);
         case 'color':
-          return `${$t('allCustomizationsOwned')} ${$t('checkNextSeason')}`;
+          return `${$t('allCustomizationsOwned', this.customizeLinks)} ${$t('checkNextSeason')}`;
         case 'base':
-          return $t('allCustomizationsOwned');
+          return $t('allCustomizationsOwned', this.customizeLinks);
         case 'shirt':
-          return $t('allCustomizationsOwned');
+          return $t('allCustomizationsOwned', this.customizeLinks);
         case 'skin':
-          return `${$t('allCustomizationsOwned')} ${$t('checkNextSeason')}`;
+          return `${$t('allCustomizationsOwned', this.customizeLinks)} ${$t('checkNextSeason')}`;
         default:
           return `Unknown identifier ${identifier}`;
       }

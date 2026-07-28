@@ -59,7 +59,7 @@
     "loginIncentiveQuest": "Вы откроете этот квест, заходя в Habitica на протяжении <%= count %> следующих дней!",
     "loginReward": "<%= count %> посещений",
     "questBundles": "Наборы квестов со скидкой",
-    "noQuestToStart": "Посетите <a href=\"<%= questShop %>\">Лавку квестов</a>. Возможно, там есть новинки!",
+    "noQuestToStart": "Посетите <%= linkOpen %>Лавку квестов<%= linkClose %>. Возможно, там есть новинки!",
     "pendingDamage": "<%= damage %> ожидаемого урона",
     "pendingDamageLabel": "ожидаемый урон",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> здоровья",

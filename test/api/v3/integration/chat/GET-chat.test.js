@@ -62,9 +62,9 @@ describe('GET /groups/:groupId/chat', () => {
 
     it('returns error if user attempts to fetch a sunset Guild', async () => {
       await expect(user.get(`/groups/${group._id}/chat`)).to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('featureRetired'),
+        code: 404,
+        error: 'NotFound',
+        message: t('groupNotFound'),
       });
     });
   });

@@ -13,6 +13,8 @@
       }, `type_${task.type}`
       ]"
       @click="castEnd($event, task)"
+      tabindex="0"
+      @keypress.enter="$emit('editTask', task)"
     >
       <div
         class="d-flex"
@@ -98,9 +100,7 @@
           <div
             class="task-clickable-area pt-1 pl-75 pb-0"
             :class="{ 'cursor-auto': !teamManagerAccess }"
-            tabindex="0"
             @click="edit($event, task)"
-            @keypress.enter="edit($event, task)"
           >
             <div class="d-flex justify-content-between">
               <h3
@@ -432,10 +432,6 @@
     outline: none;
     transition: none;
     border: $purple-400 solid 1px;
-
-    :not(task-best-control-inner-habit) { // round icon
-      border-radius: 4px;
-    }
   }
 
   .control-bottom-box {
@@ -462,16 +458,13 @@
     &:hover:not(.task-not-editable.task-not-scoreable),
     &:focus-within:not(.task-not-editable.task-not-scoreable) {
       box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
-      z-index: 11;
     }
   }
 
   .task:not(.groupTask) {
-    &:hover,
-    &:focus-within {
-      .left-control, .right-control, .task-content {
-        border-color: $purple-400;
-      }
+    &:hover, &:focus {
+      border: none;
+      outline: 1px solid $purple-400;
     }
   }
 
@@ -521,11 +514,6 @@
 
     &-user {
       padding-right: 0px;
-    }
-
-    &:focus {
-      border-radius: 4px;
-      border: $purple-400 solid 1px;
     }
   }
 
@@ -1177,9 +1165,16 @@ export default {
     moveToBottom () {
       this.$emit('moveTo', this.task, 'bottom');
     },
-    destroy () {
+    async destroy () {
       const type = this.$t(this.task.type);
-      if (!window.confirm(this.$t('sureDeleteType', { type }))) return; // eslint-disable-line no-alert
+      const confirmed = await new Promise(resolve => {
+        this.$root.$emit('habitica:delete-task-confirm', {
+          message: this.$t('sureDeleteType', { type }),
+          taskType: type,
+          resolve,
+        });
+      });
+      if (!confirmed) return;
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
     },

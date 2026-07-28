@@ -114,7 +114,6 @@ import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 import guide from '@/mixins/guide';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
-import * as Analytics from '@/libs/analytics';
 
 import yesterdailyModal from './tasks/yesterdailyModal';
 import newStuff from './news/modal';
@@ -330,6 +329,7 @@ export default {
       handledNotifications,
       isInitialLoadComplete: false,
       pendingRebirthNotification: null,
+      lastShownStreakCount: null, // Track last shown streak to prevent duplicates
     };
   },
   computed: {
@@ -647,15 +647,6 @@ export default {
         // Reset daily analytics actions
         setLocalSetting(CONSTANTS.keyConstants.TASKS_SCORED_COUNT, 0);
         setLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT, 0);
-      } else {
-        // Note a failed cron event, for our records and investigation
-        Analytics.track({
-          eventName: 'cron failed',
-          eventAction: 'cron failed',
-          eventCategory: 'behavior',
-          hitType: 'event',
-          responseCode: response.status,
-        }, { trackOnClient: true });
       }
 
       // Sync
@@ -726,17 +717,24 @@ export default {
             this.$root.$emit('habitica:won-challenge', notification);
             break;
           case 'REBIRTH_ACHIEVEMENT':
-            if (localStorage.getItem('show-rebirth-confirmation') === 'true') {
-              markAsRead = false;
-            } else if (!this.isInitialLoadComplete) {
-              this.pendingRebirthNotification = notification;
-              markAsRead = false;
-            } else {
-              this.playSound('Achievement_Unlocked');
-              this.$root.$emit('bv::show::modal', 'rebirth');
+            if (localStorage.getItem('show-rebirth-confirmation') !== 'true') {
+              if (!this.isInitialLoadComplete) {
+                this.pendingRebirthNotification = notification;
+                markAsRead = false;
+              } else {
+                this.playSound('Achievement_Unlocked');
+                this.$root.$emit('bv::show::modal', 'rebirth');
+              }
             }
             break;
           case 'STREAK_ACHIEVEMENT':
+            // Client-side deduplication: prevent showing duplicate streak achievements
+            if (this.lastShownStreakCount === this.user.achievements.streak) {
+              // Same streak already shown, skip this notification
+              break;
+            }
+            this.lastShownStreakCount = this.user.achievements.streak;
+
             this.text(`${this.$t('streaks')}: ${this.user.achievements.streak}`, () => {
               this.$root.$emit('bv::show::modal', 'streak');
             }, this.user.preferences.suppressModals.streak);

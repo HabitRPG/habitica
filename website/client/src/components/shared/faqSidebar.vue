@@ -157,7 +157,7 @@
       <div
         class="contact mx-auto"
       >
-        <p v-html="$t('contactAdmin')"></p>
+        <p v-html="$t('contactAdmin', { adminEmail })"></p>
       </div>
     </div>
   </div>
@@ -368,6 +368,7 @@ export default {
         pixel_border: 'url(/static/npc/normal/pixel_border.png)',
       },
       staff: staffList,
+      adminEmail: '<a href="mailto:admin@habitica.com">admin@habitica.com</a>',
     };
   },
 };

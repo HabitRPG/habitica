@@ -15,7 +15,6 @@
   "options": "Options",
   "markdownHelpLink": "Markdown formatting help",
   "bold": "**Bold**",
-  "markdownImageEx": "![mandatory alt text](https://habitica.com/cake.png \"optional mouseover title\")",
   "code": "`code`",
   "achievements": "Achievements",
   "basicAchievs": "Basic Achievements",
@@ -210,7 +209,7 @@
   "emptyMessagesLine1": "You don't have any messages",
   "emptyMessagesLine2": "Send a message to start a conversation with your Party members or another Habitica player",
   "newMessage": "New Message",
-  "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sent you a message",
+  "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> sent you a message",
   "letsgo": "Let's Go!",
   "selected": "Selected",
   "howManyToBuy": "How many would you like to purchase?",
@@ -242,5 +241,8 @@
   "whyReportingPlayerPlaceholder": "Reason for report",
   "playerReportModalBody": "You should only report a player who violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Submitting a false report is a violation of Habitica’s Community Guidelines.",
   "targetUserNotExist": "Target User: '<%= userName %>' does not exist.",
-  "rememberToBeKind": "Please remember to be kind, respectful, and follow the <a href='/static/community-guidelines' target='_blank'>Community Guidelines</a>."
+  "rememberToBeKind": "Please remember to be kind, respectful, and follow the <%= linkOpen %>Community Guidelines<%= linkClose %>.",
+  "confirmPurchase": "Confirm Purchase",
+  "avoidSPI": "Avoid SPI",
+  "avoidSPIDetails": "For your privacy, avoid including <%= firstLink %>sensitive personal information<%= linkClose %> (SPI) when using Habitica. Your account data, including tasks, is stored on our servers so you can access it from any device.<br><br>To learn more, review our <%= secondLink %>Privacy Policy<%= linkClose %>."
 }

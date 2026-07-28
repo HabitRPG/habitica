@@ -66,13 +66,15 @@ describe('Amazon Payments - Cancel Subscription', () => {
     group = generateGroup({
       name: 'test group',
       type: 'guild',
-      privacy: 'public',
+      privacy: 'private',
       leader: user._id,
     });
     group.purchased.plan.customerId = 'customer-id';
     group.purchased.plan.planId = subKey;
     group.purchased.plan.lastBillingDate = new Date();
     await group.save();
+    user.guilds.push(group._id);
+    await user.save();
 
     subscriptionBlock = common.content.subscriptionBlocks[subKey];
     subscriptionLength = subscriptionBlock.months * 30;

@@ -4,6 +4,7 @@
     :class="{
       'casting-spell': castingSpell,
     }"
+    @dragover.prevent
   >
     <!-- <banned-account-modal /> -->
     <amazon-payments-modal v-if="!isStaticPage" />
@@ -14,9 +15,10 @@
     <bug-report-success-modal v-if="isUserLoaded" />
     <external-link-modal />
     <birthday-modal />
+    <purchase-confirm-modal v-if="isUserLoaded" />
+    <delete-task-confirm-modal v-if="isUserLoaded" />
     <template v-if="isUserLoaded">
       <privacy-banner />
-      <chat-banner />
       <damage-paused-banner />
       <gems-promo-banner />
       <gift-promo-banner />
@@ -120,7 +122,6 @@ import birthdayModal from '@/components/news/birthdayModal';
 import AppMenu from '@/components/header/menu';
 import AppHeader from '@/components/header/index';
 import BirthdayBanner from '@/components/header/banners/birthdayBanner';
-import ChatBanner from '@/components/header/banners/chatBanner';
 import DamagePausedBanner from '@/components/header/banners/damagePaused';
 import GemsPromoBanner from '@/components/header/banners/gemsPromo';
 import GiftPromoBanner from '@/components/header/banners/giftPromo';
@@ -128,7 +129,6 @@ import PrivacyBanner from '@/components/header/banners/privacy';
 import AppFooter from '@/components/appFooter';
 import notificationsDisplay from '@/components/notifications';
 import { mapState } from '@/libs/store';
-import * as Analytics from '@/libs/analytics';
 import BuyModal from '@/components/shops/buyModal.vue';
 import SelectMembersModal from '@/components/selectMembersModal.vue';
 import notifications from '@/mixins/notifications';
@@ -138,6 +138,8 @@ import paymentsSuccessModal from '@/components/payments/successModal';
 import subCancelModalConfirm from '@/components/payments/cancelModalConfirm';
 import subCanceledModal from '@/components/payments/canceledModal';
 import externalLinkModal from '@/components/externalLinkModal.vue';
+import purchaseConfirmModal from '@/components/shops/purchaseConfirmModal.vue';
+import deleteTaskConfirmModal from '@/components/tasks/deleteTaskConfirmModal.vue';
 
 import spellsMixin from '@/mixins/spells';
 import {
@@ -156,7 +158,6 @@ export default {
     AppHeader,
     AppFooter,
     birthdayModal,
-    ChatBanner,
     DamagePausedBanner,
     GemsPromoBanner,
     GiftPromoBanner,
@@ -172,6 +173,8 @@ export default {
     bugReportModal,
     bugReportSuccessModal,
     externalLinkModal,
+    purchaseConfirmModal,
+    deleteTaskConfirmModal,
   },
   mixins: [notifications, spellsMixin],
   data () {
@@ -262,7 +265,6 @@ export default {
       this.$store.dispatch('user:fetch'),
       this.$store.dispatch('tasks:fetchUserTasks'),
     ]).then(() => {
-      this.$store.state.isUserLoaded = true;
       let analyticsConsent = localStorage.getItem('analyticsConsent');
       if (analyticsConsent !== null) {
         analyticsConsent = analyticsConsent === 'true';
@@ -270,31 +272,10 @@ export default {
           this.$store.dispatch('user:set', { 'preferences.analyticsConsent': analyticsConsent });
         }
       }
-      if (window && window['habitica-i18n']) {
-        if (this.user.preferences.language === window['habitica-i18n'].language.code) {
-          return null;
-        }
-      }
-      if (window && window['habitica-i18n']) {
-        if (this.user.preferences.language === window['habitica-i18n'].language.code) {
-          return null;
-        }
-      }
-      Analytics.updateUser();
-      return axios.get(
-        '/api/v4/i18n/browser-script',
-        {
-          language: this.user.preferences.language,
-          headers: {
-            'Cache-Control': 'no-cache',
-            Pragma: 'no-cache',
-            Expires: '0',
-          },
-        },
-      );
+
+      return this.loadAllTranslations();
     }).then(() => {
-      const i18nData = window && window['habitica-i18n'];
-      this.$loadLocale(i18nData);
+      this.$store.state.isUserLoaded = true;
       this.hideLoadingScreen();
 
       // Adjust the timezone offset
@@ -310,6 +291,10 @@ export default {
         appState = JSON.parse(appState);
         if (appState.paymentCompleted) {
           removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+          if (appState.paymentType === 'groupPlan') {
+            this.$store.state.upgradingGroup = {};
+            this.$store.dispatch('guilds:getGroupPlans', true);
+          }
           this.$root.$emit('habitica:payment-success', appState);
         }
       }
@@ -373,6 +358,36 @@ export default {
     },
     hideLoadingScreen () {
       this.loading = false;
+    },
+    async loadContentTranslations () {
+      const contentTranslations = await axios.get(
+        '/api/v4/i18n/content',
+        {
+          language: this.user.preferences.language,
+        },
+      );
+      const i18nData = window && window['habitica-i18n'];
+      i18nData.strings = { ...i18nData.strings, ...contentTranslations.data };
+      this.$loadLocale(i18nData);
+    },
+    async loadAllTranslations () {
+      if (window && window['habitica-i18n']) {
+        if (this.user.preferences.language === window['habitica-i18n'].language.code) {
+          return this.loadContentTranslations();
+        }
+      }
+      await axios.get(
+        '/api/v4/i18n/core',
+        {
+          language: this.user.preferences.language,
+          headers: {
+            'Cache-Control': 'no-cache',
+            Pragma: 'no-cache',
+            Expires: '0',
+          },
+        },
+      );
+      return this.loadContentTranslations();
     },
   },
 };

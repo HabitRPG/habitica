@@ -2,11 +2,10 @@
     "challenge": "Desafio",
     "challengeDetails": "Desafios são eventos de comunidade onde jogadores competem e ganham prémios completando um grupo de tarefas relacionadas.",
     "brokenChaLink": "Link do Desafio Quebrado",
-    "brokenTask": "Link do Desafio Quebrado: essa tarefa era parte de um desafio, mas foi removida dele. O que gostaria de fazer?",
     "keepIt": "Mantê-la",
     "removeIt": "Removê-la",
-    "brokenChallenge": "Link do Desafio Quebrado: essa tarefa era parte de um desafio, mas o desafio (ou grupo) foi apagado. O que fazer com as tarefas órfãs?",
-    "challengeCompleted": "Esse desafio foi completo, e o vencedor foi <span class=\"badge\"><%- user %></span>! O que fazer com as tarefas órfãs?",
+    "brokenChallenge": "Desafio Não Encontrado",
+    "challengeCompleted": "Desafio Completo!",
     "unsubChallenge": "Link do Desafio Quebrado: essa tarefa era parte de um desafio, mas você se desinscreveu do desafio. O que fazer com as tarefas órfãs?",
     "challenges": "Desafios",
     "endDate": "Termina",
@@ -107,5 +106,11 @@
     "flaggedNotHidden": "Desafio sinalizado uma vez, não ocultado",
     "cannotClose": "Este Desafio não pode ser fechado porque um ou mais jogadores o reportaram como inapropriado. Um membro da equipa vai contactá-lo em breve com instruções. Se passarem mais de 48 horas e ainda não tiver recebido uma resposta, por favor envie um e-mail para admin@habitica.com para pedir suporte.",
     "cannotClone": "Este Desafio não pode ser clonado porque um ou mais jogadores o reportaram como inapropriado. Um moderador irá entrar em contacto consigo em breve para lhe dar instruções. Se já passaram 48 horas e ainda não obteve resposta, por favor envie um e-mail para admin@habitica.com para pedir suporte.",
-    "cannotMakeChallenge": "Você não pode criar Desafios públicos, pois a sua conta atualmente não tem privilégios de bate-papo. Por favor, contacte admin@habitica.com para mais informações."
+    "cannotMakeChallenge": "Você não pode criar Desafios públicos, pois a sua conta atualmente não tem privilégios de bate-papo. Por favor, contacte admin@habitica.com para mais informações.",
+    "brokenTaskDescription": "Esta tarefa fazia parte de um Desafio, mas foi removida do mesmo. O que é que gostarias de fazer?",
+    "challengeCompletedDescription": "O vencedor foi <%= user %>! O que quer fazer com as restantes tarefas?",
+    "brokenChallengeDescription": "Esta tarefa fazia parte de um Desafio, mas foi removida do mesmo. O que é que gostarias de fazer?",
+    "resetFlags": "Redefinir Configurações",
+    "deleteChallengeRefundDescription": "Se apagar este Desafio, o Prémio de Jóias será refundado e as tarefas do Desafio continuarão no quadro de tarefas dos participantes",
+    "brokenTask": "Desafio Não Encontrado"
 }

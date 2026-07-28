@@ -49,7 +49,7 @@
     "spellSpecialSandText": "Sand",
     "spellSpecialSandNotes": "Reverse the spell that made you a sea star.",
     "partyNotFound": "Party not found",
-    "targetIdUUID": "\"targetId\" must be a valid User ID.",
+    "targetIdUUID": "“targetId” must be a valid User ID.",
     "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
     "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "You don't own this skill.",

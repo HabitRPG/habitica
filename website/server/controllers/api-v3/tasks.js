@@ -1,7 +1,6 @@
 import assign from 'lodash/assign';
 import find from 'lodash/find';
 import merge from 'lodash/merge';
-import pick from 'lodash/pick';
 import moment from 'moment';
 import { authWithHeaders } from '../../middlewares/auth';
 import {
@@ -28,6 +27,7 @@ import {
   moveTask,
   setNextDue,
   requiredGroupFields,
+  normalizeDailyStartDate,
 } from '../../libs/tasks/utils';
 import common from '../../../common';
 import { apiError } from '../../libs/apiError';
@@ -330,17 +330,6 @@ api.createChallengeTasks = {
 
     // If adding tasks to a challenge -> sync users
     if (challenge) challenge.addTasks(tasks);
-
-    tasks.forEach(task => {
-      res.analytics.track('challenge task created', {
-        user: pick(user, ['preferences', 'registeredThrough']),
-        uuid: user._id,
-        hitType: 'event',
-        category: 'behavior',
-        taskType: task.type,
-        challengeID: challenge._id,
-      });
-    });
   },
 };
 
@@ -350,13 +339,13 @@ api.createChallengeTasks = {
  * @apiGroup Task
  *
  * @apiParam (Query) {String="habits","dailys",
- *                   "todos","rewards","completedTodos"} type Optional query parameter to return
- *                                                            just a type of tasks. By default all
- *                                                            types will be returned except
- *                                                            completed todos that must be
- *                                                            requested separately.
- *                                                            The "completedTodos" type returns
- *                                                            only the 30 most recently completed.
+ *                   "todos","rewards","completedTodos"} [type] Optional query parameter to return
+ *                                                              just a type of tasks. By default all
+ *                                                              types will be returned except
+ *                                                              completed todos that must be
+ *                                                              requested separately.
+ *                                                              The "completedTodos" type returns
+ *                                                              only the 30 most recently completed.
  * @apiParam (Query) [dueDate] type Optional date to use for computing the nextDue field
  *                                  for each returned task.
  *
@@ -395,14 +384,15 @@ api.getUserTasks = {
     const types = Tasks.tasksTypes.map(type => `${type}s`);
     types.push('completedTodos', '_allCompletedTodos'); // _allCompletedTodos is currently in BETA and is likely to be removed in future
     req.checkQuery('type', res.t('invalidTasksTypeExtra')).optional().isIn(types);
+    req.checkQuery('history', res.t('invalidHistoryBoolean')).optional().isBoolean();
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     const { user } = res.locals;
-    const { dueDate } = req.query;
+    const { dueDate, history } = req.query;
 
-    const tasks = await getTasks(req, res, { user, dueDate });
+    const tasks = await getTasks(req, res, { user, dueDate, history: history !== 'false' });
     return res.respond(200, tasks);
   },
 };
@@ -660,13 +650,10 @@ api.updateTask = {
       task.group.managerNotes = sanitizedObj.managerNotes;
     }
 
-    // For daily tasks, update start date based on timezone to maintain consistency
     if (task.type === 'daily'
         && task.startDate
     ) {
-      task.startDate = moment(task.startDate).utcOffset(
-        -user.preferences.timezoneOffset,
-      ).startOf('day').toDate();
+      task.startDate = normalizeDailyStartDate(task.startDate, user);
 
       // If the daily task was set to repeat monthly on a day of the month, and the start date was
       // updated, the task will then need to be updated to repeat on the same day of the month as
@@ -698,17 +685,6 @@ api.updateTask = {
       taskActivityWebhook.send(user, {
         type: 'updated',
         task: savedTask,
-      });
-    }
-
-    if (group) {
-      res.analytics.track('task edit', {
-        user: pick(user, ['preferences', 'registeredThrough']),
-        uuid: user._id,
-        hitType: 'event',
-        category: 'behavior',
-        taskType: task.type,
-        groupID: group._id,
       });
     }
   },

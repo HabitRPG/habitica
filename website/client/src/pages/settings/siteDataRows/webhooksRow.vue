@@ -8,7 +8,7 @@
     <div
       v-once
       class="webhooks-info mb-3"
-      v-html="$t('webhooksInfo')"
+      v-html="$t('webhooksInfo', hookLinks)"
     >
     </div>
 
@@ -233,6 +233,10 @@ export default {
       }),
       webhooks: [], // view copy of state
       unsaved: [],
+      hookLinks: {
+        linkOpen: '<a target="_blank" rel="noreferrer noopener" href="https://apidoc.habitica.com/#api-Webhook-AddWebhook">',
+        linkClose: '</a>',
+      },
     };
   },
   mounted () {

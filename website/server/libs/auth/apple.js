@@ -44,9 +44,13 @@ export async function appleProfile (req) {
 
   const verifiedPayload = await jwt.verify(idToken, applePublicKey, { algorithms: 'RS256' });
 
+  let { email } = verifiedPayload;
+  if ((!email || email === '') && req.body.email) {
+    email = req.body.email;
+  }
   return {
     id: verifiedPayload.sub,
-    emails: [{ value: verifiedPayload.email }],
+    emails: [{ value: email }],
     name: verifiedPayload.name || req.body.name || req.query.name,
     idToken,
   };

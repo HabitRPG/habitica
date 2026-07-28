@@ -187,7 +187,8 @@
           </div>
         </div>
         <div
-          v-if="user.purchased.background.birthday_bash"
+          v-if="user.purchased.background.birthday_bash
+            || user.purchased.background.on_a_strange_planet"
         >
           <div
             class="row justify-content-center title-row mb-3"

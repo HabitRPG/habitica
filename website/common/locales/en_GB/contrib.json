@@ -1,5 +1,5 @@
 {
-    "playerTiersDesc": "The coloured usernames you see in chat represent a person's contributor tier. The higher the tier, the more the person has contributed to Habitica through art, code, the community, or more!",
+    "playerTiersDesc": "The coloured usernames you see in chat represent a person’s contributor tier. The higher the tier, the more the person has contributed to Habitica through art, code, the community, or more!",
     "tier1": "Tier 1 (Friend)",
     "tier2": "Tier 2 (Friend)",
     "tier3": "Tier 3 (Elite)",
@@ -19,8 +19,8 @@
     "staff": "Habitica Staff",
     "heroic": "Heroic",
     "modalContribAchievement": "Contributor Achievement!",
-    "contribModal": "<%= name %>, you awesome person! You're now a tier <%= level %> contributor for helping Habitica.",
-    "contribLink": "See what prizes you've earned for your contribution!",
+    "contribModal": "<%= name %>, you awesome person! You’re now a tier <%= level %> contributor for helping Habitica.",
+    "contribLink": "See what prizes you’ve earned for your contribution!",
     "contribName": "Contributor",
     "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods.",
     "kickstartName": "Kickstarter Backer - $<%= key %> Tier",
@@ -30,7 +30,7 @@
     "contribLevel": "Contrib Tier",
     "hallContributors": "Hall of Contributors",
     "hallPatrons": "Hall of Patrons",
-    "noAdminAccess": "You don't have admin access.",
+    "noAdminAccess": "You don’t have admin access.",
     "userNotFound": "User not found.",
     "invalidUUID": "UUID must be valid",
     "title": "Title",
@@ -40,10 +40,9 @@
     "backerTier": "Backer Tier",
     "playerTiers": "Player Tiers",
     "tier": "Tier",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "Helped Habitica grow, either by filling out a survey or helping with a major testing effort. Thank you!",
     "surveysMultiple": "Helped Habitica grow on <%= count %> occasions, either by filling out a survey or helping with a major testing effort. Thank you!",
-    "blurbHallPatrons": "This is the Hall of Patrons, where we honour the noble adventurers who backed Habitica's original Kickstarter. We thank them for helping us bring Habitica to life!",
-    "blurbHallContributors": "This is the Hall of Contributors, where open-source contributors to Habitica are honoured. Whether through code, art, music, writing, or even just helpfulness, they have earned <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards' target='_blank'>Gems, exclusive Equipment</a>, and <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tiers' target='_blank'>prestigious titles</a>. You can contribute to Habitica, too! <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica' target='_blank'>Find out more here.</a>",
-    "noPrivAccess": "You don't have the required privileges."
+    "blurbHallPatrons": "This is the Hall of Patrons, where we honour the noble adventurers who backed Habitica’s original Kickstarter. We thank them for helping us bring Habitica to life!",
+    "blurbHallContributors": "This is the Hall of Contributors, where open-source contributors to Habitica are honoured. Whether through code, art, music, writing, or even just helpfulness, they have earned <%= linkRewards %>Gems, exclusive Equipment<%= linkClose %>, and <%= linkTiers %>prestigious titles<%= linkClose %>. You can contribute to Habitica, too! <%= linkContributing %>Find out more here.<%= linkClose %>",
+    "noPrivAccess": "You don’t have the required privileges."
 }

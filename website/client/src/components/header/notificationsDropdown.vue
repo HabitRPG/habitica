@@ -318,7 +318,7 @@ export default {
     shouldShowG1g1 () {
       if (!this.currentG1g1Event) return false;
       const eventKey = this.g1g1EventKey;
-      if (eventKey && window.sessionStorage.getItem(`hide-g1g1-${eventKey}`) === 'true') {
+      if (eventKey && window.localStorage.getItem(`hide-g1g1-${eventKey}`) === 'true') {
         return false;
       }
       return !this.g1g1Hidden;

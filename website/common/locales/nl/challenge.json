@@ -2,11 +2,10 @@
     "challenge": "Uitdaging",
     "challengeDetails": "Uitdagingen zijn evenementen waar je aan mee kunt doen om prijzen te winnen door een set gerelateerde taken te voltooien.",
     "brokenChaLink": "Gebroken Uitdagingslink",
-    "brokenTask": "Gebroken Uitdagingslink: deze taak was onderdeel van een uitdaging, maar is daaruit verwijderd. Wat wil je ermee doen?",
     "keepIt": "Behouden",
     "removeIt": "Verwijderen",
-    "brokenChallenge": "Gebroken Uitdagingslink: deze taak was onderdeel van een uitdaging, maar de uitdaging (of groep) is verwijderd. Wat wil je doen met de bijbehorende taken?",
-    "challengeCompleted": "Deze uitdaging is voltooid en de winnaar was <span class='badge'><%- user %></span>! Wat wil je doen met de bijbehorende taken?",
+    "brokenChallenge": "Gebroken Uitdagingslink",
+    "challengeCompleted": "Uitdaging voltooid!",
     "unsubChallenge": "Gebroken Uitdagingslink: deze taak was onderdeel van een uitdaging, maar jij hebt je teruggetrokken uit de uitdaging. Wat wil je doen met de bijbehorende taken?",
     "challenges": "Uitdagingen",
     "endDate": "Eindigt",
@@ -109,5 +108,9 @@
     "flaggedAndHidden": "Uitdaging gemarkeerd en verborgen",
     "resetFlagCount": "Markerteller resetten",
     "deleteChallengeRefundDescription": "Als je deze Uitdaging verwijdert krijg je de prijs in edelstenen terugbetaald en blijven de uitdagingen op het takenbord van de deelnemers staan.",
-    "cannotClone": "Deze uitdaging kan niet worden gekloond omdat één of meer spelers deze als ongepast hebben gemeld. Een medewerker neemt binnenkort contact met je op met instructies. Als er meer dan 48 uur is verstreken en je nog steeds niets hebt gehoord kun je een e-mail sturen naar admin@habitica.com voor ondersteuning."
+    "cannotClone": "Deze uitdaging kan niet worden gekloond omdat één of meer spelers deze als ongepast hebben gemeld. Een medewerker neemt binnenkort contact met je op met instructies. Als er meer dan 48 uur is verstreken en je nog steeds niets hebt gehoord kun je een e-mail sturen naar admin@habitica.com voor ondersteuning.",
+    "brokenChallengeDescription": "Deze taak was onderdeel van een uitdaging, maar de uitdaging (of groep) is verwijderd. Wat wil je doen met de achtergebleven taken?",
+    "brokenTaskDescription": "Deze taak was onderdeel van een uitdaging, maar is verwijderd. Wat wil je doen?",
+    "challengeCompletedDescription": "De winnaar was <%= user %>! Wat wil je doen met de achtergebleven taken?",
+    "brokenTask": "Gebroken Uitdagingslink"
 }

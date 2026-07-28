@@ -1,5 +1,5 @@
 {
-    "stable": "Stáj",
+    "stable": "Mazlíčci a Mounty",
     "pets": "Mazlíčci",
     "activePet": "Aktivní mazlíček",
     "noActivePet": "Bez aktivního mazlíčka",
@@ -42,8 +42,6 @@
     "food": "Jídlo a sedla",
     "noFoodAvailable": "Nemáš žádné jídlo.",
     "noSaddlesAvailable": "Nemáš žádná Sedla.",
-    "dropsExplanation": "Tyto předměty můžeš získat rychleji, když si je koupíš za Drahokamy, a nemusíš tak čekat, až je najdeš po splnění úkolu. <a href=\"http://habitica.fandom.com/wiki/Drops\">Zjisti více o nalézání předmětů.</a>",
-    "dropsExplanationEggs": "Použij Drahokamy, aby jsi získal vajíčka rychleji, jestli se ti nechce čekat než je dostaneš nebo se ti nechce opakovat výpravy aby jsi získal vejce z výprav. <a href=\"http://habitica.fandom.com/wiki/Drops\">Nauč se více o systému nálezů</a>",
     "premiumPotionNoDropExplanation": "Magické líhnoucí lektvary nemohou být použity na vejce z Výprav. Můžeš si je pouze koupit, nenajdeš je.",
     "beastMasterProgress": "Pokrok Pána šelem",
     "beastAchievement": "Získal jsi ocenění \"Pán šelem\" za získání všech mazlíčků!",
@@ -66,8 +64,8 @@
     "mountNotOwned": "Nevlastníš toto jezdecké zvíře.",
     "feedPet": "Dát <%= text %> svému <%= name %>?",
     "raisedPet": "Vychoval jsi svého <%= pet %>!",
-    "petName": "<%= potion(locale) %> <%= egg(locale) %>",
-    "mountName": "<%= potion(locale) %> <%= mount(locale) %>",
+    "petName": "<%= potion %> <%= egg %>",
+    "mountName": "<%= potion %> <%= mount %>",
     "keyToPets": "Klíč ke Kotcům Mazlíčků",
     "keyToPetsDesc": "Propusť všechny své běžné mazlíčky abys je mohl sbírat znovu. (Ti vzácní a z výprav tím nebudou ovlivněni.)",
     "keyToMounts": "Klíč ke Kotcům Zvířat",
@@ -86,7 +84,6 @@
     "welcomeStable": "Vítej ve Stájích!",
     "welcomeStableText": "Vítej ve stáji! Jsem Matt, pán zvířat. Pokaždé, když dokončíš úkol, můžeš nalézt vejce a lektvary, kterými z nich můžeš vylíhnout mazlíčky. Když se vylíhne mazlíček, objeví se tady! Klikni na obrázek mazlíčka, abys ho přidal ke svému avataru. Krm je jídlem, které najdeš a vyrostou ti v otužilá zvířata.",
     "petLikeToEat": "Co můj mazlíček rád jí?",
-    "petLikeToEatText": "Mazlíčci rostou bez ohledu na to, čím je krmíš, ale porostou rychleji, když jim dáš jejich oblíbené krmení. Experimentuj a odhal ho sám, nebo se podívej na odpovědi tady: <br/> <a href=\"http://habitica.fandom.com/wiki/Food_Preferences\" target=\"_blank\">http://habitica.fandom.com/wiki/Food_Preferences</a>",
     "filterByStandard": "Běžný",
     "filterByMagicPotion": "Magický lektvar",
     "filterByQuest": "Výprava",
@@ -109,5 +106,8 @@
     "wackyPets": "Šílená zvířátka",
     "invalidAmount": "Neplatný počet jídla,je vyžadováno pozitivní celé číslo",
     "tooMuchFood": "Snažíš se dát svému zvířeti moc jídla, akce byla zrušena",
-    "notEnoughFood": "Nemáš dost jídla"
+    "notEnoughFood": "Nemáš dost jídla",
+    "veteranCactus": "Kaktus Veterán",
+    "veteranDragon": "Drak Veterán",
+    "jubilantGryphatrice": ""
 }

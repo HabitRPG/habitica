@@ -21,8 +21,8 @@ const NewsPage = () => import('@/components/static/newStuff');
 const OverviewPage = () => import('@/components/static/overview');
 const PressKitPage = () => import('@/components/static/pressKit');
 const PrivacyPage = () => import('@/components/static/privacy');
-const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'@/components/auth/registerLoginReset');
-const RegisterUsername = () => import(/* webpackChunkName: "auth" */'@/components/auth/registerUsername');
+const RegisterLoginReset = () => import('@/components/auth/registerLoginReset');
+const RegisterUsername = () => import('@/components/auth/registerUsername');
 const SubscriptionBenefitsFaq = () => import('@/components/static/subscriptionBenefitsFaq');
 const TermsPage = () => import('@/components/static/terms');
 
@@ -58,6 +58,9 @@ export const STATIC_ROUTES = {
       name: 'features', path: 'features', component: FeaturesPage, meta: { requiresLogin: false },
     },
     {
+      name: 'forgotPassword', path: '/forgot-password', component: RegisterLoginReset, meta: { requiresLogin: false },
+    },
+    {
       name: 'front', path: 'front', component: HomePage, meta: { requiresLogin: false },
     },
     {
@@ -89,6 +92,9 @@ export const STATIC_ROUTES = {
     },
     {
       name: 'register', path: '/register', component: RegisterLoginReset, meta: { requiresLogin: false },
+    },
+    {
+      name: 'resetPassword', path: '/reset-password', component: RegisterLoginReset, meta: { requiresLogin: false },
     },
     {
       name: 'terms', path: 'terms', component: TermsPage, meta: { requiresLogin: false },

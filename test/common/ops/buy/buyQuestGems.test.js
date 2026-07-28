@@ -12,10 +12,9 @@ describe('shared.ops.buyQuestGems', () => {
   let user;
   let clock;
   const goldPoints = 40;
-  const analytics = { track () {} };
 
-  async function buyQuest (_user, _req, _analytics) {
-    const buyOp = new BuyQuestWithGemOperation(_user, _req, _analytics);
+  async function buyQuest (_user, _req) {
+    const buyOp = new BuyQuestWithGemOperation(_user, _req);
 
     return buyOp.purchase();
   }
@@ -25,13 +24,11 @@ describe('shared.ops.buyQuestGems', () => {
   });
 
   beforeEach(() => {
-    sinon.stub(analytics, 'track');
     sinon.spy(pinnedGearUtils, 'removeItemByPath');
     clock = sinon.useFakeTimers(new Date('2024-01-16'));
   });
 
   afterEach(() => {
-    analytics.track.restore();
     pinnedGearUtils.removeItemByPath.restore();
     clock.restore();
   });

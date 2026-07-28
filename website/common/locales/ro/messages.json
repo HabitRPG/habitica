@@ -55,5 +55,6 @@
     "messageBackgroundUnEquipped": "Fundalul dezechipat.",
     "messagePetMountUnEquipped": "Companion și animalul de călărit dezechipat.",
     "messageCostumeUnEquipped": "Costum neechipat.",
-    "messageBattleGearUnEquipped": "Echipament de luptă neechipat."
+    "messageBattleGearUnEquipped": "Echipament de luptă neechipat.",
+    "featureRetired": "Această funcție nu mai este suportată."
 }

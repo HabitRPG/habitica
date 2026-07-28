@@ -683,9 +683,30 @@ const backgrounds = {
   backgrounds022026: {
     elegant_palace: { },
   },
+  backgrounds032026: {
+    waterfall_with_rainbow: { },
+  },
+  backgrounds042026: {
+    riding_a_comet: { },
+  },
+  backgrounds052026: {
+    elven_citadel: { },
+  },
+  backgrounds062026: {
+    beach_with_volcano: { },
+  },
+  backgrounds072026: {
+    tropical_coral_garden: { },
+  },
+  backgrounds082026: {
+    vegetable_garden: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,
+    },
+    on_a_strange_planet: {
+      price: 1,
     },
   },
   timeTravelBackgrounds: {

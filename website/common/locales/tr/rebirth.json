@@ -11,5 +11,12 @@
     "rebirthPop": "Karakterinizi anında Seviye 1 Savaşçı olarak sıfırlayın, ancak başarılarınızı, koleksiyonlarınızı ve ekipmanınızı koruyun. Görevleriniz ve geçmişi kalacak ancak sarıya sıfırlanacaktır. Sadece aktif Zorluklar ve Grup Planlarına ait görevlerinizi hariç tutarak, tüm serileriniz silinecektir. Altın, Deneyim, Mana ve tüm Yeteneklerin etkileri kaldırılacaktır. Tüm bunlar hemen geçerli olacaktır.",
     "rebirthName": "Reenkarnasyon Küresi",
     "rebirthComplete": "Yeniden doğdun!",
-    "nextFreeRebirth": "<strong><%= days %> gün</strong> kaldı <strong>ÜCRETSİZ</strong> Yeniden Doğuş Orbu için"
+    "nextFreeRebirth": "<strong><%= days %> gün</strong> kaldı <strong>ÜCRETSİZ</strong> Yeniden Doğuş Orbu için",
+    "rebirthUnlockedNewItem": "",
+    "rebirthUnlockedOrb": "",
+    "rebirthUnlockedDesc": "",
+    "rebirthNewAchievement": "",
+    "rebirthNewAdventure": "",
+    "rebirthAchievementPlural": "",
+    "rebirthStackInfo": ""
 }

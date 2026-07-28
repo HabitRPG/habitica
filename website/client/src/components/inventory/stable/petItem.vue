@@ -182,12 +182,10 @@ export default {
       return 'GreyedOut';
     },
     imageName () {
-      const foolEvent = this.currentEventList?.find(event => moment()
-        .isBetween(event.start, event.end) && event.aprilFools);
-      if (this.isOwned() && foolEvent) {
-        if (this.isSpecial()) return `stable_${this.foolPet(this.item.key, foolEvent.aprilFools)}`;
-        const petString = `${this.item.eggKey}-${this.item.key}`;
-        return `stable_${this.foolPet(petString, foolEvent.aprilFools)}`;
+      const substitutionEvent = this.currentEventList?.find(event => moment()
+        .isBetween(event.start, event.end) && event.spriteSubstitutions);
+      if (this.isOwned() && substitutionEvent && substitutionEvent.spriteSubstitutions.pets) {
+        return `stable_${this.foolPet(`Pet-${this.item.key}`, substitutionEvent.spriteSubstitutions.pets)}`;
       }
 
       if (this.isOwned() || (this.mountOwned() && this.isHatchable())) {

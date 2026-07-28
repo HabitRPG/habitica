@@ -72,8 +72,6 @@
     "pkAnswer6": "",
     "pkQuestion7": "",
     "pkAnswer7": "",
-    "pkQuestion8": "איך הביטיקה עזרה לאנשים בחיים האמיתיים?",
-    "pkAnswer8": "",
     "pkMoreQuestions": "",
     "pkPromo": "פרומואים",
     "pkLogo": "לוגואים",
@@ -179,5 +177,15 @@
     "footerProduct": "מוצר",
     "marketing3Lead1Title": "יישומים לאנדרואיד ו־iOS",
     "marketing4Lead3Button": "מתחילים היום",
-    "translateHabitica": "לסיוע בתרגום הביטיקה"
+    "translateHabitica": "לסיוע בתרגום הביטיקה",
+    "emailBlockedRegistration": "",
+    "missingClientHeader": "",
+    "minPasswordLengthLogin": "",
+    "enterValidEmail": "",
+    "whatToCallYou": "",
+    "acceptPrivacyTOS": "",
+    "emailAddress": "",
+    "emailRequiredForSupport": "",
+    "incorrectResetPhrase": "",
+    "socialAlreadyExists": ""
 }

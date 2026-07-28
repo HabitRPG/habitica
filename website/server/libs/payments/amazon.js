@@ -316,6 +316,7 @@ api.subscribe = async function subscribe (options) {
     const group = await Group.getGroup({
       user, groupId, populateLeader: false, groupFields,
     });
+    if (!group) throw new NotFound(i18n.t('groupNotFound'));
     const membersCount = await group.getMemberCount();
     amount = sub.price + (membersCount - leaderCount) * priceOfSingleMember;
   }

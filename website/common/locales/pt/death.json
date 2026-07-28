@@ -1,9 +1,9 @@
 {
-    "lostAllHealth": "Perdeu todas as suas Vidas!",
-    "dontDespair": "Não desespere!",
-    "deathPenaltyDetails": "Perdeu um Nível, o seu Ouro, e uma parte do Equipamento, mas pode recuperá-los com trabalho árduo! Boa sorte - vai dar-se bem.",
+    "lostAllHealth": "Ficaste sem vida!",
+    "dontDespair": "Não desesperes!",
+    "deathPenaltyDetails": "Perbeste um Nível, o teu Ouro e uma peça de Equipamento, mas podes recuperar tudo com esforço! Boa sorte — vais sair-te bem.",
     "refillHealthTryAgain": "Recarregar Vida e Tentar Novamente",
-    "dyingOftenTips": "Isto está acontecendo com frequência? <a href='https://habitica.fandom.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Temos algumas dicas aqui!</a>",
+    "dyingOftenTips": "Isto acontece com frequência? <%= linkOpen %>Temos algumas dicas aqui!<%= linkClose %>",
     "losingHealthWarning": "Cuidado - Está a perder Vida!",
     "losingHealthWarning2": "Não deixe sua Vida chegar à zero! Se você deixar, você irá perder um nível, seu ouro e uma peça do equipamento.",
     "toRegainHealth": "Para recuperar Vida:",

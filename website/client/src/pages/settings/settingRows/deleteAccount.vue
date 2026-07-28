@@ -1,5 +1,5 @@
 <template>
-  <fragment>
+  <div class="d-content">
     <tr
       v-if="!mixinData.inlineSettingMixin.modalVisible"
     >
@@ -67,7 +67,7 @@
 
         <div
           v-once
-          class="feedback"
+          class="feedback mt-3"
           v-html="$t('feedback')"
         >
         </div>
@@ -94,7 +94,7 @@
         </div>
       </td>
     </tr>
-  </fragment>
+  </div>
 </template>
 
 <style lang="scss" scoped>
