@@ -116,13 +116,6 @@ export async function update (req, res, { isV3 = false }) {
   if (req.body['party.seeking'] !== undefined && req.body['party.seeking'] !== null) {
     user.invitations.party = {};
     user.invitations.parties = [];
-    res.analytics.track('Starts Looking for Party', {
-      user: _.pick(user, ['preferences', 'registeredThrough']),
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      headers: req.headers,
-    });
   }
 
   let slurWasUsed = false;
@@ -200,13 +193,6 @@ export async function update (req, res, { isV3 = false }) {
 
     if (key === 'party.seeking' && val === null) {
       user.party.seeking = undefined;
-      res.analytics.track('Leaves Looking for Party', {
-        user: _.pick(user, ['preferences', 'registeredThrough']),
-        uuid: user._id,
-        hitType: 'event',
-        category: 'behavior',
-        headers: req.headers,
-      });
     } else if (key === 'tags') {
       if (!Array.isArray(val)) throw new BadRequest('Tag list must be an array.');
 
@@ -291,14 +277,6 @@ export async function reset (req, res, { isV3 = false }) {
     user.save(),
   ]);
 
-  res.analytics.track('account reset', {
-    user: _.pick(user, ['preferences', 'registeredThrough']),
-    uuid: user._id,
-    hitType: 'event',
-    category: 'behavior',
-    headers: req.headers,
-  });
-
   res.respond(200, ...resetRes);
 }
 
@@ -310,7 +288,7 @@ export async function reroll (req, res, { isV3 = false }) {
     ...Tasks.taskIsGroupOrChallengeQuery,
   };
   const tasks = await Tasks.Task.find(query).exec();
-  const rerollRes = await common.ops.reroll(user, tasks, req, res.analytics);
+  const rerollRes = await common.ops.reroll(user, tasks, req);
   if (isV3) {
     rerollRes[0].user = await rerollRes[0].user.toJSONWithInbox();
   }
@@ -331,7 +309,7 @@ export async function rebirth (req, res, { isV3 = false }) {
     ...Tasks.taskIsGroupOrChallengeQuery,
   }).exec();
 
-  const rebirthRes = await common.ops.rebirth(user, tasks, req, res.analytics);
+  const rebirthRes = await common.ops.rebirth(user, tasks, req);
   if (isV3) {
     rebirthRes[0].user = await rebirthRes[0].user.toJSONWithInbox();
   }

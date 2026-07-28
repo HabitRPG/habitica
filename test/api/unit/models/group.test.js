@@ -6,6 +6,8 @@ import {
   SPAM_MESSAGE_LIMIT,
   SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
   SPAM_WINDOW_LENGTH,
+  MAX_CHAT_COUNT,
+  MAX_SUBBED_GROUP_CHAT_COUNT,
   INVITES_LIMIT,
   model as Group,
 } from '../../../../website/server/models/group';
@@ -18,6 +20,7 @@ import {
 import * as email from '../../../../website/server/libs/email';
 import { TAVERN_ID } from '../../../../website/common/script/constants';
 import shared from '../../../../website/common';
+import { chatModel as Chat } from '../../../../website/server/models/message';
 
 describe('Group Model', () => {
   let party; let questLeader; let participatingMember;
@@ -1356,6 +1359,29 @@ describe('Group Model', () => {
       });
     });
 
+    describe('#getEffectiveChatLimit', () => {
+      it('returns the correct chat limit', () => {
+        const group = new Group();
+        expect(group.getEffectiveChatLimit()).to.eql(MAX_CHAT_COUNT);
+      });
+
+      it('returns the passed limit if it is lower than the max', () => {
+        const group = new Group();
+        expect(group.getEffectiveChatLimit(10)).to.eql(10);
+      });
+
+      it('returns the max if the passed limit is higher', () => {
+        const group = new Group();
+        expect(group.getEffectiveChatLimit(MAX_CHAT_COUNT + 10)).to.eql(MAX_CHAT_COUNT);
+      });
+
+      it('returns the max for group plans', () => {
+        const group = new Group();
+        group.purchased.plan.customerId = '110002222333';
+        expect(group.getEffectiveChatLimit()).to.eql(MAX_SUBBED_GROUP_CHAT_COUNT);
+      });
+    });
+
     describe('#sendChat', () => {
       beforeEach(() => {
         sandbox.spy(User, 'updateOne');
@@ -1459,6 +1485,34 @@ describe('Group Model', () => {
         await party.sendChat({ message: 'message' });
 
         expect(User.updateMany).to.not.be.called;
+      });
+    });
+
+    describe('#trimChat', () => {
+      it('Only checks last message when not enough messages to trim', async () => {
+        sandbox.spy(Chat, 'find');
+        sandbox.spy(Chat, 'deleteMany');
+        await Chat.insertOne({ groupId: party._id, timestamp: new Date() });
+        await Chat.insertOne({ groupId: party._id, timestamp: new Date() });
+        await Chat.insertOne({ groupId: party._id, timestamp: new Date() });
+        await party.trimChat();
+
+        expect(Chat.find).to.be.calledOnce;
+        expect(Chat.deleteMany).to.not.be.called;
+        expect(await Chat.countDocuments({ groupId: party._id })).to.eql(3);
+      });
+      it('Deletes messages over the limit', async () => {
+        sandbox.spy(Chat, 'find');
+        sandbox.spy(Chat, 'deleteMany');
+        await Chat.insertOne({ groupId: party._id, timestamp: new Date() });
+        await Chat.insertOne({ groupId: party._id, timestamp: new Date() });
+        await Chat.insertOne({ groupId: party._id, timestamp: new Date() });
+
+        await party.trimChat(1);
+
+        expect(Chat.find).to.be.calledOnce;
+        expect(Chat.deleteMany).to.be.calledOnce;
+        expect(await Chat.countDocuments({ groupId: party._id })).to.eql(1);
       });
     });
 

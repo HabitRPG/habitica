@@ -182,7 +182,7 @@
     "questEggVelociraptorText": "Velociraptor",
     "questEggVelociraptorMountText": "Velociraptor",
     "questEggVelociraptorAdjective": "een begaafde",
-    "eggNotes": "Vind een broeddrankje om over dit ei te gieten en er zal een <%= eggAdjective(locale) %> <%= eggText(locale) %> uit voortkomen.",
+    "eggNotes": "Vind een broeddrankje om over dit ei te gieten en er zal een <%= eggAdjective %> <%= eggText %> uit voortkomen.",
     "hatchingPotionBase": "Normale",
     "hatchingPotionWhite": "Witte",
     "hatchingPotionDesert": "Woestijnkleurige",
@@ -211,7 +211,7 @@
     "hatchingPotionGlow": "In het Donker Oplichtend",
     "hatchingPotionFrost": "Bevroren",
     "hatchingPotionIcySnow": "IJzige Sneeuw",
-    "hatchingPotionNotes": "Giet dit over een ei en het zal uitkomen als een <%= potText(locale) %> huisdier.",
+    "hatchingPotionNotes": "Giet dit over een ei en het zal uitkomen als een <%= potText %> huisdier.",
     "foodMeat": "Vlees",
     "foodMeatThe": "het Vlees",
     "foodMeatA": "Vlees",
@@ -375,8 +375,8 @@
     "hatchingPotionBalloon": "Ballon",
     "hatchingPotionGingerbread": "Gemberkoek",
     "hatchingPotionJade": "Jade",
-    "hatchingPotionCryptid": "Cryptid",
-    "wackyPotionNotes": "Gebruik dit op een ei, en er zal een maf <%= potText(locale) %> huisdier uitkomen.",
+    "hatchingPotionCryptid": "Cryptisch",
+    "wackyPotionNotes": "Gebruik dit op een ei, en er zal een maf <%= potText %> huisdier uitkomen.",
     "hatchingPotionOpal": "Opaal",
     "questEggRaccoonMountText": "Wasbeer",
     "questEggRaccoonAdjective": "een vraatzuchtige",
@@ -408,5 +408,8 @@
     "questEggPlatypusAdjective": "een perfectionistische",
     "hatchingPotionPinkMarble": "Roze marmer",
     "hatchingPotionTeaShop": "Theewinkel",
-    "wackyPotionAddlNotes": "Kan niet worden opgevoed als Rijdier of worden gebruikt voor Queeste-Huisdiereieren."
+    "wackyPotionAddlNotes": "Kan niet worden opgevoed als Rijdier of worden gebruikt voor Queeste-Huisdiereieren.",
+    "questEggCrabAdjective": "een rommelig",
+    "hatchingPotionPorcelain": "porselein",
+    "hatchingPotionAlien": "Alien"
 }

@@ -1,6 +1,4 @@
 import each from 'lodash/each';
-import moment from 'moment';
-import { EVENTS } from './constants/events';
 import allEggs from './eggs';
 import allPotions from './hatching-potions';
 import t from './translation';
@@ -193,7 +191,7 @@ function buildInfo () {
 
   Object.assign(petInfo['Gryphatrice-Jubilant'], {
     canBuy () {
-      return moment().isBetween(EVENTS.birthday10.start, EVENTS.birthday10.end);
+      return false;
     },
     currency: 'gems',
     event: 'birthday10',

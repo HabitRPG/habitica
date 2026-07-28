@@ -6,17 +6,21 @@
     <noscript class="banner">
       {{ $t('jsDisabledHeadingFull') }}
       <br />
-      <a href="https://www.enable-javascript.com/" target="_blank">{{ $t('jsDisabledLink') }}</a>
+      <a
+        href="https://www.enable-javascript.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >{{ $t('jsDisabledLink') }}</a>
     </noscript>
     <privacy-banner
       class="privacy-banner"
     />
-    <div class="bg-purple-300 white">
+    <div class="bg-purple-300 white pt-5">
       <div>
         <div
           id="intro-signup"
         >
-          <div class="d-flex justify-content-center">
+          <div class="d-flex justify-content-center pb-5 mb-5">
             <div class="w-33 mr-5 mt-5">
               <img
                 src="@/assets/images/home/home-main@3x.png"
@@ -254,12 +258,14 @@
                   class="app svg-icon"
                   href="https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica"
                   target="_blank"
+                  rel="noopener noreferrer"
                   v-html="icons.googlePlay"
                 ></a>
                 <a
                   class="app svg-icon"
                   href="https://itunes.apple.com/us/app/habitica-gamified-task-manager/id994882113?mt=8"
                   target="_blank"
+                  rel="noopener noreferrer"
                   v-html="icons.iosAppStore"
                 ></a>
               </div>

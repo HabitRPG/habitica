@@ -12,7 +12,6 @@
     "showLess": "收起",
     "markdownHelpLink": "Markdown格式帮助",
     "bold": "**粗体**",
-    "markdownImageEx": "![强制替代文本](https://habitica.com/cake.png \"可选的鼠标悬停标题\")",
     "code": "`代码`",
     "achievements": "成就",
     "basicAchievs": "基本成就",
@@ -190,7 +189,7 @@
     "messages": "私信",
     "emptyMessagesLine1": "你没有任何私信",
     "emptyMessagesLine2": "发送信息来与你的队友或其他Habitica玩家开始对话",
-    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span>给你发送了一条私信",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span>给你发送了一条私信",
     "letsgo": "我们出发吧！",
     "selected": "已选择",
     "howManyToBuy": "你想购买多少？",
@@ -241,6 +240,9 @@
     "titleCustomizations": "个性装扮",
     "newMessage": "新信息",
     "targetUserNotExist": "目标用户：'<%= userName %>'不存在。",
-    "rememberToBeKind": "请谨记友善、尊重他人，并遵守<a href='/static/community-guidelines' target='_blank'>社区准则</a>。",
-    "gem": "宝石"
+    "rememberToBeKind": "请谨记友善、尊重他人，并遵守<%= linkOpen %>社区准则<%= linkClose %>。",
+    "gem": "宝石",
+    "confirmPurchase": "确认购买",
+    "avoidSPI": "避免添加敏感个人信息（SPI）",
+    "avoidSPIDetails": "为保护您的隐私，请在使用 Habitica 时，避免添加 <%= firstLink %>敏感个人信息<%= linkClose %>（SPI）。您的账户数据（包括任务）存储在我们的服务器上，因此您可以通过任何设备访问这些数据。<br><br>如需了解更多信息，请查阅我们的 <%= secondLink %>隐私政策<%= linkClose %>。"
 }

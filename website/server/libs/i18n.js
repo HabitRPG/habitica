@@ -1,3 +1,4 @@
+import moment from 'moment/min/moment-with-locales';
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
@@ -7,7 +8,8 @@ export const localePath = path.join(__dirname, '../../common/locales/');
 export const BROWSER_SCRIPT_CACHE_PATH = path.join(__dirname, '/../../../i18n_cache/');
 
 // Store translations
-export const translations = {};
+export const coreTranslations = {};
+export const contentTranslations = {};
 // Store MomentJS localization files
 export const momentLangs = {};
 
@@ -29,16 +31,32 @@ export const approvedLanguages = [
   'sr', 'sv', 'tr', 'uk', 'zh', 'zh_TW',
 ];
 
+const contentFileNames = [
+  'achievements.json',
+  'backgrounds.json',
+  'content.json',
+  'customizations.json',
+  'gear.json',
+  'questscontent.json',
+  'pets.json',
+  'spells.json',
+];
+
 function _loadTranslations (locale) {
   const files = fs.readdirSync(path.join(localePath, locale));
 
-  translations[locale] = {};
+  coreTranslations[locale] = {};
+  contentTranslations[locale] = {};
 
   files.forEach(file => {
     if (path.extname(file) !== '.json') return;
 
     // We use require to load and parse a JSON file
-    _.merge(translations[locale], require(path.join(localePath, locale, file))); // eslint-disable-line global-require, import/no-dynamic-require, max-len
+    if (contentFileNames.includes(file.toLowerCase)) {
+      _.merge(contentTranslations[locale], require(path.join(localePath, locale, file))); // eslint-disable-line global-require, import/no-dynamic-require, max-len
+    } else {
+      _.merge(coreTranslations[locale], require(path.join(localePath, locale, file))); // eslint-disable-line global-require, import/no-dynamic-require, max-len
+    }
   });
 }
 
@@ -51,18 +69,23 @@ approvedLanguages.forEach(file => {
   _loadTranslations(file);
 
   // Strip empty strings, then merge missing strings from english
-  translations[file] = _.pickBy(translations[file], string => string !== '');
-  _.defaults(translations[file], translations.en);
+  coreTranslations[file] = _.pickBy(coreTranslations[file], string => string !== '');
+  _.defaults(coreTranslations[file], coreTranslations.en);
+
+  // Strip empty strings, then merge missing strings from english
+  contentTranslations[file] = _.pickBy(contentTranslations[file], string => string !== '');
+  _.defaults(contentTranslations[file], contentTranslations.en);
 });
 
 // Add translations to shared
+export const translations = _.merge({}, coreTranslations, contentTranslations);
 shared.i18n.translations = translations;
 
-export const langCodes = Object.keys(translations);
+export const langCodes = Object.keys(coreTranslations);
 
 export const availableLanguages = langCodes.map(langCode => ({
   code: langCode,
-  name: translations[langCode].languageName,
+  name: coreTranslations[langCode].languageName,
 }));
 
 langCodes.forEach(code => {
@@ -71,13 +94,12 @@ langCodes.forEach(code => {
   lang.momentLangCode = momentLangsMapping[code] || code;
 
   try {
-    // MomentJS lang files are JS files that has to be executed
-    // in the browser so we load them as plain text files
-    // We wrap everything in a try catch because the file might not exist
-    const f = fs.readFileSync(path.join(__dirname, `/../../../node_modules/moment/locale/${lang.momentLangCode}.js`), 'utf8');
-
-    momentLangs[code] = f;
-  } catch (e) { // eslint-disable-lint no-empty
+    moment.locale(lang.momentLangCode);
+    const weekdays = moment.weekdaysMin();
+    for (const day of [...Array(7).keys()]) {
+      coreTranslations[code][`weekdaysMin${day}`] = weekdays[day];
+    }
+  } catch (e) {
     // The catch block is mandatory so it won't crash the server
   }
 });
@@ -118,7 +140,7 @@ export const multipleVersionsLanguages = {
   },
 };
 
-export function geti18nBrowserScript (languageCode) {
+export function geti18nCoreBrowserScript (languageCode) {
   const language = _.find(availableLanguages, { code: languageCode });
 
   return `(function () {
@@ -126,8 +148,11 @@ export function geti18nBrowserScript (languageCode) {
     window['habitica-i18n'] = ${JSON.stringify({
     availableLanguages,
     language,
-    strings: translations[languageCode],
-    momentLang: momentLangs[languageCode],
+    strings: coreTranslations[languageCode],
   })};
   })()`;
+}
+
+export function geti18nContentBrowserScript (languageCode) {
+  return JSON.stringify(contentTranslations[languageCode]);
 }

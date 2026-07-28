@@ -9,6 +9,7 @@ import {
 } from '../../../../../helpers/api-integration/v3';
 import { ApiUser } from '../../../../../helpers/api-integration/api-classes';
 import { encrypt } from '../../../../../../website/server/libs/encryption';
+import { RegistrationEventModel } from '../../../../../../website/server/models/analytics/registrationEvent';
 
 function generateRandomUserName () {
   return (Date.now() + uuid()).substring(0, 20);
@@ -39,6 +40,25 @@ describe('POST /user/auth/local/register', () => {
       expect(user.auth.local.username).to.eql(username);
       expect(user.profile.name).to.eql(username);
       expect(user.newUser).to.eql(true);
+    });
+
+    it('tracks a registration event', async () => {
+      const username = generateRandomUserName();
+      const email = `${username}@example.com`;
+      const password = 'password';
+
+      const user = await api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      const registrationEvent = await RegistrationEventModel.findOne({ userId: user._id });
+      expect(registrationEvent).to.exist;
+      expect(registrationEvent).to.have.property('userId', user._id);
+      expect(registrationEvent).to.have.property('ipAddress');
+      expect(registrationEvent).to.have.property('authenticationMethod', 'local');
     });
 
     it('registers a new user and sets verifiedUsername to true', async () => {

@@ -15,8 +15,8 @@
       <router-view />
     </div>
     <div
-      id="bottom-background"
       v-if="loginFlow"
+      id="bottom-background"
       class="bg-purple-300"
     >
       <div class="seamless_mountains_demo_repeat"></div>
@@ -31,7 +31,10 @@
       id="bottom-wrap"
       class="purple-4"
     >
-      <div id="bottom-background" v-if="!loginFlow">
+      <div
+        v-if="!loginFlow"
+        id="bottom-background"
+      >
         <div class="seamless_mountains_demo_repeat"></div>
         <div class="midground_foreground_extended2"></div>
       </div>
@@ -104,9 +107,10 @@
     footer, footer a {
       background: transparent;
       color: $purple-500;
-      &:hover {
-        color: $white;
-      }
+    }
+
+    footer a:hover {
+      color: $white;
     }
 
     h3 {
@@ -117,10 +121,6 @@
       border-top-color: $purple-100;
     }
 
-    .donate-text {
-      color: $purple-500;
-    }
-
     .logo {
       color: $purple-300;
     }
@@ -129,42 +129,27 @@
       color: $purple-500;
     }
 
+    .social .d-flex:hover {
+      a {
+        color: $white;
+      }
+      svg {
+        fill: $white;
+      }
+    }
+
     .social-circle {
       background: $purple-50;
       color: $purple-500;
 
-      .instagram svg {
+      svg {
         background-color: $purple-50;
         fill: $purple-500;
-        &:hover {
-          fill: $white;
-        }
-      }
-
-      .bluesky svg {
-        background-color: $purple-50;
-        fill: $purple-500;
-        &:hover {
-          fill: $white;
-        }
-      }
-
-      .facebook svg {
-        background-color: $purple-50;
-        fill: $purple-500;
-        &:hover {
-          fill: $white;
-        }
-      }
-
-      .tumblr svg {
-        background-color: $purple-50;
-        fill: $purple-500;
-        &:hover {
-          fill: $white;
-        }
+        width: 24px;
+        height: 24px;
       }
     }
+
     .btn-contribute {
       background: $white;
       box-shadow: none;
@@ -259,13 +244,11 @@
 
 <script>
 import AppFooter from '@/components/appFooter';
-import ChatBanner from '@/components/header/banners/chatBanner';
 import StaticHeader from './header.vue';
 
 export default {
   components: {
     AppFooter,
-    ChatBanner,
     StaticHeader,
   },
   computed: {
@@ -274,7 +257,8 @@ export default {
       return 'purple-footer';
     },
     loginFlow () {
-      return ['login', 'register', 'username'].indexOf(this.$route.name) !== -1;
+      const loginRoutes = ['forgotPassword', 'login', 'register', 'resetPassword', 'username'];
+      return loginRoutes.indexOf(this.$route.name) !== -1;
     },
     showContentWrap () {
       return this.$route.name !== 'news';

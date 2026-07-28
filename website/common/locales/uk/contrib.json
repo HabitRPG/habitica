@@ -40,10 +40,9 @@
     "backerTier": "Рівень мецената",
     "playerTiers": "Рівні гравців",
     "tier": "Рівень",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "Цей гравець допомагав Habitica розвиватися, заповнюючи опитування або приймаючи участь у важливому тестуванні. Дякуємо!",
     "surveysMultiple": "Ви допомагали Habitica розвиватися <%= count %> рази(-ів), заповнюючи опитування або допомагаючи в важливому тестуванні. Дякуємо!",
     "blurbHallPatrons": "Це Зал меценатів, де ми вшановуємо шляхетних шукачів пригод, які підтримали Habitica на Kickstarter. Ми дякуємо їм за те, що вони допомогли нам зробити Habitica реальною!",
-    "blurbHallContributors": "Це Зал співавторів, де вшановують ти тих, що зробили свій внесок до відкритого проєкту Habitica. Завдяки коду, мистецтву, музиці, письменництву чи навіть простій допомозі, вони здобули <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards' target='_blank'>самоцвіти, ексклюзивне спорядження</a>, та <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tiers' target='_blank'>престижні звання</a>. Ви також можете зробити свій внесок у Habitica! <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica' target='_blank'>Дізнайтесь більше тут.</a>",
+    "blurbHallContributors": "Це Зал співавторів, де вшановують ти тих, що зробили свій внесок до відкритого проєкту Habitica. Завдяки коду, мистецтву, музиці, письменництву чи навіть простій допомозі, вони здобули <%= linkRewards %>самоцвіти, ексклюзивне спорядження<%= linkClose %>, та <%= linkTiers %>престижні звання<%= linkClose %>. Ви також можете зробити свій внесок у Habitica! <%= linkContributing %>Дізнайтесь більше тут<%= linkClose %>.",
     "noPrivAccess": "Ви не маєте необхідних привілеїв."
 }

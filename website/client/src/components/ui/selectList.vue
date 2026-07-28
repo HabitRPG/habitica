@@ -12,7 +12,7 @@
       <template #button-content>
         <slot
           name="item"
-          :item="selected || placeholder"
+          :item="selectedItem || placeholder"
           :button="true"
         >
           <!-- Fallback content -->
@@ -133,6 +133,14 @@ export default {
         check: svgCheck,
       }),
     };
+  },
+  computed: {
+    selectedItem () {
+      if (this.activeKeyProp) {
+        return this.items.find(item => item[this.activeKeyProp] === this.selected);
+      }
+      return this.items.find(item => item === this.selected);
+    },
   },
   methods: {
     getKeyProp (item) {

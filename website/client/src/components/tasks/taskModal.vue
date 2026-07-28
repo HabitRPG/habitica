@@ -55,11 +55,31 @@
         </div>
       </div>
       <div class="form-group">
-        <lockable-label
-          :class-override="cssClass('headings')"
-          :locked="challengeAccessRequired"
-          :text="`${$t('text')}*`"
-        />
+        <div class="d-flex align-items-center">
+          <lockable-label
+            class="mr-auto"
+            :class-override="cssClass('headings')"
+            :locked="challengeAccessRequired"
+            :text="`${$t('text')}*`"
+          />
+          <div
+            id="spi-alert"
+            class="d-flex align-items-center"
+            :class="cssClass('headings')"
+          >
+            <div
+              class="svg svg-icon color icon-16 mr-1"
+              v-html="icons.alert"
+            ></div>
+            <small
+              class="my-1"
+            >
+              <a
+                :class="cssClass('headings')"
+              >{{ $t('avoidSPI') }}</a>
+            </small>
+          </div>
+        </div>
         <input
           ref="inputToFocus"
           v-model="task.text"
@@ -70,12 +90,29 @@
           spellcheck="true"
           :disabled="challengeAccessRequired"
           :placeholder="$t('addATitle')"
+          @focus="setActiveField('title')"
+          @keydown="autoCompleteMixinUpdateCarretPosition"
+          @keydown.tab="autoCompleteMixinHandleTab($event)"
+          @keydown.up="autoCompleteMixinSelectPreviousAutocomplete($event)"
+          @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
+          @keypress.enter="titleEnterHandler($event)"
+          @keydown.esc="autoCompleteMixinHandleEscape($event)"
         >
       </div>
+      <b-popover
+        :target="'spi-alert'"
+        triggers="hover"
+        placement="bottom"
+        offset="-128"
+      >
+        <div
+          v-html="$t('avoidSPIDetails', spiLinkData)">
+        </div>
+      </b-popover>
       <div
         class="form-group mb-0"
       >
-        <div class="d-flex">
+        <div class="d-flex align-items-center">
           <lockable-label
             class="mr-auto"
             :class-override="cssClass('headings')"
@@ -92,11 +129,27 @@
           </small>
         </div>
         <textarea
+          ref="notesTextarea"
           v-model="task.notes"
           class="form-control input-notes"
           :class="cssClass('input')"
           :placeholder="$t('addNotes')"
+          @focus="setActiveField('notes')"
+          @keydown="autoCompleteMixinUpdateCarretPosition"
+          @keydown.tab="autoCompleteMixinHandleTab($event)"
+          @keydown.up="autoCompleteMixinSelectPreviousAutocomplete($event)"
+          @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
+          @keypress.enter="autoCompleteMixinSelectAutocomplete($event)"
+          @keydown.esc="autoCompleteMixinHandleEscape($event)"
         ></textarea>
+        <emoji-auto-complete
+          ref="emojiAutocomplete"
+          :text="activeFieldText"
+          :textbox="textbox"
+          :coords="mixinData.autoComplete.coords"
+          :caret-position="mixinData.autoComplete.caretPosition"
+          @select="selectedAutocomplete"
+        />
       </div>
     </div>
     <div
@@ -150,14 +203,14 @@
           <button
             type="button"
             class="habit-option-container no-transition
-              d-flex flex-column justify-content-center align-items-center"
+            d-flex flex-column justify-content-center align-items-center"
             :class="!task.up ? cssClass('habit-control-disabled') : ''"
             :disabled="challengeAccessRequired"
             @click="toggleUpDirection()"
           >
             <div
               class="habit-option-button no-transition
-                d-flex justify-content-center align-items-center mb-2"
+              d-flex justify-content-center align-items-center mb-2"
               :class="task.up ? cssClass('bg') : ''"
             >
               <div
@@ -176,14 +229,14 @@
           <button
             type="button"
             class="habit-option-container no-transition
-              d-flex flex-column justify-content-center align-items-center"
+            d-flex flex-column justify-content-center align-items-center"
             :class="!task.down ? cssClass('habit-control-disabled') : ''"
             :disabled="challengeAccessRequired"
             @click="toggleDownDirection()"
           >
             <div
               class="habit-option-button no-transition
-                d-flex justify-content-center align-items-center mb-2"
+              d-flex justify-content-center align-items-center mb-2"
               :class="task.down ? cssClass('bg') : ''"
             >
               <div
@@ -359,6 +412,25 @@
             </div>
           </div>
         </div>
+        <p
+          v-if="task.type === 'daily' && schedulingSummary"
+          class="scheduling-summary mt-2 mb-0"
+        >
+          {{ schedulingSummary }}
+        </p>
+        <div
+          v-if="task.type === 'daily' && schedulingWarning"
+          class="scheduling-warning mt-2"
+        >
+          <span
+            class="scheduling-warning-icon svg-icon color gray-50"
+            v-html="icons.alert"
+          ></span>
+          <span
+            class="scheduling-warning-text"
+            v-html="schedulingWarning"
+          ></span>
+        </div>
         <div
           v-if="!groupId"
           class="tags-select option mt-3"
@@ -379,6 +451,45 @@
                 @changed="task.tags = $event"
                 @addNew="addTag"
               />
+            </div>
+          </div>
+        </div>
+        <div
+          v-if="showStatAssignment"
+          class="stat-assignment option mt-3"
+        >
+          <div class="form-group row">
+            <label
+              v-once
+              class="col-12 mb-1"
+            >{{ $t('assignedStat') }}</label>
+            <div class="col-12">
+              <div class="stat-dropdown-container">
+                <select-list
+                  :items="statOptions"
+                  :value="task.attribute"
+                  key-prop="key"
+                  active-key-prop="key"
+                  @select="task.attribute = $event.key"
+                >
+                  <template #item="{ item, button }">
+                    <div class="stat-option-content">
+                      <span
+                        class="stat-option-title"
+                        :class="item.key"
+                      >
+                        {{ $t(item.label) }}
+                      </span>
+                      <span
+                        v-if="!button"
+                        class="stat-option-description"
+                      >
+                        {{ $t(item.description) }}
+                      </span>
+                    </div>
+                  </template>
+                </select-list>
+              </div>
             </div>
           </div>
         </div>
@@ -591,7 +702,7 @@
         >
           <button
             class="btn btn-primary btn-footer
-            d-flex align-items-center justify-content-center"
+          d-flex align-items-center justify-content-center"
             :class="{'btn-disabled': !canSave}"
             type="button"
             @click="submit()"
@@ -673,6 +784,7 @@
     }
 
     .task-modal-header {
+      position: relative;
       color: $white;
       width: 100%;
       border-top-left-radius: 8px;
@@ -900,6 +1012,20 @@
         box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.12), 0px 1px 2px 0px rgba(26, 24, 29, 0.24);
       }
     }
+
+    .b-popover {
+      margin-top: -5px;
+      max-width: 330px;
+    }
+
+    .popover-body {
+      text-align: left;
+
+      a {
+        color: $gray-500;
+        text-decoration: underline;
+      }
+    }
   }
 
   @media only screen and (max-width: 768px) {
@@ -911,6 +1037,87 @@
   .streak-addon path {
     fill: $gray-200;
   }
+
+  .stat-dropdown-container {
+    .select-list {
+      .selectListItem {
+        margin-bottom: 0;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      .selectListItem .dropdown-item {
+        padding: 8px 16px !important;
+        height: auto !important;
+        white-space: normal;
+        word-wrap: break-word;
+
+        &:hover,
+        &:focus {
+          background-color: rgba($purple-600, 0.25) !important;
+        }
+      }
+
+      .dropdown-toggle {
+        display: flex;
+        align-items: center;
+
+        .stat-option-content {
+          display: flex;
+          align-items: center;
+
+          .stat-option-title {
+            font-weight: normal;
+            color: $gray-50;
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    .stat-option-content {
+      display: block;
+      width: 100%;
+
+      .stat-option-title {
+        display: block;
+        font-family: Roboto;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 1.71;
+        text-transform: capitalize;
+        margin-bottom: 4px;
+
+        &.str {
+          color: $maroon-100;
+        }
+
+        &.int {
+          color: $blue-50;
+        }
+
+        &.con {
+          color: $yellow-5;
+        }
+
+        &.per {
+          color: $purple-300;
+        }
+      }
+
+      .stat-option-description {
+        display: block;
+        font-family: Roboto;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        color: $gray-100;
+        margin-bottom: 0;
+      }
+    }
+  }
 </style>
 
 <style lang="scss" scoped>
@@ -919,6 +1126,42 @@
   .gold {
     width: 1rem;
     height: 1rem;
+  }
+
+  .scheduling-summary {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 16px;
+    color: $gray-50;
+    text-align: left;
+  }
+
+  .scheduling-warning {
+    display: flex;
+    align-items: flex-start;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 16px;
+    color: $gray-50;
+  }
+
+  .scheduling-warning-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-right: 6px;
+    margin-top: -1px;
+  }
+
+  .scheduling-warning-text {
+    flex: 1;
   }
 
   label {
@@ -1023,7 +1266,6 @@
   .input-group-outer.disabled .input-group-text {
     color: $gray-200;
   }
-
 </style>
 
 <script>
@@ -1038,8 +1280,11 @@ import SelectMulti from './modal-controls/selectMulti';
 import selectDifficulty from '@/components/tasks/modal-controls/selectDifficulty';
 import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
+import selectList from '@/components/ui/selectList';
 
 import syncTask from '../../mixins/syncTask';
+import emojiAutoComplete from '@/components/chat/emojiAutoComplete';
+import { autoCompleteHelperMixin } from '@/mixins/autoCompleteHelper';
 
 import positiveIcon from '@/assets/svg/positive.svg?raw';
 import negativeIcon from '@/assets/svg/negative.svg?raw';
@@ -1050,6 +1295,7 @@ import chevronIcon from '@/assets/svg/chevron.svg?raw';
 import calendarIcon from '@/assets/svg/calendar.svg?raw';
 import gripIcon from '@/assets/svg/grip.svg?raw';
 import InformationIcon from '@/components/ui/informationIcon.vue';
+import alertIcon from '@/assets/svg/for-css/alert-white.svg?raw';
 
 export default {
   components: {
@@ -1061,15 +1307,19 @@ export default {
     selectTranslatedArray,
     toggleCheckbox,
     lockableLabel,
+    selectList,
+    emojiAutoComplete,
   },
   directives: {
     markdown: markdownDirective,
   },
-  mixins: [syncTask],
+  mixins: [syncTask, autoCompleteHelperMixin],
   // purpose is either create or edit, task is the task created or edited
   props: ['task', 'purpose', 'challengeId', 'groupId'],
   data () {
     return {
+      textbox: null,
+      activeField: 'title',
       showAssignedSelect: false,
       newChecklistItem: null,
       icons: Object.freeze({
@@ -1081,6 +1331,7 @@ export default {
         streak: streakIcon,
         calendar: calendarIcon,
         grip: gripIcon,
+        alert: alertIcon,
       }),
       members: [],
       membersNameAndId: [],
@@ -1094,7 +1345,18 @@ export default {
         con: 'constitution',
         per: 'perception',
       },
+      statOptions: [
+        { key: 'str', label: 'strength', description: 'strTaskText' },
+        { key: 'int', label: 'intelligence', description: 'intTaskText' },
+        { key: 'con', label: 'constitution', description: 'conTaskText' },
+        { key: 'per', label: 'perception', description: 'perTaskText' },
+      ],
       calendarHighlights: { dates: [new Date()] },
+      spiLinkData: {
+        firstLink: '<a href="/static/privacy#section_1" target="_blank" rel="noopener noreferrer">',
+        secondLink: '<a href="/static/privacy" target="_blank" rel="noopener noreferrer">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {
@@ -1170,6 +1432,87 @@ export default {
       }
       return null;
     },
+    schedulingSummary () {
+      if (!this.task || this.task.type !== 'daily') return '';
+      const { task } = this;
+      const everyXValue = +task.everyX;
+
+      let interval;
+      if (task.frequency === 'daily') {
+        interval = everyXValue === 1 ? this.$t('everyDay') : this.$t('everyXDays', { count: everyXValue });
+      } else if (task.frequency === 'weekly') {
+        interval = everyXValue === 1 ? this.$t('everyWeek') : this.$t('everyXWeeks', { count: everyXValue });
+      } else if (task.frequency === 'monthly') {
+        interval = everyXValue === 1 ? this.$t('everyMonth') : this.$t('everyXMonths', { count: everyXValue });
+      } else if (task.frequency === 'yearly') {
+        interval = everyXValue === 1 ? this.$t('everyYear') : this.$t('everyXYears', { count: everyXValue });
+      } else {
+        return '';
+      }
+
+      let details = '';
+      if (task.frequency === 'weekly') {
+        const dayNames = {
+          su: 'Sunday',
+          m: 'Monday',
+          t: 'Tuesday',
+          w: 'Wednesday',
+          th: 'Thursday',
+          f: 'Friday',
+          s: 'Saturday',
+        };
+        const activeDays = Object.keys(task.repeat || {}).filter(d => task.repeat[d]);
+        if (activeDays.length > 0) {
+          details = ` on ${activeDays.map(d => dayNames[d]).join(', ')}`;
+        }
+      } else if (task.frequency === 'monthly' && task.startDate) {
+        const dayOfMonth = moment(task.startDate).date();
+        if (task.weeksOfMonth && task.weeksOfMonth.length > 0) {
+          const weekNum = task.weeksOfMonth[0] + 1;
+          const weekStr = String(weekNum);
+          const lastDigit = weekStr.slice(-1);
+          let suffix = 'th';
+          if (lastDigit === '1' && weekStr !== '11') suffix = 'st';
+          if (lastDigit === '2' && weekStr !== '12') suffix = 'nd';
+          if (lastDigit === '3' && weekStr !== '13') suffix = 'rd';
+          const dayName = moment(task.startDate).format('dddd');
+          details = ` on the ${weekNum}${suffix} ${dayName} of the month`;
+        } else if (task.daysOfMonth && task.daysOfMonth.length > 0) {
+          const dom = task.daysOfMonth[0];
+          const domStr = String(dom);
+          const lastDigit = domStr.slice(-1);
+          let suffix = 'th';
+          if (lastDigit === '1' && domStr !== '11') suffix = 'st';
+          if (lastDigit === '2' && domStr !== '12') suffix = 'nd';
+          if (lastDigit === '3' && domStr !== '13') suffix = 'rd';
+          details = ` on the ${dom}${suffix}`;
+        } else {
+          const domStr = String(dayOfMonth);
+          const lastDigit = domStr.slice(-1);
+          let suffix = 'th';
+          if (lastDigit === '1' && domStr !== '11') suffix = 'st';
+          if (lastDigit === '2' && domStr !== '12') suffix = 'nd';
+          if (lastDigit === '3' && domStr !== '13') suffix = 'rd';
+          details = ` on the ${dayOfMonth}${suffix}`;
+        }
+      } else if (task.frequency === 'yearly' && task.startDate) {
+        details = ` on ${moment(task.startDate).format('MMMM Do')}`;
+      }
+
+      return `${this.$t('repeats')} ${interval}${details}`;
+    },
+    schedulingWarning () {
+      if (!this.task || this.task.type !== 'daily') return '';
+      const { task } = this;
+      if (task.frequency === 'monthly'
+        && task.weeksOfMonth && task.weeksOfMonth.length > 0
+        && task.weeksOfMonth[0] === 4
+        && task.startDate) {
+        const dayName = moment(task.startDate).format('dddd');
+        return this.$t('fifthWeekWarning', { day: dayName });
+      }
+      return '';
+    },
     repeatsOn: {
       get () {
         let repeatsOn = 'dayOfMonth';
@@ -1186,6 +1529,16 @@ export default {
     },
     selectedTags () {
       return this.getTagsFor(this.task);
+    },
+    activeFieldText () {
+      if (!this.task) return '';
+      return this.activeField === 'title' ? (this.task.text || '') : (this.task.notes || '');
+    },
+    showStatAssignment () {
+      return this.task.type !== 'reward'
+        && !this.groupId
+        && this.user.preferences.automaticAllocation === true
+        && this.user.preferences.allocationMode === 'taskbased';
     },
   },
   watch: {
@@ -1233,7 +1586,7 @@ export default {
       this.task.down = !this.task.down;
     },
     weekdaysMin (dayNumber) {
-      return moment.weekdaysMin(dayNumber);
+      return this.$t(`weekdaysMin${dayNumber}`);
     },
     formattedDate (date) {
       return moment(date).format('MM/DD/YYYY');
@@ -1305,9 +1658,16 @@ export default {
       }
       this.$root.$emit('bv::hide::modal', 'task-modal');
     },
-    destroy () {
+    async destroy () {
       const type = this.$t(this.task.type);
-      if (!window.confirm(this.$t('sureDeleteType', { type }))) return; // eslint-disable-line no-alert
+      const confirmed = await new Promise(resolve => {
+        this.$root.$emit('habitica:delete-task-confirm', {
+          message: this.$t('sureDeleteType', { type }),
+          taskType: type,
+          resolve,
+        });
+      });
+      if (!confirmed) return;
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
       this.$root.$emit('bv::hide::modal', 'task-modal');
@@ -1349,6 +1709,35 @@ export default {
     },
     focusInput () {
       this.$refs.inputToFocus.focus();
+      this.setActiveField('title');
+    },
+    setActiveField (field) {
+      this.activeField = field;
+      if (field === 'title') {
+        this.textbox = this.$refs.inputToFocus;
+      } else {
+        this.textbox = this.$refs.notesTextarea;
+      }
+    },
+    titleEnterHandler (e) {
+      const ac = this._getActiveAutocomplete();
+      if (ac && ac.selected !== null) {
+        e.preventDefault();
+        ac.makeSelection();
+      } else if (ac) {
+        ac.cancel();
+      }
+    },
+    selectedAutocomplete (newText, newCaret) {
+      if (this.activeField === 'title') {
+        this.task.text = newText;
+      } else {
+        this.task.notes = newText;
+      }
+      this.$nextTick(() => {
+        this.textbox.setSelectionRange(newCaret, newCaret);
+        this.textbox.focus();
+      });
     },
     async addTag (name) {
       const tagResult = await this.createTag({ name });

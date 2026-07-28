@@ -50,5 +50,7 @@
     "exerciseHabit": "유산소 운동 10분 >> 유산소 운동 10분 더하기(+)",
     "choresTodoText": "옷장 정리>>깔끔하게 정리하기",
     "choresTodoNotes": "지저분한 곳을 지정하려면 이곳을 누르세요!",
-    "creativityDailyText": "창의적인 프로젝트 하기"
+    "creativityDailyText": "창의적인 프로젝트 하기",
+    "creativityTodoText": "",
+    "creativityHabit": ""
 }

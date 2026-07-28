@@ -16,7 +16,7 @@
 
   .badge-pin {
     background-color: $white;
-    color: $gray-200;
+    color: $gray-100;
     transition: none;
     display: flex;
     cursor: pointer;
@@ -32,8 +32,8 @@
     }
 
     .svg-icon {
-      width: 100%;
-      height: 100%;
+      width: 16px;
+      height: 16px;
     }
   }
 

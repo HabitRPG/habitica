@@ -59,7 +59,7 @@
     "loginIncentiveQuest": "このクエストを入手するには、<%= count %>日のログインが必要です！",
     "loginReward": "<%= count %>日のログイン",
     "questBundles": "クエスト割引セット",
-    "noQuestToStart": "新しいものがないか <a href=\"<%= questShop %>\">クエストショップ</a>をチェックしてみましょう！",
+    "noQuestToStart": "新しいものがないか <%= linkOpen %>クエストショップ<%= linkClose %>をチェックしてみましょう！",
     "pendingDamage": "<%= damage %>ダメージを保留中",
     "pendingDamageLabel": "保留中のダメージ",
     "bossHealth": "体力 <%= currentHealth %> / <%= maxHealth %>",

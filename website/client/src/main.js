@@ -11,7 +11,6 @@ import {
   NavbarPlugin,
   CollapsePlugin,
 } from 'bootstrap-vue';
-import Fragment from 'vue-fragment';
 import AppComponent from './app';
 import { setUpLogging } from '@/libs/logging';
 import router from './router/index';
@@ -44,7 +43,6 @@ Vue.use(FormRadioPlugin);
 Vue.use(TooltipPlugin);
 Vue.use(NavbarPlugin);
 Vue.use(CollapsePlugin);
-Vue.use(Fragment.Plugin);
 
 setUpLogging();
 const store = getStore();
