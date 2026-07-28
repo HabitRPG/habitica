@@ -156,8 +156,16 @@ api.seeNotification = {
  * @apiName SeeNotifications
  * @apiGroup Notification
  *
+ * @apiParam {String[]} notificationIds Required. Array of notification ID strings to mark as seen.
+ *
+ * @apiExample {json} Request-Example:
+ * {
+ *   "notificationIds": ["abcdef123", "ghi456789"]
+ * }
+ *
  * @apiSuccess {Object} data user.notifications
  */
+
 api.seeNotifications = {
   method: 'POST',
   url: '/notifications/see',
