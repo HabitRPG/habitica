@@ -58,10 +58,10 @@ api.readNotification = {
  * @apiName ReadNotifications
  * @apiGroup Notification
  *
- * @apiParam {String[]} notificationIds Array of UUIDs of notification IDs to mark as read
+ * @apiParam {String[]} notificationIds Array of notification IDs to mark as read
  * (required)
  *
- * @apiSuccess {Object} data Updated user.notifications array
+ * @apiSuccess {Object[]} data Updated user.notifications array
  */
 api.readNotifications = {
   method: 'POST',
