@@ -61,8 +61,14 @@ api.readNotification = {
  * @apiParam {String[]} notificationIds Array of notification IDs to mark as read
  * (required)
  *
+ * @apiExample {json} Request-Example:
+ * {
+ *   "notificationIds": ["abcdef123", "ghi456789"]
+ * }
+ *
  * @apiSuccess {Object[]} data Updated user.notifications array
  */
+
 api.readNotifications = {
   method: 'POST',
   url: '/notifications/read',
