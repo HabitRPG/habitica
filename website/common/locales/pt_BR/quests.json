@@ -59,7 +59,7 @@
     "loginIncentiveQuest": "Para desbloquear esta missão, faça seu check-in <%= count %> vezes no Habitica, em dias diferentes!",
     "loginReward": "<%= count %> Check-ins",
     "questBundles": "Pacotes de Missões com Desconto",
-    "noQuestToStart": "Experimente visitar a <a href=\"<%= questShop %>\">Loja de Missões</a> e confira se não há nada de novo por lá!",
+    "noQuestToStart": "Experimente visitar a <%= linkOpen %>Loja de Missões<%= linkClose %> e confira se não há nada de novo por lá!",
     "pendingDamage": "<%= damage %> de dano pendente",
     "pendingDamageLabel": "dano pendente",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Vida",

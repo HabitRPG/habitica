@@ -198,7 +198,6 @@ import dailyIcon from '@/assets/svg/daily.svg?raw';
 import todoIcon from '@/assets/svg/todo.svg?raw';
 import rewardIcon from '@/assets/svg/reward.svg?raw';
 
-import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 
 export default {
@@ -438,14 +437,6 @@ export default {
       return false;
     },
     changeMirrorPreference (newVal) {
-      Analytics.track({
-        eventName: 'mirror tasks',
-        eventAction: 'mirror tasks',
-        eventCategory: 'behavior',
-        hitType: 'event',
-        mirror: newVal,
-        group: this.group._id,
-      }, { trackOnClient: true });
       const groupsToMirror = this.user.preferences.tasks.mirrorGroupTasks || [];
       if (newVal) { // we're turning copy ON for this group
         groupsToMirror.push(this.group._id);

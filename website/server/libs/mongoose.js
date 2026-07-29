@@ -38,3 +38,17 @@ export default async function connectToMongoDB () {
   }
   return null;
 }
+
+let analyticsDb;
+
+export function getAnalyticsDatabase () {
+  if (!analyticsDb) {
+    const analyticsDbName = nconf.get('ANALYTICS_DB');
+    const analyticsDbUri = nconf.get('ANALYTICS_DB_URI') || connectionUrl;
+    analyticsDb = mongoose.createConnection(analyticsDbUri, {
+      ...mongooseOptions,
+      dbName: analyticsDbName,
+    });
+  }
+  return analyticsDb;
+}

@@ -72,8 +72,6 @@
     "pkAnswer6": "Viele verschiedene Leute benutzen Habitica! Mehr als die Hälfte dieser Leute sind zwischen 18 und 34 Jahre alt, aber wir haben auch Großeltern, welche die Seite mit ihren jungen Enkeln nutzen, und Menschen jeden Alters dazwischen. Oftmals kommen Familien in einer Party zusammen und kämpfen gemeinsam gegen Monster.<br /> Viele, die Habitica nutzen, haben einen Hintergrund in Spielen, aber als wir vor einiger Zeit eine Umfrage durchführten wurden wir überrascht: rund 40% von ihnen sahen sich als Nicht-Gamer! Es sieht ganz so aus, als ob unsere Methode für jede Person effektiv sein kann, die möchte, dass Produktivität und Wohlbefinden mehr Spaß machen.",
     "pkQuestion7": "Warum benutzt Habitica pixel art?",
     "pkAnswer7": "Habitica nutzt pixel art aus verschiedenen Gründen. Zusätzlich zum spaßigen Nostalgiefaktor ist pixel art sehr gut zugänglich für die freiwilligen Künstler, die gerne beitragen möchten. Es ist viel einfacher, unsere pixel art konstistent zu halten, selbst wenn viele verschiedene Künstler einen Beitrag leisten und es lässt uns schnell neuen Inhalt entwickeln!",
-    "pkQuestion8": "Wie hat Habitica das reale Leben von Leuten beeinflusst?",
-    "pkAnswer8": "Hier findest Du viele Erfahrungsberichte darüber, wie Habitica Menschen geholfen hat: https://habitversary.tumblr.com",
     "pkMoreQuestions": "Hast Du eine Frage, welche nicht in der Liste zu finden ist? Bitte sende uns eine Email an admin@habitica.com!",
     "pkPromo": "Aktionen",
     "pkLogo": "Logos",
@@ -116,8 +114,8 @@
     "emailTaken": "Diese E-Mail-Adresse wird bereits von einem Konto verwendet.",
     "newEmailRequired": "Fehlende neue E-Mail-Adresse.",
     "usernameTime": "Es ist Zeit, einen Benutzernamen zu wählen!",
-    "usernameInfo": "Anmeldenamen sind nun eindeutige Benutzernamen, die neben dem Anzeigenamen sichtbar sind und für Einladungen, @Erwähnungen im Chat und Nachrichten verwendet werden. <br><br>Wenn Du mehr über diese Änderung erfahren möchtest, <a href='https://habitica.fandom.com/wiki/Player_Names' target='_blank'>besuche unser Wiki</a>.",
-    "usernameTOSRequirements": "Benutzernamen müssen unseren <a href='/static/terms' target='_blank'>Allgemeinen Geschäftsbedingungen</a> und den <a href='/static/community-guidelines' target='_blank'>Community-Richtlinien</a> entsprechen. Wenn Du zuvor keinen Anmeldenamen festgelegt hast, wurde Dein Benutzername automatisch generiert.",
+    "usernameInfo": "Anmeldenamen sind nun eindeutige Benutzernamen, die neben dem Anzeigenamen sichtbar sind und für Einladungen, @Erwähnungen im Chat und Nachrichten verwendet werden. <br><br>Wenn Du mehr über diese Änderung erfahren möchtest, <%= linkOpen %>besuche unser Wiki<%= linkClose %>.",
+    "usernameTOSRequirements": "Benutzernamen müssen unseren <%= termsLink %>Allgemeinen Geschäftsbedingungen<%= linkClose %> und den <%= guidelinesLink %>Community-Richtlinien<%= linkClose %> entsprechen. Wenn Du zuvor keinen Anmeldenamen festgelegt hast, wurde Dein Benutzername automatisch generiert.",
     "usernameTaken": "Benutzername bereits vergeben.",
     "passwordConfirmationMatch": "Die Passwörter stimmen nicht überein.",
     "passwordResetPage": "Passwort zurücksetzen",
@@ -187,5 +185,7 @@
     "minPasswordLengthLogin": "Dein Passwort ist mindestens 8 Zeichen lang.",
     "enterValidEmail": "Bitte gib eine gültige E-Mail-Adresse ein.",
     "whatToCallYou": "Wie sollen wir dich nennen?",
-    "acceptPrivacyTOS": "Du bestätigst, dass du mindestens 18 Jahre alt bist und dass du unsere <a href='/static/terms' target='_blank'>Nutzungsbedingungen</a> und <a href='/static/privacy' target='_blank'>Datenschutz-Bestimmungen</a> gelesen hast und akzeptierst"
+    "acceptPrivacyTOS": "Du bestätigst, dass du mindestens 18 Jahre alt bist und dass du unsere <%= termsLink %>Nutzungsbedingungen<%= linkClose %> und <%= privacyLink %>Datenschutz-Bestimmungen<%= linkClose %> gelesen hast und akzeptierst",
+    "emailAddress": "E-Mail_adresse",
+    "emailRequiredForSupport": "Wir benötigen eine E-Mail-Adresse für den Benutzersupport. Bitte geben Sie eine E-Mail-Adresse ein, um mit der Erstellung Ihres Kontos fortzufahren."
 }

@@ -8,7 +8,6 @@ website/client/
 website/common/transpiled-babel/
 dist/
 dist-client/
-apidoc/html/
 content_cache/
 i18n_cache/
 node_modules/

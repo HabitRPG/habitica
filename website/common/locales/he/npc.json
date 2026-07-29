@@ -114,5 +114,20 @@
     "cannotUnpinItem": "לא ניתן לבטל את הצמדת הפריט הזה.",
     "nGems": "<%= nGems %> יהלומים",
     "paymentAutoRenew": "מינוי זה יתחדש באופן אוטומטי עד שיבוטל. אם ברצונך לבטל את המינוי, ניתן לעשות זאת מההגדרות.",
-    "amountExp": "<%= amount %> ניסיון"
+    "amountExp": "<%= amount %> ניסיון",
+    "groupsPaymentSubBilling": "",
+    "paymentSubBillingWithMethod": "",
+    "paymentCanceledDisputes": "",
+    "customizationsShopText": "",
+    "notAvailable": "",
+    "helpSupportHabitica": "",
+    "nGemsGift": "",
+    "invalidUnlockSet": "",
+    "paymentYouSentSubscriptionG1G1": "",
+    "nMonthsSubscriptionGift": "",
+    "limitedAvailabilityMinutes": "",
+    "limitedAvailabilityDays": "",
+    "limitedAvailabilityHours": "",
+    "sellItems": "",
+    "groupsPaymentAutoRenew": ""
 }

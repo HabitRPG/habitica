@@ -1,3 +1,4 @@
+import moment from 'moment/min/moment-with-locales';
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
@@ -93,13 +94,12 @@ langCodes.forEach(code => {
   lang.momentLangCode = momentLangsMapping[code] || code;
 
   try {
-    // MomentJS lang files are JS files that has to be executed
-    // in the browser so we load them as plain text files
-    // We wrap everything in a try catch because the file might not exist
-    const f = fs.readFileSync(path.join(__dirname, `/../../../node_modules/moment/locale/${lang.momentLangCode}.js`), 'utf8');
-
-    momentLangs[code] = f;
-  } catch (e) { // eslint-disable-lint no-empty
+    moment.locale(lang.momentLangCode);
+    const weekdays = moment.weekdaysMin();
+    for (const day of [...Array(7).keys()]) {
+      coreTranslations[code][`weekdaysMin${day}`] = weekdays[day];
+    }
+  } catch (e) {
     // The catch block is mandatory so it won't crash the server
   }
 });
@@ -149,7 +149,6 @@ export function geti18nCoreBrowserScript (languageCode) {
     availableLanguages,
     language,
     strings: coreTranslations[languageCode],
-    momentLang: momentLangs[languageCode],
   })};
   })()`;
 }

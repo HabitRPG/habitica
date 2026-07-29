@@ -1,9 +1,9 @@
 /* eslint-disable global-require */
-import got from 'got';
 import nconf from 'nconf';
 import requireAgain from 'require-again';
 import { TAVERN_ID } from '../../../../website/server/models/group';
 import { defer } from '../../../helpers/api-unit.helper';
+import worker from '../../../../website/server/libs/worker';
 
 function getUser () {
   return {
@@ -127,7 +127,7 @@ describe('emails', () => {
     let sendTxn = null;
 
     beforeEach(() => {
-      sandbox.stub(got, 'post').returns(defer().promise);
+      sandbox.stub(worker, 'sendJob').returns(defer().promise);
 
       const nconfGetStub = sandbox.stub(nconf, 'get');
       nconfGetStub.withArgs('IS_PROD').returns(true);
@@ -149,13 +149,12 @@ describe('emails', () => {
       };
 
       sendTxn(mailingInfo, emailType);
-      expect(got.post).to.be.called;
-      expect(got.post).to.be.calledWith('http://example.com/job', sinon.match({
-        json: {
-          data: {
-            emailType: sinon.match.same(emailType),
-            to: sinon.match(value => Array.isArray(value) && value[0].name === mailingInfo.name, 'matches mailing info array'),
-          },
+      expect(worker.sendJob).to.be.called;
+      expect(worker.sendJob).to.be.calledWith('email', sinon.match({
+        identifier: emailType,
+        data: {
+          emailType: sinon.match.same(emailType),
+          to: sinon.match(value => Array.isArray(value) && value[0].name === mailingInfo.name, 'matches mailing info array'),
         },
       }));
     });
@@ -168,7 +167,7 @@ describe('emails', () => {
       };
 
       sendTxn(mailingInfo, emailType);
-      expect(got.post).not.to.be.called;
+      expect(worker.sendJob).not.to.be.called;
     });
 
     it('throws error when mail target is only a string', async () => {
@@ -233,13 +232,12 @@ describe('emails', () => {
       const mailingInfo = getUser();
 
       sendTxn(mailingInfo, emailType);
-      expect(got.post).to.be.called;
-      expect(got.post).to.be.calledWith('http://example.com/job', sinon.match({
-        json: {
-          data: {
-            emailType: sinon.match.same(emailType),
-            to: sinon.match(val => val[0]._id === mailingInfo._id),
-          },
+      expect(worker.sendJob).to.be.called;
+      expect(worker.sendJob).to.be.calledWith('email', sinon.match({
+        identifier: emailType,
+        data: {
+          emailType: sinon.match.same(emailType),
+          to: sinon.match(val => val[0]._id === mailingInfo._id),
         },
       }));
     });
@@ -253,15 +251,14 @@ describe('emails', () => {
       const variables = [];
 
       sendTxn(mailingInfo, emailType, variables);
-      expect(got.post).to.be.called;
-      expect(got.post).to.be.calledWith('http://example.com/job', sinon.match({
-        json: {
-          data: {
-            variables: sinon.match(value => value[0].name === 'BASE_URL', 'matches variables'),
-            personalVariables: sinon.match(value => value[0].rcpt === mailingInfo.email
-                && value[0].vars[0].name === 'RECIPIENT_NAME'
+      expect(worker.sendJob).to.be.called;
+      expect(worker.sendJob).to.be.calledWith('email', sinon.match({
+        identifier: emailType,
+        data: {
+          variables: sinon.match(value => value[0].name === 'BASE_URL', 'matches variables'),
+          personalVariables: sinon.match(value => value[0].rcpt === mailingInfo.email
+              && value[0].vars[0].name === 'RECIPIENT_NAME'
                 && value[0].vars[1].name === 'RECIPIENT_UNSUB_URL', 'matches personal variables'),
-          },
         },
       }));
     });

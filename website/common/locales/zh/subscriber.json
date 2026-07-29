@@ -147,7 +147,6 @@
     "mysticHourglassNeededNoSub": "这个物品需要一个神秘沙漏。你可以通过订阅 Habitica 获得神秘沙漏。",
     "viewSubscriptions": "查看订阅",
     "mysterySet202002": "时尚恋人套装",
-    "cancelSubAlternatives": "如果您遇到技术问题或Habitica不能满足您的要求，请考虑<a href='mailto:admin@habitica.com'>与我们联系</a>。我们希望帮助您充分利用Habitica。",
     "cancelYourSubscription": "取消您的订阅？",
     "readyToResubscribe": "你准备好重新订阅了吗？",
     "needToUpdateCard": "需要更新你的卡片信息？",
@@ -169,8 +168,8 @@
     "mysterySet202009": "奇异飞蛾套装",
     "usuallyGems": "通常<%= originalGems %>",
     "supportHabitica": "支持Habitica",
-    "cancelSubInfoApple": "请按照<a href=\"https://support.apple.com/en-us/HT202039\"> Apple官方说明</a>取消订阅，或查看订阅的终止日期（如果你已经取消订阅）。本页面无法显示你的订阅是否已取消。",
-    "cancelSubInfoGoogle": "如需取消订阅或者查询订阅终止日期，请使用 <a href='https://play.google.com/store/account/subscriptions'>Google Play 商店</a>。 取消订阅后，您已付费但尚未使用的订阅时长将自动延长您的订阅到期时间。",
+    "cancelSubInfoApple": "请按照<%= linkOpen %> Apple官方说明<%= linkClose %>取消订阅，或查看订阅的终止日期（如果你已经取消订阅）。本页面无法显示你的订阅是否已取消。",
+    "cancelSubInfoGoogle": "如需取消订阅或者查询订阅终止日期，请使用 <%= linkOpen %>Google Play 商店<%= linkClose %>。 取消订阅后，您已付费但尚未使用的订阅时长将自动延长您的订阅到期时间。",
     "organization": "组织",
     "mysterySet202010": "迷人怪蝠套装",
     "dropCapSubs": "Habitica的订阅者每日可以获得双倍的掉落物品，而且每月还能获得神秘物品!",
@@ -258,7 +257,6 @@
     "nMonthsGift": "<%= months %> 月订阅",
     "subscribeAgainContinueHourglasses": "请续订以继续领取神秘沙漏",
     "immediate12Hourglasses": "首次12个月订阅后，立即获得<strong>12个神秘沙漏</strong>！",
-    "subscriptionChangeAnnouncement": "<strong>订阅额外奖励及其发放方式将于11月19日调整。</strong> <%= linkStart %>点击此处</a>了解详情。",
     "selectPayment": "请选择付费方式",
     "unlockNGemsGift": "将每月在商店中解锁 <strong><%= count %> 颗宝石</strong>",
     "earn2GemsGift": "每月将获得订阅的<strong>2颗宝石</strong>",
@@ -277,5 +275,9 @@
     "mysterySet202602": "樱之狐套装",
     "mysterySet202603": "紫藤魔法师套装",
     "mysterySet202605": "暮光云环套装",
-    "mysterySet202604": "无畏宇航员套装"
+    "mysterySet202604": "无畏宇航员套装",
+    "mysterySet202606": "假日吊床套装",
+    "mysterySet202607": "海潮术士套装",
+    "mysterySet202608": "光刃套装",
+    "giftGems": "想赠送闪闪发光的宝石给别人吗？"
 }

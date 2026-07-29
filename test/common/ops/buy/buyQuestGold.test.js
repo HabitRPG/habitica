@@ -12,21 +12,15 @@ import { errorMessage } from '../../../../website/common/script/libs/errorMessag
 
 describe('shared.ops.buyQuest', () => {
   let user;
-  const analytics = { track () {} };
 
-  async function buyQuest (_user, _req, _analytics) {
-    const buyOp = new BuyQuestWithGoldOperation(_user, _req, _analytics);
+  async function buyQuest (_user, _req) {
+    const buyOp = new BuyQuestWithGoldOperation(_user, _req);
 
     return buyOp.purchase();
   }
 
   beforeEach(() => {
     user = generateUser();
-    sinon.stub(analytics, 'track');
-  });
-
-  afterEach(() => {
-    analytics.track.restore();
   });
 
   it('buys a Quest scroll', async () => {
@@ -35,12 +29,11 @@ describe('shared.ops.buyQuest', () => {
       params: {
         key: 'dilatoryDistress1',
       },
-    }, analytics);
+    });
     expect(user.items.quests).to.eql({
       dilatoryDistress1: 1,
     });
     expect(user.stats.gp).to.equal(5);
-    expect(analytics.track).to.be.calledOnce;
   });
 
   it('if a user\'s count of a quest scroll is negative, it will be reset to 0 before incrementing when they buy a new one.', async () => {
@@ -49,10 +42,9 @@ describe('shared.ops.buyQuest', () => {
     user.items.quests[key] = -1;
     await buyQuest(user, {
       params: { key },
-    }, analytics);
+    });
     expect(user.items.quests[key]).to.equal(1);
     expect(user.stats.gp).to.equal(5);
-    expect(analytics.track).to.be.calledOnce;
   });
 
   it('buys a Quest scroll with the right quantity if a string is passed for quantity', async () => {
@@ -61,13 +53,13 @@ describe('shared.ops.buyQuest', () => {
       params: {
         key: 'dilatoryDistress1',
       },
-    }, analytics);
+    });
     await buyQuest(user, {
       params: {
         key: 'dilatoryDistress1',
       },
       quantity: '3',
-    }, analytics);
+    });
 
     expect(user.items.quests).to.eql({
       dilatoryDistress1: 4,
@@ -82,7 +74,7 @@ describe('shared.ops.buyQuest', () => {
           key: 'dilatoryDistress1',
         },
         quantity: 'a',
-      }, analytics);
+      });
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
       expect(err.message).to.equal(i18n.t('invalidQuantity'));
@@ -187,12 +179,11 @@ describe('shared.ops.buyQuest', () => {
       params: {
         key: 'dilatoryDistress3',
       },
-    }, analytics);
+    });
 
     expect(user.items.quests).to.eql({
       dilatoryDistress3: 1,
     });
     expect(user.stats.gp).to.equal(100);
-    expect(analytics.track).to.be.calledOnce;
   });
 });

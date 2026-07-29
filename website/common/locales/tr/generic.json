@@ -12,7 +12,6 @@
     "showLess": "Daha Az Göster",
     "markdownHelpLink": "Markdown biçimlendirme yardımı",
     "bold": "**Kalın**",
-    "markdownImageEx": "![zorunlu alternatif metin](https://habitica.com/cake.png \"seçeneğe bağlı ipucu metni\")",
     "code": "`kod`",
     "achievements": "Başarılar",
     "basicAchievs": "Temel Başarılar",
@@ -241,7 +240,9 @@
     "submitQuestion": "Soruyu Gönder",
     "newMessage": "Yeni Mesaj",
     "targetUserNotExist": "Hedef Kullanıcı: '<%= userName %>' mevcut değil.",
-    "rememberToBeKind": "Lütfen nazik, saygılı olun ve <a href='/static/community-guidelines' target='_blank'>Topluluk Kurallarına</a> uyun.",
+    "rememberToBeKind": "Lütfen nazik, saygılı olun ve <%= linkOpen %>Topluluk Kurallarına<%= linkClose %> uyun.",
     "gem": "Mücevher",
-    "confirmPurchase": "Satın Alımı Onayla"
+    "confirmPurchase": "Satın Alımı Onayla",
+    "avoidSPI": "",
+    "avoidSPIDetails": ""
 }

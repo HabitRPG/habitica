@@ -8,7 +8,7 @@
         {{ label }}
       </h3>
       <div
-        v-markdown="$t('markdownFormattingHelp')"
+        v-markdown="$t('markdownFormattingHelp', { markdownLink })"
         class="float-right"
       ></div>
       <div
@@ -16,7 +16,7 @@
         class="row"
       >
         <textarea
-          ref="user-entry"
+          :ref="setTextbox"
           v-model="newMessage"
           dir="auto"
           :placeholder="placeholder"
@@ -127,6 +127,7 @@ export default {
       },
       textbox: null,
       MAX_MESSAGE_LENGTH: MAX_MESSAGE_LENGTH.toString(),
+      markdownLink: 'https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica',
     };
   },
   computed: {
@@ -139,13 +140,15 @@ export default {
     },
   },
   mounted () {
-    this.textbox = this.$refs['user-entry'];
     this.handleExternalLinks();
   },
   updated () {
     this.handleExternalLinks();
   },
   methods: {
+    setTextbox (ref) {
+      this.textbox = ref;
+    },
     async sendMessageShortcut () {
       // If the user recently pasted in the text field, don't submit
       if (!this.chat.submitDisable) {

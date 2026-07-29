@@ -2,7 +2,7 @@ import nconf from 'nconf';
 import express from 'express';
 import http from 'http';
 import mongoose from 'mongoose';
-import redis from 'redis';
+import redis from 'ioredis';
 import logger from './libs/logger';
 
 // Setup translations
@@ -31,7 +31,9 @@ process.on('SIGTERM', async () => {
   console.log('SIGTERM signal received: closing HTTP server');
   server.close(async () => {
     await mongoose.disconnect();
-    await redis.quit();
+    if (redis.quit) {
+      await redis.quit();
+    }
     process.exit(0);
   });
 });

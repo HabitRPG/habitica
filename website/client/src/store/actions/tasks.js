@@ -3,7 +3,6 @@ import Vue from 'vue';
 import compact from 'lodash/compact';
 import omit from 'lodash/omit';
 import { loadAsyncResource } from '@/libs/asyncResource';
-import * as Analytics from '@/libs/analytics';
 import { CONSTANTS, getLocalSetting, setLocalSetting } from '@/libs/userlocalManager';
 
 export function fetchUserTasks (store, options = {}) {
@@ -112,15 +111,6 @@ export async function create (store, createdTask) {
     }
     const tasksCreatedCount = getLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT);
     if (!tasksCreatedCount || tasksCreatedCount < 2) {
-      const uuid = store.state.user.data._id;
-      Analytics.track({
-        eventName: 'task created',
-        eventAction: 'task created',
-        eventCategory: 'behavior',
-        hitType: 'event',
-        uuid,
-        taskType: taskRes.type,
-      }, { trackOnClient: true });
       if (!tasksCreatedCount) {
         setLocalSetting(CONSTANTS.keyConstants.TASKS_CREATED_COUNT, 1);
       } else {
@@ -168,11 +158,15 @@ export async function collapseChecklist (store, task) {
 }
 
 export async function destroy (store, task) {
-  const list = store.state.tasks.data[`${task.type}s`];
-  const taskIndex = list.findIndex(t => t._id === task._id);
+  const type = `${task.type}s`;
+  const listIndex = store.state.tasks.data[type].findIndex(t => t._id === task._id);
+  const orderIndex = store.state.user.data.tasksOrder[type].indexOf(task._id);
 
-  if (taskIndex > -1) {
-    list.splice(taskIndex, 1);
+  if (listIndex > -1) {
+    store.state.tasks.data[type].splice(listIndex, 1);
+  }
+  if (orderIndex > -1) {
+    store.state.user.data.tasksOrder[type].splice(orderIndex, 1);
   }
 
   await axios.delete(`/api/v4/tasks/${task._id}`);

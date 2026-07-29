@@ -108,5 +108,9 @@
     "deleteChallengeRefundDescription": "Ako izbrišete ovaj Izazov, bit će Vam vraćena nagrada u Draguljima, a zadaci Izazova ostat će na popisima zadataka sudionika.",
     "cannotClone": "Ovaj Izazov ne može biti kloniran jer ga je jedan ili više igrača prijavilo kao neprikladan. Član osoblja će Vas uskoro kontaktirati s uputama. Ako je prošlo više od 48 sati, a niste dobili odgovor, pošaljite e-poruku na admin@habitica.com za pomoć.",
     "abuseFlagModalBodyChallenge": "Izazov biste trebali prijaviti samo ako krši <%= firstLinkStart %>Smjernice zajednice<%= linkEnd %> i/ili <%= secondLinkStart %>Uvjete pružanja usluge<%= linkEnd %>. Slanje lažne prijave predstavlja kršenje Habitica Smjernica zajednice.",
-    "cannotClose": "Ovaj Izazov ne može biti zatvoren jer ga je jedan ili više igrača prijavilo kao neprikladan. Član osoblja će Vas uskoro kontaktirati s uputama. Ako je prošlo više od 48 sati, a niste dobili odgovor, pošaljite e-poruku na admin@habitica.com za pomoć."
+    "cannotClose": "Ovaj Izazov ne može biti zatvoren jer ga je jedan ili više igrača prijavilo kao neprikladan. Član osoblja će Vas uskoro kontaktirati s uputama. Ako je prošlo više od 48 sati, a niste dobili odgovor, pošaljite e-poruku na admin@habitica.com za pomoć.",
+    "brokenTask": "",
+    "brokenTaskDescription": "",
+    "brokenChallengeDescription": "",
+    "challengeCompletedDescription": ""
 }

@@ -3,10 +3,7 @@
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import find from 'lodash/find';
-import pick from 'lodash/pick';
 import moment from 'moment';
-
-import { getAnalyticsServiceByEnvironment } from '../analyticsService';
 import * as slack from '../slack'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
   getUserInfo,
@@ -26,10 +23,10 @@ import calculateSubscriptionTerminationDate from './calculateSubscriptionTermina
 import { getCurrentEventList } from '../worldState'; // eslint-disable-line import/no-cycle
 import { paymentConstants } from './constants';
 import { addSubscriptionToGroupUsers, cancelGroupUsersSubscription } from './groupPayments'; // eslint-disable-line import/no-cycle
+import { trackSubscriptionEvent } from '../localAnalytics';
 
 // @TODO: Abstract to shared/constant
 const JOINED_GROUP_PLAN = 'joined group plan';
-const analytics = getAnalyticsServiceByEnvironment();
 
 function _findMysteryItems (user, dateMoment) {
   const pushedItems = [];
@@ -81,6 +78,14 @@ async function prepareSubscriptionValues (data) {
     ? shared.content.subscriptionBlocks[data.updatedFrom.key]
     : undefined;
   let months;
+  let subscriptionEventType = 'subscribed';
+  if (updatedFrom) {
+    if (Number(updatedFrom.months) > Number(block.months)) {
+      subscriptionEventType = 'downgraded';
+    } else {
+      subscriptionEventType = 'upgraded';
+    }
+  }
   if (updatedFrom && Number(updatedFrom.months) !== 1) {
     if (Number(updatedFrom.months) > Number(block.months)) {
       months = 0;
@@ -125,13 +130,6 @@ async function prepareSubscriptionValues (data) {
     group = await Group.getGroup({
       user: data.user, groupId: data.groupId, populateLeader: false, groupFields,
     });
-
-    if (group) {
-      analytics.track(
-        data.groupID,
-        data.demographics,
-      );
-    }
 
     if (!group) {
       throw new NotFound(shared.i18n.t('groupNotFound'));
@@ -230,6 +228,7 @@ async function prepareSubscriptionValues (data) {
     purchaseType,
     emailType,
     isNewSubscription,
+    subscriptionEventType,
   };
 }
 
@@ -242,10 +241,9 @@ async function createSubscription (data) {
     autoRenews,
     group,
     groupId,
-    itemPurchased,
-    purchaseType,
     emailType,
     isNewSubscription,
+    subscriptionEventType,
   } = await prepareSubscriptionValues(data);
   if (recipient !== group) {
     recipient.items.pets['Jackalope-RoyalPurple'] = 5;
@@ -276,22 +274,6 @@ async function createSubscription (data) {
   }
 
   if (!group && !data.promo) data.user.purchased.txnCount += 1;
-
-  if (!data.promo) {
-    analytics.trackPurchase({
-      uuid: data.user._id,
-      groupId,
-      itemPurchased,
-      sku: `${data.paymentMethod.toLowerCase()}-subscription`,
-      purchaseType,
-      paymentMethod: data.paymentMethod,
-      quantity: 1,
-      gift: Boolean(data.gift),
-      purchaseValue: block.price,
-      headers: data.headers || { 'x-client': 'habitica-web' },
-      firstPurchase: !group && data.user.purchased.txnCount === 1,
-    });
-  }
 
   if (data.gift) {
     const byUserName = getUserInfo(data.user, ['name']).name;
@@ -381,6 +363,16 @@ async function createSubscription (data) {
   if (data.user && data.user.isModified()) await data.user.save();
   if (data.gift) await data.gift.member.save();
 
+  await trackSubscriptionEvent({
+    eventType: subscriptionEventType,
+    user: data.gift ? data.gift.member : data.user,
+    gifted: data.gift !== undefined,
+    autoRenews,
+    paymentMethod: data.paymentMethod,
+    planId: block.key,
+    customerId: plan.customerId,
+  });
+
   slack.sendSubscriptionNotification({
     buyer: {
       id: data.user._id,
@@ -403,8 +395,6 @@ async function createSubscription (data) {
 async function cancelSubscription (data) {
   let plan;
   let group;
-  let cancelType = 'unsubscribe';
-  let groupId;
   let emailType;
   const emailMergeData = [];
   let sendEmail = true;
@@ -462,17 +452,13 @@ async function cancelSubscription (data) {
     txnEmail(data.user, emailType, emailMergeData);
   }
 
-  if (group) {
-    cancelType = 'group-unsubscribe';
-    groupId = group._id;
-  }
-
-  analytics.track(cancelType, {
-    uuid: data.user._id,
-    user: pick(data.user, ['preferences', 'registeredThrough']),
-    groupId,
-    paymentMethod: data.paymentMethod,
-    headers: data.headers,
+  await trackSubscriptionEvent({
+    eventType: 'cancelled',
+    user: data.user,
+    cancellationReason: data.cancellationReason,
+    paymentMethod: plan.paymentMethod,
+    planId: plan.planId,
+    customerId: plan.customerId,
   });
 }
 

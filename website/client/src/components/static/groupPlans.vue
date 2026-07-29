@@ -135,7 +135,7 @@
       </h2>
       <p
         class="purple-600"
-        v-html="$t('checkGroupPlanFAQ')"
+        v-html="$t('checkGroupPlanFAQ', faqLinks)"
       ></p>
     </div>
   </div>
@@ -329,6 +329,10 @@ export default {
       modalOption: '',
       modalPage: 'account',
       modalTitle: this.$t('register'),
+      faqLinks: {
+        linkOpen: '<a href="/static/faq#what-is-group-plan">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {

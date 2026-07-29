@@ -12,7 +12,6 @@
     "showLess": "表示を減らす",
     "markdownHelpLink": "マークダウン記法のヘルプ",
     "bold": "**太字**",
-    "markdownImageEx": "![mandatory alt text](https://habitica.com/cake.png \"任意のマウスオーバーする際表示されるタイトル\")",
     "code": "`コード`",
     "achievements": "実績",
     "basicAchievs": "基本の実績",
@@ -241,7 +240,9 @@
     "titleCustomizations": "カスタマイズ",
     "newMessage": "新しいメッセージ",
     "targetUserNotExist": "「<%= userName %>」というユーザーはいません。",
-    "rememberToBeKind": "他人には優しくして、<a href='/static/community-guidelines' target='_blank'>コミュニティガイドラン</a>を守ってください。",
+    "rememberToBeKind": "他人には優しくして、<%= linkOpen %>コミュニティガイドラン<%= linkClose %>を守ってください。",
     "gem": "ジェム",
-    "confirmPurchase": "購入を確認する"
+    "confirmPurchase": "購入を確認する",
+    "avoidSPI": "機微情報は避けてください",
+    "avoidSPIDetails": "プライバシーを守るため、Habitica をご利用の際は<%= firstLink %>機微（センシティブ）情報<%= linkClose %>を入力しないでください。タスクなどのアカウントデータは Habitica のサーバーに保存されるため、どの端末からでもアクセスできます。<br><br>詳しくは<%= secondLink %>プライバシーポリシー<%= linkClose %>をご覧ください。"
 }

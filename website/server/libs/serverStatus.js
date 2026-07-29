@@ -1,6 +1,7 @@
 const SERVER_STATUS = {
   MONGODB: false,
-  REDIS: false,
+  RATE_LIMITER: false,
+  WORKER: false,
   EXPRESS: false,
 };
 

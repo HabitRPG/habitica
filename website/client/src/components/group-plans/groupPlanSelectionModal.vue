@@ -470,7 +470,7 @@ export default {
       return this.userGuilds.filter(group => {
         const leaderId = group.leader?._id || group.leader;
         if (leaderId !== this.user._id) return false;
-        const purchased = group.purchased;
+        const { purchased } = group;
         if (!purchased?.wasUpgraded) return false;
         if (this.activeGroupPlanIds.includes(group._id)) return false;
         if (!purchased.dateTerminated) return false;
@@ -492,7 +492,7 @@ export default {
     },
     isPartyPreviouslyUpgraded () {
       if (!this.userParty) return false;
-      const purchased = this.userParty.purchased;
+      const { purchased } = this.userParty;
       if (!purchased?.wasUpgraded) return false;
       if (!purchased.dateTerminated) return false;
       return new Date(purchased.dateTerminated) < new Date();
@@ -533,7 +533,7 @@ export default {
 
       this.$nextTick(() => {
         if (this.upgradeableGuilds.length > 0) {
-          this.selectedOption = this.upgradeableGuilds[0];
+          [this.selectedOption] = this.upgradeableGuilds;
         } else if (this.upgradeableParty) {
           this.selectedOption = this.upgradeableParty;
         } else {

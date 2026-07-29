@@ -83,7 +83,7 @@
         </div>
       </div>
       <draggable
-        v-if="taskList.length > 0"
+        v-if="taskList.length > 0 && !rerendering"
         ref="tasksList"
         class="sortable-tasks"
         :disabled="activeFilter.label === 'scheduled' || !canBeDragged()"
@@ -432,6 +432,7 @@ export default {
 
       selectedItemToBuy: {},
       dragging: false,
+      rerendering: false,
     };
   },
   computed: {
@@ -548,8 +549,8 @@ export default {
       if (this.taskListOverride) originTasks = this.taskListOverride;
 
       // Server
-      const taskIdToReplace = filteredList[data.newIndex];
-      const newIndexOnServer = originTasks.findIndex(taskId => taskId === taskIdToReplace);
+      const taskIdToReplace = filteredList[data.newIndex]._id;
+      const newIndexOnServer = originTasks.findIndex(task => task._id === taskIdToReplace);
 
       let newOrder;
       if (taskToMove.group.id && !this.isUser) {
@@ -568,6 +569,9 @@ export default {
       // Client
       const deleted = originTasks.splice(data.oldIndex, 1);
       originTasks.splice(data.newIndex, 0, deleted[0]);
+      this.rerendering = true;
+      await this.$nextTick();
+      this.rerendering = false;
     },
     async moveTo (task, where) { // where is 'top' or 'bottom'
       const taskIdToMove = task._id;
@@ -578,7 +582,7 @@ export default {
       const newPosition = where === 'top' ? 0 : list.length;
       list.splice(newPosition, 0, moved[0]);
 
-      if (!this.isUser) {
+      if (task.group.id && !this.isUser) {
         await this.$store.dispatch('tasks:moveGroupTask', {
           taskId: taskIdToMove,
           position: newPosition,
@@ -588,7 +592,7 @@ export default {
           taskId: taskIdToMove,
           position: newPosition,
         });
-        this.user.tasksOrder[`${this.type}s`] = newOrder;
+        if (!this.taskListOverride) this.user.tasksOrder[`${this.type}s`] = newOrder;
       }
     },
     async rewardSorted (data) {

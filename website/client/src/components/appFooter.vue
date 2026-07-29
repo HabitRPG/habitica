@@ -11,6 +11,7 @@
             <li>
               <a
                 href="https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8"
+                rel="noopener noreferrer"
                 target="_blank"
               >{{ $t('mobileIOS') }}
               </a>
@@ -18,6 +19,7 @@
             <li>
               <a
                 href="https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica"
+                rel="noopener noreferrer"
                 target="_blank"
               >{{ $t('mobileAndroid') }}
               </a>
@@ -52,6 +54,7 @@
               <a
                 href="https://habitica.wordpress.com/"
                 target="_blank"
+                rel="noopener noreferrer"
               >{{ $t('companyBlog') }}
               </a>
             </li>
@@ -71,6 +74,7 @@
             <li>
               <a
                 target="_blank"
+                rel="noopener noreferrer"
                 href="/static/community-guidelines"
               >{{ $t('communityGuidelines') }}
               </a>
@@ -84,6 +88,7 @@
               <a
                 href="https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica"
                 target="_blank"
+                rel="noopener noreferrer"
               >{{ $t('companyContribute') }}
               </a>
             </li>
@@ -91,6 +96,7 @@
               <a
                 href="https://translate.habitica.com/"
                 target="_blank"
+                rel="noopener noreferrer"
               >{{ $t('translateHabitica') }}
               </a>
             </li>
@@ -111,6 +117,7 @@
               <a
                 href=""
                 target="_blank"
+                rel="noopener noreferrer"
                 @click.prevent="openBugReportModal()"
               >
                 {{ $t('reportBug') }}
@@ -122,6 +129,7 @@
               <a
                 href="mailto:admin@habitica.com?subject=Habitica Web Bug Report"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 {{ $t('reportBug') }}
               </a>
@@ -130,6 +138,7 @@
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
                 target="_blank"
+                rel="noopener noreferrer"
               >{{ $t('requestFeature') }}
               </a>
             </li>
@@ -141,8 +150,9 @@
           <ul>
             <li>
               <a
-                href="/apidoc"
+                href="https://apidoc.habitica.com"
                 target="_blank"
+                rel="noopener noreferrer"
               >{{ $t('APIv3') }}
               </a>
             </li>
@@ -150,6 +160,7 @@
               <a
                 :href="getDataDisplayToolUrl"
                 target="_blank"
+                rel="noopener noreferrer"
               >{{ $t('dataDisplayTool') }}
               </a>
             </li>
@@ -157,6 +168,7 @@
               <a
                 href="https://habitica.fandom.com/wiki/Guidance_for_Blacksmiths"
                 target="_blank"
+                rel="noopener noreferrer"
               >{{ $t('guidanceForBlacksmiths') }}
               </a>
             </li>
@@ -172,6 +184,7 @@
                   class="social-circle mr-2"
                   href="https://www.instagram.com/habitica/"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <div
                     class="social-icon svg-icon"
@@ -181,6 +194,7 @@
                 <a
                   href="https://www.instagram.com/habitica/"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {{ $t('communityInstagram') }}
                 </a>
@@ -190,6 +204,7 @@
                   class="social-circle mr-2"
                   href="https://bsky.app/profile/habitica.com"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <div
                     class="social-icon svg-icon"
@@ -199,6 +214,7 @@
                 <a
                   href="https://bsky.app/profile/habitica.com"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Bluesky
                 </a>
@@ -208,6 +224,7 @@
                   class="social-circle mr-2"
                   href="https://www.facebook.com/Habitica/"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <div
                     class="social-icon svg-icon"
@@ -217,6 +234,7 @@
                 <a
                   href="https://www.facebook.com/Habitica/"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {{ $t('communityFacebook') }}
                 </a>
@@ -226,6 +244,7 @@
                   class="social-circle mr-2"
                   href="http://blog.habitrpg.com/"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <div
                     class="social-icon svg-icon"
@@ -235,6 +254,7 @@
                 <a
                   href="http://blog.habitrpg.com/"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {{ $t('tumblr') }}
                 </a>
@@ -266,12 +286,14 @@
             <span class="privacy-policy">
               <a
                 target="_blank"
+                rel="noopener noreferrer"
                 href="/static/privacy"
               >{{ $t('privacy') }}</a>
             </span>
             <span class="terms">
               <a
                 target="_blank"
+                rel="noopener noreferrer"
                 href="/static/terms"
               >{{ $t('terms') }}</a>
             </span>
@@ -287,12 +309,14 @@
           <div class="privacy-policy mx-auto mb-2">
             <a
               target="_blank"
+              rel="noopener noreferrer"
               href="/static/privacy"
             >{{ $t('privacy') }}</a>
           </div>
           <div class="mobile-terms mx-auto mb-2">
             <a
               target="_blank"
+              rel="noopener noreferrer"
               href="/static/terms"
             >{{ $t('terms') }}</a>
           </div>

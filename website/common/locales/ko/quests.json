@@ -48,7 +48,7 @@
     "questAlreadyAccepted": "당신은 퀘스트 요청을 이미 수락 하셧습니다.",
     "questLeaderCannotLeaveQuest": "퀘스트를 리더는 퀘스트를 포기할 수 없습니다",
     "notPartOfQuest": "퀘스트의 멤버가 아닙니다",
-    "youAreNotOnQuest": "You're not on a quest",
+    "youAreNotOnQuest": "퀘스트 중이 아닙니다.",
     "noActiveQuestToAbort": "중단 시킬 수 있는 퀘스트가 없습니다.",
     "onlyLeaderAbortQuest": "그룹 또는 퀘스트 리더가 퀘스트를 중단 시킬 수 있습니다.",
     "questAlreadyRejected": "당신은 이미 퀘스트 요청을 거부 하셨습니다.",
@@ -59,7 +59,7 @@
     "loginIncentiveQuest": "To unlock this quest, check in to Habitica on <%= count %> different days!",
     "loginReward": "<%= count %>번 출석",
     "questBundles": "Discounted Quest Bundles",
-    "noQuestToStart": "새로운 것이 있는지 <a href=\"<%= questShop %>\">퀘스트상점</a>  을 확인해보세요!",
+    "noQuestToStart": "새로운 것이 있는지 <%= linkOpen %>퀘스트상점<%= linkClose %>  을 확인해보세요!",
     "pendingDamage": "<%= damage %> pending damage",
     "pendingDamageLabel": "pending damage",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
@@ -84,5 +84,13 @@
     "chatBossDefeated": "<%= bossName %>을 물리쳤습니다! 퀘스트에 참가한 파티원들은 승리 보상을 받습니다.",
     "chatFindItems": "<%= username %>이/가 <%= items %>을 발견했습니다.",
     "chatItemQuestFinish": "모든 아이템을 찾았습니다! 파티는 보상을 받습니다.",
-    "chatBossDontAttack": "<%= username %>은/는 <%= bossName %>에 <%= userDamage %>데미지를 가합니다. <%=bossName %>은 오류로 재정비 중이라는 사실을 존중하고 부당하게 피해를 주고 싶지 않기 때문에 공격하지 않습니다. 곧 다시 공격할 예정입니다!"
+    "chatBossDontAttack": "<%= username %>은/는 <%= bossName %>에 <%= userDamage %>데미지를 가합니다. <%=bossName %>은 오류로 재정비 중이라는 사실을 존중하고 부당하게 피해를 주고 싶지 않기 때문에 공격하지 않습니다. 곧 다시 공격할 예정입니다!",
+    "newItem": "",
+    "backToSelection": "",
+    "yourQuests": "",
+    "questOwner": "",
+    "cancelQuest": "",
+    "selectQuestModal": "",
+    "ownerOnly": "",
+    "tavernBossTired": "<%= bossName %>은/는 <%= rageName %>을/를 발동하려 하지만 너무 지쳤다."
 }

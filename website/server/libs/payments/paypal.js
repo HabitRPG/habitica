@@ -6,7 +6,6 @@ import _ from 'lodash';
 import paypalIpn from 'pp-ipn';
 import paypal from 'paypal-rest-sdk';
 import cc from 'coupon-code';
-import logger from '../logger';
 import shared from '../../../common';
 import payments from './payments'; // eslint-disable-line import/no-cycle
 import { getGemsBlock, validateGiftMessage } from './gems'; // eslint-disable-line import/no-cycle
@@ -214,7 +213,6 @@ api.subscribeSuccess = async function subscribeSuccess (options = {}) {
     user, groupId, block, headers, token,
   } = options;
   const result = await this.paypalBillingAgreementExecute(token, {});
-  logger.info('PayPal Subscription', { state: result.state, details: result.agreement_details });
   await payments.createSubscription({
     user,
     groupId,
@@ -333,6 +331,7 @@ api.ipn = async function ipnApi (options = {}) {
     'recurring_payment_profile_cancel',
     'recurring_payment_failed',
     'recurring_payment_expired',
+    'recurring_payment_skipped',
     'subscr_cancel',
     'subscr_failed',
   ];
@@ -347,6 +346,9 @@ api.ipn = async function ipnApi (options = {}) {
     // resulting in the loss of subscription credits
     if (user.hasCancelled()) return;
 
+    if (txn_type === 'recurring_payment_skipped') {
+      await this.paypalBillingAgreementCancel(recurring_payment_id, { note: 'Missed payment' });
+    }
     await payments.cancelSubscription({ user, paymentMethod: this.constants.PAYMENT_METHOD });
     return;
   }

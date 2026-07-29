@@ -21,7 +21,7 @@
     "pauseDailies": "Sæt skade på pause",
     "unpauseDailies": "Skade er ikke længere på pause",
     "staffAndModerators": "Ansatte og Moderatorer",
-    "communityGuidelinesIntro": "Habitica forsøger at skabe et indbydende miljø for brugere af alle aldre og baggrunde, især i offentlige rum som Værtshuset. Hvis du har nogle spørgsmål, se de venligst vores <a href='/static/community-guidelines' target='_blank'>Retningslinjer for fællesskabet</a>.",
+    "communityGuidelinesIntro": "Habitica forsøger at skabe et indbydende miljø for brugere af alle aldre og baggrunde, især i offentlige rum som Værtshuset. Hvis du har nogle spørgsmål, se de venligst vores <%= linkOpen %>Retningslinjer for fællesskabet<%= linkClose %>.",
     "acceptCommunityGuidelines": "Jeg accepterer at følge Retningslinjerne for fællesskabet",
     "worldBossEvent": "Verdensboss-event",
     "worldBossDescription": "Beskrivelse af Verdensboss",
@@ -122,5 +122,12 @@
     "nMonthsSubscriptionGift": "<%= nMonths %> Måned(ers) Abonnement (Gave)",
     "nGemsGift": "<%= nGems %> Ædelsten (Gave)",
     "nGems": "<%= nGems %> Ædelsten",
-    "amountExp": "<%= amount %> Exp"
+    "amountExp": "<%= amount %> Exp",
+    "helpSupportHabitica": "",
+    "notAvailable": "",
+    "customizationsShopText": "",
+    "paymentYouSentSubscriptionG1G1": "",
+    "groupsPaymentSubBilling": "",
+    "groupsPaymentAutoRenew": "",
+    "sellItems": ""
 }

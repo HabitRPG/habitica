@@ -55,11 +55,31 @@
         </div>
       </div>
       <div class="form-group">
-        <lockable-label
-          :class-override="cssClass('headings')"
-          :locked="challengeAccessRequired"
-          :text="`${$t('text')}*`"
-        />
+        <div class="d-flex align-items-center">
+          <lockable-label
+            class="mr-auto"
+            :class-override="cssClass('headings')"
+            :locked="challengeAccessRequired"
+            :text="`${$t('text')}*`"
+          />
+          <div
+            id="spi-alert"
+            class="d-flex align-items-center"
+            :class="cssClass('headings')"
+          >
+            <div
+              class="svg svg-icon color icon-16 mr-1"
+              v-html="icons.alert"
+            ></div>
+            <small
+              class="my-1"
+            >
+              <a
+                :class="cssClass('headings')"
+              >{{ $t('avoidSPI') }}</a>
+            </small>
+          </div>
+        </div>
         <input
           ref="inputToFocus"
           v-model="task.text"
@@ -79,10 +99,20 @@
           @keydown.esc="autoCompleteMixinHandleEscape($event)"
         >
       </div>
+      <b-popover
+        :target="'spi-alert'"
+        triggers="hover"
+        placement="bottom"
+        offset="-128"
+      >
+        <div
+          v-html="$t('avoidSPIDetails', spiLinkData)">
+        </div>
+      </b-popover>
       <div
         class="form-group mb-0"
       >
-        <div class="d-flex">
+        <div class="d-flex align-items-center">
           <lockable-label
             class="mr-auto"
             :class-override="cssClass('headings')"
@@ -381,6 +411,25 @@
               >{{ $t('dayOfWeek') }}</label>
             </div>
           </div>
+        </div>
+        <p
+          v-if="task.type === 'daily' && schedulingSummary"
+          class="scheduling-summary mt-2 mb-0"
+        >
+          {{ schedulingSummary }}
+        </p>
+        <div
+          v-if="task.type === 'daily' && schedulingWarning"
+          class="scheduling-warning mt-2"
+        >
+          <span
+            class="scheduling-warning-icon svg-icon color gray-50"
+            v-html="icons.alert"
+          ></span>
+          <span
+            class="scheduling-warning-text"
+            v-html="schedulingWarning"
+          ></span>
         </div>
         <div
           v-if="!groupId"
@@ -963,6 +1012,20 @@
         box-shadow: 0px 1px 3px 0px rgba(26, 24, 29, 0.12), 0px 1px 2px 0px rgba(26, 24, 29, 0.24);
       }
     }
+
+    .b-popover {
+      margin-top: -5px;
+      max-width: 330px;
+    }
+
+    .popover-body {
+      text-align: left;
+
+      a {
+        color: $gray-500;
+        text-decoration: underline;
+      }
+    }
   }
 
   @media only screen and (max-width: 768px) {
@@ -1063,6 +1126,42 @@
   .gold {
     width: 1rem;
     height: 1rem;
+  }
+
+  .scheduling-summary {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 16px;
+    color: $gray-50;
+    text-align: left;
+  }
+
+  .scheduling-warning {
+    display: flex;
+    align-items: flex-start;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 16px;
+    color: $gray-50;
+  }
+
+  .scheduling-warning-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-right: 6px;
+    margin-top: -1px;
+  }
+
+  .scheduling-warning-text {
+    flex: 1;
   }
 
   label {
@@ -1196,6 +1295,7 @@ import chevronIcon from '@/assets/svg/chevron.svg?raw';
 import calendarIcon from '@/assets/svg/calendar.svg?raw';
 import gripIcon from '@/assets/svg/grip.svg?raw';
 import InformationIcon from '@/components/ui/informationIcon.vue';
+import alertIcon from '@/assets/svg/for-css/alert-white.svg?raw';
 
 export default {
   components: {
@@ -1231,6 +1331,7 @@ export default {
         streak: streakIcon,
         calendar: calendarIcon,
         grip: gripIcon,
+        alert: alertIcon,
       }),
       members: [],
       membersNameAndId: [],
@@ -1251,6 +1352,11 @@ export default {
         { key: 'per', label: 'perception', description: 'perTaskText' },
       ],
       calendarHighlights: { dates: [new Date()] },
+      spiLinkData: {
+        firstLink: '<a href="/static/privacy#section_1" target="_blank" rel="noopener noreferrer">',
+        secondLink: '<a href="/static/privacy" target="_blank" rel="noopener noreferrer">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {
@@ -1326,6 +1432,87 @@ export default {
       }
       return null;
     },
+    schedulingSummary () {
+      if (!this.task || this.task.type !== 'daily') return '';
+      const { task } = this;
+      const everyXValue = +task.everyX;
+
+      let interval;
+      if (task.frequency === 'daily') {
+        interval = everyXValue === 1 ? this.$t('everyDay') : this.$t('everyXDays', { count: everyXValue });
+      } else if (task.frequency === 'weekly') {
+        interval = everyXValue === 1 ? this.$t('everyWeek') : this.$t('everyXWeeks', { count: everyXValue });
+      } else if (task.frequency === 'monthly') {
+        interval = everyXValue === 1 ? this.$t('everyMonth') : this.$t('everyXMonths', { count: everyXValue });
+      } else if (task.frequency === 'yearly') {
+        interval = everyXValue === 1 ? this.$t('everyYear') : this.$t('everyXYears', { count: everyXValue });
+      } else {
+        return '';
+      }
+
+      let details = '';
+      if (task.frequency === 'weekly') {
+        const dayNames = {
+          su: 'Sunday',
+          m: 'Monday',
+          t: 'Tuesday',
+          w: 'Wednesday',
+          th: 'Thursday',
+          f: 'Friday',
+          s: 'Saturday',
+        };
+        const activeDays = Object.keys(task.repeat || {}).filter(d => task.repeat[d]);
+        if (activeDays.length > 0) {
+          details = ` on ${activeDays.map(d => dayNames[d]).join(', ')}`;
+        }
+      } else if (task.frequency === 'monthly' && task.startDate) {
+        const dayOfMonth = moment(task.startDate).date();
+        if (task.weeksOfMonth && task.weeksOfMonth.length > 0) {
+          const weekNum = task.weeksOfMonth[0] + 1;
+          const weekStr = String(weekNum);
+          const lastDigit = weekStr.slice(-1);
+          let suffix = 'th';
+          if (lastDigit === '1' && weekStr !== '11') suffix = 'st';
+          if (lastDigit === '2' && weekStr !== '12') suffix = 'nd';
+          if (lastDigit === '3' && weekStr !== '13') suffix = 'rd';
+          const dayName = moment(task.startDate).format('dddd');
+          details = ` on the ${weekNum}${suffix} ${dayName} of the month`;
+        } else if (task.daysOfMonth && task.daysOfMonth.length > 0) {
+          const dom = task.daysOfMonth[0];
+          const domStr = String(dom);
+          const lastDigit = domStr.slice(-1);
+          let suffix = 'th';
+          if (lastDigit === '1' && domStr !== '11') suffix = 'st';
+          if (lastDigit === '2' && domStr !== '12') suffix = 'nd';
+          if (lastDigit === '3' && domStr !== '13') suffix = 'rd';
+          details = ` on the ${dom}${suffix}`;
+        } else {
+          const domStr = String(dayOfMonth);
+          const lastDigit = domStr.slice(-1);
+          let suffix = 'th';
+          if (lastDigit === '1' && domStr !== '11') suffix = 'st';
+          if (lastDigit === '2' && domStr !== '12') suffix = 'nd';
+          if (lastDigit === '3' && domStr !== '13') suffix = 'rd';
+          details = ` on the ${dayOfMonth}${suffix}`;
+        }
+      } else if (task.frequency === 'yearly' && task.startDate) {
+        details = ` on ${moment(task.startDate).format('MMMM Do')}`;
+      }
+
+      return `${this.$t('repeats')} ${interval}${details}`;
+    },
+    schedulingWarning () {
+      if (!this.task || this.task.type !== 'daily') return '';
+      const { task } = this;
+      if (task.frequency === 'monthly'
+        && task.weeksOfMonth && task.weeksOfMonth.length > 0
+        && task.weeksOfMonth[0] === 4
+        && task.startDate) {
+        const dayName = moment(task.startDate).format('dddd');
+        return this.$t('fifthWeekWarning', { day: dayName });
+      }
+      return '';
+    },
     repeatsOn: {
       get () {
         let repeatsOn = 'dayOfMonth';
@@ -1399,7 +1586,7 @@ export default {
       this.task.down = !this.task.down;
     },
     weekdaysMin (dayNumber) {
-      return moment.weekdaysMin(dayNumber);
+      return this.$t(`weekdaysMin${dayNumber}`);
     },
     formattedDate (date) {
       return moment(date).format('MM/DD/YYYY');

@@ -5,10 +5,10 @@ import findIndex from 'lodash/findIndex';
 import includes from 'lodash/includes';
 import isArray from 'lodash/isArray';
 import mergeWith from 'lodash/mergeWith';
-import pick from 'lodash/pick';
 import uniqBy from 'lodash/uniqBy';
 import nconf from 'nconf';
 import moment from 'moment';
+import mongoose from 'mongoose';
 import { authWithHeaders, chatPrivilegesRequired } from '../../middlewares/auth';
 import {
   model as Group,
@@ -166,25 +166,6 @@ api.createGroup = {
       profile: { name: user.profile.name },
     };
 
-    const analyticsObject = {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      owner: true,
-      groupId: savedGroup._id,
-      groupType: savedGroup.type,
-      privacy: savedGroup.privacy,
-      headers: req.headers,
-      invited: false,
-    };
-
-    if (savedGroup.privacy === 'public') {
-      analyticsObject.groupName = savedGroup.name;
-    }
-
-    res.analytics.track('join group', analyticsObject);
-
     res.respond(201, response); // do not remove chat flags data as we've just created the group
   },
 };
@@ -216,19 +197,6 @@ api.createGroupPlan = {
 
     const results = await Promise.all([user.save(), group.save()]);
     const savedGroup = results[1];
-
-    res.analytics.track('join group', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      owner: true,
-      groupId: savedGroup._id,
-      groupType: savedGroup.type,
-      privacy: savedGroup.privacy,
-      headers: req.headers,
-      invited: false,
-    });
 
     // do not remove chat flags data as we've just created the group
     const groupResponse = savedGroup.toJSON();
@@ -572,6 +540,7 @@ api.joinGroup = {
   async handler (req, res) {
     const { user } = res.locals;
     let inviter;
+    let session;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
 
@@ -585,7 +554,6 @@ api.joinGroup = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let isUserInvited = false;
-    const seekingParty = Boolean(user.party.seeking);
 
     if (group.type === 'party') {
       // Check if was invited to party
@@ -653,78 +621,67 @@ api.joinGroup = {
       group.leader = user._id; // If new user is only member -> set as leader
     }
 
-    let promises = [user.save()];
+    group.memberCount += 1;
 
-    if (group.type === 'party') {
-      // For parties we count the number of members from the database to get the correct value.
-      // See #12275 on why this is necessary and only done for parties.
-      const currentMembers = await group.getMemberCount({ excludeUserId: user._id });
-      // Load the inviter
-      if (inviter) inviter = await User.findById(inviter).exec();
+    try {
+      session = await mongoose.startSession();
 
-      // Check the inviter again, could be a deleted account
-      if (inviter) {
-        // Reward Inviter
-        if (!inviter.items.quests.basilist) {
-          inviter.items.quests.basilist = 0;
+      if (group.type === 'party') {
+        // Load the inviter
+        if (inviter) inviter = await User.findById(inviter).exec();
+
+        // Check the inviter again, could be a deleted account
+        if (inviter) {
+          // Reward Inviter
+          if (!inviter.items.quests.basilist) {
+            inviter.items.quests.basilist = 0;
+          }
+          inviter.items.quests.basilist += 1;
+          inviter.markModified('items.quests');
         }
-        inviter.items.quests.basilist += 1;
-        inviter.markModified('items.quests');
-        promises.push(inviter.save());
+
+        // Handle awarding party-related achievements
+        if (group.memberCount > 1) {
+          const notification = new UserNotification({ type: 'ACHIEVEMENT_PARTY_UP' });
+
+          await User.updateMany(
+            {
+              $or: [{ 'party._id': group._id }, { _id: user._id }],
+              'achievements.partyUp': { $ne: true },
+            },
+            {
+              $set: { 'achievements.partyUp': true },
+              $push: { notifications: notification.toObject() },
+            },
+            { session },
+          );
+        }
+
+        if (group.memberCount > 3) {
+          const notification = new UserNotification({ type: 'ACHIEVEMENT_PARTY_ON' });
+
+          await User.updateMany(
+            {
+              $or: [{ 'party._id': group._id }, { _id: user._id }],
+              'achievements.partyOn': { $ne: true },
+            },
+            {
+              $set: { 'achievements.partyOn': true },
+              $push: { notifications: notification.toObject() },
+            },
+            { session },
+          );
+        }
       }
-      group.memberCount = currentMembers + 1;
 
-      // Handle awarding party-related achievements
-      if (group.memberCount > 1) {
-        const notification = new UserNotification({ type: 'ACHIEVEMENT_PARTY_UP' });
-
-        promises.push(User.updateMany(
-          {
-            $or: [{ 'party._id': group._id }, { _id: user._id }],
-            'achievements.partyUp': { $ne: true },
-          },
-          {
-            $set: { 'achievements.partyUp': true },
-            $push: { notifications: notification.toObject() },
-          },
-        ).exec());
+      await user.save({ session });
+      await group.save({ session });
+      if (inviter) {
+        await inviter.save({ session });
       }
-
-      if (group.memberCount > 3) {
-        const notification = new UserNotification({ type: 'ACHIEVEMENT_PARTY_ON' });
-
-        promises.push(User.updateMany(
-          {
-            $or: [{ 'party._id': group._id }, { _id: user._id }],
-            'achievements.partyOn': { $ne: true },
-          },
-          {
-            $set: { 'achievements.partyOn': true },
-            $push: { notifications: notification.toObject() },
-          },
-        ).exec());
-      }
-    } else {
-      group.memberCount += 1;
+    } finally {
+      await session.endSession();
     }
-
-    promises.push(group.save());
-
-    const analyticsObject = {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      owner: false,
-      groupId: group._id,
-      groupType: group.type,
-      privacy: group.privacy,
-      headers: req.headers,
-      invited: isUserInvited,
-      seekingParty: group.type === 'party' ? seekingParty : null,
-    };
-
-    promises = await Promise.all(promises);
 
     if (group.hasNotCancelled()) {
       await payments.addSubToGroupUser(user, group);
@@ -736,8 +693,6 @@ api.joinGroup = {
     if (leader) {
       response.leader = leader.toJSON({ minimize: true });
     }
-
-    res.analytics.track('join group', analyticsObject);
 
     res.respond(200, response);
   },
@@ -904,6 +859,7 @@ api.removeGroupMember = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
+    let session;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     req.checkParams('memberId', res.t('userIdRequired')).notEmpty().isUUID();
@@ -944,14 +900,7 @@ api.removeGroupMember = {
     }
 
     if (isInGroup) {
-      // For parties we count the number of members from the database to get the correct value.
-      // See #12275 on why this is necessary and only done for parties.
-      if (group.type === 'party') {
-        const currentMembers = await group.getMemberCount();
-        group.memberCount = currentMembers - 1;
-      } else {
-        group.memberCount -= 1;
-      }
+      group.memberCount -= 1;
 
       if (group.quest && group.quest.leader === member._id) {
         throw new NotAuthorized(res.t('cannotRemoveQuestOwner'));
@@ -965,7 +914,9 @@ api.removeGroupMember = {
         removeFromArray(member.guilds, group._id);
       }
       if (isInGroup === 'party') {
-        member.party._id = undefined; // TODO remove quest information too? Use group.leave()?
+        member.party._id = undefined;
+        member.party.quest.key = null;
+        member.party.quest.RSVPNeeded = false;
       }
 
       removeMessagesFromMember(member, group._id);
@@ -992,10 +943,15 @@ api.removeGroupMember = {
     const message = req.query.message || req.body.message;
     _sendMessageToRemoved(group, member, message, isInGroup);
 
-    await Promise.all([
-      member.save(),
-      group.save(),
-    ]);
+    try {
+      session = await mongoose.startSession();
+      await session.withTransaction(async () => {
+        await member.save({ session });
+        await group.save({ session });
+      }, { readPreference: 'primary' });
+    } finally {
+      await session.endSession();
+    }
 
     if (isInGroup && group.hasNotCancelled()) {
       await group.updateGroupPlan(true);

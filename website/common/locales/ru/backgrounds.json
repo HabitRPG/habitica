@@ -1,7 +1,7 @@
 {
-    "backgrounds": "Фоны",
+    "backgrounds": "Окружения",
     "background": "Фоновая",
-    "backgroundShop": "фоновая Лавка",
+    "backgroundShop": "Магазин окружений",
     "noBackground": "Фон не выбран",
     "backgrounds062014": "Набор 1: Выпущен в июне 2014",
     "backgroundBeachText": "Пляж",
@@ -912,7 +912,7 @@
     "backgroundSirensLairNotes": "Дерзните нырнуть в Логово сирены.",
     "backgrounds082025": "Набор 135: Выпущен в августе 2025",
     "backgroundSunnyStreetWithShopsText": "Солнечная улица с магазинами",
-    "backgroundSunnyStreetWithShopsNotes": "Наслаждайтесь видами и шумом Солнечной улицы с магазинами",
+    "backgroundSunnyStreetWithShopsNotes": "Наслаждайтесь видами и звуками Солнечной улицы с магазинами.",
     "backgroundAutumnSwampText": "Осеннее болото",
     "backgrounds092025": "Набор 136: Выпущен в сентябре 2025 года",
     "backgroundCastleKeepWithBannersNotes": "Пойте баллады о подвигах в замковом зале со знаменами.",
@@ -929,5 +929,17 @@
     "backgroundElegantPalaceText": "Прекрасный Дворец",
     "backgrounds012026": "Набор 140: Выпущен в январе 2026",
     "backgrounds022026": "Набор 141: Выпущен в феврале 2026",
-    "backgroundWinterDesertWithSaguarosText": "Зимняя пустыня с кактусами сагуаро"
+    "backgroundWinterDesertWithSaguarosText": "Зимняя пустыня с кактусами сагуаро",
+    "backgroundOnAStrangePlanetText": "На странной планете",
+    "backgroundOnAStrangePlanetNotes": "Отправляйтесь туда, где не ступал ни кто из Хабитики: на странной планете.",
+    "backgrounds032026": "Комплект 142: Выпущен в марте 2026 года",
+    "backgroundWaterfallWithRainbowText": "Водопад с радугой",
+    "backgroundWaterfallWithRainbowNotes": "Наслаждайтесь захватывающей красотой водопада с радугой.",
+    "backgrounds042026": "Комплект 143: Выпущен в апреле 2026 года",
+    "backgroundRidingACometText": "Верхом на комете",
+    "backgroundRidingACometNotes": "Путешествие в космосе верхом на комете!",
+    "backgrounds052026": "Комплект 144: Выпущен в мае 2026 года",
+    "backgroundElvenCitadelText": "Эльфийская цитадель",
+    "backgroundElvenCitadelNotes": "Совершите живописное путешествие к эльфийской цитадели.",
+    "backgroundElegantPalaceNotes": "Любуйтесь красочными залами изящного дворца."
 }

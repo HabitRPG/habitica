@@ -410,5 +410,6 @@
     "hatchingPotionCryptid": "Kryptydowy",
     "wackyPotionNotes": "Wylej ten eliksir na jajko, a wykluje się z niego Zwariowany <%= potText %>.",
     "wackyPotionAddlNotes": "Nie można go oswoić na Wierzchowca ani używać na jajach Chowańców z Misji.",
-    "hatchingPotionOpal": "Opalowy"
+    "hatchingPotionOpal": "Opalowy",
+    "hatchingPotionAlien": ""
 }

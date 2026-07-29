@@ -29,10 +29,9 @@ describe('shared.ops.buyArmoire', () => {
   const YIELD_EQUIPMENT = 0.5;
   const YIELD_FOOD = 0.7;
   const YIELD_EXP = 0.9;
-  const analytics = { track () {} };
 
-  async function buyArmoire (_user, _req, _analytics) {
-    const buyOp = new BuyArmoireOperation(_user, _req, _analytics);
+  async function buyArmoire (_user, _req) {
+    const buyOp = new BuyArmoireOperation(_user, _req);
 
     return buyOp.purchase();
   }
@@ -50,12 +49,10 @@ describe('shared.ops.buyArmoire', () => {
     user.items.food = {};
 
     sandbox.stub(randomValFns, 'trueRandom');
-    sinon.stub(analytics, 'track');
   });
 
   afterEach(() => {
     randomValFns.trueRandom.restore();
-    analytics.track.restore();
   });
 
   context('failure conditions', () => {
@@ -147,7 +144,7 @@ describe('shared.ops.buyArmoire', () => {
 
       expect(_.size(user.items.gear.owned)).to.equal(2);
 
-      await buyArmoire(user, {}, analytics);
+      await buyArmoire(user, {});
 
       expect(_.size(user.items.gear.owned)).to.equal(3);
 
@@ -155,7 +152,6 @@ describe('shared.ops.buyArmoire', () => {
 
       expect(armoireCount).to.eql(_.size(getFullArmoire()) - 2);
       expect(user.stats.gp).to.eql(100);
-      expect(analytics.track).to.be.calledTwice;
     });
   });
 });

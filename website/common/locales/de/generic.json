@@ -12,7 +12,6 @@
     "showLess": "Weniger anzeigen",
     "markdownHelpLink": "Markdown Formatierungshilfe",
     "bold": "**Fett**",
-    "markdownImageEx": "![verpflichtender Alternativtext](https://habitica.com/cake.png \"optionaler Titel zum Darüberfahren mit der Maus\")",
     "code": "`Code`",
     "achievements": "Erfolge",
     "basicAchievs": "Grunderfolge",
@@ -241,7 +240,9 @@
     "titleCustomizations": "Individualisierungen",
     "targetUserNotExist": "Zielbenutzer: '<%= userName %>' existiert nicht.",
     "newMessage": "Neue Nachricht",
-    "rememberToBeKind": "Bitte sei freundlich, respektvoll, und folge den <a href='/static/community-guidelines' target='_blank'>Community-Richtlinien</a>.",
+    "rememberToBeKind": "Bitte sei freundlich, respektvoll, und folge den <%= linkOpen %>Community-Richtlinien<%= linkClose %>.",
     "gem": "Edelstein",
-    "confirmPurchase": "Kauf bestätigen"
+    "confirmPurchase": "Kauf bestätigen",
+    "avoidSPI": "vermeiden SPI",
+    "avoidSPIDetails": "Zu Ihrer Privatsphäre vermeiden Sie es, <%= firstLink %>sensible persönliche Informationen<%= linkClose %> (SPI) beim Verwenden von Habitica anzugeben. Ihre Kontodaten, einschließlich Aufgaben, werden auf unseren Servern gespeichert, sodass Sie von jedem Gerät aus darauf zugreifen können.<br><br>Um mehr zu erfahren, lesen Sie unsere <%= secondLink %>Datenschutzerklärung<%= linkClose %>."
 }

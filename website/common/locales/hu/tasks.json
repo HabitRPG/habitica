@@ -143,5 +143,15 @@
     "deleteTask": "Feladat törlése",
     "deleteXTasks": "<%= count %> feladat törlése",
     "brokenChallengeTaskCount": "Ez egy olyan <%= count %> feladat egyike, amely egy már nem létező kihívás része volt.",
-    "confirmDeleteTasks": "Szeretnéd törölni a feladatokat?"
+    "confirmDeleteTasks": "Szeretnéd törölni a feladatokat?",
+    "every": "",
+    "everyDay": "",
+    "everyXDays": "",
+    "everyWeek": "",
+    "everyXWeeks": "",
+    "everyMonth": "",
+    "everyXMonths": "",
+    "everyYear": "",
+    "everyXYears": "",
+    "fifthWeekWarning": ""
 }

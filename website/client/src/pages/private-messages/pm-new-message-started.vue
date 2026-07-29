@@ -23,7 +23,7 @@
 
     <div
       class="kind-text"
-      v-html="$t('rememberToBeKind')"
+      v-html="$t('rememberToBeKind', kindLinks)"
     ></div>
   </div>
 </template>
@@ -62,6 +62,14 @@ import Avatar from '@/components/avatar.vue';
 
 export default {
   components: { Avatar },
+  data () {
+    return {
+      kindLinks: {
+        linkOpen: '<a href="/static/community-guidelines" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
+    };
+  },
   props: {
     memberObj: null,
   },

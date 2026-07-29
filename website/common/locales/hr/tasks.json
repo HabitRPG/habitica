@@ -137,5 +137,21 @@
     "scoreDown": "Rezultat dolje",
     "taskAlias": "Nadimak Zadatka",
     "taskAliasPopover": "Ovaj nadimak zadatka može se koristiti pri integraciji sa sustavima trećih strana. Podržani su samo crtice, podvlake i alfanumerički znakovi. Nadimak zadatka mora biti jedinstven među svim vašim zadacima.",
-    "taskAliasPlaceholder": "vaš-nadimak-zadatka-ovdje"
+    "taskAliasPlaceholder": "vaš-nadimak-zadatka-ovdje",
+    "sureDeleteType": "",
+    "every": "",
+    "everyDay": "",
+    "everyXDays": "",
+    "everyWeek": "",
+    "everyXWeeks": "",
+    "everyMonth": "",
+    "everyXMonths": "",
+    "everyYear": "",
+    "everyXYears": "",
+    "fifthWeekWarning": "",
+    "deleteType": "",
+    "deleteTask": "",
+    "deleteXTasks": "",
+    "brokenChallengeTaskCount": "",
+    "confirmDeleteTasks": ""
 }

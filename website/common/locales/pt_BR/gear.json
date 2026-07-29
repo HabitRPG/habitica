@@ -3043,7 +3043,7 @@
     "weaponSpecialSpring2024MageText": "Cajado de Hibisco",
     "weaponSpecialSpring2024WarriorNotes": "Este cristal colorido ajudará a concentrar toda a sua energia em um ataque. Aumenta Força em <%= str %>. Equipamento de Edição Limitada da Primavera de 2024.",
     "weaponSpecialSpring2024HealerText": "Varinha de Pena do Pássaro Azul",
-    "weaponSpecialSpring2024HealerNotes": "Um lampejo de felicidade emerge quando desejado para melhorar qualquer humor. Aumenta Inteligência em <%=int%>. Equipamento de edição limitada da primavera de 2024.",
+    "weaponSpecialSpring2024HealerNotes": "Um lampejo de felicidade emerge quando desejado para melhorar qualquer humor. Aumenta Inteligência em <%= int %>. Equipamento de edição limitada da primavera de 2024.",
     "weaponSpecialSummer2024RogueText": "Tridente Nudibrânquio",
     "weaponSpecialSummer2024RogueNotes": "Vire as ferroadas dos outros contra eles! Aumenta a Força em <%= str %>. Equipamento de edição limitada para o verão de 2024.",
     "weaponSpecialSummer2024WarriorText": "Cortador de Dentes de Tubarão-Baleia",
@@ -3427,7 +3427,7 @@
     "headMystery202412Text": "Capuz de Coelho Bengala Doce",
     "headMystery202512Notes": "Biscoitos de gengibre forjados com magia ancestral irão protegê-lo, contanto que você consiga resistir à tentação de dar uma mordida! Não confere nenhum benefício. Item exclusivo para assinantes, dezembro de 2025.",
     "headMystery202602Text": "Orelhas de Raposa Sakura",
-    "headMystery202602Notes": " Sua audição será aguçada por essas orelhas, de modo que você poderá ouvir os botões de flores crescendo nos galhos das árvores à medida que a primavera se aproxima. Não confere nenhum benefício. Item para assinantes de fevereiro de 2026.",
+    "headMystery202602Notes": "Sua audição será aguçada por essas orelhas, de modo que você poderá ouvir os botões de flores crescendo nos galhos das árvores à medida que a primavera se aproxima. Não confere nenhum benefício. Item para assinantes de fevereiro de 2026.",
     "headArmoireCorsairsBandanaNotes": "Seja para proteger a cabeça de uma gaivota que sobrevoe ou para garantir que seus inimigos nunca vejam você suar, esta bandana é essencial. Basta adicionar uma conta decorativa para cada aventura concluída. Aumenta a Inteligência em <%= int %>. Armário Encantado: Conjunto Corsário (Item 2 de 3)",
     "headArmoireBeekeepersHatNotes": "Proteja seu rosto enquanto cuida de seus amiguinhos zumbidores. Aumenta a Percepção em <%= per %>. Armário Encantado: Conjunto de Apicultor (Item 1 de 4)",
     "headArmoireRedNewsieHatNotes": "Extra! Extra! Saiba tudo sobre ele: este boné é confortável, estiloso e prático. Aumenta a Percepção e a Inteligência em <%= attrs %> cada. Armário Encantado: Conjunto de Colete Vermelho (Item 1 de 2)",
@@ -3495,5 +3495,10 @@
     "backMystery202601Notes": "Esta marca concede ao usuário controle sobre os elementos da estação fria e da geada. Não confere nenhum benefício. Item para assinantes de janeiro de 2026.",
     "backMystery202602Text": "Cinco Caudas de Sakura",
     "eyewearArmoireRoseColoredGlassesNotes": "Estes óculos ajudarão você a enxergar melhor em qualquer situação, e estas armações estilosas também ajudarão você a ter a melhor aparência. Aumenta a Percepção em <%= per %>. Armário Encantado: Conjunto Otimista (Item 2 de 4).",
-    "backArmoireHarpsichordNotes": "Pting! Ptiiing! Reúna seu grupo para um jantar ou piquenique e ouça uma melodia desafinada neste cravo. Aumenta a Percepção e a Inteligência em <%= attrs %> cada. Armário Encantado: Conjunto de Instrumentos Musicais 2 (Item 1 de 3)"
+    "backArmoireHarpsichordNotes": "Pting! Ptiiing! Reúna seu grupo para um jantar ou piquenique e ouça uma melodia desafinada neste cravo. Aumenta a Percepção e a Inteligência em <%= attrs %> cada. Armário Encantado: Conjunto de Instrumentos Musicais 2 (Item 1 de 3)",
+    "weaponSpecialSpring2026WarriorNotes": "Uma oportunidade de duelar pode surgir a qualquer momento e, com este formidável florete, você estará pronto! Aumenta a Força em <%= str %>. Equipamento de edição limitada da primavera de 2026.",
+    "weaponSpecialSpring2026HealerText": "Cajado do floco de neve",
+    "weaponSpecialSpring2026RogueNotes": "Uma oportunidade de crescer está quase chegando e, com esses ramos em flor, você estará pronto! Aumenta a Força em <%= str %>. Equipamento de edição limitada da primavera de 2026.",
+    "weaponSpecialSummer2026RogueText": "Lâmina Tsunami",
+    "weaponSpecialSummer2026MageText": "Lança Tubarão Tigre"
 }

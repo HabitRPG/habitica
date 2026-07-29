@@ -13,7 +13,7 @@ const api = {};
  * @apiName ReadNotification
  * @apiGroup Notification
  *
- * @apiParam (Path) {UUID} notificationId
+ * @apiParam (Path) {UUID} notificationId Required. ID of the notification to mark as read.
  *
  * @apiSuccess {Object} data user.notifications
  */
@@ -52,11 +52,23 @@ api.readNotification = {
 
 /**
  * @api {post} /api/v3/notifications/read Mark multiple notifications as read
+ * @apiDescription Marks multiple notifications as read by removing them
+ * from the user's notification list. This differs from marking notifications
+ * as seen, which retains them but sets the `seen` field to true.
  * @apiName ReadNotifications
  * @apiGroup Notification
  *
- * @apiSuccess {Object} data user.notifications
+ * @apiParam {String[]} notificationIds Array of notification IDs to mark as read
+ * (required)
+ *
+ * @apiExample {json} Request-Example:
+ * {
+ *   "notificationIds": ["abcdef123", "ghi456789"]
+ * }
+ *
+ * @apiSuccess {Object[]} data Updated user.notifications array
  */
+
 api.readNotifications = {
   method: 'POST',
   url: '/notifications/read',
@@ -150,8 +162,16 @@ api.seeNotification = {
  * @apiName SeeNotifications
  * @apiGroup Notification
  *
+ * @apiParam {String[]} notificationIds Required. Array of notification ID strings to mark as seen.
+ *
+ * @apiExample {json} Request-Example:
+ * {
+ *   "notificationIds": ["abcdef123", "ghi456789"]
+ * }
+ *
  * @apiSuccess {Object} data user.notifications
  */
+
 api.seeNotifications = {
   method: 'POST',
   url: '/notifications/see',

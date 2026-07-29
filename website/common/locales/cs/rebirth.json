@@ -11,5 +11,12 @@
     "rebirthPop": "Obnoví tvou postavu a vrátí jí na 1. úroveň s povoláním Válečníka, zatímco ti zůstanou všechny úspěchy, celá sbírka a vybavení. Tvoje úkoly zůstanou i s historií, ale vrátí se na žlutou barvu. Tvé řady úspěchů se resetují, kromě úkolů patřících do aktivních výzev či do Skupiny. Tvé zlato, zkušenosti, mana a efekty všech schopností budou odstraněny. Toto vše nastane s okamžitou platností.",
     "rebirthName": "Koule znovuzrození",
     "rebirthComplete": "Byl jste znovuzrozen!",
-    "nextFreeRebirth": "<strong><%= days %> dni</strong> do <strong>bezplatného</strong> Koule znovuzrození"
+    "nextFreeRebirth": "<strong><%= days %> dni</strong> do <strong>bezplatného</strong> Koule znovuzrození",
+    "rebirthUnlockedNewItem": "",
+    "rebirthUnlockedOrb": "",
+    "rebirthUnlockedDesc": "",
+    "rebirthNewAchievement": "",
+    "rebirthNewAdventure": "",
+    "rebirthAchievementPlural": "",
+    "rebirthStackInfo": ""
 }

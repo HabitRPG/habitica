@@ -74,7 +74,7 @@
           <strong v-once>{{ $t('challengeDescription') }} *</strong>
         </label>
         <a
-          v-markdown="$t('markdownFormattingHelp')"
+          v-markdown="$t('markdownFormattingHelp', { markdownLink })"
           class="float-right"
         ></a>
         <textarea
@@ -361,6 +361,7 @@ export default {
       groups: [],
       textbox: null,
       activeField: 'name',
+      markdownLink: 'https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica',
     };
   },
   computed: {

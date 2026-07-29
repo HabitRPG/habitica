@@ -64,7 +64,7 @@
       <p
         v-once
         class="w-50 mx-auto"
-        v-html="$t('visitCustomizationsShop')"
+        v-html="$t('visitCustomizationsShop', customizeLinks)"
       ></p>
     </div>
     <customize-banner
@@ -104,6 +104,10 @@ export default {
         headAccessory: ['bearEars', 'cactusEars', 'foxEars', 'lionEars', 'pandaEars', 'pigEars', 'tigerEars', 'wolfEars'],
       },
       chairKeys: ['none', 'black', 'blue', 'green', 'pink', 'red', 'yellow', 'handleless_black', 'handleless_blue', 'handleless_green', 'handleless_pink', 'handleless_red', 'handleless_yellow'],
+      customizeLinks: {
+        linkOpen: '<a href="/shops/customizations">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {

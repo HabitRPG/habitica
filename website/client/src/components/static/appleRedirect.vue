@@ -37,6 +37,9 @@ export default {
       window.location.href = '/';
     } else {
       window.sessionStorage.setItem('apple-token', response.idToken);
+      if (response.email) {
+        window.sessionStorage.setItem('apple-email', response.email);
+      }
       window.location.href = '/username';
     }
   },

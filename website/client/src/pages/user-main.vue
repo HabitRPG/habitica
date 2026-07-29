@@ -4,6 +4,7 @@
     :class="{
       'casting-spell': castingSpell,
     }"
+    @dragover.prevent
   >
     <!-- <banned-account-modal /> -->
     <amazon-payments-modal v-if="!isStaticPage" />
@@ -18,7 +19,6 @@
     <delete-task-confirm-modal v-if="isUserLoaded" />
     <template v-if="isUserLoaded">
       <privacy-banner />
-      <chat-banner />
       <damage-paused-banner />
       <gems-promo-banner />
       <gift-promo-banner />
@@ -122,7 +122,6 @@ import birthdayModal from '@/components/news/birthdayModal';
 import AppMenu from '@/components/header/menu';
 import AppHeader from '@/components/header/index';
 import BirthdayBanner from '@/components/header/banners/birthdayBanner';
-import ChatBanner from '@/components/header/banners/chatBanner';
 import DamagePausedBanner from '@/components/header/banners/damagePaused';
 import GemsPromoBanner from '@/components/header/banners/gemsPromo';
 import GiftPromoBanner from '@/components/header/banners/giftPromo';
@@ -130,7 +129,6 @@ import PrivacyBanner from '@/components/header/banners/privacy';
 import AppFooter from '@/components/appFooter';
 import notificationsDisplay from '@/components/notifications';
 import { mapState } from '@/libs/store';
-import * as Analytics from '@/libs/analytics';
 import BuyModal from '@/components/shops/buyModal.vue';
 import SelectMembersModal from '@/components/selectMembersModal.vue';
 import notifications from '@/mixins/notifications';
@@ -160,7 +158,6 @@ export default {
     AppHeader,
     AppFooter,
     birthdayModal,
-    ChatBanner,
     DamagePausedBanner,
     GemsPromoBanner,
     GiftPromoBanner,
@@ -276,7 +273,6 @@ export default {
         }
       }
 
-      Analytics.updateUser();
       return this.loadAllTranslations();
     }).then(() => {
       this.$store.state.isUserLoaded = true;

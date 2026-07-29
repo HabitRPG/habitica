@@ -12,7 +12,6 @@
     "showLess": "Kevesebb megjelenítése",
     "markdownHelpLink": "Markdown formázási segédlet",
     "bold": "**Félkövér**",
-    "markdownImageEx": "![kötelező szöveg](https://habitica.com/cake.png \"opcionális szöveg egér ráhúzásakor\")",
     "code": "`kódrészlet`",
     "achievements": "Kitüntetések",
     "basicAchievs": "Alap kitüntetések",
@@ -241,7 +240,9 @@
     "general": "Általános",
     "newMessage": "Új üzenet",
     "targetUserNotExist": "A megadott felhasználó ('<%= userName %>') nem létezik.",
-    "rememberToBeKind": "Ne feledd, hogy légy kedves, tisztelettudó, és tartsd be a <a href='/static/community-guidelines' target='_blank'>Közösségi irányelveket</a>.",
+    "rememberToBeKind": "Ne feledd, hogy légy kedves, tisztelettudó, és tartsd be a <%= linkOpen %>Közösségi irányelveket<%= linkClose %>.",
     "gem": "Gyémánt",
-    "confirmPurchase": "Vásárlás megerősítése"
+    "confirmPurchase": "Vásárlás megerősítése",
+    "avoidSPI": "",
+    "avoidSPIDetails": ""
 }

@@ -1,5 +1,9 @@
 {
   "ACCOUNT_MIN_CHAT_AGE": "0",
+  "AD_HOC_EVENT_BEGIN": "1970-04-01T04:00-04:00",
+  "AD_HOC_EVENT_END": "1970-04-02T03:59-04:00",
+  "AD_HOC_EVENT_GEMS": "true",
+  "AD_HOC_EVENT_KEY": "flash_extra_gems",
   "ADMIN_EMAIL": "you@example.com",
   "AMAZON_PAYMENTS_CLIENT_ID": "CLIENT_ID",
   "AMAZON_PAYMENTS_MODE": "sandbox",

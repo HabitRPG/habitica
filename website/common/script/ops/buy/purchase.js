@@ -76,7 +76,7 @@ async function purchaseItem (user, item, price, type, key) {
 
 const acceptedTypes = ['eggs', 'hatchingPotions', 'food', 'gear', 'bundles'];
 const singlePurchaseTypes = ['gear'];
-export default async function purchase (user, req = {}, analytics) {
+export default async function purchase (user, req = {}) {
   const type = get(req.params, 'type');
   const key = get(req.params, 'key');
 
@@ -130,19 +130,6 @@ export default async function purchase (user, req = {}, analytics) {
     await purchaseItem(user, item, price, type, key);
   }
   /* eslint-enable no-await-in-loop */
-  if (analytics) {
-    analytics.track('buy', {
-      user: pick(user, ['preferences', 'registeredThrough']),
-      uuid: user._id,
-      itemKey: key,
-      itemType: type,
-      currency: 'Gems',
-      gemCost: price * 4,
-      quantityPurchased: quantity,
-      category: 'behavior',
-      headers: req.headers,
-    });
-  }
 
   return [
     pick(user, splitWhitespace('items balance')),
