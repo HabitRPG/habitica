@@ -25,7 +25,7 @@
           @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
           @keypress.enter="autoCompleteMixinSelectAutocomplete($event)"
           @keydown.esc="autoCompleteMixinHandleEscape($event)"
-        />
+        >
       </div>
       <div class="form-group">
         <label>
@@ -44,7 +44,7 @@
           @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
           @keypress.enter="autoCompleteMixinSelectAutocomplete($event)"
           @keydown.esc="autoCompleteMixinHandleEscape($event)"
-        />
+        >
       </div>
       <div class="form-group">
         <label>

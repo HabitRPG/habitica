@@ -15,7 +15,7 @@
           v-model="workingGroup.name"
           type="text"
           :placeholder="isParty ? $t('newPartyPlaceholder') : $t('newGuildPlaceholder')"
-        />
+        >
       </div>
       <div class="form-group">
         <label>

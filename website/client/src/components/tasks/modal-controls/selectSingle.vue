@@ -17,7 +17,7 @@
             type="text"
             :placeholder="searchPlaceholder"
             @keyup.enter="handleSubmit"
-          />
+          >
         </div>
       </b-dropdown-header>
       <template #button-content>

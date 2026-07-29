@@ -23,7 +23,7 @@
             @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
             @keydown.enter="searchEnterHandler($event)"
             @keydown.esc="searchEscHandler($event)"
-          />
+          >
           <emoji-auto-complete
             ref="emojiAutocomplete"
             :text="search"
