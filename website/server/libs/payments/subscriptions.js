@@ -484,7 +484,7 @@ async function handleSubscriptionRenewal (customerId) {
   if (plan) {
     await trackSubscriptionEvent({
       eventType: 'renewed',
-      user,
+      user: { _id: ownerId },
       paymentMethod: plan.paymentMethod,
       planId: plan.planId,
       customerId: plan.customerId,
