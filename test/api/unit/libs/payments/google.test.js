@@ -174,14 +174,13 @@ describe('Google Payments', () => {
   });
 
   describe('subscribe', () => {
-    let sub; let sku; let user; let token; let receipt; let signature; let headers; let
+    let sku; let user; let token; let receipt; let signature; let headers; let
       nextPaymentProcessing;
     let paymentsCreateSubscritionStub;
     let iapGetPurchaseDataStub;
     let expirationDate;
 
     beforeEach(() => {
-      sub = common.content.subscriptionBlocks[subKey];
       sku = 'com.habitrpg.android.habitica.subscription.3month';
 
       user = new User();
