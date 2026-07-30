@@ -320,6 +320,8 @@ api.subscribe = async function subscribe (
     if (nextBillingDate < nextPaymentProcessing.toDate()) {
       nextPaymentProcessing = moment(nextBillingDate);
     }
+  } else {
+    nextBillingDate = moment.utc().add({ months: sub.months }).toDate();
   }
   const data = {
     user,
