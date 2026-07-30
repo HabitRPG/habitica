@@ -223,7 +223,7 @@ describe('Google Payments', () => {
         .returns(false);
 
       await expect(googlePayments
-        .subscribe(sku, user, receipt, signature, headers, nextPaymentProcessing))
+        .subscribe(user, receipt, signature, headers, nextPaymentProcessing))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -235,7 +235,7 @@ describe('Google Payments', () => {
       sku = 'invalid';
 
       await expect(googlePayments
-        .subscribe(sku, user, receipt, signature, headers, nextPaymentProcessing))
+        .subscribe(user, receipt, signature, headers, nextPaymentProcessing))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -244,7 +244,7 @@ describe('Google Payments', () => {
     });
 
     it('creates a user subscription', async () => {
-      await googlePayments.subscribe(sku, user, receipt, signature, headers, nextPaymentProcessing);
+      await googlePayments.subscribe(user, receipt, signature, headers, nextPaymentProcessing);
 
       expect(iapSetupStub).to.be.calledOnce;
       expect(iapValidateStub).to.be.calledOnce;
@@ -292,7 +292,7 @@ describe('Google Payments', () => {
         }]);
 
       await expect(
-        googlePayments.subscribe(sku, user, receipt, signature, headers, nextPaymentProcessing),
+        googlePayments.subscribe(user, receipt, signature, headers, nextPaymentProcessing),
       )
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
@@ -315,7 +315,7 @@ describe('Google Payments', () => {
         }]);
 
       await expect(
-        googlePayments.subscribe(sku, user, receipt, signature, headers, nextPaymentProcessing),
+        googlePayments.subscribe(user, receipt, signature, headers, nextPaymentProcessing),
       )
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
@@ -333,7 +333,6 @@ describe('Google Payments', () => {
 
       await expect(
         googlePayments.subscribe(
-          sku,
           user,
           receipt,
           signature,
@@ -368,7 +367,6 @@ describe('Google Payments', () => {
 
       await expect(
         googlePayments.subscribe(
-          sku,
           user,
           receipt,
           signature,
