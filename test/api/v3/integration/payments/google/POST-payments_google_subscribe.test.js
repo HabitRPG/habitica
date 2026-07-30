@@ -43,11 +43,11 @@ describe('payments : google #subscribe', () => {
       });
 
       expect(subscribeStub).to.be.calledOnce;
-      expect(subscribeStub.args[0][1].user._id).to.eql(user._id);
-      expect(subscribeStub.args[0][2]).to.eql('receipt');
-      expect(subscribeStub.args[0][3]).to.eql('signature');
-      expect(subscribeStub.args[0][4]['x-api-key']).to.eql(user.apiToken);
-      expect(subscribeStub.args[0][4]['x-api-user']).to.eql(user._id);
+      expect(subscribeStub.args[0][0]._id).to.eql(user._id);
+      expect(subscribeStub.args[0][1]).to.eql('receipt');
+      expect(subscribeStub.args[0][2]).to.eql('signature');
+      expect(subscribeStub.args[0][3]['x-api-key']).to.eql(user.apiToken);
+      expect(subscribeStub.args[0][3]['x-api-user']).to.eql(user._id);
     });
   });
 });
