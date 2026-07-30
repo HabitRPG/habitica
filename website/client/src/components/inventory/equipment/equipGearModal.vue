@@ -56,7 +56,7 @@
           @click="equipItem()"
         >
           <span
-            class="svg-icon color inline icon-16 mr-2"
+            class="svg-icon color inline icon-16"
             v-html="isEquipped ? icons.unEquip : icons.equip"
           ></span>
           <span class="button-label">
@@ -86,10 +86,6 @@
 
     .modal-body {
       padding: 2rem 1.5rem;
-    }
-
-    .dialog-close {
-
     }
 
     .modal-dialog {

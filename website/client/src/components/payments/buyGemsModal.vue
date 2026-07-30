@@ -10,32 +10,24 @@
         slot="modal-header"
         class="header-wrap container"
       >
-        <span
-          v-once
-          class="close-icon svg-icon inline icon-16 color white"
-          @click="close()"
-          v-html="icons.close"
-        ></span>
-        <div class="row">
-          <div
-            class="col-12 text-center"
+        <close-x
+          @close="close()"
+        />
+        <div class="d-flex justify-content-center align-items-center">
+          <img
+            v-if="eventInfo?.gemsPromo"
+            :alt="$t('supportHabitica')"
+            :srcset="eventInfo.srcSet"
+            :src="eventInfo.src"
           >
-            <img
-              v-if="eventInfo?.gemsPromo"
-              :alt="$t('supportHabitica')"
-              :srcset="eventInfo.srcSet"
-              :src="eventInfo.src"
-            >
-            <img
-              v-else
-              :alt="$t('supportHabitica')"
-              srcset="
-                /static/gems/support-habitica.png,
-                /static/gems/support-habitica@2x.png 2x,
-                /static/gems/support-habitica@3x.png 3x"
-              src="/static/gems/support-habitica.png"
-            >
-          </div>
+          <img
+            v-else
+            :alt="$t('supportHabitica')"
+            src="/static/gems/header/normal-header.png"
+            srcset="/static/gems/header/normal-header.png,
+              /static/gems/header/normal-header@2x.png 2x,
+              /static/gems/header/normal-header@3x.png 3x"
+          >
         </div>
       </div>
       <div
@@ -77,12 +69,12 @@
         </div>
         <div
           v-once
-          class="row gem-benefits pb-2"
+          class="gem-benefits ml-3 mb-4"
         >
           <div
-            v-for="benefit in [1,2,3,4]"
+            v-for="benefit in [1,3,2,4]"
             :key="benefit"
-            class="col-md-6 d-flex pl-4 pr-0 pb-3"
+            class="d-flex"
           >
             <div class="d-flex bubble justify-content-center align-items-center">
               <div
@@ -90,7 +82,7 @@
                 v-html="icons.check"
               ></div>
             </div>
-            <p class="small-text pl-2 mb-0">
+            <p class="small-text">
               {{ $t(`gemBenefit${benefit}`) }}
             </p>
           </div>
@@ -220,14 +212,6 @@
       margin-right: 20px;
     }
 
-    .close-icon svg path {
-      stroke: $purple-400;
-    }
-
-    .close-icon:hover svg path {
-      stroke: $purple-600;
-    }
-
     .modal-dialog {
       max-width: 35.375rem;
     }
@@ -238,6 +222,10 @@
       border-radius: 0px 0px 8px 8px;
     }
 
+    .modal-close .svg-close {
+      color: $white;
+    }
+
     .modal-content {
       border: none;
       background: transparent;
@@ -246,6 +234,11 @@
     .modal-header {
       padding: 0;
       border-bottom: 0px;
+    }
+
+    .wordmark svg {
+      height: 40px;
+      width: 181px;
     }
   }
 
@@ -342,10 +335,17 @@
   }
 
   .gem-benefits {
+    & > div {
+      gap: 12px;
+    }
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 16px 12px;
     p {
       font-style: normal;
       color: $gray-100;
-      max-width: 200px;
+      max-width: 205px;
+      margin-bottom: 0px;
     }
   }
 
@@ -449,16 +449,6 @@
     }
   }
 
-  .header-wrap {
-    background-image: linear-gradient(75deg, $purple-300, $purple-200 100%);
-    width: 100%;
-    padding: 0;
-    padding-top: 3rem;
-    padding-bottom: 2.5rem;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-  }
-
   .svg-icon.check {
     color: $purple-400;
     width: 16px;
@@ -466,7 +456,7 @@
   }
 
   .text-leadin {
-    margin: 1.5rem auto;
+    margin: 2rem auto 1.5rem auto;
     font-weight: bold;
     color: $purple-200;
   }
@@ -490,16 +480,18 @@ import fourGems from '@/assets/svg/4-gems.svg?raw';
 import twentyOneGems from '@/assets/svg/21-gems.svg?raw';
 import fortyTwoGems from '@/assets/svg/42-gems.svg?raw';
 import eightyFourGems from '@/assets/svg/84-gems.svg?raw';
-import svgClose from '@/assets/svg/close.svg?raw';
 import gifts from '@/assets/svg/gifts.svg?raw';
 import giftPurple from '@/assets/svg/gift-purple-600.svg?raw';
 import sparkles from '@/assets/svg/sparkles-left-purple-600-500.svg?raw';
+import wordmark from '@/assets/svg/habitica-logo.svg?raw';
 
+import closeX from '@/components/ui/closeX';
 import paymentsButtons from '@/components/payments/buttons/list';
 import { worldStateMixin } from '@/mixins/worldState';
 
 export default {
   components: {
+    closeX,
     paymentsButtons,
   },
   directives: {
@@ -509,7 +501,6 @@ export default {
   data () {
     return {
       icons: Object.freeze({
-        close: svgClose,
         check: checkIcon,
         '4gems': fourGems,
         '21gems': twentyOneGems,
@@ -518,6 +509,7 @@ export default {
         gifts,
         giftPurple,
         sparkles,
+        wordmark,
       }),
       selectedGemsBlock: null,
       alreadyTracked: false,
