@@ -403,7 +403,8 @@
             >
           </div>
             <small class="text-secondary">
-              If the user downgraded their subscription on Android, the future subscription plan will be noted here until the current one expires.
+              If the user downgraded their subscription on Android,
+              the future subscription plan will be noted here until the current one expires.
             </small>
         </div>
         <div class="form-group row" v-if="hero.purchased.plan.deferred">

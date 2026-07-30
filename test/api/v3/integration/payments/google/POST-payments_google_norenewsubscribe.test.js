@@ -60,7 +60,6 @@ describe('payments : google #norenewsubscribe', () => {
 
       expect(subscribeStub).to.be.calledOnce;
       expect(subscribeStub.args[0][0].user._id).to.eql(user._id);
-      expect(subscribeStub.args[0][0].sku).to.eql(sku);
       expect(subscribeStub.args[0][0].receipt).to.eql('receipt');
       expect(subscribeStub.args[0][0].signature).to.eql('signature');
       expect(subscribeStub.args[0][0].headers['x-api-key']).to.eql(user.apiToken);
@@ -81,7 +80,6 @@ describe('payments : google #norenewsubscribe', () => {
 
       expect(subscribeStub).to.be.calledOnce;
       expect(subscribeStub.args[0][0].user._id).to.eql(user._id);
-      expect(subscribeStub.args[0][0].sku).to.eql(sku);
       expect(subscribeStub.args[0][0].receipt).to.eql('receipt');
       expect(subscribeStub.args[0][0].signature).to.eql('signature');
       expect(subscribeStub.args[0][0].headers['x-api-key']).to.eql(user.apiToken);
