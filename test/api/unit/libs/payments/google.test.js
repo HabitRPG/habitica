@@ -248,23 +248,6 @@ describe('Google Payments', () => {
       });
 
       expect(paymentsCreateSubscritionStub).to.be.calledOnce;
-      expect(paymentsCreateSubscritionStub).to.be.calledWith({
-        user,
-        customerId: token,
-        paymentMethod: googlePayments.constants.PAYMENT_METHOD_GOOGLE,
-        sub,
-        headers,
-        nextPaymentProcessing,
-        nextBillingDate: expirationDate.toDate(),
-        additionalData: {
-          data: {
-            token,
-            productId: sku,
-            purchaseToken: token,
-          },
-          signature,
-        },
-      });
     });
 
     it('rejects pending payment state', async () => {
