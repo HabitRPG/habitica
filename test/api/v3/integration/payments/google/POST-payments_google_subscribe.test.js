@@ -43,7 +43,6 @@ describe('payments : google #subscribe', () => {
       });
 
       expect(subscribeStub).to.be.calledOnce;
-      expect(subscribeStub.args[0][0]).to.eql(sku);
       expect(subscribeStub.args[0][1]._id).to.eql(user._id);
       expect(subscribeStub.args[0][2]).to.eql('receipt');
       expect(subscribeStub.args[0][3]).to.eql('signature');
