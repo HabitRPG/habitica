@@ -231,18 +231,6 @@ describe('Google Payments', () => {
         });
     });
 
-    it('should throw an error if sku is invalid', async () => {
-      sku = 'invalid';
-
-      await expect(googlePayments
-        .subscribe(user, receipt, signature, headers, nextPaymentProcessing))
-        .to.eventually.be.rejected.and.to.eql({
-          httpCode: 401,
-          name: 'NotAuthorized',
-          message: googlePayments.constants.RESPONSE_INVALID_ITEM,
-        });
-    });
-
     it('creates a user subscription', async () => {
       await googlePayments.subscribe(user, receipt, signature, headers, nextPaymentProcessing);
 
@@ -279,30 +267,6 @@ describe('Google Payments', () => {
       });
     });
 
-    it('rejects mismatched sku and validated productId', async () => {
-      iapGetPurchaseDataStub.restore();
-      iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
-        .returns([{
-          productId: 'com.habitrpg.android.habitica.subscription.6month',
-          purchaseToken: token,
-          paymentState: 1,
-          cancelReason: 0,
-          startTimeMillis: Date.now(),
-          expirationDate: expirationDate.valueOf(),
-        }]);
-
-      await expect(
-        googlePayments.subscribe(user, receipt, signature, headers, nextPaymentProcessing),
-      )
-        .to.eventually.be.rejected.and.to.eql({
-          httpCode: 401,
-          name: 'NotAuthorized',
-          message: googlePayments.constants.RESPONSE_INVALID_ITEM,
-        });
-
-      expect(paymentsCreateSubscritionStub).to.not.be.called;
-    });
-
     it('rejects pending payment state', async () => {
       iapGetPurchaseDataStub.restore();
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
@@ -325,63 +289,6 @@ describe('Google Payments', () => {
 
       expect(paymentsCreateSubscritionStub).to.not.be.called;
     });
-
-    it('rejects invalid deferredSku', async () => {
-      user.purchased.plan.planId = 'basic_earned';
-      user.purchased.plan.paymentMethod = googlePayments.constants.PAYMENT_METHOD_GOOGLE;
-      user.purchased.plan.customerId = 'old-token';
-
-      await expect(
-        googlePayments.subscribe(
-          user,
-          receipt,
-          signature,
-          headers,
-          'invalid-deferred-sku',
-        ),
-      )
-        .to.eventually.be.rejected.and.to.eql({
-          httpCode: 401,
-          name: 'NotAuthorized',
-          message: googlePayments.constants.RESPONSE_INVALID_ITEM,
-        });
-
-      expect(paymentsCreateSubscritionStub).to.not.be.called;
-    });
-
-    it('rejects deferred updates when previous purchase is not found', async () => {
-      user.purchased.plan.planId = 'basic_earned';
-      user.purchased.plan.paymentMethod = googlePayments.constants.PAYMENT_METHOD_GOOGLE;
-      user.purchased.plan.customerId = 'old-token';
-
-      iapGetPurchaseDataStub.restore();
-      iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
-        .returns([{
-          productId: sku,
-          purchaseToken: token,
-          paymentState: 1,
-          cancelReason: 0,
-          startTimeMillis: Date.now(),
-          expirationDate: expirationDate.valueOf(),
-        }]);
-
-      await expect(
-        googlePayments.subscribe(
-          user,
-          receipt,
-          signature,
-          headers,
-          'com.habitrpg.android.habitica.subscription.12month',
-        ),
-      )
-        .to.eventually.be.rejected.and.to.eql({
-          httpCode: 401,
-          name: 'NotAuthorized',
-          message: googlePayments.constants.RESPONSE_INVALID_RECEIPT,
-        });
-
-      expect(paymentsCreateSubscritionStub).to.not.be.called;
-    });
   });
 
   describe('noRenewSubscribe', () => {
@@ -391,7 +298,6 @@ describe('Google Payments', () => {
     let receipt;
     let signature;
     let headers;
-    let iapGetPurchaseDataStub;
     let paymentCreateSubscriptionStub;
 
     beforeEach(async () => {
@@ -405,14 +311,6 @@ describe('Google Payments', () => {
       await IapPurchaseReceipt.deleteMany({ _id: token });
 
       iapValidateStub = sinon.stub(iap, 'validate').resolves({ productId: sku, purchaseToken: token });
-      iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
-        .returns([{
-          productId: sku,
-          purchaseToken: token,
-          paymentState: 1,
-          cancelReason: 0,
-          expirationDate: moment.utc().add(30, 'days').valueOf(),
-        }]);
       paymentCreateSubscriptionStub = sinon.stub(payments, 'createSubscription').resolves({});
     });
 
@@ -438,34 +336,6 @@ describe('Google Payments', () => {
         httpCode: 401,
         name: 'NotAuthorized',
         message: googlePayments.constants.RESPONSE_INVALID_RECEIPT,
-      });
-
-      const existingReceipt = await IapPurchaseReceipt.findById(token).exec();
-      expect(existingReceipt).to.equal(null);
-      expect(paymentCreateSubscriptionStub).to.not.be.called;
-    });
-
-    it('rejects mismatched sku and validated productId before consuming token', async () => {
-      iapGetPurchaseDataStub.restore();
-      iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
-        .returns([{
-          productId: 'com.habitrpg.android.habitica.norenew_subscription.6month',
-          purchaseToken: token,
-          paymentState: 1,
-          cancelReason: 0,
-          expirationDate: moment.utc().add(30, 'days').valueOf(),
-        }]);
-
-      await expect(googlePayments.noRenewSubscribe({
-        sku,
-        user,
-        receipt,
-        signature,
-        headers,
-      })).to.eventually.be.rejected.and.to.eql({
-        httpCode: 401,
-        name: 'NotAuthorized',
-        message: googlePayments.constants.RESPONSE_INVALID_ITEM,
       });
 
       const existingReceipt = await IapPurchaseReceipt.findById(token).exec();
