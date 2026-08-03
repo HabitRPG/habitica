@@ -466,6 +466,9 @@ async function cancelSubscription (data) {
 }
 
 async function handleSubscriptionRenewal (customerId) {
+  if (!customerId || customerId === '') {
+    throw new Error('customerId is required to handle subscription renewal');
+  }
   let plan;
   let ownerId;
   let isGroupSubscription = false;
@@ -481,7 +484,7 @@ async function handleSubscriptionRenewal (customerId) {
       isGroupSubscription = true;
     }
   }
-  if (plan) {
+  if (plan && plan.planId) {
     await trackSubscriptionEvent({
       eventType: 'renewed',
       user: { _id: ownerId },

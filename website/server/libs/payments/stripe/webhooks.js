@@ -67,7 +67,7 @@ export async function handleWebhooks (options, stripeInc) {
       case 'invoice.payment_succeeded': {
         const invoice = event.data.object;
         /* eslint-disable camelcase */
-        const { customerId, billing_reason } = invoice;
+        const { customer: customerId, billing_reason } = invoice;
         if (billing_reason === 'subscription_cycle') {
           await payments.handleSubscriptionRenewal(customerId);
         }
