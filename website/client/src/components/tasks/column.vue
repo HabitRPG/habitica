@@ -750,14 +750,6 @@ export default {
     openBuyDialog (rewardItem) {
       if (rewardItem.locked) return;
 
-      // Buy armoire and health potions immediately
-      const itemsToPurchaseImmediately = ['potion', 'armoire'];
-      if (itemsToPurchaseImmediately.indexOf(rewardItem.key) !== -1) {
-        this.makeGenericPurchase(rewardItem);
-        this.$emit('buyPressed', rewardItem);
-        return;
-      }
-
       if (rewardItem.purchaseType === 'quests') {
         this.selectedItemToBuy = rewardItem;
         this.$root.$emit('bv::show::modal', 'buy-quest-modal');
