@@ -81,7 +81,7 @@ function validateSubscriptionLifecycleState (purchase, options = {}) {
   } = options;
 
   const paymentState = Number(purchase.paymentState);
-  if (paymentState === 0 || paymentState === 3) {
+  if (paymentState === 0) {
     throw new NotAuthorized(api.constants.RESPONSE_PENDING_SUBSCRIPTION_STATE);
   }
 
