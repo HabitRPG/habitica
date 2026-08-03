@@ -179,9 +179,6 @@
           </button>
         </div>
       </div>
-      <!-- @TODO: Implement in V2 .form-grouplabel
-  strong(v-once) {{$t('endDate')}}
-      b-form-input.end-date-input-->
       <div
         v-if="creating"
         class="form-group"

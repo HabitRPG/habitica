@@ -551,6 +551,7 @@ export default {
       // Server
       const taskIdToReplace = filteredList[data.newIndex]._id;
       const newIndexOnServer = originTasks.findIndex(task => task._id === taskIdToReplace);
+      const oldIndexOnServer = originTasks.findIndex(task => task._id === taskIdToMove);
 
       let newOrder;
       if (taskToMove.group.id && !this.isUser) {
@@ -567,8 +568,8 @@ export default {
       if (!this.taskListOverride) this.user.tasksOrder[`${this.type}s`] = newOrder;
 
       // Client
-      const deleted = originTasks.splice(data.oldIndex, 1);
-      originTasks.splice(data.newIndex, 0, deleted[0]);
+      const deleted = originTasks.splice(oldIndexOnServer, 1);
+      originTasks.splice(newIndexOnServer, 0, deleted[0]);
       this.rerendering = true;
       await this.$nextTick();
       this.rerendering = false;

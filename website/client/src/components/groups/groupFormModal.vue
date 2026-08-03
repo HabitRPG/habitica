@@ -10,11 +10,12 @@
         <label>
           <strong v-once>{{ $t('name') }} *</strong>
         </label>
-        <b-form-input
+        <input
+          class="form-control"
           v-model="workingGroup.name"
           type="text"
           :placeholder="isParty ? $t('newPartyPlaceholder') : $t('newGuildPlaceholder')"
-        />
+        >
       </div>
       <div class="form-group">
         <label>
