@@ -37,7 +37,7 @@ describe('PUT /user/auth/update-password', async () => {
     expect(user.auth.local.hashed_password).to.not.eql(previousHashedPassword);
   });
 
-  it('should change the apiToken on password change', async () => {
+  it('changes the apiToken on password change', async () => {
     const previousToken = user.apiToken;
     const response = await user.put(ENDPOINT, {
       password,
@@ -53,7 +53,7 @@ describe('PUT /user/auth/update-password', async () => {
     expect(user.apiToken).to.not.eql(previousToken);
   });
 
-  it('should blank the reset code on password change', async () => {
+  it('blanks the reset code on password change', async () => {
     const response = await user.put(ENDPOINT, {
       password,
       newPassword,
