@@ -330,7 +330,6 @@
 
     .item-content {
       transform: scale(1.45, 1.45);
-      top: -25.67px;
       left: 1px;
 
       &.shop_gem {
