@@ -1,8 +1,8 @@
 {
     "rebirthNew": "Reenkarnasyon: Yeni Bir Maceraya Yelken Aç!",
     "rebirthUnlock": "Reenkarnasyon Küresi kullanmaya hak kazandın! Bu özel eşya sayesinde tüm görevlerin, başarıların ve hayvanların elinde kalmak kaydıyla 1. seviyeden yeni bir oyuna başlayabilirsin. Eğer Habitica'da yapılabilecek her şeyi bitirdiğini düşünüyorsan ya da yepyeni bir karakter oynama heyecanını tekrar yaşamak istiyorsan reenkarnasyonu deneyebilirsin!",
-    "rebirthAchievement": "Yeni bir maceraya başladın! Bu, senin <%= number %>. yeniden doğuşun. Ulaştığın en yüksek seviye <%= level %>. Bu başarı madalyasından bir tane daha kazanabilmek için, yeni maceranda bu seviyeden daha yukarısına ulaşmalısın!",
-    "rebirthAchievement100": "Yeni bir maceraya başladın! Bu, senin <%= number %>. yeniden doğuşun. Ulaştığın en yüksek seviye 100'ün üzerinde. Bu başarı madalyasından bir tane daha kazanabilmek için, yeni maceranda da en az 100. seviyeye ulaşmalısın!",
+    "rebirthAchievement": "<strong><%= number %></strong> kez yeniden Doğuş Küresi kullandın ve en fazla <strong><%= level %></strong> seviyesine ulaştın.",
+    "rebirthAchievement100": "<strong><%= number %></strong> kez Yeniden Doğuş Küresi kullandın, ve en fazla ulaştığın seviye <strong>100</strong> yada daha fazla.",
     "rebirthBegan": "Yeni Bir Maceraya Başladı",
     "rebirthText": "<%= rebirths %> Defa Yeni Maceraya Başladı",
     "rebirthOrb": "Reenkarnasyon Küresini <%= level %> seviyesine ulaştıktan sonra baştan başlamak için kullandı.",
@@ -12,11 +12,11 @@
     "rebirthName": "Reenkarnasyon Küresi",
     "rebirthComplete": "Yeniden doğdun!",
     "nextFreeRebirth": "<strong><%= days %> gün</strong> kaldı <strong>ÜCRETSİZ</strong> Yeniden Doğuş Orbu için",
-    "rebirthUnlockedNewItem": "",
-    "rebirthUnlockedOrb": "",
-    "rebirthUnlockedDesc": "",
-    "rebirthNewAchievement": "",
-    "rebirthNewAdventure": "",
-    "rebirthAchievementPlural": "",
-    "rebirthStackInfo": ""
+    "rebirthUnlockedNewItem": "Yeniden Doğuş Küresinin kilidi açıldı",
+    "rebirthUnlockedOrb": "Yeni bir maceraya başlayabilirsin!",
+    "rebirthUnlockedDesc": "Habitica maceranda her şeyi başardığını hissettiğinde, Yeniden Doğuş Küresi'ni kullanarak macerana yeni bir soluk getir! Pazardan bulabileceğin bu özel eşya ile görevlerini, başarılarını ve evcil hayvanlarını koruyarak 1. seviyeden yeniden başla.",
+    "rebirthNewAchievement": "Yeni Başarım",
+    "rebirthNewAdventure": "Yeni bir macera şimdi başlıyor!",
+    "rebirthAchievementPlural": "<strong><%= number %></strong> kez yeniden Doğuş Küresi kullandın ve en fazla <strong><%= level %></strong> seviyesine ulaştın.",
+    "rebirthStackInfo": "Bu başarı, Yeniden Doğuş Küresini her kullandığınızda biriktirilecek."
 }

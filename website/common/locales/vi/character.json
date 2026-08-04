@@ -1,1 +1,18 @@
-{}
+{
+    "profile": "Hồ Sơ",
+    "avatar": "Chỉnh Sửa Hình Đại Diện",
+    "editAvatar": "Chỉnh Sửa Hình Đại Diện",
+    "noDescription": "Người dùng Habitica này chưa thêm mô tả.",
+    "noPhoto": "Người dùng Habitica này chưa thêm hình ảnh.",
+    "other": "Thêm",
+    "fullName": "Tên Đầy Đủ",
+    "displayName": "Tên Hiển Thị",
+    "changeDisplayName": "Thay Đổi Tên Hiển Thị",
+    "newDisplayName": "Tên Hiển Thị Mới",
+    "displayBlurbPlaceholder": "Hãy giới thiệu bản thân bạn",
+    "photoUrl": "Url Ảnh",
+    "imageUrl": "Url Hình Ảnh",
+    "inventory": "Hành Trang",
+    "social": "Xã Hội",
+    "lvl": "Cấp"
+}

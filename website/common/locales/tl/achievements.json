@@ -1,1 +1,25 @@
-{}
+{
+    "achievement": "Tagumpay",
+    "onwards": "Sulong!",
+    "levelup": "Dahil sa natapos mong mga gawain, level up ka na at fully healed na!",
+    "reachedLevel": "Naabot Mo ang Level <%= level %>",
+    "yourRewards": "Mga Gantimpala Mo",
+    "gettingStartedDesc": "Tapusin ang mga onboarding task na ito at makakakuha ka ng <strong>5 Achievements</strong> at <strong class=\"gold-amount\">100 Gold</strong> pagkatapos mo!",
+    "onboardingProgress": "<%= percentage %>% progreso",
+    "yourProgress": "Ang Progreso Mo",
+    "letsGetStarted": "Simulan na natin!",
+    "viewAchievements": "Tingnan ang mga Achievements",
+    "earnedAchievement": "May na-unlock kang achievement!",
+    "onboardingComplete": "Natapos mo na ang mga onboarding task mo!",
+    "onboardingCompleteDesc": "Nakakuha ka ng <strong>5 Achievements</strong> at <strong class=\"gold-amount\">100 Gold</strong> sa pagtapos ng listahan.",
+    "onboardingCompleteDescSmall": "Kung gusto mo ng mas marami pa, tingnan ang Achievements at magsimulang mangolekta!",
+    "showAllAchievements": "Ipakita Lahat: <%= category %>",
+    "achievementLostMasterclasserModalText": "Natapos mo ang lahat ng labing-anim na quest sa Masterclasser Quest Series at nalutas mo ang misteryo ng Lost Masterclasser!",
+    "achievementMindOverMatterText": "Natapos ang Rock, Slime, at Yarn pet quests.",
+    "achievementMindOverMatterModalText": "Natapos mo ang Rock, Slime, at Yarn pet quests!",
+    "achievementJustAddWaterText": "Natapos ang Octopus, Seahorse, Cuttlefish, Whale, Turtle, Nudibranch, Sea Serpent, at Dolphin pet quests.",
+    "achievementJustAddWaterModalText": "Natapos mo ang Octopus, Seahorse, Cuttlefish, Whale, Turtle, Nudibranch, Sea Serpent, at Dolphin pet quests!",
+    "achievementBackToBasicsText": "Nakolekta ang lahat ng Base Pets.",
+    "achievementBackToBasicsModalText": "Nakolekta mo ang lahat ng Base Pets!",
+    "achievementAllYourBaseText": "Napaamo ang lahat ng Base Mounts."
+}

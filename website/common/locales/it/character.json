@@ -129,7 +129,7 @@
     "healerText": "I Guaritori si stagliano impavidi contro i danni, ed estendono la propria protezione agli altri. Le Attività Giornaliere non completate e le cattive abitudini non li turbano molto, ed hanno diversi modi per recuperare la Salute persa a causa dei fallimenti. Diventa un Guaritore se ti piace assistere gli altri nella tua squadra, o se l'idea di giocare con la morte attraverso il duro lavoro ti ispira!",
     "optOutOfClasses": "Rinuncia",
     "chooseClass": "Scegli la tua Classe",
-    "chooseClassLearnMarkdown": "[Maggiori informazioni sul sistema delle classi di Habitica](/static/faq#what-classes)",
+    "chooseClassLearnMarkdown": "[Maggiori informazioni sul sistema delle classi di Habitica](<%= classLink %>)",
     "optOutOfClassesText": "Non sei pronto a scegliere? Non c'è fretta! Se decidi di non sceglierne una, puoi leggere informazioni su ogni classe nelle <%= linkOpen %>nostre FAQ<%= linkClose %> e visitare Impostazioni per abilitare il sistema di classi quando sei pronto.",
     "selectClass": "Seleziona <%= heroClass %>",
     "select": "Seleziona",
