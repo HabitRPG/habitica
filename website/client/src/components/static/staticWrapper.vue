@@ -1,6 +1,5 @@
 <template>
   <div>
-    <chat-banner />
     <static-header
       v-if="showContentWrap && !loginFlow"
       :class="{
