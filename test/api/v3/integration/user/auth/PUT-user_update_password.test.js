@@ -54,7 +54,7 @@ describe('PUT /user/auth/update-password', async () => {
   });
 
   it('blanks the reset code on password change', async () => {
-    const response = await user.put(ENDPOINT, {
+    await user.put(ENDPOINT, {
       password,
       newPassword,
       confirmPassword: newPassword,
