@@ -243,6 +243,6 @@
     "rememberToBeKind": "Lütfen nazik, saygılı olun ve <%= linkOpen %>Topluluk Kurallarına<%= linkClose %> uyun.",
     "gem": "Mücevher",
     "confirmPurchase": "Satın Alımı Onayla",
-    "avoidSPI": "",
-    "avoidSPIDetails": ""
+    "avoidSPI": "Kişisel Bilgilerden kaçının",
+    "avoidSPIDetails": "Gizliliğiniz için Habitica'yı kullanırken <%= firstLink %>hassas kişisel bilgilerinizi<%= linkClose %> kullanmaktan kaçının. Hesap görevleriniz dahil hesap veriniz sunucularımızda saklanır, yani her cihazdan erişebilirsin. <br><br> Daha fazlası için <%= secondLink %>Gizlilik Politikamızı<%= linkClose %> okuyun."
 }

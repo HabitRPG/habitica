@@ -43,6 +43,6 @@
     "surveysSingle": "Bir anket doldurarak veya test çözmeye vakit ayırarak Habitica'nın büyümesine yardımcı oldun. Teşekkürler!",
     "surveysMultiple": "Bir anket doldurarak veya büyük bir geliştirme uygulamasına katkı göstererek <%= count %> adet etkinlikte Habitica'nın büyümesine yardımcı oldu. Teşekkürler!",
     "blurbHallPatrons": "Burası Müdavimler Salonu. Burada, Habitica'nın orijinal Kickstarter kampanyasını desteklemiş olan soylu maceracıları anıyoruz. Habitica'yı hayata geçirmemizde yardımları için müteşekkiriz!",
-    "blurbHallContributors": "Burası Katkıda Bulunanlar Salonu; Habitica'ya açık kaynak katkıları yapanlar burada onurlandırılıyor. Kod, sanat, müzik, yazı veya sadece yardımseverlikle olsun, onlar <%= linkRewards %>Mücevherler, özel Ekipmanlar<%= linkClose %> ve <%= linkTiers %>prestijli unvanlar<%= linkClose %> kazandılar. Sen de Habitica'ya katkıda bulunabilirsin! <%= linkContributing %>Daha fazla bilgi al.<%= linkClose %>",
+    "blurbHallContributors": "Burası Katkıda Bulunanlar Salonu; Habitica'ya açık kaynak katkıları yapanlar burada onurlandırılıyor. Kod, sanat, müzik, yazı veya sadece yardımseverlikle olsun, onlar <%= linkRewards %>Mücevherler, özel Ekipmanlar<%= linkClose %> ve <%= linkTiers %>prestijli unvanlar<%= linkClose %> kazandılar. Sen de Habitica'ya katkıda bulunabilirsin! <%= linkContributing %>Daha fazla bilgi al.<%= linkClose %>.",
     "noPrivAccess": "Gerekli izinlere sahip değilsiniz."
 }

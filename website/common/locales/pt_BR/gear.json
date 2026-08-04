@@ -3500,5 +3500,9 @@
     "weaponSpecialSpring2026HealerText": "Cajado do floco de neve",
     "weaponSpecialSpring2026RogueNotes": "Uma oportunidade de crescer está quase chegando e, com esses ramos em flor, você estará pronto! Aumenta a Força em <%= str %>. Equipamento de edição limitada da primavera de 2026.",
     "weaponSpecialSummer2026RogueText": "Lâmina Tsunami",
-    "weaponSpecialSummer2026MageText": "Lança Tubarão Tigre"
+    "weaponSpecialSummer2026MageText": "Lança Tubarão Tigre",
+    "weaponSpecialSummer2026WarriorText": "Machete de Jacaré",
+    "weaponMystery202607Text": "Familiares Peixe do Oceanomancer",
+    "weaponMystery202608Text": "Lâmina Magenta Brilhante",
+    "weaponArmoireBrightRainbowKiteText": "Pipa Arco-íris"
 }

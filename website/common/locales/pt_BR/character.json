@@ -129,7 +129,7 @@
     "healerText": "Curandeiros são impenetráveis contra danos, e extendem essa proteção aos outros. Diárias perdidas e maus Hábitos não incomodam muito, e eles possuem maneiras de recuperar Vida do fracasso. Jogue de Curandeiro se gostar de ajudar os outros em seu Grupo, ou se a ideia de enganar a Morte com trabalho duro o inspira!",
     "optOutOfClasses": "Abster-se",
     "chooseClass": "Escolha sua Classe",
-    "chooseClassLearnMarkdown": "[Aprenda mais sobre o Sistema de Classes do Habitica](/static/faq#what-classes)",
+    "chooseClassLearnMarkdown": "[Aprenda mais sobre o Sistema de Classes do Habitica](<%= classLink %>)",
     "optOutOfClassesText": "Não está pronto para escolher? Não há pressa! Se optar por não selecionar, você pode ler sobre cada classe em <%= linkOpen %>nossas Perguntas Frequentes<%= linkClose %> e acessar as Configurações para ativar o Sistema de Classes quando estiver pronto.",
     "selectClass": "Selecionar <%= heroClass %>",
     "select": "Selecionar",
