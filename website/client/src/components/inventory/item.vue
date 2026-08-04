@@ -23,6 +23,9 @@
           :item="item"
         ></slot><Sprite
           class="item-content"
+          :class="{ 'pet-item':
+            ['eggs', 'premiumHatchingPotion', 'hatchingPotions', 'food'].includes(item.pinType)
+          }"
           :image-name="itemContentClass"
         />
       </div><span
@@ -43,6 +46,12 @@
     </b-popover>
   </div>
 </template>
+
+<style lang="scss" scoped>
+  .pet-item {
+    top: -25px;
+  }
+</style>
 
 <script>
 import { v4 as uuid } from 'uuid';
