@@ -239,14 +239,14 @@ describe('shared.ops.scoreTask', () => {
       });
       const firstTaskDelta = ref.afterUser.party.quest.progress.up;
       expect(firstTaskDelta).to.be.greaterThan(0);
-      expect(ref.afterUser._tmp.quest.progressDelta).to.eql(firstTaskDelta);
+      expect(ref.afterUser._tmp.quest.progressDelta).to.eql(Math.ceil(firstTaskDelta));
 
       scoreTask({
         user: ref.afterUser, task: habit, direction: 'up', cron: false,
       });
       const secondTaskDelta = ref.afterUser.party.quest.progress.up - firstTaskDelta;
       expect(secondTaskDelta).to.be.greaterThan(0);
-      expect(ref.afterUser._tmp.quest.progressDelta).to.eql(secondTaskDelta);
+      expect(ref.afterUser._tmp.quest.progressDelta).to.eql(Math.ceil(secondTaskDelta));
     });
 
     context('habits', () => {
