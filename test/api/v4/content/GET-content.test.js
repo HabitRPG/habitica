@@ -2,8 +2,8 @@ import {
   requester,
   translate as t,
   generateUser,
-} from '../../../../helpers/api-integration/v3';
-import i18n from '../../../../../website/common/script/i18n';
+} from '../../../helpers/api-integration/v4';
+import i18n from '../../../../website/common/script/i18n';
 
 describe('GET /content', () => {
   it('returns content (and does not require authentication)', async () => {

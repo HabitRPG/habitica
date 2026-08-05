@@ -1,6 +1,11 @@
 import nconf from 'nconf';
 import { langCodes } from '../../libs/i18n';
-import { serveContent, ANDROID_FILTER, IOS_FILTER, V4_FILTER } from '../../libs/content';
+import {
+  serveContent,
+  ANDROID_FILTER,
+  IOS_FILTER,
+  V4_FILTER,
+} from '../../libs/content';
 import { authWithHeaders } from '../../middlewares/auth';
 
 const IS_PROD = nconf.get('IS_PROD');
