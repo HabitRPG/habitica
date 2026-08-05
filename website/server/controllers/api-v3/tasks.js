@@ -929,7 +929,7 @@ api.addChecklistItem = {
 api.scoreCheckListItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist/:itemId/score',
-  middlewares: [authWithHeaders({ leanUser: true, userFieldsToInclude: ['_id'] })],
+  middlewares: [authWithHeaders({ leanUser: true, userFieldsToInclude: ['_id', 'guilds', 'party'] })],
   async handler (req, res) {
     const { user } = res.locals;
 
