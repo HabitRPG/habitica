@@ -1,8 +1,8 @@
 {
     "frequentlyAskedQuestions": "Perguntas Frequentes",
-    "iosFaqStillNeedHelp": "Se você tem uma pergunta que não está no [FAQ da Wiki](https://habitica.fandom.com/pt-br/wiki/FAQ), faça um formulário no Faça uma Pergunta[PRECISA DO LINK]! Ficamos felizes em ajudar.",
-    "androidFaqStillNeedHelp": "Se você tem uma pergunta que não está nessa lista ou no [FAQ da Wiki](https://habitica.fandom.com/pt-br/wiki/FAQ), faça um formulário no Faça uma Pergunta[PRECISA DO LINK]! Ficamos felizes em ajudar.",
-    "webFaqStillNeedHelp": "Se você tiver alguma dúvida que não esteja listada aqui ou na [FAQ da Wiki](https://habitica.fandom.com/pt-br/wiki/FAQ), utilize este formulário [LINK NECESSARIO]! Ficaremos felizes em ajudar.",
+    "iosFaqStillNeedHelp": "Se você tem uma pergunta que não está no FAQ, faça um formulário no Faça uma Pergunta! Ficamos felizes em ajudar.",
+    "androidFaqStillNeedHelp": "Se você tem uma pergunta que não está nessa lista ou no FAQ, faça um formulário no Faça uma Pergunta! Ficamos felizes em ajudar.",
+    "webFaqStillNeedHelp": "Se você tiver alguma dúvida que não esteja listada aqui ou na FAQ, utilize este formulário! Ficaremos felizes em ajudar.",
     "parties": "Grupos",
     "commonQuestions": "Dúvidas Comuns",
     "faqQuestion25": "Quais são os diferentes tipos de tarefas?",
