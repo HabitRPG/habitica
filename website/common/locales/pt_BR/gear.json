@@ -3504,5 +3504,18 @@
     "weaponSpecialSummer2026WarriorText": "Machete de Jacaré",
     "weaponMystery202607Text": "Familiares Peixe do Oceanomancer",
     "weaponMystery202608Text": "Lâmina Magenta Brilhante",
-    "weaponArmoireBrightRainbowKiteText": "Pipa Arco-íris"
+    "weaponArmoireBrightRainbowKiteText": "Pipa Arco-íris",
+    "weaponSpecialSpring2026WarriorText": "Poderoso Espadim Anfíbio",
+    "weaponSpecialSpring2026RogueText": "Galho Primaveril",
+    "weaponSpecialSpring2026HealerNotes": "Uma oportunidade de recomeçar está adiante e com esse explendido cajado você estará preparado! Aumenta a inteligência em <%= int %>. Equipamento da edição limitade de primavera 2026.",
+    "weaponSpecialSpring2026MageNotes": "Uma oportunidade de celebrar se aproxima e com essa sombrinha você estará pronto! Aumentar a inteligência em <%= int %> e a percepção em <%= per %>. Equipamento da edição limitada de primavera 2026.",
+    "weaponSpecialSummer2026WarriorNotes": "Essa chamativa arma se encaixa perfeitamente na sua estética pantanosa. Aumenta a força em <%= str %>. Equipamento da edição limitada de verão 2026.",
+    "weaponSpecialSummer2026RogueNotes": "Essa inteligente arma encurvada se encaixa perfeitamente na sua estética marítima. Aumenta a força em <%= str %>. Equipamento da edição limitada de verão 2026.",
+    "weaponSpecialSummer2026HealerText": "Lança do Arau",
+    "weaponSpecialSummer2026HealerNotes": "Essa fina arma adornada de penas encaixa perfeitamente na sua estética insular. Aumenta a inteligência em <%= int %>. Equipamento da edição limitada de verão 2026.",
+    "weaponSpecialSummer2026MageNotes": "Essa perigosa arma de duas pontas encaixa perfeitamente na sua estética oceânica. Aumenta a inteligência em <%= int %> e a percepção em <%= per %>. Equipamento da edição limitada de verão 2026.",
+    "weaponMystery202603Text": "Cajado do mago das glicínias",
+    "weaponMystery202603Notes": "Conjure magias para aquecer o ar de primavera e encoraje os brotos a florir! Não concede nenhum benefício. Item de inscrito de março 2026.",
+    "weaponMystery202607Notes": "Esse companheiros coloridos vão canalizar suas habilidades aquáticas. Não concede nenhum benefício. Item de inscrito de julho 2026.",
+    "weaponMystery202608Notes": "Brilhante, bela e perigosa para suas diárias não feitas. Não concede nenhum benefício. Item de inscrito de agosto 2026"
 }
