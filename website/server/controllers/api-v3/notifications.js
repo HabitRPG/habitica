@@ -37,7 +37,7 @@ api.readNotification = {
 
     user.notifications.splice(index, 1);
 
-    await user.updateOne({
+    await User.updateOne({
       $pull: { notifications: { id: req.params.notificationId } },
     }).exec();
 
@@ -87,7 +87,7 @@ api.readNotifications = {
       user.notifications.splice(index, 1);
     }
 
-    await user.updateOne({
+    await User.updateOne({
       $pull: { notifications: { id: { $in: notificationsIds } } },
     }).exec();
 
@@ -160,7 +160,7 @@ api.seeNotification = {
 api.seeNotifications = {
   method: 'POST',
   url: '/notifications/see',
-  middlewares: [authWithHeaders({ leanUser: true, userFieldsToInclude: ['notifications'] })],
+  middlewares: [authWithHeaders({ userFieldsToInclude: ['notifications'] })],
   async handler (req, res) {
     const { user } = res.locals;
 

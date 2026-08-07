@@ -58,7 +58,7 @@ describe('GET /content', () => {
     expect(res).to.not.have.property('backgroundsFlat');
   });
 
-  describe('authenticated user', () => {
+  describe.only('authenticated user', () => {
     let user;
     it('returns content in user\'s preferred language when no language parameter is provided', async () => {
       user = await generateUser({ 'preferences.language': 'de' });

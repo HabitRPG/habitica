@@ -120,10 +120,8 @@ api.getMember = {
     if (!member.flags.verifiedUsername) member.auth.local.username = null;
 
     // manually call toJSON with minimize: true so empty paths aren't returned
-    const memberToJSON = User.transformJSONUser(member);
-    User.addComputedStatsToJSONObj(memberToJSON.stats, member);
-
-    res.respond(200, memberToJSON);
+    User.transformJSONUser(member, true);
+    res.respond(200, member);
   },
 };
 
@@ -153,16 +151,15 @@ api.getMemberByUsername = {
     delete member.blocks;
 
     // manually call toJSON with minimize: true so empty paths aren't returned
-    const memberToJSON = User.transformJSONUser(member);
-    User.addComputedStatsToJSONObj(memberToJSON.stats, member);
+    User.transformJSONUser(member, true);
 
     const { user } = res.locals;
 
     const isRequestingUserBlocked = blocksArray.includes(user._id);
 
-    memberToJSON.inbox.canReceive = !(memberToJSON.inbox.optOut || isRequestingUserBlocked) || user.hasPermission('moderator');
+    member.inbox.canReceive = !(member.inbox.optOut || isRequestingUserBlocked) || user.hasPermission('moderator');
 
-    res.respond(200, memberToJSON);
+    res.respond(200, member);
   },
 };
 

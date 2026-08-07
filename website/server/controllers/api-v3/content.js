@@ -58,7 +58,7 @@ api.getContent = {
   method: 'GET',
   url: '/content',
   noLanguage: true,
-  middlewares: [authWithHeaders({ optional: true, leanUser: true, userFieldsToInclude: ['preferences.language'] })],
+  middlewares: [authWithHeaders({ optional: true, leanUser: true, userFieldsToInclude: ['preferences'] })],
   async handler (req, res) {
     let language = 'en';
     const proposedLang = req.query.language;
