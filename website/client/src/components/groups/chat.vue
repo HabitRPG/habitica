@@ -16,7 +16,7 @@
         class="row"
       >
         <textarea
-          ref="user-entry"
+          :ref="setTextbox"
           v-model="newMessage"
           dir="auto"
           :placeholder="placeholder"
@@ -140,13 +140,15 @@ export default {
     },
   },
   mounted () {
-    this.textbox = this.$refs['user-entry'];
     this.handleExternalLinks();
   },
   updated () {
     this.handleExternalLinks();
   },
   methods: {
+    setTextbox (ref) {
+      this.textbox = ref;
+    },
     async sendMessageShortcut () {
       // If the user recently pasted in the text field, don't submit
       if (!this.chat.submitDisable) {

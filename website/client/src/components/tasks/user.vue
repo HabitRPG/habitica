@@ -205,7 +205,7 @@
               class="svg-icon icon-10 color"
               v-html="icons.positive"
             ></div>
-            <div class="ml-75 mr-1">
+            <div class="mr-1">
               {{ $t('addTask') }}
             </div>
           </div>

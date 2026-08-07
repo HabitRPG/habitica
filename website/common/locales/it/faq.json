@@ -1,8 +1,8 @@
 {
     "frequentlyAskedQuestions": "Domande frequenti (FAQ)",
-    "iosFaqStillNeedHelp": "Se hai una domanda che non è presente in questa lista o nella [sezione FAQ della wiki](https://habitica.fandom.com/wiki/FAQ), usa \"Fammi una domanda\" [LINK NEEDED] ! Saremo felici di aiutarti.",
-    "androidFaqStillNeedHelp": "Se hai una domanda che non è presente in questa lista o nella [sezione FAQ della wiki](https://habitica.fandom.com/wiki/FAQ), usa \"Fammi una domanda\" [LINK NEEDED] ! Saremo felici di aiutarti.",
-    "webFaqStillNeedHelp": "Se hai una domanda che non è presente in questa lista o nella [sezione FAQ della wiki](https://habitica.fandom.com/wiki/FAQ), usa \"Fammi una domanda\" [LINK NEEDED] ! Saremo felici di aiutarti.",
+    "iosFaqStillNeedHelp": "Se hai una domanda che non è presente in questa lista o nella sezione delle FAQ, compila il modulo \"Fammi una domanda\"! Saremo felici di aiutarti.",
+    "androidFaqStillNeedHelp": "Se hai una domanda che non è presente in questa lista o nella sezione delle FAQ, compila il modulo \"Fammi una domanda\"! Saremo felici di aiutarti.",
+    "webFaqStillNeedHelp": "Se hai una domanda che non è presente in questa lista o nella sezione delle FAQ, compila il modulo \"Fammi una domanda\"! Saremo felici di aiutarti.",
     "commonQuestions": "Domande Comuni",
     "faqQuestion25": "Quali sono i tipi di attività?",
     "faqQuestion26": "Quali sono gli esempi delle attività?",

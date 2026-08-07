@@ -41,7 +41,7 @@
     "marketing3Header": "Habitica'yı kullanmak için daha çok yol",
     "marketing3Lead1": "Android ve iOS cihazlardan Habitica'yı indirerek her yerde görev tamamlayabilirsin. İşlerini halletmek için yeni bir yaklaşım sunan ödüllü uygulamalarımıza göz at.",
     "marketing3Lead2Title": "Açık Kaynak Kodlu Topluluk",
-    "marketing3Lead2": "Özverili topluluğumuzun katkılarını memnuniyetle karşılayan açık kaynak kodlu bir proje olmaktan onur duyuyoruz. Habitica'yı kendi ihtiyaçlarınıza göre uyarlayın veya dünya genelindeki tüm oyuncuların deneyimini iyileştirmeye katkıda bulunun. Daha fazla bilgi edinmek için [GitHub](https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica) adresini ziyaret edin!",
+    "marketing3Lead2": "Özverili topluluğumuzun katkılarını memnuniyetle karşılayan açık kaynak kodlu bir proje olmaktan onur duyuyoruz. Habitica'yı kendi ihtiyaçlarınıza göre uyarlayın veya dünya genelindeki tüm oyuncuların deneyimini iyileştirmeye katkıda bulunun. Daha fazla bilgi edinmek için [GitHub](<%= githubLink %>) depomuzu ziyaret edin!",
     "marketing4Header": "Ev işlerinin ötesinde",
     "marketing4Lead1": "Eğitim, oyunlaştırmanın en iyi alanlarından biridir. Günlük sınıf çalışmalarının monotonluğunu biraz oyun oynayarak kır. Habitica, ödevleri takip etmenin, sınıf içi mücadeleler oluşturmanın ve öğrencilerinin başarılarını sergilemelerini sağlamanın eğlenceli bir yolu olabilir.",
     "marketing4Lead1Title": "Eğitimde oyunlaştırma",
@@ -86,7 +86,7 @@
     "teams": "Takımlar",
     "terms": "Hizmet Koşulları",
     "tumblr": "Tumblr",
-    "localStorageTryFirst": "Habitica ile ilgili sorun yaşıyorsan, bu web sitesinin yerel depolamasını ve çerezlerinin çoğunu temizlemek için aşağıdaki butona tıkla (diğer web sitelerini etkilemez). Bunu yaptıktan sonra tekrar giriş yapman gerekir, bu yüzden bu işlemden önce giriş bilgilerini bildiğinden emin ol. Giriş bilgilerini Ayarlar -> <%= linkStart %>Site<%= linkEnd %> sekmesinde bulabilirsin.",
+    "localStorageTryFirst": "Habitica ile ilgili sorun yaşıyorsan, bu web sitesinin yerel depolamasını ve çerezlerinin çoğunu temizlemek için aşağıdaki butona tıkla (diğer web sitelerini etkilemez). Bunu yaptıktan sonra tekrar giriş yapman gerekir, bu yüzden bu işlemden önce giriş bilgilerini bildiğinden emin ol. Giriş bilgilerini <%= linkStart %>Ayarlar -> Site<%= linkEnd %> sekmesinde bulabilirsin.",
     "localStorageTryNext": "Eğer problem devam edecek olursa ve henüz yapmadıysan, lütfen <%= linkStart %>Hata Bildirimi<%= linkEnd %> yap.",
     "localStorageClear": "Verileri Temizle",
     "localStorageClearExplanation": "Bu buton, yerel depolama alanını ve çerezlerin büyük kısmını temizler, ardından siteden çıkış yapmanı sağlar.",
@@ -186,6 +186,6 @@
     "acceptPrivacyTOS": "En az 18 yaşında olduğunu ve <%= termsLink %>Hizmet Şartları<%= linkClose %> ile <%= privacyLink %>Gizlilik Politikası<%= linkClose %>nı okuduğunu onaylamış sayılırsın",
     "marketing4Lead3Button": "Bugün Başla",
     "missingClientHeader": "Eksik x-client başlıkları.",
-    "emailAddress": "",
-    "emailRequiredForSupport": ""
+    "emailAddress": "E-posta adresi",
+    "emailRequiredForSupport": "Kullanıcı desteği için bir e-posta adresine ihtiyacımız var. Lütfen hesap oluşturmaya devam etmek için bir e-posta girin."
 }

@@ -1089,21 +1089,21 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
         type: 'boss_dont_attack',
         user: user.profile.name,
         quest: group.quest.key,
-        userDamage: progress.up.toFixed(1),
+        userDamage: progress.up.toFixed(0),
       },
     });
     promises.push(groupMessage.save());
   } else {
     const groupMessage = await group.sendChat({
       message: `\`${shared.i18n.t('chatBossDamage', {
-        username: user.profile.name, bossName: quest.boss.name('en'), userDamage: progress.up.toFixed(1), bossDamage: Math.abs(down).toFixed(1),
+        username: user.profile.name, bossName: quest.boss.name('en'), userDamage: progress.up.toFixed(0), bossDamage: Math.abs(down).toFixed(0),
       }, user.preferences.language)}\``,
       info: {
         type: 'boss_damage',
         user: user.profile.name,
         quest: group.quest.key,
-        userDamage: progress.up.toFixed(1),
-        bossDamage: Math.abs(down).toFixed(1),
+        userDamage: progress.up.toFixed(0),
+        bossDamage: Math.abs(down).toFixed(0),
       },
     });
     promises.push(groupMessage.save());

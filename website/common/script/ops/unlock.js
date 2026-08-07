@@ -16,7 +16,11 @@ const incentiveBackgrounds = ['blue', 'green', 'red', 'purple', 'yellow'];
  * and `headAccessory_wolfEars`
  */
 function splitPathItem (path) {
-  return path.match(/(.+)\.([^.]+)/).splice(1);
+  const match = path.match(/(.+)\.([^.]+)/);
+  if (!match) {
+    return [null];
+  }
+  return match.splice(1);
 }
 
 /**
@@ -31,6 +35,9 @@ function invalidSet (req) {
  */
 function getItemByPath (path, setType) {
   const [itemPathParent, itemKey] = splitPathItem(path);
+  if (!itemPathParent || !itemKey) {
+    return null;
+  }
 
   if (setType === 'gear') return content.gear.flat[itemKey];
   if (setType === 'hair') {

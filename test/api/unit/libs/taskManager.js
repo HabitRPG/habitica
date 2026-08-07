@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   createTasks,
   getTasks,
@@ -15,8 +16,9 @@ import {
 } from '../../../helpers/api-unit.helper';
 
 describe('taskManager', () => {
-  let user; let group; let
-    challenge;
+  let user;
+  let group;
+  let challenge;
   const testHabit = {
     text: 'test habit',
     type: 'habit',
@@ -125,6 +127,60 @@ describe('taskManager', () => {
     expect(task.up).to.equal(testHabit.up);
     expect(task.down).to.equal(testHabit.down);
     expect(task.createdAt).to.exist;
+  });
+
+  it('gets user tasks filtered by dueDate', async () => {
+    req.body = [
+      {
+        text: 'test daily 1',
+        type: 'daily',
+        frequency: 'daily',
+        everyX: 1,
+        startDate: moment().toDate(),
+      },
+      {
+        text: 'test daily 2',
+        type: 'daily',
+        frequency: 'weekly',
+        everyX: 1,
+        startDate: moment().toDate(),
+        repeat: {
+          su: true,
+          s: true,
+          f: true,
+          th: true,
+          w: true,
+          t: true,
+          m: true,
+        },
+      },
+      {
+        text: 'test habit 1',
+        type: 'habit',
+      },
+    ];
+    res.t = i18n.t;
+
+    await createTasks(req, res, { user });
+
+    req.body = {};
+    req.query = {};
+
+    const dueDate = moment().add(1, 'days').toDate();
+    const tasks = await getTasks(req, res, { user, dueDate });
+
+    const userTasks = tasks.filter(task => task.type !== 'todo');
+
+    expect(userTasks.length).to.equal(3);
+    userTasks.forEach(task => {
+      if (task.type === 'daily') {
+        expect(task.nextDue).to.exist;
+        expect(task.nextDue.length).to.be.greaterThan(0);
+        task.nextDue.forEach(due => {
+          expect(moment(due).isSameOrAfter(moment(dueDate).startOf('day'))).to.be.true;
+        });
+      }
+    });
   });
 
   it('creates group tasks', async () => {

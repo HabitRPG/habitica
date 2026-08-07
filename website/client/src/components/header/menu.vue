@@ -420,7 +420,7 @@
               :aria-label="$t('gold')"
               v-html="icons.gold"
             ></div>
-            <span>{{ Math.floor(user.stats.gp * 100) / 100 }}</span>
+            <span>{{ Math.floor(user.stats.gp) }}</span>
           </div>
         </div>
         <div class="form-inline desktop-only">

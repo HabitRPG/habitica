@@ -1,1 +1,25 @@
-{}
+{
+    "backgrounds": "Hình nền",
+    "background": "Hình nền",
+    "backgroundShop": "Tiệm Hình nền",
+    "noBackground": "Không có hình nền nào được chọn",
+    "hideLockedBackgrounds": "Ẩn hình nền bị khóa",
+    "backgrounds062014": "BỘ 1: Phát hành Tháng Sáu 2014",
+    "backgroundBeachText": "Bãi biển",
+    "backgroundBeachNotes": "Thư giãn trên bãi biển ấm áp.",
+    "backgroundFairyRingText": "Vòng Tiên",
+    "backgroundFairyRingNotes": "Nhảy múa trong vòng tiên.",
+    "backgroundForestText": "Rừng",
+    "backgroundForestNotes": "Dạo trong khu rừng mùa hè.",
+    "backgrounds072014": "BỘ 2: Phát hành Tháng Bảy 2014",
+    "backgroundCoralReefText": "Rạn San Hô",
+    "backgroundCoralReefNotes": "Bơi giữa rạn san hô.",
+    "backgroundOpenWatersText": "Nước Ngoài Khơi",
+    "backgroundOpenWatersNotes": "Tận hưởng vùng nước rộng mở.",
+    "backgroundSeafarerShipText": "Tàu Thủy Thủ",
+    "backgroundSeafarerShipNotes": "Ra khơi trên tàu thủy thủ.",
+    "backgrounds082014": "BỘ 3: Phát hành Tháng Tám 2014",
+    "backgroundCloudsText": "Mây",
+    "backgroundCloudsNotes": "Bay vút qua những đám mây.",
+    "backgroundVolcanoText": "Núi Lửa"
+}

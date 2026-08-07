@@ -8,14 +8,14 @@ describe('round big number filter', () => {
   });
 
   test('can round thousands', () => {
-    expect(roundBigNumberFilter(70065)).to.equal('70.1k');
+    expect(roundBigNumberFilter(70065)).to.equal('70k');
   });
 
   test('can round milions', () => {
-    expect(roundBigNumberFilter(10000987)).to.equal('10.0m');
+    expect(roundBigNumberFilter(10000987)).to.equal('10m');
   });
 
   test('can round bilions', () => {
-    expect(roundBigNumberFilter(1000000000)).to.equal('1.0b');
+    expect(roundBigNumberFilter(1000000000)).to.equal('1b');
   });
 });

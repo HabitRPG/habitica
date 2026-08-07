@@ -45,7 +45,7 @@
     "challengeNotFound": "Mücadele bulunamadı ya da mücadeleye erişimin yok.",
     "onlyLeaderDeleteChal": "Yalnızca mücadele lideri bunu silebilir.",
     "onlyLeaderUpdateChal": "Yalnızca mücadele lideri bunu güncelleyebilir.",
-    "winnerNotFound": "Kazanan \"<%= userId %>\" ID'li kişi bulunamadı veya mücadelenin üyesi değil.",
+    "winnerNotFound": "Kazanan \"<%= userId %>\" id'li kişi bulunamadı veya mücadelenin üyesi değil.",
     "onlyChalLeaderEditTasks": "Bir mücadelenin parçası olan görevler yalnızca lider tarafından değiştirilebilir.",
     "userAlreadyInChallenge": "Kullanıcı zaten bu mücadeleye dahil.",
     "cantOnlyUnlinkChalTask": "Yalnızca bozuk mücadele işlerinin linkini silebilirsin.",

@@ -316,6 +316,7 @@ api.updatePassword = {
     await passwordUtils.convertToBcrypt(user, newPassword);
 
     user.apiToken = common.uuid();
+    user.auth.local.passwordResetCode = undefined;
 
     await user.save();
 

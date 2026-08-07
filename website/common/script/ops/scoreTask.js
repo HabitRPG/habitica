@@ -94,7 +94,11 @@ function _calculateReverseDelta (task, direction) {
 
 function _gainMP (user, val) {
   val *= user._tmp.crit || 1; // eslint-disable-line no-param-reassign
-  user.stats.mp += val;
+  if (val < 0) {
+    user.stats.mp += Math.floor(val);
+  } else {
+    user.stats.mp += Math.ceil(val);
+  }
 
   if (user.stats.mp >= statsComputed(user).maxMP) user.stats.mp = statsComputed(user).maxMP;
   if (user.stats.mp < 0) {
@@ -111,7 +115,11 @@ function _subtractPoints (user, task, stats, delta) {
   if (conBonus < 0.1) conBonus = 0.1;
 
   const hpMod = delta * conBonus * task.priority * 2; // constant 2 multiplier for better results
-  stats.hp += Math.round(hpMod * 10) / 10; // round to 1dp
+  if (hpMod > -1) {
+    stats.hp -= 1;
+  } else {
+    stats.hp += Math.ceil(hpMod); // round to 0dp
+  }
   return stats.hp;
 }
 
@@ -133,15 +141,18 @@ function _addPoints (user, task, stats, direction, delta) {
   if (task.streak) {
     const currStreak = direction === 'down' ? task.streak - 1 : task.streak;
     const streakBonus = currStreak / 100 + 1; // eg, 1-day streak is 1.01, 2-day is 1.02, etc
-    const afterStreak = gpMod * streakBonus;
+    let afterStreak = gpMod * streakBonus;
+    if (Math.abs(afterStreak - gpMod) < 1) {
+      afterStreak = direction === 'down' ? gpMod - 1 : gpMod + 1; // min streak bonus of +1
+    }
     if (currStreak > 0 && gpMod > 0) {
       // keep this on-hand for later, so we can notify streak-bonus
       user._tmp.streakBonus = afterStreak - gpMod;
     }
 
-    stats.gp += afterStreak;
+    stats.gp += (direction === 'down' ? Math.floor(afterStreak) : Math.ceil(afterStreak));
   } else {
-    stats.gp += gpMod;
+    stats.gp += (direction === 'down' ? Math.floor(gpMod) : Math.ceil(gpMod));
   }
 }
 
@@ -169,13 +180,17 @@ function _changeTaskValue (user, task, direction, times, cron) {
         const prevProgress = user.party.quest.progress.up;
 
         if (task.type === 'todo' || task.type === 'daily') {
-          user.party.quest.progress.up += nextDelta * _crit * (1 + statsComputed(user).str / 200);
+          user.party.quest.progress.up += Math.ceil(
+            nextDelta * _crit * (1 + statsComputed(user).str / 200),
+          );
         } else if (task.type === 'habit') {
-          user.party.quest.progress.up += nextDelta * _crit * (0.5 + statsComputed(user).str / 400);
+          user.party.quest.progress.up += Math.ceil(
+            nextDelta * _crit * (0.5 + statsComputed(user).str / 400),
+          );
         }
 
         if (!user._tmp.quest) user._tmp.quest = {};
-        user._tmp.quest.progressDelta = user.party.quest.progress.up - prevProgress;
+        user._tmp.quest.progressDelta = Math.ceil(user.party.quest.progress.up - prevProgress);
       }
       task.value += nextDelta;
     }

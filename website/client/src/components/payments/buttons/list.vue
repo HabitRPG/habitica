@@ -1,33 +1,35 @@
 <template>
-  <div class="payments-column mx-auto">
+  <div>
     <h4>{{ $t('choosePaymentMethod') }}</h4>
-    <button
-      v-if="stripeAvailable"
-      class="btn btn-primary payment-button payment-item with-icon"
-      :class="{disabled}"
-      :disabled="disabled"
-      @click="stripeFn()"
-    >
-      <div
-        v-once
-        class="svg-icon color credit-card-icon"
-        v-html="icons.creditCardIcon"
-      ></div>
-      {{ $t('card') }}
-    </button>
-    <button
-      v-if="paypalAvailable"
-      class="btn payment-item paypal-checkout payment-button"
-      :class="{disabled}"
-      :disabled="disabled"
-      @click="paypalFn()"
-    >
-      &nbsp;
-      <img
-        src="@/assets/images/paypal-checkout.png"
-        :alt="$t('paypal')"
-      >&nbsp;
-    </button>
+    <div class="payments-column mx-auto">
+      <button
+        v-if="stripeAvailable"
+        class="btn btn-primary payment-button payment-item with-icon"
+        :class="{disabled}"
+        :disabled="disabled"
+        @click="stripeFn()"
+      >
+        <div
+          class="svg-icon icon-16 color"
+          :class="{'white': !disabled, 'gray-200': disabled}"
+          v-html="icons.creditCardIcon"
+        ></div>
+        {{ $t('card') }}
+      </button>
+      <button
+        v-if="paypalAvailable"
+        class="btn payment-item paypal-checkout payment-button"
+        :class="{disabled}"
+        :disabled="disabled"
+        @click="paypalFn()"
+      >
+        &nbsp;
+        <img
+          src="@/assets/images/paypal-checkout.png"
+          :alt="$t('paypal')"
+        >&nbsp;
+      </button>
+    </div>
   </div>
 </template>
 
@@ -35,13 +37,17 @@
   @import '@/assets/scss/colors.scss';
 
   .payments-column {
+    gap: 8px;
     display: flex;
     flex-direction: column;
     width: 296px;
     justify-content: center;
 
+    .svg-icon {
+      transition: none;
+    }
+
     .payment-item {
-      margin-bottom: 12px;
       display: flex;
 
       &.payment-button {
@@ -49,13 +55,8 @@
         justify-content: center;
         align-items: center;
 
-        .credit-card-icon {
-          width: 21.3px;
-          height: 16px;
-          margin-right: 8.7px;
-        }
-
         &.paypal-checkout {
+          height: 32px;
           background: #009cde;
 
           img {
