@@ -42,7 +42,6 @@
   "IGNORE_REDIRECT": "true",
   "ITUNES_SHARED_SECRET": "aaaabbbbccccddddeeeeffff00001111",
   "LIVELINESS_PROBE_KEY": "",
-  "LOG_AMPLITUDE_EVENTS": "false",
   "LOG_REQUESTS_EXCESSIVE_MODE": "false",
   "LOGGLY_CLIENT_TOKEN": "token",
   "LOGGLY_SUBDOMAIN": "example-subdomain",
