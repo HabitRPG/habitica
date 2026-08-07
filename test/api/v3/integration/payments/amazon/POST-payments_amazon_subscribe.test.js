@@ -10,11 +10,8 @@ describe('payments - amazon - #subscribe', () => {
   let user; let group; let
     subscribeWithAmazonStub;
 
-  beforeEach(async () => {
-    user = await generateUser();
-  });
-
   it('verifies subscription code', async () => {
+    user = await generateUser();
     await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
@@ -27,8 +24,16 @@ describe('payments - amazon - #subscribe', () => {
     const subscription = 'basic_3mo';
     let coupon;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       subscribeWithAmazonStub = sinon.stub(amzLib, 'subscribe').resolves({});
+      user = await generateUser({
+        'preferences.analyticsConsent': true,
+        'profile.name': 'sender',
+        'purchased.plan.customerId': 'customer-id',
+        'purchased.plan.planId': 'basic_3mo',
+        'purchased.plan.lastBillingDate': new Date(),
+        balance: 2,
+      });
     });
 
     afterEach(() => {
@@ -36,14 +41,6 @@ describe('payments - amazon - #subscribe', () => {
     });
 
     it('creates a user subscription', async () => {
-      user = await generateUser({
-        'profile.name': 'sender',
-        'purchased.plan.customerId': 'customer-id',
-        'purchased.plan.planId': 'basic_3mo',
-        'purchased.plan.lastBillingDate': new Date(),
-        balance: 2,
-      });
-
       await user.post(endpoint, {
         billingAgreementId,
         subscription,
@@ -60,14 +57,6 @@ describe('payments - amazon - #subscribe', () => {
     });
 
     it('creates a group subscription', async () => {
-      user = await generateUser({
-        'profile.name': 'sender',
-        'purchased.plan.customerId': 'customer-id',
-        'purchased.plan.planId': 'basic_3mo',
-        'purchased.plan.lastBillingDate': new Date(),
-        balance: 2,
-      });
-
       group = await generateGroup(user, {
         name: 'test group',
         type: 'party',

@@ -9,12 +9,9 @@ describe('payments : amazon #subscribeCancel', () => {
   const endpoint = '/amazon/subscribe/cancel?noRedirect=true';
   let user; let group; let
     amazonSubscribeCancelStub;
-
-  beforeEach(async () => {
-    user = await generateUser();
-  });
-
+  
   it('throws error when there users has no subscription', async () => {
+    user = await generateUser();
     await expect(user.get(endpoint)).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
@@ -34,6 +31,7 @@ describe('payments : amazon #subscribeCancel', () => {
     it('cancels a user subscription', async () => {
       user = await generateUser({
         'profile.name': 'sender',
+        'preferences.analyticsConsent': true,
         'purchased.plan.customerId': 'customer-id',
         'purchased.plan.planId': 'basic_3mo',
         'purchased.plan.lastBillingDate': new Date(),
@@ -58,6 +56,7 @@ describe('payments : amazon #subscribeCancel', () => {
         },
         leaderDetails: {
           'profile.name': 'sender',
+          'preferences.analyticsConsent': true,
           'purchased.plan.customerId': 'customer-id',
           'purchased.plan.planId': 'basic_3mo',
           'purchased.plan.lastBillingDate': new Date(),
