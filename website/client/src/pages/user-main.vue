@@ -7,7 +7,6 @@
     @dragover.prevent
   >
     <!-- <banned-account-modal /> -->
-    <amazon-payments-modal v-if="!isStaticPage" />
     <payments-success-modal />
     <sub-cancel-modal-confirm v-if="isUserLoaded" />
     <sub-canceled-modal v-if="isUserLoaded" />
@@ -133,7 +132,6 @@ import BuyModal from '@/components/shops/buyModal.vue';
 import SelectMembersModal from '@/components/selectMembersModal.vue';
 import notifications from '@/mixins/notifications';
 import { setup as setupPayments } from '@/libs/payments';
-import amazonPaymentsModal from '@/components/payments/amazonModal';
 import paymentsSuccessModal from '@/components/payments/successModal';
 import subCancelModalConfirm from '@/components/payments/cancelModalConfirm';
 import subCanceledModal from '@/components/payments/canceledModal';
@@ -166,7 +164,6 @@ export default {
     notificationsDisplay,
     BuyModal,
     SelectMembersModal,
-    amazonPaymentsModal,
     paymentsSuccessModal,
     subCancelModalConfirm,
     subCanceledModal,
