@@ -17,7 +17,9 @@ describe('PUT /user/auth/update-password', async () => {
   const newPassword = 'new-password';
 
   beforeEach(async () => {
-    user = await generateUser();
+    user = await generateUser(
+      { 'auth.local.passwordResetCode': 'passwordResetCode' },
+    );
   });
 
   it('successfully changes the password', async () => {
@@ -35,7 +37,7 @@ describe('PUT /user/auth/update-password', async () => {
     expect(user.auth.local.hashed_password).to.not.eql(previousHashedPassword);
   });
 
-  it('should change the apiToken on password change', async () => {
+  it('changes the apiToken on password change', async () => {
     const previousToken = user.apiToken;
     const response = await user.put(ENDPOINT, {
       password,
@@ -49,6 +51,17 @@ describe('PUT /user/auth/update-password', async () => {
     await user.sync();
     expect(user.apiToken).to.eql(newToken);
     expect(user.apiToken).to.not.eql(previousToken);
+  });
+
+  it('blanks the reset code on password change', async () => {
+    await user.put(ENDPOINT, {
+      password,
+      newPassword,
+      confirmPassword: newPassword,
+    });
+
+    await user.sync();
+    expect(user.auth.local.passwordResetCode).to.not.exist;
   });
 
   it('returns an error when confirmPassword does not match newPassword', async () => {
