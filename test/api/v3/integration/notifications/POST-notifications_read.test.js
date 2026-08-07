@@ -57,7 +57,6 @@ describe('POST /notifications/read', () => {
       id: id2,
       type: 'LOGIN_INCENTIVE',
       data: {},
-      seen: false,
     }]);
 
     await user.sync();
