@@ -84,12 +84,13 @@ api.getContent = {
     // apply defaults for mobile clients
     if (filter === '') {
       if (req.headers['x-client'] === 'habitica-android') {
-        filter = ANDROID_FILTER;
+        filter = [V4_FILTER, ANDROID_FILTER].join(',');
       } else if (req.headers['x-client'] === 'habitica-ios') {
-        filter = IOS_FILTER;
+        filter = [V4_FILTER, IOS_FILTER].join(',');
+      } else {
+        filter = V4_FILTER;
       }
     }
-    filter = [...filter, V4_FILTER].join(',');
 
     serveContent(res, language, filter, IS_PROD);
   },
