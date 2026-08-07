@@ -9,7 +9,7 @@ describe('payments : amazon #subscribeCancel', () => {
   const endpoint = '/amazon/subscribe/cancel?noRedirect=true';
   let user; let group; let
     amazonSubscribeCancelStub;
-  
+
   it('throws error when there users has no subscription', async () => {
     user = await generateUser();
     await expect(user.get(endpoint)).to.eventually.be.rejected.and.eql({

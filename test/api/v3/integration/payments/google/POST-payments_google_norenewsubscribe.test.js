@@ -18,7 +18,7 @@ describe('payments : google #norenewsubscribe', () => {
         message: t('missingSubscriptionCode'),
       });
     });
-  
+
     it('verifies receipt existence', async () => {
       await expect(user.post(endpoint, {
         sku,

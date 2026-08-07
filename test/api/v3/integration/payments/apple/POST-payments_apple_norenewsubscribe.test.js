@@ -5,12 +5,12 @@ describe('payments : apple #norenewsubscribe', () => {
   const endpoint = '/iap/ios/norenew-subscribe';
   const sku = 'com.habitrpg.ios.habitica.subscription.3month';
   let user;
-  
+
   describe('verification', () => {
     beforeEach(async () => {
       user = await generateUser();
     });
-    
+
     it('verifies sub key', async () => {
       await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
         code: 400,
@@ -18,7 +18,7 @@ describe('payments : apple #norenewsubscribe', () => {
         message: t('missingSubscriptionCode'),
       });
     });
-  
+
     it('verifies receipt existence', async () => {
       await expect(user.post(endpoint, {
         sku,
