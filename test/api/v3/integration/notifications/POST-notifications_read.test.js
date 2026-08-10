@@ -60,7 +60,7 @@ describe('POST /notifications/read', () => {
     }]);
 
     await user.sync();
-    expect(user.notifications.length).to.equal(1);
-    expect(user.notifications[0].id).to.equal(id2);
+    expect(res.length).to.equal(1);
+    expect(res[0].id).to.equal(id2);
   });
 });
