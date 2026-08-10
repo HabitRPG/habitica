@@ -66,7 +66,7 @@ export default function getItemInfo (
   language = null,
   matcher = null,
 ) {
-  const usedLanguage = language || user.preferences.language || 'en';
+  const usedLanguage = language || ((user && user.preferences) ? user.preferences.language : null) || 'en';
   if (officialPinnedItems === undefined) {
     officialPinnedItems = getOfficialPinnedItems(user); // eslint-disable-line no-param-reassign
   }
