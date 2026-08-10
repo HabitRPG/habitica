@@ -170,18 +170,7 @@ api.getInAppRewardsList = {
   middlewares: [authWithHeaders({ userFieldsToInclude: ['items', 'pinnedItems', 'unpinnedItems', 'pinnedItemsOrder', 'stats.class', 'achievements', 'purchased'] })],
   url: '/user/in-app-rewards',
   async handler (req, res) {
-    const list = common.inAppRewards(res.locals.user);
-
-    // return text and notes strings
-    forEach(list, item => {
-      forEach(item, (itemPropVal, itemPropKey) => {
-        if (
-          isFunction(itemPropVal)
-          && itemPropVal.i18nLangFunc
-        ) item[itemPropKey] = itemPropVal(req.language);
-      });
-    });
-
+    const list = common.inAppRewards(res.locals.user, req.language);
     res.respond(200, list);
   },
 };
