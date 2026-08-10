@@ -58,7 +58,15 @@ function getDefaultGearProps (item, language) {
   };
 }
 
-export default function getItemInfo (user, type, item, officialPinnedItems, language = 'en', matcher = null) {
+export default function getItemInfo (
+  user,
+  type,
+  item,
+  officialPinnedItems,
+  language = null,
+  matcher = null,
+) {
+  const usedLanguage = language || user.preferences.language || 'en';
   if (officialPinnedItems === undefined) {
     officialPinnedItems = getOfficialPinnedItems(user); // eslint-disable-line no-param-reassign
   }
@@ -69,8 +77,8 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'eggs':
       itemInfo = {
         key: item.key,
-        text: i18n.t('egg', { eggType: item.text(language) }, language),
-        notes: item.notes(language),
+        text: i18n.t('egg', { eggType: item.text(usedLanguage) }, usedLanguage),
+        notes: item.notes(usedLanguage),
         value: item.value,
         class: `Pet_Egg_${item.key}`,
         locked: false,
@@ -83,8 +91,8 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'hatchingPotions':
       itemInfo = {
         key: item.key,
-        text: i18n.t('potion', { potionType: item.text(language) }),
-        notes: item.notes(language),
+        text: i18n.t('potion', { potionType: item.text(usedLanguage) }, usedLanguage),
+        notes: item.notes(usedLanguage),
         class: `Pet_HatchingPotion_${item.key}`,
         value: item.value,
         locked: false,
@@ -97,8 +105,8 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'premiumHatchingPotion':
       itemInfo = {
         key: item.key,
-        text: i18n.t('potion', { potionType: item.text(language) }),
-        notes: `${item.notes(language)} ${item._addlNotes(language)}`,
+        text: i18n.t('potion', { potionType: item.text(usedLanguage) }, usedLanguage),
+        notes: `${item.notes(usedLanguage)} ${item._addlNotes(usedLanguage)}`,
         class: `Pet_HatchingPotion_${item.key}`,
         value: item.value,
         locked: false,
@@ -111,8 +119,8 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'food':
       itemInfo = {
         key: item.key,
-        text: item.text(language),
-        notes: item.notes(language),
+        text: item.text(usedLanguage),
+        notes: item.notes(usedLanguage),
         class: `Pet_Food_${item.key}`,
         value: item.value,
         locked: false,
@@ -125,9 +133,9 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'bundles':
       itemInfo = {
         key: item.key,
-        text: item.text(language),
-        notes: item.notes(language),
-        addlNotes: item.addlNotes ? item.addlNotes(language) : null,
+        text: item.text(usedLanguage),
+        notes: item.notes(usedLanguage),
+        addlNotes: item.addlNotes ? item.addlNotes(usedLanguage) : null,
         value: item.value,
         currency: 'gems',
         class: `quest_bundle_${item.key}`,
@@ -141,14 +149,14 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
 
       itemInfo = {
         key: item.key,
-        text: item.text(language),
-        notes: item.notes(language),
-        addlNotes: item.addlNotes ? item.addlNotes(language) : null,
+        text: item.text(usedLanguage),
+        notes: item.notes(usedLanguage),
+        addlNotes: item.addlNotes ? item.addlNotes(usedLanguage) : null,
         group: item.group,
         value: item.goldValue ? item.goldValue : item.value,
         locked,
         previous: content.quests[item.previous]
-          ? content.quests[item.previous].text(language)
+          ? content.quests[item.previous].text(usedLanguage)
           : null,
         unlockCondition: item.unlockCondition,
         completed: user.achievements.quests[item.key] !== undefined,
@@ -180,8 +188,8 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'seasonalSpell':
       itemInfo = {
         key: item.key,
-        text: item.text(language),
-        notes: item.notes(language),
+        text: item.text(usedLanguage),
+        notes: item.notes(usedLanguage),
         value: item.value,
         type: 'special',
         currency: 'gold',
@@ -199,8 +207,8 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         cast: item.cast,
         immediateUse: item.immediateUse,
         target: item.target,
-        text: item.text(language),
-        notes: item.notes(language),
+        text: item.text(usedLanguage),
+        notes: item.notes(usedLanguage),
         value: item.value,
         type: 'debuffPotion',
         currency: 'gold',
@@ -214,8 +222,8 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'seasonalQuest':
       itemInfo = {
         key: item.key,
-        text: item.text(language),
-        notes: item.notes(language),
+        text: item.text(usedLanguage),
+        notes: item.notes(usedLanguage),
         value: item.value,
         type: 'quests',
         currency: 'gems',
@@ -231,14 +239,14 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
       break;
     case 'gear':
       // spread operator not available
-      itemInfo = Object.assign(getDefaultGearProps(item, language), {
+      itemInfo = Object.assign(getDefaultGearProps(item, usedLanguage), {
         value: item.twoHanded || item.gearSet === 'animal' ? 2 : 1,
         currency: 'gems',
         pinType: 'gear',
       });
       break;
     case 'marketGear':
-      itemInfo = Object.assign(getDefaultGearProps(item, language), {
+      itemInfo = Object.assign(getDefaultGearProps(item, usedLanguage), {
         value: item.value,
         currency: 'gold',
         pinType: 'marketGear',
@@ -248,8 +256,8 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'background':
       itemInfo = {
         key: item.key,
-        text: item.text(language),
-        notes: item.notes(language),
+        text: item.text(usedLanguage),
+        notes: item.notes(usedLanguage),
         class: `icon_background_${item.key}`,
         value: item.price,
         currency: item.currency || 'gems',
@@ -263,7 +271,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
       itemInfo = {
         items: item.items,
         key: item.key,
-        text: item.text(language),
+        text: item.text(usedLanguage),
         value: 1,
         currency: 'hourglasses',
         purchaseType: 'mystery_set',
@@ -275,8 +283,8 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'potion':
       itemInfo = {
         key: item.key,
-        text: item.text(language),
-        notes: item.notes(language),
+        text: item.text(usedLanguage),
+        notes: item.notes(usedLanguage),
         value: item.value,
         currency: 'gold',
         purchaseType: 'potion',
@@ -288,8 +296,8 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'armoire':
       itemInfo = {
         key: item.key,
-        text: item.text(language),
-        notes: item.notes(count.remainingGearInSet(user.items.gear.owned, 'armoire')),
+        text: item.text(usedLanguage),
+        notes: item.notes(usedLanguage, count.remainingGearInSet(user.items.gear.owned, 'armoire')),
         value: item.value,
         currency: 'gold',
         purchaseType: 'armoire',
@@ -321,8 +329,8 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         key: 'gem',
         purchaseType: 'gems',
         class: 'shop_gem',
-        text: i18n.t('subGemName'),
-        notes: i18n.t('subGemPop'),
+        text: i18n.t('subGemName', {}, usedLanguage),
+        notes: i18n.t('subGemPop', {}, usedLanguage),
         value: 20,
         currency: 'gold',
         path: 'special.gems',
@@ -336,8 +344,8 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         key: 'rebirth_orb',
         purchaseType: 'rebirth_orb',
         class: 'rebirth_orb',
-        text: i18n.t('rebirthName'),
-        notes: i18n.t('rebirthPop'),
+        text: i18n.t('rebirthName', {}, usedLanguage),
+        notes: i18n.t('rebirthPop', {}, usedLanguage),
         value: isFreeRebirth(user) ? 0 : 6,
         currency: 'gems',
         path: 'special.rebirth_orb',
@@ -351,8 +359,8 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         key: 'fortify',
         purchaseType: 'fortify',
         class: 'inventory_special_fortify',
-        text: i18n.t('fortifyName'),
-        notes: i18n.t('fortifyPop'),
+        text: i18n.t('fortifyName', {}, usedLanguage),
+        notes: i18n.t('fortifyPop', {}, usedLanguage),
         value: 4,
         currency: 'gems',
         path: 'special.fortify',
@@ -365,7 +373,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         key: item.key,
         purchaseType: item.type,
         class: `shop_${item.type}_${item.key}`,
-        text: content.timeTravelStable[item.type][item.key](language),
+        text: content.timeTravelStable[item.type][item.key](usedLanguage),
         notes: '',
         value: 1,
 
@@ -387,7 +395,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         pinType: 'haircolor',
         purchaseType: 'customization',
         set: item.set,
-        text: item.text(language),
+        text: item.text(usedLanguage),
         type: 'color',
         value: item.price,
       };
@@ -404,7 +412,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         pinType: 'hairbase',
         purchaseType: 'customization',
         set: item.set,
-        text: item.text(language),
+        text: item.text(usedLanguage),
         type: 'base',
         value: item.price,
       };
@@ -421,7 +429,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         pinType: 'hairmustache',
         purchaseType: 'customization',
         set: item.set,
-        text: item.text(language),
+        text: item.text(usedLanguage),
         type: 'mustache',
         value: item.price,
       };
@@ -438,7 +446,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         pinType: 'hairbeard',
         purchaseType: 'customization',
         set: item.set,
-        text: item.text(language),
+        text: item.text(usedLanguage),
         type: 'beard',
         value: item.price,
       };
@@ -455,7 +463,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         pinType: 'shirt',
         purchaseType: 'customization',
         set: item.set,
-        text: item.text(language),
+        text: item.text(usedLanguage),
         type: 'shirt',
         value: item.price,
       };
@@ -472,7 +480,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         pinType: 'skin',
         purchaseType: 'customization',
         set: item.set,
-        text: item.text(language),
+        text: item.text(usedLanguage),
         type: 'skin',
         value: item.price,
       };

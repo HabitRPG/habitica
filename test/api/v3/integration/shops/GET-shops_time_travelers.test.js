@@ -101,4 +101,22 @@ describe('GET /shops/time-travelers', () => {
     expect(mammothPet).to.not.exist;
     expect(mantisShrimp).to.not.exist;
   });
+
+  describe('localizes the shops content', () => {
+    it('from the users locale', async () => {
+      await user.updateOne({ 'preferences.language': 'es' });
+      const shop = await user.get('/shops/time-travelers');
+
+      expect(shop.text).to.eql(t('timeTravelers', {}, 'es'));
+      expect(shop.notes).to.eql(t('timeTravelersPopoverNoSubMobile', {}, 'es'));
+    });
+
+    it('from the passed locale', async () => {
+      await user.updateOne({ 'preferences.language': 'es' });
+      const shop = await user.get('/shops/time-travelers?lang=de');
+
+      expect(shop.text).to.eql(t('timeTravelers', {}, 'de'));
+      expect(shop.notes).to.eql(t('timeTravelersPopoverNoSubMobile', {}, 'de'));
+    });
+  });
 });
