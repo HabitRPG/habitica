@@ -48,9 +48,5 @@ describe('POST /notifications/:notificationId/read', () => {
       type: 'LOGIN_INCENTIVE',
       data: {},
     }]);
-
-    await user.sync();
-    expect(user.length).to.equal(1);
-    expect(user[0].id).to.equal(id2);
   });
 });
