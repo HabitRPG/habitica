@@ -101,7 +101,7 @@
 
   @import '@/assets/scss/colors.scss';
   @import '~/intro.js/minified/introjs.min.css';
-  @import '~/axios-progress-bar/dist/nprogress.css';
+  @import '~/nprogress/nprogress.css';
 
   .modal-backdrop {
     opacity: .9 !important;
@@ -116,7 +116,7 @@
 
 <script>
 import axios from 'axios';
-import { loadProgressBar } from 'axios-progress-bar';
+import { loadProgressBar } from '@/libs/loadProgressBar';
 
 import birthdayModal from '@/components/news/birthdayModal';
 import AppMenu from '@/components/header/menu';
