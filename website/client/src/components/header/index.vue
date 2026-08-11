@@ -218,9 +218,12 @@ export default {
       this.inviteModalGroupType = group.type === 'guild' ? 'Guild' : 'Party';
       this.$root.$emit('bv::show::modal', 'invite-modal');
     });
+    // Listen for party updates and force-refresh party members
+    this.$root.$on('habitica:party-updated', this.forceRefreshPartyMembers);
   },
   beforeDestroy () {
     this.$root.$off('inviteModal::inviteToGroup');
+    this.$root.$off('habitica:party-updated', this.forceRefreshPartyMembers);
   },
   methods: {
     ...mapActions({
@@ -266,6 +269,9 @@ export default {
       if (this.currentWidth !== $event.width) {
         this.currentWidth = $event.width;
       }
+    },
+    forceRefreshPartyMembers () {
+      this.getPartyMembers({ forceLoad: true });
     },
   },
 };
