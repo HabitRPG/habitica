@@ -104,11 +104,11 @@ api.potion = {
 api.armoire = {
   type: 'armoire',
   text: t('armoireText'),
-  notes (count) {
+  notes (count, language) {
     if (count === 0) {
-      return t('armoireNotesEmpty')();
+      return t('armoireNotesEmpty', {}, language);
     }
-    return `${t('armoireNotesFull')()} ${count}`;
+    return `${t('armoireNotesFull', {}, language)} ${count}`;
   },
   value: 100,
   key: 'armoire',

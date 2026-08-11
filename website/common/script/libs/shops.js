@@ -508,7 +508,7 @@ shops.getSeasonalShop = function getSeasonalShop (user, language) {
         user,
         i.type,
         get(content, i.path),
-        [],
+        officialPinnedItems,
         language,
       )),
     },

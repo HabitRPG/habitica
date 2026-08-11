@@ -297,7 +297,7 @@ export default function getItemInfo (
       itemInfo = {
         key: item.key,
         text: item.text(usedLanguage),
-        notes: item.notes(usedLanguage, count.remainingGearInSet(user.items.gear.owned, 'armoire')),
+        notes: item.notes(count.remainingGearInSet(user.items.gear.owned, 'armoire'), usedLanguage),
         value: item.value,
         currency: 'gold',
         purchaseType: 'armoire',
