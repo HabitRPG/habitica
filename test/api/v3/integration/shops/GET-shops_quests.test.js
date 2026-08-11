@@ -12,7 +12,7 @@ describe('GET /shops/quests', () => {
 
   describe('localizes the shops content', () => {
     it('from the users locale', async () => {
-      user.updateOne({ 'preferences.language': 'es' });
+      await user.updateOne({ 'preferences.language': 'es' });
       const shop = await user.get('/shops/quests');
 
       expect(shop.text).to.eql(t('quests', {}, 'es'));
@@ -23,7 +23,7 @@ describe('GET /shops/quests', () => {
     });
 
     it('from the passed locale', async () => {
-      user.updateOne({ 'preferences.language': 'es' });
+      await user.updateOne({ 'preferences.language': 'es' });
       const shop = await user.get('/shops/quests?lang=de');
 
       expect(shop.text).to.eql(t('quests', {}, 'de'));

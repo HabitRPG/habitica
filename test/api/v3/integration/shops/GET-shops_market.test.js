@@ -29,7 +29,6 @@ describe('GET /shops/market', () => {
   describe('localizes the shops content', () => {
     it('from the users locale', async () => {
       await user.updateOne({ 'preferences.language': 'es' });
-      await user.sync();
       const shop = await user.get('/shops/market');
 
       expect(shop.text).to.eql(t('market', {}, 'es'));
