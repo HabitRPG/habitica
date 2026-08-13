@@ -5,11 +5,8 @@ describe('payments : apple #subscribe', () => {
   const endpoint = '/iap/ios/subscribe';
   let user;
 
-  beforeEach(async () => {
-    user = await generateUser();
-  });
-
   it('verifies sub key', async () => {
+    user = await generateUser();
     await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
@@ -30,6 +27,7 @@ describe('payments : apple #subscribe', () => {
 
     it('makes a purchase', async () => {
       user = await generateUser({
+        'preferences.analyticsConsent': true,
         'profile.name': 'sender',
         'purchased.plan.customerId': 'customer-id',
         'purchased.plan.planId': 'basic_3mo',

@@ -5,10 +5,6 @@ describe('payments : google #cancelSubscribe', () => {
   const endpoint = '/iap/android/subscribe/cancel?noRedirect=true';
   let user;
 
-  beforeEach(async () => {
-    user = await generateUser();
-  });
-
   describe('success', () => {
     let cancelStub;
 
@@ -22,6 +18,7 @@ describe('payments : google #cancelSubscribe', () => {
 
     it('makes a purchase', async () => {
       user = await generateUser({
+        'preferences.analyticsConsent': true,
         'profile.name': 'sender',
         'purchased.plan.paymentMethod': 'Google',
         'purchased.plan.customerId': 'customer-id',

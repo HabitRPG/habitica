@@ -103,6 +103,9 @@ export function authWithHeaders (options = {}) {
         if (!user || apiToken !== user.apiToken) {
           throw new InvalidCredentialsError(res.t('invalidCredentials'));
         }
+        if (!user.preferences.analyticsConsent) {
+          req.headers['x-api-user'] = 'Private';
+        }
 
         if (user.auth.blocked) {
           // We want the accountSuspended message to be translated but the language
@@ -149,6 +152,9 @@ export function authWithSession (req, res, next) {
     .exec()
     .then(user => {
       if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
+      if (!user.preferences.analyticsConsent) {
+        req.headers['x-api-user'] = 'Private';
+      }
 
       res.locals.user = user;
       stackdriverTraceUserId(user._id);
