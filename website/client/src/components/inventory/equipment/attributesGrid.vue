@@ -9,8 +9,8 @@
       <div class="group-content">
         <span
           class="popover-content-attr-cell key"
-          :class="{'hasValue': hasSumValue(attr) }"
-        >{{ `${$t(attr)}: ` }}</span>
+          :class="attributeMap[attr]"
+        >{{ `${$t(attributeMap[attr])}: ` }}</span>
         <span
           class="popover-content-attr-cell label key-value value"
           :class="{'green': hasSumValue(attr) }"
@@ -61,6 +61,14 @@
     .attr-con, .attr-per {
       padding-bottom: 0.75rem;
       padding-top: 0.5rem;
+    }
+
+    &:nth-of-type(3) {
+      border-bottom-left-radius: 4px;
+    }
+
+    &:nth-of-type(4) {
+      border-bottom-right-radius: 4px;
     }
 
     &:nth-of-type(even) {
@@ -123,13 +131,32 @@
   }
 
   .modal-body {
+    .attributes-group {
+      margin: inherit;
+      gap: 8px;
+
+      .strength {
+        color: $maroon-100;
+      }
+      .intelligence {
+        color: $blue-10;
+      }
+      .constitution {
+        color: $yellow-5;
+      }
+      .perception {
+        color: $purple-300;
+      }
+    }
 
     .group-content {
       padding: 0.25rem 1rem;
     }
 
     .popover-content-attr {
-      background-color: #f4f4f4;
+      width: calc(50% - 9px);
+      background-color: $gray-700;
+      border-radius: 4px;
 
       &:nth-of-type(even) {
         margin-left: 1px;
@@ -139,23 +166,15 @@
 
     .popover-content-attr-cell {
       &.key {
-        color: $gray-100;
         font-size: 0.875rem;
         font-weight: bold;
         line-height: 1.71;
-
-        opacity: 0.5;
-
-        &.hasValue {
-          opacity: 1;
-        }
       }
 
       &.label {
-        color: $gray-100;
+        color: $gray-300;
         font-size: 0.75rem;
         line-height: 1.33;
-        opacity: 0.5;
 
         &.bold {
           font-weight: bold;
@@ -166,7 +185,7 @@
         }
 
         &.hasValue {
-          opacity: 1;
+          color: $gray-100;
         }
       }
 
@@ -196,6 +215,16 @@ export default {
     user: {
       type: Object,
     },
+  },
+  data () {
+    return {
+      attributeMap: {
+        con: 'constitution',
+        int: 'intelligence',
+        per: 'perception',
+        str: 'strength',
+      },
+    };
   },
   computed: {
     ...mapState({
