@@ -50,7 +50,7 @@
 
   .popover-content-attr {
     font-weight: bold;
-    width: calc(50% - 1px);
+    width: calc(50%);
     background-color: $gray-50;
 
     .attr-str, .attr-int {
@@ -64,26 +64,19 @@
     }
 
     &:nth-of-type(3) {
-      border-bottom-left-radius: 4px;
+      border-bottom-left-radius: 8px;
     }
 
     &:nth-of-type(4) {
-      border-bottom-right-radius: 4px;
-    }
-
-    &:nth-of-type(even) {
-      margin-left: 1px;
-    }
-
-    &:nth-child(1), &:nth-child(2) {
-      margin-bottom: 1px;
+      border-bottom-right-radius: 8px;
+      padding-bottom: 8px;
     }
   }
 
   .group-content {
     display: inline-flex;
     flex-wrap: wrap;
-    padding: 4px 12px;
+    padding: 8px 16px;
     width: 100%;
   }
 
@@ -101,12 +94,17 @@
       font-size: 12px;
       font-weight: bold;
       line-height: 1.33;
+      white-space: nowrap;
     }
 
     &.label {
       font-size: 10px;
       line-height: 1.2;
       color: $gray-300;
+
+      &.hasValue {
+        color: $gray-500;
+      }
     }
 
     &.label.bold {
@@ -121,7 +119,7 @@
       white-space: nowrap;
 
       &.green {
-        color: $green-10;
+        color: $green-500;
 
         &:before {
           content: '+';
@@ -159,7 +157,6 @@
       border-radius: 4px;
 
       &:nth-of-type(even) {
-        margin-left: 1px;
         width: 50%;
       }
     }
