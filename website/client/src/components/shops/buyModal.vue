@@ -42,7 +42,8 @@
               :hide-class-badge="true"
               :with-background="true"
               :override-avatar-gear="getAvatarOverrides(item)"
-              :sprites-margin="user.preferences.background ? '0px auto 0px -2px' : '0px auto 0px -23px'"
+              :sprites-margin="user.preferences.background ? '0px auto 0px -2px'
+                : '0px auto 0px -23px'"
               :class="{ 'item flat bordered-item': !user.preferences.background }"
             />
           </div>
@@ -810,7 +811,7 @@ export default {
         return this.$t('messageHealthAlreadyMax');
       }
       return null;
-    }
+    },
   },
   watch: {
     item: function itemChanged () {
