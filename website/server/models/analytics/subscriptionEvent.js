@@ -4,7 +4,7 @@ import baseModel from '../../libs/baseModel';
 import { getAnalyticsDatabase } from '../../libs/mongoose';
 
 const { Schema } = mongoose;
-const eventTypes = ['subscribed', 'cancelled', 'resubscribed', 'upgraded', 'downgraded'];
+const eventTypes = ['subscribed', 'cancelled', 'renewed', 'upgraded', 'downgraded'];
 
 export const schema = new Schema({
   userId: {
@@ -15,6 +15,7 @@ export const schema = new Schema({
   paymentMethod: { $type: String },
   customerId: { $type: String },
   planId: { $type: String },
+  isGroupSubscription: { $type: Boolean },
   cancellationReason: { $type: String },
 }, {
   strict: true,
@@ -30,6 +31,7 @@ schema.plugin(baseModel, {
     'paymentMethod',
     'customerId',
     'planId',
+    'isGroupSubscription',
     'cancellationReason',
   ], // Nothing can be set from the client
   timestamps: true,

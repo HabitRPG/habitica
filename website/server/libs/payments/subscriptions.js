@@ -13,6 +13,7 @@ import { // eslint-disable-line import/no-cycle
   model as Group,
   basicFields as basicGroupFields,
 } from '../../models/group';
+import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
 import {
   NotAuthorized,
   NotFound,
@@ -371,6 +372,7 @@ async function createSubscription (data) {
     paymentMethod: data.paymentMethod,
     planId: block.key,
     customerId: plan.customerId,
+    isGroupSubscription: Boolean(data.groupId),
   });
 
   slack.sendSubscriptionNotification({
@@ -459,11 +461,44 @@ async function cancelSubscription (data) {
     paymentMethod: plan.paymentMethod,
     planId: plan.planId,
     customerId: plan.customerId,
+    isGroupSubscription: Boolean(data.groupId),
   });
+}
+
+async function handleSubscriptionRenewal (customerId) {
+  if (!customerId || customerId === '') {
+    throw new Error('customerId is required to handle subscription renewal');
+  }
+  let plan;
+  let ownerId;
+  let isGroupSubscription = false;
+  const user = await User.findOne({ 'purchased.plan.customerId': customerId }).exec();
+  if (user) {
+    plan = user.purchased.plan;
+    ownerId = user._id;
+  } else {
+    const group = await Group.findOne({ 'purchased.plan.customerId': customerId }).exec();
+    if (group) {
+      plan = group.purchased.plan;
+      ownerId = group.leader;
+      isGroupSubscription = true;
+    }
+  }
+  if (plan && plan.planId) {
+    await trackSubscriptionEvent({
+      eventType: 'renewed',
+      user: { _id: ownerId },
+      paymentMethod: plan.paymentMethod,
+      planId: plan.planId,
+      customerId: plan.customerId,
+      isGroupSubscription,
+    });
+  }
 }
 
 export {
   createSubscription,
   cancelSubscription,
   revealMysteryItems,
+  handleSubscriptionRenewal,
 };
