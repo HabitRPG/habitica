@@ -118,7 +118,7 @@
     "gemBenefitLeadin": "Elmaslar ile ne satın alabilirsin?",
     "gemBenefit1": "Avatarın için eşsiz ve şık kostümler.",
     "gemBenefit2": "Avatarını Habitica dünyasına sokmak için arka planlar!",
-    "gemBenefit3": "Hayvan yumurtası düşüren, heyecan verici Görev zincirleri.",
+    "gemBenefit3": "Evcil Hayvan yumurtası düşüren, heyecan verici Görev zincirleri.",
     "gemBenefit4": "Avatarının Nitelik Puanlarını sıfırla ve Sınıfını değiştir.",
     "subscriptionBenefit1": "Pazardan Altın karşılığında satın alınabilen 50'ye kadar Mücevher kazan ve bu Mücevher ile Görevler, Özelleştirmeler, Evcil Hayvanlar ve daha fazlasını satın al!",
     "subscriptionBenefit3": "Evcil hayvan koleksiyonunu büyütmek için her gün iki kat daha fazla Yumurta, Kuluçka İksiri ve Yiyecek bul!",
@@ -274,9 +274,10 @@
     "subMonths": "Abone Olunan Aylar",
     "needToUpdateCard": "Kartını güncellemen mi gerek?",
     "mysterySet202606": "",
-    "mysterySet202607": "",
+    "mysterySet202607": "Okyanus Büyücüsü Seti",
     "mysterySet202608": "",
-    "mysterySet202603": "",
-    "mysterySet202604": "",
-    "mysterySet202605": ""
+    "mysterySet202603": "Wisteria Büyücü Seti",
+    "mysterySet202604": "Cesur Astronot Seti",
+    "mysterySet202605": "",
+    "giftGems": "Mücevherlerinizi başka birine bağışlamak mı istiyorsunuz?"
 }

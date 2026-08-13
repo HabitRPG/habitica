@@ -3517,5 +3517,14 @@
     "weaponMystery202603Text": "Cajado do mago das glicínias",
     "weaponMystery202603Notes": "Conjure magias para aquecer o ar de primavera e encoraje os brotos a florir! Não concede nenhum benefício. Item de inscrito de março 2026.",
     "weaponMystery202607Notes": "Esse companheiros coloridos vão canalizar suas habilidades aquáticas. Não concede nenhum benefício. Item de inscrito de julho 2026.",
-    "weaponMystery202608Notes": "Brilhante, bela e perigosa para suas diárias não feitas. Não concede nenhum benefício. Item de inscrito de agosto 2026"
+    "weaponMystery202608Notes": "Brilhante, bela e perigosa para suas diárias não feitas. Não concede nenhum benefício. Item de inscrito de agosto 2026",
+    "weaponSpecialSpring2026MageText": "Guardasol de Mastro de Fitas",
+    "weaponArmoireBrightRainbowKiteNotes": "As cores desta pipa são vibrantes e chamativas. Ver ela voar alto vai te encher de orgulho! Aumenta todos os atributos em <%= attrs %> cada. Armário Encantado: Conjunto Pipa Arco-Íris (Item 1 de 2).",
+    "weaponArmoirePastelRainbowKiteText": "Pipa Arco-Íris Pastel",
+    "weaponArmoirePastelRainbowKiteNotes": "As cores desta pipa são suaves e discretas. Ela dança e gira enquanto voa nas alturas! Aumenta todos os atributos em <%= attrs %> cada. Armário Encantado: Conjunto Pipa Arco-Íris (Item 2 de 2).",
+    "weaponArmoireKendoShinaiText": "Shinai de Kendo",
+    "weaponArmoireKendoShinaiNotes": "Leve e macia, você pode usar esta espada de treino de bambu enquanto busca se aprimorar. Aumenta a Força em <%= str %>. Armário Encantado: Conjunto de Kendo (Item 3 de 3).",
+    "weaponArmoireGardenRakeText": "Rastelo de Jardim",
+    "weaponArmoireGardenRakeNotes": "Passo 1: Junte todas as folhas secas em uma pilha gigante com o rastelo. Passo 2: Comemore o bom trabalho pulando na pilha. Passo 3: Repita. Aumenta a Constituição em <%= con %>. Armário Encantado: Conjunto de Jardinagem 2 (Item 1 de 2).",
+    "armorSpecialSpring2026WarriorText": "Armadura de Sapo"
 }
