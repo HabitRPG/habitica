@@ -139,7 +139,6 @@
           :paypal-fn="() => openPaypal({
             url: paypalCheckoutLink, type: 'gems', gemsBlock: selectedGemsBlock
           })"
-          :amazon-data="{type: 'single', gemsBlock: selectedGemsBlock}"
         />
         <div
           v-if="eventInfo?.gemsPromo"

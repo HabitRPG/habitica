@@ -153,7 +153,6 @@
           :paypal-fn="() => openPaypalGift({
             gift: gift, giftedTo: userReceivingGift._id, receiverName,
           })"
-          :amazon-data="{type: 'single', gift, giftedTo: userReceivingGift._id, receiverName}"
         />
       </div>
     </div>
@@ -525,7 +524,6 @@ export default {
         },
       },
       sendingInProgress: false,
-      amazonPayments: {},
       gemCost: 1,
     };
   },
