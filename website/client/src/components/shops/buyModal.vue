@@ -16,14 +16,7 @@
       />
     </span>
     <div>
-      <span
-        class="svg-icon close-icon icon-16 color"
-        aria-hidden="true"
-        tabindex="0"
-        @click="hideDialog()"
-        @keypress.enter="hideDialog()"
-        v-html="icons.close"
-      ></span>
+      <close-x @close="hideDialog()" />
     </div>
     <div
       v-if="item != null"
@@ -313,7 +306,7 @@
       margin: 0 auto;
     }
 
-   .owned {
+    .owned {
       height: 32px;
       width: 141px;
       margin-top: -36px;
@@ -357,18 +350,16 @@
     }
 
     .title {
-      height: 28px;
       color: $gray-10;
-      font-size: 1.25rem;
       margin-top: 25px;
     }
 
     .item-notes {
-       margin-top: 8px;
-       padding-left: 48.5px;
-       padding-right: 48.5px;
-       line-height: 1.71;
-       font-size: 0.875rem;
+      margin-top: 8px;
+      padding-left: 49px;
+      padding-right: 49px;
+      line-height: 1.71;
+      font-size: 0.875rem;
     }
 
     .content {
@@ -533,7 +524,7 @@
       }
     }
 
-  .total-text {
+    .total-text {
       color: $gray-50;
       font-weight: bold;
       font-size: 0.875rem;
@@ -550,7 +541,7 @@
       &.hourglasses {
         color: $hourglass-color;
       }
-  }
+    }
 
     button.btn.btn-primary {
       padding: 2px 12px;
@@ -566,17 +557,17 @@
       }
     }
 
-      .notEnough {
-        pointer-events: none;
-      }
+    .notEnough {
+      pointer-events: none;
+    }
 
-      .free-rebirth {
-        background-color: $yellow-5;
-        color: $white;
-        height: 2rem;
-        line-height: 16px;
-        margin: 24px auto -24px;
-      }
+    .free-rebirth {
+      background-color: $yellow-5;
+      color: $white;
+      height: 2rem;
+      line-height: 16px;
+      margin: 24px auto -24px;
+    }
 
     .gems-left {
       height: 32px;
@@ -608,7 +599,6 @@
       margin-bottom: -24px;
     }
   }
-
 </style>
 
 <style lang="scss" scoped>
@@ -645,7 +635,6 @@ import numberInvalid from '@/mixins/numberInvalid';
 import spellsMixin from '@/mixins/spells';
 import sync from '@/mixins/sync';
 
-import svgClose from '@/assets/svg/close.svg?raw';
 import svgGold from '@/assets/svg/gold.svg?raw';
 import svgGem from '@/assets/svg/gem.svg?raw';
 import svgHourglasses from '@/assets/svg/hourglass.svg?raw';
@@ -656,6 +645,7 @@ import svgPositive from '@/assets/svg/positive.svg?raw';
 import svgNegative from '@/assets/svg/negative.svg?raw';
 
 import BalanceInfo from './balanceInfo.vue';
+import closeX from '@/components/ui/closeX';
 import PinBadge from '@/components/ui/pinBadge';
 import CountdownBanner from './countdownBanner';
 import currencyMixin from './_currencyMixin';
@@ -688,6 +678,7 @@ export default {
   components: {
     BalanceInfo,
     EquipmentAttributesGrid,
+    closeX,
     Item,
     Avatar,
     PinBadge,
@@ -723,7 +714,6 @@ export default {
   data () {
     return {
       icons: Object.freeze({
-        close: svgClose,
         gold: svgGold,
         gems: svgGem,
         hourglasses: svgHourglasses,
