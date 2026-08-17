@@ -35,6 +35,9 @@ export const ARMOIRE_RELEASE_DATES = {
   rainbowKite: { year: 2026, month: 6 },
   kendo: { year: 2026, month: 7 },
   gardener2: { year: 2026, month: 8 },
+  knightOfHonor: { year: 2026, month: 9 },
+  secrets: { year: 2026, month: 10 },
+  leafPile: { year: 2026, month: 11 },
 };
 
 export const EGGS_RELEASE_DATES = {
