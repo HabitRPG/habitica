@@ -153,5 +153,5 @@
     "everyXMonths": "elke <%= count %> maanden",
     "everyYear": "elk jaar",
     "everyXYears": "elke <%= count %> jaren",
-    "fifthWeekWarning": ""
+    "fifthWeekWarning": "Deze taak <strong>verschijnt niet</strong> in maanden met minder <%= day %>en"
 }

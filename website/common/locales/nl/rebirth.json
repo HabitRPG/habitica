@@ -1,7 +1,7 @@
 {
     "rebirthNew": "Hergeboorte: Nieuw Avontuur Beschikbaar!",
     "rebirthUnlock": "Je hebt Hergeboorte vrijgespeeld! Dit speciale marktvoorwerp stelt je in staat om een nieuw spel te beginnen vanaf Niveau 1 terwijl je je taken, prestaties, dieren, en meer behoudt. Gebruik het om nieuw leven in Habitica te blazen als je voelt dat je alles al bereikt hebt of om nieuwe spelonderdelen te beleven met de frisse blik van een beginnend personage!",
-    "rebirthAchievement": "Je bent een nieuw avontuur begonnen! Dit is Hergeboorte <%= number %> voor jou en het hoogste Niveau dat je behaald hebt is <%= level %>.  Begin je volgende nieuwe avontuur als je een nog hoger niveau hebt bereikt om deze Prestatie nog een keer te behalen!",
+    "rebirthAchievement": "Je hebt de Bol der Hergeboorte <strong><%= number %></strong> keer gebruikt, en je hoogst behaalde Niveau is <strong><%= level %></strong>.",
     "rebirthAchievement100": "Je bent een nieuw avontuur begonnen! Dit is Hergeboorte <%= number %> voor je en het hoogste Niveau dat je hebt bereikt is 100 of hoger. Om deze prestatie nog een keer te behalen, begin dan je nieuwe avontuur wanneer je op zijn minst Niveau 100 hebt bereikt.",
     "rebirthBegan": "Is een Nieuw Avontuur begonnen",
     "rebirthText": "Is <%= rebirths %> Nieuwe Avonturen begonnen",
@@ -16,7 +16,7 @@
     "rebirthNewAdventure": "Een nieuw avontuur begint nu!",
     "rebirthUnlockedOrb": "Een nieuw avontuur is beschikbaar!",
     "rebirthUnlockedNewItem": "Bol der Hergeboorte is Ontgrendeld",
-    "rebirthUnlockedDesc": "",
-    "rebirthAchievementPlural": "",
+    "rebirthUnlockedDesc": "Gebruik de Bol der Hergeboorte om je Habitica avontuur nieuw leven in te blazen als je het gevoel hebt dat je alles bereikt hebt! Begin opnieuw bij level 1 met je huidige taken, Prestaties, and Huisdieren, door dit speciale voorwerp van de Marktplaats te gebruiken.",
+    "rebirthAchievementPlural": "Je hebt de Bol der Hergeboorte <strong><%= number %></strong> keer gebruikt, en je hoogst behaalde Niveau is <strong><%= level %></strong>.",
     "rebirthStackInfo": ""
 }

@@ -1,1 +1,24 @@
-{}
+{
+    "unlockedReward": "لقد تلقيت <%= reward %>",
+    "earnedRewardForDevotion": "لقد ربحت <%= reward %> لالتزامك بتحسين حياتك.",
+    "nextRewardUnlocksIn": "عمليات تسجيل الدخول المتبقية حتى جائزتك التالية: <%= numberOfCheckinsLeft %>",
+    "awesome": "رائع!",
+    "incentivesDescription": "عندما يتعلق الأمر بناء العادات، فإن الاستمرارية هي المفتاح. كل يوم تقوم فيه بتسجيل الدخول، تقترب أكثر من نيل جائزة.",
+    "checkinEarned": "لقد زاد عداد تسجيل الدخول الخاص بك!",
+    "unlockedCheckInReward": "لقد فتحت جائزة تسجيل الدخول!",
+    "checkinProgressTitle": "التقدم نحو التالي",
+    "incentiveBackgroundsUnlockedWithCheckins": "سيتم فتح المزيد من الخلفيات الأساسية من خلال تسجيلات الدخول اليومية.",
+    "oneOfAllPetEggs": "واحدة من كل بيضة حيوان أليف أساسية",
+    "twoOfAllPetEggs": "اثنتان من كل بيضة حيوان أليف أساسية",
+    "threeOfAllPetEggs": "ثلاث من كل بيضة حيوان أليف أساسية",
+    "oneOfAllHatchingPotions": "واحد من كل ترياق فقس أساسي",
+    "threeOfEachFood": "ثلاثة من كل طعام حيوان أليف أساسي",
+    "fourOfEachFood": "أربعة من كل طعام حيوان أليف أساسي",
+    "twoSaddles": "سرجان",
+    "threeSaddles": "ثلاثة سروج",
+    "incentiveAchievement": "إنجاز الوفاء الأسطوري",
+    "royallyLoyal": "وفيٌّ أسطوري",
+    "royallyLoyalText": "لقد قام هذا المستخدم بتسجيل الدخول أكثر من 500 مرة، وحصل على كل جوائز تسجيل الدخول!",
+    "checkInRewards": "جوائز تسجيل الدخول",
+    "backloggedCheckInRewards": "لقد تلقيت جوائز تسجيل الدخول! تفضل بزيارة مخزونك ومعداتك لترى ما هو جديد."
+}
