@@ -288,7 +288,6 @@ describe('POST /chat', () => {
     const groupMessages = await user.get(`/groups/${groupWithChat._id}/chat`);
 
     const mentionLink = `[@${memberUsername}](/profile/${member._id})`;
-    console.log(newMessage.message.text);
     expect(newMessage.message.text).to.include(mentionLink);
     expect(newMessage.message.text).to.include(' END.');
     expect(newMessage.message.text.length)
