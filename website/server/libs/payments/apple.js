@@ -169,10 +169,7 @@ api.subscribe = async function subscribe (user, receipt, headers, nextPaymentPro
         { 'purchased.plan.customerId': purchase.originalTransactionId },
         { 'purchased.plan.customerId': purchase.transactionId },
       ],
-    }, {
-      _id: 1,
-      'purchased.plan': 1,
-    }).lean().exec();
+    }).exec();
     if (existingUsers.length > 0) {
       if (purchase.originalTransactionId === purchase.transactionId) {
         throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
