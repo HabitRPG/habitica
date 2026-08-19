@@ -35,7 +35,7 @@ const api = {};
  */
 api.deleteMessage = {
   method: 'DELETE',
-  middlewares: [authWithHeaders({ leanUser: true, userFieldsToInclude: ['_id'] })],
+  middlewares: [authWithHeaders()],
   url: '/inbox/messages/:messageId',
   async handler (req, res) {
     req.checkParams('messageId', apiError('messageIdRequired')).notEmpty().isUUID();
@@ -111,7 +111,7 @@ api.clearMessages = {
  */
 api.conversations = {
   method: 'GET',
-  middlewares: [authWithHeaders({ leanUser: true, userFieldsToInclude: ['profile', 'contributor', 'backer', 'inbox'] })],
+  middlewares: [authWithHeaders({ userFieldsToInclude: ['profile', 'contributor', 'backer', 'inbox'] })],
   url: '/inbox/conversations',
   async handler (req, res) {
     const { user } = res.locals;
@@ -139,7 +139,7 @@ api.conversations = {
 api.getInboxMessages = {
   method: 'GET',
   url: '/inbox/paged-messages',
-  middlewares: [authWithHeaders({ leanUser: true, userFieldsToInclude: ['profile', 'contributor', 'backer', 'inbox'] })],
+  middlewares: [authWithHeaders({ userFieldsToInclude: ['profile', 'contributor', 'backer', 'inbox'] })],
   async handler (req, res) {
     const { user } = res.locals;
     const { page, conversation } = req.query;
@@ -214,7 +214,7 @@ api.flagPrivateMessage = {
 api.likePrivateMessage = {
   method: 'POST',
   url: '/inbox/like-private-message/:uniqueMessageId',
-  middlewares: [authWithHeaders({ leanUser: true, userFieldsToInclude: ['_id'] })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('uniqueMessageId', apiError('messageIdRequired')).notEmpty();
 
