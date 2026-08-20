@@ -3558,5 +3558,6 @@
     "headSpecialSpring2026RogueNotes": "Crie um visual marcante com gravetos e brotos crescendo livres para todos os lados. Aumenta Percepção em <%= per %>. Equipamento de Edição Limitada da Primavera de 2026.",
     "headSpecialSpring2026HealerText": "Capacete Campainha-de-Inverno",
     "headSpecialSpring2026HealerNotes": "Traga uma mensagem de esperança com estas pétalas belas e resistentes. Aumenta Inteligência em <%= int %>. Equipamento de Edição Limitada da Primavera de 2026.",
-    "headSpecialSpring2026MageText": "Coroa de Flor-de-Maio"
+    "headSpecialSpring2026MageText": "Coroa de Flor-de-Maio",
+    "headSpecialSummer2026HealerText": "Elmo do Papagaio-do-mar"
 }
