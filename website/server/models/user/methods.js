@@ -241,6 +241,10 @@ schema.statics.pushNotification = async function pushNotification (
   ).exec();
 };
 
+schema.statics.hasPermission = function hasPermission (permissions, permission) {
+  return Boolean(permissions && (permissions[permission] || permissions.fullAccess));
+};
+
 /**
  * Adds an achievement and a related notification to the user.
  *
@@ -538,7 +542,7 @@ schema.methods.isNewsPoster = function isNewsPoster () {
 };
 
 schema.methods.hasPermission = function hasPermission (permission) {
-  return Boolean(this.permissions && (this.permissions[permission] || this.permissions.fullAccess));
+  return schema.statics.hasPermission(this.permissions, permission);
 };
 
 // When converting to json add inbox messages from the Inbox collection

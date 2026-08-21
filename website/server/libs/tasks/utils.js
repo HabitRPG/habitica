@@ -97,7 +97,7 @@ export function setNextDue (task, user, dueDateOption) {
     now = dateTaskIsDue;
   }
 
-  const optionsForShouldDo = user.constructor.name === 'model' ? user.preferences.toObject() : user.preferences;
+  const optionsForShouldDo = user.constructor.name === 'model' ? user.preferences.toObject() : _.cloneDeep(user.preferences);
   optionsForShouldDo.now = now;
   task.isDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
 
