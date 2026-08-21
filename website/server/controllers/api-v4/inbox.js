@@ -68,7 +68,7 @@ api.deleteMessage = {
  */
 api.clearMessages = {
   method: 'DELETE',
-  middlewares: [authWithHeaders({ leanUser: true })],
+  middlewares: [authWithHeaders()],
   url: '/inbox/clear',
   async handler (req, res) {
     const { user } = res.locals;
