@@ -268,6 +268,11 @@ const SEASONAL_SETS = {
     'fall2025MaskedGhostMageSet',
     'fall2025KoboldHealerSet',
     'fall2025SkeletonRogueSet',
+
+    'fall2026GhostPumpkinWarriorSet',
+    'fall2026PoisonMushroomMageSet',
+    'fall2026MysticCandleHealerSet',
+    'fall2026SkeletalRavenRogueSet',
   ],
 };
 

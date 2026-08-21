@@ -596,6 +596,15 @@
   "weaponSpecialSummer2026MageText": "Tiger Shark Spear",
   "weaponSpecialSummer2026MageNotes": "This dangerous, double-ended weapon fits right into your oceancore aesthetic. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition Summer 2026 Gear.",
 
+  "weaponSpecialFall2026WarriorText": "Ghost Pumpkin Lantern",
+  "weaponSpecialFall2026WarriorNotes": "Don’t go anywhere without a light, especially when you can have one that doubles as a task-cutting scythe. Increases Strength by <%= str %>. Limited Edition Fall 2026 Gear.",
+  "weaponSpecialFall2026RogueText": "Skeletal Raven Staff",
+  "weaponSpecialFall2026RogueNotes": "Don’t go anywhere without a staff, especially one with a feathery friend perched on top. Increases Strength by <%= str %>. Limited Edition Fall 2026 Gear.",
+  "weaponSpecialFall2026HealerText": "Mystic Candle Wick",
+  "weaponSpecialFall2026HealerNotes": "Don’t go anywhere without a flame, especially when magic will keep it forever alight. Increases Intelligence by <%= int %>. Limited Edition Fall 2026 Gear.",
+  "weaponSpecialFall2026MageText": "Poison Mushroom Staff",
+  "weaponSpecialFall2026MageNotes": "Don’t go anywhere without mushroom magic, especially when its poison can slow a chaotic situation into a manageable one. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition Fall 2026 Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -650,6 +659,10 @@
   "weaponMystery202607Notes": "These colorful companions will channel your aqueous abilities. Confers no benefit. July 2026 Subscriber Item.",
   "weaponMystery202608Text": "Beaming Magenta Blade",
   "weaponMystery202608Notes": "Bright, beautiful, dangerous to your undone Dailies. Confers no benefit. August 2026 Subscriber Item.",
+  "weaponMystery202609Text": "Harvest Harlequin Baton",
+  "weaponMystery202609Notes": "This leaf-shaped baton jingles merrily while bright ribbons catch the crisp breeze. Confers no benefit. September 2026 Subscriber Item.",
+  "weaponMystery202610Text": "Optical Orb",
+  "weaponMystery202610Notes": "Spy, weapon, or little floating buddy? Your call. Confers no benefit. October 2026 Subscriber Item.",
 
   "weaponMystery301404Text": "Steampunk Cane",
   "weaponMystery301404Notes": "Excellent for taking a turn about town. March 3015 Subscriber Item. Confers no benefit.",
@@ -886,6 +899,8 @@
   "weaponArmoireKendoShinaiNotes": "Light and soft, you can use this bamboo practice sword as you strive to improve yourself. Increases Strength by <%= str %>. Enchanted Armoire: Kendo Set (Item 3 of 3).",
   "weaponArmoireGardenRakeText": "Garden Rake",
   "weaponArmoireGardenRakeNotes": "Step 1: Rake all the fallen leaves into a giant pile. Step 2: Celebrate a job well done by jumping into the pile. Step 3: Repeat. Increases Constitution by <%= con %>. Enchanted Armoire: Gardener Set 2 (Item 1 of 2).",
+  "weaponArmoireHammerOfHonorText": "Hammer of Honor",
+  "weaponArmoireHammerOfHonorNotes": "Hail, honorable knight! Thou hast a brave heart, a strong arm, and high moral character. All in the kingdom know thou shalt handle this hammer with honor. Increases Strength by <%= str %>. Enchanted Armoire: Knight of Honor Set (Item 1 of 2)",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1462,6 +1477,15 @@
   "armorSpecialSummer2026MageText": "Tiger Shark Suit",
   "armorSpecialSummer2026MageNotes": "Slide into this suit, but don’t hide from your problems. Show your shark shine and swim right up to face those tasks like the shark you are. Increases Intelligence by <%= int %>. Limited Edition Summer 2026 Gear.",
 
+  "armorSpecialFall2026WarriorText": "Ghost Pumpkin Attire",
+  "armorSpecialFall2026WarriorNotes": "You’re stylish but mostly you’re very ghostly. Increases Constitution by <%= con %>. Limited Edition Fall 2026 Gear.",
+  "armorSpecialFall2026RogueText": "Skeletal Raven Suit",
+  "armorSpecialFall2026RogueNotes": "You’re stylish, swart, and looking the part. Increases Perception by <%= per %>. Limited Edition Fall 2026 Gear.",
+  "armorSpecialFall2026HealerText": "Mystic Candle Cloak",
+  "armorSpecialFall2026HealerNotes": "You’re stylish, making tracks, and covered in wax. Increases Constitution by <%= con %>. Limited Edition Fall 2026 Gear.",
+  "armorSpecialFall2026MageText": "Poison Mushroom Cloak",
+  "armorSpecialFall2026MageNotes": "You’re stylish, groomed, and a stunning mushroom. Increases Intelligence by <%= int %>. Limited Edition Fall 2026 Gear.",
+
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
   "armorMystery201403Text": "Forest Walker Armor",
@@ -1602,6 +1626,10 @@
   "armorMystery202512Notes": "Ready for battle in this plate that is both sweet and strong. Confers no benefit. December 2025 Subscriber Item.",
   "armorMystery202604Text": "Audacious Astronaut Spacesuit",
   "armorMystery202604Notes": "One small step for your To Do list, one giant leap for your sense of accomplishment! Confers no benefit. April 2026 Subscriber Item.",
+  "armorMystery202609Text": "Harvest Harlequin Suit",
+  "armorMystery202609Notes": "The jewel tones of autumn provide an excellent compliment to your upbeat antics. Confers no benefit. September 2026 Subscriber Item.",
+  "armorMystery202611Text": "Frost Dragon Armor",
+  "armorMystery202611Notes": "This armor is made from the shed scales of the elusive (and extremely cold) Frost Dragon. Confers no benefit. November 2026 Subscriber Item.",
   
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
@@ -1858,6 +1886,8 @@
   "armorArmoireHandstandOutfitNotes": "Things sure do look different when you’re upside-down, don’t they? If you’re feeling stuck, it’s time for a fresh perspective! Increases Perception by <%= per %>. Enchanted Armoire: Handstand Set (Item 1 of 1).",
   "armorArmoireKendoBoguText": "Kendo Bōgu",
   "armorArmoireKendoBoguNotes": "This might be training armor, but it offers more than enough protection for your path ahead. Increases Constitution by <%= con %>. Enchanted Armoire: Kendo Set (Item 2 of 3).",
+  "armorArmoireSecretsCloakText": "Secrets Cloak",
+  "armorArmoireSecretsCloakNotes": "Shhhhh! We stitched secrets into this cloak. Don’t tell anybody! Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Secrets Set (Item 3 of 3)",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -2428,6 +2458,15 @@
   "headSpecialSummer2026MageText": "Tiger Shark Helm",
   "headSpecialSummer2026MageNotes": "Go forth and be productive! If an obstacle dares to get in your way, just crush it with your mighty jaws. Increases Perception by <%= per %>. Limited Edition Summer 2026 Gear.",
 
+  "headSpecialFall2026WarriorText": "Ghost Pumpkin Head",
+  "headSpecialFall2026WarriorNotes": "Boo! It’s not a prank: your head is suddenly full of prudence, plans, and pumpkin seeds. Increases Strength by <%= str %>. Limited Edition Fall 2026 Gear.",
+  "headSpecialFall2026RogueText": "Skeletal Raven Skull",
+  "headSpecialFall2026RogueNotes": "Boo! It’s not a prank: your head is suddenly refined and ravenlike. Increases Perception by <%= per %>. Limited Edition Fall 2026 Gear.",
+  "headSpecialFall2026HealerText": "Mystic Candle Flame",
+  "headSpecialFall2026HealerNotes": "Boo! It’s not a prank: your head is suddenly full of fabulous flames. Increases Intelligence by <%= int %>. Limited Edition Fall 2026 Gear.",
+  "headSpecialFall2026MageText": "Poison Mushroom Cap",
+  "headSpecialFall2026MageNotes": "Boo! It’s not a prank: your head is suddenly topped with fungi fun. Increases Perception by <%= per %>. Limited Edition Fall 2026 Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -2621,6 +2660,12 @@
   "headMystery202604Notes": "In space, no one can hear you check off your To Do’s. But the real reward is your sense of personal accomplishment! Confers no benefit. April 2026 Subscriber Item.",
   "headMystery202606Text": "Holiday Hat",
   "headMystery202606Notes": "Holidays are made for enjoying the sunshine - but don’t get burned! Confers no benefit. June 2026 Subscriber Item.",
+  "headMystery202609Text": "Harvest Harlequin Hat",
+  "headMystery202609Notes": "The joy of the harvest is the perfect time for silly fun! Confers no benefit. September 2026 Subscriber Item.",
+  "headMystery202610Text": "Optical Illusionist Mask",
+  "headMystery202610Notes": "See through the fabric of time and space itself. Confers no benefit. October 2026 Subscriber Item.",
+  "headMystery202611Text": "Frost Dragon Cowl",
+  "headMystery202611Notes": "The glowing horns on this cowl will light your way through deep winter darkness. Confers no benefit. November 2026 Subscriber Item.",
 
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
@@ -2857,6 +2902,8 @@
   "headArmoireVerdantArmingCapNotes": "This comfy, cushioned coif makes you battle-ready and helps you withstand anything heavy that could come your way. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Verdant Page Set (Item 1 of 2).",
   "headArmoireKendoMenText": "Kendo Men",
   "headArmoireKendoMenNotes": "You might be surprised by how well you can see through the grille as you follow the way of the sword. Increases Perception by <%= per %>. Enchanted Armoire: Kendo Set (Item 1 of 3).",
+  "headArmoireSecretsHoodText": "Secrets Hood",
+  "headArmoireSecretsHoodNotes": "We obviously can’t describe this hood in detail, because it’s a secret. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Secrets Set (Item 1 of 3).",
 
   "offhand": "off-hand item",
   "offHandCapitalized": "Off-Hand Item",
@@ -3186,6 +3233,13 @@
   "shieldSpecialSummer2026HealerText": "Puffin Potion",
   "shieldSpecialSummer2026HealerNotes": "Keep your colony of fellow puffins healthy with this potion. It tastes great with fish! Increases Constitution by <%= con %>. Limited Edition Summer 2026 Gear.",
 
+  "shieldSpecialFall2026WarriorText": "Ghost Pumpkin",
+  "shieldSpecialFall2026WarriorNotes": "Whether it’s time-saving tips or spooky riddles, this little buddy’s got what you need. Increases Constitution by <%= con %>. Limited Edition Fall 2026 Gear.",
+  "shieldSpecialFall2026RogueText": "Skeletal Raven Staff",
+  "shieldSpecialFall2026RogueNotes": "Whether it’s a walking stick, a pointing stick, or an extra wise bird, this is just what you need. Increases Strength by <%= str %>. Limited Edition Fall 2026 Gear.",
+  "shieldSpecialFall2026HealerText": "Mystic Candle Fire",
+  "shieldSpecialFall2026HealerNotes": "Whether it’s a little more warmth or a burst of cozy ambiance, this is just what you need. Increases Constitution by <%= con %>. Limited Edition Fall 2026 Gear.",
+
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
   "shieldMystery201701Text": "Time-Freezer Shield",
@@ -3224,6 +3278,8 @@
   "shieldMystery202607Notes": "Tumultuous waters bend to your mighty magical will. Confers no benefit. July 2026 Subscriber Item.",
   "shieldMystery202608Text": "Brilliant Emerald Blade",
   "shieldMystery202608Notes": "Slice and dice all your tasks into manageable pieces! Confers no benefit. August 2026 Subscriber Item.",
+  "shieldMystery202610Text": "Optical Orb",
+  "shieldMystery202610Notes": "Spy, weapon, or little floating buddy? Your call. Confers no benefit. October 2026 Subscriber Item.",
 
   "shieldMystery301405Text": "Clock Shield",
   "shieldMystery301405Notes": "Time is on your side with this towering clock shield! Confers no benefit. June 3015 Subscriber Item.",
@@ -3412,6 +3468,10 @@
   "shieldArmoireVerdantBannerNotes": "Wave your banner high to signal friends it’s time to rally together! Increases Intelligence by <%= int %>. Enchanted Armoire: Verdant Page Set (Item 2 of 2).",
   "shieldArmoireGardenHoseText": "Garden Hose",
   "shieldArmoireGardenHoseNotes": "This magical hose never kinks and can infinitely stretch to reach every inch of your space. All your flowers, trees, shrubs, and thirsty pets can enjoy a drink from it. Increases Perception by <%= per %>. Enchanted Armoire: Gardener Set 2 (Item 2 of 2).",
+  "shieldArmoireLeafPileText": "Leaf Pile",
+  "shieldArmoireLeafPileNotes": "Some of the best tasks consist of both fun and hard work. We won’t tell if you take a running leap into these leaves as long as you rake them back into a pile again afterward. Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
+  "shieldArmoireShieldOfHonorText": "Shield of Honor",
+  "shieldArmoireShieldOfHonorNotes": "Oh, honorable knight! Thou hast a firm will, a steady hand, and a persistent nature. All in the kingdom know thou shalt wield this shield with honor. Increases Constitution by <%= con %>. Enchanted Armoire: Knight of Honor Set (Item 2 of 2)",
 
   "back": "Back Accessory",
   "backBase0Text": "No Back Accessory",
@@ -3886,7 +3946,9 @@
   "eyewearArmoireJewelersEyeLoupeText": "Jeweler's Eye Loupe",
   "eyewearArmoireJewelersEyeLoupeNotes": "This eye loupe magnifies what you’re working on so you can see absolutely every detail. Increases Perception by <%= per %>. Enchanted Armoire: Jeweler Set (Item 2 of 4).",
   "eyewearArmoireRoseColoredGlassesText": "Rose-colored Glasses",
-  "eyewearArmoireRoseColoredGlassesNotes": "These glasses will help you see the best in a situation, and these stylish frames help you look your best, too. Increases Perception by <%= per %>. Enchanted Armoire: Optimist Set (Item 2 of 4).",  
+  "eyewearArmoireRoseColoredGlassesNotes": "These glasses will help you see the best in a situation, and these stylish frames help you look your best, too. Increases Perception by <%= per %>. Enchanted Armoire: Optimist Set (Item 2 of 4).",
+  "eyewearArmoireSecretsShadesText": "Secrets Shades",
+  "eyewearArmoireSecretsShadesNotes": "There are shades that let you see secrets? We can neither confirm nor deny that rumor. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Secrets Set (Item 2 of 3)",
 
   "twoHandedItem": "Two-handed item."
 }
