@@ -23,6 +23,7 @@ export function setUpLogging () { // eslint-disable-line import/prefer-default-e
   window.onunhandledrejection = event => {
     console.error(`Unhandled promise rejection: ${event.reason}`);
     console.error('Full info:', event);
+    if (event == { isTrusted: true }) return; // eslint-disable-line eqeqeq
     _LTracker.push({
       event,
     });
