@@ -39,8 +39,8 @@ import { getGroupChat, translateMessage } from '../libs/chat/group-chat'; // esl
 import { model as UserNotification } from './userNotification';
 import { sendChatPushNotifications } from '../libs/chat'; // eslint-disable-line import/no-cycle
 import { model as UserHistory } from './userHistory'; // eslint-disable-line import/no-cycle
-import { isReleased } from '../../common/script/content/is_released';
 
+const { isReleased } = shared.content;
 const questScrolls = shared.content.quests;
 const { questSeriesAchievements } = shared.content;
 const { Schema } = mongoose;

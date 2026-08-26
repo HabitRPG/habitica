@@ -39,6 +39,7 @@ import loginIncentives from './loginIncentives';
 
 import officialPinnedItems from './officialPinnedItems';
 import memoize from '../fns/datedMemoize';
+import { isReleased } from '../content/is_released';
 
 const api = {};
 
@@ -121,6 +122,7 @@ api.events = EVENTS;
 api.repeatingEvents = REPEATING_EVENTS;
 api.gemsPromo = gemsPromo;
 api.getRepeatingEventsOnDate = getRepeatingEvents;
+api.isReleased = isReleased;
 
 api.classes = CLASSES;
 
