@@ -220,9 +220,7 @@ function _addQuestCount (result, user, data) {
     questText = i18n.t('achievementQuestCountSingleText', { nextCount: 5 }, data.language);
   } else if (user.achievements.questCount) {
     const thresholds = [5, 10, 25, 50, 100];
-    const thresholdAchieved = thresholds.findIndex((target, i) => 
-      user.achievements.questCount >= target && user.achievements.questCount < thresholds[i + 1]
-    );
+    const thresholdAchieved = thresholds.findIndex((target, i) => user.achievements.questCount >= target && user.achievements.questCount < thresholds[i + 1]); // eslint-disable-line max-len
     countAchieved = thresholds[thresholdAchieved];
     questText = i18n.t(
       'achievementQuestCountMultipleText',
