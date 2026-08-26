@@ -39,6 +39,7 @@ import { getGroupChat, translateMessage } from '../libs/chat/group-chat'; // esl
 import { model as UserNotification } from './userNotification';
 import { sendChatPushNotifications } from '../libs/chat'; // eslint-disable-line import/no-cycle
 import { model as UserHistory } from './userHistory'; // eslint-disable-line import/no-cycle
+import { isReleased } from '../../common/script/content/is_released';
 
 const questScrolls = shared.content.quests;
 const { questSeriesAchievements } = shared.content;
@@ -51,6 +52,7 @@ export const { TAVERN_ID } = shared;
 const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
 const { LARGE_GROUP_COUNT_MESSAGE_CUTOFF } = shared.constants;
 const { MAX_SUMMARY_SIZE_FOR_GUILDS } = shared.constants;
+const { ACHIEVEMENT_RELEASE_DATES } = shared.content.constants;
 
 const { CHAT_FLAG_LIMIT_FOR_HIDING } = shared.constants;
 
@@ -964,6 +966,10 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     },
     $set: {},
   };
+
+  if (isReleased({ name: 'questCount' }, 'name', ACHIEVEMENT_RELEASE_DATES)) {
+    updates.$inc['achievements.questCount'] = 1;
+  }
 
   if (this._id === TAVERN_ID) {
     updates.$set['party.quest.completed'] = questK; // Just show the notif
