@@ -3,7 +3,7 @@ import moment from 'moment';
 import content from '../content/index';
 import i18n from '../i18n';
 import { isReleased } from '../content/is_released';
-const { ACHIEVEMENT_RELEASE_DATES } = content.constants;
+import { ACHIEVEMENT_RELEASE_DATES } from '../content/constants/releaseDates';
 
 const achievs = {};
 const achievsContent = content.achievements;

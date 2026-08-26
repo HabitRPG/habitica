@@ -40,5 +40,4 @@ export { default as QUEST_PETS } from '../quests/pets';
 export { default as QUEST_POTIONS } from '../quests/potions';
 export { default as QUEST_TIME_TRAVEL } from '../quests/timeTravel';
 export { default as QUEST_WORLD } from '../quests/world';
-export { ACHIEVEMENT_RELEASE_DATES } from './releaseDates';
 export { getScheduleMatchingGroup, getCurrentGalaKey } from './schedule';
