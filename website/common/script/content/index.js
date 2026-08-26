@@ -14,6 +14,7 @@ import {
   ANIMAL_SET_ACHIEVEMENTS,
   STABLE_ACHIEVEMENTS,
   PET_SET_COMPLETE_ACHIEVEMENTS,
+  ACHIEVEMENT_RELEASE_DATES,
 } from './constants';
 
 import achievements from './achievements';
@@ -39,7 +40,7 @@ import loginIncentives from './loginIncentives';
 
 import officialPinnedItems from './officialPinnedItems';
 import memoize from '../fns/datedMemoize';
-import { isReleased } from '../content/is_released';
+import { isReleased } from './is_released';
 
 const api = {};
 
@@ -49,6 +50,7 @@ api.animalColorAchievements = ANIMAL_COLOR_ACHIEVEMENTS;
 api.animalSetAchievements = ANIMAL_SET_ACHIEVEMENTS;
 api.stableAchievements = STABLE_ACHIEVEMENTS;
 api.petSetCompleteAchievs = PET_SET_COMPLETE_ACHIEVEMENTS;
+api.achievementReleaseDates = ACHIEVEMENT_RELEASE_DATES;
 
 api.quests = quests;
 api.questsByLevel = questsByLevel;
