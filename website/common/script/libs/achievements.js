@@ -2,6 +2,8 @@ import get from 'lodash/get';
 import moment from 'moment';
 import content from '../content/index';
 import i18n from '../i18n';
+import { isReleased } from '../content/is_released';
+const { ACHIEVEMENT_RELEASE_DATES } = content.constants;
 
 const achievs = {};
 const achievsContent = content.achievements;
@@ -178,6 +180,66 @@ function _addUltimateGear (result, user, data) {
   });
 }
 
+function _addRebirth (result, user, data) {
+  let rebirthTitle;
+  let rebirthText;
+
+  if (user.achievements.rebirths > 1) {
+    rebirthTitle = i18n.t('rebirthText', { rebirths: user.achievements.rebirths }, data.language);
+  } else {
+    rebirthTitle = i18n.t('rebirthBegan', data.language);
+  }
+
+  if (!user.achievements.rebirthLevel) {
+    rebirthText = i18n.t('rebirthOrbNoLevel', data.language);
+  } else if (user.achievements.rebirthLevel < 100) {
+    rebirthText = i18n.t('rebirthOrb', { level: user.achievements.rebirthLevel }, data.language);
+  } else {
+    rebirthText = i18n.t('rebirthOrb100', data.language);
+  }
+
+  _add(result, {
+    key: 'rebirth',
+    title: rebirthTitle,
+    text: rebirthText,
+    icon: 'achievement-sun',
+    earned: Boolean(user.achievements.rebirths),
+    optionalCount: user.achievements.rebirths,
+  });
+}
+
+function _addQuestCount (result, user, data) {
+  let questText;
+  let countAchieved = 0;
+
+  if (user.achievements.questCount >= 100) {
+    countAchieved = 100;
+    questText = i18n.t('achievementQuestCountMaximumText', { count: 100 }, data.language);
+  } else if (user.achievements.questCount >= 1 && user.achievements.questCount < 5) {
+    countAchieved = 1;
+    questText = i18n.t('achievementQuestCountSingleText', { nextCount: 5 }, data.language);
+  } else if (user.achievements.questCount) {
+    const thresholds = [5, 10, 25, 50, 100];
+    const thresholdAchieved = thresholds.findIndex(target, index => {
+      return user.achievements.questCount >= target
+        && user.achievements.questCount < thresholds[index + 1];
+    });
+    countAchieved = thresholds[thresholdAchieved];
+    questText = i18n.t('achievementQuestCountMultipleText',
+      { count: countAchieved, nextCount: thresholds[thresholdAchieved + 1] },
+    );
+  }
+
+  _add(result, {
+    key: 'questCount',
+    title: i18n.t('achievementQuestCount', { count: countAchieved }, data.language),
+    text: questText,
+    icon: `achievement_completed_quest_${countAchieved}`,
+    earned: Boolean(user.achievements.questCount),
+    optionalCount: user.achievements.questCount,
+  });
+}
+
 function _getBasicAchievements (user, language) {
   const result = {};
 
@@ -246,31 +308,10 @@ function _getBasicAchievements (user, language) {
     _addSimpleWithCount(result, user, { path, key: `${path}Cards`, language });
   });
 
-  let rebirthTitle;
-  let rebirthText;
-
-  if (user.achievements.rebirths > 1) {
-    rebirthTitle = i18n.t('rebirthText', { rebirths: user.achievements.rebirths }, language);
-  } else {
-    rebirthTitle = i18n.t('rebirthBegan', language);
+  _addRebirth(result, user, { language });
+  if (isReleased({ name: 'questCount' }, 'name', ACHIEVEMENT_RELEASE_DATES)) {
+    _addQuestCount(result, user, { language });
   }
-
-  if (!user.achievements.rebirthLevel) {
-    rebirthText = i18n.t('rebirthOrbNoLevel', language);
-  } else if (user.achievements.rebirthLevel < 100) {
-    rebirthText = i18n.t('rebirthOrb', { level: user.achievements.rebirthLevel }, language);
-  } else {
-    rebirthText = i18n.t('rebirthOrb100', language);
-  }
-
-  _add(result, {
-    key: 'rebirth',
-    title: rebirthTitle,
-    text: rebirthText,
-    icon: 'achievement-sun',
-    earned: Boolean(user.achievements.rebirths),
-    optionalCount: user.achievements.rebirths,
-  });
 
   return result;
 }

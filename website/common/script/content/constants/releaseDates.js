@@ -61,3 +61,7 @@ export const HATCHING_POTIONS_RELEASE_DATES = {
   Opal: { year: 2025, month: 5, day: 14 },
   Alien: { year: 2026, month: 4, day: 3 },
 };
+
+export const ACHIEVEMENT_RELEASE_DATES = {
+  questCount: { year: 2026, month: 10, day: 14 },
+};

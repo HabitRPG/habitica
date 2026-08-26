@@ -188,13 +188,14 @@ export const UserSchema = new Schema({
     roughRider: Boolean,
     rodentRuler: Boolean,
     cats: Boolean,
+    groupsBeta2022: Boolean,
+    questCount: Number,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,
     hatchedPet: Boolean,
     fedPet: Boolean,
     purchasedEquipment: Boolean,
-    groupsBeta2022: Boolean,
   },
 
   backer: {
