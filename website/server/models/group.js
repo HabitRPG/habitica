@@ -42,7 +42,7 @@ import { model as UserHistory } from './userHistory'; // eslint-disable-line imp
 
 const { isReleased } = shared.content;
 const questScrolls = shared.content.quests;
-const { questSeriesAchievements } = shared.content;
+const { questSeriesAchievements, achievementReleaseDates } = shared.content;
 const { Schema } = mongoose;
 
 export const INVITES_LIMIT = 100; // must not be greater than MAX_EMAIL_INVITES_BY_USER
@@ -52,8 +52,6 @@ export const { TAVERN_ID } = shared;
 const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
 const { LARGE_GROUP_COUNT_MESSAGE_CUTOFF } = shared.constants;
 const { MAX_SUMMARY_SIZE_FOR_GUILDS } = shared.constants;
-const { ACHIEVEMENT_RELEASE_DATES } = shared.content.constants;
-
 const { CHAT_FLAG_LIMIT_FOR_HIDING } = shared.constants;
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
@@ -967,7 +965,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     $set: {},
   };
 
-  if (isReleased({ name: 'questCount' }, 'name', ACHIEVEMENT_RELEASE_DATES)) {
+  if (isReleased({ name: 'questCount' }, 'name', achievementReleaseDates)) {
     updates.$inc['achievements.questCount'] = 1;
   }
 
