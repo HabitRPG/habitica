@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import isEqual from 'lodash/isEqual';
 
 /* eslint-disable no-console */
 export function setUpLogging () { // eslint-disable-line import/prefer-default-export
@@ -23,7 +24,7 @@ export function setUpLogging () { // eslint-disable-line import/prefer-default-e
   window.onunhandledrejection = event => {
     console.error(`Unhandled promise rejection: ${event.reason}`);
     console.error('Full info:', event);
-    if (event == { isTrusted: true }) return; // eslint-disable-line eqeqeq
+    if (isEqual(event, { isTrusted: true })) return;
     _LTracker.push({
       event,
     });
