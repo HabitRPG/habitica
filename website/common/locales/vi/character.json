@@ -73,6 +73,10 @@
     "gainedLevel": "Bạn đã thăng một cấp!",
     "leveledUp": "Bằng cách hoàn thành các mục tiêu ngoài đời thực, bạn đã đạt đến <strong>Cấp độ <%= level %>!</strong>",
     "huzzah": "Hoan hô!",
-    "mana": "Ngọc",
-    "communityGuidelinesWarning": "Hãy nhớ là Tên Hiển Thị, ảnh hồ sơ, và giới thiệu của bạn phải tuân theo <%= linkOpen %>Tiêu Chuẩn Cộng Đồng<%= linkClose %> (ví dụ: không dùng từ ngữ tục tĩu, không đề cập đến chủ đền người lớn, không xúc phạm đến người khác, v.v.). Nếu bạn có thắc mắc về việc liệu một chủ đề nào đó có phù hợp hay không, đừng ngần ngại email <%= adminEmail %>!"
+    "mana": "Mana",
+    "communityGuidelinesWarning": "Hãy nhớ là Tên Hiển Thị, ảnh hồ sơ, và giới thiệu của bạn phải tuân theo <%= linkOpen %>Tiêu Chuẩn Cộng Đồng<%= linkClose %> (ví dụ: không dùng từ ngữ tục tĩu, không đề cập đến chủ đền người lớn, không xúc phạm đến người khác, v.v.). Nếu bạn có thắc mắc về việc liệu một chủ đề nào đó có phù hợp hay không, đừng ngần ngại email <%= adminEmail %>!",
+    "hp": "HP",
+    "mp": "MP",
+    "xp": "XP",
+    "health": "Máu"
 }

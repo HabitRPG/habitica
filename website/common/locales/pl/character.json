@@ -129,7 +129,7 @@
     "healerText": "Uzdrowiciele są bardzo wytrzymali i otaczają swą ochroną bliskich. Niedopełnione Codzienne i złe Nawyki nie są dla nich zbyt groźne, zawsze też mogą uzdrowić się po dotkliwej porażce. Graj jako Uzdrowiciel, jeśli lubisz pomagać członkom Drużyny, lub jeśli bawi Cię wymykanie się śmierci poprzez sumienną pracę!",
     "optOutOfClasses": "Nie teraz",
     "chooseClass": "Wybierz swoją klasę",
-    "chooseClassLearnMarkdown": "[Dowiedz się więcej na temat systemu klas Habitica](/static/faq#what-classes)",
+    "chooseClassLearnMarkdown": "[Dowiedz się więcej na temat systemu klas Habitica](<%= classLink %>)",
     "optOutOfClassesText": "Nie jesteś gotowy na wybór? Nie ma pośpiechu! Jeśli na ten moment rezygnujesz, możesz przeczytać o każdej klasie w <%= linkOpen %>naszym FAQ<%= linkClose %> i odwiedzić Ustawienia, aby włączyć System Klas, kiedy tylko będziesz gotowy.",
     "selectClass": "Wybierz <%= heroClass %>",
     "select": "Wybierz",

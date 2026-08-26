@@ -232,5 +232,7 @@
     "general": "Geral",
     "allNotifications": "Todas as Notificações",
     "blockPlayer": "Bloquear Jogador",
-    "unblockPlayer": "Desbloquear Jogador"
+    "unblockPlayer": "Desbloquear Jogador",
+    "gem": "Gema",
+    "newMessage": "Nova mensagem"
 }
