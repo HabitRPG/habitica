@@ -151,6 +151,7 @@
             {{ $t('gemSaleHow', {
               eventStartMonth: eventInfo.startMonth,
               eventStartOrdinal: eventInfo.startOrdinal,
+              eventEndMonth: eventInfo.endMonth,
               eventEndOrdinal: eventInfo.endOrdinal,
             }) }}
           </small>
