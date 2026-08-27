@@ -192,13 +192,13 @@
     "titleHairbase": "머리 모양",
     "customizations": "커스터마이즈",
     "nextReward": "다음 로그인 보상",
-    "perTaskText": "",
-    "autoAllocate": "",
+    "perTaskText": "아이템 드롭 확률, 일일 아이템 드롭 한도, 연속 과제 보너스, 그리고 과제 완료 시 얻는 골드를 늘려 줍니다.",
+    "autoAllocate": "자동 할당",
     "pointsAvailable": "",
     "allocationMethod": "",
     "statAllocationInfo": "",
     "assignedStat": "",
-    "strTaskText": "",
-    "conTaskText": "",
-    "intTaskText": ""
+    "strTaskText": "임무를 완료할 때 치명타 확률과 피해량이 증가합니다. 퀘스트 보스에 대한 피해도 증가시켜요.",
+    "conTaskText": "놓친 일일퀘스트와 부정적인 습관으로 받는 피해를 줄여줍니다. 퀘스트 보스에게 받는 피해는 줄여주지 않습니다.",
+    "intTaskText": "임무로 얻는 경험치를 늘려줍니다. 마나 최대치랑 마나 회복 속도도 올려줍니다."
 }

@@ -428,12 +428,12 @@
     "upgradeExistingGroup": "Eine bestehende Gruppe upgraden",
     "createNewGroup": "Eine neue Gruppe erstellen",
     "yourParty": "Deine Party",
-    "previouslyUpgradedGroup": "",
+    "previouslyUpgradedGroup": "Zuvor upgegradete Gruppe",
     "inviteOthersForAdditional": "",
-    "perMember": "",
-    "additionalMembersProrated": "",
-    "oneMember": "",
-    "membersCount": "",
-    "pendingCount": "",
+    "perMember": "pro Mitglied",
+    "additionalMembersProrated": "Weitere Mitglieder, die innerhalb des Monats eingeladen werden, werden bei der Gesamtsumme des nächsten Abrechnungszyklus anteilig berechnet.",
+    "oneMember": "1 Mitglied",
+    "membersCount": "<%= count %> Mitglieder",
+    "pendingCount": "(<%= count %> ausstehend)",
     "upgradeCancelsPendingInvites": ""
 }
