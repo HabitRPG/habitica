@@ -85,8 +85,8 @@ export const REPEATING_EVENTS = {
     foodSeason: 'Cake',
   },
   fallGemSale: {
-    start: new Date('1970-09-14T04:00-04:00'),
-    end: new Date('1970-09-18T23:59-04:00'),
+    start: new Date('1970-08-27T04:00-04:00'),
+    end: new Date('1970-09-03T23:59-04:00'),
     event: 'fall_extra_gems',
     gemsPromo,
   },
