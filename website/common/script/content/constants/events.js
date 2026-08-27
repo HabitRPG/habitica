@@ -91,8 +91,8 @@ export const REPEATING_EVENTS = {
     gemsPromo,
   },
   spookyGemSale: {
-    start: new Date('1970-10-28T04:00-04:00'),
-    end: new Date('1970-10-31T23:59-04:00'),
+    start: new Date('2026-10-28T04:00-04:00'),
+    end: new Date('2026-10-31T23:59-04:00'),
     event: 'spooky_extra_gems',
     gemsPromo,
   },
