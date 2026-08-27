@@ -124,7 +124,7 @@ export function getRepeatingEvents (date) {
     if (!event.key) {
       event.key = eventKey;
     }
-    if (event.start.getYear() == 1970) {
+    if (event.start.getYear() === 1970) {
       event.start.setYear(momentDate.year());
       event.end.setYear(momentDate.year());
     }
