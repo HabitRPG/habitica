@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import isEqual from 'lodash/isEqual';
 
 /* eslint-disable no-console */
 export function setUpLogging () { // eslint-disable-line import/prefer-default-export
