@@ -120,11 +120,11 @@ export const REPEATING_EVENTS = {
 export function getRepeatingEvents (date) {
   const momentDate = date instanceof moment ? date : moment(date);
   return Object.keys(REPEATING_EVENTS).map(eventKey => {
-    const event = REPEATING_EVENTS[eventKey];
+    const event = structuredClone(REPEATING_EVENTS[eventKey]);
     if (!event.key) {
       event.key = eventKey;
     }
-    if (event.start.getYear() === 1970) {
+    if (event.start.getFullYear() === 1970) {
       event.start.setYear(momentDate.year());
       event.end.setYear(momentDate.year());
     }
