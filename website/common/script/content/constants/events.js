@@ -85,8 +85,8 @@ export const REPEATING_EVENTS = {
     foodSeason: 'Cake',
   },
   fallGemSale: {
-    start: new Date('1970-08-27T04:00-04:00'),
-    end: new Date('1970-09-03T23:59-04:00'),
+    start: new Date('2026-08-27T04:00-04:00'),
+    end: new Date('2026-09-03T23:59-04:00'),
     event: 'fall_extra_gems',
     gemsPromo,
   },
@@ -124,8 +124,10 @@ export function getRepeatingEvents (date) {
     if (!event.key) {
       event.key = eventKey;
     }
-    event.start.setYear(momentDate.year());
-    event.end.setYear(momentDate.year());
+    if (event.start.getYear() == 1970) {
+      event.start.setYear(momentDate.year());
+      event.end.setYear(momentDate.year());
+    }
     if (event.end < event.start && momentDate < event.start) {
       event.start.setYear(momentDate.year() - 1);
     } else if (event.end < event.start && momentDate > event.end) {
