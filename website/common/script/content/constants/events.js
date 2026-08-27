@@ -85,8 +85,8 @@ export const REPEATING_EVENTS = {
     foodSeason: 'Cake',
   },
   fallGemSale: {
-    start: new Date('1970-08-27T04:00-04:00'),
-    end: new Date('1970-09-03T23:59-04:00'),
+    start: new Date('2026-08-27T04:00-04:00'),
+    end: new Date('2026-09-03T23:59-04:00'),
     event: 'fall_extra_gems',
     gemsPromo,
   },
@@ -120,16 +120,18 @@ export const REPEATING_EVENTS = {
 export function getRepeatingEvents (date) {
   const momentDate = date instanceof moment ? date : moment(date);
   return Object.keys(REPEATING_EVENTS).map(eventKey => {
-    const event = REPEATING_EVENTS[eventKey];
+    const event = structuredClone(REPEATING_EVENTS[eventKey]);
     if (!event.key) {
       event.key = eventKey;
     }
-    event.start.setYear(momentDate.year());
-    event.end.setYear(momentDate.year());
+    if (event.start.getFullYear() === 1970) {
+      event.start.setFullYear(momentDate.year());
+      event.end.setFullYear(momentDate.year());
+    }
     if (event.end < event.start && momentDate < event.start) {
-      event.start.setYear(momentDate.year() - 1);
+      event.start.setFullYear(momentDate.year() - 1);
     } else if (event.end < event.start && momentDate > event.end) {
-      event.end.setYear(momentDate.year() + 1);
+      event.end.setFullYear(momentDate.year() + 1);
     }
     return event;
   }).filter(event => momentDate.isBetween(event.start, event.end));
