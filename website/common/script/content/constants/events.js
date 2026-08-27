@@ -125,13 +125,13 @@ export function getRepeatingEvents (date) {
       event.key = eventKey;
     }
     if (event.start.getFullYear() === 1970) {
-      event.start.setYear(momentDate.year());
-      event.end.setYear(momentDate.year());
+      event.start.setFullYear(momentDate.year());
+      event.end.setFullYear(momentDate.year());
     }
     if (event.end < event.start && momentDate < event.start) {
-      event.start.setYear(momentDate.year() - 1);
+      event.start.setFullYear(momentDate.year() - 1);
     } else if (event.end < event.start && momentDate > event.end) {
-      event.end.setYear(momentDate.year() + 1);
+      event.end.setFullYear(momentDate.year() + 1);
     }
     return event;
   }).filter(event => momentDate.isBetween(event.start, event.end));
