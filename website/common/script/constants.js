@@ -5,6 +5,7 @@ export const MAX_LEVEL_HARD_CAP = 9999;
 export const MAX_FIELD_HARD_CAP = 99999999;
 export const ATTRIBUTES = ['str', 'int', 'con', 'per'];
 export const MAX_INCENTIVES = 500;
+export const MAX_WEBHOOKS = 100;
 
 export const TAVERN_ID = '00000000-0000-4000-A000-000000000000';
 export const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = 5000;
@@ -12,7 +13,6 @@ export const MAX_SUMMARY_SIZE_FOR_GUILDS = 250;
 export const MAX_SUMMARY_SIZE_FOR_CHALLENGES = 250;
 export const MIN_SHORTNAME_SIZE_FOR_CHALLENGES = 3;
 export const MAX_MESSAGE_LENGTH = 3000;
-
 export const MAX_GIFT_MESSAGE_LENGTH = 200;
 
 export const CHAT_FLAG_LIMIT_FOR_HIDING = 2; // hide posts that have this many flags

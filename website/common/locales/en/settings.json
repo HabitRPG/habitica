@@ -169,6 +169,7 @@
     "invalidWebhookId": "the \"id\" parameter should be a valid UUID.",
     "webhookBooleanOption": "\"<%= option %>\" must be a Boolean value.",
     "webhookIdAlreadyTaken": "A webhook with the id <%= id %> already exists.",
+    "tooManyWebhooks": "Webhooks are limited to <%= limit %> entries per account.",
     "noWebhookWithId": "There is no webhook with the id <%= id %>.",
     "regIdRequired": "RegId is required",
     "pushDeviceAdded": "Push device added successfully",
