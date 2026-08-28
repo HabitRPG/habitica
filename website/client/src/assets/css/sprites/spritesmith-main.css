@@ -123,6 +123,36 @@
   width: 48px;
   height: 52px;
 }
+.achievement-completed-1-quest2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-completed-1-quest2x.png');
+  width: 68px;
+  height: 68px;
+}
+.achievement-completed-10-quest2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-completed-10-quest2x.png');
+  width: 68px;
+  height: 68px;
+}
+.achievement-completed-100-quest2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-completed-100-quest2x.png');
+  width: 68px;
+  height: 68px;
+}
+.achievement-completed-25-quest2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-completed-25-quest2x.png');
+  width: 68px;
+  height: 68px;
+}
+.achievement-completed-5-quest2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-completed-5-quest2x.png');
+  width: 68px;
+  height: 68px;
+}
+.achievement-completed-50-quest2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-completed-50-quest2x.png');
+  width: 68px;
+  height: 68px;
+}
 .achievement-completedTask2x {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-completedTask2x.png');
   width: 48px;
@@ -517,36 +547,6 @@
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-zodiac2x.png');
   width: 60px;
   height: 64px;
-}
-.achievement_completed_quest_1 {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement_completed_quest_1.png');
-  width: 68px;
-  height: 68px;
-}
-.achievement_completed_quest_10 {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement_completed_quest_10.png');
-  width: 68px;
-  height: 68px;
-}
-.achievement_completed_quest_100 {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement_completed_quest_100.png');
-  width: 68px;
-  height: 68px;
-}
-.achievement_completed_quest_25 {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement_completed_quest_25.png');
-  width: 68px;
-  height: 68px;
-}
-.achievement_completed_quest_5 {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement_completed_quest_5.png');
-  width: 68px;
-  height: 68px;
-}
-.achievement_completed_quest_50 {
-  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement_completed_quest_50.png');
-  width: 68px;
-  height: 68px;
 }
 .background_afternoon_picnic {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_afternoon_picnic.png');

@@ -236,7 +236,7 @@ function _addQuestCount (result, user, data) {
     key: 'questCount',
     title: i18n.t('achievementQuestCount', { count: countAchieved }, data.language),
     text: questText,
-    icon: `achievement_completed_quest_${countAchieved}`,
+    icon: `achievement-completed-${countAchieved}-quest`,
     earned: Boolean(user.achievements.questCount),
     optionalCount: user.achievements.questCount,
   });
