@@ -23,6 +23,7 @@ import {
   TAVERN_ID,
   MAX_MESSAGE_LENGTH,
   MAX_GIFT_MESSAGE_LENGTH,
+  MAX_WEBHOOKS,
 } from './constants';
 import content from './content/index';
 import { getCurrentGalaEvent, getScheduleMatchingGroup } from './content/constants/schedule';
@@ -132,6 +133,7 @@ api.constants = {
   MAX_GIFT_MESSAGE_LENGTH,
   MAX_LEVEL_HARD_CAP,
   MAX_FIELD_HARD_CAP,
+  MAX_WEBHOOKS,
 };
 // TODO Move these under api.constants
 api.maxLevel = MAX_LEVEL;

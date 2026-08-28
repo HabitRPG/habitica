@@ -2,8 +2,10 @@ import { authWithHeaders } from '../../middlewares/auth';
 import { model as Webhook } from '../../models/webhook';
 import { removeFromArray } from '../../libs/collectionManipulators';
 import { NotFound, BadRequest } from '../../libs/errors';
+import shared from '../../../common';
 
 const api = {};
+const { MAX_WEBHOOKS } = shared.constants;
 
 /**
  * @apiDefine Webhook Webhook
@@ -108,6 +110,9 @@ api.addWebhook = {
   url: '/user/webhook',
   async handler (req, res) {
     const { user } = res.locals;
+    if (user.webhooks.length >= MAX_WEBHOOKS) {
+      throw new BadRequest(res.t('tooManyWebhooks', { limit: MAX_WEBHOOKS }));
+    }
     const webhook = new Webhook(Webhook.sanitize(req.body));
 
     const existingWebhook = user.webhooks.find(hook => hook.id === webhook.id);
