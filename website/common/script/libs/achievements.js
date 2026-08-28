@@ -209,8 +209,12 @@ function _addRebirth (result, user, data) {
 }
 
 function _addQuestCount (result, user, data) {
-  let questText;
   let countAchieved = 0;
+
+  let questText = i18n.t(
+    'achievementQuestCountMultipleText',
+    { count: countAchieved, nextCount: 1 },
+  );
 
   if (user.achievements.questCount >= 100) {
     countAchieved = 100;
