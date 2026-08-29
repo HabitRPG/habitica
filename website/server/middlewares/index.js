@@ -1,5 +1,5 @@
 // This module is only used to attach middlewares to the express app
-import bodyParser from 'body-parser';
+import express from 'express';
 import nconf from 'nconf';
 import morgan from 'morgan';
 import cookieSession from 'cookie-session';
@@ -96,7 +96,7 @@ export default function attachMiddlewares (app, server) {
     app.use(forceHabitica);
   }
 
-  app.use(bodyParser.urlencoded({
+  app.use(express.urlencoded({
     extended: true, // Uses 'qs' library as old connect middleware
     limit: '10mb',
   }));
@@ -104,9 +104,9 @@ export default function attachMiddlewares (app, server) {
     if (req.path === '/stripe/webhooks') {
       // Do not parse the body for `/stripe/webhooks`
       // See https://stripe.com/docs/webhooks/signatures#verify-official-libraries
-      bodyParser.raw({ type: 'application/json' })(req, res, next);
+      express.raw({ type: 'application/json' })(req, res, next);
     } else {
-      bodyParser.json({ limit: '10mb' })(req, res, next);
+      express.json({ limit: '10mb' })(req, res, next);
     }
   });
 
