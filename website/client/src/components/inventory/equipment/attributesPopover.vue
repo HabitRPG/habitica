@@ -12,11 +12,10 @@
       </div>
       <div
         v-else
-        class="popover-content-text"
+        class="popover-content-text mb-0"
       >
         {{ `${$t('tierLockedItem')}` }}
       </div>
-      <p></p>
     </div>
     <div v-else>
       <h4 class="popover-content-title">

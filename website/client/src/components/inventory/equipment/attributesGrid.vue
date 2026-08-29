@@ -9,8 +9,8 @@
       <div class="group-content">
         <span
           class="popover-content-attr-cell key"
-          :class="{'hasValue': hasSumValue(attr) }"
-        >{{ `${$t(attr)}: ` }}</span>
+          :class="attributeMap[attr]"
+        >{{ `${$t(attributeMap[attr])}: ` }}</span>
         <span
           class="popover-content-attr-cell label key-value value"
           :class="{'green': hasSumValue(attr) }"
@@ -50,7 +50,7 @@
 
   .popover-content-attr {
     font-weight: bold;
-    width: calc(50% - 1px);
+    width: calc(50%);
     background-color: $gray-50;
 
     .attr-str, .attr-int {
@@ -63,19 +63,20 @@
       padding-top: 0.5rem;
     }
 
-    &:nth-of-type(even) {
-      margin-left: 1px;
+    &:nth-of-type(3) {
+      border-bottom-left-radius: 8px;
     }
 
-    &:nth-child(1), &:nth-child(2) {
-      margin-bottom: 1px;
+    &:nth-of-type(4) {
+      border-bottom-right-radius: 8px;
+      padding-bottom: 8px;
     }
   }
 
   .group-content {
     display: inline-flex;
     flex-wrap: wrap;
-    padding: 4px 12px;
+    padding: 8px 16px;
     width: 100%;
   }
 
@@ -93,12 +94,17 @@
       font-size: 12px;
       font-weight: bold;
       line-height: 1.33;
+      white-space: nowrap;
     }
 
     &.label {
       font-size: 10px;
       line-height: 1.2;
       color: $gray-300;
+
+      &.hasValue {
+        color: $gray-500;
+      }
     }
 
     &.label.bold {
@@ -113,7 +119,7 @@
       white-space: nowrap;
 
       &.green {
-        color: $green-10;
+        color: $green-500;
 
         &:before {
           content: '+';
@@ -123,39 +129,49 @@
   }
 
   .modal-body {
+    .attributes-group {
+      margin: inherit;
+      gap: 8px;
+
+      .strength {
+        color: $maroon-100;
+      }
+      .intelligence {
+        color: $blue-10;
+      }
+      .constitution {
+        color: $yellow-5;
+      }
+      .perception {
+        color: $purple-300;
+      }
+    }
 
     .group-content {
       padding: 0.25rem 1rem;
     }
 
     .popover-content-attr {
-      background-color: #f4f4f4;
+      width: calc(50% - 9px);
+      background-color: $gray-700;
+      border-radius: 4px;
 
       &:nth-of-type(even) {
-        margin-left: 1px;
         width: 50%;
       }
     }
 
     .popover-content-attr-cell {
       &.key {
-        color: $gray-100;
         font-size: 0.875rem;
         font-weight: bold;
         line-height: 1.71;
-
-        opacity: 0.5;
-
-        &.hasValue {
-          opacity: 1;
-        }
       }
 
       &.label {
-        color: $gray-100;
+        color: $gray-300;
         font-size: 0.75rem;
         line-height: 1.33;
-        opacity: 0.5;
 
         &.bold {
           font-weight: bold;
@@ -166,7 +182,7 @@
         }
 
         &.hasValue {
-          opacity: 1;
+          color: $gray-100;
         }
       }
 
@@ -196,6 +212,16 @@ export default {
     user: {
       type: Object,
     },
+  },
+  data () {
+    return {
+      attributeMap: {
+        con: 'constitution',
+        int: 'intelligence',
+        per: 'perception',
+        str: 'strength',
+      },
+    };
   },
   computed: {
     ...mapState({
