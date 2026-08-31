@@ -86,7 +86,7 @@ function validateSubscriptionLifecycleState (purchase, options = {}) {
   }
 
   const cancelReason = Number(purchase.cancelReason);
-  const isExpired = purchase.expirationDate > 0 && iap.isExpired(purchase);
+  const isExpired = iap.isExpired(purchase);
   const isSystemCanceled = !Number.isNaN(cancelReason) && cancelReason > 0;
 
   if (!allowExpired && isExpired) {
@@ -185,7 +185,7 @@ async function findSubscriptionPurchase (additionalData) {
     purchase,
     isCanceled: iap.isCanceled(purchase),
     isExpired: iap.isExpired(purchase),
-    expirationDate: new Date(Number(purchase.expirationDate)),
+    expirationTimeMillis: Number(purchase.expirationTimeMillis),
   };
 }
 
@@ -222,8 +222,8 @@ api.getSubscriptionPaymentDetails = async function getDetails (userId, subscript
   return {
     customerId: details.purchase.purchaseToken,
     originalPurchaseDate: new Date(Number(details.purchase.startTimeMillis)),
-    expirationDate: details.isCanceled || details.isExpired ? details.expirationDate : null,
-    nextPaymentDate: details.isExpired ? null : details.expirationDate,
+    expiryTimeMillis: details.isCanceled || details.isExpired ? details.expirationTimeMillis : null,
+    nextPaymentDate: details.isExpired ? null : details.expirationTimeMillis,
     productId: details.purchase.productId,
     transactionId: details.purchase.orderId,
     isCanceled: details.isCanceled,
@@ -272,7 +272,6 @@ api.subscribe = async function subscribe (
   }
 
   const googleRes = await iap.validate(iap.GOOGLE, testObj);
-  console.log('googleRes', googleRes);
 
   const isValidated = iap.isValidated(googleRes);
   if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
@@ -316,8 +315,8 @@ api.subscribe = async function subscribe (
 
   let nextPaymentProcessing = moment.utc().add({ days: 2 }); // eslint-disable-line no-param-reassign, max-len
   let nextBillingDate;
-  if (googleRes.expirationDate) {
-    nextBillingDate = new Date(Number(googleRes.expirationDate));
+  if (googleRes.expirationTime) {
+    nextBillingDate = new Date(Number(googleRes.expirationTime));
     if (nextBillingDate < nextPaymentProcessing.toDate()) {
       nextPaymentProcessing = moment(nextBillingDate);
     }
@@ -343,11 +342,11 @@ api.subscribe = async function subscribe (
 
       const previousPurchase = previousPurchases
         .find(item => getSubCodeFromSku(item.productId) === user.purchased.plan.planId);
-      if (!previousPurchase || !previousPurchase.expirationDate) {
+      if (!previousPurchase || !previousPurchase.expiryTimeMillis) {
         throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
       }
 
-      nextBillingDate = new Date(Number(previousPurchase.expirationDate));
+      nextBillingDate = new Date(Number(previousPurchase.expiryTimeMillis));
       user.purchased.plan.deferred = {
         planId: deferredSubCode,
         deferredUntil: nextBillingDate,
@@ -451,7 +450,7 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
     if (!details.isCanceled && !details.isExpired) {
       throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
     }
-    dateTerminated = details.expirationDate;
+    dateTerminated = details.expiryTimeMillis;
   } catch (err) {
     // Status:410 means that the subscription isn't active anymore and we can safely delete it
     if (err && err.message === 'Status:410') {
@@ -472,7 +471,7 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
           throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
         }
 
-        dateTerminated = replacement.expirationDate;
+        dateTerminated = replacement.expirationTimeMillis;
       } else {
         dateTerminated = new Date();
       }

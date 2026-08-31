@@ -676,7 +676,11 @@ const humanReadablePaymentDetails = {
   },
   expirationDate: {
     label: 'Termination Date',
-    help: 'The date when the subscription will expire or has expired.',
+    help: 'The date when the subscription will expire/renew or has expired.',
+  },
+  expiryTimeMillis: {
+    label: 'Termination Date',
+    help: 'The date when the subscription will expire/renew or has expired.',
   },
   nextPaymentDate: {
     label: 'Next Payment Date',
