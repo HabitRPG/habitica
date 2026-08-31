@@ -223,7 +223,7 @@ api.getSubscriptionPaymentDetails = async function getDetails (userId, subscript
     customerId: details.purchase.purchaseToken,
     originalPurchaseDate: new Date(Number(details.purchase.startTimeMillis)),
     expirationDate: details.isCanceled || details.isExpired ? details.expirationDate : null,
-    nextPaymentDate: details.isCanceled || details.isExpired ? null : details.expirationDate,
+    nextPaymentDate: details.isExpired ? null : details.expirationDate,
     productId: details.purchase.productId,
     transactionId: details.purchase.orderId,
     isCanceled: details.isCanceled,
@@ -272,6 +272,7 @@ api.subscribe = async function subscribe (
   }
 
   const googleRes = await iap.validate(iap.GOOGLE, testObj);
+  console.log('googleRes', googleRes);
 
   const isValidated = iap.isValidated(googleRes);
   if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);

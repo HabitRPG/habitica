@@ -124,7 +124,7 @@ api.getSubscriptionPaymentDetails = async function getDetails (userId, subscript
     purchaseDate: new Date(Number(details.purchase.purchaseDateMs)),
     originalPurchaseDate: new Date(Number(details.purchase.originalPurchaseDateMs)),
     expirationDate: details.isCanceled || details.isExpired ? details.expirationDate : null,
-    nextPaymentDate: details.isCanceled || details.isExpired ? null : details.expirationDate,
+    nextPaymentDate: details.isExpired ? null : details.expirationDate,
     productId: details.purchase.productId,
     transactionId: details.purchase.transactionId,
     isCanceled: details.isCanceled,
