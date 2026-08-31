@@ -167,7 +167,7 @@
   "achievementCatsText": "Has hatched all the standard colors of cat pets: Cheetah, Lion, Sabretooth, and Tiger!",
   "achievementCatsModalText": "You collected all the cat pets!",
   "achievementQuestCount": "Completed <%= count %> Quests",
-  "achievementQuestCountSingleText": "This player has completed 1 Quest. Next badge at <%= nextCount %> Quests completed.",
-  "achievementQuestCountMultipleText": "This player has completed <%= count %> Quests. Next badge at <%= nextCount %> Quests completed.",
-  "achievementQuestCountMaximumText": "This player has completed <%= count %> Quests and earned the highest badge!"
+  "achievementQuestCountSingleText": "This player has completed 1 Quest. Next achievement at <%= nextCount %> Quests completed.",
+  "achievementQuestCountMultipleText": "This player has completed <%= count %> Quests. Next achievement at <%= nextCount %> Quests completed.",
+  "achievementQuestCountMaximumText": "This player has completed <%= count %> Quests and earned the highest achievement!"
 }
