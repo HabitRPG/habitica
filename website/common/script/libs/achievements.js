@@ -209,36 +209,35 @@ function _addRebirth (result, user, data) {
 }
 
 function _addQuestCount (result, user, data) {
-  let countAchieved = 0;
-
+  let count = 0;
+  const progress = user.achievements.questCount || 0;
   let questText = i18n.t(
     'achievementQuestCountMultipleText',
-    { count: countAchieved, nextCount: 1 },
+    { count, progress, target: 1 },
   );
 
-  if (user.achievements.questCount >= 100) {
+  if (progress >= 100) {
     countAchieved = 100;
     questText = i18n.t('achievementQuestCountMaximumText', { count: 100 }, data.language);
-  } else if (user.achievements.questCount >= 1 && user.achievements.questCount < 5) {
-    countAchieved = 1;
-    questText = i18n.t('achievementQuestCountSingleText', { nextCount: 5 }, data.language);
+  } else if (progress >= 1 && progress < 5) {
+    count = 1;
+    questText = i18n.t('achievementQuestCountSingleText', { progress, target: 5 }, data.language);
   } else if (user.achievements.questCount) {
     const thresholds = [5, 10, 25, 50, 100];
-    const thresholdAchieved = thresholds.findIndex((target, i) => user.achievements.questCount >= target && user.achievements.questCount < thresholds[i + 1]); // eslint-disable-line max-len
-    countAchieved = thresholds[thresholdAchieved];
+    const thresholdAchieved = thresholds.findIndex((target, i) => progress >= target && progress < thresholds[i + 1]); // eslint-disable-line max-len
+    count = thresholds[thresholdAchieved];
     questText = i18n.t(
       'achievementQuestCountMultipleText',
-      { count: countAchieved, nextCount: thresholds[thresholdAchieved + 1] },
+      { count, progress, target: thresholds[thresholdAchieved + 1] },
     );
   }
 
   _add(result, {
     key: 'questCount',
-    title: i18n.t('achievementQuestCount', { count: countAchieved }, data.language),
+    title: i18n.t(`achievementQuestCount${count}`, data.language),
     text: questText,
-    icon: `achievement-completed-${countAchieved}-quest`,
-    earned: Boolean(user.achievements.questCount),
-    optionalCount: user.achievements.questCount,
+    icon: `achievement-completed-${count}-quest`,
+    earned: Boolean(progress),
   });
 }
 
