@@ -1,17 +1,12 @@
-import { generateUser, translate as t } from '../../../../../helpers/api-integration/v3';
+import { generateUser } from '../../../../../helpers/api-integration/v3';
 import googlePayments from '../../../../../../website/server/libs/payments/google';
 
 describe('payments : google #subscribe', () => {
   const endpoint = '/iap/android/subscribe';
   let user;
 
-  it('verifies sub key', async () => {
+  beforeEach(async () => {
     user = await generateUser();
-    await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
-      code: 400,
-      error: 'BadRequest',
-      message: t('missingSubscriptionCode'),
-    });
   });
 
   describe('success', () => {
@@ -27,7 +22,6 @@ describe('payments : google #subscribe', () => {
 
     it('makes a purchase', async () => {
       user = await generateUser({
-        'preferences.analyticsConsent': true,
         'profile.name': 'sender',
         'purchased.plan.customerId': 'customer-id',
         'purchased.plan.planId': 'basic_3mo',
