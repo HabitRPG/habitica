@@ -217,7 +217,7 @@ function _addQuestCount (result, user, data) {
   );
 
   if (progress >= 100) {
-    countAchieved = 100;
+    count = 100;
     questText = i18n.t('achievementQuestCountMaximumText', { count: 100 }, data.language);
   } else if (progress >= 1 && progress < 5) {
     count = 1;
