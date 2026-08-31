@@ -185,7 +185,7 @@ async function findSubscriptionPurchase (additionalData) {
     purchase,
     isCanceled: iap.isCanceled(purchase),
     isExpired: iap.isExpired(purchase),
-    expirationTimeMillis: Number(purchase.expirationTimeMillis),
+    expiryTimeMillis: Number(purchase.expiryTimeMillis),
   };
 }
 
@@ -222,8 +222,8 @@ api.getSubscriptionPaymentDetails = async function getDetails (userId, subscript
   return {
     customerId: details.purchase.purchaseToken,
     originalPurchaseDate: new Date(Number(details.purchase.startTimeMillis)),
-    expiryTimeMillis: details.isCanceled || details.isExpired ? details.expirationTimeMillis : null,
-    nextPaymentDate: details.isExpired ? null : details.expirationTimeMillis,
+    expiryTimeMillis: details.isCanceled || details.isExpired ? details.expiryTimeMillis : null,
+    nextPaymentDate: details.isExpired ? null : details.expiryTimeMillis,
     productId: details.purchase.productId,
     transactionId: details.purchase.orderId,
     isCanceled: details.isCanceled,
@@ -315,8 +315,8 @@ api.subscribe = async function subscribe (
 
   let nextPaymentProcessing = moment.utc().add({ days: 2 }); // eslint-disable-line no-param-reassign, max-len
   let nextBillingDate;
-  if (googleRes.expirationTime) {
-    nextBillingDate = new Date(Number(googleRes.expirationTime));
+  if (googleRes.expiryTimeMillis) {
+    nextBillingDate = new Date(Number(googleRes.expiryTimeMillis));
     if (nextBillingDate < nextPaymentProcessing.toDate()) {
       nextPaymentProcessing = moment(nextBillingDate);
     }
@@ -471,7 +471,7 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
           throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
         }
 
-        dateTerminated = replacement.expirationTimeMillis;
+        dateTerminated = replacement.expiryTimeMillis;
       } else {
         dateTerminated = new Date();
       }
