@@ -179,7 +179,7 @@ export async function update (req, res, { isV3 = false }) {
       ],
     }, {
       _id: 1,
-    }).exec();
+    }).lean().exec();
 
     matchingGroupsArray = _.map(matchingGroups, groupRecord => groupRecord._id);
   }

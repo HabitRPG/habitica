@@ -43,6 +43,7 @@ schema.statics.getNews = async function getNews (isAdmin, options = { page: 0 })
     .sort({ publishDate: -1 })
     .limit(POSTS_PER_PAGE)
     .skip(POSTS_PER_PAGE * Number(page))
+    .lean()
     .exec();
 };
 
