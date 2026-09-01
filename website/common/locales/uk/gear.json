@@ -2429,5 +2429,10 @@
     "armorArmoireBlueStripedSwimsuitNotes": "Що може бути захопливіше, аніж битися з морськими чудовиськами на пляжі? Збільшує Витривалість на <%= con %>. Зачарована скриня: Пляжний набір (предмет 2 із 4).",
     "armorArmoireYellowStripedSwimsuitText": "Жовтий смугастий купальник",
     "armorArmoireBlueStripedSwimsuitText": "Синій смугастий купальник",
-    "weaponArmoireShadyBeachUmbrellaText": "Пляжна парасолька"
+    "weaponArmoireShadyBeachUmbrellaText": "Пляжна парасолька",
+    "weaponSpecialSpring2024MageNotes": "Ця вихрова палиця сповнена квіткових візерунків. Збільшує інтелект на <%= int %> та сприйняття на <%= per %>. Обмежене видання весни 2024 року.",
+    "weaponSpecialSpring2024HealerText": "Чарівна паличка з пера синього птаха",
+    "weaponSpecialSpring2024HealerNotes": "Легкий прояв щастя виникає за бажанням, щоб покращити будь-який настрій. Збільшує інтелект на <%= int %>. Обмежене видання весни 2024 року.",
+    "weaponSpecialSummer2024RogueText": "Тризуб голозябрового молюска",
+    "weaponSpecialSummer2024RogueNotes": "Переверніть гострі жала ворогів проти них самих! Збільшує силу на <%= str %>. Обмежене видання літа 2024 року."
 }

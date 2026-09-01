@@ -12,7 +12,7 @@
     "displayBlurbPlaceholder": "Hãy giới thiệu bản thân bạn",
     "photoUrl": "Url Ảnh",
     "imageUrl": "Url Hình Ảnh",
-    "inventory": "Hành Trang",
+    "inventory": "Túi Đồ",
     "social": "Xã Hội",
     "lvl": "Cấp",
     "buffed": "Được Cường Hóa",
@@ -78,5 +78,6 @@
     "hp": "HP",
     "mp": "MP",
     "xp": "XP",
-    "health": "Máu"
+    "health": "Máu",
+    "class": "hệ"
 }

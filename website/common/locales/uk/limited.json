@@ -205,7 +205,7 @@
     "fall2022HarpyMageSet": "Гарпія (маг)",
     "fall2022WatcherHealerSet": "Підглядач (цілитель)",
     "fall2022KappaRogueSet": "Каппа (розбійник)",
-    "gemSaleHow": "У період від <%= eventStartOrdinal %> <%= eventStartMonth %> до <%= eventEndOrdinal %> просто придбайте будь-який набір самоцвітів, як зазвичай, і на ваш рахунок буде також зараховано їх акційну кількість. Більше дорогоцінних каменів, які можна витратити, поділитися чи зберегти для будь-яких майбутніх покупок!",
+    "gemSaleHow": "У період від<%= eventStartMonth %> <%= eventStartOrdinal %> до <%= eventEndMonth %> <%= eventEndOrdinal %> просто придбайте будь-який набір самоцвітів, як зазвичай, і на ваш рахунок буде також зараховано їх акційну кількість. Більше дорогоцінних каменів, які можна витратити, поділитися чи зберегти для будь-яких майбутніх покупок!",
     "winter2023WalrusWarriorSet": "Морж (воїн)",
     "winter2023FairyLightsMageSet": "Казкові вогні (маг)",
     "winter2023CardinalHealerSet": "Кардинал (маг)",
@@ -294,5 +294,9 @@
     "summer2026AlligatorWarriorSet": "Алігатор (Воїн)",
     "summer2026PuffinHealerSet": "Іпатка (Цілитель)",
     "summer2026TigerSharkMageSet": "Тигрова акула (Маг)",
-    "summer2026TsunamiRogueSet": "Шторм (Розбійник)"
+    "summer2026TsunamiRogueSet": "Шторм (Розбійник)",
+    "fall2026GhostPumpkinWarriorSet": "Гарбуз-привид (Воїн)",
+    "fall2026PoisonMushroomMageSet": "Отруйний гриб (Маг)",
+    "fall2026MysticCandleHealerSet": "Містична свічка (Цілитель)",
+    "fall2026SkeletalRavenRogueSet": "Скелетний крук (Розбійник)"
 }

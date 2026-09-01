@@ -282,7 +282,7 @@
     "fall2023BogCreatureHealerSet": "Bataklık Canavarı (Şifacı)",
     "g1g1Event": "Bir Armağan Edene Aynısından Armağan etkinliği sürüyor!",
     "g1g1Returning": "Sezonun şerefine, çok özel bir promosyonu geri getiriyoruz. Artık bir abonelik armağan ettiğinde, karşılığında aynı aboneliği alacaksın!",
-    "gemSaleHow": "<%= eventStartMonth %> <%= eventStartOrdinal %> ve <%= eventEndOrdinal %> tarihleri arasında, her zamanki gibi herhangi bir mücevher paketi satın al ve hesabına promosyon tutarı kadar mücevher eklenecek. Harcamak, paylaşmak veya gelecekteki sürümler için saklamak için daha fazla mücevher!",
+    "gemSaleHow": "<%= eventStartMonth %> <%= eventStartOrdinal %> ve <%= eventEndMonth %> <%= eventEndOrdinal %> tarihleri arasında, her zamanki gibi herhangi bir mücevher paketi satın al ve hesabına promosyon tutarı kadar mücevher eklenecek. Harcamak, paylaşmak veya gelecekteki sürümler için saklamak için daha fazla mücevher!",
     "dayOne": "1. Gün",
     "dayFive": "5. Gün",
     "dayTen": "10. Gün",
@@ -291,8 +291,12 @@
     "spring2026BranchRogueSet": "Bahar Dalı (Düzenbaz)",
     "spring2026SnowdropHealerSet": "Kar Düşüşü (Şifacı)",
     "spring2026MaypoleMageSet": "Bahar Bayramı (Büyücü)",
-    "summer2026AlligatorWarriorSet": "",
+    "summer2026AlligatorWarriorSet": "Timsah (Savaşçı)",
     "summer2026PuffinHealerSet": "",
-    "summer2026TigerSharkMageSet": "",
-    "summer2026TsunamiRogueSet": ""
+    "summer2026TigerSharkMageSet": "Kaplan Köpek Balığı (Büyücü)",
+    "summer2026TsunamiRogueSet": "Tsunami (Düzenbaz)",
+    "fall2026GhostPumpkinWarriorSet": "Hayalet Balkabağı (Savaşçı)",
+    "fall2026PoisonMushroomMageSet": "Zehirli Mantar (Büyücü)",
+    "fall2026MysticCandleHealerSet": "Mistik Mum (Şifacı)",
+    "fall2026SkeletalRavenRogueSet": "İskelet Karga (Düzenbaz)"
 }

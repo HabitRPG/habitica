@@ -1,1 +1,21 @@
-{}
+{
+    "userId": "ID Người chơi",
+    "invite": "Mời",
+    "members": "Thành Viên",
+    "tavern": "Tửu Quán Chat",
+    "tavernChat": "Tửu Quán Chat",
+    "innCheckOutBanner": "Bạn hiện đang tạm không bị sát thương. Việc Định Kỳ sẽ không gây mất Máu cho bạn và bạn cũng không thể tiến triển trong các Nhiệm vụ.",
+    "innCheckOutBannerShort": "Bạn tạm không bị sát thương.",
+    "resumeDamage": "Tạm Dừng Sát Thương",
+    "helpfulLinks": "Link Hữu Ích",
+    "lookingForGroup": "Bài Viết Tìm Đội (Nhóm)",
+    "dataDisplayTool": "Công cụ hiển thị dữ liệu",
+    "requestFeature": "Đề Xuất Tính Năng",
+    "askQuestionGuild": "Hỏi Đáp (Hội Trợ Giúp Habitica)",
+    "contributing": "Đóng góp",
+    "faq": "Câu Hỏi Thường Gặp",
+    "tutorial": "Hướng Dẫn",
+    "wiki": "Cẩm Nang Wiki",
+    "resources": "Tài Nguyên",
+    "communityGuidelines": "Nội quy Cộng đồng"
+}

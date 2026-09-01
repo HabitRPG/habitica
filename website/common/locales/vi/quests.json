@@ -1,7 +1,8 @@
 {
-    "quests": "Cuộn Ải",
-    "quest": "ải",
+    "quests": "Nhiệm vụ",
+    "quest": "nhiệm vụ",
     "petQuests": "Các Ải Thú Cưng Và Thú Cưỡi",
     "unlockableQuests": "Các Ải Có Thể Mở Khóa",
-    "goldQuests": "Chuỗi Ải Tông Sư"
+    "goldQuests": "Chuỗi Ải Tông Sư",
+    "collected": "Thu thập"
 }

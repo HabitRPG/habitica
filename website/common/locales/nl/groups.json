@@ -239,7 +239,7 @@
     "guildSummaryPlaceholder": "Beschrijf je Gilde in het kort. Wat is het hoofddoel van de Gilde en wat gaan de leden doen?",
     "groupDescription": "Beschrijving",
     "guildDescriptionPlaceholder": "Gebruik dit veld om meer details te geven over alles wat leden moeten weten over jouw Groep. Tips, nuttige links en motiverende woorden kunnen allemaal hier!",
-    "markdownFormattingHelp": "[Markdown formateerhulp](https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica)",
+    "markdownFormattingHelp": "[Markdown formateerhulp](<%= markdownLink %>)",
     "partyDescriptionPlaceholder": "Dit is de omschrijving van je gezelschap. het omschrijft wat we in dit gezelschap doen. Als je nog meer wil leren over wat we in deze groep doen, les dan de omschrijving. Gezellig he.",
     "guildGemCostInfo": "Een edelsteenprijs zorgt voor gildes met een hoge kwaliteit. Hij wordt gestort in de bank van je gilde.",
     "noGuildsTitle": "Je bent geen lid van een gilde.",

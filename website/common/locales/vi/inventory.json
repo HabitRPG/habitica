@@ -1,1 +1,6 @@
-{}
+{
+    "noItemsAvailableForType": "Bạn không có <%= type %>.",
+    "foodItemType": "Thức Ăn Thú Cưng",
+    "eggsItemType": "Trứng",
+    "hatchingPotionsItemType": "Linh Dược Ấp Trứng"
+}

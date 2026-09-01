@@ -205,7 +205,7 @@
     "fall2022WatcherHealerSet": "覗く魔（治療師）",
     "fall2022KappaRogueSet": "カッパ（盗賊）",
     "fall2022OrcWarriorSet": "オーク（戦士）",
-    "gemSaleHow": "<%= eventStartMonth %> <%= eventStartOrdinal %> から<%= eventEndOrdinal %>の間、通常どおりジェムを購入するだけで、あなたのアカウントはプロモーション分のジェムを受け取れます。買い物したり、分け合ったり、将来のため貯めておけるジェムが増えました！",
+    "gemSaleHow": "<%= eventStartMonth %><%= eventStartOrdinal %>から<%= eventEndMonth %><%= eventEndOrdinal %>の間、通常どおりジェムを購入するだけで、あなたのアカウントはプロモーション分のジェムを受け取れます。買い物したり、分け合ったり、将来のため貯めておけるジェムが増えました！",
     "winter2023WalrusWarriorSet": "セイウチ（戦士）",
     "winter2023FairyLightsMageSet": "フェアリーライト（魔道士）",
     "winter2023CardinalHealerSet": "ショウジョウコウカンチョウ（治療師）",
@@ -294,5 +294,9 @@
     "summer2026AlligatorWarriorSet": "アリゲーター（戦士）",
     "summer2026PuffinHealerSet": "ツノメドリ（治療師）",
     "summer2026TigerSharkMageSet": "イタチザメ（魔道士）",
-    "summer2026TsunamiRogueSet": "津波（盗賊）"
+    "summer2026TsunamiRogueSet": "津波（盗賊）",
+    "fall2026GhostPumpkinWarriorSet": "お化けのパンプキン（戦士）",
+    "fall2026PoisonMushroomMageSet": "毒キノコ（魔道士）",
+    "fall2026MysticCandleHealerSet": "魔法のろうそく（治療師）",
+    "fall2026SkeletalRavenRogueSet": "スケルトンカラス（盗賊）"
 }
