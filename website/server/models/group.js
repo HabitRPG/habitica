@@ -42,7 +42,11 @@ import { model as UserHistory } from './userHistory'; // eslint-disable-line imp
 
 const { isReleased } = shared.content;
 const questScrolls = shared.content.quests;
-const { questSeriesAchievements, achievementReleaseDates } = shared.content;
+const {
+  questSeriesAchievements,
+  achievementReleaseDates,
+  questAchievementThresholds,
+} = shared.content;
 const { Schema } = mongoose;
 
 export const INVITES_LIMIT = 100; // must not be greater than MAX_EMAIL_INVITES_BY_USER
@@ -1065,6 +1069,29 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   return Promise.all(promises);
 };
 
+schema.methods.notifyQuestCount = async function notifyQuestCount () {
+  const group = this;
+  User.find(
+    {
+      _id: { $in: group.getParticipatingQuestMembers() },
+      'achievements.questCount': { $in: questAchievementThresholds },
+    },
+  )
+    .select('_id achievements')
+    .exec()
+    .then(participantsAtThreshold => {
+      participantsAtThreshold.forEach(participant => {
+        participant.addNotification(
+          'ACHIEVEMENT',
+          {
+            achievement: `questCount${participant.achievements.questCount}`
+          },
+        );
+      });
+    })
+    .catch(err => logger.error(err));
+}
+
 function _isOnQuest (user, progress, group) {
   return group && progress && group.quest && group.quest.active
     && group.quest.members[user._id] === true;
@@ -1171,6 +1198,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
 
     // Participants: Grant rewards & achievements, finish quest
     await group.finishQuest(shared.content.quests[group.quest.key]);
+    await group.notifyQuestCount();
   }
 
   promises.unshift(group.save());
@@ -1230,6 +1258,7 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   const questFinished = collectedItems.length === remainingItems.length;
   if (questFinished) {
     await group.finishQuest(quest);
+    await group.notifyQuestCount();
     const allItemsFoundChat = await group.sendChat({
       message: `\`${shared.i18n.t('chatItemQuestFinish', 'en')}\``,
       info: {
