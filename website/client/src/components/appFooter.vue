@@ -801,7 +801,6 @@ h3 {
 import axios from 'axios';
 import moment from 'moment';
 import Vue from 'vue';
-import uuid from '@/../../common/script/libs/uuid';
 
 // images
 import melior from '@/assets/svg/melior.svg?raw';
@@ -1004,7 +1003,7 @@ export default {
       this.$root.$emit('bv::show::modal', 'new-stuff');
     },
     addWebhooks () {
-      let webhook = {
+      const webhook = {
         type: 'taskActivity',
         options: {
           created: false,
@@ -1016,10 +1015,10 @@ export default {
         enabled: true,
       };
       const count = Number(window.prompt('Add how many webhooks?', 1));
-      for (let index = 0; index < count; index++) {
+      for (let index = 0; index < count; index += 1) {
         this.$store.dispatch('user:addWebhook', { webhook });
       }
-    }
+    },
   },
 };
 </script>
