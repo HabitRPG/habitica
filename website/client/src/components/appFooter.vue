@@ -383,6 +383,10 @@
             <div class="debug-pop">
               <a
                 class="btn btn-secondary"
+                @click="addWebhooks()"
+              >Add Webhooks</a>
+              <a
+                class="btn btn-secondary"
                 @click="setHealthLow()"
               >Reduce Health to 1</a>
               <a
@@ -797,6 +801,7 @@ h3 {
 import axios from 'axios';
 import moment from 'moment';
 import Vue from 'vue';
+import uuid from '@/../../common/script/libs/uuid';
 
 // images
 import melior from '@/assets/svg/melior.svg?raw';
@@ -998,6 +1003,23 @@ export default {
     showBailey () {
       this.$root.$emit('bv::show::modal', 'new-stuff');
     },
+    addWebhooks () {
+      let webhook = {
+        type: 'taskActivity',
+        options: {
+          created: false,
+          updated: false,
+          deleted: false,
+          scored: true,
+        },
+        url: 'https://example.com/webhook',
+        enabled: true,
+      };
+      const count = Number(window.prompt('Add how many webhooks?', 1));
+      for (let index = 0; index < count; index++) {
+        this.$store.dispatch('user:addWebhook', { webhook });
+      }
+    }
   },
 };
 </script>
