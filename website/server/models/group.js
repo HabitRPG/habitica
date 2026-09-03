@@ -1091,7 +1091,7 @@ schema.methods.notifyQuestCount = async function notifyQuestCount (members) {
       });
     })
     .catch(err => logger.error(err));
-  
+
   return Promise.all(promises);
 };
 
