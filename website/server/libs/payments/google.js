@@ -450,7 +450,7 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
     if (!details.isCanceled && !details.isExpired) {
       throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
     }
-    if (details.isCanceled && details.expiryTimeMillis === 0) {
+    if ((details.isCanceled || details.isExpired) && details.expiryTimeMillis === 0) {
       dateTerminated = new Date();
     } else {
       dateTerminated = details.expiryTimeMillis;
