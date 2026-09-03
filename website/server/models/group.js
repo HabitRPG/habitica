@@ -1069,11 +1069,10 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   return Promise.all(promises);
 };
 
-schema.methods.notifyQuestCount = async function notifyQuestCount () {
-  const group = this;
+schema.methods.notifyQuestCount = async function notifyQuestCount (members) {
   User.find(
     {
-      _id: { $in: group.getParticipatingQuestMembers() },
+      _id: { $in: members },
       'achievements.questCount': { $in: questAchievementThresholds },
     },
   )
@@ -1169,10 +1168,11 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
     }
   }
 
+  const participants = this.getParticipatingQuestMembers();
   await User.updateMany(
     {
       _id:
-      { $in: this.getParticipatingQuestMembers() },
+      { $in: participants },
     },
     updates,
   ).exec();
@@ -1198,7 +1198,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
 
     // Participants: Grant rewards & achievements, finish quest
     await group.finishQuest(shared.content.quests[group.quest.key]);
-    await group.notifyQuestCount();
+    await group.notifyQuestCount(participants);
   }
 
   promises.unshift(group.save());
@@ -1257,8 +1257,9 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
 
   const questFinished = collectedItems.length === remainingItems.length;
   if (questFinished) {
+    const participants = this.getParticipatingQuestMembers();
     await group.finishQuest(quest);
-    await group.notifyQuestCount();
+    await group.notifyQuestCount(participants);
     const allItemsFoundChat = await group.sendChat({
       message: `\`${shared.i18n.t('chatItemQuestFinish', 'en')}\``,
       info: {
