@@ -450,7 +450,7 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
     if (!details.isCanceled && !details.isExpired) {
       throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
     }
-    if ((details.isCanceled || details.isExpired) && details.expiryTimeMillis === 0) {
+    if (details.expiryTimeMillis === 0) {
       dateTerminated = new Date();
     } else {
       dateTerminated = details.expiryTimeMillis;
@@ -481,7 +481,9 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
     } else {
       throw err;
     }
-  }  if (dateTerminated) {
+  }
+  console.log(dateTerminated);
+  if (dateTerminated) {
     await payments.cancelSubscription({
       user,
       nextBill: dateTerminated,
