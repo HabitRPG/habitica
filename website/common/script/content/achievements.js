@@ -485,7 +485,7 @@ const questCountAchievs = QUEST_ACHIEVEMENT_THRESHOLDS.reduce((achievs, threshol
   achievs[`questCount${threshold}`] = {
     icon: `achievement-completed-${threshold}-quest`,
     titleKey: `achievementQuestCount${threshold}`,
-  }
+  };
   return achievs;
 }, {});
 Object.assign(achievementsData, questCountAchievs);
