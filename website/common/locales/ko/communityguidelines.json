@@ -4,13 +4,13 @@
     "commGuideHeadingWelcome": "Habitica에 오신 것을 환영합니다!",
     "commGuidePara001": "안녕하세요, 모험가님! 생산성, 건강한 생활, 그리고 가끔 나타나는 난폭한 그리폰의 땅, Habitica에 오신 것을 환영합니다. 저희는 서로의 자기 개선을 도와주는 유쾌한 사람들로 가득한 즐거운 커뮤니티입니다. 여기서 잘 지내기 위해 필요한 것은 긍정적인 태도, 존중하는 자세, 그리고 모두가 각기 다른 능력과 한계를 가지고 있다는 것에 대한 이해입니다 -- 당신도 포함해서요! Habitica 사람들은 서로에게 인내심을 가지고 있으며, 언제든지 도와주려고 합니다.",
     "commGuidePara002": "커뮤니티의 구성원이 안전하고 행복하며 활발한 활동을 유지하기 위해, 이 곳엔 지켜야 할 몇 가지 가이드라인이 있습니다. 이 가이드라인은 가능한 친절하며, 읽기 쉽게 하기 위해 신중히 만들었습니다. 대화를 시작하기 전에 시간을 내어 꼭 읽어주세요.",
-    "commGuidePara003": "이곳의 운영원칙은 수시로 변경될 수 있습니다. 커뮤니티 규칙에 실질적인 변경 사항이 있을 경우, 베일리 공지사항 및 소셜 미디어를 통해 알려드립니다!",
+    "commGuidePara003": "이곳의 운영원칙은 수시로 변경될 수 있습니다. 커뮤니티 규칙에 실질적인 변경 사항이 있을 경우, 앱 내의 베일리 공지사항을 통해 알려드립니다!",
     "commGuideHeadingInteractions": "Habitica에서의 상호작용",
     "commGuidePara015": "Habitica에는 다른 플레이어와 상호작용할 수 있는 몇 가지 공간이 있습니다. 여기에는 개인 채팅(개인 메시지 및 파티 채팅)과 파티 찾기 기능 및 도전 과제가 포함됩니다.",
     "commGuidePara016": "모든 사람들이 안전하게 즐길 수 있도록 Habitica의 소셜 기능을 사용할 때 몇 가지 규칙이 있습니다.",
     "commGuideList02A": "<strong>서로를 존중할 것 </strong>. 정중하고 친절하며 친근하게 서로를 도우세요. : Habitica의 이용자들은 모두 다른 문화에서 왔고 다른 경험을 했다는 것을 명심하세요.",
     "commGuideList02C": "<strong>폭력적이거나 위협적인, 성적인, 편견이나 차별을 조장하는, 인종차별적인, 성차별적인, 증오심을 표현하는, 개인이나 단체에 대한 괴롭힘이나 위해를 가하는 표현이나 이미지를 게시하지 마십시오.</strong>. 이는 불분명한 표현, 농담이나 밈으로도 허용되지 않습니다. 모든 사용자가 위와 같은 내용으로 웃을 수 있는 것은 아닙니다. 이런 농담이 누군가를 상처입힌다는 걸 명심해 주십시오.",
-    "commGuideList02D": "<strong>해비티칸은 다양한 연령대와 배경을 가지고 있다는 점을 유의하세요 </strong>도전 과제와 플레이어의 프로필은 성적인 주제, 욕설을 사용하거나 논쟁과 갈등을 조장해서는 안 됩니다.",
+    "commGuideList02D": "<strong>커뮤니티 도전과제와 플레이어 프로필은 전체 공개이며, 모든 공간에 적절하게 유지되어야 합니다. </strong> 성적인 주제, 폭력, 강한 욕설을 사용하지 마세요. 스태프가 부적절하다고 판단하는 도전 과제나 플레이어 프로필은 수정되거나 제거될 수 있습니다. 반복적이거나 악의적인 규정 침해에는 합당한 제재가 이루어집니다.",
     "commGuideList02E": "<strong>관리자가 Habitica에서 해당 용어가 허용되지 않는다고 말하는 경우, 문제가 없다 생각했더라도 그 결정은 번복되지 않습니다.</strong> 또한 비방은 서비스 이용 약관 위반이므로 엄중하게 제제될 것입니다.",
     "commGuideList02G": "<strong>모든 관리자의 요청에 따라주십시오.</strong> 이 요청에는 특정 장소에 글을 올리는 것을 금지하거나, 프로필의 부적절한 내용 수정 요청 등을 포함할 수 있습니다. 또한 요청은 위 내용에 국한되지 않습니다. 관리자와 말다툼을 하지 말아주십시오. 만약 이 요청이나 관리자에 대한 의견/이견이 있을 경우 커뮤니티 관리자의 소통창구인 <%= adminEmail %> 해당 이메일로 연락주시길 바랍니다.",
     "commGuideList02J": "<strong>Do not spam</strong>. Spamming may include, but is not limited to: posting the same comment or query in multiple places, posting links without explanation or context, posting nonsensical messages, posting multiple promotional messages about a Guild, Party or Challenge, or posting many messages in a row. Asking for gems or a subscription in any of the chat spaces or via Private Message is also considered spamming. If people clicking on a link will result in any benefit to you, you need to disclose that in the text of your message or that will also be considered spam.<br/><br/>It is up to the mods to decide if something constitutes spam or might lead to spam, even if you don’t feel that you have been spamming. For example, advertising a Guild is acceptable once or twice, but multiple posts in one day would probably constitute spam, no matter how useful the Guild is!",
@@ -77,7 +77,7 @@
     "commGuideLink04": "<%= linkOpen %>The Main Trello<%= linkClose %>: for site feature requests.",
     "commGuidePara069": "본문의 일러스트는 아래의 재능있는 아티스트들의 도움을 받았습니다:",
     "commGuideList01A": "당사의 지침 및 서비스 약관은 챌린지, 당사자, 플레이어 프로필 및 개인 메시지에 적용됩니다.",
-    "commGuideList02M": "<strong>그룹 플랜에서 구독, 멤버쉽, 보석을 구걸하거나 달라고 요청하지 마십시오. </strong>이는 여관이나 공용, 사적 공간에서도 모두 허용되지 않습니다. 아이템을 달라는 쪽지를 받거나 하는 경우 깃발 버튼을 눌러 신고하십시오. 반복적이거나 많은 양의 보석 구걸/구독 구걸은 경고 이후, 영구 정지로 이어질 수 있습니다.",
+    "commGuideList02M": "<strong>그룹 플랜에서 보석, 구독, 멤버쉽을 구걸하거나 달라고 요청하지 마십시오. </strong>이는 여관이나 공용, 사적 공간에서도 모두 허용되지 않습니다. 아이템을 달라는 쪽지를 받거나 하는 경우 깃발 버튼을 눌러 신고하십시오. 반복적이거나 악의적인 보석 구걸, 구독 구걸은 경고 이후, 영구 정지로 이어질 수 있습니다.",
     "commGuideList09D": "기여자 티어 삭제 또는 강등",
     "commGuideList02H": "<strong>모든 표시되는 이름과 @아이디는 반드시 이용약관을 따라야합니다</strong>. 표시되는 이름과/또는 @아이디를 변경하려면: 모바일에서 메뉴 > 설정 > 계정을 이용하세요. 웹사이트에서는 상단 메뉴에 있는 사용자 아이콘에서 설정 페이지로 가세요.",
     "commGuideList02P": "<strong>불필요하게 사적인 메시지를 보내는 것을 추천하지 않습니다</strong>. 사용자를 불편하게하는 원치 않은 메시지나 이 가이드라인, 또는 이용약관을 위반하는 메시지를 받으셨을 경우, 발신자를 차단하고 관리자에게 알리기 위해 신고하시기 바랍니다.",
@@ -87,5 +87,7 @@
     "commGuideList02N": "<strong>저희의 가이드라인이나 이용약관을 위반하는 사항을 발견하면 신고해주세요</strong>. 직접 메시지를 신고하거나 <%= adminEmail %>으로 프로필이나 도전 과제의 위반 사항을 관리자에게 알려주세요. 가능한 신속하게 처리하도록 하겠습니다. 귀하의 모국어로 연락 주시는 것이 편하다면 그렇게 해주세요. 저희가 구글 번역을 사용할 수도 있으나, 사용에 문제를 겪고 계시다면 저희에게 연락하는 것을 편하게 느끼셨으면 합니다.",
     "commGuideList02I": "<strong>도전명은 우승자의 공개 프로필에 표시되기 때문에, 모든 공간에서 적절한 이름으로 설정해주세요</strong>. 신고가 있을 경우에는 저희가 해당 사용자의 프로필에서 기록을 수정해야 하기 때문에, 도전을 생성할 때 항상 이 점을 명심해주세요.",
     "commGuideList02O": "<strong>파티는 멤버들의 편의와 기호를 위해 개별적인 채팅 규칙을 생성할 수 있습니다</strong>. 그러나, 이러한 비공개 공간에 대해 괴롭힘을 포함한 이용약관 위반 사항이 있지 않는 한, 관리자가 채팅 규칙을 강요할 수 없습니다. 사용자의 파티원이 문제를 일으킨다면, 파티장이 해당 파티원을 퇴장시키길 권장합니다.",
-    "commGuideList05H": "심각하거나 반복적으로 사기 행위를 시도하거나 현물 아이템을 위해 다른 사용자를 압박하는 경우"
+    "commGuideList05H": "심각하거나 반복적으로 사기 행위를 시도하거나 현물 아이템을 위해 다른 사용자를 압박하는 경우",
+    "commGuideList02R": "<strong>누군가가 규칙을 어기거나, 기분 나쁜 행동을 한다면, 문제를 신고하고 스탭들이 대처하게 해주세요</strong>. 언쟁, 조롱, 보복 등에 가담하지 마세요. 메세지를 신고하거나 스크린샷을 <%= adminEmail %>로 보내주셔서 신고해주시면 됩니다. 해당 플레이어를 차단해서 더 연락하지 못하게 할 수도 있습니다.",
+    "commGuideList05I": "티어를 올리기 위해 기여자를 제대로 표시하지 않는 행위 (기계 번역이나 AI 코드를 개인의 기여도로 기재하는 행위 등)"
 }

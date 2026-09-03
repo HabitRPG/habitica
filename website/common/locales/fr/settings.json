@@ -271,5 +271,6 @@
     "usedForSupport": "Sont utilisés pour améliorer l'expérience utilisat·eur·rice, les performances et les services pour notre site et nos applications. Ces données sont utilisées par l'équipe du support pour la résolution de requêtes et rapports de bug.",
     "privacySettingsOverview": "Habitica utilise les cookies pour enregistrer des données permettant l'analyse de performance, répondre aux requêtes du support, et vous faire profiter de la meilleure expérience ludique possible. Pour cela, nous devons vous demander quelques autorisations. Vous pouvez changer vos préférences à tout moment dans les paramètres de votre compte.",
     "gpcWarning": "<%= linkOpen %>La GPC (Prise en charge du contrôle Global de la vie Privée)<%= linkClose %> est activée. Activer la traçabilité ci-dessous annulera la GPC et enverra des données à nos partenaires analytiques.",
-    "gpcPlusAnalytics": "<%= linkOpen %>La GPC (Prise en charge du contrôle Global de la vie Privée)<%= linkClose %> est activée. Vous avez activé la traçabilité pour que vous données soient transférées à nos partenaires analytiques."
+    "gpcPlusAnalytics": "<%= linkOpen %>La GPC (Prise en charge du contrôle Global de la vie Privée)<%= linkClose %> est activée. Vous avez activé la traçabilité pour que vous données soient transférées à nos partenaires analytiques.",
+    "tooManyWebhooks": "Les Webhooks sont limités à <%= limit %> entrées par compte."
 }

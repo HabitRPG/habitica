@@ -201,7 +201,7 @@
     "summer2022WaterspoutWarriorSet": "水龙卷 （战士）",
     "summer2022MantaRayMageSet": "蝠鲼（法师）",
     "summer2022AngelfishHealerSet": "天使鱼（医者）",
-    "gemSaleHow": "在<%= eventStartMonth %><%= eventStartOrdinal %>至<%= eventEndOrdinal %>期间，只需像往常一样购买任意宝石捆绑包，你的账户就会被存入促销赠送的宝石。这些多出来的宝石可用于消费、赠送或保存以供未来使用！",
+    "gemSaleHow": "在<%= eventStartMonth %><%= eventStartOrdinal %>至<%= eventEndMonth %> <%= eventEndOrdinal %>期间，只需像往常一样购买任意宝石捆绑包，你的账户就会被存入促销赠送的宝石。这些多出来的宝石可用于消费、赠送或保存以供未来使用！",
     "fall2022KappaRogueSet": "河童（盗贼）",
     "fall2022OrcWarriorSet": "兽人（战士）",
     "fall2022HarpyMageSet": "鹰身女妖（法师）",
@@ -294,5 +294,9 @@
     "summer2026AlligatorWarriorSet": "短吻鳄（战士）",
     "summer2026PuffinHealerSet": "海鹦（医者）",
     "summer2026TigerSharkMageSet": "鼬鲨（法师）",
-    "summer2026TsunamiRogueSet": "海啸（盗贼）"
+    "summer2026TsunamiRogueSet": "海啸（盗贼）",
+    "fall2026GhostPumpkinWarriorSet": "幽魂南瓜（战士）",
+    "fall2026PoisonMushroomMageSet": "毒菇（法师）",
+    "fall2026MysticCandleHealerSet": "秘法烛（医者）",
+    "fall2026SkeletalRavenRogueSet": "骸骨渡鸦（盗贼）"
 }

@@ -1,1 +1,22 @@
-{}
+{
+    "rebirthNew": "Tái Sinh: Mở Khóa Hành Trình Mới!",
+    "rebirthUnlock": "Bạn đã mở khóa Tái Sinh! Vật phẩm đặc biệt này ở Chợ cho phép bạn bắt đầu một trò chơi mới ở cấp độ 1 nhưng vẫn giữ lại tất cả công việc, thành tựu, thú cưng, v.v. Hãy dùng nó để thổi một luồng gió mới vào hành trình Habitica nếu bạn cảm thấy mình đã chinh phục được hết, hoặc để trải nghiệm các tính năng mới dưới góc nhìn của một nhân vật hoàn toàn mới!",
+    "rebirthUnlockedNewItem": "Mở khóa Quả Cầu Tái Sinh",
+    "rebirthName": "Quả Cầu Tái Sinh",
+    "rebirthUnlockedOrb": "Mở khóa hành trình mới!",
+    "rebirthUnlockedDesc": "Hãy sử dụng Quả Cầu Tái Sinh để thổi một luồng gió mới vào cuộc phiêu lưu Habitica của bạn khi bạn cảm thấy mình đã chinh phục được tất cả! Bắt đầu lại ở cấp độ 1 nhưng vẫn giữ nguyên tất cả công việc, thành tựu và thú cưng nhờ vật phẩm đặc biệt này trong Chợ.",
+    "rebirthNewAchievement": "Thành Tựu Mới",
+    "rebirthNewAdventure": "Hành trình mới bắt đầu!",
+    "rebirthAchievement": "Bạn đã sử dụng Quả Cầu Tái Sinh <strong><%= number %></strong> lần, và đạt được cấp cao nhất là <strong><%= level %></strong>.",
+    "rebirthAchievementPlural": "Bạn đã sử dụng Quả Cầu Tái Sinh <strong><%= number %></strong> lần, và đạt được cấp cao nhất là <strong><%= level %></strong>.",
+    "rebirthAchievement100": "Bạn đã sử dụng Quả Cầu Tái Sinh <strong><%= number %></strong> lần, và đạt được cấp cao nhất là <strong>100</strong> or higher.",
+    "rebirthStackInfo": "Thành tựu này sẽ được cộng dồn mỗi khi bạn sử dụng Quả Cầu Tái Sinh.",
+    "rebirthBegan": "Bắt Đầu Một Hành Trình Mới",
+    "rebirthText": "Bắt đầu Hành Trình <%= rebirths %> Mới",
+    "rebirthOrb": "Sử dụng Quả Cầu Tái Sinh để bắt đầu lại sau khi đạt Cấp <%= level %>.",
+    "rebirthOrb100": "Sử dụng Quả Cầu Tái Sinh để bắt đầu lại sau khi đạt từ Cấp 100 trở lên.",
+    "rebirthOrbNoLevel": "Sử dụng Quả Cầu Tái Sinh để bắt đầu lại.",
+    "rebirthPop": "Khởi động lại nhân vật của bạn thành Chiến Binh Cấp 1 và giữ nguyên các thành tựu, bộ sưu tập và trang bị. Các công việc và lịch sử thực hiện sẽ được giữ và đặt lại về màu vàng. Chuỗi hoàn thành liên tục sẽ bị xóa, ngoại trừ các công việc của Thử Thách đang diễn ra và Kế Hoạch Nhóm. Vàng, Kinh Nghiệm, Mana và hiệu ứng của tất cả các Kỹ Năng sẽ bị xóa bỏ. Tất cả những điều này sẽ có hiệu lực tức thì.",
+    "rebirthComplete": "Bạn đã tái sinh!",
+    "nextFreeRebirth": "<strong><%= days %> ngày </strong> để nhận được Quả Cầu Tái Sinh <strong>MIỄN PHÍ</strong>"
+}
