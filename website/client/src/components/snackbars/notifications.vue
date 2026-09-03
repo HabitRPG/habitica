@@ -298,7 +298,7 @@ export default {
 
       this.debug('start removal interval');
       this.removalIntervalId = setInterval(() => {
-        const nonErrorNotifications = this.visibleNotifications.filter(n => n.type !== 'error');
+        const nonErrorNotifications = this.visibleNotifications.filter(n => n.type !== 'error' && n.timeout); // eslint-disable-line max-len
 
         if (nonErrorNotifications.length !== 0) {
           const firstEntry = nonErrorNotifications[0];
