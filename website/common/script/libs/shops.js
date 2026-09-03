@@ -27,15 +27,27 @@ shops.getMarketShop = function getMarketShop (user, language) {
   const officialPinned = getOfficialPinnedItems(user);
   return {
     identifier: 'market',
-    text: i18n.t('market'),
-    notes: i18n.t('welcomeMarketMobile'),
+    text: i18n.t('market', language),
+    notes: i18n.t('welcomeMarketMobile', language),
     imageName: 'npc_alex',
     categories: shops.getMarketCategories(user, language),
     featured: {
-      text: i18n.t('featuredItems'),
+      text: i18n.t('featuredItems', language),
       items: officialPinned.length > 0
-        ? officialPinned.map(i => getItemInfo(user, i.type, get(content, i.path)))
-        : featuredItems.market().map(i => getItemInfo(user, i.type, get(content, i.path))),
+        ? officialPinned.map(i => getItemInfo(
+          user,
+          i.type,
+          get(content, i.path),
+          officialPinned,
+          language,
+        ))
+        : featuredItems.market().map(i => getItemInfo(
+          user,
+          i.type,
+          get(content, i.path),
+          [],
+          language,
+        )),
     },
   };
 };
@@ -174,7 +186,7 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
       if (e.set === pinnedSets[e.specialClass]) {
         return getItemInfo(user, 'marketGear', e, officialPinnedItems, language, gearMatcher);
       }
-      return getItemInfo(user, 'marketGear', e, officialPinnedItems);
+      return getItemInfo(user, 'marketGear', e, officialPinnedItems, language);
     });
 
     const specialGear = filter(content.gear.flat, gear => user.items.gear.owned[gear.key] === false
@@ -182,7 +194,7 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
         && gear.klass === 'special');
 
     each(specialGear, gear => {
-      category.items.push(getItemInfo(user, 'marketGear', gear));
+      category.items.push(getItemInfo(user, 'marketGear', gear, officialPinnedItems, language));
     });
 
     shops.checkMarketGearLocked(user, category.items);
@@ -199,7 +211,7 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
       && content.classes.indexOf(gear.specialClass) === -1
       && (gear.canOwn && gear.canOwn(user)));
 
-  nonClassCategory.items = map(specialNonClassGear, e => getItemInfo(user, 'marketGear', e));
+  nonClassCategory.items = map(specialNonClassGear, e => getItemInfo(user, 'marketGear', e, officialPinnedItems, language));
 
   shops.checkMarketGearLocked(user, nonClassCategory.items);
   categories.push(nonClassCategory);
@@ -211,13 +223,19 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
 shops.getQuestShop = function getQuestShop (user, language) {
   return {
     identifier: 'questShop',
-    text: i18n.t('quests'),
-    notes: i18n.t('ianTextMobile'),
+    text: i18n.t('quests', language),
+    notes: i18n.t('ianTextMobile', language),
     imageName: 'npc_ian',
     categories: shops.getQuestShopCategories(user, language),
     featured: {
-      text: i18n.t('featuredQuests'),
-      items: featuredItems.quests().map(i => getItemInfo(user, i.type, get(content, i.path))),
+      text: i18n.t('featuredQuests', language),
+      items: featuredItems.quests().map(i => getItemInfo(
+        user,
+        i.type,
+        get(content, i.path),
+        [],
+        language,
+      )),
     },
   };
 };
@@ -329,9 +347,9 @@ shops.getTimeTravelersShop = function getTimeTravelersShop (user, language) {
 
   return {
     identifier: 'timeTravelersShop',
-    text: i18n.t('timeTravelers'),
+    text: i18n.t('timeTravelers', language),
     opened: hasTrinkets,
-    notes: hasTrinkets ? i18n.t('timeTravelersPopover') : i18n.t('timeTravelersPopoverNoSubMobile'),
+    notes: hasTrinkets ? i18n.t('timeTravelersPopover', language) : i18n.t('timeTravelersPopoverNoSubMobile', language),
     imageName: hasTrinkets ? 'npc_timetravelers_active' : 'npc_timetravelers',
     categories: shops.getTimeTravelersCategories(user, language),
   };
@@ -479,14 +497,20 @@ shops.getSeasonalShop = function getSeasonalShop (user, language) {
 
   const resObject = {
     identifier: 'seasonalShop',
-    text: i18n.t('seasonalShop'),
-    notes: i18n.t(`seasonalShop${shopConfig.currentSeason}Text`),
+    text: i18n.t('seasonalShop', language),
+    notes: i18n.t(`seasonalShop${shopConfig.currentSeason}Text`, language),
     imageName: 'seasonalshop_open',
     opened: true,
     categories: this.getSeasonalShopCategories(user, language, shopConfig),
     featured: {
-      text: i18n.t(shopConfig.featuredSet(user)),
-      items: officialPinnedItems.map(i => getItemInfo(user, i.type, get(content, i.path))),
+      text: i18n.t(shopConfig.featuredSet(user), language),
+      items: officialPinnedItems.map(i => getItemInfo(
+        user,
+        i.type,
+        get(content, i.path),
+        officialPinnedItems,
+        language,
+      )),
     },
   };
 
@@ -537,7 +561,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   for (const set of gearMatcher.items) {
     const category = {
       identifier: set,
-      text: i18n.t(set),
+      text: i18n.t(set, language),
     };
 
     category.items = shops.getSeasonalGearBySet(
@@ -587,8 +611,8 @@ shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
 shops.getCustomizationsShop = function getCustomizationsShop (user, language) {
   return {
     identifier: 'customizationsShop',
-    text: i18n.t('titleCustomizations'),
-    notes: i18n.t('customizationsShopText'),
+    text: i18n.t('titleCustomizations', language),
+    notes: i18n.t('customizationsShopText', language),
     imageName: 'npc_customizations',
     categories: shops.getCustomizationsShopCategories(user, language),
   };
