@@ -241,10 +241,6 @@ schema.statics.pushNotification = async function pushNotification (
   ).exec();
 };
 
-schema.statics.hasPermission = function hasPermission (permissions, permission) {
-  return Boolean(permissions && (permissions[permission] || permissions.fullAccess));
-};
-
 /**
  * Adds an achievement and a related notification to the user.
  *
@@ -371,14 +367,14 @@ schema.methods.getUtcOffset = function getUtcOffset () {
   return common.fns.getUtcOffset(this);
 };
 
-schema.statics.daysUserHasMissed = function daysUserHasMissed (user, now, req = {}) {
+schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
   // If the user's timezone has changed (due to travel or daylight savings),
   // cron can be triggered twice in one day, so we check for that and use
   // both timezones to work out if cron should run.
   // CDS = Custom Day Start time.
-  let timezoneUtcOffsetFromUserPrefs = common.fns.getUtcOffset(user);
-  const timezoneUtcOffsetAtLastCron = Number.isFinite(user.preferences.timezoneOffsetAtLastCron)
-    ? -user.preferences.timezoneOffsetAtLastCron
+  let timezoneUtcOffsetFromUserPrefs = this.getUtcOffset();
+  const timezoneUtcOffsetAtLastCron = Number.isFinite(this.preferences.timezoneOffsetAtLastCron)
+    ? -this.preferences.timezoneOffsetAtLastCron
     : timezoneUtcOffsetFromUserPrefs;
 
   let timezoneUtcOffsetFromBrowser = typeof req.header === 'function' && -Number(req.header('x-user-timezoneoffset'));
@@ -390,16 +386,16 @@ schema.statics.daysUserHasMissed = function daysUserHasMissed (user, now, req = 
   if (timezoneUtcOffsetFromBrowser !== timezoneUtcOffsetFromUserPrefs) {
     // The user's browser has just told Habitica that the user's timezone has
     // changed so store and use the new zone.
-    user.preferences.timezoneOffset = -timezoneUtcOffsetFromBrowser;
+    this.preferences.timezoneOffset = -timezoneUtcOffsetFromBrowser;
     timezoneUtcOffsetFromUserPrefs = timezoneUtcOffsetFromBrowser;
   }
 
-  let lastCronTime = user.lastCron;
-  if (user.auth.timestamps.loggedIn < lastCronTime) {
-    lastCronTime = user.auth.timestamps.loggedIn;
+  let lastCronTime = this.lastCron;
+  if (this.auth.timestamps.loggedIn < lastCronTime) {
+    lastCronTime = this.auth.timestamps.loggedIn;
   }
   // How many days have we missed using the user's current timezone:
-  let daysMissed = daysSince(lastCronTime, defaults({ now }, user.preferences));
+  let daysMissed = daysSince(lastCronTime, defaults({ now }, this.preferences));
 
   if (timezoneUtcOffsetAtLastCron !== timezoneUtcOffsetFromUserPrefs) {
     // Give the user extra time based on the difference in timezones
@@ -414,7 +410,7 @@ schema.statics.daysUserHasMissed = function daysUserHasMissed (user, now, req = 
     const daysMissedOldZone = daysSince(lastCronTime, defaults({
       now,
       timezoneUtcOffsetOverride: timezoneUtcOffsetAtLastCron,
-    }, user.preferences));
+    }, this.preferences));
 
     if (timezoneUtcOffsetAtLastCron > timezoneUtcOffsetFromUserPrefs) {
       // The timezone change was in the unsafe direction.
@@ -451,12 +447,12 @@ schema.statics.daysUserHasMissed = function daysUserHasMissed (user, now, req = 
         const timezoneOffsetDiff = timezoneUtcOffsetFromUserPrefs - timezoneUtcOffsetAtLastCron;
         // e.g., for dangerous zone change: -300 - -240 = -60 or 600 - 660= -60
 
-        user.lastCron = moment(lastCronTime).subtract(timezoneOffsetDiff, 'minutes');
+        this.lastCron = moment(lastCronTime).subtract(timezoneOffsetDiff, 'minutes');
         // NB: We don't change this.auth.timestamps.loggedin so that will still record
         // the time that the previous cron actually ran.
         // From now on we can ignore the old timezone:
         // This is still timezoneOffset for backwards compatibility reasons.
-        user.preferences.timezoneOffsetAtLastCron = -timezoneUtcOffsetAtLastCron;
+        this.preferences.timezoneOffsetAtLastCron = -timezoneUtcOffsetAtLastCron;
       } else {
         // Both old and new timezones indicate that cron should
         // NOT run.
@@ -476,10 +472,6 @@ schema.statics.daysUserHasMissed = function daysUserHasMissed (user, now, req = 
   }
 
   return { daysMissed, timezoneUtcOffsetFromUserPrefs };
-};
-
-schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
-  return schema.statics.daysUserHasMissed(this, now, req);
 };
 
 async function getUserGroupData (user) {
@@ -542,7 +534,7 @@ schema.methods.isNewsPoster = function isNewsPoster () {
 };
 
 schema.methods.hasPermission = function hasPermission (permission) {
-  return schema.statics.hasPermission(this.permissions, permission);
+  return Boolean(this.permissions && (this.permissions[permission] || this.permissions.fullAccess));
 };
 
 // When converting to json add inbox messages from the Inbox collection

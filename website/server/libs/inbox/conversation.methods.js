@@ -22,7 +22,7 @@ async function usersMapByConversations (users) {
     stats: 1,
     flags: 1,
     inbox: 1,
-  }).lean().exec();
+  }).exec();
 
   for (const usr of loadedUsers) {
     const loadedUserConversation = {
@@ -96,7 +96,7 @@ export async function listConversations (owner, page) {
 
       const isOwnerBlocked = user.blocks.includes(owner._id);
 
-      conversation.canReceive = !(user.optOut || isOwnerBlocked) || User.hasPermission(owner.permissions, 'moderator');
+      conversation.canReceive = !(user.optOut || isOwnerBlocked) || owner.hasPermission('moderator');
     }
 
     return conversation;

@@ -313,9 +313,7 @@ api.purchaseHistory = {
   url: '/user/purchase-history',
   async handler (req, res) {
     const { user } = res.locals;
-    const transactions = await Transaction.find({ userId: user._id })
-      .sort({ createdAt: -1 })
-      .lean();
+    const transactions = await Transaction.find({ userId: user._id }).sort({ createdAt: -1 });
     res.respond(200, transactions);
   },
 };

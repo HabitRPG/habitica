@@ -1317,8 +1317,6 @@ api.getLookingForParty = {
 
     const seekers = await User
       .find({
-        'auth.blocked': { $ne: true },
-        'flags.chatRevoked': { $ne: true },
         'party.seeking': { $exists: true },
         'invitations.party.id': { $exists: false },
         'auth.timestamps.loggedin': {
@@ -1326,13 +1324,12 @@ api.getLookingForParty = {
         },
       })
       // eslint-disable-next-line no-multi-str
-      .select('_id auth.local.username auth.timestamps backer contributor.level \
-        flags.classSelected inbox.blocks invitations.party items.gear.costume \
+      .select('_id auth.blocked auth.local.username auth.timestamps backer contributor.level \
+        flags.chatRevoked flags.classSelected inbox.blocks invitations.party items.gear.costume \
         items.gear.equipped loginIncentives party._id preferences.background preferences.chair \
         preferences.costume preferences.hair preferences.shirt preferences.size preferences.skin \
         preferences.language profile.name stats.buffs stats.class stats.lvl')
       .sort('-auth.timestamps.loggedin')
-      .lean()
       .exec();
 
     const filteredSeekers = seekers.filter(seeker => {

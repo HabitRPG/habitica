@@ -40,7 +40,7 @@ const api = {};
 api.createTag = {
   method: 'POST',
   url: '/tags',
-  middlewares: [authWithHeaders({ userFieldsToInclude: ['tags'] })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -69,7 +69,7 @@ api.createTag = {
 api.getTags = {
   method: 'GET',
   url: '/tags',
-  middlewares: [authWithHeaders({ leanUser: true, userFieldsToInclude: ['tags'] })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
     res.respond(200, user.tags);
@@ -95,7 +95,7 @@ api.getTags = {
 api.getTag = {
   method: 'GET',
   url: '/tags/:tagId',
-  middlewares: [authWithHeaders({ leanUser: true, userFieldsToInclude: ['tags'] })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -133,7 +133,7 @@ api.getTag = {
 api.updateTag = {
   method: 'PUT',
   url: '/tags/:tagId',
-  middlewares: [authWithHeaders({ userFieldsToInclude: ['tags'] })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -175,7 +175,7 @@ api.updateTag = {
 api.reorderTags = {
   method: 'POST',
   url: '/reorder-tags',
-  middlewares: [authWithHeaders({ userFieldsToInclude: ['tags'] })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -215,7 +215,7 @@ api.reorderTags = {
 api.deleteTag = {
   method: 'DELETE',
   url: '/tags/:tagId',
-  middlewares: [authWithHeaders({ userFieldsToInclude: ['tags'] })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 

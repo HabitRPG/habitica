@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+import logger from '../../libs/logger';
 import schema from './schema'; // eslint-disable-line import/no-cycle
 
 import './hooks'; // eslint-disable-line import/no-cycle
@@ -18,3 +19,19 @@ export const nameFields = 'profile.name auth.local.username flags.verifiedUserna
 export { schema };
 
 export const model = mongoose.model('User', schema);
+
+// Initially export an empty object so external requires will get
+// the right object by reference when it's defined later
+// Otherwise it would remain undefined if requested before the query executes
+export const mods = [];
+
+mongoose.model('User')
+  .find({ 'contributor.moderator': true })
+  .sort('-contributor.level -backer.npc profile.name')
+  .select('profile contributor backer')
+  .exec()
+  .then(foundMods => {
+    // Using push to maintain the reference to mods
+    mods.push(...foundMods);
+  })
+  .catch(err => logger.error(err));

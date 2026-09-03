@@ -20,7 +20,7 @@ const api = {};
 api.readNotification = {
   method: 'POST',
   url: '/notifications/:notificationId/read',
-  middlewares: [authWithHeaders({ leanUser: true, userFieldsToInclude: ['notifications'] })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -37,9 +37,12 @@ api.readNotification = {
 
     user.notifications.splice(index, 1);
 
-    await User.updateOne({
-      _id: user._id,
-    }, {
+    // Update the user version field manually,
+    // it cannot be updated in the pre update hook
+    // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
+    user._v += 1;
+
+    await user.updateOne({
       $pull: { notifications: { id: req.params.notificationId } },
     }).exec();
 
@@ -69,7 +72,7 @@ api.readNotification = {
 api.readNotifications = {
   method: 'POST',
   url: '/notifications/read',
-  middlewares: [authWithHeaders({ leanUser: true, userFieldsToInclude: ['notifications'] })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -89,11 +92,14 @@ api.readNotifications = {
       user.notifications.splice(index, 1);
     }
 
-    await User.updateOne({
-      _id: user._id,
-    }, {
+    await user.updateOne({
       $pull: { notifications: { id: { $in: notificationsIds } } },
     }).exec();
+
+    // Update the user version field manually,
+    // it cannot be updated in the pre update hook
+    // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
+    user._v += 1;
 
     res.respond(200, user.notifications);
   },
@@ -114,7 +120,7 @@ api.readNotifications = {
 api.seeNotification = {
   method: 'POST',
   url: '/notifications/:notificationId/see',
-  middlewares: [authWithHeaders({ leanUser: true, userFieldsToInclude: ['notifications'] })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -142,6 +148,11 @@ api.seeNotification = {
       },
     }).exec();
 
+    // Update the user version field manually,
+    // it cannot be updated in the pre update hook
+    // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
+    user._v += 1;
+
     res.respond(200, notification);
   },
 };
@@ -164,7 +175,7 @@ api.seeNotification = {
 api.seeNotifications = {
   method: 'POST',
   url: '/notifications/see',
-  middlewares: [authWithHeaders({ userFieldsToInclude: ['notifications'] })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 

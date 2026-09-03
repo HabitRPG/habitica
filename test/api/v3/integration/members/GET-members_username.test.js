@@ -27,16 +27,6 @@ describe('GET /members/username/:username', () => {
       preferences: {
         costume: false,
         background: 'volcano',
-        chair: 'red',
-        hair: {
-          color: 'red',
-        },
-        sleep: false,
-        shirt: 'red',
-        tasks: {},
-        disableClasses: false,
-        size: 'broad',
-        skin: 'red',
       },
       secret: {
         text: 'Clark Kent',

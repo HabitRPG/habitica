@@ -377,7 +377,7 @@ api.getUserTasks = {
   method: 'GET',
   url: '/tasks/user',
   middlewares: [authWithHeaders({
-    leanUser: true,
+    // Some fields (including _id, preferences) are always loaded (see middlewares/auth)
     userFieldsToInclude: ['tasksOrder'],
   })],
   async handler (req, res) {
@@ -929,7 +929,7 @@ api.addChecklistItem = {
 api.scoreCheckListItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist/:itemId/score',
-  middlewares: [authWithHeaders({ leanUser: true, userFieldsToInclude: ['_id', 'guilds', 'party', 'webhooks'] })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 

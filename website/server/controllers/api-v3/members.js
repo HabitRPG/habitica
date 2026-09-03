@@ -112,7 +112,6 @@ api.getMember = {
     const member = await User
       .findById(memberId)
       .select(memberFields)
-      .lean()
       .exec();
 
     if (!member) throw new NotFound(res.t('userWithIDNotFound', { userId: memberId }));
@@ -120,8 +119,10 @@ api.getMember = {
     if (!member.flags.verifiedUsername) member.auth.local.username = null;
 
     // manually call toJSON with minimize: true so empty paths aren't returned
-    User.transformJSONUser(member, true);
-    res.respond(200, member);
+    const memberToJSON = member.toJSON({ minimize: true });
+    User.addComputedStatsToJSONObj(memberToJSON.stats, member);
+
+    res.respond(200, memberToJSON);
   },
 };
 
@@ -141,7 +142,6 @@ api.getMemberByUsername = {
     const member = await User
       .findOne({ 'auth.local.lowerCaseUsername': username, 'flags.verifiedUsername': true })
       .select(`${memberFields} blocks`)
-      .lean()
       .exec();
 
     if (!member) throw new NotFound(res.t('userNotFound'));
@@ -151,15 +151,16 @@ api.getMemberByUsername = {
     delete member.blocks;
 
     // manually call toJSON with minimize: true so empty paths aren't returned
-    User.transformJSONUser(member, true);
+    const memberToJSON = member.toJSON({ minimize: true });
+    User.addComputedStatsToJSONObj(memberToJSON.stats, member);
 
     const { user } = res.locals;
 
     const isRequestingUserBlocked = blocksArray.includes(user._id);
 
-    member.inbox.canReceive = !(member.inbox.optOut || isRequestingUserBlocked) || user.hasPermission('moderator');
+    memberToJSON.inbox.canReceive = !(memberToJSON.inbox.optOut || isRequestingUserBlocked) || user.hasPermission('moderator');
 
-    res.respond(200, member);
+    res.respond(200, memberToJSON);
   },
 };
 

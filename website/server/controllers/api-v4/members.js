@@ -22,7 +22,6 @@ api.purchaseHistory = {
     let transactions = await Transaction
       .find({ userId: req.params.memberId })
       .sort({ createdAt: -1 })
-      .lean()
       .exec();
 
     if (!res.locals.user.hasPermission('userSupport')) {
