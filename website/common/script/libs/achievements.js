@@ -4,7 +4,7 @@ import content from '../content/index';
 import i18n from '../i18n';
 import { isReleased } from '../content/is_released';
 import { ACHIEVEMENT_RELEASE_DATES } from '../content/constants/releaseDates';
-import { QUEST_ACHIEVEMENT_THRESHOLDS } from '../content/constants';
+import { QUEST_ACHIEVEMENT_THRESHOLDS as thresholds } from '../content/constants';
 
 const achievs = {};
 const achievsContent = content.achievements;
@@ -224,7 +224,7 @@ function _addQuestCount (result, user, data) {
     count = 1;
     questText = i18n.t('achievementQuestCountSingleText', { progress, target: 5 }, data.language);
   } else if (user.achievements.questCount) {
-    const thresholdAchieved = QUEST_ACHIEVEMENT_THRESHOLDS.findIndex((target, i) => target !== 1 && progress >= target && progress < thresholds[i + 1]); // eslint-disable-line max-len
+    const thresholdAchieved = thresholds.findIndex((target, i) => target !== 1 && progress >= target && progress < thresholds[i + 1]); // eslint-disable-line max-len
     count = thresholds[thresholdAchieved];
     questText = i18n.t(
       'achievementQuestCountMultipleText',

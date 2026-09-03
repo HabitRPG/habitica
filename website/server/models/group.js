@@ -1084,13 +1084,13 @@ schema.methods.notifyQuestCount = async function notifyQuestCount () {
         participant.addNotification(
           'ACHIEVEMENT',
           {
-            achievement: `questCount${participant.achievements.questCount}`
+            achievement: `questCount${participant.achievements.questCount}`,
           },
         );
       });
     })
     .catch(err => logger.error(err));
-}
+};
 
 function _isOnQuest (user, progress, group) {
   return group && progress && group.quest && group.quest.active

@@ -24,7 +24,7 @@ export const USER_CAN_OWN_QUEST_CATEGORIES = [
   'pet',
 ];
 
-export const QUEST_ACHIEVEMENT_THRESHOLDS = [ 1, 5, 10, 25, 50, 100 ];
+export const QUEST_ACHIEVEMENT_THRESHOLDS = [1, 5, 10, 25, 50, 100];
 
 export { EVENTS, REPEATING_EVENTS } from './events';
 export { default as SEASONAL_SETS } from './seasonalSets';
