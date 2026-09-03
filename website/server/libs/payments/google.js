@@ -433,7 +433,6 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
 };
 
 api.cancelSubscribe = async function cancelSubscribe (user, headers) {
-  console.log('Canceling subscription for user', user._id, user.purchased.plan);
   const { plan } = user.purchased;
 
   if (plan.paymentMethod !== api.constants.PAYMENT_METHOD_GOOGLE) throw new NotAuthorized(shared.i18n.t('missingSubscription'));
@@ -451,8 +450,11 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
     if (!details.isCanceled && !details.isExpired) {
       throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
     }
-    console.log(details);
-    dateTerminated = details.expiryTimeMillis;
+    if (details.isCanceled && details.expiryTimeMillis === 0) {
+      dateTerminated = new Date();
+    } else {
+      dateTerminated = details.expiryTimeMillis;
+    }
   } catch (err) {
     // Status:410 means that the subscription isn't active anymore and we can safely delete it
     if (err && err.message === 'Status:410') {
@@ -472,7 +474,6 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
         if (!replacement.isCanceled && !replacement.isExpired) {
           throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
         }
-        console.log(replacement);
         dateTerminated = replacement.expiryTimeMillis;
       } else {
         dateTerminated = new Date();
@@ -480,9 +481,7 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
     } else {
       throw err;
     }
-  }
-  console.log('dateTerminated:', dateTerminated);
-  if (dateTerminated) {
+  }  if (dateTerminated) {
     await payments.cancelSubscription({
       user,
       nextBill: dateTerminated,
