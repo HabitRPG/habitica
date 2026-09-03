@@ -129,7 +129,7 @@
     "healerText": "Los Sanadores son impasibles frente al daño y extienden esa protección a otros. No cumplir tareas Diarias y los malos Hábitos no les afectan demasiado y tienen maneras de recuperar la Salud. ¡Juega como un Médico si disfrutas asistiendo a otros en tu grupo o si la idea de engañar a la muerte a través del trabajo duro te inspira!",
     "optOutOfClasses": "Renunciar",
     "chooseClass": "Elige tu clase",
-    "chooseClassLearnMarkdown": "[Descubre más sobre el sistema de clases de Habitica](/static/faq#que-clase)",
+    "chooseClassLearnMarkdown": "[Aprende más sobre el sistema de clases de Habitica](<%= classLink %>)",
     "optOutOfClassesText": "¿Aún no estás preparado para elegir? ¡No hay prisa! Por el momento puedes leer sobre cada Clase en <%= linkOpen %>nuestras Preguntas Frecuentes<%= linkClose %>y ir a Ajustes cuando estés listo para activar el Sistema de Clases.",
     "selectClass": "Seleccionar <%= heroClass %>",
     "select": "Seleccionar",

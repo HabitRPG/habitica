@@ -1,1 +1,17 @@
-{}
+{
+    "lostAllHealth": "Bạn đã hết Máu!",
+    "dontDespair": "Đừng tuyệt vọng!",
+    "losingHealthWarning": "Cẩn Thận - Bạn Đang Mất Máu!",
+    "refillHealthTryAgain": "Hồi Máu và Thử Lại",
+    "deathPenaltyDetails": "Bạn bị giảm cấp, mất vàng và một mảnh trang bị, nhưng bạn hoàn toàn có thể lấy lại tất cả nhờ vào sự chăm chỉ! Chúc may mắn--bạn sẽ làm rất tốt thôi.",
+    "losingHealthWarning2": "Đừng để Máu rớt về 0! Bạn sẽ bị giảm cấp, mất vàng và một mảnh trang bị.",
+    "dyingOftenTips": "Điều này có xảy ra thường xuyên không? <%= linkOpen %>Đây là một vài mẹo cho bạn!<%= linkClose %>",
+    "toRegainHealth": "Để hồi Máu:",
+    "lowHealthTips1": "Tăng cấp để phục hồi hoàn toàn!",
+    "lowHealthTips2": "Mua Thuốc Hồi Máu từ cột Phần Thưởng để hồi 15 Điểm Máu.",
+    "losingHealthQuickly": "Mất Máu nhanh?",
+    "lowHealthTips3": "Không hoàn thành Việc Định Kỳ sẽ làm tạn tổn thương qua đêm. Hãy cẩn thận đừng thêm quá nhiều việc khi mới bắt đầu!",
+    "lowHealthTips4": "Nếu Việc Định Kỳ không cần làm vào một ngày cụ thể, bạn có thể tắt nó bằng cách bấm vào biểu tượng bút chì.",
+    "goodLuck": "Chúc may mắn!",
+    "cannotRevive": "Không thể hồi sinh nếu chưa chết"
+}

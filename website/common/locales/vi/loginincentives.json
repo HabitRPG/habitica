@@ -1,1 +1,24 @@
-{}
+{
+    "unlockedReward": "Bạn đã nhận được <%= reward %>",
+    "earnedRewardForDevotion": "Bạn đã nhận được <%= reward %> nhờ kiên trì việc cải thiện cuộc sống.",
+    "awesome": "Đỉnh nóc, kịch trần, bay phấp phới!",
+    "unlockedCheckInReward": "Bạn đã mở khóa Giải Thưởng Đăng Nhập!",
+    "checkinProgressTitle": "Tiến độ đến giải thưởng tiếp theo",
+    "nextRewardUnlocksIn": "Còn <%= numberOfCheckinsLeft %> ngày đăng nhập nữa để nhận được giải thưởng tiếp theo",
+    "incentivesDescription": "Khi xây dựng thói quen, quan trọng là phải nhất quán. Mỗi ngày đăng nhập là mỗi ngày bạn đến gần hơn tới giải thưởng.",
+    "checkinEarned": "Số ngày điểm danh của bạn đã tăng lên!",
+    "incentiveBackgroundsUnlockedWithCheckins": "Đăng nhập nhiều ngày nữa để mở khóa thêm nhiều ảnh nền thường.",
+    "twoSaddles": "hai Yên Cưỡi",
+    "threeSaddles": "ba Yên Cưỡi",
+    "oneOfAllPetEggs": "một loại Trứng Thú Cưng thường",
+    "twoOfAllPetEggs": "hai loại Trứng Thú Cưng thường",
+    "threeOfAllPetEggs": "ba loại Trứng Thú Cưng thường",
+    "oneOfAllHatchingPotions": "một loại Linh Dược Ấp Trứng thường",
+    "threeOfEachFood": "ba loại Thức Ăn Thú Cưng thường",
+    "fourOfEachFood": "bốn loại Thức Ăn Thú Cưng thường",
+    "incentiveAchievement": "thành tựu Tam Đại Trung Thần",
+    "royallyLoyal": "Tam Đại Trung Thần",
+    "royallyLoyalText": "Người chơi này đã đăng nhập 500 lần và nhận được Giải Thưởng Đăng Nhập!",
+    "checkInRewards": "Giải Thưởng Đăng Nhập",
+    "backloggedCheckInRewards": "Bạn đã nhận được Giải Thưởng Đăng Nhập! Ghé Túi Đồ và Trang Bị để xem có gì mới."
+}

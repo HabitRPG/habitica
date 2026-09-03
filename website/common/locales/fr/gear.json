@@ -3650,5 +3650,18 @@
     "shieldArmoireLeafPileText": "Tas de Feuilles",
     "shieldArmoireShieldOfHonorText": "Bouclier du Mérite",
     "eyewearArmoireSecretsShadesText": "Ombres des Secrets",
-    "eyewearArmoireSecretsShadesNotes": "Il y aurait des ombres qui permettrait de voir les secrets ? Nous ne pouvons confirmer ni infirmer cette rumeur. Augmente l'Intelligence et la Perception de <%= attrs %> chacune. Armoire Enchantée : Ensemble Secrets (Objet 2 sur 3)"
+    "eyewearArmoireSecretsShadesNotes": "Il y aurait des ombres qui permettrait de voir les secrets ? Nous ne pouvons confirmer ni infirmer cette rumeur. Augmente l'Intelligence et la Perception de <%= attrs %> chacune. Armoire Enchantée : Ensemble Secrets (Objet 2 sur 3)",
+    "headSpecialFall2026WarriorNotes": "Bouh ! Ce n'est pas une blague : votre tête est soudainement pleine de gages, de grands projets, et de graines de courges. Augmente la Force de <%= str %>. Équipement Édition Limitée Automne 2026.",
+    "headSpecialFall2026RogueNotes": "Bouh ! Ce n'est pas une blague : votre tête est soudainement profilée telle un corbeau. Augmente la Perception de <%= per %>. Équipement Édition Limitée Automne 2026.",
+    "headSpecialFall2026HealerNotes": "Bouh ! Ce n'est pas une blague : votre tête est soudainement pleine de flammes fabuleuses. Augmente l'Intelligence de <%= int %>. Équipement Édition Limitée Automne 2026.",
+    "headSpecialFall2026MageNotes": "Bouh ! Ce n'est pas une blague : votre tête est soudainement coiffée de champignonneries comiques. Augmente la Perception de <%= per %>. Équipement Édition Limitée Automne 2026.",
+    "headMystery202609Notes": "La joie de la moisson est la saison parfaite pour du l'amusement loufoque ! Ne confère aucun bonus. Équipement d'Abonnement Septembre 2026.",
+    "headMystery202610Notes": "Percez le voile du temps et de l'espace. Ne confère aucun bonus. Équipement d'Abonnement Octobre 2026.",
+    "headMystery202611Notes": "Les cornes luisantes de cette cagoule vous éclaireront à travers les ténèbres de l'hiver. Ne confère aucun bonus. Équipement d'Abonnement Novembre 2026.",
+    "shieldSpecialFall2026WarriorNotes": "Que ce soit pour vous proposer des astuces qui vous feront économiser du temps ou pour des devinettes effrayantes, ce petit compagnon a ce qu'il vous faut. Augmente la Constitution de <%= con %>. Équipement Édition Limitée Automne 2026.",
+    "shieldSpecialFall2026RogueNotes": "Que ce soit un bâton de marche, une canne pour désigner ou un oiseau très intelligent, c'est exactement ce dont vous avez besoin. Augmente la Force de <%= str %>. Équipement Édition Limitée Automne 2026.",
+    "shieldSpecialFall2026HealerNotes": "Que ce soit pour un peu plus de chaleur ou un boost d'ambiance cocooning, c'est exactement ce dont vous avez besoin. Augmente la Constitution de <%= con %>. Augmente la Constitution de <%= con %>. Équipement Édition Limitée Automne 2026.",
+    "armorMystery202609Notes": "Les teintes chamarrées de l'automne complémentent à merveille vos cabrioles enjouées. Ne confère aucun bonus. Équipement d'Abonnement Septembre 2026.",
+    "shieldArmoireLeafPileNotes": "Certaines des meilleurs tâches sont composées à la foi d'amusement et de travail acharné. On ne dira rien à personne si vous faites un vol plané dans ces feuilles, tant que vous les ratissez à nouveau en tas après. Augmente la Constitution de <%= con %>. Armoire Enchantée : Objet Indépendant.",
+    "shieldArmoireShieldOfHonorNotes": "Oh, preu·x·se chevali·er·ère ! Vous avez une volonté de fer, une main ferme, et une nature résiliente. Tout le royaume sait que vous pouvez brandir ce bouclier avec mérite. Augmente la Constitution de <%= con %>. Armoire Enchantée : Ensemble Chevali·er·ère du Mérite (Objet 2 sur 2)"
 }

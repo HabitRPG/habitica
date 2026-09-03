@@ -118,7 +118,7 @@
     "gemBenefitLeadin": "¿Qué puedes comprar con Gemas?",
     "gemBenefit1": "Trajes únicos a la moda para tu avatar.",
     "gemBenefit2": "¡Fondos para sumergir a tu avatar en el mundo de Habitica!",
-    "gemBenefit3": "Apasionantes Misiones encadenadas cuyo botín son huevos de mascota.",
+    "gemBenefit3": "Apasionantes Misiones encadenadas cuyo botín son huevos de Mascota.",
     "gemBenefit4": "Resetea los Puntos de Atributo de tu avatar y cambia su Clase.",
     "subscriptionBenefit1": "¡Obtén hasta 50 Gemas por Oro en el Mercado para comprar Misiones, Personalizaciones, Mascotas y mucho más!",
     "subscriptionBenefit3": "¡Encuentra cada día el doble de Huevos, Pociones de Eclosión y Comida para así incrementar tu colección de Mascotas!",
@@ -278,5 +278,9 @@
     "subscriptionBillingFYIShort": "Las suscripciones se renuevan automáticamente a menos que las canceles al menos 24 horas antes de que finalice el período actual. Se te cobrará el importe correspondiente en las 24 horas siguientes a la fecha de renovación, al mismo precio que pagaste inicialmente.",
     "mysterySet202608": "Conjunto Cuchillas Radiantes",
     "mysterySet202606": "Conjunto Hamaca Vacacional",
-    "mysterySet202607": "Conjunto Océanomante"
+    "mysterySet202607": "Conjunto Océanomante",
+    "giftGems": "¿Quieres otorgarle un brillante botín de Gemas a otra persona?",
+    "mysterySet202609": "Conjunto Arlequín de la Cosecha",
+    "mysterySet202610": "Conjunto Ilusionista Óptico",
+    "mysterySet202611": "Conjunto Dragón de Hielo"
 }

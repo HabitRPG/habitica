@@ -44,7 +44,7 @@
     "challengeNotFound": "没有找到这个挑战，或者你没有权限。",
     "onlyLeaderDeleteChal": "仅有挑战发起者能删除它。",
     "onlyLeaderUpdateChal": "仅有挑战发起者能更新它。",
-    "winnerNotFound": "获胜者ID“<%= userId %>”找不到或者不是挑战的一部分。",
+    "winnerNotFound": "未找到获胜者“<%= userId %>”或者该用户未参与该挑战。",
     "onlyChalLeaderEditTasks": "属于一个挑战的任务仅能被发起者编辑。",
     "userAlreadyInChallenge": "用户已经加入此挑战。",
     "cantOnlyUnlinkChalTask": "只有已失效的挑战任务才能取消链接。",

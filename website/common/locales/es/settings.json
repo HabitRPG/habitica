@@ -18,7 +18,7 @@
     "resetAccPop": "Empezar de nuevo, eliminando todo el oro, niveles, equipo, historial, y tareas.",
     "deleteAccount": "Eliminar cuenta",
     "deleteAccPop": "Cancelar y quitar esta cuenta de Habitica.",
-    "feedback": "Si quieres hacernos algún comentario, por favor, introdúcelo a continuación - ¡nos encantaría oír tu opinión! Será anónima a no ser que decidas incluir tu información de contacto. ¿No sabes mucho inglés? ¡Sin problema! Utiliza el idioma que prefieras.",
+    "feedback": "¡Nos encantaría leerte! Si tienes algún comentario y/o sugerencia, escríbelo a continuación. Tu identidad permanecerá anónima a menos que decidas incluir tu información de contacto.",
     "dataExport": "Exportar Datos",
     "saveData": "Aquí tienes varias opciones para guardar tus datos.",
     "habitHistory": "Historial de Hábitos",
@@ -47,8 +47,8 @@
     "dangerZone": "Zona Peligrosa",
     "resetText1": "<b>¡Cuidado!</b>Eso resetea muchas partes de tu cuenta. Esto es altamente desalentador, pero algunas personas lo encuentran útil al principio después de jugar durante un tiempo.",
     "resetText2": "Quizá prefieras utilizar un <b>Orbe de Renacimiento</b>, que reiniciará todo lo demás pero mantendrá tus Tareas y Equipamiento.",
-    "deleteLocalAccountText": "<b>¿Seguro?</b> Tu cuenta se eliminará para siempre y nunca podrá recuperarse. Si más tarde quieres volver a usar Habitica, tendrás que crear una nueva cuenta. No se te reembolsarán las gemas que tengas ni las que hayas gastado. Si estás totalmente seguro, escribe tu contraseña en el siguiente cuadro de texto.",
-    "deleteSocialAccountText": "<b>¿Estás seguro?</b> ¡Esto eliminará tu cuenta para siempre, y nunca podrá ser restaurada! Necesitarás crear una nueva cuenta para usar Habitica de nuevo. Las Gemas depositadas o gastadas no serán reembolsadas. Si estás absolutamente seguro, escribe <b>\"<%= magicWord %>\"</b> en el cuadro de texto de abajo.",
+    "deleteLocalAccountText": "<b>¿Estás seguro?</b> Esta acción es permanente. Borrar tu cuenta eliminará toda tu información y será imposible recuperarla. Las Gemas compradas no serán reembolsadas.<br><br> El proceso de eliminación de la cuenta puede demorar hasta 24 horas en completarse, y hasta 30 días en el caso de la eliminación de datos analíticos. Una vez completado, podrás crear una nueva cuenta en Habitica usando la misma información de inicio de sesión.<br><br>Para continuar, introduce tu contraseña a continuación.",
+    "deleteSocialAccountText": "<b>¿Estás seguro?</b> Esta acción es permanente. Borrar tu cuenta eliminará toda tu información y será imposible recuperarla. Las Gemas compradas no serán reembolsadas.<br><br> El proceso de eliminación de la cuenta puede demorar hasta 24 horas en completarse, y hasta 30 días en el caso de la eliminación de datos analíticos. Una vez completado, podrás crear una nueva cuenta en Habitica usando la misma información de inicio de sesión.<br><br>Para continuar, escribe <%= magicWord %> a continuación.",
     "API": "API",
     "APIv3": "API v3",
     "APIText": "Copie esto para usarlo en aplicaciones de terceros. Sin embargo, pensa en tu API Token como una contraseña, no la compartas en público. En ocasiones se te solicitará tu ID de Usuario, pero nunca publiques tu API Token donde otros puedan verla, incluyendo Github.",
@@ -271,5 +271,6 @@
     "privacyOverview": "En el mundo en el que vivimos, parece que todas las compañías buscan obtener beneficios de los datos que recopilan acerca de nosotros. Esto nos dificulta la búsqueda de una aplicación que nos ayude a mejorar nuestros hábitos y estilo de vida. Habitica usa cookies que almacenan nuestros datos solo para analizar el rendimiento, gestionar solicitudes de soporte y brindarnos la mejor experiencia de juego posible. Aún así puedes cambiar tus preferencias en cualquier momento desde los ajustes de tu cuenta.",
     "acceptAllCookies": "Aceptar Todas las Cookies",
     "gpcWarning": "<%= linkOpen %>GPC<%= linkClose %>está activado. Al activar el seguimiento de abajo, se anulará esto y se enviarán datos a nuestros socios analíticos.",
-    "gpcPlusAnalytics": "<%= linkOpen %>GPC<%= linkClose %>está activado. Ha aceptado el seguimiento y envío de datos a nuestros socios analíticos."
+    "gpcPlusAnalytics": "<%= linkOpen %>GPC<%= linkClose %>está activado. Ha aceptado el seguimiento y envío de datos a nuestros socios analíticos.",
+    "tooManyWebhooks": "Los Webhooks están limitados a <%= limit %> entradas por cuenta."
 }

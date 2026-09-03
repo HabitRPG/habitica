@@ -44,5 +44,5 @@
     "surveysMultiple": "<%= count %> 경우에도 Habitica가 성장할 수 있도록 도와주세요, 설문 조사에 참여하거나, 주요 테스트를 도우면서요. 감사합니다!",
     "blurbHallPatrons": "여기는 Habitica를 Kickstarter때 후원해주신 숭고한 모험가들을 기리는 후원자의 홀이예요. 우리는 Habitica를 삶에 적용할 수 있도록 도와주신 그들에게 감사해요!",
     "blurbHallContributors": "여기는 Habitica가 오픈소스 공헌자들을 기리는 공헌자의 홀이예요. 코딩, 아트, 음악, 각본, 아니면 아주 작은 도움이든간에, 그들은 그것을 통해 이런것들을 획득했습니다 <%= linkContributing %> 여기서 추가 정보를 더 알아보세요. <%= linkClose %>",
-    "noPrivAccess": ""
+    "noPrivAccess": "필요한 권한이 없습니다."
 }

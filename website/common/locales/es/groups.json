@@ -239,7 +239,7 @@
     "guildSummaryPlaceholder": "Escribe una breve descripción de tu Grupo. ¿Cuál es el propósito principal de tu Grupo y qué harán sus miembros?",
     "groupDescription": "Descripción",
     "guildDescriptionPlaceholder": "Usa esta sección para desarrollar más en detalle todo lo que los miembros del Grupo deberían saber sobre ella. ¡Los consejos de utilidad, enlaces de interés y frases motivacionales van aquí!",
-    "markdownFormattingHelp": "[Ayuda con el formato Markdown](https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica)",
+    "markdownFormattingHelp": "[Ayuda con el formato Markdown](<%= markdownLink %>)",
     "partyDescriptionPlaceholder": "Esta es la descripción de nuestro Equipo. Explica lo que hacemos en este Equipo. Si quieres saber más sobre lo que hacemos en este Equipo, lee la descripción. Toma equipo.",
     "guildGemCostInfo": "El coste de Gemas promueve una alta calidad en los Gremios y es transferido al banco de tu Gremio.",
     "noGuildsTitle": "No eres miembro de ningún Gremio.",

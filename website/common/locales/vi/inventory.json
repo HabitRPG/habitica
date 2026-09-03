@@ -2,5 +2,9 @@
     "noItemsAvailableForType": "Bạn không có <%= type %>.",
     "foodItemType": "Thức Ăn Thú Cưng",
     "eggsItemType": "Trứng",
-    "hatchingPotionsItemType": "Linh Dược Ấp Trứng"
+    "hatchingPotionsItemType": "Linh Dược Ấp Trứng",
+    "specialItemType": "Vật phẩm đặc biệt",
+    "lockedItem": "Vật phẩm bị khóa",
+    "petAndMount": "Thú Cưng và Thú Cưỡi",
+    "allItems": "Tất cả vật phẩm"
 }

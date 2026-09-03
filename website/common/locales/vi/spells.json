@@ -1,1 +1,5 @@
-{}
+{
+    "spellWizardFireballText": "Bộc Phá Hỏa Cầu",
+    "spellLevelTooHigh": "Bạn phải đạt cấp <%= level %> để dùng kỹ năng này.",
+    "spellNotOwned": "Bạn không sở hữu kỹ năng này."
+}
