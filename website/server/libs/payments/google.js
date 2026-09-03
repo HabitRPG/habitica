@@ -86,7 +86,7 @@ function validateSubscriptionLifecycleState (purchase, options = {}) {
   }
 
   const cancelReason = Number(purchase.cancelReason);
-  const isExpired = iap.isExpired(purchase);
+  const isExpired = purchase.expiryTimeMillis > 0 && iap.isExpired(purchase);
   const isSystemCanceled = !Number.isNaN(cancelReason) && cancelReason > 0;
 
   if (!allowExpired && isExpired) {
