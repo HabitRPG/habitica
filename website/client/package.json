@@ -52,12 +52,12 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.21.0",
-    "@vitest/browser": "^3.0.5",
+    "@vitest/browser": "^4.1.10",
     "babel-plugin-lodash": "^3.3.4",
     "inspectpack": "^4.7.1",
     "jsdom": "^26.0.0",
     "mocha": "^11.1.0",
     "playwright": "^1.50.1",
-    "vitest": "^3.0.5"
+    "vitest": "^4.1.10"
   }
 }
