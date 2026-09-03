@@ -1070,13 +1070,14 @@ schema.methods.finishQuest = async function finishQuest (quest) {
 };
 
 schema.methods.notifyQuestCount = async function notifyQuestCount (members) {
+  const promises = [];
   User.find(
     {
       _id: { $in: members },
       'achievements.questCount': { $in: questAchievementThresholds },
     },
   )
-    .select('_id achievements')
+    .select('_id achievements notifications')
     .exec()
     .then(participantsAtThreshold => {
       participantsAtThreshold.forEach(participant => {
@@ -1086,9 +1087,12 @@ schema.methods.notifyQuestCount = async function notifyQuestCount (members) {
             achievement: `questCount${participant.achievements.questCount}`,
           },
         );
+        promises.push(participant.save());
       });
     })
     .catch(err => logger.error(err));
+  
+  return Promise.all(promises);
 };
 
 function _isOnQuest (user, progress, group) {
