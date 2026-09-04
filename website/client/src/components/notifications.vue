@@ -157,6 +157,7 @@ const NOTIFICATIONS = {
       message: $t => $t('achievement'),
       modalText: null,
     },
+    sticky: true,
   },
   CHALLENGE_JOINED_ACHIEVEMENT: {
     achievement: true,

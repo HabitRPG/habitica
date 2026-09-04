@@ -40,8 +40,13 @@ import { model as UserNotification } from './userNotification';
 import { sendChatPushNotifications } from '../libs/chat'; // eslint-disable-line import/no-cycle
 import { model as UserHistory } from './userHistory'; // eslint-disable-line import/no-cycle
 
+const { isReleased } = shared.content;
 const questScrolls = shared.content.quests;
-const { questSeriesAchievements } = shared.content;
+const {
+  questSeriesAchievements,
+  achievementReleaseDates,
+  questAchievementThresholds,
+} = shared.content;
 const { Schema } = mongoose;
 
 export const INVITES_LIMIT = 100; // must not be greater than MAX_EMAIL_INVITES_BY_USER
@@ -51,7 +56,6 @@ export const { TAVERN_ID } = shared;
 const NO_CHAT_NOTIFICATIONS = [TAVERN_ID];
 const { LARGE_GROUP_COUNT_MESSAGE_CUTOFF } = shared.constants;
 const { MAX_SUMMARY_SIZE_FOR_GUILDS } = shared.constants;
-
 const { CHAT_FLAG_LIMIT_FOR_HIDING } = shared.constants;
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
@@ -965,6 +969,10 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     $set: {},
   };
 
+  if (isReleased({ name: 'questCount' }, 'name', achievementReleaseDates)) {
+    updates.$inc['achievements.questCount'] = 1;
+  }
+
   if (this._id === TAVERN_ID) {
     updates.$set['party.quest.completed'] = questK; // Just show the notif
   } else {
@@ -1061,6 +1069,32 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   return Promise.all(promises);
 };
 
+schema.methods.notifyQuestCount = async function notifyQuestCount (members) {
+  const promises = [];
+  User.find(
+    {
+      _id: { $in: members },
+      'achievements.questCount': { $in: questAchievementThresholds },
+    },
+  )
+    .select('_id achievements notifications')
+    .exec()
+    .then(participantsAtThreshold => {
+      participantsAtThreshold.forEach(participant => {
+        participant.addNotification(
+          'ACHIEVEMENT',
+          {
+            achievement: `questCount${participant.achievements.questCount}`,
+          },
+        );
+        promises.push(participant.save());
+      });
+    })
+    .catch(err => logger.error(err));
+
+  return Promise.all(promises);
+};
+
 function _isOnQuest (user, progress, group) {
   return group && progress && group.quest && group.quest.active
     && group.quest.members[user._id] === true;
@@ -1138,10 +1172,11 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
     }
   }
 
+  const participants = this.getParticipatingQuestMembers();
   await User.updateMany(
     {
       _id:
-      { $in: this.getParticipatingQuestMembers() },
+      { $in: participants },
     },
     updates,
   ).exec();
@@ -1167,6 +1202,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
 
     // Participants: Grant rewards & achievements, finish quest
     await group.finishQuest(shared.content.quests[group.quest.key]);
+    await group.notifyQuestCount(participants);
   }
 
   promises.unshift(group.save());
@@ -1225,7 +1261,9 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
 
   const questFinished = collectedItems.length === remainingItems.length;
   if (questFinished) {
+    const participants = this.getParticipatingQuestMembers();
     await group.finishQuest(quest);
+    await group.notifyQuestCount(participants);
     const allItemsFoundChat = await group.sendChat({
       message: `\`${shared.i18n.t('chatItemQuestFinish', 'en')}\``,
       info: {
