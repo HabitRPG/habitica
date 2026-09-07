@@ -271,5 +271,6 @@
     "habiticaPrivacyPolicy": "Habitica's Privacy Policy",
     "learnMorePrivacy": "To learn more, review our <%= linkOpen %>Privacy Policy<%= linkClose %>.",
     "gpcWarning": "<%= linkOpen %>GPC<%= linkClose %> is enabled. Turning on tracking below will override this setting and send data to our analytics partners.",
-    "gpcPlusAnalytics": "<%= linkOpen %>GPC<%= linkClose %> is enabled. You have opted in to tracking and to sending data to our analytics partners."
+    "gpcPlusAnalytics": "<%= linkOpen %>GPC<%= linkClose %> is enabled. You have opted in to tracking and to sending data to our analytics partners.",
+    "tooManyWebhooks": "Webhooks are limited to <%= limit %> entries per account."
 }
