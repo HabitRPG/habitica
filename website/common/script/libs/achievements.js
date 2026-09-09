@@ -209,7 +209,7 @@ function _addRebirth (result, user, data) {
   });
 }
 
-function _addQuestCount (result, user, data) {
+function questCount (user, data) {
   let count = 0;
   const progress = user.achievements.questCount || 0;
   let questText = i18n.t(
@@ -217,12 +217,13 @@ function _addQuestCount (result, user, data) {
     { count, progress, target: 1 },
   );
 
-  if (progress >= 100) {
-    count = 100;
-    questText = i18n.t('achievementQuestCountMaximumText', { count: 100 }, data.language);
-  } else if (progress >= 1 && progress < 5) {
+  const maxQuestCount = Math.max(thresholds);
+  if (progress >= maxQuestCount) {
+    count = maxQuestCount;
+    questText = i18n.t('achievementQuestCountMaximumText', { count: maxQuestCount }, data.language);
+  } else if (progress >= 1 && progress < thresholds[1]) {
     count = 1;
-    questText = i18n.t('achievementQuestCountSingleText', { progress, target: 5 }, data.language);
+    questText = i18n.t('achievementQuestCountSingleText', { progress, target: thresholds[1] }, data.language);
   } else if (user.achievements.questCount) {
     const thresholdAchieved = thresholds.findIndex((target, i) => target !== 1 && progress >= target && progress < thresholds[i + 1]); // eslint-disable-line max-len
     count = thresholds[thresholdAchieved];
@@ -231,14 +232,14 @@ function _addQuestCount (result, user, data) {
       { count, progress, target: thresholds[thresholdAchieved + 1] },
     );
   }
-
-  _add(result, {
+  
+  return {
     key: 'questCount',
     title: i18n.t(`achievementQuestCount${count}`, data.language),
     text: questText,
     icon: `achievement-completed-${count}-quest`,
     earned: Boolean(progress),
-  });
+  };
 }
 
 function _getBasicAchievements (user, language) {
@@ -311,7 +312,7 @@ function _getBasicAchievements (user, language) {
 
   _addRebirth(result, user, { language });
   if (isReleased({ name: 'questCount' }, 'name', ACHIEVEMENT_RELEASE_DATES)) {
-    _addQuestCount(result, user, { language });
+    _add(result, questCount(user, data));
   }
 
   return result;
@@ -434,5 +435,6 @@ achievs.getAchievementsForProfile = function getAchievementsForProfile (user, la
 };
 
 achievs.getContribText = contribText;
+achievs.getQuestCount = questCount;
 
 export default achievs;

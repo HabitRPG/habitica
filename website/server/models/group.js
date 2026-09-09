@@ -40,6 +40,7 @@ import { model as UserNotification } from './userNotification';
 import { sendChatPushNotifications } from '../libs/chat'; // eslint-disable-line import/no-cycle
 import { model as UserHistory } from './userHistory'; // eslint-disable-line import/no-cycle
 
+const { achievements } = shared;
 const { isReleased } = shared.content;
 const questScrolls = shared.content.quests;
 const {
@@ -1077,14 +1078,20 @@ schema.methods.notifyQuestCount = async function notifyQuestCount (members) {
       'achievements.questCount': { $in: questAchievementThresholds },
     },
   )
-    .select('_id achievements notifications')
+    .select('_id achievements preferences notifications')
     .exec()
     .then(participantsAtThreshold => {
       participantsAtThreshold.forEach(participant => {
+        const questCountData = achievements.getQuestCount(
+          participant,
+          { language: participant.preferences.language },
+        );
         participant.addNotification(
           'ACHIEVEMENT',
           {
             achievement: `questCount${participant.achievements.questCount}`,
+            message: shared.i18n.t('rebirthNewAchievement'),
+            modalText: questCountData.text,
           },
         );
         promises.push(participant.save());
