@@ -232,7 +232,7 @@ function questCount (user, data) {
       { count, progress, target: thresholds[thresholdAchieved + 1] },
     );
   }
-  
+
   return {
     key: 'questCount',
     title: i18n.t(`achievementQuestCount${count}`, data.language),
@@ -312,7 +312,7 @@ function _getBasicAchievements (user, language) {
 
   _addRebirth(result, user, { language });
   if (isReleased({ name: 'questCount' }, 'name', ACHIEVEMENT_RELEASE_DATES)) {
-    _add(result, questCount(user, data));
+    _add(result, questCount(user, { language }));
   }
 
   return result;
