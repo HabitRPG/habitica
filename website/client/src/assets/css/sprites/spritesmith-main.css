@@ -123,6 +123,36 @@
   width: 48px;
   height: 52px;
 }
+.achievement-completed-1-quest2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-completed-1-quest2x.png');
+  width: 68px;
+  height: 68px;
+}
+.achievement-completed-10-quest2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-completed-10-quest2x.png');
+  width: 68px;
+  height: 68px;
+}
+.achievement-completed-100-quest2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-completed-100-quest2x.png');
+  width: 68px;
+  height: 68px;
+}
+.achievement-completed-25-quest2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-completed-25-quest2x.png');
+  width: 68px;
+  height: 68px;
+}
+.achievement-completed-5-quest2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-completed-5-quest2x.png');
+  width: 68px;
+  height: 68px;
+}
+.achievement-completed-50-quest2x {
+  background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-completed-50-quest2x.png');
+  width: 68px;
+  height: 68px;
+}
 .achievement-completedTask2x {
   background-image: url('https://habitica-assets.s3.amazonaws.com/mobileApp/images/achievement-completedTask2x.png');
   width: 48px;

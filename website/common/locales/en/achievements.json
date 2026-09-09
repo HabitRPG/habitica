@@ -165,5 +165,15 @@
   "achievementRodentRulerModalText": "You collected all the rodent pets!",
   "achievementCats": "Cat Herder",
   "achievementCatsText": "Has hatched all the standard colors of cat pets: Cheetah, Lion, Sabretooth, and Tiger!",
-  "achievementCatsModalText": "You collected all the cat pets!"
+  "achievementCatsModalText": "You collected all the cat pets!",
+  "achievementQuestCount0": "Quester",
+  "achievementQuestCount1": "Iron Quester",
+  "achievementQuestCount5": "Bronze Quester",
+  "achievementQuestCount10": "Silver Quester",
+  "achievementQuestCount25": "Gold Quester",
+  "achievementQuestCount50": "Platinum Quester",
+  "achievementQuestCount100": "Ultimate Quester",
+  "achievementQuestCountSingleText": "Completed 1 Quest. Progress toward next achievement: <%= progress %>/<%= target %> Quests completed",
+  "achievementQuestCountMultipleText": "Completed <%= count %> Quests. Progress toward next achievement: <%= progress %>/<%= target %> Quests completed",
+  "achievementQuestCountMaximumText": "This player has completed <%= count %> Quests to become the Ultimate Quester, truly amazing!"
 }

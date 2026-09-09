@@ -1,4 +1,5 @@
 import each from 'lodash/each';
+import { QUEST_ACHIEVEMENT_THRESHOLDS } from './constants';
 
 const achievementsData = {};
 
@@ -479,6 +480,15 @@ const cardAchievs = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday', 'co
   return achievs;
 }, {});
 Object.assign(achievementsData, cardAchievs);
+
+const questCountAchievs = QUEST_ACHIEVEMENT_THRESHOLDS.reduce((achievs, threshold) => {
+  achievs[`questCount${threshold}`] = {
+    icon: `achievement-completed-${threshold}-quest`,
+    titleKey: `achievementQuestCount${threshold}`,
+  };
+  return achievs;
+}, {});
+Object.assign(achievementsData, questCountAchievs);
 
 each(achievementsData, (value, key) => {
   value.key = key;
