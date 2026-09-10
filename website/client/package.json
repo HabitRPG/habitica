@@ -19,7 +19,7 @@
     "@vue/test-utils": "1.0.0-beta.29",
     "assert": "^2.1.0",
     "autoprefixer": "^10.4.20",
-    "axios": "^0.28.0",
+    "axios": "^0.33.0",
     "axios-progress-bar": "^1.2.0",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.23.1",
