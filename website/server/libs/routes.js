@@ -33,8 +33,9 @@ export function readController (router, controller, overrides = []) {
 
     method = method.toLowerCase();
 
-    // disable caching for all routes with mandatory or optional authentication
-    if (authMiddlewareIndex !== -1) {
+    // disable caching for all routes with mandatory or optional authentication,
+    // unless the route explicitly opts in to allow caching (e.g. /content)
+    if (authMiddlewareIndex !== -1 && !action.allowCache) {
       middlewares.unshift(disableCache);
       authMiddlewareIndex += 1;
     }
