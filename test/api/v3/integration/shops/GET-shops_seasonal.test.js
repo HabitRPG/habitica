@@ -10,6 +10,22 @@ describe('GET /shops/seasonal', () => {
     user = await generateUser();
   });
 
+  describe('localizes the shops content', () => {
+    it('from the users locale', async () => {
+      await user.updateOne({ 'preferences.language': 'es' });
+      const shop = await user.get('/shops/seasonal');
+
+      expect(shop.text).to.eql(t('seasonalShop', {}, 'es'));
+    });
+
+    it('from the passed locale', async () => {
+      await user.updateOne({ 'preferences.language': 'es' });
+      const shop = await user.get('/shops/seasonal?lang=de');
+
+      expect(shop.text).to.eql(t('seasonalShop', {}, 'de'));
+    });
+  });
+
   it('returns a valid shop object', async () => {
     const shop = await user.get('/shops/seasonal');
 
