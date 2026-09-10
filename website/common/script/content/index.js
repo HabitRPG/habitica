@@ -106,9 +106,9 @@ api.armoire = {
   text: t('armoireText'),
   notes (count, language) {
     if (count === 0) {
-      return t('armoireNotesEmpty', {}, language);
+      return t('armoireNotesEmpty')(language);
     }
-    return `${t('armoireNotesFull', {}, language)} ${count}`;
+    return `${t('armoireNotesFull')(language)} ${count}`;
   },
   value: 100,
   key: 'armoire',
