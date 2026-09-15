@@ -4,7 +4,7 @@
       v-for="attr in ATTRIBUTES"
       :key="attr"
       class="popover-content-attr"
-      :class="`attr-${attr}`"
+      :class="item.end ? `attr-${attr} limited` : `attr-${attr}`"
     >
       <div class="group-content">
         <span
@@ -63,13 +63,15 @@
       padding-top: 0.5rem;
     }
 
-    &:nth-of-type(3) {
+    &:nth-of-type(3):not(.limited) {
       border-bottom-left-radius: 8px;
     }
 
     &:nth-of-type(4) {
-      border-bottom-right-radius: 8px;
       padding-bottom: 8px;
+      &:not(.limited) {
+        border-bottom-right-radius: 8px;
+      }
     }
   }
 
