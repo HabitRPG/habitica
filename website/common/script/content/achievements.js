@@ -366,26 +366,31 @@ const onboardingAchievs = {
     icon: 'achievement-createdTask',
     titleKey: 'achievementCreatedTask',
     textKey: 'achievementCreatedTaskText',
+    modalTextKey: 'achievementCreatedTaskNotifText',
   },
   completedTask: {
     icon: 'achievement-completedTask',
     titleKey: 'achievementCompletedTask',
     textKey: 'achievementCompletedTaskText',
+    modalTextKey: 'achievementCompletedTaskNotifText',
   },
   hatchedPet: {
     icon: 'achievement-hatchedPet',
     titleKey: 'achievementHatchedPet',
     textKey: 'achievementHatchedPetText',
+    modalTextKey: 'achievementHatchedPetNotifText',
   },
   fedPet: {
     icon: 'achievement-fedPet',
     titleKey: 'achievementFedPet',
     textKey: 'achievementFedPetText',
+    modalTextKey: 'achievementFedPetNotifText',
   },
   purchasedEquipment: {
     icon: 'achievement-purchasedEquipment',
     titleKey: 'achievementPurchasedEquipment',
     textKey: 'achievementPurchasedEquipmentText',
+    modalTextKey: 'achievementPurchasedEquipmentNotifText',
   },
 };
 Object.assign(achievementsData, onboardingAchievs);
