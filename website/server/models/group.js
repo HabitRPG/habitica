@@ -1090,7 +1090,8 @@ schema.methods.notifyQuestCount = async function notifyQuestCount (members) {
           'ACHIEVEMENT',
           {
             achievement: `questCount${participant.achievements.questCount}`,
-            message: shared.i18n.t('rebirthNewAchievement'),
+            icon: `achievement-completed-${participant.achievements.questCount}-quest`,
+            message: shared.i18n.t(`achievementQuestCount${participant.achievements.questCount}`),
             modalText: questCountData.text,
           },
         );
