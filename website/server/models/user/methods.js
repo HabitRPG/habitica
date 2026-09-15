@@ -263,7 +263,8 @@ schema.methods.addAchievement = function addAchievement (achievement) {
       achievement,
       icon: achievementData.icon,
       message: common.i18n.t(achievementData.titleKey, language),
-      modalText: achievementData.modalTextKey ? common.i18n.t(achievementData.modalTextKey, language)
+      modalText: achievementData.modalTextKey
+        ? common.i18n.t(achievementData.modalTextKey, language)
         : common.i18n.t(achievementData.textKey, language),
     },
     seen: false,
