@@ -46,19 +46,16 @@
   }
 
   .input-group {
-    width: 94px;
     height: 32px;
-    width: 48px;
+    width: 40px;
     margin: 0px 16px 0px 16px;
-    padding: 0;
-    border-radius: 2px;
+    border-radius: 3px;
     border: solid 1px $gray-400;
-    background-color: $white;
   }
 
   .gray-circle {
     border-radius: 100%;
-    border: solid 2px $gray-300;
+    border: solid 2px $gray-100;
     width: 32px;
     height: 32px;
     cursor: pointer;
@@ -82,7 +79,7 @@
     margin: 4px auto;
 
     & ::v-deep svg path {
-      fill: $gray-300;
+      fill: $gray-100;
     }
   }
 
