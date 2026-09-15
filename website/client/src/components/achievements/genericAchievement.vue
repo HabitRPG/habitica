@@ -12,7 +12,7 @@
         v-once
         class="header"
       >
-        {{ data.message }}
+        {{ $t('rebirthNewAchievement') }}
       </h2>
       <div class="d-flex align-items-center justify-content-center icon-area">
         <div
@@ -31,7 +31,7 @@
         ></div>
       </div>
       <p class="subtitle">
-        {{ $t(achievement.titleKey) }}
+        {{ data.message }}
       </p>
       <p
         class="description"
@@ -148,7 +148,6 @@
 </style>
 
 <script>
-import achievements from '@/../../common/script/content/achievements';
 import closeX from '@/components/ui/closeX';
 import Sprite from '@/components/ui/sprite';
 import starGroup from '@/assets/svg/star-group.svg?raw';
@@ -171,11 +170,8 @@ export default {
   },
   computed: {
     ...mapState({ user: 'user.data' }),
-    achievement () {
-      return achievements[this.data.achievement];
-    },
     achievementClass () {
-      return `${this.achievement.icon}2x`;
+      return `${this.data.icon}2x`;
     },
   },
   methods: {
