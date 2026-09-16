@@ -216,8 +216,7 @@ function questCount (user, data) {
     'achievementQuestCountMultipleText',
     { count, progress, target: 1 },
   );
-
-  const maxQuestCount = Math.max(thresholds);
+  const maxQuestCount = Math.max(...thresholds);
   if (progress >= maxQuestCount) {
     count = maxQuestCount;
     questText = i18n.t('achievementQuestCountMaximumText', { count: maxQuestCount }, data.language);
