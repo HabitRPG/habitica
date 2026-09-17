@@ -26,6 +26,32 @@ describe('GET /shops/market', () => {
     expect(categories).to.include('food');
   });
 
+  describe('localizes the shops content', () => {
+    it('from the users locale', async () => {
+      await user.updateOne({ 'preferences.language': 'es' });
+      const shop = await user.get('/shops/market');
+
+      expect(shop.text).to.eql(t('market', {}, 'es'));
+      expect(shop.notes).to.eql(t('welcomeMarketMobile', {}, 'es'));
+      expect(shop.featured.text).to.eql(t('featuredItems', {}, 'es'));
+      expect(shop.categories[0].text).to.eql(t('eggs', {}, 'es'));
+      const firstPotion = shop.categories[1].items[0];
+      expect(firstPotion.text).to.eql(t('potion', { potionType: t(`hatchingPotion${firstPotion.key}`, {}, 'es') }, 'es'));
+    });
+
+    it('from the passed locale', async () => {
+      await user.updateOne({ 'preferences.language': 'es' });
+      const shop = await user.get('/shops/market?lang=de');
+
+      expect(shop.text).to.eql(t('market', {}, 'de'));
+      expect(shop.notes).to.eql(t('welcomeMarketMobile', {}, 'de'));
+      expect(shop.featured.text).to.eql(t('featuredItems', {}, 'de'));
+      expect(shop.categories[0].text).to.eql(t('eggs', {}, 'de'));
+      const firstPotion = shop.categories[1].items[0];
+      expect(firstPotion.text).to.eql(t('potion', { potionType: t(`hatchingPotion${firstPotion.key}`, {}, 'de') }, 'de'));
+    });
+  });
+
   it('can purchase anything returned from the shops object using the /user/purchase route', async () => {
     await user.updateOne({
       balance: 99999999,
