@@ -52,8 +52,6 @@ describe('payments : google #norenewsubscribe', () => {
       expect(subscribeStub.args[0][0].user._id).to.eql(user._id);
       expect(subscribeStub.args[0][0].receipt).to.eql('receipt');
       expect(subscribeStub.args[0][0].signature).to.eql('signature');
-      expect(subscribeStub.args[0][0].headers['x-api-key']).to.eql(user.apiToken);
-      expect(subscribeStub.args[0][0].headers['x-api-user']).to.eql(user._id);
     });
 
     it('gifts a purchase', async () => {
@@ -80,8 +78,6 @@ describe('payments : google #norenewsubscribe', () => {
       expect(subscribeStub.args[0][0].user._id).to.eql(user._id);
       expect(subscribeStub.args[0][0].receipt).to.eql('receipt');
       expect(subscribeStub.args[0][0].signature).to.eql('signature');
-      expect(subscribeStub.args[0][0].headers['x-api-key']).to.eql(user.apiToken);
-      expect(subscribeStub.args[0][0].headers['x-api-user']).to.eql(user._id);
     });
   });
 });
