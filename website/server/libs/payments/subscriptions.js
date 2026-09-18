@@ -446,6 +446,10 @@ async function cancelSubscription (data) {
     paymentConstants.GROUP_PLAN_CUSTOMER_ID,
   );
 
+  if (data.nextBill) {
+    plan.datePaymentExpired = data.nextBill;
+  }
+
   // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
   plan.extraMonths = 0;
 

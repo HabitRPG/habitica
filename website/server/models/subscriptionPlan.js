@@ -12,6 +12,7 @@ export const schema = new mongoose.Schema({
   customerId: String, // Billing Agreement Id in case of Amazon Payments
   dateCreated: Date,
   dateTerminated: Date,
+  datePaymentExpired: Date, // When the paid subscription period expired.
   dateUpdated: Date,
   dateCurrentTypeCreated: Date,
   extraMonths: { $type: Number, default: 0 },
