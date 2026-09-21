@@ -179,6 +179,7 @@ async function findSubscriptionPurchase (additionalData) {
   if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
 
   const { purchase } = getPurchasesFromValidatedResponse(googleRes);
+  console.log(purchase);
 
   return {
     googleRes,
@@ -447,6 +448,7 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
       allowExpired: true,
       allowSystemCanceled: true,
     });
+    console.log(details);
     if (!details.isCanceled && !details.isExpired) {
       throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
     }
