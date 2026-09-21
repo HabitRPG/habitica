@@ -184,7 +184,7 @@ async function findSubscriptionPurchase (additionalData) {
   return {
     googleRes,
     purchase,
-    isCanceled: iap.isCanceled(purchase),
+    isCanceled: iap.isCanceled(purchase) && purchase.autoRenewing,
     isExpired: iap.isExpired(purchase),
     expiryTimeMillis: Number(purchase.expiryTimeMillis),
   };
