@@ -291,6 +291,9 @@ api.updateHero = {
       if (plan.dateTerminated !== hero.purchased.plan.dateTerminated) {
         hero.purchased.plan.dateTerminated = plan.dateTerminated;
       }
+      if (plan.datePaymentExpired !== hero.purchased.plan.datePaymentExpired) {
+        hero.purchased.plan.datePaymentExpired = plan.datePaymentExpired;
+      }
       if (plan.consecutive) {
         if (plan.consecutive.trinkets) {
           const changedHourglassTrinkets = plan.consecutive.trinkets

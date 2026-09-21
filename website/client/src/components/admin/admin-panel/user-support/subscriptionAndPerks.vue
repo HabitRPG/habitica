@@ -199,7 +199,6 @@
           </div>
         </div>
         <div
-          v-if="hero.purchased.plan.dateCreated"
           class="form-group row"
         >
           <label class="col-sm-3 col-form-label">
@@ -221,7 +220,6 @@
           </div>
         </div>
         <div
-          v-if="hero.purchased.plan.dateCurrentTypeCreated"
           class="form-group row"
         >
           <label class="col-sm-3 col-form-label">
@@ -272,6 +270,29 @@
               class="text-success"
             >
               The subscription does not have a termination date and is active.
+            </small>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">
+            Payment Expiration Date:
+          </label>
+          <div class="col-sm-9">
+            <div class="input-group">
+              <input
+                v-model="hero.purchased.plan.datePaymentExpired"
+                class="form-control"
+                type="text"
+              >
+              <div class="input-group-append">
+                <strong class="input-group-text">
+                  {{ dateFormat(hero.purchased.plan.datePaymentExpired) }}
+                </strong>
+              </div>
+            </div>
+            <small class="text-secondary">
+              This is the date the payment for the subscription is expired.
+              The Termination date might be later due to any extra months applied.
             </small>
           </div>
         </div>
