@@ -187,5 +187,5 @@
     "acceptPrivacyTOS": "Ik bevestig dat ik ten minste 18 jaar oud ben en dat ik akkoord ga met de <%= termsLink %>Algemene Voorwaarden<%= linkClose %> en het <%= privacyLink %>Privacybeleid<%= linkClose %> en deze heb gelezen",
     "translateHabitica": "Habitica vertalen",
     "emailAddress": "e-mailadres",
-    "emailRequiredForSupport": ""
+    "emailRequiredForSupport": "We hebben een e-mailadres nodig voor gebruikersondersteuning. Voer een e-mailadres in om door te gaan met het aanmaken van je account."
 }

@@ -3559,5 +3559,9 @@
     "headSpecialSpring2026HealerText": "Capacete Campainha-de-Inverno",
     "headSpecialSpring2026HealerNotes": "Traga uma mensagem de esperança com estas pétalas belas e resistentes. Aumenta Inteligência em <%= int %>. Equipamento de Edição Limitada da Primavera de 2026.",
     "headSpecialSpring2026MageText": "Coroa de Flor-de-Maio",
-    "headSpecialSummer2026HealerText": "Elmo do Papagaio-do-mar"
+    "headSpecialSummer2026HealerText": "Elmo do Papagaio-do-mar",
+    "weaponSpecialFall2026WarriorText": "Lanterna da Abóbora Fantasma",
+    "weaponSpecialFall2026WarriorNotes": "Não vá a lugar nenhum sem uma luz, especialmente quando você pode ter uma que também funciona como uma foice que corta tarefas. Aumenta Força em <%= str %>. Equipamento Edição Limitada Outono 2026.",
+    "weaponSpecialFall2026RogueText": "Cajado Corvo Esquelético",
+    "weaponSpecialFall2026RogueNotes": "Não vá a lugar nenhum sem um cajado, especialmente um com um amigo emplumado empoleirado em cima. Aumenta Força em <%= str %>. Equipamento Edição Limitada Outono 2026."
 }

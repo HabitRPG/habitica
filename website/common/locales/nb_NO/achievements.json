@@ -1,1 +1,7 @@
-{}
+{
+    "achievement": "Prestasjon",
+    "onwards": "Videre!",
+    "levelup": "Ved å få til dine virkelige mål, gikk du opp i nivå og har nå full helse!",
+    "reachedLevel": "Du har nådd nivå <%= level %>",
+    "yourRewards": "Dine premier"
+}
