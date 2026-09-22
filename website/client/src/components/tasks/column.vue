@@ -750,8 +750,8 @@ export default {
     openBuyDialog (rewardItem) {
       if (rewardItem.locked) return;
 
-      // Buy armoire and health potions immediately
-      const itemsToPurchaseImmediately = ['potion', 'armoire'];
+      // Buy armoire immediately
+      const itemsToPurchaseImmediately = ['armoire'];
       if (itemsToPurchaseImmediately.indexOf(rewardItem.key) !== -1) {
         this.makeGenericPurchase(rewardItem);
         this.$emit('buyPressed', rewardItem);

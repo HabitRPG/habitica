@@ -16,14 +16,7 @@
       />
     </span>
     <div>
-      <span
-        class="svg-icon close-icon icon-16 color"
-        aria-hidden="true"
-        tabindex="0"
-        @click="hideDialog()"
-        @keypress.enter="hideDialog()"
-        v-html="icons.close"
-      ></span>
+      <close-x @close="hideDialog()" />
     </div>
     <div
       v-if="item != null"
@@ -42,7 +35,9 @@
               :hide-class-badge="true"
               :with-background="true"
               :override-avatar-gear="getAvatarOverrides(item)"
-              :sprites-margin="'0px auto 0px -2px'"
+              :sprites-margin="user.preferences.background ? '0px auto 0px -2px'
+                : '0px auto 0px -23px'"
+              :class="{ 'item flat bordered-item': !user.preferences.background }"
             />
           </div>
           <item
@@ -68,7 +63,19 @@
           <!-- eslint-disable-next-line max-len -->
           <span class="owned-text">{{ $t('owned') }}: <span class="user-amount">{{ totalOwned }}</span></span>
         </div>
-        <h4 class="title">
+        <h4
+          class="title d-flex justify-content-center align-items-center"
+          :class="{ 'gray-100': item.locked }"
+        >
+          <div
+            class="lock-bubble mr-2 d-flex justify-content-center align-items-center"
+            v-if="item.locked"
+          >
+            <div
+              class="svg svg-icon icon-12 gray-50 color"
+              v-html="icons.lock"
+            ></div>
+          </div>
           {{ itemText }}
         </h4>
         <div class="item-notes">
@@ -89,7 +96,7 @@
           v-if="item.value > 0 && !(item.key === 'gem' && gemsLeft < 1)"
           class="purchase-amount"
         >
-          <div class="item-cost justify-content-center my-3">
+          <div class="item-cost justify-content-center mt-4 mb-3">
             <span
               class="cost d-flex mx-auto"
               :class="getPriceClass()"
@@ -166,7 +173,7 @@
         </button>
         <button
           v-else-if="!(item.key === 'gem' && gemsLeft < 1)"
-          class="btn btn-primary"
+          class="btn btn-primary mt-4"
           :disabled="item.key === 'gem' && gemsLeft === 0 ||
             attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid || item.locked ||
             !preventHealthPotion ||
@@ -179,6 +186,12 @@
           {{ $t('buyNow') }}
         </button>
       </div>
+    </div>
+    <div
+      v-if="buyIssue"
+      class="input-error text-center mt-3"
+    >
+      {{ buyIssue }}
     </div>
     <countdown-banner
       v-if="item.end && item.owned == null"
@@ -293,7 +306,7 @@
       margin: 0 auto;
     }
 
-   .owned {
+    .owned {
       height: 32px;
       width: 141px;
       margin-top: -36px;
@@ -321,16 +334,12 @@
     .item {
       width: 141px;
       height: 147px;
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 0px;
-      border-bottom-left-radius: 0px;
+      border-radius: 8px;
       cursor: default;
     }
 
     .item-content {
       transform: scale(1.45, 1.45);
-      top: -25.67px;
       left: 1px;
 
       &.shop_gem {
@@ -341,18 +350,16 @@
     }
 
     .title {
-      height: 28px;
       color: $gray-10;
-      font-size: 1.25rem;
       margin-top: 25px;
     }
 
     .item-notes {
-       margin-top: 8px;
-       padding-left: 48.5px;
-       padding-right: 48.5px;
-       line-height: 1.71;
-       font-size: 0.875rem;
+      margin-top: 8px;
+      padding-left: 49px;
+      padding-right: 49px;
+      line-height: 1.71;
+      font-size: 0.875rem;
     }
 
     .content {
@@ -382,10 +389,6 @@
 
     .inner-content {
       margin: 32px auto auto;
-    }
-
-    .btn-primary {
-      margin-top: 16px;
     }
 
     .purchase-amount {
@@ -471,7 +474,6 @@
     .attributesGrid {
       margin-top: 28px;
       border-radius: 2px;
-      background-color: $gray-500;
     }
 
     .item-cost {
@@ -522,7 +524,7 @@
       }
     }
 
-  .total-text {
+    .total-text {
       color: $gray-50;
       font-weight: bold;
       font-size: 0.875rem;
@@ -539,10 +541,9 @@
       &.hourglasses {
         color: $hourglass-color;
       }
-  }
+    }
 
     button.btn.btn-primary {
-      margin-top: 16px;
       padding: 2px 12px;
       line-height: 1.714;
 
@@ -556,18 +557,17 @@
       }
     }
 
-      .notEnough {
-        pointer-events: none;
-        opacity: 0.55;
-      }
+    .notEnough {
+      pointer-events: none;
+    }
 
-      .free-rebirth {
-        background-color: $yellow-5;
-        color: $white;
-        height: 2rem;
-        line-height: 16px;
-        margin: 24px auto -24px;
-      }
+    .free-rebirth {
+      background-color: $yellow-5;
+      color: $white;
+      height: 2rem;
+      line-height: 16px;
+      margin: 24px auto -24px;
+    }
 
     .gems-left {
       height: 32px;
@@ -599,7 +599,6 @@
       margin-bottom: -24px;
     }
   }
-
 </style>
 
 <style lang="scss" scoped>
@@ -608,6 +607,17 @@
   .hourglass-nonsub {
     color: $yellow-5;
     font-size: 12px;
+  }
+
+  .lock-bubble {
+    background-color: $gray-600;
+    width: 30px;
+    height: 28px;
+    border-radius: 999px;
+
+    .svg {
+      margin-bottom: 2px;
+    }
   }
 </style>
 
@@ -625,16 +635,17 @@ import numberInvalid from '@/mixins/numberInvalid';
 import spellsMixin from '@/mixins/spells';
 import sync from '@/mixins/sync';
 
-import svgClose from '@/assets/svg/close.svg?raw';
 import svgGold from '@/assets/svg/gold.svg?raw';
 import svgGem from '@/assets/svg/gem.svg?raw';
 import svgHourglasses from '@/assets/svg/hourglass.svg?raw';
+import svgLock from '@/assets/svg/lock.svg?raw';
 import svgClock from '@/assets/svg/clock.svg?raw';
 import svgWhiteClock from '@/assets/svg/clock-white.svg?raw';
 import svgPositive from '@/assets/svg/positive.svg?raw';
 import svgNegative from '@/assets/svg/negative.svg?raw';
 
 import BalanceInfo from './balanceInfo.vue';
+import closeX from '@/components/ui/closeX';
 import PinBadge from '@/components/ui/pinBadge';
 import CountdownBanner from './countdownBanner';
 import currencyMixin from './_currencyMixin';
@@ -667,6 +678,7 @@ export default {
   components: {
     BalanceInfo,
     EquipmentAttributesGrid,
+    closeX,
     Item,
     Avatar,
     PinBadge,
@@ -702,11 +714,11 @@ export default {
   data () {
     return {
       icons: Object.freeze({
-        close: svgClose,
         gold: svgGold,
         gems: svgGem,
         hourglasses: svgHourglasses,
         clock: svgClock,
+        lock: svgLock,
         whiteClock: svgWhiteClock,
         positive: svgPositive,
         negative: svgNegative,
@@ -724,7 +736,6 @@ export default {
       return ['backgrounds', 'gear', 'mystery_set', 'customization']
         .includes(this.item.purchaseType);
     },
-
     preventHealthPotion () {
       if (this.item.key === 'potion' && this.user.stats.hp >= 50) {
         return false;
@@ -732,11 +743,9 @@ export default {
 
       return true;
     },
-
     showAttributesGrid () {
       return this.item.purchaseType === 'gear';
     },
-
     itemText () {
       if (this.item.text instanceof Function) {
         return this.item.text();
@@ -783,6 +792,15 @@ export default {
     },
     totalOwned () {
       return this.user.items[this.item.purchaseType][this.item.key] || 0;
+    },
+    buyIssue () {
+      if (this.item.locked) {
+        return this.$t('classLockedItemShort');
+      }
+      if (!this.preventHealthPotion) {
+        return this.$t('messageHealthAlreadyMax');
+      }
+      return null;
     },
   },
   watch: {

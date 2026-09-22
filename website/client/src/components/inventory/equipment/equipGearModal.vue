@@ -7,8 +7,8 @@
     :hide-footer="true"
     @change="onChange($event)"
   >
-    <div class="dialog-close">
-      <close-icon @click="hideDialog()" />
+    <div>
+      <close-x @close="hideDialog()" />
     </div>
     <div
       v-if="item != null"
@@ -21,10 +21,12 @@
           :with-background="true"
           :hide-class-badge="true"
           :override-avatar-gear="memberOverrideAvatarGear(item)"
-          :sprites-margin="'0px auto auto -1px'"
+          :sprites-margin="user.preferences.background ? '0px auto 0px -2px'
+            : '0px auto 0px -23px'"
           :show-visual-buffs="false"
+          :class="{ 'item flat bordered-item': !user.preferences.background }"
         />
-        <h4 class="title mt-3">
+        <h4 class="title">
           {{ itemText }}
         </h4>
         <div
@@ -51,7 +53,7 @@
           :item="item"
         />
         <button
-          class="btn with-icon mt-4"
+          class="btn with-icon mb-4"
           :class="{'btn-primary': !isEquipped, 'btn-secondary': isEquipped }"
           @click="equipItem()"
         >
@@ -79,40 +81,51 @@
   #equipgear-modal {
     @include centeredModal();
 
+    .attributes-group {
+      margin: 28px 32px;
+      border-radius: 4px;
+      line-height: 1.71;
+      font-size: 0.875;
+    }
+
+    .attributesGrid {
+      border-radius: 2px;
+    }
+
+    .inner-content {
+      margin: 32px auto auto;
+    }
+
+    .item {
+      border-radius: 8px;
+    }
+
+    .modal-body {
+      padding-left: 0px;
+      padding-right: 0px;
+      padding-bottom: 0px;
+    }
+
     .modal-content {
       border-radius: 8px;
       box-shadow: 0 14px 28px 0 #1a181d3d, 0 10px 10px 0 #1a181d47;
     }
 
-    .modal-body {
-      padding: 2rem 1.5rem;
-    }
-
     .modal-dialog {
-      width: 330px;
-
-      .text {
-        min-height: 0;
-      }
+      width: 448px;
     }
 
     .text {
+      margin-top: 8px;
+      padding-left: 49px;
+      padding-right: 49px;
       font-size: 0.875rem;
       line-height: 1.71;
-      text-align: center;
-      color: $gray-50;
+      min-height: 0px;
     }
 
     .content {
       text-align: center;
-    }
-
-    .item-wrapper {
-      margin-bottom: 0 !important;
-    }
-
-    .inner-content {
-      width: 282px;
     }
 
     .classTag {
@@ -148,23 +161,13 @@
     }
 
     .title {
+      margin-top: 25px;
       color: $gray-10;
-    }
-
-    .attributesGrid {
-      background-color: $gray-500;
-      margin: 1rem 0 0;
-      border-radius: 4px;
-      border: 1px solid #f4f4f4;
     }
 
     .avatar {
       cursor: default;
       margin: 0 auto;
-
-      .character-sprites span {
-        left: 24px;
-      }
     }
 
     button.btn {
@@ -188,14 +191,14 @@ import svgUnEquipIcon from '@/assets/svg/unequip.svg?raw';
 
 import Avatar from '@/components/avatar';
 import attributesGrid from '@/components/inventory/equipment/attributesGrid.vue';
-import closeIcon from '@/components/shared/closeIcon';
+import closeX from '@/components/ui/closeX';
 // TODO @common/ path alias
 
 export default {
   components: {
     Avatar,
     attributesGrid,
-    closeIcon,
+    closeX,
   },
   props: {
     item: {
