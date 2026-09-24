@@ -179,7 +179,6 @@ async function findSubscriptionPurchase (additionalData) {
   if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
 
   const { purchase } = getPurchasesFromValidatedResponse(googleRes);
-  console.log(purchase);
 
   return {
     googleRes,
@@ -292,6 +291,12 @@ api.subscribe = async function subscribe (
   if (!token) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
 
   if (existingSub === sub && user.purchased.plan.customerId === token) {
+    if (user.purchased.plan.dateTerminated && purchase.autoRenewing) {
+      user.purchased.plan.dateTerminated = undefined;
+      user.purchased.plan.additionalData = buildAdditionalData(receipt, signature, purchase);
+      await user.save();
+      return;
+    }
     throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
   } else if (existingSub !== sub && user.purchased.plan.customerId === token) {
     // This is a renewal of the same subscription, but with a different plan.
@@ -448,7 +453,6 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
       allowExpired: true,
       allowSystemCanceled: true,
     });
-    console.log(details);
     if (!details.isCanceled && !details.isExpired) {
       throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
     }
@@ -484,7 +488,6 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
       throw err;
     }
   }
-  console.log(dateTerminated);
   if (dateTerminated) {
     await payments.cancelSubscription({
       user,
