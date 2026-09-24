@@ -1049,10 +1049,11 @@ schema.methods.finishQuest = async function finishQuest (quest) {
       const achievementTitleCase = `${achievement.slice(0, 1).toUpperCase()}${achievement.slice(1, achievement.length)}`;
       questAchievementUpdate.$push = {
         notifications: new UserNotification({
-          type: 'ACHIEVEMENT_QUESTS',
+          type: 'ACHIEVEMENT',
           data: {
             achievement,
-            message: `${shared.i18n.t('modalAchievement')} ${shared.i18n.t(`achievement${achievementTitleCase}`)}`,
+            icon: `achievement-${achievement}`,
+            message: shared.i18n.t(`achievement${achievementTitleCase}`),
             modalText: shared.i18n.t(`achievement${achievementTitleCase}ModalText`),
           },
         }).toObject(),

@@ -73,7 +73,7 @@ export default function hatch (user, req = {}) {
             user.addNotification(achievement.petNotificationType, {
               label: `${'achievement'}: ${achievementString}`,
               achievement: achievement.petAchievement,
-              message: `${i18n.t('modalAchievement')} ${i18n.t(achievementString)}`,
+              message: i18n.t(achievementString),
               modalText: i18n.t(`${achievementString}ModalText`),
             });
           }
@@ -112,7 +112,7 @@ export default function hatch (user, req = {}) {
               user.addNotification(achievement.notificationType, {
                 label: `${'achievement'}: ${achievementString}`,
                 achievement: achievement.achievementKey,
-                message: `${i18n.t('modalAchievement')} ${i18n.t(achievementString)}`,
+                message: i18n.t(achievementString),
                 modalText: i18n.t(`${achievementString}ModalText`),
               });
             }
@@ -141,7 +141,7 @@ export default function hatch (user, req = {}) {
             user.addNotification(achievement.petNotificationType, {
               label: `${'achievement'}: ${achievementString}`,
               achievement: achievement.petAchievement,
-              message: `${i18n.t('modalAchievement')} ${i18n.t(achievementString)}`,
+              message: i18n.t(achievementString),
               modalText: i18n.t(`${achievementString}ModalText`),
             });
           }

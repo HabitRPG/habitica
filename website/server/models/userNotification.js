@@ -40,15 +40,13 @@ const NOTIFICATION_TYPES = [
   'ACHIEVEMENT_PARTY_UP',
   'INVITED_FRIEND_ACHIEVEMENT',
   'REBIRTH_ACHIEVEMENT',
-  'STREAK_ACHIEVEMENT',
-  'ULTIMATE_GEAR_ACHIEVEMENT',
-  'ACHIEVEMENT_STABLE',
-  'ACHIEVEMENT_QUESTS',
   'ACHIEVEMENT_ANIMAL_SET',
   'ACHIEVEMENT_PET_COLOR',
   'ACHIEVEMENT_MOUNT_COLOR',
   'ACHIEVEMENT_PET_SET_COMPLETE',
   // Deprecated notification types. Can be removed once old data is cleaned out
+  'ACHIEVEMENT_QUESTS', // deprecated
+  'ACHIEVEMENT_STABLE', // deprecated
   'BOSS_DAMAGE', // deprecated
   'ACHIEVEMENT_ALL_YOUR_BASE', // deprecated
   'ACHIEVEMENT_BACK_TO_BASICS', // deprecated
@@ -86,6 +84,8 @@ const NOTIFICATION_TYPES = [
   'ACHIEVEMENT_SHADE_OF_IT_ALL', // deprecated
   'ACHIEVEMENT_ZODIAC_ZOOKEEPER', // deprecated
   'ACHIEVEMENT_BIRDS_OF_A_FEATHER', // deprecated
+  'STREAK_ACHIEVEMENT', // deprecated
+  'ULTIMATE_GEAR_ACHIEVEMENT', // deprecated
 ];
 
 const { Schema } = mongoose;

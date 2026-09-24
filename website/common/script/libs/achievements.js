@@ -252,6 +252,9 @@ function _getBasicAchievements (user, language) {
   _addSimple(result, user, { path: 'royallyLoyal', language });
   _addSimple(result, user, { path: 'joinedChallenge', language });
   _addSimple(result, user, { path: 'invitedFriend', language });
+  if (isReleased({ name: 'questCount' }, 'name', ACHIEVEMENT_RELEASE_DATES)) {
+    _add(result, questCount(user, { language }));
+  }
   _addSimple(result, user, { path: 'lostMasterclasser', language });
   _addSimple(result, user, { path: 'mindOverMatter', language });
   _addSimple(result, user, { path: 'justAddWater', language });
@@ -310,9 +313,6 @@ function _getBasicAchievements (user, language) {
   });
 
   _addRebirth(result, user, { language });
-  if (isReleased({ name: 'questCount' }, 'name', ACHIEVEMENT_RELEASE_DATES)) {
-    _add(result, questCount(user, { language }));
-  }
 
   return result;
 }
