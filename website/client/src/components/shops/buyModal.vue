@@ -468,7 +468,6 @@
       margin: 32px;
       border-radius: 4px;
       line-height: 1.71;
-      font-size: 0.875;
     }
 
     .attributesGrid {

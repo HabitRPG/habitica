@@ -157,6 +157,7 @@
       width: calc(50% - 9px);
       background-color: $gray-700;
       border-radius: 4px;
+      height: 72px;
 
       &:nth-of-type(even) {
         width: 50%;
