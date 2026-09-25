@@ -14,7 +14,6 @@
     <rebirth-enabled />
     <contributor />
     <won-challenge />
-    <ultimate-gear />
     <rebirth />
     <joined-guild />
     <joined-challenge />
@@ -229,7 +228,6 @@ export default {
   components: {
     yesterdailyModal,
     wonChallenge,
-    ultimateGear,
     rebirth,
     joinedGuild,
     joinedChallenge,
@@ -711,42 +709,6 @@ export default {
           case 'ACHIEVEMENT_PARTY_UP':
             this.showNotificationWithModal(notification);
             break;
-          case 'ACHIEVEMENT_ANIMAL_SET': {
-            const { achievement } = notification.data;
-            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
-            const achievementTitleKey = `achievement${upperCaseAchievement}`;
-            NOTIFICATIONS.ACHIEVEMENT_ANIMAL_SET.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            this.showNotificationWithModal(notification);
-            Vue.set(this.user.achievements, achievement, true);
-            break;
-          }
-          case 'ACHIEVEMENT_PET_COLOR': {
-            const { achievement } = notification.data;
-            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
-            const achievementTitleKey = `achievement${upperCaseAchievement}`;
-            NOTIFICATIONS.ACHIEVEMENT_PET_COLOR.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            this.showNotificationWithModal(notification);
-            Vue.set(this.user.achievements, achievement, true);
-            break;
-          }
-          case 'ACHIEVEMENT_MOUNT_COLOR': {
-            const { achievement } = notification.data;
-            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
-            const achievementTitleKey = `achievement${upperCaseAchievement}`;
-            NOTIFICATIONS.ACHIEVEMENT_MOUNT_COLOR.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            this.showNotificationWithModal(notification);
-            Vue.set(this.user.achievements, achievement, true);
-            break;
-          }
-          case 'ACHIEVEMENT_PET_SET_COMPLETE': {
-            const { achievement } = notification.data;
-            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
-            const achievementTitleKey = `achievement${upperCaseAchievement}`;
-            NOTIFICATIONS.ACHIEVEMENT_PET_SET_COMPLETE.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            this.showNotificationWithModal(notification);
-            Vue.set(this.user.achievements, achievement, true);
-            break;
-          }
           case 'ACHIEVEMENT': { // generic achievement
             const { achievement, count, message, modalText } = notification.data;
             if (achievement === 'streak') {
@@ -759,13 +721,12 @@ export default {
             }
             NOTIFICATIONS.ACHIEVEMENT.label = $t => `${$t('achievement')}: ${message}`;
             NOTIFICATIONS.ACHIEVEMENT.data.modalText = modalText;
-            this.playSound('Achievement_Unlocked');
             this.showNotificationWithModal(notification);
 
             // Set the achievement as it's not defined in the user schema
-            if (achievement.includes('.')) {
-              const path = achievement.split('.');
-              Vue.set(this.user.achievements[path[0]], path[1], true);
+            if (achievement === 'ultimateGearSets') {
+              const { klass } = notification.data;
+              Vue.set(this.user.achievements.ultimateGearSets, klass, true);
             } else if (count) {
               Vue.set(this.user.achievements, achievement, count);
             } else {
