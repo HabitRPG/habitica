@@ -9,7 +9,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Unicorn',
     ],
     achievementKey: 'legendaryBestiary',
-    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+    notificationType: 'ACHIEVEMENT',
   },
   birdsOfAFeather: {
     type: 'pet',
@@ -24,7 +24,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Peacock',
     ],
     achievementKey: 'birdsOfAFeather',
-    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+    notificationType: 'ACHIEVEMENT',
   },
   bonelessBoss: {
     type: 'pet',
@@ -38,7 +38,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Spider',
     ],
     achievementKey: 'bonelessBoss',
-    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+    notificationType: 'ACHIEVEMENT',
   },
   cats: {
     type: 'pet',
@@ -49,7 +49,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'TigerCub',
     ],
     achievementKey: 'cats',
-    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+    notificationType: 'ACHIEVEMENT',
   },
   dinosaurDynasty: {
     type: 'pet',
@@ -66,7 +66,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Velociraptor',
     ],
     achievementKey: 'dinosaurDynasty',
-    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+    notificationType: 'ACHIEVEMENT',
   },
   domesticated: {
     type: 'pet',
@@ -81,7 +81,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Cow',
     ],
     achievementKey: 'domesticated',
-    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+    notificationType: 'ACHIEVEMENT',
   },
   duneBuddy: {
     type: 'pet',
@@ -94,7 +94,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Spider',
     ],
     achievementKey: 'duneBuddy',
-    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+    notificationType: 'ACHIEVEMENT',
   },
   plantParent: {
     type: 'pet',
@@ -103,7 +103,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Treeling',
     ],
     achievementKey: 'plantParent',
-    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+    notificationType: 'ACHIEVEMENT',
   },
   polarPro: {
     type: 'pet',
@@ -115,7 +115,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Wolf',
     ],
     achievementKey: 'polarPro',
-    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+    notificationType: 'ACHIEVEMENT',
   },
   reptacularRumble: {
     type: 'pet',
@@ -129,7 +129,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Velociraptor',
     ],
     achievementKey: 'reptacularRumble',
-    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+    notificationType: 'ACHIEVEMENT',
   },
   rodentRuler: {
     type: 'pet',
@@ -139,7 +139,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Squirrel',
     ],
     achievementKey: 'rodentRuler',
-    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+    notificationType: 'ACHIEVEMENT',
   },
   roughRider: {
     type: 'petMount',
@@ -149,7 +149,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Rock',
     ],
     achievementKey: 'roughRider',
-    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+    notificationType: 'ACHIEVEMENT',
   },
   woodlandWizard: {
     type: 'pet',
@@ -166,7 +166,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Treeling',
     ],
     achievementKey: 'woodlandWizard',
-    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+    notificationType: 'ACHIEVEMENT',
   },
   zodiacZookeeper: {
     type: 'pet',
@@ -185,7 +185,7 @@ const ANIMAL_SET_ACHIEVEMENTS = {
       'Dragon',
     ],
     achievementKey: 'zodiacZookeeper',
-    notificationType: 'ACHIEVEMENT_ANIMAL_SET',
+    notificationType: 'ACHIEVEMENT',
   },
 };
 

@@ -339,7 +339,20 @@ export default function scoreTask (options = {}, req = {}) {
           // Give a streak achievement when the streak is a multiple of 21
           if (task.streak !== 0 && task.streak % 21 === 0) {
             user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
-            if (user.addNotification) user.addNotification('STREAK_ACHIEVEMENT');
+            const streaks = user.achievements.streak;
+            if (user.addNotification) {
+              user.addNotification(
+                'ACHIEVEMENT',
+                {
+                  achievement: 'streak',
+                  icon: 'achievement-thermometer',
+                  message: streaks === 1 ? i18n.t('firstStreakAchievement', req.language)
+                    : i18n.t('streakAchievementCount', { streaks }, req.language),
+                  modalText: i18n.t('twentyOneDays', req.language),
+                  count: streaks,
+                },
+              );
+            }
           }
           task.completed = true;
 

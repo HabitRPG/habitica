@@ -10,7 +10,7 @@ export function buildReleaseDate (year, month, day = 1) {
   return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}${releaseDateEndPart}`;
 }
 
-function isReleased (item, fieldName, releaseDateMap, releaseByDefault) {
+export function isReleased (item, fieldName, releaseDateMap, releaseByDefault) {
   if (releaseDateMap[item[fieldName]]) {
     const release = releaseDateMap[item[fieldName]];
     if (release.day) {

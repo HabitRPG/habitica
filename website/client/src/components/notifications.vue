@@ -14,8 +14,6 @@
     <rebirth-enabled />
     <contributor />
     <won-challenge />
-    <ultimate-gear />
-    <streak />
     <rebirth />
     <joined-guild />
     <joined-challenge />
@@ -130,8 +128,6 @@ import invitedFriend from './achievements/invitedFriend';
 import joinedChallenge from './achievements/joinedChallenge';
 import joinedGuild from './achievements/joinedGuild';
 import rebirth from './achievements/rebirth';
-import streak from './achievements/streak';
-import ultimateGear from './achievements/ultimateGear';
 import wonChallenge from './achievements/wonChallenge';
 import genericAchievement from './achievements/genericAchievement';
 import loginIncentives from './achievements/login-incentives';
@@ -157,6 +153,7 @@ const NOTIFICATIONS = {
       message: $t => $t('achievement'),
       modalText: null,
     },
+    sticky: true,
   },
   CHALLENGE_JOINED_ACHIEVEMENT: {
     achievement: true,
@@ -191,25 +188,6 @@ const NOTIFICATIONS = {
       message: $t => $t('achievement'),
       modalText: $t => $t('achievementPartyUp'),
       achievement: 'partyUp',
-    },
-  },
-  ULTIMATE_GEAR_ACHIEVEMENT: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('gearAchievementNotification')}`,
-    modalId: 'ultimate-gear',
-  },
-  ACHIEVEMENT_STABLE: {
-    achievement: true,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'stableAchievs',
-    },
-  },
-  ACHIEVEMENT_QUESTS: {
-    achievement: true,
-    modalId: 'generic-achievement',
-    data: {
-      achievement: 'questSeriesAchievs',
     },
   },
   ACHIEVEMENT_ANIMAL_SET: {
@@ -250,8 +228,6 @@ export default {
   components: {
     yesterdailyModal,
     wonChallenge,
-    ultimateGear,
-    streak,
     rebirth,
     joinedGuild,
     joinedChallenge,
@@ -307,9 +283,7 @@ export default {
       'ACHIEVEMENT_PARTY_UP',
       'REBIRTH_ACHIEVEMENT',
       'STREAK_ACHIEVEMENT',
-      'ULTIMATE_GEAR_ACHIEVEMENT',
       'ACHIEVEMENT_STABLE',
-      'ACHIEVEMENT_QUESTS',
       'ACHIEVEMENT_ANIMAL_SET',
       'ACHIEVEMENT_PET_COLOR',
       'ACHIEVEMENT_MOUNT_COLOR',
@@ -727,90 +701,37 @@ export default {
               }
             }
             break;
-          case 'STREAK_ACHIEVEMENT':
-            // Client-side deduplication: prevent showing duplicate streak achievements
-            if (this.lastShownStreakCount === this.user.achievements.streak) {
-              // Same streak already shown, skip this notification
-              break;
-            }
-            this.lastShownStreakCount = this.user.achievements.streak;
-
-            this.text(`${this.$t('streaks')}: ${this.user.achievements.streak}`, () => {
-              this.$root.$emit('bv::show::modal', 'streak');
-            }, this.user.preferences.suppressModals.streak);
-            this.playSound('Achievement_Unlocked');
-            break;
           case 'NEW_CONTRIBUTOR_LEVEL':
           case 'CHALLENGE_JOINED_ACHIEVEMENT':
           case 'GUILD_JOINED_ACHIEVEMENT':
           case 'INVITED_FRIEND_ACHIEVEMENT':
           case 'ACHIEVEMENT_PARTY_ON':
           case 'ACHIEVEMENT_PARTY_UP':
-          case 'ULTIMATE_GEAR_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;
-          case 'ACHIEVEMENT_QUESTS': {
-            const { achievement } = notification.data;
-            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
-            const achievementTitleKey = `achievement${upperCaseAchievement}`;
-            NOTIFICATIONS.ACHIEVEMENT_QUESTS.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            this.showNotificationWithModal(notification);
-            Vue.set(this.user.achievements, achievement, true);
-            break;
-          }
-          case 'ACHIEVEMENT_STABLE': {
-            const { achievement, achievementNotification } = notification.data;
-            NOTIFICATIONS.ACHIEVEMENT_STABLE.label = $t => `${$t('achievement')}: ${$t(achievementNotification)}`;
-            this.showNotificationWithModal(notification);
-            Vue.set(this.user.achievements, achievement, true);
-            break;
-          }
-          case 'ACHIEVEMENT_ANIMAL_SET': {
-            const { achievement } = notification.data;
-            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
-            const achievementTitleKey = `achievement${upperCaseAchievement}`;
-            NOTIFICATIONS.ACHIEVEMENT_ANIMAL_SET.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            this.showNotificationWithModal(notification);
-            Vue.set(this.user.achievements, achievement, true);
-            break;
-          }
-          case 'ACHIEVEMENT_PET_COLOR': {
-            const { achievement } = notification.data;
-            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
-            const achievementTitleKey = `achievement${upperCaseAchievement}`;
-            NOTIFICATIONS.ACHIEVEMENT_PET_COLOR.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            this.showNotificationWithModal(notification);
-            Vue.set(this.user.achievements, achievement, true);
-            break;
-          }
-          case 'ACHIEVEMENT_MOUNT_COLOR': {
-            const { achievement } = notification.data;
-            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
-            const achievementTitleKey = `achievement${upperCaseAchievement}`;
-            NOTIFICATIONS.ACHIEVEMENT_MOUNT_COLOR.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            this.showNotificationWithModal(notification);
-            Vue.set(this.user.achievements, achievement, true);
-            break;
-          }
-          case 'ACHIEVEMENT_PET_SET_COMPLETE': {
-            const { achievement } = notification.data;
-            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
-            const achievementTitleKey = `achievement${upperCaseAchievement}`;
-            NOTIFICATIONS.ACHIEVEMENT_PET_SET_COMPLETE.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            this.showNotificationWithModal(notification);
-            Vue.set(this.user.achievements, achievement, true);
-            break;
-          }
           case 'ACHIEVEMENT': { // generic achievement
-            const { achievement } = notification.data;
-            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
-            const achievementTitleKey = `achievement${upperCaseAchievement}`;
-            NOTIFICATIONS.ACHIEVEMENT.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
-            NOTIFICATIONS.ACHIEVEMENT.data.modalText = $t => $t(achievementTitleKey);
+            const { achievement, count, message, modalText } = notification.data;
+            if (achievement === 'streak') {
+              // Client-side deduplication: prevent showing duplicate streak achievements
+              if (this.lastShownStreakCount === this.user.achievements.streak) {
+                // Same streak already shown, skip this notification
+                break;
+              }
+              this.lastShownStreakCount = this.user.achievements.streak;
+            }
+            NOTIFICATIONS.ACHIEVEMENT.label = $t => `${$t('achievement')}: ${message}`;
+            NOTIFICATIONS.ACHIEVEMENT.data.modalText = modalText;
             this.showNotificationWithModal(notification);
 
             // Set the achievement as it's not defined in the user schema
-            Vue.set(this.user.achievements, achievement, true);
+            if (achievement === 'ultimateGearSets') {
+              const { klass } = notification.data;
+              Vue.set(this.user.achievements.ultimateGearSets, klass, true);
+            } else if (count) {
+              Vue.set(this.user.achievements, achievement, count);
+            } else {
+              Vue.set(this.user.achievements, achievement, true);
+            }
             break;
           }
           case 'LOGIN_INCENTIVE':

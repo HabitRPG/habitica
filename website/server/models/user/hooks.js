@@ -263,10 +263,12 @@ schema.pre('save', true, async function preSaveUser (next, done) {
     ) {
       this.achievements.beastMaster = true;
       this.addNotification(
-        'ACHIEVEMENT_STABLE',
+        'ACHIEVEMENT',
         {
           achievement: 'beastMaster',
-          achievementNotification: 'beastAchievement',
+          icon: 'achievement-rat',
+          message: common.i18n.t('beastMasterName', this.preferences.language),
+          modalText: common.i18n.t('beastAchievement', this.preferences.language),
         },
       );
     }
@@ -280,10 +282,12 @@ schema.pre('save', true, async function preSaveUser (next, done) {
     ) {
       this.achievements.mountMaster = true;
       this.addNotification(
-        'ACHIEVEMENT_STABLE',
+        'ACHIEVEMENT',
         {
           achievement: 'mountMaster',
-          achievementNotification: 'mountAchievement',
+          icon: 'achievement-wolf',
+          message: common.i18n.t('mountMasterName', this.preferences.language),
+          modalText: common.i18n.t('mountAchievement', this.preferences.language),
         },
       );
     }
@@ -298,10 +302,12 @@ schema.pre('save', true, async function preSaveUser (next, done) {
     ) {
       this.achievements.triadBingo = true;
       this.addNotification(
-        'ACHIEVEMENT_STABLE',
+        'ACHIEVEMENT',
         {
           achievement: 'triadBingo',
-          achievementNotification: 'triadBingoAchievement',
+          icon: 'achievement-triadbingo',
+          message: common.i18n.t('triadBingoName', this.preferences.language),
+          modalText: common.i18n.t('triadBingoAchievement', this.preferences.language),
         },
       );
     }

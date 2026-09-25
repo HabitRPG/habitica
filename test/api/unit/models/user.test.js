@@ -106,6 +106,9 @@ describe('User Model', () => {
       expect(userToJSON.notifications[0].type).to.equal('ACHIEVEMENT');
       expect(userToJSON.notifications[0].data).to.eql({
         achievement: 'createdTask',
+        icon: 'achievement-createdTask',
+        message: common.i18n.t('achievementCreatedTask'),
+        modalText: common.i18n.t('achievementCreatedTaskNotifText'),
       });
       expect(userToJSON.notifications[0].seen).to.eql(false);
 
