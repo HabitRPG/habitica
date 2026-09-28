@@ -710,7 +710,12 @@ export default {
             this.showNotificationWithModal(notification);
             break;
           case 'ACHIEVEMENT': { // generic achievement
-            const { achievement, count, message, modalText } = notification.data;
+            const {
+              achievement,
+              count,
+              message,
+              modalText,
+            } = notification.data;
             if (achievement === 'streak') {
               // Client-side deduplication: prevent showing duplicate streak achievements
               if (this.lastShownStreakCount === this.user.achievements.streak) {
