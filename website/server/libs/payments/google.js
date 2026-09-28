@@ -178,7 +178,12 @@ async function findSubscriptionPurchase (additionalData) {
   const isValidated = iap.isValidated(googleRes);
   if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
 
-  const { purchase } = getPurchasesFromValidatedResponse(googleRes);
+  const validated = getPurchasesFromValidatedResponse(googleRes);
+  const { purchases } = validated;
+  let { purchase } = validated;
+  const renewingPurchase = purchases
+    .find(item => item.autoRenewing && !iap.isCanceled(item) && !iap.isExpired(item));
+  if (renewingPurchase) purchase = renewingPurchase;
 
   return {
     googleRes,
@@ -290,19 +295,26 @@ api.subscribe = async function subscribe (
   const token = getPurchaseToken(purchase, googleRes, receiptObj);
   if (!token) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
 
-  if (existingSub === sub && user.purchased.plan.customerId === token) {
-    if (user.purchased.plan.dateTerminated && purchase.autoRenewing) {
-      user.purchased.plan.dateTerminated = undefined;
-      user.purchased.plan.additionalData = buildAdditionalData(receipt, signature, purchase);
-      await user.save();
-      return;
+  const { plan } = user.purchased;
+  if (existingSub && plan.customerId === token) {
+    if (plan.dateTerminated && purchase.autoRenewing) {
+      // The user cancelled and then resubscribed through the Play Store, which keeps the token.
+      // Cancelling moved the extra months into dateTerminated
+      const paidUntil = plan.datePaymentExpired || Number(purchase.expiryTimeMillis) || new Date();
+      const extraMonths = moment(plan.dateTerminated).diff(paidUntil, 'months', true);
+      plan.extraMonths = Number(plan.extraMonths || 0) + Math.max(0, extraMonths);
+      plan.dateTerminated = null;
+      plan.datePaymentExpired = null;
+      if (purchase.expiryTimeMillis) {
+        plan.nextBillingDate = new Date(Number(purchase.expiryTimeMillis));
+      }
+    } else if (existingSub === sub) {
+      throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
     }
-    throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
-  } else if (existingSub !== sub && user.purchased.plan.customerId === token) {
-    // This is a renewal of the same subscription, but with a different plan.
-    // This can happen if the user downgrades their subscription.
-    user.purchased.plan.planId = subCode;
-    user.purchased.plan.deferred = undefined;
+    // A different plan on the same token can happen if the user downgrades their subscription.
+    plan.planId = subCode;
+    plan.deferred = undefined;
+    plan.additionalData = buildAdditionalData(receipt, signature, purchase);
     await user.save();
     return;
   }
