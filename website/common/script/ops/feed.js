@@ -131,7 +131,7 @@ export default function feed (user, req = {}) {
           user.addNotification(achievement.mountNotificationType, {
             achievement: achievement.mountAchievement,
             icon: `achievement-${achievement.mountAchievement}`,
-            message: `${i18n.t('modalAchievement')} ${i18n.t(achievementString)}`,
+            message: i18n.t(achievementString),
             modalText: i18n.t(`${achievementString}ModalText`),
           });
         }
