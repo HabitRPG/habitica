@@ -95,5 +95,22 @@
     "filters": "Filtre",
     "wonChallengeDesc": "<%= challengeName %> udvalgte dig som vinder! Din sejr er noteret i dine Præstationer.",
     "yourReward": "Din Belønning",
-    "removeTasks": "Fjern opgaver"
+    "removeTasks": "Fjern opgaver",
+    "messageChallengeFlagOfficial": "",
+    "whyReportingChallenge": "",
+    "whyReportingChallengePlaceholder": "",
+    "abuseFlagModalBodyChallenge": "",
+    "brokenTaskDescription": "",
+    "challengeCompletedDescription": "",
+    "brokenChallengeDescription": "",
+    "messageChallengeFlagAlreadyReported": "",
+    "flaggedNotHidden": "",
+    "resetFlagCount": "",
+    "flaggedAndHidden": "",
+    "cannotClose": "",
+    "resetFlags": "",
+    "cannotMakeChallenge": "",
+    "deleteChallengeRefundDescription": "",
+    "cannotClone": "",
+    "brokenTask": ""
 }

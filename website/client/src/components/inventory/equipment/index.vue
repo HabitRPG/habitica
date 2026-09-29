@@ -70,7 +70,7 @@
             @select="groupBy = $event"
           >
             <template #item="{ item }">
-              <span class="label">{{ groupByLabel(item) }}</span>
+              <span class="label mr-2">{{ groupByLabel(item) }}</span>
             </template>
           </select-list>
 

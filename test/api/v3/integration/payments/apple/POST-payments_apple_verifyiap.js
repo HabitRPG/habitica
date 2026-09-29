@@ -5,11 +5,8 @@ describe('payments : apple #verify', () => {
   const endpoint = '/iap/ios/verify';
   let user;
 
-  beforeEach(async () => {
-    user = await generateUser();
-  });
-
   it('verifies receipt existence', async () => {
+    user = await generateUser();
     await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
@@ -22,6 +19,10 @@ describe('payments : apple #verify', () => {
 
     beforeEach(async () => {
       verifyStub = sinon.stub(applePayments, 'verifyPurchase').resolves({});
+      user = await generateUser({
+        'preferences.analyticsConsent': true,
+        balance: 2,
+      });
     });
 
     afterEach(() => {
@@ -29,10 +30,6 @@ describe('payments : apple #verify', () => {
     });
 
     it('makes a purchase', async () => {
-      user = await generateUser({
-        balance: 2,
-      });
-
       await user.post(endpoint, {
         transaction: {
           receipt: 'receipt',
@@ -47,10 +44,6 @@ describe('payments : apple #verify', () => {
     });
 
     it('gifts a purchase', async () => {
-      user = await generateUser({
-        balance: 2,
-      });
-
       await user.post(endpoint, {
         transaction: {
           receipt: 'receipt',

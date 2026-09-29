@@ -48,11 +48,11 @@
         <br>
         <div
           v-if="!user.achievements.ultimateGearSets.healer
-            && user.achievements.ultimateGearSets.wizard
-            && user.achievements.ultimateGearSets.rogue
-            && user.achievements.ultimateGearSets.warrior"
+            || !user.achievements.ultimateGearSets.wizard
+            || !user.achievements.ultimateGearSets.rogue
+            || !user.achievements.ultimateGearSets.warrior"
         >
-          <p v-html="$t('moreGearAchievements')"></p>
+          <p v-html="$t('moreGearAchievements', gearAchievementLinks)"></p>
           <br>
         </div>
         <Sprite image-name="shop_armoire" />
@@ -94,6 +94,14 @@ export default {
     achievementFooter,
     achievementAvatar,
     Sprite,
+  },
+  data () {
+    return {
+      gearAchievementLinks: {
+        linkOpen: '<a href="/user/settings/general" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
+    };
   },
   computed: {
     ...mapState({ user: 'user.data' }),

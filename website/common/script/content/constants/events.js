@@ -3,7 +3,7 @@ import moment from 'moment';
 import { getMatchingSwap, makeSubstitutionMap } from './aprilFools';
 
 // gem block: number of gems
-const gemsPromo = {
+export const gemsPromo = {
   '4gems': 5,
   '21gems': 30,
   '42gems': 60,
@@ -85,14 +85,14 @@ export const REPEATING_EVENTS = {
     foodSeason: 'Cake',
   },
   fallGemSale: {
-    start: new Date('1970-08-27T04:00-04:00'),
-    end: new Date('1970-09-03T23:59-04:00'),
+    start: new Date('2026-08-27T04:00-04:00'),
+    end: new Date('2026-09-03T23:59-04:00'),
     event: 'fall_extra_gems',
     gemsPromo,
   },
   spookyGemSale: {
-    start: new Date('1970-10-27T04:00-04:00'),
-    end: new Date('1970-10-31T23:59-04:00'),
+    start: new Date('2026-10-28T04:00-04:00'),
+    end: new Date('2026-10-31T23:59-04:00'),
     event: 'spooky_extra_gems',
     gemsPromo,
   },
@@ -111,8 +111,8 @@ export const REPEATING_EVENTS = {
     foodSeason: 'Pie',
   },
   giftOneGetOne: {
-    start: new Date('1970-12-16T04:00-05:00'),
-    end: new Date('1970-01-09T23:59-05:00'),
+    start: new Date('2026-12-21T04:00-05:00'),
+    end: new Date('2027-01-08T23:59-05:00'),
     promo: 'g1g1',
   },
 };
@@ -120,16 +120,18 @@ export const REPEATING_EVENTS = {
 export function getRepeatingEvents (date) {
   const momentDate = date instanceof moment ? date : moment(date);
   return Object.keys(REPEATING_EVENTS).map(eventKey => {
-    const event = REPEATING_EVENTS[eventKey];
+    const event = structuredClone(REPEATING_EVENTS[eventKey]);
     if (!event.key) {
       event.key = eventKey;
     }
-    event.start.setYear(momentDate.year());
-    event.end.setYear(momentDate.year());
+    if (event.start.getFullYear() === 1970) {
+      event.start.setFullYear(momentDate.year());
+      event.end.setFullYear(momentDate.year());
+    }
     if (event.end < event.start && momentDate < event.start) {
-      event.start.setYear(momentDate.year() - 1);
+      event.start.setFullYear(momentDate.year() - 1);
     } else if (event.end < event.start && momentDate > event.end) {
-      event.end.setYear(momentDate.year() + 1);
+      event.end.setFullYear(momentDate.year() + 1);
     }
     return event;
   }).filter(event => momentDate.isBetween(event.start, event.end));

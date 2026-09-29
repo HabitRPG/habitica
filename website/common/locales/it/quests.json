@@ -59,7 +59,7 @@
     "loginIncentiveQuest": "Per sbloccare questa missione, usa Habitica per un totale di <%= count %> giorni!",
     "loginReward": "<%= count %> Accessi",
     "questBundles": "Pacchetto missioni scontato",
-    "noQuestToStart": "Fai un salto al <a href=\"<%= questShop %>\">Negozio Missioni</a> per le nuove uscite!",
+    "noQuestToStart": "Fai un salto al <%= linkOpen %>Negozio Missioni<%= linkClose %> per le nuove uscite!",
     "pendingDamage": "<%= damage %> danno in sospeso",
     "pendingDamageLabel": "danno accumulato",
     "bossHealth": "Salute <%= currentHealth %> / <%= maxHealth %>",

@@ -58,7 +58,10 @@ api.getContent = {
   method: 'GET',
   url: '/content',
   noLanguage: true,
-  middlewares: [authWithHeaders({ optional: true })],
+  // Content is not user-specific (auth here is only used to pick up the user's
+  // language preference), so it's safe to allow caching/ETags for this route.
+  allowCache: true,
+  middlewares: [authWithHeaders({ optional: true, leanUser: true, userFieldsToInclude: ['preferences'] })],
   async handler (req, res) {
     let language = 'en';
     const proposedLang = req.query.language;

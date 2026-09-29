@@ -47,6 +47,7 @@
           class="footer-link"
           href="https://habitica.fandom.com/wiki/World_Bosses"
           target="_blank"
+          rel="noopener noreferrer"
         >{{ $t('worldBossLink') }}</a>
       </div>
     </div>

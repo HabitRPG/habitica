@@ -339,13 +339,13 @@ api.createChallengeTasks = {
  * @apiGroup Task
  *
  * @apiParam (Query) {String="habits","dailys",
- *                   "todos","rewards","completedTodos"} type Optional query parameter to return
- *                                                            just a type of tasks. By default all
- *                                                            types will be returned except
- *                                                            completed todos that must be
- *                                                            requested separately.
- *                                                            The "completedTodos" type returns
- *                                                            only the 30 most recently completed.
+ *                   "todos","rewards","completedTodos"} [type] Optional query parameter to return
+ *                                                              just a type of tasks. By default all
+ *                                                              types will be returned except
+ *                                                              completed todos that must be
+ *                                                              requested separately.
+ *                                                              The "completedTodos" type returns
+ *                                                              only the 30 most recently completed.
  * @apiParam (Query) [dueDate] type Optional date to use for computing the nextDue field
  *                                  for each returned task.
  *
@@ -377,21 +377,22 @@ api.getUserTasks = {
   method: 'GET',
   url: '/tasks/user',
   middlewares: [authWithHeaders({
-    // Some fields (including _id, preferences) are always loaded (see middlewares/auth)
+    leanUser: true,
     userFieldsToInclude: ['tasksOrder'],
   })],
   async handler (req, res) {
     const types = Tasks.tasksTypes.map(type => `${type}s`);
     types.push('completedTodos', '_allCompletedTodos'); // _allCompletedTodos is currently in BETA and is likely to be removed in future
     req.checkQuery('type', res.t('invalidTasksTypeExtra')).optional().isIn(types);
+    req.checkQuery('history', res.t('invalidHistoryBoolean')).optional().isBoolean();
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     const { user } = res.locals;
-    const { dueDate } = req.query;
+    const { dueDate, history } = req.query;
 
-    const tasks = await getTasks(req, res, { user, dueDate });
+    const tasks = await getTasks(req, res, { user, dueDate, history: history !== 'false' });
     return res.respond(200, tasks);
   },
 };
@@ -928,7 +929,7 @@ api.addChecklistItem = {
 api.scoreCheckListItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist/:itemId/score',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({ leanUser: true, userFieldsToInclude: ['_id', 'guilds', 'party', 'webhooks'] })],
   async handler (req, res) {
     const { user } = res.locals;
 

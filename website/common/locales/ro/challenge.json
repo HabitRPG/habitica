@@ -95,5 +95,22 @@
     "wonChallengeDesc": "<%= challengeName %> te-a ales câștigător! Victoria ta a fost înregistrată în realizările tale.",
     "yourReward": "Recompensa ta",
     "filters": "Filtre",
-    "removeTasks": "Șterge Țelurile"
+    "removeTasks": "Șterge Țelurile",
+    "messageChallengeFlagOfficial": "",
+    "abuseFlagModalBodyChallenge": "",
+    "challengeCompletedDescription": "",
+    "brokenTaskDescription": "",
+    "brokenChallengeDescription": "",
+    "flaggedNotHidden": "",
+    "messageChallengeFlagAlreadyReported": "",
+    "flaggedAndHidden": "",
+    "resetFlagCount": "",
+    "whyReportingChallenge": "",
+    "cannotMakeChallenge": "",
+    "whyReportingChallengePlaceholder": "",
+    "cannotClose": "",
+    "deleteChallengeRefundDescription": "",
+    "cannotClone": "",
+    "resetFlags": "",
+    "brokenTask": ""
 }

@@ -49,5 +49,12 @@
     "messageDeletedUser": "Съжаляваме, но този потребител е изтрил профила си.",
     "messageMissingDisplayName": "Липсва екранно име.",
     "canDeleteNow": "Вече може да изтриете съобщението, ако желаете.",
-    "reportedMessage": "Вие докладвахте това съобщние на модераторите."
+    "reportedMessage": "Вие докладвахте това съобщние на модераторите.",
+    "newsPostNotFound": "",
+    "featureRetired": "",
+    "messageAllUnEquipped": "",
+    "messagePetMountUnEquipped": "",
+    "messageBattleGearUnEquipped": "",
+    "messageBackgroundUnEquipped": "",
+    "messageCostumeUnEquipped": ""
 }

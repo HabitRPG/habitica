@@ -13,7 +13,8 @@
         {{ $t('contribModal', {name: user.profile.name, level: user.contributor.level}) }}
         <br>
         <a
-          :href="$t('conRewardsURL')"
+          href="https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards"
+          rel="noopener noreferrer"
           target="_blank"
         >{{ $t('contribLink') }}</a>
         <br>

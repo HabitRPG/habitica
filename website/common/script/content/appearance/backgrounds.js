@@ -701,6 +701,15 @@ const backgrounds = {
   backgrounds082026: {
     vegetable_garden: { },
   },
+  backgrounds092026: {
+    sunset_with_joshua_trees: { },
+  },
+  backgrounds102026: {
+    outside_a_witchs_hut: { },
+  },
+  backgrounds112026: {
+    path_in_late_autumn: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,

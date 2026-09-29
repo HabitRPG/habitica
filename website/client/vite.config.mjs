@@ -18,18 +18,13 @@ if (S3_URL && !S3_URL.endsWith('/')) {
 
 const ENABLE_S3 = S3_URL && nconf.get('S3_ACCESS_KEY') && nconf.get('S3_SECRET_KEY');
 
-
 const envVars = [
-  'AMAZON_PAYMENTS_SELLER_ID',
-  'AMAZON_PAYMENTS_CLIENT_ID',
-  'AMAZON_PAYMENTS_MODE',
   'EMAILS_COMMUNITY_MANAGER_EMAIL',
   'EMAILS_TECH_ASSISTANCE_EMAIL',
   'EMAILS_PRESS_ENQUIRY_EMAIL',
   'STRIPE_PUB_KEY',
   'GOOGLE_CLIENT_ID',
   'APPLE_AUTH_CLIENT_ID',
-  'AMPLITUDE_KEY',
   'LOGGLY_CLIENT_TOKEN',
   'TRUSTED_DOMAINS',
   'TIME_TRAVEL_ENABLED',
@@ -121,10 +116,6 @@ export default defineConfig({
       include: [/moment-recur/, /node_modules/]
     },
     rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'index.html'),
-        faq: path.resolve(__dirname, 'index-faq.html'),
-      },
       output: {
         experimentalMinChunkSize: 20000
       }
@@ -144,10 +135,6 @@ export default defineConfig({
         changeOrigin: true,
       },
       '^/stripe': {
-        target: DEV_BASE_URL,
-        changeOrigin: true,
-      },
-      '^/amazon': {
         target: DEV_BASE_URL,
         changeOrigin: true,
       },

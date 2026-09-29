@@ -72,8 +72,6 @@
     "pkAnswer6": "Sokan és sokféle háttérrel használják a Habiticát! A felhasználóink több mint fele 18 és 34 év közötti, de vannak nagyszülők, akik az unokáikkal együtt játszanak, de minden korosztály képviselteti magát. <br /> Bár sok felhasználónk játékos háttérrel rendelkezik, egy korábbi felmérésünk szerint a játékosok 40%-a nem tartja magát gamernek! Tehát úgy tűnik, hogy a módszerünk mindenki számára működhet, aki szórakoztatóbbá szeretné tenni a produktivitást és az egészségmegőrzést.",
     "pkQuestion7": "Miért használ a Habitica pixel artot?",
     "pkAnswer7": "A Habitica több okból is pixel artot használ. A nosztalgikus hangulat mellett a pixel art könnyen kezelhető az önkéntes művészeink számára, akik segíteni szeretnének. Emellett egyszerűbb egységes kinézetet fenntartani, még akkor is, ha sok különböző művész dolgozik rajta, és így gyorsan sok új tartalmat tudunk készíteni!",
-    "pkQuestion8": "Hogyan változtatta meg a Habitica az emberek életét?",
-    "pkAnswer8": "Számos történetet találsz arról, hogyan segített a Habitica itt: https://habitversary.tumblr.com",
     "pkMoreQuestions": "Van egy kérdésed, ami nincs ezen a listán? Küldj e-mailt az admin@habitica.com címre!",
     "pkPromo": "Promóciók",
     "pkLogo": "Logók",
@@ -116,8 +114,8 @@
     "emailTaken": "Ezzel az e-mail címmel már létezik egy fiók.",
     "newEmailRequired": "Hiányzó új e-mail cím.",
     "usernameTime": "Itt az ideje beállítani a felhasználóneved!",
-    "usernameInfo": "A bejelentkezési nevek mostantól egyedi felhasználónevek, amelyek megjelennek a megjelenítendő neved mellett, ezt meghívásokhoz, csevegési @megemlítésekhez és üzenetküldéshez használhatod.<br><br>Ha többet szeretnél megtudni erről a változásról, <a href='https://habitica.fandom.com/wiki/Player_Names' target='_blank'>látogasd meg a wikinket</a>.",
-    "usernameTOSRequirements": "A felhasználóneveknek meg kell felelniük a <a href='/static/terms' target='_blank'>Felhasználási feltételeknek</a> és a <a href='/static/community-guidelines' target='_blank'>Közösségi irányelveknek</a>. Ha korábban nem állítottál be bejelentkezési nevet, akkor a rendszer automatikusan generált egyet.",
+    "usernameInfo": "A bejelentkezési nevek mostantól egyedi felhasználónevek, amelyek megjelennek a megjelenítendő neved mellett, ezt meghívásokhoz, csevegési @megemlítésekhez és üzenetküldéshez használhatod.<br><br>Ha többet szeretnél megtudni erről a változásról, <%= linkOpen %>látogasd meg a wikinket<%= linkClose %>.",
+    "usernameTOSRequirements": "A felhasználóneveknek meg kell felelniük a <%= termsLink %>Felhasználási feltételeknek<%= linkClose %> és a <%= guidelinesLink %>Közösségi irányelveknek<%= linkClose %>. Ha korábban nem állítottál be bejelentkezési nevet, akkor a rendszer automatikusan generált egyet.",
     "usernameTaken": "A felhasználónév már foglalt.",
     "passwordConfirmationMatch": "A jelszó megerősítése nem egyezik a jelszóval.",
     "passwordResetPage": "Jelszó visszaállítása",
@@ -186,6 +184,8 @@
     "minPasswordLengthLogin": "A jelszavad legalább 8 karakter hosszú.",
     "enterValidEmail": "Kérjük adj meg egy érvényes e-mail címet.",
     "whatToCallYou": "Hogy szólíthatunk?",
-    "acceptPrivacyTOS": "Megerősíted, hogy legalább 18 éves vagy, és hogy elolvastad és elfogadod a <a href='/static/terms' target='_blank'>Felhasználási feltételeinket</a> és az <a href='/static/privacy' target='_blank'>Adatvédelmi nyilatkozatunkat</a>",
-    "missingClientHeader": "Hiányzik az x-client fejléc."
+    "acceptPrivacyTOS": "Megerősíted, hogy legalább 18 éves vagy, és hogy elolvastad és elfogadod a <%= termsLink %>Felhasználási feltételeinket<%= linkClose %> és az <%= privacyLink %>Adatvédelmi nyilatkozatunkat<%= linkClose %>",
+    "missingClientHeader": "Hiányzik az x-client fejléc.",
+    "emailAddress": "",
+    "emailRequiredForSupport": ""
 }

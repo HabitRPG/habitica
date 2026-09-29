@@ -866,5 +866,8 @@
     "questAlienBoss": "宇宙人「勇気の泥棒」",
     "questAlienText": "やる気泥棒の侵攻",
     "questAlienRageTitle": "銀河の妨害",
-    "questAlienRageDescription": "日課を完了しないとこのバーが増えていきます。いっぱいになると、宇宙人は体力を回復してしまいます！"
+    "questAlienRageDescription": "日課を完了しないとこのバーが増えていきます。いっぱいになると、宇宙人は体力を回復してしまいます！",
+    "questAlienNotes": "",
+    "questAlienCompletion": "",
+    "questAlienRageEffect": ""
 }

@@ -12,7 +12,6 @@
     "showLess": "свернуть",
     "markdownHelpLink": "Справка по форматированию",
     "bold": "**Полужирный**",
-    "markdownImageEx": "![обязательное описание](https://habitica.com/cake.png \"необязательный всплывающий текст\")",
     "code": "`код`",
     "achievements": "Достижения",
     "basicAchievs": "Основные достижения",
@@ -240,7 +239,7 @@
     "whyReportingPlayer": "Почему вы жалуетесь на этого игрока?",
     "whyReportingPlayerPlaceholder": "Причина жалобы",
     "playerReportModalBody": "Вы должны сообщать только об игроках, нарушающих <%= firstLinkStart %>Правила сообщества<%= linkEnd %> и/или <%= secondLinkStart %>Условия использования<%= linkEnd %>. Отправка ложного сообщения является нарушением Правил сообщества Habitica.",
-    "rememberToBeKind": "Пожалуйста, помните, что нужно быть добрыми, уважительными и следовать <a href='/static/community-guidelines' target='_blank'>Правилам сообщества</a>.",
+    "rememberToBeKind": "Пожалуйста, помните, что нужно быть добрыми, уважительными и следовать <%= linkOpen %>Правилам сообщества<%= linkClose %>.",
     "targetUserNotExist": "Выбранный пользователь: '<%=имя пользователя %>' не существует.",
     "gem": "Самоцвет"
 }

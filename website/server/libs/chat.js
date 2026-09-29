@@ -22,6 +22,7 @@ export async function sendChatPushNotifications (user, group, message, mentions,
     'party._id': group._id,
     _id: { $ne: user._id },
   })
+    .lean()
     .select('preferences.pushNotifications preferences.language profile.name pushDevices auth.local.username')
     .exec();
 

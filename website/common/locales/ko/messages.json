@@ -55,5 +55,6 @@
     "messageBackgroundUnEquipped": "배경을 해제했습니다.",
     "messagePetMountUnEquipped": "펫과 탑승펫을 해제했습니다.",
     "messageCostumeUnEquipped": "의상을 해제했습니다.",
-    "messageBattleGearUnEquipped": "전투 장비를 해제했습니다."
+    "messageBattleGearUnEquipped": "전투 장비를 해제했습니다.",
+    "featureRetired": ""
 }

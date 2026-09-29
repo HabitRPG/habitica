@@ -89,7 +89,7 @@
           v-if="userLevel100Plus"
           v-once
           class="level-100-message"
-          v-html="$t('noMoreAllocate')"
+          v-html="$t('noMoreAllocate', allocateLinks)"
         ></div>
       </div>
       <div class="row allocation-boxes-row">
@@ -395,14 +395,12 @@ export default {
         _skip: 'skip',
         shield: this.$t('offHandCapitalized'),
       },
-
       allocateStatsList: {
         str: { title: 'allocateStr', popover: 'strengthText', allocatepop: 'allocateStrPop' },
         int: { title: 'allocateInt', popover: 'intText', allocatepop: 'allocateIntPop' },
         con: { title: 'allocateCon', popover: 'conText', allocatepop: 'allocateConPop' },
         per: { title: 'allocatePer', popover: 'perText', allocatepop: 'allocatePerPop' },
       },
-
       stats: {
         str: {
           title: 'strength',
@@ -422,6 +420,10 @@ export default {
         },
       },
       content: Content,
+      allocateLinks: {
+        linkOpen: '<a href="/shops/market">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {

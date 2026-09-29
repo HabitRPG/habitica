@@ -83,5 +83,14 @@
     "questItemsPending": "<%= amount %> genstande fundet",
     "sureLeaveInactive": "Er du sikker på, du vil forlade questen? Du vil ikke kunne deltage igen.",
     "selectQuest": "Vælg quest",
-    "yourPartyIsNotOnQuest": "Dit hold er ikke på en quest"
+    "yourPartyIsNotOnQuest": "Dit hold er ikke på en quest",
+    "backToSelection": "",
+    "noQuestToStartTitle": "",
+    "newItem": "",
+    "yourQuests": "",
+    "questOwner": "",
+    "cancelQuest": "",
+    "selectQuestModal": "",
+    "membersParticipating": "",
+    "ownerOnly": ""
 }

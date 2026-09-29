@@ -26,7 +26,10 @@ export default {
 
       // @TODO: Task modal component is mutating a prop
       // and that causes issues. We need to not copy the prop similar to group modals
-      if (this.task) this.checklist = clone(this.task.checklist);
+      if (this.task) {
+        this.checklist = clone(this.task.checklist);
+        this.taskValue = this.task.value;
+      }
     },
   },
 };

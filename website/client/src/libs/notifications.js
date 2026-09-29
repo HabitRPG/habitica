@@ -43,7 +43,7 @@ export function getSign (number) {
 }
 
 export function round (number, nDigits) {
-  return Math.abs(number.toFixed(nDigits || 1));
+  return Math.abs(number.toFixed(nDigits || 0));
 }
 
 export function getXPMessage (val) {

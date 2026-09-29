@@ -84,7 +84,7 @@ export default {
       if (quest && user.party.quest && user.party.quest.key) {
         const userQuest = Content.quests[user.party.quest.key];
         if (quest.progressDelta && userQuest.boss) {
-          this.damage(quest.progressDelta.toFixed(1));
+          this.damage(quest.progressDelta.toFixed(0));
         } else if (quest.collection && userQuest.collect) {
           user.party.quest.progress.collectedItems += 1;
           this.quest('questCollection', quest.collection);

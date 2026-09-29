@@ -164,10 +164,9 @@ export default async function highlightMentions (text) {
 
   if (mentions && mentions.length <= 5) {
     const usernames = mentions.map(mention => mention.substr(1));
-    const usernameRegexes = usernames.map(username => new RegExp(`^${escapeRegExp(username)}$`, 'i'));
     members = await User
       .find({
-        $or: usernameRegexes.map(regex => ({ 'auth.local.username': regex })),
+        $or: usernames.map(uname => ({ 'auth.local.lowerCaseUsername': uname.toLowerCase() })),
         'flags.verifiedUsername': true,
       })
       .select(['auth.local.username', '_id', 'preferences.pushNotifications', 'pushDevices', 'party', 'guilds'])

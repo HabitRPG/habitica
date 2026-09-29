@@ -17,6 +17,7 @@ const MOBILE_FILTER = ['achievements', 'questSeriesAchievements', 'animalColorAc
 
 export const ANDROID_FILTER = [...MOBILE_FILTER, 'appearances.background'].join(',');
 export const IOS_FILTER = [...MOBILE_FILTER, 'backgrounds'].join(',');
+export const V4_FILTER = 'userDefaults,tasksByCategory,userDefaultsMobile';
 
 function getDay (date) {
   if (date === undefined) {

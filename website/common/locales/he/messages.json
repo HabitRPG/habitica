@@ -49,5 +49,12 @@
     "messageDeletedUser": "המשתמש הזה מחק את חשבונו, עמך הסליחה.",
     "messageMissingDisplayName": "חסר שם תצוגה.",
     "reportedMessage": "דיווחת על ההודעה הזו למנהלים.",
-    "canDeleteNow": "אם ברצונך למחוק את ההודעה, ניתן לעשות זאת עכשיו."
+    "canDeleteNow": "אם ברצונך למחוק את ההודעה, ניתן לעשות זאת עכשיו.",
+    "featureRetired": "",
+    "messageAllUnEquipped": "",
+    "messagePetMountUnEquipped": "",
+    "messageBattleGearUnEquipped": "",
+    "newsPostNotFound": "",
+    "messageBackgroundUnEquipped": "",
+    "messageCostumeUnEquipped": ""
 }

@@ -40,10 +40,9 @@
     "backerTier": "Nivel de Patrocinador",
     "playerTiers": "Niveles de Jugador",
     "tier": "Nivel",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "Ayudó a Habitica a crecer, ya sea completando una encuesta o ayudando con pruebas a gran escala. ¡Gracias!",
     "surveysMultiple": "Ayudó a Habitica a crecer en <%= count %> ocasiones, ya sea completando una encuesta o ayudando con pruebas a gran escala. ¡Gracias!",
     "blurbHallPatrons": "Este es el Salón de Patrocinadores, donde honramos a los nobles aventureros que respaldaron el Kickstarter original de Habitica. ¡Les agradecemos por ayudarnos a dar vida a Habitica!",
-    "blurbHallContributors": "Éste es el Salón de Contribuidores, donde los contribuidores del código abierto de Habitica son honrados. Ya sea a través de código, arte, música, escritura o incluso su servicio a la comunidad, han ganado <a href='github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards' target='_blank'> gemas, equipamento exclusivo</a> y <a href='github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tiers' target='_blank'> títulos prestigiosos</a>. ¡Tú también puedes contribuir a Habitica! <a href='github.com/HabitRPG/habitica/wiki/Contributing_-to_-Habitica' target='_blank'> Encuentra más información aquí. </a>",
+    "blurbHallContributors": "Éste es el Salón de Contribuidores, donde los contribuidores del código abierto de Habitica son honrados. Ya sea a través de código, arte, música, escritura o incluso su servicio a la comunidad, han ganado <%= linkRewards %> gemas, equipamento exclusivo<%= linkClose %> y <%= linkTiers %> títulos prestigiosos<%= linkClose %>. ¡Tú también puedes contribuir a Habitica! <%= linkContributing %> Encuentra más información aquí. <%= linkClose %>",
     "noPrivAccess": "No tiene los requisitos requeridos."
 }

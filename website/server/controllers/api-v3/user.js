@@ -167,21 +167,10 @@ api.getBuyList = {
  */
 api.getInAppRewardsList = {
   method: 'GET',
-  middlewares: [authWithHeaders({ userFieldsToInclude: ['items', 'pinnedItems', 'unpinnedItems', 'pinnedItemsOrder', 'stats.class', 'achievements', 'purchased'] })],
+  middlewares: [authWithHeaders({ leanUser: true, userFieldsToInclude: ['items', 'pinnedItems', 'unpinnedItems', 'pinnedItemsOrder', 'stats.class', 'achievements', 'purchased'] })],
   url: '/user/in-app-rewards',
   async handler (req, res) {
-    const list = common.inAppRewards(res.locals.user);
-
-    // return text and notes strings
-    forEach(list, item => {
-      forEach(item, (itemPropVal, itemPropKey) => {
-        if (
-          isFunction(itemPropVal)
-          && itemPropVal.i18nLangFunc
-        ) item[itemPropKey] = itemPropVal(req.language);
-      });
-    });
-
+    const list = common.inAppRewards(res.locals.user, req.language);
     res.respond(200, list);
   },
 };
@@ -388,7 +377,7 @@ api.getUserAnonymized = {
         { type: { $in: ['habit', 'daily', 'reward'] } },
       ],
     };
-    const tasks = await Tasks.Task.find(query).exec();
+    const tasks = await Tasks.Task.find(query).lean().exec();
 
     forEach(tasks, task => {
       task.text = 'task text';

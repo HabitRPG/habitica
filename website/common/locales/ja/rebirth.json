@@ -16,5 +16,7 @@
     "rebirthUnlockedNewItem": "転生のオーブがアンロックされました",
     "rebirthNewAchievement": "新しい実績",
     "rebirthNewAdventure": "今から新しい冒険が始まります！",
-    "rebirthAchievementPlural": "あなたは転生のオーブを<strong><%= number %></strong>回使い、今まで達成した最高レベルは<strong><%= level %></strong>です。"
+    "rebirthAchievementPlural": "あなたは転生のオーブを<strong><%= number %></strong>回使い、今まで達成した最高レベルは<strong><%= level %></strong>です。",
+    "rebirthUnlockedDesc": "",
+    "rebirthStackInfo": ""
 }

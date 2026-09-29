@@ -21,7 +21,7 @@
     "pauseDailies": "Pausar Dano",
     "unpauseDailies": "Resumir Dano",
     "staffAndModerators": "Equipa e Moderadores",
-    "communityGuidelinesIntro": "O Habitica tentar criar um ambiente convidativo para usuários de todas as idades e contexto, especialmente em espaços públicos como a Taberna. Se tiveres quaisquer dúvida, por favor consulte nossas <a href='/static/community-guidelines' target='_blank'>Diretrizes da Comunidade</a>.",
+    "communityGuidelinesIntro": "O Habitica tentar criar um ambiente convidativo para usuários de todas as idades e contexto, especialmente em espaços públicos como a Taberna. Se tiveres quaisquer dúvida, por favor consulte nossas <%= linkOpen %>Diretrizes da Comunidade<%= linkClose %>.",
     "acceptCommunityGuidelines": "Concordo em seguir as Diretrizes da Comunidade",
     "worldBossEvent": "Evento de Líder Global",
     "worldBossDescription": "Descrição do Líder Global",

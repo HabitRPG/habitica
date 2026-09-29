@@ -74,7 +74,7 @@
           <strong v-once>{{ $t('challengeDescription') }} *</strong>
         </label>
         <a
-          v-markdown="$t('markdownFormattingHelp')"
+          v-markdown="$t('markdownFormattingHelp', { markdownLink })"
           class="float-right"
         ></a>
         <textarea
@@ -179,9 +179,6 @@
           </button>
         </div>
       </div>
-      <!-- @TODO: Implement in V2 .form-grouplabel
-  strong(v-once) {{$t('endDate')}}
-      b-form-input.end-date-input-->
       <div
         v-if="creating"
         class="form-group"
@@ -206,8 +203,6 @@
           >
             You do not have enough gems to create a Tavern challenge
           </div>
-          <!-- @TODO if buy gems button is added, add analytics tracking to it-->
-          <!-- see https://github.com/HabitRPG/habitica/blob/develop/website/views/options/social/challenges.jade#L134-->
           <button
             v-if="creating && !cloning"
             class="btn btn-primary"
@@ -364,6 +359,7 @@ export default {
       groups: [],
       textbox: null,
       activeField: 'name',
+      markdownLink: 'https://github.com/HabitRPG/habitica/wiki/Markdown-in-Habitica',
     };
   },
   computed: {

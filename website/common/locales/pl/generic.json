@@ -12,7 +12,6 @@
     "showLess": "Pokaż mniej",
     "markdownHelpLink": "Pomoc formatowania Markdown",
     "bold": "**Pogrubienie**",
-    "markdownImageEx": "![obowiązkowy alt text](https://habitica.com/cake.png \"dodatkowy tekst po najechaniu myszą\")",
     "code": "`kod`",
     "achievements": "Osiągnięcia",
     "basicAchievs": "Podstawowe Osiągnięcia",
@@ -241,7 +240,9 @@
     "whyReportingPlayerPlaceholder": "Powód zgłoszenia",
     "targetUserNotExist": "Docelowy Użytkownik: '<%= userName %>' nie istnieje.",
     "shadowMute": "Wygłuszenie Cienia",
-    "rememberToBeKind": "Pamiętaj proszę o tym, aby być uprzejmym i pełnym szacunku względem innych Graczy oraz aby przestrzegać <a href='/static/community-guidelines' target='_blank'>Regulamin Społeczności</a>.",
+    "rememberToBeKind": "Pamiętaj proszę o tym, aby być uprzejmym i pełnym szacunku względem innych Graczy oraz aby przestrzegać <%= linkOpen %>Regulamin Społeczności<%= linkClose %>.",
     "gem": "Klejnot",
-    "confirmPurchase": "Potwierdź Zakup"
+    "confirmPurchase": "Potwierdź Zakup",
+    "avoidSPI": "",
+    "avoidSPIDetails": ""
 }

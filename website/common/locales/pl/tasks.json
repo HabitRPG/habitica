@@ -143,5 +143,15 @@
     "deleteXTasks": "Usuń<%= count %>zadań",
     "confirmDeleteTasks": "Czy chcesz usunąć zadania?",
     "brokenChallengeTaskCount": "To zadanie jest jednym z<%= count %>zadań, które były częścią Wyzwania, które już nie istnieje.",
-    "sureDeleteType": "Czy na pewno chcesz usunąć to zadanie?"
+    "sureDeleteType": "Czy na pewno chcesz usunąć to zadanie?",
+    "fifthWeekWarning": "",
+    "every": "",
+    "everyDay": "",
+    "everyXDays": "",
+    "everyWeek": "",
+    "everyXWeeks": "",
+    "everyMonth": "",
+    "everyXMonths": "",
+    "everyYear": "",
+    "everyXYears": ""
 }

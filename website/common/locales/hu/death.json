@@ -3,7 +3,7 @@
     "dontDespair": "Ne ess kétségbe!",
     "deathPenaltyDetails": "Elvesztettél egy szintet, az aranyad és egy darab felszerelési tárgyat, de mindet visszaszerezheted kemény munkával! Sok sikert, menni fog!",
     "refillHealthTryAgain": "Töltsd fel az életerődet és próbáld újra",
-    "dyingOftenTips": "Gyakran előfordul ez? <a href='/static/faq#prevent-damage' target='_blank'>Itt találsz néhány tippet!</a>",
+    "dyingOftenTips": "Gyakran előfordul ez? <%= linkOpen %>Itt találsz néhány tippet!<%= linkClose %>",
     "losingHealthWarning": "Vigyázz – Fogy az életerőd!",
     "losingHealthWarning2": "Ne hagyd, hogy az életerőd nullára csökkenjen! Ha ez megtörténik, elvesztesz egy szintet, az aranyadat és egy felszerelési tárgyat.",
     "toRegainHealth": "Hogy visszanyerd az életerőd:",

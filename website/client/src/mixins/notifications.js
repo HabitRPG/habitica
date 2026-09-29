@@ -4,19 +4,13 @@ import {
   getDropClass, getXPMessage, getSign, round,
 } from '@/libs/notifications';
 
-// See https://stackoverflow.com/questions/4187146/truncate-number-to-two-decimal-places-without-rounding
-function toFixedWithoutRounding (num, fixed) {
-  const re = new RegExp(`^-?\\d+(?:\.\\d{0,${(fixed || -1)}})?`); // eslint-disable-line no-useless-escape
-  return num.toString().match(re)[0];
-}
-
 export const NotificationMixins = {
   computed: {
     ...mapState({ notifications: 'notificationStore' }),
   },
   methods: {
     coins (money) {
-      return this.round(money, 2);
+      return this.round(money, 0);
     },
     crit (val) {
       const message = `${this.$t('critBonus')} ${Math.round(val)} %`;
@@ -57,7 +51,7 @@ export const NotificationMixins = {
     },
     mp (val) {
       const cleanMp = `${val}`.replace('-', '').replace('+', '');
-      this.notify(`${this.sign(val)} ${toFixedWithoutRounding(cleanMp, 1)}`, 'mp', 'glyphicon glyphicon-fire', this.sign(val));
+      this.notify(`${this.sign(val)} ${cleanMp < 0 ? Math.floor(cleanMp) : Math.ceil(cleanMp)}`, 'mp', 'glyphicon glyphicon-fire', this.sign(val));
     },
     purchased (itemName) {
       this.text(this.$t('purchasedItem', {

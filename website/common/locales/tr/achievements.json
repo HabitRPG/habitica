@@ -41,9 +41,9 @@
     "achievementLostMasterclasserModalText": "Masterclasser Görev Serisindeki 16 görevin hepsini tamamladın ve Kayıp Materclasser gizemini çözdün!",
     "hideAchievements": "Gizle <%= category %>",
     "showAllAchievements": "Hepsini göster <%= category %>",
-    "onboardingCompleteDesc": "Listeyi tamamladığın için <strong> 5 başarı </strong> ve <strong class=\"gold-amount\"> 100 altın </strong> kazandın.",
+    "onboardingCompleteDesc": "Listeyi tamamladığın için <strong>5 başarı</strong> ve <strong class=\"gold-amount\">100 altın</strong> kazandın.",
     "onboardingProgress": "<%= percentage %>% ilerleme",
-    "gettingStartedDesc": "Hadi bir görev oluştur, tamamla ve ödüllerine göz at. Tamamladığında <strong> 5 başarı </strong> ve <strong class=\"gold-amount\"> 100 altın </strong> kazanacaksın!",
+    "gettingStartedDesc": "Hadi bir görev oluştur, tamamla ve ödüllerine göz at. Tamamladığında <strong>5 başarı</strong> ve <strong class=\"gold-amount\">100 altın</strong> kazanacaksın!",
     "achievementKickstarter2019Text": "2019 Kickstarter Rozet Projesini destekledi",
     "achievementKickstarter2019": "Kickstarter Rozet Destekçisi",
     "achievementAridAuthority": "Çorak Toprakların Hakimi",
@@ -164,6 +164,6 @@
     "achievementCats": "Kedi Çobanı",
     "achievementCatsText": "Tüm standart renklerdeki kedi evcil hayvanlarını yumurtadan çıkardı: Çita, Aslan, Kılıç Dişli Kaplan ve Kaplan!",
     "achievementBonelessBossText": "Tüm standart renklerde omurgasız evcil hayvanları yumurtadan çıkardı: Böcek, Kelebek, Mürekkep Balığı, Deniz Tavşanı, Ahtapot, Salyangoz ve Örümcek!",
-    "achievementDuneBuddy": "Kum Arkadaşı",
+    "achievementDuneBuddy": "Kum Dostu",
     "achievementDuneBuddyText": "Tüm standart çöl sakinleri renklerini yumurtadan çıkardı: Armadillo, Kaktüs, Tilki, Kurbağa, Yılan ve Örümcek!"
 }

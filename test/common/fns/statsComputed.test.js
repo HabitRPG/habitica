@@ -30,9 +30,9 @@ describe('common.fns.statsComputed', () => {
     user.items.gear.equipped.weapon = 'weapon_warrior_1';
     const result = statsComputed(user);
 
-    expect(result.str).to.eql(4.5);
+    expect(result.str).to.eql(6);
     expect(result.gearBonus.str).to.eql(3);
-    expect(result.classBonus.str).to.eql(1.5);
+    expect(result.classBonus.str).to.eql(3);
   });
 
   it('calculates stat bonuses for level', () => {

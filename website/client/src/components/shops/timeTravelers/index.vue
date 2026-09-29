@@ -136,7 +136,7 @@
           :item-margin="24"
           :type="category.identifier"
           :fold-button="false"
-          :no-items-label="$t('allEquipmentOwned')"
+          :no-items-label="$t('allEquipmentOwned', equipmentLinks)"
           :click-handler="false"
         >
           <template
@@ -229,28 +229,24 @@ export default {
   data () {
     return {
       viewOptions: {},
-
       searchText: null,
       searchTextThrottled: null,
-
       icons: Object.freeze({
         hourglass: svgHourglass,
       }),
-
       sortItemsBy: ['AZ', 'sortByNumber'],
       selectedSortItemsBy: 'AZ',
-
       selectedItemToBuy: null,
-
       hidePinned: false,
-
       backgroundUpdate: new Date(),
-
       currentEvent: null,
-
       imageURLs: {
         background: '',
         npc: '',
+      },
+      equipmentLinks: {
+        linkOpen: '<a href="/inventory/equipment">',
+        linkClose: '</a>',
       },
     };
   },

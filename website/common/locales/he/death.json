@@ -3,7 +3,7 @@
     "dontDespair": "אין שום ייאוש!",
     "deathPenaltyDetails": "ירדת בדרגה, איבדת את מטבעות הזהב שלך ופריט ציוד אחד, אבל אפשר להשיג אותם בחזרה עם עבודה קשה! בהצלחה – יהיה בסדר.",
     "refillHealthTryAgain": "מילוי מד הבריאות והתחלה חדשה",
-    "dyingOftenTips": "זה קורה לעיתים קרובות? <a href='https://habitica.fandom.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>הינה כמה עצות!</a>",
+    "dyingOftenTips": "זה קורה לעיתים קרובות? <%= linkOpen %>הינה כמה עצות!<%= linkClose %>",
     "losingHealthWarning": "זהירות - מד הבריאות שלך מתרוקן!",
     "losingHealthWarning2": "אסור לתת למד הבריאות להתרוקן! אחרת, הדמות שלך תרד בדרגה, תאבד את כל מטבעות הזהב, וגם פריט ציוד.",
     "toRegainHealth": "בשביל למלא את מד הבריאות:",

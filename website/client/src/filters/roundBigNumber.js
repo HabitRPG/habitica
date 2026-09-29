@@ -1,15 +1,15 @@
 import round from './round';
 
 function _convertToThousand (num) {
-  return `${(num / (10 ** 3)).toFixed(1)}k`;
+  return `${(num / (10 ** 3)).toFixed(0)}k`;
 }
 
 function _convertToMillion (num) {
-  return `${(num / (10 ** 6)).toFixed(1)}m`;
+  return `${(num / (10 ** 6)).toFixed(0)}m`;
 }
 
 function _convertToBillion (num) {
-  return `${(num / (10 ** 9)).toFixed(1)}b`;
+  return `${(num / (10 ** 9)).toFixed(0)}b`;
 }
 
 export default function roundBigNumber (num) {

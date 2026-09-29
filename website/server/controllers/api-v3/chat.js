@@ -171,8 +171,10 @@ api.postChat = {
       }
     }
 
-    const chatRes = await Group.toJSONCleanChat(group, user);
     const lastClientMsg = req.query.previousMsg;
+    const chatRes = await Group.toJSONCleanChat(group, user, {
+      after: lastClientMsg,
+    });
     const chatUpdated = !!(
       lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg
     );
@@ -486,15 +488,16 @@ api.deleteChat = {
     const group = await Group.getGroup({ user, groupId, fields: 'chat' });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    const message = await Chat.findOne({ _id: chatId }).exec();
+    const message = await Chat.findOne({ _id: chatId }).select('uuid').lean().exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
 
     if (user._id !== message.uuid && !user.hasPermission('moderator')) {
       throw new NotAuthorized(res.t('onlyCreatorOrAdminCanDeleteChat'));
     }
-
-    const chatRes = await Group.toJSONCleanChat(group, user);
     const lastClientMsg = req.query.previousMsg;
+    const chatRes = await Group.toJSONCleanChat(group, user, {
+      after: lastClientMsg,
+    });
     const chatUpdated = !!(
       lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg
     );

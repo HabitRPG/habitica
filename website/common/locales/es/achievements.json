@@ -1,7 +1,7 @@
 {
     "achievement": "Logro",
     "onwards": "¡Adelante!",
-    "levelup": "Al cumplir tus objetivos en la vida real, ¡has subido de nivel y has recuperado toda tu salud!",
+    "levelup": "¡Al cumplir tus objetivos en la vida real has subido de nivel y has recuperado toda tu salud!",
     "reachedLevel": "Has Alcanzado el Nivel <%= level %>",
     "achievementLostMasterclasser": "Completista de Aventuras: Serie Arquimaestra",
     "achievementLostMasterclasserText": "¡Ha completado las dieciséis misiones en la Serie Arquimaestra y resuelto el misterio de la Arquimaestra Perdida!",
@@ -69,7 +69,7 @@
     "foundNewItemsCTA": "¡Dirígete a tu Inventario e intenta combinar tu nueva poción de eclosión y un huevo!",
     "foundNewItemsExplanation": "Completar tareas te da la oportunidad de encontrar objetos, como Huevos, Pociones de Eclosión y Alimento para Mascotas.",
     "foundNewItems": "¡Encontraste nuevos artículos!",
-    "onboardingCompleteDescSmall": "¡Si quieres aún más, mira tus Logros y empieza a coleccionarlos!",
+    "onboardingCompleteDescSmall": "¡Si quieres aún más, mira la sección de Logros y empieza a coleccionarlos!",
     "yourProgress": "Tu Progreso",
     "onboardingComplete": "¡Has completado tus tareas de introducción!",
     "achievementRosyOutlookModalText": "¡Has domado todas las Monturas de Algodón de Azúcar Rosa!",

@@ -107,5 +107,10 @@
     "messageChallengeFlagAlreadyReported": "Túto výzvu si už nahlásil.",
     "abuseFlagModalBodyChallenge": "Mal by si nahlasovať len výzvy porušujúce <%= firstLinkStart %>Komunitné pravidlá<%= linkEnd %> a/alebo <%= secondLinkStart %>Podmienky poskytovania služby<%= linkEnd %>. Zaslanie podvodných nahlásení je porušením komunitných pravidiel Habitici.",
     "resetFlags": "Resetovať označenia",
-    "cannotMakeChallenge": "Nemôžeš vytvárať verejné výzvy lebo tvoj účet momentálne nemá povolený čet. Pre viac informácií nás prosím kontaktuj na admin@habitica.com."
+    "cannotMakeChallenge": "Nemôžeš vytvárať verejné výzvy lebo tvoj účet momentálne nemá povolený čet. Pre viac informácií nás prosím kontaktuj na admin@habitica.com.",
+    "brokenTaskDescription": "",
+    "brokenChallengeDescription": "",
+    "challengeCompletedDescription": "",
+    "deleteChallengeRefundDescription": "",
+    "brokenTask": ""
 }

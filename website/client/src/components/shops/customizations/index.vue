@@ -162,6 +162,10 @@ export default {
       searchTextThrottled: null,
       unfilteredCategories: [],
       viewOptions: {},
+      customizeLinks: {
+        linkOpen: '<a href="">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {
@@ -264,21 +268,21 @@ export default {
       const { $t } = this;
       switch (identifier) {
         case 'animalEars':
-          return $t('allCustomizationsOwned');
+          return $t('allCustomizationsOwned', this.customizeLinks);
         case 'animalTails':
-          return $t('allCustomizationsOwned');
+          return $t('allCustomizationsOwned', this.customizeLinks);
         case 'backgrounds':
-          return `${$t('allCustomizationsOwned')} ${$t('checkNextMonth')}`;
+          return `${$t('allCustomizationsOwned', this.customizeLinks)} ${$t('checkNextMonth')}`;
         case 'facialHair':
-          return $t('allCustomizationsOwned');
+          return $t('allCustomizationsOwned', this.customizeLinks);
         case 'color':
-          return `${$t('allCustomizationsOwned')} ${$t('checkNextSeason')}`;
+          return `${$t('allCustomizationsOwned', this.customizeLinks)} ${$t('checkNextSeason')}`;
         case 'base':
-          return $t('allCustomizationsOwned');
+          return $t('allCustomizationsOwned', this.customizeLinks);
         case 'shirt':
-          return $t('allCustomizationsOwned');
+          return $t('allCustomizationsOwned', this.customizeLinks);
         case 'skin':
-          return `${$t('allCustomizationsOwned')} ${$t('checkNextSeason')}`;
+          return `${$t('allCustomizationsOwned', this.customizeLinks)} ${$t('checkNextSeason')}`;
         default:
           return `Unknown identifier ${identifier}`;
       }

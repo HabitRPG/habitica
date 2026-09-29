@@ -39,6 +39,17 @@ describe('shared.ops.unlock', () => {
     }
   });
 
+  it('returns an error when path is truncated', async () => {
+    try {
+      await unlock(user, {
+        query: { path: 'background.' },
+      });
+    } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
+      expect(err.message).to.equal(i18n.t('invalidUnlockSet'));
+    }
+  });
+
   it('does not unlock lost gear', async () => {
     user.items.gear.owned.headAccessory_special_bearEars = false;
 

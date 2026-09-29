@@ -7,6 +7,7 @@ import { // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
   createSubscription,
   cancelSubscription,
+  handleSubscriptionRenewal,
 } from './subscriptions';
 import { // eslint-disable-line import/no-cycle
   buyGems,
@@ -31,6 +32,8 @@ api.cancelGroupSubscriptionForUser = cancelGroupSubscriptionForUser;
 api.createSubscription = createSubscription;
 
 api.cancelSubscription = cancelSubscription;
+
+api.handleSubscriptionRenewal = handleSubscriptionRenewal;
 
 api.buyGems = buyGems;
 

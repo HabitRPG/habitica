@@ -46,7 +46,7 @@ export default {
       const userClass = this.user.stats.class;
       if (userClass === item.klass || userClass === item.specialClass) {
         for (const attr of this.ATTRIBUTES) {
-          result[attr] = itemStats[attr] * 0.5;
+          result[attr] = itemStats[attr] * 1;
         }
       }
 

@@ -399,7 +399,7 @@
         </div>
         <div
           v-if="!hasGroupPlan && !canCancelSubscription"
-          v-html="$t(`cancelSubInfo${user.purchased.plan.paymentMethod}`)"
+          v-html="$t(`cancelSubInfo${user.purchased.plan.paymentMethod}`, cancelLinks)"
         >
         </div>
       </div>
@@ -1021,6 +1021,17 @@ export default {
       const nextHourglassMonth = this.nextHourGlassDate.format('MMMM');
 
       return nextHourglassMonth;
+    },
+    cancelLinks () {
+      const links = {
+        linkClose: '</a>',
+      };
+      if (this.user.purchased.plan.paymentMethod === this.paymentMethods.GOOGLE) {
+        links.linkOpen = '<a href="https://play.google.com/store/account/subscriptions" target="_blank" rel="noopener noreferrer">';
+      } else if (this.user.purchased.plan.paymentMethod === this.paymentMethods.APPLE) {
+        links.linkOpen = '<a href="https://support.apple.com/en-us/HT202039" target="_blank" rel="noopener noreferrer">';
+      }
+      return links;
     },
   },
   mounted () {

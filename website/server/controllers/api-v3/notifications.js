@@ -13,14 +13,14 @@ const api = {};
  * @apiName ReadNotification
  * @apiGroup Notification
  *
- * @apiParam (Path) {UUID} notificationId
+ * @apiParam (Path) {UUID} notificationId Required. ID of the notification to mark as read.
  *
  * @apiSuccess {Object} data user.notifications
  */
 api.readNotification = {
   method: 'POST',
   url: '/notifications/:notificationId/read',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({ leanUser: true, userFieldsToInclude: ['notifications'] })],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -37,12 +37,9 @@ api.readNotification = {
 
     user.notifications.splice(index, 1);
 
-    // Update the user version field manually,
-    // it cannot be updated in the pre update hook
-    // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
-    user._v += 1;
-
-    await user.updateOne({
+    await User.updateOne({
+      _id: user._id,
+    }, {
       $pull: { notifications: { id: req.params.notificationId } },
     }).exec();
 
@@ -52,15 +49,27 @@ api.readNotification = {
 
 /**
  * @api {post} /api/v3/notifications/read Mark multiple notifications as read
+ * @apiDescription Marks multiple notifications as read by removing them
+ * from the user's notification list. This differs from marking notifications
+ * as seen, which retains them but sets the `seen` field to true.
  * @apiName ReadNotifications
  * @apiGroup Notification
  *
- * @apiSuccess {Object} data user.notifications
+ * @apiParam {String[]} notificationIds Array of notification IDs to mark as read
+ * (required)
+ *
+ * @apiExample {json} Request-Example:
+ * {
+ *   "notificationIds": ["abcdef123", "ghi456789"]
+ * }
+ *
+ * @apiSuccess {Object[]} data Updated user.notifications array
  */
+
 api.readNotifications = {
   method: 'POST',
   url: '/notifications/read',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({ leanUser: true, userFieldsToInclude: ['notifications'] })],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -80,14 +89,11 @@ api.readNotifications = {
       user.notifications.splice(index, 1);
     }
 
-    await user.updateOne({
+    await User.updateOne({
+      _id: user._id,
+    }, {
       $pull: { notifications: { id: { $in: notificationsIds } } },
     }).exec();
-
-    // Update the user version field manually,
-    // it cannot be updated in the pre update hook
-    // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
-    user._v += 1;
 
     res.respond(200, user.notifications);
   },
@@ -108,7 +114,7 @@ api.readNotifications = {
 api.seeNotification = {
   method: 'POST',
   url: '/notifications/:notificationId/see',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({ leanUser: true, userFieldsToInclude: ['notifications'] })],
   async handler (req, res) {
     const { user } = res.locals;
 
@@ -136,11 +142,6 @@ api.seeNotification = {
       },
     }).exec();
 
-    // Update the user version field manually,
-    // it cannot be updated in the pre update hook
-    // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
-    user._v += 1;
-
     res.respond(200, notification);
   },
 };
@@ -150,12 +151,20 @@ api.seeNotification = {
  * @apiName SeeNotifications
  * @apiGroup Notification
  *
+ * @apiParam {String[]} notificationIds Required. Array of notification ID strings to mark as seen.
+ *
+ * @apiExample {json} Request-Example:
+ * {
+ *   "notificationIds": ["abcdef123", "ghi456789"]
+ * }
+ *
  * @apiSuccess {Object} data user.notifications
  */
+
 api.seeNotifications = {
   method: 'POST',
   url: '/notifications/see',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({ userFieldsToInclude: ['notifications'] })],
   async handler (req, res) {
     const { user } = res.locals;
 

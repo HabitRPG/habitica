@@ -863,6 +863,18 @@ const armor = {
   summer2026Mage: {
     set: 'summer2026TigerSharkMageSet',
   },
+  fall2026Warrior: {
+    set: 'fall2026GhostPumpkinWarriorSet',
+  },
+  fall2026Rogue: {
+    set: 'fall2026SkeletalRavenRogueSet',
+  },
+  fall2026Healer: {
+    set: 'fall2026MysticCandleHealerSet',
+  },
+  fall2026Mage: {
+    set: 'fall2026PoisonMushroomMageSet',
+  },
 };
 
 const armorStats = {
@@ -2036,6 +2048,18 @@ const head = {
   summer2026Mage: {
     set: 'summer2026TigerSharkMageSet',
   },
+  fall2026Warrior: {
+    set: 'fall2026GhostPumpkinWarriorSet',
+  },
+  fall2026Rogue: {
+    set: 'fall2026SkeletalRavenRogueSet',
+  },
+  fall2026Healer: {
+    set: 'fall2026MysticCandleHealerSet',
+  },
+  fall2026Mage: {
+    set: 'fall2026PoisonMushroomMageSet',
+  },
 };
 
 const headStats = {
@@ -2793,6 +2817,15 @@ const shield = {
   },
   summer2026Healer: {
     set: 'summer2026PuffinHealerSet',
+  },
+  fall2026Warrior: {
+    set: 'fall2026GhostPumpkinWarriorSet',
+  },
+  fall2026Rogue: {
+    set: 'fall2026SkeletalRavenRogueSet',
+  },
+  fall2026Healer: {
+    set: 'fall2026MysticCandleHealerSet',
   },
 };
 
@@ -3556,6 +3589,18 @@ const weapon = {
   },
   summer2026Mage: {
     set: 'summer2026TigerSharkMageSet',
+  },
+  fall2026Warrior: {
+    set: 'fall2026GhostPumpkinWarriorSet',
+  },
+  fall2026Rogue: {
+    set: 'fall2026SkeletalRavenRogueSet',
+  },
+  fall2026Healer: {
+    set: 'fall2026MysticCandleHealerSet',
+  },
+  fall2026Mage: {
+    set: 'fall2026PoisonMushroomMageSet',
   },
 };
 

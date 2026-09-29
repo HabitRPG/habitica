@@ -5,10 +5,6 @@ describe('payments : apple #cancelSubscribe', () => {
   const endpoint = '/iap/ios/subscribe/cancel?noRedirect=true';
   let user;
 
-  beforeEach(async () => {
-    user = await generateUser();
-  });
-
   describe('success', () => {
     let cancelStub;
 
@@ -22,6 +18,7 @@ describe('payments : apple #cancelSubscribe', () => {
 
     it('cancels the subscription', async () => {
       user = await generateUser({
+        'preferences.analyticsConsent': true,
         'profile.name': 'sender',
         'purchased.plan.paymentMethod': 'Apple',
         'purchased.plan.customerId': 'customer-id',

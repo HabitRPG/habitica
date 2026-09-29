@@ -177,7 +177,7 @@
             <div
               v-once
               class="guidelines flex-fill"
-              v-html="$t('communityGuidelinesIntro')"
+              v-html="$t('communityGuidelinesIntro', guidelineLinks)"
             ></div>
             <button
               class="btn btn-primary"
@@ -774,6 +774,10 @@ export default defineComponent({
       messages: [],
       messagesLoading: false,
       MAX_MESSAGE_LENGTH: MAX_MESSAGE_LENGTH.toString(),
+      guidelineLinks: {
+        linkOpen: '<a href="/static/community-guidelines" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {

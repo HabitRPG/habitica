@@ -11,5 +11,12 @@
     "rebirthPop": "Odmah ponovno pokrenite svog lika kao Ratnika Razine 1, zadržavajući postignuća, kolekcionarske predmete i opremu. Vaši zadaci i njihova povijest će ostati, ali će biti vraćeni na žutu boju. Vaši nizovi će biti uklonjeni, osim s zadataka koji pripadaju aktivnim Izazovima i Grupnim planovima. Vaše Zlato, Iskustvo, Mana i učinci svih Vještina će biti uklonjeni. Sve ovo stupa na snagu odmah.",
     "rebirthName": "Kugla Ponovnog Rođenja",
     "rebirthComplete": "Preporođeni ste!",
-    "nextFreeRebirth": "<strong><%= days %> dana</strong> do <strong>BESPLATNE</strong> Kugle Ponovnog Rođenja"
+    "nextFreeRebirth": "<strong><%= days %> dana</strong> do <strong>BESPLATNE</strong> Kugle Ponovnog Rođenja",
+    "rebirthUnlockedNewItem": "",
+    "rebirthUnlockedOrb": "",
+    "rebirthUnlockedDesc": "",
+    "rebirthNewAchievement": "",
+    "rebirthNewAdventure": "",
+    "rebirthAchievementPlural": "",
+    "rebirthStackInfo": ""
 }

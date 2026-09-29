@@ -4,9 +4,6 @@ import {
   ModalPlugin,
   DropdownPlugin,
   PopoverPlugin,
-  FormPlugin,
-  FormInputPlugin,
-  FormRadioPlugin,
   TooltipPlugin,
   NavbarPlugin,
   CollapsePlugin,
@@ -37,9 +34,6 @@ Vue.use(StoreModule);
 Vue.use(ModalPlugin);
 Vue.use(DropdownPlugin);
 Vue.use(PopoverPlugin);
-Vue.use(FormPlugin);
-Vue.use(FormInputPlugin);
-Vue.use(FormRadioPlugin);
 Vue.use(TooltipPlugin);
 Vue.use(NavbarPlugin);
 Vue.use(CollapsePlugin);

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <chat-banner />
     <static-header
       v-if="showContentWrap && !loginFlow"
       :class="{
@@ -244,13 +243,11 @@
 
 <script>
 import AppFooter from '@/components/appFooter';
-import ChatBanner from '@/components/header/banners/chatBanner';
 import StaticHeader from './header.vue';
 
 export default {
   components: {
     AppFooter,
-    ChatBanner,
     StaticHeader,
   },
   computed: {

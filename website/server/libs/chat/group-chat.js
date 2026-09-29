@@ -6,20 +6,27 @@ const questScrolls = shared.content.quests;
 
 // @TODO: Don't use this method when the group can be saved.
 export async function getGroupChat (group, options = {}) {
-  const { limit, before } = options;
+  const { limit, before, after } = options;
   const effectiveLimit = group.getEffectiveChatLimit(limit);
 
   let query = Chat.find({ groupId: group._id })
     .sort('-timestamp');
 
   if (before) {
-    const beforeMessage = await Chat.findOne({ _id: before }).exec();
+    const beforeMessage = await Chat.findOne({ _id: before }, { timestamp: 1 }).lean().exec();
     if (beforeMessage) {
       query = query.where('timestamp').lt(beforeMessage.timestamp);
     }
   }
 
-  const groupChat = await query.limit(effectiveLimit).exec();
+  if (after) {
+    const afterMessage = await Chat.findOne({ _id: after }, { timestamp: 1 }).lean().exec();
+    if (afterMessage) {
+      query = query.where('timestamp').gte(afterMessage.timestamp);
+    }
+  }
+
+  const groupChat = await query.limit(effectiveLimit).lean().exec();
 
   // @TODO: Concat old chat to keep continuity of chat stored on group object
   const currentGroupChat = group.chat || [];

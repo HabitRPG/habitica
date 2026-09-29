@@ -55,5 +55,6 @@
     "messageBackgroundUnEquipped": "Baggrund fjernet.",
     "messageCostumeUnEquipped": "Kostume fjernet.",
     "messagePetMountUnEquipped": "Kæle- og ridedyr fjernet.",
-    "messageBattleGearUnEquipped": "Kampudstyr fjernet"
+    "messageBattleGearUnEquipped": "Kampudstyr fjernet",
+    "featureRetired": ""
 }

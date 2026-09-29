@@ -1,5 +1,4 @@
 import nconf from 'nconf';
-import redis from 'ioredis';
 import {
   RateLimiterRedis,
   RateLimiterMemory,
@@ -11,6 +10,7 @@ import {
 import logger from '../libs/logger';
 import { apiError } from '../libs/apiError';
 import SERVER_STATUS from '../libs/serverStatus';
+import setupRedis from '../libs/redis';
 
 // Middleware to rate limit requests to the API
 
@@ -32,26 +32,27 @@ const IP_RATE_LIMIT_COST = nconf.get('RATE_LIMITER_IP_COST') || 5;
 let redisClient;
 
 if (RATE_LIMITER_ENABLED && !IS_TEST) {
-  redisClient = redis.createClient({
+  redisClient = setupRedis({
     host: REDIS_HOST,
     password: REDIS_PASSWORD,
     port: REDIS_PORT,
-    enable_offline_queue: false,
+  }, {
+    enableOfflineQueue: false,
   });
 
   redisClient.on('ready', () => {
-    SERVER_STATUS.REDIS = true;
+    SERVER_STATUS.RATE_LIMITER = true;
   });
 
   redisClient.on('reconnecting', () => {
-    SERVER_STATUS.REDIS = false;
+    SERVER_STATUS.RATE_LIMITER = false;
   });
 
   redisClient.on('error', error => {
     logger.error(error, 'Redis Error');
   });
 } else {
-  SERVER_STATUS.REDIS = true;
+  SERVER_STATUS.RATE_LIMITER = true;
 }
 
 function setResponseHeaders (res, points, rateLimiterRes) {

@@ -36,29 +36,7 @@ jobs:
         CI: true
         NODE_ENV: test
     - run: npm run lint-no-fix
-  apidoc:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [21.x]
-    steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: sudo apt update
-    - run: sudo apt -y install libkrb5-dev
-    - run: cp config.json.example config.json
-    - name: npm install
-      run: |
-        npm i
-      env:
-        CI: true
-        NODE_ENV: test
-    - run: npm run apidoc
+
   sanity:
     runs-on: ubuntu-latest
     strategy:
@@ -106,6 +84,7 @@ jobs:
         CI: true
         NODE_ENV: test
     - run: npm run test:common
+
   content:
     runs-on: ubuntu-latest
     strategy:

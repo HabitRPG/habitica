@@ -47,6 +47,7 @@
             class="nav-link"
             href="https://habitica.wordpress.com/"
             target="_blank"
+            rel="noopener noreferrer"
           >{{ $t('companyBlog') }}</a>
         </li>
         <li class="nav-item">
@@ -54,6 +55,7 @@
             class="nav-link"
             href="https://blog.habitrpg.com/"
             target="_blank"
+            rel="noopener noreferrer"
           >{{ $t('tumblr') }}</a>
         </li>
         <router-link

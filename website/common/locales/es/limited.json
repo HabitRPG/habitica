@@ -203,7 +203,7 @@
     "summer2022AngelfishHealerSet": "Pez ángel (Sanador)",
     "fall2022HarpyMageSet": "Arpía (Mago)",
     "fall2022OrcWarriorSet": "Orca (Guerrero)",
-    "gemSaleHow": "Entre el <%= eventStartOrdinal %> y <%= eventEndOrdinal %> de <%= eventStartMonth %>, simplemente compra cualquier paquete de Gemas como normalmente, y se abonará en tu cuenta el número promocional de Gemas. ¡Más Gemas para gastar, compartir o guardar para futuras entregas!",
+    "gemSaleHow": "Entre el <%= eventStartOrdinal %> y <%= eventEndOrdinal %> de <%= eventStartMonth %>, simplemente compra cualquier paquete de Gemas y se abonará en tu cuenta el número promocional de Gemas. ¡Más Gemas para gastar, compartir o guardar para futuros artículos, personalizaciones y más!",
     "fall2022KappaRogueSet": "Kapa (Pícaro)",
     "fall2022WatcherHealerSet": "Mirador (Sanador)",
     "winter2023WalrusWarriorSet": "Morsa (Guerrero)",
@@ -294,5 +294,9 @@
     "summer2026PuffinHealerSet": "Frailecillo (Sanador)",
     "summer2026TigerSharkMageSet": "Tiburón Tigre (Mago)",
     "summer2026TsunamiRogueSet": "Tsunami (Pícaro)",
-    "summer2026AlligatorWarriorSet": "Aligátor (Guerrero)"
+    "summer2026AlligatorWarriorSet": "Aligátor (Guerrero)",
+    "fall2026GhostPumpkinWarriorSet": "Calabaza Fantasma (Guerrero)",
+    "fall2026PoisonMushroomMageSet": "Hongo Venenoso (Mago)",
+    "fall2026MysticCandleHealerSet": "Vela Mística (Sanador)",
+    "fall2026SkeletalRavenRogueSet": "Esquelético Cuervo (Pícaro)"
 }

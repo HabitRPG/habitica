@@ -33,7 +33,7 @@ import gemsBlock from './gems';
 import faq from './faq';
 import timeTravelers from './time-travelers';
 
-import { REPEATING_EVENTS, getRepeatingEvents } from './constants/events';
+import { REPEATING_EVENTS, getRepeatingEvents, gemsPromo } from './constants/events';
 
 import loginIncentives from './loginIncentives';
 
@@ -104,11 +104,11 @@ api.potion = {
 api.armoire = {
   type: 'armoire',
   text: t('armoireText'),
-  notes (count) {
+  notes (count, language) {
     if (count === 0) {
-      return t('armoireNotesEmpty')();
+      return t('armoireNotesEmpty')(language);
     }
-    return `${t('armoireNotesFull')()} ${count}`;
+    return `${t('armoireNotesFull')(language)} ${count}`;
   },
   value: 100,
   key: 'armoire',
@@ -119,6 +119,7 @@ api.armoire = {
 
 api.events = EVENTS;
 api.repeatingEvents = REPEATING_EVENTS;
+api.gemsPromo = gemsPromo;
 api.getRepeatingEventsOnDate = getRepeatingEvents;
 
 api.classes = CLASSES;

@@ -103,5 +103,14 @@
     "whyReportingChallengePlaceholder": "הסיבה לדיווח",
     "cannotClone": "לא ניתן לשכפל אתגר זה מכיוון ששחקן אחד או יותר דיווחו עליו כבלתי־הולם. עובדי צוות יצרו איתך קשר בקרוב ויתנו לך הנחיות. אם עברו יותר מ־48 שעות ולא פנו אליך, נא לשלוח דואר אלקטרוני לכתובת admin@habitica.com לצורך קבלת סיוע.",
     "messageChallengeFlagAlreadyReported": "כבר דיווחת על אתגר זה.",
-    "cannotMakeChallenge": "אין לך אפשרות ליצור אתגרים ציבוריים מכיוון שאין לחשבונך הרשאות התכתבות ברשת כעת. נא ליצור קשר עם הכתובת admin@habitica.com לקבלת מידע נוסף."
+    "cannotMakeChallenge": "אין לך אפשרות ליצור אתגרים ציבוריים מכיוון שאין לחשבונך הרשאות התכתבות ברשת כעת. נא ליצור קשר עם הכתובת admin@habitica.com לקבלת מידע נוסף.",
+    "resetFlagCount": "",
+    "brokenTaskDescription": "",
+    "brokenChallengeDescription": "",
+    "challengeCompletedDescription": "",
+    "resetFlags": "",
+    "deleteChallengeRefundDescription": "",
+    "flaggedNotHidden": "",
+    "flaggedAndHidden": "",
+    "brokenTask": ""
 }

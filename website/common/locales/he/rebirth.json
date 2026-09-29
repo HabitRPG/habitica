@@ -10,5 +10,13 @@
     "rebirthOrbNoLevel": "",
     "rebirthPop": "",
     "rebirthName": "כדור הלידה מחדש",
-    "rebirthComplete": "נולדת מחדש!"
+    "rebirthComplete": "נולדת מחדש!",
+    "rebirthUnlockedNewItem": "",
+    "rebirthUnlockedOrb": "",
+    "rebirthUnlockedDesc": "",
+    "rebirthNewAchievement": "",
+    "rebirthNewAdventure": "",
+    "rebirthAchievementPlural": "",
+    "rebirthStackInfo": "",
+    "nextFreeRebirth": ""
 }

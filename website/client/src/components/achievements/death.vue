@@ -55,7 +55,7 @@
         </button>
         <h4
           class="text-center"
-          v-html="$t('dyingOftenTips')"
+          v-html="$t('dyingOftenTips', tipLinks)"
         ></h4>
       </div>
     </div>
@@ -86,6 +86,10 @@ export default {
   data () {
     return {
       maxHealth,
+      tipLinks: {
+        linkOpen: '<a href="/static/faq#prevent-damage" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {

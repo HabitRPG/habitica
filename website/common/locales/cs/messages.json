@@ -54,5 +54,7 @@
     "messageBackgroundUnEquipped": "Pozadí odloženo.",
     "messagePetMountUnEquipped": "Mazlíček a zvíře odloženi.",
     "messageCostumeUnEquipped": "Kostým odložen.",
-    "messageBattleGearUnEquipped": "Bojová výstroj odložena."
+    "messageBattleGearUnEquipped": "Bojová výstroj odložena.",
+    "newsPostNotFound": "",
+    "featureRetired": ""
 }

@@ -11,6 +11,7 @@
             <br>
             <a
               target="_blank"
+              rel="noopener noreferrer"
               @click.prevent="openBugReportModal()"
             >
               {{ $t('reportBug') }}

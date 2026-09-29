@@ -54,5 +54,5 @@
     "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "You don't own this skill.",
     "spellLevelTooHigh": "You must be level <%= level %> to use this skill.",
-    "spellAlreadyCast": "Using this skill won't have any additional effect."
+    "spellAlreadyCast": "Using this skill won’t have any additional effect."
 }

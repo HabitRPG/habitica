@@ -574,6 +574,11 @@ const armor = {
     con: 7,
     set: 'kendo',
   },
+  secretsCloak: {
+    int: 5,
+    per: 5,
+    set: 'secrets',
+  },
 };
 
 const back = {
@@ -664,6 +669,11 @@ const eyewear = {
   roseColoredGlasses: {
     per: 8,
     set: 'optimistSet',
+  },
+  secretsShades: {
+    int: 5,
+    per: 5,
+    set: 'secrets',
   },
 };
 
@@ -1185,6 +1195,11 @@ const head = {
     per: 7,
     set: 'kendo',
   },
+  secretsHood: {
+    int: 5,
+    per: 5,
+    set: 'secrets',
+  },
 };
 
 const shield = {
@@ -1587,6 +1602,14 @@ const shield = {
   gardenHose: {
     per: 8,
     set: 'gardener2',
+  },
+  shieldOfHonor: {
+    con: 9,
+    set: 'knightOfHonor',
+  },
+  leafPile: {
+    con: 11,
+    set: 'leafPile',
   },
 };
 
@@ -2140,6 +2163,10 @@ const weapon = {
   gardenRake: {
     con: 8,
     set: 'gardener2',
+  },
+  hammerOfHonor: {
+    str: 9,
+    set: 'knightOfHonor',
   },
 };
 

@@ -143,5 +143,15 @@
     "scoreDown": "Minska poäng",
     "taskAlias": "Alias för uppgift",
     "taskAliasPopover": "Detta uppgiftsalias kan användas vid integration med tredjepartsverktyg. Endast bindestreck, understreck och bokstäver/siffror är tillåtna. Uppgiftsaliaset måste vara unikt bland alla dina uppgifter.",
-    "taskAliasPlaceholder": "ditt-uppgiftsalias-här"
+    "taskAliasPlaceholder": "ditt-uppgiftsalias-här",
+    "every": "",
+    "everyDay": "",
+    "everyXDays": "",
+    "everyWeek": "",
+    "everyXWeeks": "",
+    "everyMonth": "",
+    "everyXMonths": "",
+    "everyYear": "",
+    "everyXYears": "",
+    "fifthWeekWarning": ""
 }

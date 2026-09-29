@@ -11,7 +11,7 @@
           {{ $t('tavernDiscontinued') }}
         </h1>
         <p>{{ $t('tavernDiscontinuedDetail') }}</p>
-        <p v-html="$t('tavernDiscontinuedLinks')"></p>
+        <p v-html="$t('tavernDiscontinuedLinks', tavernLinks)"></p>
       </div>
       <div v-else>
         <h1>
@@ -38,6 +38,15 @@
 import { mapState } from '@/libs/store';
 
 export default {
+  data () {
+    return {
+      tavernLinks: {
+        faqLink: '<a href="/static/faq/tavern-and-guilds">',
+        homeLink: '<a href="/">',
+        linkClose: '</a>',
+      },
+    };
+  },
   computed: {
     ...mapState(['isUserLoggedIn']),
     retiredChatPage () {

@@ -491,6 +491,7 @@
                 v-if="hero.purchased.plan.paymentMethod === 'Google'"
                 class="btn btn-primary btn-sm"
                 target="_blank"
+                rel="noopener noreferrer"
                 :href="playOrdersUrl"
               >
                 Play Console
@@ -499,6 +500,7 @@
                 v-else-if="hero.purchased.plan.paymentMethod === 'Paypal'"
                 class="btn btn-primary btn-sm"
                 target="_blank"
+                rel="noopener noreferrer"
                 :href="'https://www.paypal.com/billing/subscriptions/' + paymentDetails.customerId"
               >
                 PayPal Dashboard
@@ -507,6 +509,7 @@
                 v-else-if="hero.purchased.plan.paymentMethod === 'Stripe'"
                 class="btn btn-primary btn-sm"
                 target="_blank"
+                rel="noopener noreferrer"
                 :href="'https://dashboard.stripe.com/customers/' + paymentDetails.customerId"
               >
                 Stripe Dashboard

@@ -137,5 +137,21 @@
     "taskAliasPlaceholder": "tú-alias-de-tarea-aquí",
     "taskSummary": "<%= type %> Resumen",
     "scoreUp": "Puntuar positivamente",
-    "scoreDown": "Puntuar negativamente"
+    "scoreDown": "Puntuar negativamente",
+    "every": "",
+    "everyDay": "",
+    "everyXDays": "",
+    "everyWeek": "",
+    "everyXWeeks": "",
+    "everyMonth": "",
+    "everyXMonths": "",
+    "everyYear": "",
+    "everyXYears": "",
+    "fifthWeekWarning": "",
+    "deleteType": "",
+    "deleteTask": "",
+    "deleteXTasks": "",
+    "brokenChallengeTaskCount": "",
+    "confirmDeleteTasks": "",
+    "sureDeleteType": ""
 }

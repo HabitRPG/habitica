@@ -42,8 +42,6 @@
     "food": "מזון לחיות מחמד ואוכפים",
     "noFoodAvailable": "אין לך אוכל.",
     "noSaddlesAvailable": "אין לך אוכפים.",
-    "dropsExplanation": "ניתן לקבל פריטים אלו מהר יותר בעזרת יהלומים אם אין לך עניין לחכות עד שייפלו בעת השלמת משימה. <a href=\"https://habitica.fandom.com/wiki/Drops\">למידע נוסף על מערכת נפילת הפריטים.</a>",
-    "dropsExplanationEggs": "ניתן לקבל את הביצים מהר יותר בעזרת יהלומים אם אין לך עניין לחכות עד שייפלו בעת השלמת משימה. <a href=\"https://habitica.fandom.com/wiki/Drops\">למידע נוסף על מערכת נפילת הפריטים.</a>",
     "premiumPotionNoDropExplanation": "לא ניתן להשתמש בשיקויי בקיעה קסומים על ביצים שהתקבלו מהרפתקאות. הדרך היחידה לקבל שיקויי הבקעה קסומים היא על ידי שימוש בהם למטה, לא מנפילות אקראיות.",
     "beastMasterProgress": "התקדמות אדון החיות",
     "beastAchievement": "הרווחת את הישג \"אדון החיות\" על איסוף כל חיות המחמד!",
@@ -86,7 +84,6 @@
     "welcomeStable": "ברוכים הבאים לחייות המחמד והרכיבה!",
     "welcomeStableText": "I'm Matt, the Beast Master. Starting at level 3, you can hatch Pets from Eggs by using Potions you find! When you hatch a Pet from your Inventory, it will appear here! Click a Pet's image to add it to your avatar. Feed them here with the Food you find after level 3, and they'll grow into hardy Mounts.",
     "petLikeToEat": "מה חיית המחמד שלי אוהבת לאכול?",
-    "petLikeToEatText": "חיות המחמד יגדלו לא משנה מה תאכילו אותן, אך הן יגדלו במהירות רבה יותר אם תאכילו אותן את המזון האהוב עליהן. נסו מזונות שונים עד שתעלו על השיטה, או אם תרצו תוכלו לבדוק את התשובות כאן: <br/> <a href=\"/static/faq#pet-foods\" target=\"_blank\">https://habitica.com/static/faq#pet-foods</a>",
     "filterByStandard": "בסיסיים",
     "filterByMagicPotion": "שיקוי קסם",
     "filterByQuest": "הרפתקה",
@@ -109,5 +106,8 @@
     "gryphatrice": "גריפטריצ'ה",
     "jubilantGryphatrice": "גריפטריצ'ה צוהלת",
     "veteranCactus": "קקטוס וותיק",
-    "veteranDragon": "דרקון ותיק"
+    "veteranDragon": "דרקון ותיק",
+    "notEnoughFood": "",
+    "invalidAmount": "",
+    "tooMuchFood": ""
 }

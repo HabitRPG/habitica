@@ -59,7 +59,7 @@
     "loginIncentiveQuest": "Da bi otključali ovu pustolovinu, prijavite se u Habiticu <%= count %> dana za redom!",
     "loginReward": "Broj prijava: <%= count %>",
     "questBundles": "Sniženi Paketi Pustolovina",
-    "noQuestToStart": "Pokušajte provjeriti <a href=\"<%= questShop %>\">Dućan Pustolovina</a> za nova izdanja!",
+    "noQuestToStart": "Pokušajte provjeriti <%= linkOpen %>Dućan Pustolovina<%= linkClose %> za nova izdanja!",
     "pendingDamage": "<%= damage %>štete je na čekanju",
     "pendingDamageLabel": "šteta na čekanju",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Zdravlja",

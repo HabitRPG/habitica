@@ -208,8 +208,8 @@ export default {
   mixins: [notifications, userStateMixin],
   data () {
     const abuseFlagModalBody = {
-      firstLinkStart: '<a href="/static/community-guidelines" target="_blank">',
-      secondLinkStart: '<a href="/static/terms" target="_blank">',
+      firstLinkStart: '<a href="/static/community-guidelines" target="_blank" rel="noopener noreferrer">',
+      secondLinkStart: '<a href="/static/terms" target="_blank" rel="noopener noreferrer">',
       linkEnd: '</a>',
     };
 

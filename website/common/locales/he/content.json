@@ -399,5 +399,17 @@
     "questEggOtterAdjective": "בוגדני/ת",
     "questEggDogText": "כלבלב",
     "hatchingPotionJade": "ירקן",
-    "hatchingPotionFungi": "פטריה"
+    "hatchingPotionFungi": "פטריה",
+    "questEggAlpacaText": "",
+    "questEggAlpacaMountText": "",
+    "questEggAlpacaAdjective": "",
+    "hatchingPotionBalloon": "",
+    "hatchingPotionCryptid": "",
+    "wackyPotionNotes": "",
+    "questEggPlatypusText": "",
+    "wackyPotionAddlNotes": "",
+    "questEggPlatypusMountText": "",
+    "questEggPlatypusAdjective": "",
+    "hatchingPotionOpal": "",
+    "hatchingPotionAlien": ""
 }

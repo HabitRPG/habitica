@@ -143,5 +143,15 @@
     "deleteType": "Excluir <%= type %>",
     "brokenChallengeTaskCount": "Essa é uma das <%= count %> tarefas que fazem parte de um Desafio que não existe mais.",
     "deleteXTasks": "Excluir <%= count %> Tarefas",
-    "sureDeleteType": "Você tem certeza que deseja deletar essa tarefa?"
+    "sureDeleteType": "Você tem certeza que deseja deletar essa tarefa?",
+    "every": "a cada",
+    "everyDay": "todos os dias",
+    "everyXDays": "a cada <%= count %> dias",
+    "everyWeek": "toda semana",
+    "everyXWeeks": "a cada <%= count %> semanas",
+    "everyMonth": "todo mês",
+    "everyXMonths": "a cada <%= count %> meses",
+    "everyYear": "todo ano",
+    "everyXYears": "a cada <%= count %> anos",
+    "fifthWeekWarning": ""
 }

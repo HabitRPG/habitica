@@ -43,10 +43,25 @@ function cssVarMap (sprite) {
 }
 
 function filterFile (file) {
+  if (file.relative.indexOf('icon_') === 0) {
+    return false;
+  }
+  if (file.relative.indexOf('inventory_quest_') === 0) {
+    return false;
+  }
   if (file.relative.indexOf('Mount_Icon_') !== -1) {
     return false;
   }
+  if (file.relative.indexOf('notif_') === 0) {
+    return false;
+  }
   if (file.path.indexOf('shop/') !== -1) {
+    return false;
+  }
+  if (file.relative.indexOf('shop_') === 0) {
+    return false;
+  }
+  if (file.relative.indexOf('stable_') !== -1) {
     return false;
   }
   if (file.path.indexOf('stable/eggs') !== -1) {
@@ -56,21 +71,6 @@ function filterFile (file) {
     return false;
   }
   if (file.path.indexOf('stable/potions') !== -1) {
-    return false;
-  }
-  if (file.relative.indexOf('shop_') === 0) {
-    return false;
-  }
-  if (file.relative.indexOf('icon_background') === 0) {
-    return false;
-  }
-  if (file.relative.indexOf('notif_') === 0) {
-    return false;
-  }
-  if (file.relative.indexOf('quest_') === 0) {
-    return false;
-  }
-  if (file.relative.indexOf('inventory_quest_') === 0) {
     return false;
   }
   return true;

@@ -26,7 +26,6 @@ gulp.task('build:cache', gulp.parallel(
 
 gulp.task('build:prod', gulp.series(
   'build:babel',
-  'apidoc',
   'build:cache',
   done => done(),
 ));

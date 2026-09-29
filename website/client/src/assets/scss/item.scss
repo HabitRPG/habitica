@@ -60,7 +60,7 @@
 }
 
 .flat {
-  .item {
+  .item, &.avatar.item {
     box-shadow: none;
     border: none;
   }
@@ -70,8 +70,8 @@
   }
 }
 
-.bordered-item .item {
-  background: $gray-700 !important;
+.bordered-item .item, .bordered-item.avatar.item {
+  background: $gray-600 !important;
   margin: 0 auto;
 }
 

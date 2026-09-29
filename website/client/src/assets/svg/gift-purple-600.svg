@@ -1,0 +1,20 @@
+<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.41876 4.99945C8.61693 3.18542 7.06625 1.58225 5.20025 1.50301C3.33424 1.42376 2.26448 2.92001 2.81251 4.24384C3.36053 5.56766 4.66473 5.81033 8.89758 6.94452C10.0992 7.2665 10.2206 6.81348 9.41876 4.99945Z" stroke="#22AEB7" stroke-width="3"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M14.1873 4.99945C14.9892 3.18542 16.5399 1.58225 18.4059 1.50301C20.2719 1.42376 21.3416 2.92001 20.7936 4.24384C20.2456 5.56766 18.9414 5.81033 14.7085 6.94452C13.5069 7.2665 13.3855 6.81348 14.1873 4.99945Z" stroke="#38C9C6" stroke-width="3"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.6731 3.91052C8.02109 3.91052 10.2079 8.08974 11.6731 8.08974C13.1383 8.08974 15.3252 3.91052 11.6731 3.91052Z" fill="#46DDDA"/>
+<rect x="2.25" y="12.1605" width="19.5" height="12.75" fill="#D5C8FF"/>
+<rect y="7.66052" width="24" height="4.5" fill="#D5C8FF"/>
+<rect x="12" y="12.1605" width="9.75" height="12.75" fill="white"/>
+<rect x="12" y="12.1605" width="2.25" height="12.75" fill="#8EEDF6"/>
+<rect x="9.75" y="12.1605" width="2.25" height="12.75" fill="#3BCAD7"/>
+<rect x="7.5" y="7.66052" width="4.5" height="4.5" fill="#3BCAD7"/>
+<rect x="12" y="7.66052" width="4.5" height="4.5" fill="#8EEDF6"/>
+<rect x="2.25" y="12.1605" width="9.75" height="2.25" fill="#6133B4" fill-opacity="0.3"/>
+<rect x="7.5" y="7.66052" width="4.5" height="2.25" fill="black" fill-opacity="0.2"/>
+<rect y="9.91052" width="7.5" height="2.25" fill="#6133B4" fill-opacity="0.3"/>
+<rect x="16.5" y="9.91052" width="7.5" height="2.25" fill="#6133B4" fill-opacity="0.3"/>
+<rect x="12" y="7.66052" width="4.5" height="2.25" fill="black" fill-opacity="0.2"/>
+<rect x="2.25" y="22.6605" width="9.75" height="2.25" fill="#6133B4" fill-opacity="0.3"/>
+<rect x="12" y="12.1605" width="9.75" height="2.25" fill="#6133B4" fill-opacity="0.3"/>
+<rect x="12" y="22.6605" width="9.75" height="2.25" fill="#6133B4" fill-opacity="0.3"/>
+</svg>

@@ -143,5 +143,15 @@
     "deleteXTasks": "<%= count %> adet görevi sil",
     "confirmDeleteTasks": "Görevleri silmek ister misin?",
     "brokenChallengeTaskCount": "Bu<%= count %> sayıdaki görevin ait olduğu meydan okuma artık yok.",
-    "sureDeleteType": "Bu görevi silmek istediğine emin misin?"
+    "sureDeleteType": "Bu görevi silmek istediğine emin misin?",
+    "every": "her",
+    "everyDay": "her gün",
+    "everyXDays": "her <%= count %> günde",
+    "everyWeek": "her hafta",
+    "everyXWeeks": "her <%= count %> haftada",
+    "everyMonth": "her ayda",
+    "everyXMonths": "her <%= count %> ayda",
+    "everyYear": "her yılda",
+    "everyXYears": "her <%= count %> yılda",
+    "fifthWeekWarning": ""
 }

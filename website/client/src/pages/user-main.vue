@@ -7,23 +7,19 @@
     @dragover.prevent
   >
     <!-- <banned-account-modal /> -->
-    <amazon-payments-modal v-if="!isStaticPage" />
     <payments-success-modal />
     <sub-cancel-modal-confirm v-if="isUserLoaded" />
     <sub-canceled-modal v-if="isUserLoaded" />
     <bug-report-modal v-if="isUserLoaded" />
     <bug-report-success-modal v-if="isUserLoaded" />
     <external-link-modal />
-    <birthday-modal />
     <purchase-confirm-modal v-if="isUserLoaded" />
     <delete-task-confirm-modal v-if="isUserLoaded" />
     <template v-if="isUserLoaded">
       <privacy-banner />
-      <chat-banner />
       <damage-paused-banner />
       <gems-promo-banner />
       <gift-promo-banner />
-      <birthday-banner />
       <notifications-display />
       <app-menu />
       <div
@@ -119,11 +115,8 @@
 import axios from 'axios';
 import { loadProgressBar } from 'axios-progress-bar';
 
-import birthdayModal from '@/components/news/birthdayModal';
 import AppMenu from '@/components/header/menu';
 import AppHeader from '@/components/header/index';
-import BirthdayBanner from '@/components/header/banners/birthdayBanner';
-import ChatBanner from '@/components/header/banners/chatBanner';
 import DamagePausedBanner from '@/components/header/banners/damagePaused';
 import GemsPromoBanner from '@/components/header/banners/gemsPromo';
 import GiftPromoBanner from '@/components/header/banners/giftPromo';
@@ -135,7 +128,6 @@ import BuyModal from '@/components/shops/buyModal.vue';
 import SelectMembersModal from '@/components/selectMembersModal.vue';
 import notifications from '@/mixins/notifications';
 import { setup as setupPayments } from '@/libs/payments';
-import amazonPaymentsModal from '@/components/payments/amazonModal';
 import paymentsSuccessModal from '@/components/payments/successModal';
 import subCancelModalConfirm from '@/components/payments/cancelModalConfirm';
 import subCanceledModal from '@/components/payments/canceledModal';
@@ -159,17 +151,13 @@ export default {
     AppMenu,
     AppHeader,
     AppFooter,
-    birthdayModal,
-    ChatBanner,
     DamagePausedBanner,
     GemsPromoBanner,
     GiftPromoBanner,
-    BirthdayBanner,
     PrivacyBanner,
     notificationsDisplay,
     BuyModal,
     SelectMembersModal,
-    amazonPaymentsModal,
     paymentsSuccessModal,
     subCancelModalConfirm,
     subCanceledModal,

@@ -14,7 +14,7 @@
       @select="selectItem($event)"
     >
       <template #item="{ item }">
-        <span class="label">{{ $t(item) }}</span>
+        <span class="label mr-2">{{ $t(item) }}</span>
       </template>
     </select-list>
   </div>

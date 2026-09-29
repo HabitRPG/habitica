@@ -59,7 +59,7 @@
     "loginIncentiveQuest": "Je kunt deze Queeste ontgrendelen door op <%= count %> verschillende dagen in te loggen op Habitica!",
     "loginReward": "<%= count %> check-ins",
     "questBundles": "Afgeprijsde queestebundels",
-    "noQuestToStart": "Bekijk de <a href=\"<%= queestenwinkel %>\">Quest Shop</a> om nieuwe uitgaven te ontdekken!",
+    "noQuestToStart": "Bekijk de <%= linkOpen %>Quest Shop<%= linkClose %> om nieuwe uitgaven te ontdekken!",
     "pendingDamage": "<%= damage %> voorlopige schade",
     "pendingDamageLabel": "voorlopige schade",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Gezondheid",

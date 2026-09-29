@@ -77,7 +77,7 @@
               v-once
               class="custom-control-label purple-600"
               for="privacyTOS"
-              v-html="$t('acceptPrivacyTOS')"
+              v-html="$t('acceptPrivacyTOS', acceptLinks)"
             ></label>
           </div>
           <button
@@ -187,6 +187,11 @@ export default {
       privacyAccepted: false,
       usernameIssues: [],
       needsEmailField: false,
+      acceptLinks: {
+        termsLink: '<a href="/static/terms" target="_blank" rel="noreferrer noopener">',
+        privacyLink: '<a href="/static/privacy" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
     };
   },
   computed: {

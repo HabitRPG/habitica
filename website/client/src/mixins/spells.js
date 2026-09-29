@@ -1,8 +1,10 @@
 import isArray from 'lodash/isArray';
 import * as quests from '@/../../common/script/content/quests';
+import notifications from './notifications';
 
 // @TODO: Let's separate some of the business logic out of Vue if possible
 export default {
+  mixins: [notifications],
   methods: {
     handleCastCancelKeyUp (keyEvent) {
       if (keyEvent.keyCode !== 27) return;
@@ -116,7 +118,10 @@ export default {
       // the selected member doesn't have the flags property which sets `cardReceived`
       if (spell.pinType !== 'card' && spell.bulk !== true) {
         try {
-          spell.cast(this.user, target, {});
+          const critBonus = spell.cast(this.user, target, {});
+          if (critBonus && critBonus > 1) {
+            this.crit(critBonus);
+          }
         } catch (e) {
           if (!e.request) {
             this.$store.dispatch('snackbars:add', {
@@ -165,6 +170,7 @@ export default {
           msg = this.$t('youCastParty', {
             spell: spellText,
           });
+          this.$root.$emit('habitica:party-updated');
           break;
         default:
           msg = this.$t('youCast', {
@@ -179,7 +185,7 @@ export default {
       if (questProgress > 0) {
         const userQuest = quests.quests[this.user.party.quest.key];
         if (userQuest.boss) {
-          this.damage(questProgress.toFixed(1));
+          this.damage(questProgress.toFixed(0));
         } else if (userQuest.collection && userQuest.collect) {
           this.quest('questCollection', questProgress);
         }

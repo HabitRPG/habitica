@@ -32,7 +32,7 @@ function sortInAppRewards (user, items) {
   return orderedItems;
 }
 
-export default function getPinnedItems (user) {
+export default function getPinnedItems (user, language) {
   checkPinnedAreasForNullEntries(user);
 
   const officialPinnedItems = getOfficialPinnedItems(user);
@@ -49,7 +49,7 @@ export default function getPinnedItems (user) {
     .map(({ type, path }) => {
       const item = getItemByPathAndType(type, path);
 
-      return getItemInfo(user, type, item, officialPinnedItems);
+      return getItemInfo(user, type, item, officialPinnedItems, language);
     });
 
   shops.checkMarketGearLocked(user, items);

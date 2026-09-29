@@ -65,12 +65,14 @@ spells.wizard = {
     target: 'task',
     notes: t('spellWizardFireballNotes'),
     cast (user, target, req) {
-      let bonus = statsComputed(user).int * crit.crit(user, 'per');
+      const critBonus = crit.crit(user, 'per');
+      let bonus = statsComputed(user).int * critBonus;
       bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * 0.075);
-      user.stats.exp += diminishingReturns(bonus, 75);
+      user.stats.exp += Math.ceil(diminishingReturns(bonus, 75));
       if (!user.party.quest.progress.up) user.party.quest.progress.up = 0;
       user.party.quest.progress.up += Math.ceil(statsComputed(user).int * 0.1);
       updateStats(user, user.stats, req);
+      return critBonus;
     },
   },
   mpheal: { // Ethereal Surge
@@ -121,10 +123,12 @@ spells.warrior = {
     target: 'task',
     notes: t('spellWarriorSmashNotes'),
     cast (user, target) {
-      const bonus = statsComputed(user).str * crit.crit(user, 'con');
-      target.value += diminishingReturns(bonus, 2.5, 35);
+      const critBonus = crit.crit(user, 'con');
+      const bonus = statsComputed(user).str * critBonus;
+      target.value += Math.ceil(diminishingReturns(bonus, 2.5, 35));
       if (!user.party.quest.progress.up) user.party.quest.progress.up = 0;
-      user.party.quest.progress.up += diminishingReturns(bonus, 55, 70);
+      user.party.quest.progress.up += Math.ceil(diminishingReturns(bonus, 55, 70));
+      return critBonus;
     },
   },
   defensiveStance: { // Defensive Stance
@@ -174,7 +178,7 @@ spells.rogue = {
     notes: t('spellRoguePickPocketNotes'),
     cast (user, target) {
       const bonus = calculateBonus(target.value, statsComputed(user).per);
-      user.stats.gp += diminishingReturns(bonus, 25, 75);
+      user.stats.gp += Math.ceil(diminishingReturns(bonus, 25, 75));
     },
   },
   backStab: { // Backstab
@@ -184,11 +188,12 @@ spells.rogue = {
     target: 'task',
     notes: t('spellRogueBackStabNotes'),
     cast (user, target, req) {
-      const _crit = crit.crit(user, 'str', 0.3);
-      const bonus = calculateBonus(target.value, statsComputed(user).str, _crit);
-      user.stats.exp += diminishingReturns(bonus, 75, 50);
-      user.stats.gp += diminishingReturns(bonus, 18, 75);
+      const critBonus = crit.crit(user, 'str', 0.3);
+      const bonus = calculateBonus(target.value, statsComputed(user).str, critBonus);
+      user.stats.exp += Math.ceil(diminishingReturns(bonus, 75, 50));
+      user.stats.gp += Math.ceil(diminishingReturns(bonus, 18, 75));
       updateStats(user, user.stats, req);
+      return critBonus;
     },
   },
   toolsOfTrade: { // Tools of the Trade
@@ -225,7 +230,7 @@ spells.healer = {
     notes: t('spellHealerHealNotes'),
     cast (user, target, req) {
       if (user.stats.hp >= 50) throw new NotAuthorized(t('messageHealthAlreadyMax')(req.language));
-      user.stats.hp += (statsComputed(user).con + statsComputed(user).int + 5) * 0.075;
+      user.stats.hp += Math.ceil((statsComputed(user).con + statsComputed(user).int + 5) * 0.075);
       if (user.stats.hp > 50) user.stats.hp = 50;
     },
   },
@@ -238,7 +243,7 @@ spells.healer = {
     cast (user, tasks) {
       each(tasks, task => {
         if (task.type !== 'reward') {
-          task.value += 4 * (statsComputed(user).int / (statsComputed(user).int + 40));
+          task.value += Math.ceil(4 * (statsComputed(user).int / (statsComputed(user).int + 40)));
         }
       });
     },
@@ -263,7 +268,9 @@ spells.healer = {
     notes: t('spellHealerHealAllNotes'),
     cast (user, target) {
       each(target, member => {
-        member.stats.hp += (statsComputed(user).con + statsComputed(user).int + 5) * 0.04;
+        member.stats.hp += Math.ceil(
+          (statsComputed(user).con + statsComputed(user).int + 5) * 0.04,
+        );
         if (member.stats.hp > 50) member.stats.hp = 50;
       });
     },
@@ -712,8 +719,9 @@ each(spells, spellClass => {
     spell.key = key;
     const _cast = spell.cast;
     spell.cast = function castSpell (user, target, req) {
-      _cast(user, target, req);
+      const critBonus = _cast(user, target, req);
       user.stats.mp -= spell.mana;
+      return critBonus;
     };
   });
 });

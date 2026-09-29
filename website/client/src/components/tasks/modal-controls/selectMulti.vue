@@ -10,7 +10,8 @@
     >
       <b-dropdown-header>
         <div class="mb-2 search-input-wrapper">
-          <b-form-input
+          <input
+            class="form-control"
             ref="searchInput"
             v-model="search"
             type="text"
@@ -22,7 +23,7 @@
             @keydown.down="autoCompleteMixinSelectNextAutocomplete($event)"
             @keydown.enter="searchEnterHandler($event)"
             @keydown.esc="searchEscHandler($event)"
-          />
+          >
           <emoji-auto-complete
             ref="emojiAutocomplete"
             :text="search"

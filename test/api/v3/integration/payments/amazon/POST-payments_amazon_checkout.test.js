@@ -8,11 +8,8 @@ describe('payments - amazon - #checkout', () => {
   let user; let
     amazonCheckoutStub;
 
-  beforeEach(async () => {
-    user = await generateUser();
-  });
-
   it('verifies credentials', async () => {
+    user = await generateUser();
     await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
@@ -31,6 +28,7 @@ describe('payments - amazon - #checkout', () => {
 
     it('makes a purchase with amazon checkout', async () => {
       user = await generateUser({
+        'preferences.analyticsConsent': true,
         'profile.name': 'sender',
         'purchased.plan.customerId': 'customer-id',
         'purchased.plan.planId': 'basic_3mo',

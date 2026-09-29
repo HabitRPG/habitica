@@ -5,11 +5,8 @@ describe('payments : google #verify', () => {
   const endpoint = '/iap/android/verify';
   let user;
 
-  beforeEach(async () => {
-    user = await generateUser();
-  });
-
   it('verifies receipt existence', async () => {
+    user = await generateUser();
     await expect(user.post(endpoint)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
@@ -21,6 +18,10 @@ describe('payments : google #verify', () => {
     let verifyStub;
 
     beforeEach(async () => {
+      user = await generateUser({
+        balance: 2,
+        'preferences.analyticsConsent': true,
+      });
       verifyStub = sinon.stub(googlePayments, 'verifyPurchase').resolves({});
     });
 
@@ -29,10 +30,6 @@ describe('payments : google #verify', () => {
     });
 
     it('makes a purchase', async () => {
-      user = await generateUser({
-        balance: 2,
-      });
-
       await user.post(endpoint, {
         transaction: { receipt: 'receipt', signature: 'signature' },
       });
@@ -46,10 +43,6 @@ describe('payments : google #verify', () => {
     });
 
     it('gifts a purchase', async () => {
-      user = await generateUser({
-        balance: 2,
-      });
-
       await user.post(endpoint, {
         transaction: { receipt: 'receipt', signature: 'signature' },
         gift: { uuid: '1' },

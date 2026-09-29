@@ -46,5 +46,11 @@
     "schoolTodoNotes": "לחץ כאן על מנת לתת שם למטלה ולבחירת תאריך יעד!",
     "healthDailyText": "העברת חוט דנטלי",
     "choresTodoText": "סידור הארון >> פחות בלגן",
-    "selfCareTodoNotes": "יש ללחוץ בשביל לציין מה מתוכנן!"
+    "selfCareTodoNotes": "יש ללחוץ בשביל לציין מה מתוכנן!",
+    "healthTodoText": "",
+    "creativityDailyNotes": "",
+    "workHabitMail": "",
+    "choresTodoNotes": "",
+    "choresDailyNotes": "",
+    "creativityHabit": ""
 }

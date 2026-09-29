@@ -205,7 +205,7 @@
     "fall2022HarpyMageSet": "Harpie (Mage)",
     "fall2022WatcherHealerSet": "Voyeur (Guérisseur)",
     "fall2022KappaRogueSet": "Kappa (Voleur)",
-    "gemSaleHow": "Entre le <%= eventStartOrdinal %> et le <%= eventEndOrdinal %> <%= eventStartMonth %>, achetez, comme d'habitude, n'importe quel ensemble de Gemmes et votre compte sera crédité avec le montant promotionnel. Plus de gemmes à dépenser, à partager ou à conserver pour de futures nouveautés !",
+    "gemSaleHow": "Entre le <%= eventStartMonth %> <%= eventStartOrdinal %> et le <%= eventEndMonth %> <%= eventEndOrdinal %>, achetez n'importe quel ensemble de Gemmes et votre compte sera crédité avec le montant promotionnel. Plus de Gemmes à dépenser, à partager ou à conserver pour de futures nouveautés !",
     "winter2023WalrusWarriorSet": "Morse (Guerrier)",
     "winter2023FairyLightsMageSet": "Guirlandes lumineuses (Mage)",
     "winter2023CardinalHealerSet": "Cardinal (Guérisseur)",
@@ -294,5 +294,9 @@
     "summer2026AlligatorWarriorSet": "Alligator (Guerri·er·ère)",
     "summer2026PuffinHealerSet": "Macareux (Guérisseu·r·se)",
     "summer2026TigerSharkMageSet": "Requin-Tigre (Mage)",
-    "summer2026TsunamiRogueSet": "Tsunami (Voleu·r·se)"
+    "summer2026TsunamiRogueSet": "Tsunami (Voleu·r·se)",
+    "fall2026GhostPumpkinWarriorSet": "Citrouille Fantôme (Guerri·er·ère)",
+    "fall2026PoisonMushroomMageSet": "Champignon Empoisonné (Mage)",
+    "fall2026MysticCandleHealerSet": "Bougie Mystique (Guérisseu·r·se)",
+    "fall2026SkeletalRavenRogueSet": "Corbeau Squelettique (Voleu·r·se)"
 }

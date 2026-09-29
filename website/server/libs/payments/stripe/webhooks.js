@@ -59,10 +59,19 @@ export async function handleWebhooks (options, stripeInc) {
       case 'invoice.updated':
       case 'invoice.finalized':
       case 'invoice.paid':
-      case 'invoice.upcoming':
-      case 'invoice.payment_succeeded': {
+      case 'invoice.upcoming': {
         // Events sent even if not active in the Stripe dashboard when a payment is being made
         // This is to avoid error logs from the webhook handler not being implemented
+        break;
+      }
+      case 'invoice.payment_succeeded': {
+        const invoice = event.data.object;
+        /* eslint-disable camelcase */
+        const { customer: customerId, billing_reason } = invoice;
+        if (billing_reason === 'subscription_cycle') {
+          await payments.handleSubscriptionRenewal(customerId);
+        }
+        /* eslint-enable camelcase */
         break;
       }
       case 'checkout.session.completed': {

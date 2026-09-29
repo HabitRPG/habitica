@@ -40,10 +40,9 @@
     "backerTier": "Backer Tier",
     "playerTiers": "Player Tiers",
     "tier": "Tier",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "Helped Habitica grow, either by filling out a survey or helping with a major testing effort. Thank you!",
     "surveysMultiple": "Helped Habitica grow on <%= count %> occasions, either by filling out a survey or helping with a major testing effort. Thank you!",
     "blurbHallPatrons": "This is the Hall of Patrons, where we honour the noble adventurers who backed Habitica’s original Kickstarter. We thank them for helping us bring Habitica to life!",
-    "blurbHallContributors": "This is the Hall of Contributors, where open-source contributors to Habitica are honoured. Whether through code, art, music, writing, or even just helpfulness, they have earned <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards' target='_blank'>Gems, exclusive Equipment</a>, and <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tiers' target='_blank'>prestigious titles</a>. You can contribute to Habitica, too! <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica' target='_blank'>Find out more here.</a>",
+    "blurbHallContributors": "This is the Hall of Contributors, where open-source contributors to Habitica are honoured. Whether through code, art, music, writing, or even just helpfulness, they have earned <%= linkRewards %>Gems, exclusive Equipment<%= linkClose %>, and <%= linkTiers %>prestigious titles<%= linkClose %>. You can contribute to Habitica, too! <%= linkContributing %>Find out more here.<%= linkClose %>",
     "noPrivAccess": "You don’t have the required privileges."
 }

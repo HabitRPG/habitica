@@ -40,10 +40,9 @@
     "backerTier": "Támogatói szint",
     "playerTiers": "Játékos szintek",
     "tier": "Szint",
-    "conRewardsURL": "https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards",
     "surveysSingle": "Segítette a Habitica fejlődését egy kérdőív kitöltésével vagy nagyobb tesztben való részvétellel. Köszönjük!",
     "surveysMultiple": "Segítette Habitica fejlődését <%= count %> alkalommal, egy kérdőív kitöltésével vagy nagyobb tesztben való részvétellel. Köszönjük!",
     "blurbHallPatrons": "Ez a Mecénások csarnoka, ahol megemlékezünk azokról a nemes kalandorokról, akik támogatták az eredeti Kickstarter projektet. Hálásak vagyunk, hogy a Habitica valósággá válhatott!",
-    "blurbHallContributors": "Ez itt a Közreműködők csarnoka, ahol a Habitica nyílt forráskódú közreműködőit ünnepeljük. Akár kóddal, grafikával, zenével, írással vagy akár pusztán segítőkészséggel járultak hozzá, mindannyian kiérdemelték a <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tier-rewards' target='_blank'>gyémántokat, exkluzív felszereléseket</a> és a <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica#contributor-tiers' target='_blank'>rangos címeket</a>. Te is hozzájárulhatsz a Habiticához! <a href='https://github.com/HabitRPG/habitica/wiki/Contributing-to-Habitica' target='_blank'>Tudj meg többet itt.</a>",
+    "blurbHallContributors": "Ez itt a Közreműködők csarnoka, ahol a Habitica nyílt forráskódú közreműködőit ünnepeljük. Akár kóddal, grafikával, zenével, írással vagy akár pusztán segítőkészséggel járultak hozzá, mindannyian kiérdemelték a <%= linkRewards %>gyémántokat, exkluzív felszereléseket<%= linkClose %> és a <%= linkTiers %>rangos címeket<%= linkClose %>. Te is hozzájárulhatsz a Habiticához! <%= linkContributing %>Tudj meg többet itt.<%= linkClose %>",
     "noPrivAccess": "Nincs meg a szükséges jogosultságod."
 }

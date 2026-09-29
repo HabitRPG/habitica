@@ -128,7 +128,6 @@ export default {
 .svg-icon {
   width: 1rem;
   height: 1rem;
-  margin-right: 0.5rem;
 }
 
 .button-label {

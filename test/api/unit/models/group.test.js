@@ -277,13 +277,13 @@ describe('Group Model', () => {
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
           expect(Group.prototype.sendChat).to.be.calledWith({
-            message: '`Participating Member attacks Wailing Whale for 5.0 damage. Wailing Whale attacks party for 7.5 damage.`',
+            message: '`Participating Member attacks Wailing Whale for 5 damage. Wailing Whale attacks party for 8 damage.`',
             info: {
-              bossDamage: '7.5',
+              bossDamage: '8',
               quest: 'whale',
               type: 'boss_damage',
               user: 'Participating Member',
-              userDamage: '5.0',
+              userDamage: '5',
             },
           });
         });

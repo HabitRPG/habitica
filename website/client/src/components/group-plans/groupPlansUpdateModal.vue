@@ -77,7 +77,7 @@
       </ul>
       <div
         class="mx-auto"
-        v-html="$t('newGroupsVisitFAQ')"
+        v-html="$t('newGroupsVisitFAQ', faqLinks)"
       ></div>
       <div
         class="mx-auto"
@@ -193,6 +193,10 @@ export default {
         close: closeIcon,
         sparkles,
       }),
+      faqLinks: {
+        linkOpen: '<a href="/static/faq#group-plans" target="_blank" rel="noreferrer noopener">',
+        linkClose: '</a>',
+      },
     };
   },
   methods: {
