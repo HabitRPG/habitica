@@ -324,9 +324,7 @@ api.subscribe = async function subscribe (
   };
   if (existingSub) {
     if (purchase.linkedPurchaseToken) {
-      const purchaseToken = purchase.linkedPurchaseToken;
       const res = iap.validate(iap.GOOGLE, user.purchased.plan.additionalData);
-      const pData = iap.getPurchaseData(res);
       const deferredSubCode = getSubCodeFromSku(deferredSku);
       if (!deferredSubCode) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
 
