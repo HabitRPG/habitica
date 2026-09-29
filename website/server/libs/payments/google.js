@@ -275,8 +275,6 @@ api.subscribe = async function subscribe (
   if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
 
   const { purchase, purchases } = getPurchasesFromValidatedResponse(googleRes);
-  console.log('purchase', purchase);
-  console.log('purchases', purchases);
   validateSubscriptionLifecycleState(purchase, {
     allowExpired: false,
     allowSystemCanceled: false,
@@ -288,7 +286,6 @@ api.subscribe = async function subscribe (
   if (!sub) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
 
   const token = getPurchaseToken(purchase, googleRes, receiptObj);
-  console.log('token', token);
   if (!token) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
 
   if (existingSub === sub && user.purchased.plan.customerId === token) {
@@ -330,7 +327,6 @@ api.subscribe = async function subscribe (
       const purchaseToken = purchase.linkedPurchaseToken;
       const res = iap.validate(iap.GOOGLE, user.purchased.plan.additionalData);
       const pData = iap.getPurchaseData(res);
-      console.log(purchaseToken, pData);
       const deferredSubCode = getSubCodeFromSku(deferredSku);
       if (!deferredSubCode) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
 
