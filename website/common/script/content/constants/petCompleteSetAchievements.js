@@ -4,7 +4,7 @@ const PET_SET_COMPLETE_ACHIEVEMENTS = [
   {
     color: 'Skeleton',
     petAchievement: 'boneToPick',
-    petNotificationType: 'ACHIEVEMENT_PET_SET_COMPLETE',
+    petNotificationType: 'ACHIEVEMENT',
   },
 ];
 

@@ -2,6 +2,7 @@ import lodashFind from 'lodash/find';
 import reduce from 'lodash/reduce';
 import includes from 'lodash/includes';
 import content from '../content/index';
+import i18n from '../i18n';
 
 export default function ultimateGear (user) {
   const owned = user.items.gear.owned.toObject
@@ -18,7 +19,18 @@ export default function ultimateGear (user) {
       }, true);
 
       if (user.achievements.ultimateGearSets[klass] === true) {
-        if (user.addNotification) user.addNotification('ULTIMATE_GEAR_ACHIEVEMENT');
+        if (user.addNotification) {
+          const { language } = user.preferences;
+          user.addNotification(
+            'ACHIEVEMENT',
+            {
+              achievement: `ultimateGearSets.${klass}`,
+              icon: `achievement-ultimate-${klass === 'wizard' ? 'mage' : klass}`,
+              message: i18n.t('ultimGearName', { ultClass: i18n.t(klass, language) }, language),
+              modalText: i18n.t('gearAchievementNotification'),
+            },
+          );
+        }
       }
     }
   });

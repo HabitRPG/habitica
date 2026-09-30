@@ -14,6 +14,8 @@ import {
   ANIMAL_SET_ACHIEVEMENTS,
   STABLE_ACHIEVEMENTS,
   PET_SET_COMPLETE_ACHIEVEMENTS,
+  ACHIEVEMENT_RELEASE_DATES,
+  QUEST_ACHIEVEMENT_THRESHOLDS,
 } from './constants';
 
 import achievements from './achievements';
@@ -39,6 +41,7 @@ import loginIncentives from './loginIncentives';
 
 import officialPinnedItems from './officialPinnedItems';
 import memoize from '../fns/datedMemoize';
+import { isReleased } from './is_released';
 
 const api = {};
 
@@ -48,6 +51,8 @@ api.animalColorAchievements = ANIMAL_COLOR_ACHIEVEMENTS;
 api.animalSetAchievements = ANIMAL_SET_ACHIEVEMENTS;
 api.stableAchievements = STABLE_ACHIEVEMENTS;
 api.petSetCompleteAchievs = PET_SET_COMPLETE_ACHIEVEMENTS;
+api.achievementReleaseDates = ACHIEVEMENT_RELEASE_DATES;
+api.questAchievementThresholds = QUEST_ACHIEVEMENT_THRESHOLDS;
 
 api.quests = quests;
 api.questsByLevel = questsByLevel;
@@ -121,6 +126,7 @@ api.events = EVENTS;
 api.repeatingEvents = REPEATING_EVENTS;
 api.gemsPromo = gemsPromo;
 api.getRepeatingEventsOnDate = getRepeatingEvents;
+api.isReleased = isReleased;
 
 api.classes = CLASSES;
 

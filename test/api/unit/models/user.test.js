@@ -106,6 +106,9 @@ describe('User Model', () => {
       expect(userToJSON.notifications[0].type).to.equal('ACHIEVEMENT');
       expect(userToJSON.notifications[0].data).to.eql({
         achievement: 'createdTask',
+        icon: 'achievement-createdTask',
+        message: common.i18n.t('achievementCreatedTask'),
+        modalText: common.i18n.t('achievementCreatedTaskNotifText'),
       });
       expect(userToJSON.notifications[0].seen).to.eql(false);
 
@@ -638,7 +641,7 @@ describe('User Model', () => {
       user = await user.save();
       // verify that it's been awarded
       expect(user.achievements.beastMaster).to.equal(true);
-      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_STABLE')).to.exist;
+      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT')).to.exist;
 
       // reset the user
       user.achievements.beastMasterCount = 0;
@@ -688,7 +691,7 @@ describe('User Model', () => {
       user = await user.save();
       // verify that it's been awarded
       expect(user.notifications.find(
-        notification => notification.type === 'ACHIEVEMENT_STABLE',
+        notification => notification.type === 'ACHIEVEMENT',
       )).to.exist;
     });
 

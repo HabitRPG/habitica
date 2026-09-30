@@ -1,4 +1,5 @@
 import each from 'lodash/each';
+import { QUEST_ACHIEVEMENT_THRESHOLDS } from './constants';
 
 const achievementsData = {};
 
@@ -365,26 +366,31 @@ const onboardingAchievs = {
     icon: 'achievement-createdTask',
     titleKey: 'achievementCreatedTask',
     textKey: 'achievementCreatedTaskText',
+    modalTextKey: 'achievementCreatedTaskNotifText',
   },
   completedTask: {
     icon: 'achievement-completedTask',
     titleKey: 'achievementCompletedTask',
     textKey: 'achievementCompletedTaskText',
+    modalTextKey: 'achievementCompletedTaskNotifText',
   },
   hatchedPet: {
     icon: 'achievement-hatchedPet',
     titleKey: 'achievementHatchedPet',
     textKey: 'achievementHatchedPetText',
+    modalTextKey: 'achievementHatchedPetNotifText',
   },
   fedPet: {
     icon: 'achievement-fedPet',
     titleKey: 'achievementFedPet',
     textKey: 'achievementFedPetText',
+    modalTextKey: 'achievementFedPetNotifText',
   },
   purchasedEquipment: {
     icon: 'achievement-purchasedEquipment',
     titleKey: 'achievementPurchasedEquipment',
     textKey: 'achievementPurchasedEquipmentText',
+    modalTextKey: 'achievementPurchasedEquipmentNotifText',
   },
 };
 Object.assign(achievementsData, onboardingAchievs);
@@ -479,6 +485,15 @@ const cardAchievs = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday', 'co
   return achievs;
 }, {});
 Object.assign(achievementsData, cardAchievs);
+
+const questCountAchievs = QUEST_ACHIEVEMENT_THRESHOLDS.reduce((achievs, threshold) => {
+  achievs[`questCount${threshold}`] = {
+    icon: `achievement-completed-${threshold}-quest`,
+    titleKey: `achievementQuestCount${threshold}`,
+  };
+  return achievs;
+}, {});
+Object.assign(achievementsData, questCountAchievs);
 
 each(achievementsData, (value, key) => {
   value.key = key;
