@@ -274,7 +274,7 @@ export default {
           const valueIsInteger = this.integerTypes.includes(key);
           achievements.push({
             key,
-            text: getText(allAchievements[contentKey]),
+            text: key === 'questCount' ? i18n.t('achievementQuestCount0') : getText(allAchievements[contentKey]),
             notes: getNotes(allAchievements[contentKey], ownedAchievements[key]),
             modified: false,
             path: `${basePath}.${key}`,
@@ -287,7 +287,9 @@ export default {
       const allKeys = Object.keys(allAchievements).sort();
 
       for (const key of allKeys) {
-        if (key !== '' && !key.endsWith('UltimateGear') && !key.endsWith('Quest')) {
+        if (key !== '' && !key.endsWith('UltimateGear') && !key.endsWith('Quest')
+          && !key.startsWith('questCount')
+        ) {
           const ownedKey = key.replace('Cards', '');
           if (ownedAchievements[ownedKey] === undefined) {
             const valueIsInteger = this.integerTypes.includes(ownedKey);
@@ -303,6 +305,18 @@ export default {
             });
           }
         }
+      }
+      if (!this.hero.achievements.questCount) {
+        achievements.push({
+          key: 'questCount',
+          text: i18n.t('achievementQuestCount0'),
+          notes: i18n.t('achievementQuestCountMultipleText', { count: 0, progress: 0, target: 1 }),
+          modified: false,
+          path: `${basePath}.questCount`,
+          value: 0,
+          valueIsInteger: true,
+          neverOwned: true,
+        });
       }
 
       this.achievements = achievements;
