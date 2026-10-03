@@ -37,7 +37,7 @@
     "gulp": "^4.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-filter": "^7.0.0",
-    "gulp-imagemin": "^7.1.0",
+    "gulp-imagemin": "^9.2.0",
     "gulp.spritesmith": "^6.13.0",
     "habitica-markdown": "^4.1.0",
     "heapdump": "^0.3.15",
