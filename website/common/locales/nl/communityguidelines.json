@@ -87,5 +87,7 @@
     "commGuideList02P": "<strong>We raden je af om ongevraagde privéberichten te sturen</strong>. Als je een ongewenst bericht ontvangt waar je je ongemakkelijk bij voelt of dat in strijd is met deze richtlijnen of de Algemene Voorwaarden, blokkeer dan de afzender en meld het aan de beheerders.",
     "commGuideList02Q": "<strong> Probeer niet onder een blokkering uit te komen </strong>. Als iemand jouw geblokkeerd heeft voor het sturen van privé berichten, zoek dan niet ergens anders contact met hen om te vragen om de blokkering op te heven.",
     "commGuideList09E": "Definitieve verwijdering van mogelijkheid om privéberichten te sturen of te verschijnen in de zoekresultaten van leden van het Gezelschap",
-    "commGuideList10G": "Tijdelijke uitschakeling van de mogelijkheid om privéberichten te sturen of te verschijnen in de zoekresultaten voor de leden van de groep"
+    "commGuideList10G": "Tijdelijke uitschakeling van de mogelijkheid om privéberichten te sturen of te verschijnen in de zoekresultaten voor de leden van de groep",
+    "commGuideList02R": "<strong>Als iemand de regels overtreedt of iets doet waar jij je slecht bij voelt, rapporteer dit dan en laat het over aan onze medewerkers</strong>. Begin geen ruzie of wraakactie. Je kan rapporteren door berichten te rapporteren of screenshots te sturen naar <%= adminEmail %>. Je kan de speler in kwestie ook blokkeren zodat die je niet meer kan contacteren.",
+    "commGuideList05I": "Het breken van regels voor bijdragers om in rang te stijgen, door bijvoorbeeld automatische vertalingen of AI-code als eigen, origineel werk voor te doen"
 }

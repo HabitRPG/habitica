@@ -256,7 +256,7 @@
     "changeDisplayNameDisclaimer": "Dit is de naam die bij je avatar zal verschijnen in Habitica.",
     "changePasswordDisclaimer": "Wanneer je je wachtwoord wijzigt, wordt je afgemeld bij al je apparaten en applicaties van derden.",
     "changeClassDisclaimer": "Wanneer je van klasse verandert, ontvang je al je bestaande attribuutpunten terug. Pas je attribuutpunten aan in het gedeelte Attribuutscores van je profiel nadat je een nieuwe klasse hebt gekozen.",
-    "transaction_subscription_bonus": "<b>Abonnement</b>bonus",
+    "transaction_subscription_bonus": "<b>Abonnement</b> bonus",
     "learnMorePrivacy": "Voor meer informatie kunt u ons <%= linkOpen %>Privacybeleid<%= linkClose %> raadplegen.",
     "privacySettingsOverview": "Habitica gebruikt cookies om prestaties te analyseren, ondersteuningsverzoeken te verwerken en de best mogelijke gamified ervaring te bieden. Hiervoor hebben we de volgende toestemmingen nodig. U kunt dit op elk moment wijzigen in uw accountinstellingen.",
     "usedForSupport": "Deze gegevens worden gebruikt om de gebruikerservaring, prestaties en diensten van onze websites en apps te verbeteren. Deze gegevens worden door ons supportteam gebruikt om vragen en foutmeldingen te verwerken.",
@@ -271,5 +271,6 @@
     "timestamp": "Tijdstip",
     "connected": "Verbonden",
     "connect": "Verbinden",
-    "remove": "Verwijderen"
+    "remove": "Verwijderen",
+    "tooManyWebhooks": "Er is een limiet van <%= limit %> webhooks per account."
 }

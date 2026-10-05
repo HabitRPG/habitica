@@ -1000,7 +1000,7 @@
     "headSpecialNye2016Text": "별난 파티 모자",
     "headSpecialNye2016Notes": "You've received a Whimsical Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
     "headSpecialWinter2017RogueText": "얼어붙은 투구",
-    "headSpecialWinter2017RogueNotes": "얼음 수정 스타일의 이 투구는 당신이 겨울 풍경 속에서 눈에 띄지 않도록 않도록 도와줍니다. 통찰력이 <%=per%>만큼 증가합니다. 2016-2017 겨울 한정판 장비.",
+    "headSpecialWinter2017RogueNotes": "얼음 수정 스타일의 이 투구는 당신이 겨울 풍경 속에서 눈에 띄지 않도록 도와줍니다. 통찰력이 <%=per%>만큼 증가합니다. 2016-2017 겨울 한정판 장비.",
     "headSpecialWinter2017WarriorText": "하키 투구",
     "headSpecialWinter2017WarriorNotes": "This is a hard and durable helmet, made to withstand impacts from ice or even dark red dailies! Increases Strength by <%= str %>. Limited Edition 2016-2017 Winter Gear.",
     "headSpecialWinter2017MageText": "겨울 늑대 투구",

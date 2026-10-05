@@ -86,7 +86,7 @@
     "teams": "Equipos",
     "terms": "Términos y Condiciones",
     "tumblr": "Tumblr",
-    "localStorageTryFirst": "Si tienes algún problema con Habitica, haz clic en el botón abajo para borrar el almacenamiento local y la mayoría de cookies de esta página web (otras páginas no se verán afectadas). Tendrás que iniciar sesión otra vez después de esto, así que primero asegúrate de tener tus datos de inicio de sesión, los cuales puedes consultar en Ajustes -> <%= linkStart %>Sitio<%= linkEnd %>.",
+    "localStorageTryFirst": "Si estás experimentando algún problema con Habitica, haz clic en el siguiente botón para borrar el almacenamiento local y la mayoría de cookies de este sitio web (otros sitios web no se verán afectados). Después de hacerlo deberás iniciar sesión de nuevo, así que primero asegúrate de tener tus datos de inicio de sesión a la mano, los cuales puedes consultar en <%= linkStart %>Ajustes-> Site<%= linkEnd %>.",
     "localStorageTryNext": "Si el problema persiste, por favor <%= linkStart %>reporta el error<%= linkEnd %> si es que todavía no lo has hecho.",
     "localStorageClear": "Borrar Datos",
     "localStorageClearExplanation": "Este botón limpiara la memoria local y la mayoría de cookies, también cerrara tu sesión.",
@@ -175,5 +175,17 @@
     "footerProduct": "Producto",
     "incorrectResetPhrase": "Por favor, escribe <%= magicWord %> en mayúsculas para reiniciar tu cuenta.",
     "marketing3Lead1Title": "Aplicaciones para Android e iOS",
-    "enterValidEmail": "Por favor, ingresa un correo electrónico válido."
+    "enterValidEmail": "Por favor, ingresa un correo electrónico válido.",
+    "marketing4Lead3Button": "Empieza Hoy Mismo",
+    "enterHabitica": "Adéntrate en Habitica",
+    "missingClientHeader": "Faltan los encabezados x-client.",
+    "emailBlockedRegistration": "Esta cuenta de E-mail está bloqueada para el registro. Si crees que ha habitdo un error, por favor contacta con nosotros por medio de admin@habitica.com.",
+    "minPasswordLengthLogin": "Tu contraseña contiene al menos 8 caracteres.",
+    "socialAlreadyExists": "Este inicio de sesión con red social ya está vinculado a una cuenta de Habitica existente.",
+    "emailUsernamePlaceholder": "p. ej., habitrabbit o grifo@ejemplo.com",
+    "translateHabitica": "Traduce Habitica",
+    "whatToCallYou": "¿Cómo deberíamos llamarte?",
+    "acceptPrivacyTOS": "Confirmas que tienes al menos 18 años y que has leído y estás de acuerdo con nuestros <%= termsLink %>Terminos de Servicio<%= linkClose %>y<%= privacyLink %>Política de Privacidad<%= linkClose %>",
+    "emailAddress": "Dirección de correo electrónico",
+    "emailRequiredForSupport": "Necesitamos una dirección de correo electrónico para brindarte asistencia. Por favor, introduce una dirección de correo electrónico para continuar creando tu cuenta."
 }

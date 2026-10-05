@@ -3493,5 +3493,6 @@
     "weaponSpecialSummer2026MageNotes": "この鋭い諸刃の剣は海洋風コーデにぴったりです。知能が<%= int %>、知覚が<%= per %>上がります。2026年夏の限定装備。",
     "weaponSpecialSummer2026WarriorNotes": "この豪華できらびやかな武器は沼風コーデにぴったりです。力が<%= str %>上がります。2026年夏の限定装備。",
     "weaponArmoireBrightRainbowKiteText": "虹色の凧",
-    "weaponArmoirePastelRainbowKiteText": "パステルカラーの凧"
+    "weaponArmoirePastelRainbowKiteText": "パステルカラーの凧",
+    "classLockedItemShort": "このアイテムは特定のクラスのみ使用可能です。"
 }

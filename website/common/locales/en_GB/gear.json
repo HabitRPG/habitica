@@ -786,7 +786,7 @@
     "armorArmoireWovenRobesText": "Woven Robes",
     "armorArmoireWovenRobesNotes": "Display your weaving work proudly by wearing this colourful robe! Increases Constitution by <%= con %> and Intelligence by <%= int %>. Enchanted Armoire: Weaver Set (Item 1 of 3).",
     "armorArmoireLamplightersGreatcoatText": "Lamplighter's Greatcoat",
-    "armorArmoireLamplightersGreatcoatNotes": "This heavy woolen coat can stand up to the harshest wintry night! Increases Perception by <%= per %>. Enchanted Armoire: Lamplighter's Set (Item 2 of 4).",
+    "armorArmoireLamplightersGreatcoatNotes": "This heavy woollen coat can stand up to the harshest wintry night! Increases Perception by <%= per %>. Enchanted Armoire: Lamplighter’s Set (Item 2 of 4).",
     "armorArmoireCoachDriverLiveryText": "Coach Driver's Livery",
     "armorArmoireCoachDriverLiveryNotes": "This heavy overcoat will protect you from the weather as you drive. Plus it looks pretty snazzy, too! Increases Strength by <%= str %>. Enchanted Armoire: Coach Driver Set (Item 1 of 3).",
     "armorArmoireRobeOfDiamondsText": "Robe of Diamonds",
@@ -3663,5 +3663,6 @@
     "shieldArmoireShieldOfHonorText": "Shield of Honour",
     "shieldArmoireShieldOfHonorNotes": "Oh, honourable knight! Thou hast a firm will, a steady hand, and a persistent nature. All in the kingdom know thou shalt wield this shield with honour. Increases Constitution by <%= con %>. Enchanted Armoire: Knight of Honour Set (Item 2 of 2)",
     "eyewearArmoireSecretsShadesText": "Secrets Shades",
-    "eyewearArmoireSecretsShadesNotes": "There are shades that let you see secrets? We can neither confirm nor deny that rumour. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Secrets Set (Item 2 of 3)"
+    "eyewearArmoireSecretsShadesNotes": "There are shades that let you see secrets? We can neither confirm nor deny that rumour. Increases Intelligence and Perception by <%= attrs %> each. Enchanted Armoire: Secrets Set (Item 2 of 3)",
+    "classLockedItemShort": "This item is only available to a specific class"
 }

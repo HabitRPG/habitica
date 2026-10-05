@@ -1,1 +1,14 @@
-{}
+{
+    "achievement": "Prestasjon",
+    "onwards": "Framover!",
+    "levelup": "Ved å nå dei verkelege livsmåla dine, levla du opp og har fullt liv igjen!",
+    "reachedLevel": "Du oppnådde Level <%=level%>",
+    "yourRewards": "Dine Belønningar",
+    "gettingStartedDesc": "Gjennomfør desse Introduksjonsoppgåvene og tjen <strong> 5 Prestasjoner</strong> og <strong class=\"gold-amount\">100 Gull </strong> når du er ferdig!",
+    "onboardingProgress": "<%= percentage %>% framgang",
+    "yourProgress": "Din Framgang",
+    "letsGetStarted": "La oss begynne!",
+    "viewAchievements": "Sjå Prestasjoner",
+    "earnedAchievement": "Du oppnådde ein prestasjon!",
+    "onboardingComplete": "Du gjorde ferdig dine Introduksjonsoppgaver!"
+}

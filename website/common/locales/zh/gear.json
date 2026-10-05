@@ -3663,5 +3663,6 @@
     "shieldArmoireLeafPileNotes": "一些最棒的任务既充满乐趣，又需要付出努力。只要事后你把落叶重新耙成一堆，就算你纵身跃进这堆落叶，我们也不会说出去。增加<%= con %>点体质。魔法宝箱：独立物品。",
     "shieldArmoireShieldOfHonorText": "荣誉之盾",
     "shieldArmoireShieldOfHonorNotes": "哦，光荣的骑士！你意志坚定，双手稳健，秉性执着。举国皆知，你定会以荣誉之名挥舞这面盾牌。增加<%= con %>点体质。魔法宝箱：荣誉骑士套装（2/2）",
-    "shieldSpecialFall2026RogueText": "骸骨渡鸦套装"
+    "shieldSpecialFall2026RogueText": "骸骨渡鸦套装",
+    "classLockedItemShort": "这件物品只有特殊职业可用"
 }
