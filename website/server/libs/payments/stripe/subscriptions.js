@@ -44,8 +44,6 @@ export async function getSubscriptionPaymentDetails (user) {
   const lastPayment = paymentIntents.data.length > 0
     ? paymentIntents.data[0]
     : null;
-  console.log(paymentIntents.data);
-  console.log(customer);
   return {
     customerId: customer.id,
     originalPurchaseDate: new Date(Number(customer.created) * 1000),
