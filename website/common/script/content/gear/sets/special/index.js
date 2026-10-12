@@ -2823,6 +2823,7 @@ const shield = {
   },
   fall2026Rogue: {
     set: 'fall2026SkeletalRavenRogueSet',
+    notes: t('shieldSpecialSpring2026RogueNotes', { str: 8 }),
   },
   fall2026Healer: {
     set: 'fall2026MysticCandleHealerSet',
