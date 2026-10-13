@@ -8,6 +8,7 @@ import { model as User } from '../../models/user';
 import { model as UserHistory } from '../../models/userHistory';
 import { model as Group } from '../../models/group';
 import { model as Blocker } from '../../models/blocker';
+import { model as AppConfigOption } from '../../models/clientConfigOption';
 import {
   NotFound,
 } from '../../libs/errors';
@@ -193,6 +194,75 @@ api.deleteBlocker = {
     const savedBlocker = await blocker.save();
 
     res.respond(200, savedBlocker);
+  },
+};
+
+api.getClientConfigs = {
+  method: 'GET',
+  url: '/admin/client-configs',
+  middlewares: [authWithHeaders(), ensurePermission('accessControl')],
+  async handler (req, res) {
+    const clientConfigs = await AppConfigOption
+      .find({ enabled: true })
+      .lean()
+      .exec();
+
+    res.respond(200, clientConfigs);
+  },
+};
+
+api.createClientConfig = {
+  method: 'POST',
+  url: '/admin/client-configs',
+  middlewares: [authWithHeaders(), ensurePermission('accessControl')],
+  async handler (req, res) {
+    const id = uuid();
+    const clientConfig = await AppConfigOption({
+      _id: id,
+      ...AppConfigOption.sanitize(req.body),
+    }).save();
+
+    res.respond(200, clientConfig);
+  },
+};
+
+api.updateClientConfig = {
+  method: 'PUT',
+  url: '/admin/client-configs/:clientConfigId',
+  middlewares: [authWithHeaders(), ensurePermission('accessControl')],
+  async handler (req, res) {
+    req.checkParams('clientConfigId', res.t('clientConfigIdRequired')).notEmpty().isUUID();
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const clientConfig = await AppConfigOption.findById(req.params.clientConfigId).exec();
+    if (!clientConfig) throw new NotFound(res.t('clientConfigNotFound'));
+
+    merge(clientConfig, AppConfigOption.sanitize(req.body));
+    const savedClientConfig = await clientConfig.save();
+
+    res.respond(200, savedClientConfig);
+  },
+};
+
+api.deleteClientConfig = {
+  method: 'DELETE',
+  url: '/admin/client-configs/:clientConfigId',
+  middlewares: [authWithHeaders(), ensurePermission('accessControl')],
+  async handler (req, res) {
+    req.checkParams('clientConfigId', res.t('clientConfigIdRequired')).notEmpty().isUUID();
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const clientConfig = await AppConfigOption.findById(req.params.clientConfigId).exec();
+    if (!clientConfig) throw new NotFound(res.t('clientConfigNotFound'));
+
+    clientConfig.disabled = true;
+    const savedClientConfig = await clientConfig.save();
+
+    res.respond(200, savedClientConfig);
   },
 };
 

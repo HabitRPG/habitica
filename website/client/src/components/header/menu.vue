@@ -376,6 +376,13 @@
               >
                 {{ $t("siteBlockers") }}
               </router-link>
+              <router-link
+                v-if="hasPermission(user, 'clientConfig')"
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'clientConfigs'}"
+              >
+                {{ $t("clientConfigs") }}
+              </router-link>
               <a
                 v-if="hasPermission(user, 'news')"
                 class="topbar-dropdown-item dropdown-item"
