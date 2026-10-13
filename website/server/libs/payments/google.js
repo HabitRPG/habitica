@@ -331,7 +331,7 @@ api.subscribe = async function subscribe (
     throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
   }
 
-  let nextPaymentProcessing = moment.utc().add({ days: 2 }); // eslint-disable-line no-param-reassign, max-len
+  let nextPaymentProcessing = moment.utc().add({ days: 2 });
   let nextBillingDate;
   if (googleRes.expiryTimeMillis) {
     nextBillingDate = new Date(Number(googleRes.expiryTimeMillis));
