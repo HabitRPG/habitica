@@ -196,6 +196,7 @@ async function prepareSubscriptionValues (data) {
       paymentMethod: data.paymentMethod,
       extraMonths: Number(plan.extraMonths) + _dateDiff(today, plan.dateTerminated),
       dateTerminated: null,
+      datePaymentExpired: null,
       // Specify a lastBillingDate just for Amazon Payments
       // Resetted every time the subscription restarts
       lastBillingDate: data.paymentMethod === 'Amazon Payments' ? today : undefined,
@@ -214,6 +215,10 @@ async function prepareSubscriptionValues (data) {
 
     if (data.subscriptionId) {
       plan.subscriptionId = data.subscriptionId;
+    }
+    if (data.updatingTo && data.updatingTo.key) {
+      // Subscription change is deferred until next payment processing
+      plan.deferredPlanId = data.updatingTo.key;
     }
   }
 
@@ -359,6 +364,7 @@ async function createSubscription (data) {
       }
     }
   }
+  recipient.purchased.plan.deferred = undefined;
 
   if (group) await group.save();
   if (data.user && data.user.isModified()) await data.user.save();
@@ -440,6 +446,10 @@ async function cancelSubscription (data) {
     plan,
     paymentConstants.GROUP_PLAN_CUSTOMER_ID,
   );
+
+  if (data.nextBill) {
+    plan.datePaymentExpired = data.nextBill;
+  }
 
   // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
   plan.extraMonths = 0;

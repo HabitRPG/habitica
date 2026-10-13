@@ -12,6 +12,7 @@ export const schema = new mongoose.Schema({
   customerId: String, // Billing Agreement Id in case of Amazon Payments
   dateCreated: Date,
   dateTerminated: Date,
+  datePaymentExpired: Date, // When the paid subscription period expired.
   dateUpdated: Date,
   dateCurrentTypeCreated: Date,
   extraMonths: { $type: Number, default: 0 },
@@ -26,6 +27,10 @@ export const schema = new mongoose.Schema({
   nextBillingDate: Date, // Next time google will bill this user.
   hourglassPromoReceived: Date,
   cumulativeCount: { $type: Number, default: 0 },
+  deferred: {
+    planId: String,
+    deferredUntil: Date,
+  },
   consecutive: {
     count: { $type: Number, default: 0 },
     // when gifted subs, offset++ for each month. offset-- each new-month (cron).
@@ -35,6 +40,7 @@ export const schema = new mongoose.Schema({
     trinkets: { $type: Number, default: 0 },
     lastHourglassReceived: Date,
   },
+  deferredPlanId: String,
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
