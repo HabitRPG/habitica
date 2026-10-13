@@ -176,7 +176,7 @@ describe('Google Payments', () => {
   describe('subscribe', () => {
     let sku; let user; let token; let receipt; let signature; let headers; let
       nextPaymentProcessing;
-    let paymentsCreateSubscritionStub;
+    let paymentsCreateSubscriptionStub;
     let iapGetPurchaseDataStub;
     let expirationDate;
 
@@ -206,7 +206,7 @@ describe('Google Payments', () => {
           startTimeMillis: Date.now(),
           expiryTimeMillis: expirationDate.valueOf(),
         }]);
-      paymentsCreateSubscritionStub = sinon.stub(payments, 'createSubscription').resolves({});
+      paymentsCreateSubscriptionStub = sinon.stub(payments, 'createSubscription').resolves({});
     });
 
     afterEach(() => {
@@ -246,7 +246,7 @@ describe('Google Payments', () => {
         expiryTimeMillis: expirationDate.valueOf(),
       });
 
-      expect(paymentsCreateSubscritionStub).to.be.calledOnce;
+      expect(paymentsCreateSubscriptionStub).to.be.calledOnce;
     });
 
     it('rejects pending payment state', async () => {
@@ -269,7 +269,7 @@ describe('Google Payments', () => {
           message: googlePayments.constants.RESPONSE_PENDING_SUBSCRIPTION_STATE,
         });
 
-      expect(paymentsCreateSubscritionStub).to.not.be.called;
+      expect(paymentsCreateSubscriptionStub).to.not.be.called;
     });
   });
 
