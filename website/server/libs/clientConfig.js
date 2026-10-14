@@ -1,8 +1,9 @@
+import nconf from 'nconf';
 import { model as ClientConfigOption } from '../models/clientConfigOption';
 import { registerReloader, reload, invalidate } from './cacheInvalidation';
 
 const CACHE_TYPE = 'clientConfig';
-const RELOAD_INTERVAL = 60 * 1000;
+const RELOAD_INTERVAL = nconf.get('CLIENT_CONFIG_RELOAD_INTERVAL') || (30 * 60 * 1000);
 
 export const CLIENT_PLATFORMS = ['web', 'ios', 'android'];
 const MOBILE_PLATFORMS = ['ios', 'android'];

@@ -1,6 +1,5 @@
 import { v4 } from 'uuid';
-import { model as NewsPost, refreshNewsPost } from '../../../../website/server/models/newsPost';
-import { sleep } from '../../../helpers/api-unit.helper';
+import { model as NewsPost, reloadLastNewsPostNow } from '../../../../website/server/models/newsPost';
 
 describe('NewsPost Model', () => {
   const publishDate = Number(new Date());
@@ -98,28 +97,9 @@ describe('NewsPost Model', () => {
     });
   });
 
-  context('refreshes NewsPost', () => {
-    let intervalId;
-
-    beforeEach(async () => {
-      // Delete all existing posts from the database
-      await NewsPost.deleteMany();
-    });
-
-    afterEach(() => {
-      if (intervalId) clearInterval(intervalId);
-    });
-
-    it('refreshes the last post at a specific interval', async () => {
-      await sleep(0.1); // wait 100ms to make sure all previous posts are in the past
-      const previousPost = {
-        _id: v4(), publishDate: new Date(), published: true,
-      };
-      NewsPost.updateLastNewsPost(previousPost);
-      intervalId = refreshNewsPost(100); // refreshes every 100ms
-
-      await sleep(0.1); // wait 100ms to make sure the new post has a more recent publishDate
-      const newPost = await NewsPost.create({
+  context('reloads the last post', () => {
+    function createPost (fields) {
+      return NewsPost.create({
         _id: v4(),
         publishDate: new Date(),
         author: v4(),
@@ -127,12 +107,35 @@ describe('NewsPost Model', () => {
         title: 'Title',
         credits: 'credits',
         text: 'text',
+        ...fields,
       });
+    }
 
-      expect(NewsPost.lastNewsPost()._id).to.equal(previousPost._id);
-      await sleep(0.15); // wait 150ms
+    beforeEach(async () => {
+      await NewsPost.deleteMany();
+    });
 
+    it('picks up a new post', async () => {
+      const newPost = await createPost();
+      await reloadLastNewsPostNow();
       expect(NewsPost.lastNewsPost()._id).to.equal(newPost._id);
+    });
+
+    it('falls back to the previous post when the latest one is deleted', async () => {
+      const previousPost = await createPost({ publishDate: new Date(Date.now() - 1000) });
+      const latestPost = await createPost();
+      await reloadLastNewsPostNow();
+      expect(NewsPost.lastNewsPost()._id).to.equal(latestPost._id);
+
+      await NewsPost.deleteOne({ _id: latestPost._id });
+      await reloadLastNewsPostNow();
+      expect(NewsPost.lastNewsPost()._id).to.equal(previousPost._id);
+    });
+
+    it('clears the post when none is published', async () => {
+      await createPost({ published: false });
+      await reloadLastNewsPostNow();
+      expect(NewsPost.lastNewsPost()).to.be.null;
     });
   });
 });

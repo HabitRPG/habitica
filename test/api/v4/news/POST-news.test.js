@@ -62,16 +62,16 @@ describe('POST /news', () => {
 
     it('new post is not published', async () => {
       newsPost.published = false;
-      const newPost = await user.post('/news', newsPost);
+      await user.post('/news', newsPost);
       await sleep(0.05);
-      expect(NewsPost.lastNewsPost()._id).to.not.equal(newPost._id);
+      expect(NewsPost.lastNewsPost()).to.be.null;
     });
 
     it('new post is published but in the future', async () => {
       newsPost.publishDate = moment().add({ days: 1 }).toDate();
-      const newPost = await user.post('/news', newsPost);
+      await user.post('/news', newsPost);
       await sleep(0.05);
-      expect(NewsPost.lastNewsPost()._id).to.not.equal(newPost._id);
+      expect(NewsPost.lastNewsPost()).to.be.null;
     });
 
     it('new post is published but not the most recent one', async () => {

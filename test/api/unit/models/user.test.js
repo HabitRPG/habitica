@@ -1,12 +1,10 @@
 import moment from 'moment';
-import requireAgain from 'require-again';
 import { model as User } from '../../../../website/server/models/user';
 import { model as NewsPost } from '../../../../website/server/models/newsPost';
 import { model as Group } from '../../../../website/server/models/group';
 import { model as Blocker } from '../../../../website/server/models/blocker';
+import { reloadBlockersNow } from '../../../../website/server/libs/blockers';
 import common from '../../../../website/common';
-
-const pathToUserSchema = '../../../../website/server/models/user/schema';
 
 describe('User Model', () => {
   describe('.toJSON()', () => {
@@ -921,6 +919,18 @@ describe('User Model', () => {
   });
 
   describe('validates email', () => {
+    async function setEmailBlockers (blockers) {
+      const stub = sandbox.stub(Blocker, 'find').returns({
+        select: () => ({ lean: () => ({ exec: async () => blockers }) }),
+      });
+      await reloadBlockersNow();
+      stub.restore();
+    }
+
+    afterEach(async () => {
+      await setEmailBlockers([]);
+    });
+
     it('does not throw an error for a valid email', () => {
       const user = new User();
       user.auth.local.email = 'hello@example.com';
@@ -942,49 +952,31 @@ describe('User Model', () => {
       expect(errors.errors['auth.local.email'].message).to.equal(common.i18n.t('invalidEmailDomain', { domains: 'habitica.com, habitrpg.com' }));
     });
 
-    it('throws an error if email was blocked specifically', () => {
-      sandbox.stub(Blocker, 'watchBlockers').returns({
-        on: (event, callback) => {
-          callback({ operation: 'add', blocker: { type: 'email', area: 'full', value: 'blocked@example.com' } });
-        },
-      });
-      const schema = requireAgain(pathToUserSchema).UserSchema;
-      const valid = schema.paths['auth.local.email'].options.validate.every(v => v.validator('blocked@example.com'));
+    it('throws an error if email was blocked specifically', async () => {
+      await setEmailBlockers([{ type: 'email', value: 'blocked@example.com' }]);
+      const valid = User.schema.paths['auth.local.email'].options.validate.every(v => v.validator('blocked@example.com'));
       expect(valid).to.equal(false);
     });
 
-    it('throws an error if email domain was blocked', () => {
-      sandbox.stub(Blocker, 'watchBlockers').returns({
-        on: (event, callback) => {
-          callback({ operation: 'add', blocker: { type: 'email', area: 'full', value: '@example.com' } });
-        },
-      });
-      const schema = requireAgain(pathToUserSchema).UserSchema;
-      const valid = schema.paths['auth.local.email'].options.validate.every(v => v.validator('blocked@example.com'));
+    it('throws an error if email domain was blocked', async () => {
+      await setEmailBlockers([{ type: 'email', value: '@example.com' }]);
+      const valid = User.schema.paths['auth.local.email'].options.validate.every(v => v.validator('blocked@example.com'));
       expect(valid).to.equal(false);
     });
 
-    it('throws an error if user portion of email was blocked', () => {
-      sandbox.stub(Blocker, 'watchBlockers').returns({
-        on: (event, callback) => {
-          callback({ operation: 'add', blocker: { type: 'email', area: 'full', value: 'blocked@' } });
-        },
-      });
-      const schema = requireAgain(pathToUserSchema).UserSchema;
-      const valid = schema.paths['auth.local.email'].options.validate.every(v => v.validator('blocked@example.com'));
+    it('throws an error if user portion of email was blocked', async () => {
+      await setEmailBlockers([{ type: 'email', value: 'blocked@' }]);
+      const valid = User.schema.paths['auth.local.email'].options.validate.every(v => v.validator('blocked@example.com'));
       expect(valid).to.equal(false);
     });
 
-    it('does not throw an error if email is not blocked', () => {
-      sandbox.stub(Blocker, 'watchBlockers').returns({
-        on: (event, callback) => {
-          callback({ operation: 'add', blocker: { type: 'email', area: 'full', value: '@example.com' } });
-          callback({ operation: 'add', blocker: { type: 'email', area: 'full', value: 'blocked@' } });
-          callback({ operation: 'add', blocker: { type: 'email', area: 'full', value: 'bad@test.com' } });
-        },
-      });
-      const schema = requireAgain(pathToUserSchema).UserSchema;
-      const valid = schema.paths['auth.local.email'].options.validate.every(v => v.validator('good@test.com'));
+    it('does not throw an error if email is not blocked', async () => {
+      await setEmailBlockers([
+        { type: 'email', value: '@example.com' },
+        { type: 'email', value: 'blocked@' },
+        { type: 'email', value: 'bad@test.com' },
+      ]);
+      const valid = User.schema.paths['auth.local.email'].options.validate.every(v => v.validator('good@test.com'));
       expect(valid).to.equal(true);
     });
   });

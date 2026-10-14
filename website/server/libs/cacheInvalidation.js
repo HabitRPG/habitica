@@ -37,7 +37,7 @@ function reloadAll () {
 
 export function registerReloader (type, reloadFn, { interval } = {}) {
   reloaders[type] = { reload: reloadFn, running: null, pending: false };
-  if (interval) {
+  if (interval && interval > 0) {
     setInterval(() => reload(type), interval).unref();
   }
 }

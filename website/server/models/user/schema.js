@@ -13,28 +13,7 @@ import { schema as SubscriptionPlanSchema } from '../subscriptionPlan';
 import { schema as TagSchema } from '../tag';
 import { schema as UserNotificationSchema } from '../userNotification';
 import { schema as WebhookSchema } from '../webhook';
-import { model as Blocker } from '../blocker';
-
-const BLOCKED_EMAILS = [];
-
-Blocker.watchBlockers({
-  type: 'email',
-  area: 'full',
-}, {
-  initial: true,
-}).on('change', async change => {
-  const { operation, blocker: { value } } = change;
-  if (operation === 'add') {
-    if (value && !BLOCKED_EMAILS.includes(value)) {
-      BLOCKED_EMAILS.push(value);
-    }
-  } else if (operation === 'delete') {
-    const index = BLOCKED_EMAILS.indexOf(value);
-    if (index !== -1) {
-      BLOCKED_EMAILS.splice(index, 1);
-    }
-  }
-});
+import { isEmailBlocked } from '../../libs/blockers';
 
 // User schema definition
 export const UserSchema = new Schema({
@@ -67,8 +46,7 @@ export const UserSchema = new Schema({
           message: shared.i18n.t('invalidEmailDomain', { domains: RESTRICTED_EMAIL_DOMAINS.join(', ') }),
         }, {
           validator (email) {
-            const lowercaseEmail = email.toLowerCase();
-            return BLOCKED_EMAILS.every(block => lowercaseEmail.indexOf(block) === -1);
+            return !isEmailBlocked(email);
           },
           message: shared.i18n.t('emailBlockedRegistration'),
         }],
