@@ -7,22 +7,32 @@ import {
 import { ensurePermission } from '../../middlewares/ensureAccessRight';
 import { model as AppConfigOption } from '../../models/clientConfigOption';
 import { NotFound } from '../../libs/errors';
+import {
+  CLIENT_PLATFORMS,
+  getClientConfig,
+  invalidateClientConfig,
+} from '../../libs/clientConfig';
 
 const api = {};
 
+const CLIENT_HEADER_PLATFORMS = {
+  'habitica-web': 'web',
+  'habitica-ios': 'ios',
+  'habitica-android': 'android',
+};
+
 api.retrieveClientConfig = {
-  method: 'POST',
+  method: 'GET',
   url: '/client-config',
-  middlewares: [authWithHeaders({
-    optional: true,
-  })],
+  noLanguage: true,
   async handler (req, res) {
-    try {
-      const appConfigOptions = await AppConfigOption.find({ enabled: true });
-      res.respond(200, { data: appConfigOptions });
-    } catch (error) {
-      res.respond(500, { error: error.message });
+    let { platform } = req.query;
+    if (!CLIENT_PLATFORMS.includes(platform)) {
+      platform = CLIENT_HEADER_PLATFORMS[req.headers['x-client']] || 'web';
+      res.vary('x-client');
     }
+
+    res.respond(200, await getClientConfig(platform));
   },
 };
 
@@ -50,6 +60,7 @@ api.adminCreateClientConfig = {
       _id: id,
       ...AppConfigOption.sanitize(req.body),
     }).save();
+    await invalidateClientConfig();
 
     res.respond(200, clientConfig);
   },
@@ -70,6 +81,7 @@ api.adminUpdateClientConfig = {
 
     merge(clientConfig, AppConfigOption.sanitize(req.body));
     const savedClientConfig = await clientConfig.save();
+    await invalidateClientConfig();
 
     res.respond(200, savedClientConfig);
   },
@@ -90,6 +102,7 @@ api.adminDeleteClientConfig = {
 
     clientConfig.enabled = false;
     const savedClientConfig = await clientConfig.save();
+    await invalidateClientConfig();
 
     res.respond(200, savedClientConfig);
   },
