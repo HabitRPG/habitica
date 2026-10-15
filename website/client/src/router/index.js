@@ -264,7 +264,7 @@ const router = new VueRouter({
               'clientConfig',
             ],
           },
-        }
+        },
       ],
     },
 
