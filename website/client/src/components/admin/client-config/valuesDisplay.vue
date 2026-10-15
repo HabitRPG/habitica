@@ -1,17 +1,21 @@
 <template>
-      <div>
-        <template v-if="values.length == 0">
-            {{ defaultValue }}
-        </template>
-        <template v-else>
-            <ul class="list-unstyled mb-0">
-                <li><span class="font-weight-bold">Default:</span> {{ defaultValue }}</li>
-                <li v-for="(value, index) in values" :key="index"><span class="font-weight-bold">{{ getPlatformName(value.platform) }}:</span> {{ value.value }}</li>
-            </ul>
-        </template>
-      </div>
+  <div>
+    <template v-if="values.length == 0">
+      {{ defaultValue }}
+    </template>
+    <template v-else>
+      <ul class="list-unstyled mb-0">
+        <li><span class="font-weight-bold">Default:</span> {{ defaultValue }}</li>
+        <li
+          v-for="(value, index) in values"
+          :key="index"
+        >
+          <span class="font-weight-bold">{{ getPlatformName(value.platform) }}:</span> {{ value.value }}
+        </li>
+      </ul>
+    </template>
+  </div>
 </template>
-
 
 <script>
 export default {
@@ -31,15 +35,15 @@ export default {
   },
   methods: {
     getPlatformName (platform) {
-        switch(platform) {
-            case 'ios':
-                return 'iOS';
-            case 'android':
-                return 'Android';
-            default:
-                return platform;
-        }
-    }
-  }
+      switch (platform) {
+        case 'ios':
+          return 'iOS';
+        case 'android':
+          return 'Android';
+        default:
+          return platform;
+      }
+    },
+  },
 };
 </script>

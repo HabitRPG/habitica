@@ -1,18 +1,43 @@
 <template>
-      <div>
-        <textarea v-if="type == 'text'" type="text" v-bind:value="value" class="form-control" autocorrect="off"
-          autocapitalize="off" spellcheck="false" :class="{ 'is-invalid input-invalid': !isValid }"
-          @input="validateValue($event.target.value)" rows="1"></textarea>
-        <input v-if="type == 'number'" type="number" v-bind:value="value" class="form-control"
-          :class="{ 'is-invalid input-invalid': !isValid }" @input="validateValue($event.target.value)">
-        <input v-if="type == 'boolean'" type="checkbox" v-bind:checked="value" class="align-middle"
-          :class="{ 'is-invalid input-invalid': !isValid }" @input="validateValue($event.target.checked)">
-        <textarea v-if="type == 'json'" v-bind:value="value" class="form-control"
-          :class="{ 'is-invalid input-invalid': !isValid }" @input="validateValue($event.target.value)"
-          rows="8"></textarea>
-      </div>
+  <div>
+    <textarea
+      v-if="type == 'text'"
+      type="text"
+      :value="value"
+      class="form-control"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+      :class="{ 'is-invalid input-invalid': !isValid }"
+      rows="1"
+      @input="validateValue($event.target.value)"
+    ></textarea>
+    <input
+      v-if="type == 'number'"
+      type="number"
+      :value="value"
+      class="form-control"
+      :class="{ 'is-invalid input-invalid': !isValid }"
+      @input="validateValue($event.target.value)"
+    >
+    <input
+      v-if="type == 'boolean'"
+      type="checkbox"
+      :checked="value"
+      class="align-middle"
+      :class="{ 'is-invalid input-invalid': !isValid }"
+      @input="validateValue($event.target.checked)"
+    >
+    <textarea
+      v-if="type == 'json'"
+      :value="value"
+      class="form-control"
+      :class="{ 'is-invalid input-invalid': !isValid }"
+      rows="8"
+      @input="validateValue($event.target.value)"
+    ></textarea>
+  </div>
 </template>
-
 
 <script>
 export default {
@@ -26,16 +51,16 @@ export default {
       type: [String, Number, Boolean],
     },
   },
-  data() {
+  data () {
     return {
       isValid: false,
     };
   },
-  mounted() {
+  mounted () {
     this.validateValue(this.value);
   },
   methods: {
-    validateValue(value) {
+    validateValue (value) {
       if (this.type === 'number') {
         this.validateValueAsNumber(value);
       } else if (this.type === 'text') {
@@ -47,16 +72,16 @@ export default {
       }
       this.$emit('input', value);
     },
-    validateValueAsNumber(value) {
+    validateValueAsNumber (value) {
       this.isValid = !isNaN(value);
     },
-    validateValueAsText(value) {
+    validateValueAsText (value) {
       this.isValid = value.length > 0;
     },
-    validateValueAsBoolean(value) {
+    validateValueAsBoolean (value) {
       this.isValid = typeof value === 'boolean';
     },
-    validateValueAsJson(value) {
+    validateValueAsJson (value) {
       try {
         JSON.parse(value);
         this.isValid = true;
