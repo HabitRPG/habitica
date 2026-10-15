@@ -62,6 +62,40 @@ export const schema = new mongoose.Schema({
 
 schema.plugin(baseModel, {
   timestamps: true,
+  sanitizeTransform (option) {
+    const { type } = option;
+    if (type === 'number') {
+      option.defaultValue = Number(option.defaultValue);
+      if (Array.isArray(option.values)) {
+        option.values.forEach(v => {
+          v.value = Number(v.value);
+        });
+      }
+    } else if (type === 'boolean') {
+      option.defaultValue = Boolean(option.defaultValue);
+      if (Array.isArray(option.values)) {
+        option.values.forEach(v => {
+          v.value = Boolean(v.value);
+        });
+      }
+    } else if (type === 'json') {
+      try {
+        option.defaultValue = JSON.parse(option.defaultValue);
+      } catch (e) {
+        option.defaultValue = null;
+      }
+      if (Array.isArray(option.values)) {
+        option.values = option.values.map(v => {
+          try {
+            return { ...v, value: JSON.parse(v.value) };
+          } catch (e) {
+            return { ...v, value: null };
+          }
+        });
+      }
+    }
+    return option;
+  },
 });
 
 export const model = mongoose.model('ClientConfigOption', schema);

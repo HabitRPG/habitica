@@ -79,7 +79,9 @@ api.adminUpdateClientConfig = {
     const clientConfig = await AppConfigOption.findById(req.params.clientConfigId).exec();
     if (!clientConfig) throw new NotFound(res.t('clientConfigNotFound'));
 
-    merge(clientConfig, AppConfigOption.sanitize(req.body));
+    const sanitized = AppConfigOption.sanitize(req.body);
+    merge(clientConfig, sanitized);
+    clientConfig.values = sanitized.values;
     const savedClientConfig = await clientConfig.save();
     await invalidateClientConfig();
 
