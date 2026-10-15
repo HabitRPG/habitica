@@ -73,7 +73,7 @@ export default {
       this.$emit('input', value);
     },
     validateValueAsNumber (value) {
-      this.isValid = !isNaN(value);
+      this.isValid = !Number.isNaN(value);
     },
     validateValueAsText (value) {
       this.isValid = value.length > 0;

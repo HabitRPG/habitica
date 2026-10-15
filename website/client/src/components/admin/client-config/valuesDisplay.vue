@@ -10,7 +10,9 @@
           v-for="(value, index) in values"
           :key="index"
         >
-          <span class="font-weight-bold">{{ getPlatformName(value.platform) }}:</span> {{ value.value }}
+          <span class="font-weight-bold">
+            {{ getPlatformName(value.platform) }}:
+          </span> {{ value.value }}
         </li>
       </ul>
     </template>
