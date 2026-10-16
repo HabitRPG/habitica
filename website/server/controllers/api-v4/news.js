@@ -3,6 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 import { apiError } from '../../libs/apiError';
 import { model as NewsPost } from '../../models/newsPost';
 import { ensurePermission } from '../../middlewares/ensureAccessRight';
+import { ensureAdminPanelEnabled } from '../../middlewares/ensureAdminPanelEnabled';
 import {
   NotFound,
 } from '../../libs/errors';
@@ -70,7 +71,7 @@ api.getNews = {
 api.createNews = {
   method: 'POST',
   url: '/news',
-  middlewares: [authWithHeaders(), ensurePermission('news')],
+  middlewares: [ensureAdminPanelEnabled, authWithHeaders(), ensurePermission('news')],
   async handler (req, res) {
     const newsPost = new NewsPost(NewsPost.sanitize(req.body));
     newsPost.author = res.locals.user._id;
@@ -146,7 +147,7 @@ api.getPost = {
 api.updateNews = {
   method: 'PUT',
   url: '/news/:postId',
-  middlewares: [authWithHeaders(), ensurePermission('news')],
+  middlewares: [ensureAdminPanelEnabled, authWithHeaders(), ensurePermission('news')],
   async handler (req, res) {
     req.checkParams('postId', apiError('postIdRequired')).notEmpty().isUUID();
     const validationErrors = req.validationErrors();
@@ -181,7 +182,7 @@ api.updateNews = {
 api.deleteNews = {
   method: 'DELETE',
   url: '/news/:postId',
-  middlewares: [authWithHeaders(), ensurePermission('news')],
+  middlewares: [ensureAdminPanelEnabled, authWithHeaders(), ensurePermission('news')],
   async handler (req, res) {
     req.checkParams('postId', apiError('postIdRequired')).notEmpty().isUUID();
     const validationErrors = req.validationErrors();

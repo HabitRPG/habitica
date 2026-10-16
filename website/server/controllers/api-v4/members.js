@@ -1,6 +1,7 @@
 import worker from '../../libs/worker';
 import { authWithHeaders } from '../../middlewares/auth';
 import { ensurePermission } from '../../middlewares/ensureAccessRight';
+import { ensureAdminPanelEnabled } from '../../middlewares/ensureAdminPanelEnabled';
 import { TransactionModel as Transaction } from '../../models/transaction';
 
 const api = {};
@@ -13,7 +14,7 @@ const api = {};
  */
 api.purchaseHistory = {
   method: 'GET',
-  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  middlewares: [ensureAdminPanelEnabled, authWithHeaders(), ensurePermission('userSupport')],
   url: '/members/:memberId/purchase-history',
   async handler (req, res) {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
@@ -41,7 +42,7 @@ api.purchaseHistory = {
  */
 api.deleteMember = {
   method: 'DELETE',
-  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  middlewares: [ensureAdminPanelEnabled, authWithHeaders(), ensurePermission('userSupport')],
   url: '/members/:memberId',
   async handler (req, res) {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();

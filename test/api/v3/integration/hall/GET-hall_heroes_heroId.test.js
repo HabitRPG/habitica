@@ -1,4 +1,5 @@
 import { v4 as generateUUID } from 'uuid';
+import nconf from 'nconf';
 import {
   generateUser,
   translate as t,
@@ -76,5 +77,20 @@ describe('GET /heroes/:heroId', () => {
     await generateUser({}, { username: 'TestUpperCaseName123' });
     const heroRes = await user.get('/hall/heroes/TestuPPerCasEName123');
     expect(heroRes.auth.local.username).to.equal('TestUpperCaseName123');
+  });
+
+  it('only returns moderation fields when the admin panel is disabled', async () => {
+    sandbox.stub(nconf, 'get').callThrough()
+      .withArgs('ENABLE_ADMIN_PANEL').returns('false');
+    const hero = await generateUser({
+      'auth.blocked': true,
+      'flags.chatRevoked': true,
+    });
+    const heroRes = await user.get(`/hall/heroes/${hero._id}`);
+
+    expect(heroRes).to.have.all.keys(['_id', 'auth', 'flags']);
+    expect(heroRes.auth).to.have.all.keys(['blocked']);
+    expect(heroRes.auth.blocked).to.equal(true);
+    expect(heroRes.flags.chatRevoked).to.equal(true);
   });
 });

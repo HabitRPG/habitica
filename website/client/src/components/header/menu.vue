@@ -790,6 +790,7 @@ body.modal-open #habitica-menu {
 <script>
 import { mapState, mapGetters } from '@/libs/store';
 import { goToModForm } from '@/libs/modform';
+import { ADMIN_PANEL_ENABLED } from '@/libs/consts';
 
 import gemIcon from '@/assets/svg/gem.svg?raw';
 import goldIcon from '@/assets/svg/gold.svg?raw';
@@ -855,6 +856,7 @@ export default {
       };
     },
     hasElevatedPrivileges () {
+      if (!ADMIN_PANEL_ENABLED) return false;
       return this.user.permissions.fullAccess
         || this.user.permissions.userSupport
         || this.user.permissions.accessControl

@@ -2,6 +2,7 @@ import _ from 'lodash';
 import validator from 'validator';
 import { authWithHeaders } from '../../middlewares/auth';
 import { ensurePermission } from '../../middlewares/ensureAccessRight';
+import { ensureAdminPanelEnabled, isAdminPanelEnabled } from '../../middlewares/ensureAdminPanelEnabled';
 import { model as User } from '../../models/user';
 import { model as Group } from '../../models/group';
 import common from '../../../common';
@@ -153,6 +154,35 @@ const heroAdminFields = 'auth balance contributor flags items lastCron party pre
 const heroAdminFieldsToFetch = heroAdminFields; // these variables will make more sense when...
 const heroAdminFieldsToShow = heroAdminFields; // ... apiTokenObscured is added
 
+// fields available for moderation (banning, muting) when the admin panel is disabled
+const heroModerationFields = 'auth.blocked flags';
+
+function pickHeroFields (heroJSON, fields) {
+  const responseHero = { _id: heroJSON._id }; // only respond with important fields
+  fields.split(' ').forEach(field => {
+    _.set(responseHero, field, _.get(heroJSON, field));
+  });
+  return responseHero;
+}
+
+function applyHeroModerationUpdates (hero, updateData) {
+  if (updateData.auth) {
+    if (updateData.auth.blocked === true) {
+      hero.auth.blocked = updateData.auth.blocked;
+      hero.preferences.sleep = true; // when blocking, have them rest at an inn to prevent damage
+    } else if (updateData.auth.blocked === false) {
+      hero.auth.blocked = false;
+    }
+  }
+
+  if (updateData.flags && _.isBoolean(updateData.flags.chatRevoked)) {
+    hero.flags.chatRevoked = updateData.flags.chatRevoked;
+  }
+  if (updateData.flags && _.isBoolean(updateData.flags.chatShadowMuted)) {
+    hero.flags.chatShadowMuted = updateData.flags.chatShadowMuted;
+  }
+}
+
 const heroPartyAdminFields = 'balance challengeCount leader leaderOnly memberCount purchased quest';
 // must never include Party name, description, summary, leaderMessage
 
@@ -191,12 +221,19 @@ api.getHero = {
       query = { 'auth.local.lowerCaseUsername': heroId.toLowerCase() };
     }
 
+    const adminPanelEnabled = isAdminPanelEnabled();
     const hero = await User
       .findOne(query)
-      .select(heroAdminFieldsToFetch)
+      .select(adminPanelEnabled ? heroAdminFieldsToFetch : heroModerationFields)
       .exec();
 
     if (!hero) throw new NotFound(res.t('userWithIDNotFound', { userId: heroId }));
+
+    if (!adminPanelEnabled) {
+      res.respond(200, pickHeroFields(hero.toJSON(), heroModerationFields));
+      return;
+    }
+
     const heroRes = hero.toJSON({ minimize: true });
     // supply to the possible absence of hero.contributor
     // if we didn't pass minimize: true it would have returned all fields as empty
@@ -270,6 +307,13 @@ api.updateHero = {
 
     const hero = await User.findById(heroId).exec();
     if (!hero) throw new NotFound(res.t('userWithIDNotFound', { userId: heroId }));
+
+    if (!isAdminPanelEnabled()) {
+      applyHeroModerationUpdates(hero, updateData);
+      const savedHero = await hero.save();
+      res.respond(200, pickHeroFields(savedHero.toJSON(), heroModerationFields));
+      return;
+    }
 
     if (updateData.balance && updateData.balance !== hero.balance) {
       await hero.updateBalance(updateData.balance - hero.balance, 'admin_update_balance', '', 'Given by Habitica staff');
@@ -476,24 +520,9 @@ api.updateHero = {
       hero.markModified('items');
     }
 
-    if (updateData.auth) {
-      if (updateData.auth.blocked === true) {
-        hero.auth.blocked = updateData.auth.blocked;
-        hero.preferences.sleep = true; // when blocking, have them rest at an inn to prevent damage
-      } else if (updateData.auth.blocked === false) {
-        hero.auth.blocked = false;
-      }
-
-      if (updateData.auth.local && updateData.auth.local.email) {
-        hero.auth.local.email = updateData.auth.local.email.toLowerCase();
-      }
-    }
-
-    if (updateData.flags && _.isBoolean(updateData.flags.chatRevoked)) {
-      hero.flags.chatRevoked = updateData.flags.chatRevoked;
-    }
-    if (updateData.flags && _.isBoolean(updateData.flags.chatShadowMuted)) {
-      hero.flags.chatShadowMuted = updateData.flags.chatShadowMuted;
+    applyHeroModerationUpdates(hero, updateData);
+    if (updateData.auth && updateData.auth.local && updateData.auth.local.email) {
+      hero.auth.local.email = updateData.auth.local.email.toLowerCase();
     }
     if (updateData.profile) _.assign(hero.profile, updateData.profile);
 
@@ -528,12 +557,7 @@ api.updateHero = {
 
     const heroJSON = savedHero.toJSON();
     heroJSON.secret = savedHero.getSecretData();
-    const responseHero = { _id: heroJSON._id }; // only respond with important fields
-    heroAdminFieldsToShow.split(' ').forEach(field => {
-      _.set(responseHero, field, _.get(heroJSON, field));
-    });
-
-    res.respond(200, responseHero);
+    res.respond(200, pickHeroFields(heroJSON, heroAdminFieldsToShow));
   },
 };
 
@@ -560,7 +584,7 @@ api.updateHero = {
 api.getHeroParty = { // @TODO XXX add tests
   method: 'GET',
   url: '/hall/heroes/party/:groupId',
-  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  middlewares: [ensureAdminPanelEnabled, authWithHeaders(), ensurePermission('userSupport')],
   async handler (req, res) {
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty().isUUID();
 
@@ -602,7 +626,7 @@ api.getHeroParty = { // @TODO XXX add tests
 api.getHeroGroupPlans = {
   method: 'GET',
   url: '/hall/heroes/:heroId/group-plans',
-  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  middlewares: [ensureAdminPanelEnabled, authWithHeaders(), ensurePermission('userSupport')],
   async handler (req, res) {
     req.checkParams('heroId', res.t('heroIdRequired')).notEmpty();
 
