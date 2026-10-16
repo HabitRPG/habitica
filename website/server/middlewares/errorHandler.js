@@ -66,7 +66,7 @@ export default function errorHandler (err, req, res, next) { // eslint-disable-l
     responseErr = new InternalServerError();
   }
 
-  if (!err.skipLogging) {
+  if (!err.skipLogging && responseErr.httpCode !== 404) { // 404s are noisy, disregard them
     // log the error
     logger.error(err, {
       method: req.method,
