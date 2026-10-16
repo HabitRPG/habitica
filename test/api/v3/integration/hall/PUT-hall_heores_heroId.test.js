@@ -2,6 +2,7 @@ import { v4 as generateUUID } from 'uuid';
 import nconf from 'nconf';
 import { model as User } from '../../../../../website/server/models/user';
 import {
+  createAndPopulateGroup,
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
@@ -453,6 +454,31 @@ describe('PUT /heroes/:heroId', () => {
     expect(new Date(hero.purchased.plan.hourglassPromoReceived))
       .to.eql(hourglassPromoReceived);
     expect(hero.purchased.plan.extraMonths).to.equal(3);
+  });
+
+  it('makes a user the leader of their party', async () => {
+    const { group, groupLeader, members } = await createAndPopulateGroup({
+      groupDetails: { type: 'party', privacy: 'private' },
+      members: 1,
+    });
+    const member = members[0];
+
+    await user.put(`/hall/heroes/${member._id}`, { makePartyLeader: true });
+
+    await group.sync();
+    expect(group.leader).to.equal(member._id);
+    expect(group.leader).to.not.equal(groupLeader._id);
+  });
+
+  it('does not make a user without a party a party leader', async () => {
+    const hero = await generateUser();
+
+    await expect(user.put(`/hall/heroes/${hero._id}`, { makePartyLeader: true }))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('partyNotFound'),
+      });
   });
 
   context('admin panel disabled', () => {
