@@ -326,11 +326,11 @@ api.updateHero = {
       if (plan.gemsBought) {
         hero.purchased.plan.gemsBought = plan.gemsBought;
       }
-      if (plan.dateCreated) {
-        hero.purchased.plan.dateCreated = plan.dateCreated;
+      if (plan.dateCreated !== undefined) {
+        hero.purchased.plan.dateCreated = plan.dateCreated || null;
       }
-      if (plan.dateCurrentTypeCreated) {
-        hero.purchased.plan.dateCurrentTypeCreated = plan.dateCurrentTypeCreated;
+      if (plan.dateCurrentTypeCreated !== undefined) {
+        hero.purchased.plan.dateCurrentTypeCreated = plan.dateCurrentTypeCreated || null;
       }
       if (plan.dateTerminated !== hero.purchased.plan.dateTerminated) {
         hero.purchased.plan.dateTerminated = plan.dateTerminated;
@@ -364,8 +364,8 @@ api.updateHero = {
       if (plan.cumulativeCount) {
         hero.purchased.plan.cumulativeCount = plan.cumulativeCount;
       }
-      if (plan.extraMonths || plan.extraMonths === 0) {
-        hero.purchased.plan.extraMonths = plan.extraMonths;
+      if (plan.extraMonths !== undefined) {
+        hero.purchased.plan.extraMonths = plan.extraMonths || 0;
       }
       if (plan.customerId || plan.customerId === '') {
         hero.purchased.plan.customerId = plan.customerId;
@@ -379,8 +379,8 @@ api.updateHero = {
       if (plan.owner || plan.owner === '') {
         hero.purchased.plan.owner = plan.owner;
       }
-      if (plan.hourglassPromoReceived) {
-        hero.purchased.plan.hourglassPromoReceived = plan.hourglassPromoReceived;
+      if (plan.hourglassPromoReceived !== undefined) {
+        hero.purchased.plan.hourglassPromoReceived = plan.hourglassPromoReceived || null;
       }
 
       if (plan.deferred) {
