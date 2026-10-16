@@ -26,6 +26,8 @@ const AdminPanelSearchPage = () => import('@/components/admin/admin-panel/search
 const GroupAdminPage = () => import('@/components/admin/groups');
 const GroupAdminGroupPage = () => import('@/components/admin/groups/group-support');
 const BlockerPage = () => import('@/components/admin/blocker');
+const NewsAdminPage = () => import('@/components/admin/news');
+const NewsPostFormPage = () => import('@/components/admin/news/newsPostForm');
 
 // Tasks
 const UserTasks = () => import('@/components/tasks/user');
@@ -188,6 +190,7 @@ const router = new VueRouter({
         privilegeNeeded: [ // any one of these is enough to give access
           'userSupport',
           'accessControl',
+          'news',
         ],
       },
       children: [
@@ -252,6 +255,36 @@ const router = new VueRouter({
           meta: {
             privilegeNeeded: [ // any one of these is enough to give access
               'accessControl',
+            ],
+          },
+        },
+        {
+          name: 'newsAdmin',
+          path: 'news',
+          component: NewsAdminPage,
+          meta: {
+            privilegeNeeded: [
+              'news',
+            ],
+          },
+        },
+        {
+          name: 'newsPostCreate',
+          path: 'news/new',
+          component: NewsPostFormPage,
+          meta: {
+            privilegeNeeded: [
+              'news',
+            ],
+          },
+        },
+        {
+          name: 'newsPostEdit',
+          path: 'news/:postId',
+          component: NewsPostFormPage,
+          meta: {
+            privilegeNeeded: [
+              'news',
             ],
           },
         },

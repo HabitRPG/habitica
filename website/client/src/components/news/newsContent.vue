@@ -9,43 +9,15 @@
         {{ $t('newStuff') }}
       </h1>
     </div>
-    <div
+    <news-post
       v-for="(post, index) in posts"
-      id="bailey"
       :key="post._id"
-      class="static-view bailey"
+      :post="post"
+      class="bailey-post"
       :class="{'bailey-last': index == (posts.length - 1)}"
-    >
-      <small
-        v-if="!post.published"
-        class="draft"
-      >DRAFT</small>
-      <h2 class="title">
-        {{ getPostDate(post) }} - {{ post.title.toUpperCase() }}
-      </h2>
-
-      <hr>
-
-      <div v-html="renderMarkdown(post.text)"></div>
-      <small>by {{ post.credits }}</small>
-    </div>
+    />
   </div>
 </template>
-
-<style lang='scss'>
-@import '@/assets/scss/static.scss';
-#bailey {
-  .markdown-img-link {
-    display: flex;
-    align-items: center;
-
-    img {
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-}
-</style>
 
 <style lang='scss' scoped>
 @import '@/assets/scss/colors.scss';
@@ -55,35 +27,26 @@ h1 {
   margin-bottom: 0;
 }
 
-.bailey {
+.bailey-post {
   margin-bottom: 1rem;
 
   &.bailey-last {
     margin-bottom: 0;
-  }
-
-  .title {
-    display: inline;
-  }
-
-  .draft {
-    margin-right: 10px;
-  }
-
-  h2 {
-    color: $purple-200;
   }
 }
 </style>
 
 <script>
 import moment from 'moment';
-import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from '@/libs/store';
 import seasonalNPC from '@/mixins/seasonalNPC';
 import { userStateMixin } from '../../mixins/userState';
+import NewsPost from './newsPost';
 
 export default {
+  components: {
+    NewsPost,
+  },
   mixins: [seasonalNPC, userStateMixin],
   data () {
     return {
@@ -114,13 +77,6 @@ export default {
             .filter(p => !p.published || moment().isBefore(p.publishDate)),
         );
       }
-    },
-    renderMarkdown (text) {
-      return habiticaMarkdown.unsafeHTMLRender(text);
-    },
-    getPostDate (post) {
-      const format = this.user ? this.user.preferences.dateFormat.toUpperCase() : 'MM/DD/yyyy';
-      return moment(post.publishDate).format(format);
     },
   },
 };

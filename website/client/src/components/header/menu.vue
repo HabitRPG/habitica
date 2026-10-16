@@ -376,15 +376,13 @@
               >
                 {{ $t("siteBlockers") }}
               </router-link>
-              <a
+              <router-link
                 v-if="hasPermission(user, 'news')"
                 class="topbar-dropdown-item dropdown-item"
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://panel.habitica.com"
+                :to="{name: 'newsAdmin'}"
               >
                 {{ $t('newsroom') }}
-              </a>
+              </router-link>
             </div>
           </li>
         </b-navbar-nav>
