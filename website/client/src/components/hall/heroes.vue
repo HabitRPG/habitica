@@ -8,7 +8,7 @@
     </div>
     <div class="row standard-page">
       <div>
-        <div v-if="hasPermission(user, 'userSupport')">
+        <div v-if="canSupportUsers">
           <h2>Reward User</h2>
           <div
             v-if="!hero.profile"
@@ -279,7 +279,7 @@
                     v-else
                     :user="hero"
                   />
-                  <span v-if="hasPermission(user, 'userSupport')">
+                  <span v-if="canSupportUsers">
                     <br>
                     {{ hero._id }}
                     <br>
@@ -331,6 +331,7 @@ import notifications from '@/mixins/notifications';
 import userLink from '../userLink';
 import PurchaseHistoryTable from '../ui/purchaseHistoryTable.vue';
 import { userStateMixin } from '../../mixins/userState';
+import { ADMIN_PANEL_ENABLED } from '@/libs/consts';
 
 const { mountInfo, petInfo } = stable;
 
@@ -369,6 +370,11 @@ export default {
         linkClose: '</a>',
       },
     };
+  },
+  computed: {
+    canSupportUsers () {
+      return ADMIN_PANEL_ENABLED && this.hasPermission(this.user, 'userSupport');
+    },
   },
   async mounted () {
     this.$store.dispatch('common:setTitle', {

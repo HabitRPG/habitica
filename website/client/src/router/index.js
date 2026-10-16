@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import getStore from '@/store';
 import handleRedirect from './handleRedirect';
 
-import { PAGES } from '@/libs/consts';
+import { PAGES, ADMIN_PANEL_ENABLED } from '@/libs/consts';
 import { STATIC_ROUTES } from './static-routes';
 import { USER_ROUTES } from './user-routes';
 import { DEPRECATED_ROUTES } from '@/router/deprecated-routes';
@@ -184,6 +184,7 @@ const router = new VueRouter({
       path: '/admin',
       component: AdminContainerPage,
       meta: {
+        requiresAdminPanel: true,
         privilegeNeeded: [ // any one of these is enough to give access
           'userSupport',
           'accessControl',
@@ -307,6 +308,10 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if (isUserLoggedIn && (to.name === 'login' || to.name === 'register')) {
+    return next({ name: 'tasks' });
+  }
+
+  if (!ADMIN_PANEL_ENABLED && to.matched.some(record => record.meta.requiresAdminPanel)) {
     return next({ name: 'tasks' });
   }
 
