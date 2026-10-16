@@ -283,6 +283,7 @@ const gemsPerTier = {
  *    "itemPath": "items.pets.BearCub-Skeleton",
  *    "itemVal": 5,
  *    "changeApiToken": true,
+ *    "makePartyLeader": true,
  * }
  *
  * @apiSuccess {Object} data The updated user object
@@ -543,7 +544,19 @@ api.updateHero = {
       hero.auth.timestamps.loggedin = yesterday; // so admin panel doesn't gripe about mismatch
     }
 
+    let partyToLead;
+    if (updateData.makePartyLeader) {
+      if (!hero.party || !hero.party._id) throw new BadRequest(res.t('partyNotFound'));
+      partyToLead = await Group.findOne({ _id: hero.party._id, type: 'party' }).exec();
+      if (!partyToLead) throw new NotFound(res.t('partyNotFound'));
+    }
+
     const savedHero = await hero.save();
+
+    if (partyToLead) {
+      partyToLead.leader = savedHero._id;
+      await partyToLead.save();
+    }
 
     if (updateData.removeFromParty) {
       await leaveGroup({
