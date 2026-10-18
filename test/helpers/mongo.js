@@ -18,13 +18,18 @@ export async function getProperty (collectionName, id, path) {
   return get(doc, path);
 }
 
+export async function clearDatabase () {
+  const collections = await mongoose.connection.db.collections();
+  await Promise.all(collections.map(collection => collection.deleteMany({})));
+}
+
 // Specifically helpful for the GET /groups tests,
 // resets the db to an empty state and creates a tavern document
 export async function resetHabiticaDB () {
   console.info('Resetting Habitica DB');
   const groups = mongoose.connection.db.collection('groups');
   const users = mongoose.connection.db.collection('users');
-  return mongoose.connection.dropDatabase()
+  return clearDatabase()
     .then(() => users.countDocuments({ _id: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0' })).then(count => {
       if (count === 0) {
         users.insertOne({
