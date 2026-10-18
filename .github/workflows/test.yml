@@ -24,6 +24,7 @@ jobs:
         fetch-depth: 1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
+      cache: 'npm'
       with:
         node-version: ${{ matrix.node-version }}
     - run: sudo apt update
@@ -31,7 +32,7 @@ jobs:
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm i
+        npm ci
       env:
         CI: true
         NODE_ENV: test
@@ -48,6 +49,7 @@ jobs:
         fetch-depth: 1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
+      cache: 'npm'
       with:
         node-version: ${{ matrix.node-version }}
     - run: sudo apt update
@@ -55,7 +57,7 @@ jobs:
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm i
+        npm ci
       env:
         CI: true
         NODE_ENV: test
@@ -72,6 +74,7 @@ jobs:
         fetch-depth: 1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
+      cache: 'npm'
       with:
         node-version: ${{ matrix.node-version }}
     - run: sudo apt update
@@ -79,7 +82,7 @@ jobs:
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm i
+        npm ci
       env:
         CI: true
         NODE_ENV: test
@@ -96,6 +99,7 @@ jobs:
         fetch-depth: 1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
+      cache: 'npm'
       with:
         node-version: ${{ matrix.node-version }}
     - run: sudo apt update
@@ -103,7 +107,7 @@ jobs:
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm i
+        npm ci
       env:
         CI: true
         NODE_ENV: test
@@ -121,6 +125,7 @@ jobs:
         fetch-depth: 1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
+      cache: 'npm'
       with:
         node-version: ${{ matrix.node-version }}
 
@@ -135,7 +140,7 @@ jobs:
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm i
+        npm ci
       env:
         CI: true
         NODE_ENV: test
@@ -156,6 +161,7 @@ jobs:
         fetch-depth: 1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
+      cache: 'npm'
       with:
         node-version: ${{ matrix.node-version }}
     - name: Start MongoDB ${{ matrix.mongodb-version }} Replica Set
@@ -169,7 +175,7 @@ jobs:
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm i
+        npm ci
       env:
         CI: true
         NODE_ENV: test
@@ -191,6 +197,7 @@ jobs:
         fetch-depth: 1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
+      cache: 'npm'
       with:
         node-version: ${{ matrix.node-version }}
     - name: Start MongoDB ${{ matrix.mongodb-version }} Replica Set
@@ -204,7 +211,7 @@ jobs:
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm i
+        npm ci
       env:
         CI: true
         NODE_ENV: test
@@ -224,6 +231,7 @@ jobs:
         fetch-depth: 1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
+      cache: 'npm'
       with:
         node-version: ${{ matrix.node-version }}
     - run: sudo apt update
@@ -231,7 +239,7 @@ jobs:
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm i
+        npm ci
       env:
         CI: true
         NODE_ENV: test
@@ -249,6 +257,7 @@ jobs:
         fetch-depth: 1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
+      cache: 'npm'
       with:
         node-version: ${{ matrix.node-version }}
     - run: sudo apt update
@@ -256,7 +265,7 @@ jobs:
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm install
+        npm ci
       env:
         CI: true
         NODE_ENV: production
