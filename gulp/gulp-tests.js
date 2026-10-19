@@ -45,7 +45,7 @@ function runInChildProcess (command, options = {}, envVariables = '') {
 }
 
 function integrationTestCommand (testDir) {
-  return `nyc --silent --no-clean mocha ${testDir} --recursive --require ./test/helpers/start-server`;
+  return `nyc --silent --no-clean mocha ${testDir} --recursive --require ./test/helpers/start-server.js`;
 }
 
 /* Test task definitions */
@@ -166,7 +166,7 @@ gulp.task('test:api-v3:integration:watch', () => gulp.watch([
 ], gulp.series('test:api-v3:integration', done => done())));
 
 gulp.task('test:api-v3:integration:separate-server', runInChildProcess(
-  'mocha test/api/v3/integration --recursive --require ./test/helpers/start-server',
+  'mocha test/api/v3/integration --recursive --require ./test/helpers/start-server.js',
   LIMIT_MAX_BUFFER_OPTIONS,
   'LOAD_SERVER=0',
 ));
@@ -180,7 +180,7 @@ gulp.task('test:api-v4:integration', gulp.series(
 ));
 
 gulp.task('test:api-v4:integration:separate-server', runInChildProcess(
-  'mocha test/api/v4 --recursive --require ./test/helpers/start-server',
+  'mocha test/api/v4 --recursive --require ./test/helpers/start-server.js',
   LIMIT_MAX_BUFFER_OPTIONS,
   'LOAD_SERVER=0',
 ));

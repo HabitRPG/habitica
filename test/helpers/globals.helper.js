@@ -8,15 +8,14 @@
 //------------------------------
 global._ = require('lodash');
 global.chai = require('chai');
-chai.use(require('chai-as-promised'));
+// chai-as-promised and sinon-chai are ES modules, require returns their namespace
+chai.use(require('chai-as-promised').default);
 chai.use(require('chai-moment'));
-chai.use(require('sinon-chai'));
+chai.use(require('sinon-chai').default);
 
 global.expect = chai.expect;
 global.sinon = require('sinon');
-const sinonStubPromise = require('sinon-stub-promise');
 
-sinonStubPromise(global.sinon);
 global.sandbox = sinon.createSandbox();
 
 const setupNconf = require('../../website/server/libs/setupNconf').default;
