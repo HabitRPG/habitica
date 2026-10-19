@@ -18,6 +18,12 @@ afterEach(() => {
 export { sleep } from './sleep';
 export { waitFor } from './wait-for';
 
+// Fakes only Date, faking all timers (the sinon default) also stops
+// process.nextTick and queueMicrotask, which blocks database calls
+export function useFakeDate (now) {
+  return sinon.useFakeTimers({ now, toFake: ['Date'] });
+}
+
 export function generateUser (options = {}) {
   return new User(options);
 }
