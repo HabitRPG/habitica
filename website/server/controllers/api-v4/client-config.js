@@ -42,7 +42,8 @@ api.adminGetClientConfigs = {
   middlewares: [authWithHeaders(), ensurePermission('clientConfig')],
   async handler (req, res) {
     const clientConfigs = await AppConfigOption
-      .find({ enabled: true })
+      .find()
+      .sort({ name: 1 })
       .lean()
       .exec();
 
@@ -99,14 +100,12 @@ api.adminDeleteClientConfig = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const clientConfig = await AppConfigOption.findById(req.params.clientConfigId).exec();
-    if (!clientConfig) throw new NotFound(res.t('clientConfigNotFound'));
+    const deleteResult = await AppConfigOption.deleteOne({ _id: req.params.clientConfigId }).exec();
+    if (deleteResult.deletedCount === 0) throw new NotFound(res.t('clientConfigNotFound'));
 
-    clientConfig.enabled = false;
-    const savedClientConfig = await clientConfig.save();
     await invalidateClientConfig();
 
-    res.respond(200, savedClientConfig);
+    res.respond(200, { _id: req.params.clientConfigId });
   },
 };
 

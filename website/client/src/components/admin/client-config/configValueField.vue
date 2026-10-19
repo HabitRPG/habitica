@@ -1,17 +1,5 @@
 <template>
   <div>
-    <textarea
-      v-if="type == 'text'"
-      type="text"
-      :value="value"
-      class="form-control"
-      autocorrect="off"
-      autocapitalize="off"
-      spellcheck="false"
-      :class="{ 'is-invalid input-invalid': !isValid }"
-      rows="1"
-      @input="validateValue($event.target.value)"
-    ></textarea>
     <input
       v-if="type == 'number'"
       type="number"
@@ -21,7 +9,7 @@
       @input="validateValue($event.target.value)"
     >
     <input
-      v-if="type == 'boolean'"
+      v-else-if="type == 'boolean'"
       type="checkbox"
       :checked="value"
       class="align-middle"
@@ -29,11 +17,47 @@
       @input="validateValue($event.target.checked)"
     >
     <textarea
-      v-if="type == 'json'"
+      v-else-if="type == 'json'"
       :value="value"
       class="form-control"
       :class="{ 'is-invalid input-invalid': !isValid }"
       rows="8"
+      @input="validateValue($event.target.value)"
+    ></textarea>
+    <input
+      v-else-if="type == 'email'"
+      type="email"
+      :value="value"
+      class="form-control"
+      :class="{ 'is-invalid input-invalid': !isValid }"
+      @input="validateValue($event.target.value)"
+    >
+    <input
+      v-else-if="type == 'url'"
+      type="url"
+      :value="value"
+      class="form-control"
+      :class="{ 'is-invalid input-invalid': !isValid }"
+      @input="validateValue($event.target.value)"
+    >
+    <input
+      v-else-if="type == 'date'"
+      type="date"
+      :value="value"
+      class="form-control"
+      :class="{ 'is-invalid input-invalid': !isValid }"
+      @input="validateValue($event.target.value)"
+    >
+    <textarea
+      v-else
+      type="text"
+      :value="value"
+      class="form-control"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+      :class="{ 'is-invalid input-invalid': !isValid }"
+      rows="1"
       @input="validateValue($event.target.value)"
     ></textarea>
   </div>
@@ -69,6 +93,12 @@ export default {
         this.validateValueAsBoolean(value);
       } else if (this.type === 'json') {
         this.validateValueAsJson(value);
+      } else if (this.type === 'email') {
+        this.validateValueAsEmail(value);
+      } else if (this.type === 'url') {
+        this.validateValueAsUrl(value);
+      } else if (this.type === 'date') {
+        this.validateValueAsDate(value);
       }
       this.$emit('input', value);
     },
@@ -88,6 +118,21 @@ export default {
       } catch (e) {
         this.isValid = false;
       }
+    },
+    validateValueAsEmail (value) {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      this.isValid = emailPattern.test(value);
+    },
+    validateValueAsUrl (value) {
+      try {
+        new URL(value);
+        this.isValid = true;
+      } catch (e) {
+        this.isValid = false;
+      }
+    },
+    validateValueAsDate (value) {
+      this.isValid = !isNaN(Date.parse(value));
     },
   },
 };

@@ -16,6 +16,9 @@ export const configTypes = [
   'number',
   'boolean',
   'json',
+  'email',
+  'url',
+  'date',
 ];
 
 export const schema = new mongoose.Schema({

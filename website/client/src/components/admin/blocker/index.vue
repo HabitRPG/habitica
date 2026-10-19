@@ -10,7 +10,7 @@
           Create
         </button>
       </h1>
-      <table class="table table-bordered">
+      <table class="table table-bordered bg-white">
         <thead>
           <tr>
             <th>

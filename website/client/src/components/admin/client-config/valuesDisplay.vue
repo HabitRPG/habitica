@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-if="values.length == 0">
+    <template v-if="values.length == 0" class="text-error">
       {{ defaultValue }}
     </template>
     <template v-else>

@@ -10,16 +10,19 @@
           Create
         </button>
       </h1>
-      <table class="table table-bordered">
+      <table class="table table-bordered bg-white">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>key</th>
-            <th>Description</th>
+            <th class="name-col">
+              Name
+            </th>
+            <th >Type</th>
             <th class="values-col">
               Values
             </th>
-            <th>Enabled</th>
+            <th>
+              Enabled
+            </th>
             <th class="btncol"></th>
           </tr>
         </thead>
@@ -27,6 +30,7 @@
           <tr
             v-for="config in clientConfigs"
             :key="config._id"
+            :class="{ 'disabled-row': !config.enabled }"
           >
             <ConfigForm
               v-if="config._id === editedConfigId"
@@ -34,16 +38,46 @@
               @save="saveConfig"
               @hide="editedConfigId = null"
             />
-            <td>{{ getTypeIcon(config.type) }} {{ config.name }}</td>
-            <td>{{ config.key }}</td>
-            <td>{{ config.description }}</td>
+            <td class="name-col">
+              {{ config.name }}
+              <template v-if="config.description">
+                <span
+                  :id="`description_tooltip_${config._id}`"
+                  class="info-icon"
+                >?</span>
+                <b-tooltip
+                  :target="`description_tooltip_${config._id}`"
+                >
+                  {{ config.description }}
+                </b-tooltip>
+              </template>
+            </td>
+            <td class="type-col">
+              <div
+                class="d-inline badge badge-pill mr-1"
+                :class="getTypeBadgeClass(config.type)"
+              >
+                {{ getTypeText(config.type) }}
+              </div>
+            </td>
             <td class="values-col">
               <ValuesDisplay
                 :default-value="config.defaultValue"
                 :values="config.values"
               />
             </td>
-            <td>{{ config.enabled ? "Yes" : "No" }}</td>
+            <td class="enabled-col">
+              <span
+                v-if="config.enabled"
+                class="svg-icon icon-16 color enabled-icon"
+                v-html="icons.checkIcon"
+              ></span>
+              <span
+                v-else
+                class="svg-icon icon-16 color disabled-icon"
+                v-html="icons.closeIcon"
+              ></span>
+            </td>
             <td class="btn-cell">
               <button
                 class="edit-btn btn btn-flat"
@@ -78,7 +112,7 @@
                     <span
                       v-once
                       class="svg-icon icon-16 color"
-                      v-html="icons.editIcon"
+                      v-html="icons.copyIcon"
                     ></span>
                     <span v-once>
                       Duplicate
@@ -129,14 +163,40 @@
 }
 
 .values-col {
-  min-width: 200px;
-  max-width: 400px;
   overflow: hidden;
+}
+
+.enabled-col {
+  text-align: center;
+
+  .svg-icon {
+    margin: 0 auto;
+  }
+}
+
+.enabled-icon {
+  color: $green-10;
+}
+
+.disabled-icon {
+  color: $gray-200;
 }
 
 td {
   font-size: 1rem;
   vertical-align: middle;
+}
+
+.name-col {
+  white-space: nowrap;
+}
+
+.type-col {
+  text-align: center;
+}
+
+.disabled-row td {
+  color: $gray-200;
 }
 
 .edit-btn {
@@ -153,7 +213,6 @@ td {
   font-size: 0.8rem;
   color: $purple-400;
   cursor: pointer;
-  margin-left: 0.5rem;
   background-color: $gray-500;
   padding: 0.1rem 0.3rem;
   border-radius: 0.2rem;
@@ -195,10 +254,13 @@ td {
 import { mapState } from '@/libs/store';
 
 import editIcon from '@/assets/svg/edit.svg?raw';
+import copyIcon from '@/assets/svg/copy.svg?raw';
 import deleteIcon from '@/assets/svg/delete.svg?raw';
 import ConfigForm from './configForm.vue';
 import ValuesDisplay from './valuesDisplay.vue';
 import menuIcon from '@/assets/svg/menu.svg?raw';
+import checkIcon from '@/assets/svg/check.svg?raw';
+import closeIcon from '@/assets/svg/close.svg?raw';
 
 export default {
   components: {
@@ -223,6 +285,9 @@ export default {
         editIcon,
         deleteIcon,
         menuIcon,
+        copyIcon,
+        checkIcon,
+        closeIcon,
       }),
     };
   },
@@ -276,18 +341,45 @@ export default {
       this.loadConfigs();
     },
 
-    getTypeIcon (type) {
+    getTypeText (type) {
       switch (type) {
         case 'number':
-          return '🔢';
+          return 'Number';
         case 'text':
-          return '🔤';
+          return 'Text';
         case 'boolean':
-          return '✅';
+          return 'Boolean';
         case 'json':
-          return '#️⃣';
+          return 'JSON';
+        case 'email':
+          return 'Email';
+        case 'url':
+          return 'URL';
+        case 'date':
+          return 'Date';
         default:
           return type;
+      }
+    },
+
+    getTypeBadgeClass (type) {
+      switch (type) {
+        case 'number':
+          return 'badge-default bg-primary text-light';
+        case 'text':
+          return 'badge-default bg-secondary text-light';
+        case 'boolean':
+          return 'badge-default bg-success text-light';
+        case 'json':
+          return 'badge-default bg-info text-light';
+        case 'email':
+          return 'badge-default bg-warning text-default';
+        case 'url':
+          return 'badge-default bg-danger text-light';
+        case 'date':
+          return 'badge-default bg-default';
+        default:
+          return 'badge-default bg-dark text-light';
       }
     },
   },
