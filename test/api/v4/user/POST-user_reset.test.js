@@ -1,4 +1,5 @@
 import { find } from 'lodash';
+import nconf from 'nconf';
 import {
   generateUser,
   generateGroup,
@@ -13,6 +14,17 @@ describe('POST /user/reset', () => {
 
   beforeEach(async () => {
     user = await generateUser();
+  });
+
+  let nconfStub;
+
+  beforeEach(() => {
+    nconfStub = sandbox.stub(nconf, 'get').callThrough();
+    nconfStub.withArgs('ENABLE_ADMIN_PANEL').returns('true');
+  });
+
+  afterEach(() => {
+    nconfStub.restore();
   });
 
   // More tests in common code unit tests
