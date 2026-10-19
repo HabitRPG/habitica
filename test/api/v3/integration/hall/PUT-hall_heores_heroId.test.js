@@ -20,6 +20,17 @@ describe('PUT /heroes/:heroId', () => {
     user = await generateUser({ 'permissions.userSupport': true });
   });
 
+  let nconfStub;
+
+  beforeEach(() => {
+    nconfStub = sandbox.stub(nconf, 'get').callThrough();
+    nconfStub.withArgs('ENABLE_ADMIN_PANEL').returns('true');
+  });
+
+  afterEach(() => {
+    nconfStub.restore();
+  });
+
   it('requires the caller to be an admin', async () => {
     const nonAdmin = await generateUser();
 
@@ -483,8 +494,7 @@ describe('PUT /heroes/:heroId', () => {
 
   context('admin panel disabled', () => {
     beforeEach(() => {
-      sandbox.stub(nconf, 'get').callThrough()
-        .withArgs('ENABLE_ADMIN_PANEL').returns('false');
+      nconfStub.withArgs('ENABLE_ADMIN_PANEL').returns('false');
     });
 
     it('allows banning, shadow muting and revoking chat', async () => {

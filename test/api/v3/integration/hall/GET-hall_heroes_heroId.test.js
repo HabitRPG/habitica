@@ -20,6 +20,17 @@ describe('GET /heroes/:heroId', () => {
     });
   });
 
+  let nconfStub;
+
+  beforeEach(() => {
+    nconfStub = sandbox.stub(nconf, 'get').callThrough();
+    nconfStub.withArgs('ENABLE_ADMIN_PANEL').returns('true');
+  });
+
+  afterEach(() => {
+    nconfStub.restore();
+  });
+
   it('requires the caller to be an admin', async () => {
     const nonAdmin = await generateUser();
 
@@ -80,8 +91,7 @@ describe('GET /heroes/:heroId', () => {
   });
 
   it('only returns moderation fields when the admin panel is disabled', async () => {
-    sandbox.stub(nconf, 'get').callThrough()
-      .withArgs('ENABLE_ADMIN_PANEL').returns('false');
+    nconfStub.withArgs('ENABLE_ADMIN_PANEL').returns('false');
     const hero = await generateUser({
       'auth.blocked': true,
       'flags.chatRevoked': true,

@@ -1,4 +1,5 @@
 import moment from 'moment';
+import nconf from 'nconf';
 import {
   generateUser,
   sleep,
@@ -18,6 +19,24 @@ describe('POST /news', () => {
     user = await generateUser({
       'permissions.news': true,
     });
+  });
+
+  let nconfStub;
+
+  beforeEach(() => {
+    nconfStub = sandbox.stub(nconf, 'get').callThrough();
+    nconfStub.withArgs('ENABLE_ADMIN_PANEL').returns('true');
+  });
+
+  afterEach(() => {
+    nconfStub.restore();
+  });
+
+  it('is not available when the admin panel is disabled', async () => {
+    nconfStub.withArgs('ENABLE_ADMIN_PANEL').returns('false');
+
+    await expect(user.post('/news', newsPost))
+      .to.eventually.be.rejected.and.have.property('code', 404);
   });
 
   it('disallows access to non-admins', async () => {

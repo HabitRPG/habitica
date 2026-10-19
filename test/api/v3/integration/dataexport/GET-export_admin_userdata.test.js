@@ -17,6 +17,17 @@ describe('GET /export/admin/:userId/*', () => {
     ]);
   });
 
+  let nconfStub;
+
+  beforeEach(() => {
+    nconfStub = sandbox.stub(nconf, 'get').callThrough();
+    nconfStub.withArgs('ENABLE_ADMIN_PANEL').returns('true');
+  });
+
+  afterEach(() => {
+    nconfStub.restore();
+  });
+
   it('requires the userSupport permission', async () => {
     const nonAdmin = await generateUser();
 
@@ -54,11 +65,12 @@ describe('GET /export/admin/:userId/*', () => {
     expect(res.split('\n')[0]).to.equal('Task Name,Task ID,Task Type,Date,Value');
   });
 
-  it('is not available when the admin panel is disabled', async () => {
-    sandbox.stub(nconf, 'get').callThrough()
-      .withArgs('ENABLE_ADMIN_PANEL').returns('false');
+  ['history.csv', 'userdata.json', 'userdata.xml', 'inbox.html'].forEach(file => {
+    it(`does not export ${file} when the admin panel is disabled`, async () => {
+      nconfStub.withArgs('ENABLE_ADMIN_PANEL').returns('false');
 
-    await expect(admin.get(`/export/admin/${member._id}/userdata.json`))
-      .to.eventually.be.rejected.and.have.property('code', 404);
+      await expect(admin.get(`/export/admin/${member._id}/${file}`))
+        .to.eventually.be.rejected.and.have.property('code', 404);
+    });
   });
 });
