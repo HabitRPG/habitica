@@ -58,6 +58,12 @@ describe('contentLib', () => {
         fs.rmSync(contentLib.CONTENT_CACHE_PATH, { recursive: true });
       }
       fs.mkdirSync(contentLib.CONTENT_CACHE_PATH);
+      // cached files from previous runs are loaded when the module is imported
+      contentLib.clearCachedHashes();
+    });
+
+    after(() => {
+      fs.rmSync(contentLib.CONTENT_CACHE_PATH, { recursive: true, force: true });
     });
 
     it('does not cache requests in development mode', async () => {
@@ -72,11 +78,7 @@ describe('contentLib', () => {
     });
 
     it('serves cached requests', async () => {
-      fs.writeFileSync(
-        `${contentLib.CONTENT_CACHE_PATH}en.json`,
-        '{"success": true, "data": {"all": {}}}',
-        'utf8',
-      );
+      contentLib.serveContent(generateRes(), 'en', '', true);
       contentLib.serveContent(resSpy, 'en', '', true);
       expect(resSpy.sendFile).to.have.been.calledOnce;
       expect(resSpy.sendFile).to.have.been.calledWith(`${contentLib.CONTENT_CACHE_PATH}en.json`);
@@ -93,11 +95,7 @@ describe('contentLib', () => {
     it('serves filtered cached requests', async () => {
       const filter = 'backgroundsFlat,gear.flat';
       const hash = contentLib.hashForFilter(filter);
-      fs.writeFileSync(
-        `${contentLib.CONTENT_CACHE_PATH}en${hash}.json`,
-        '{"success": true, "data": {}}',
-        'utf8',
-      );
+      contentLib.serveContent(generateRes(), 'en', filter, true);
       contentLib.serveContent(resSpy, 'en', filter, true);
       expect(resSpy.sendFile).to.have.been.calledOnce;
       expect(resSpy.sendFile).to.have.been.calledWith(`${contentLib.CONTENT_CACHE_PATH}en${hash}.json`);
