@@ -1,0 +1,11 @@
+{
+  "color": true,
+  "reporter": "spec",
+  "timeout": 8000,
+  "check-leaks": true,
+  "require": [
+    "@babel/register",
+    "./test/helpers/globals.helper.js"
+  ],
+  "exit": true
+}
