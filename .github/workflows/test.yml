@@ -24,9 +24,9 @@ jobs:
         fetch-depth: 1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
-      cache: 'npm'
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'npm'
     - run: sudo apt update
     - run: sudo apt -y install libkrb5-dev
     - run: cp config.json.example config.json
@@ -49,9 +49,9 @@ jobs:
         fetch-depth: 1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
-      cache: 'npm'
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'npm'
     - run: sudo apt update
     - run: sudo apt -y install libkrb5-dev
     - run: cp config.json.example config.json
@@ -74,9 +74,9 @@ jobs:
         fetch-depth: 1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
-      cache: 'npm'
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'npm'
     - run: sudo apt update
     - run: sudo apt -y install libkrb5-dev
     - run: cp config.json.example config.json
@@ -99,9 +99,9 @@ jobs:
         fetch-depth: 1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
-      cache: 'npm'
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'npm'
     - run: sudo apt update
     - run: sudo apt -y install libkrb5-dev
     - run: cp config.json.example config.json
@@ -125,9 +125,9 @@ jobs:
         fetch-depth: 1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
-      cache: 'npm'
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'npm'
 
     - name: Start MongoDB ${{ matrix.mongodb-version }} Replica Set
       uses: supercharge/mongodb-github-action@1.11.0
@@ -161,9 +161,9 @@ jobs:
         fetch-depth: 1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
-      cache: 'npm'
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'npm'
     - name: Start MongoDB ${{ matrix.mongodb-version }} Replica Set
       uses: supercharge/mongodb-github-action@1.11.0
       with:
@@ -197,9 +197,9 @@ jobs:
         fetch-depth: 1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
-      cache: 'npm'
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'npm'
     - name: Start MongoDB ${{ matrix.mongodb-version }} Replica Set
       uses: supercharge/mongodb-github-action@1.11.0
       with:
@@ -231,9 +231,9 @@ jobs:
         fetch-depth: 1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
-      cache: 'npm'
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'npm'
     - run: sudo apt update
     - run: sudo apt -y install libkrb5-dev
     - run: cp config.json.example config.json
@@ -257,9 +257,9 @@ jobs:
         fetch-depth: 1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
-      cache: 'npm'
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'npm'
     - run: sudo apt update
     - run: sudo apt -y install libkrb5-dev
     - run: cp config.json.example config.json
