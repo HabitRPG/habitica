@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -67,7 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -92,7 +92,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -117,7 +117,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]
         mongodb-version: [7.0]
     steps:
     - uses: actions/checkout@v4
@@ -153,7 +153,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]
         mongodb-version: [7.0]
     steps:
     - uses: actions/checkout@v4
@@ -188,7 +188,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]
         mongodb-version: [7.0]
 
     steps:
@@ -224,7 +224,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -250,7 +250,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]
     steps:
     - uses: actions/checkout@v4
       with:
