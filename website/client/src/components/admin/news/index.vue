@@ -10,7 +10,7 @@
           New Post
         </router-link>
       </h1>
-      <table class="table table-bordered table-hover">
+      <table class="table table-bordered table-hover bg-white">
         <thead>
           <tr>
             <th>Title</th>
@@ -135,7 +135,7 @@ export default {
     getStatus (post) {
       if (!post.published) return { label: 'Draft', badgeClass: 'badge-secondary' };
       if (moment().isBefore(post.publishDate)) return { label: 'Scheduled', badgeClass: 'badge-warning' };
-      return { label: 'Published', badgeClass: 'badge-success' };
+      return { label: 'Published', badgeClass: 'badge-success text-white' };
     },
     formatDate (date) {
       const format = this.user ? this.user.preferences.dateFormat.toUpperCase() : 'MM/DD/YYYY';
