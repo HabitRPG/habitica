@@ -1,6 +1,7 @@
 import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
+  generateUsers,
   generateGroup,
   createAndPopulateGroup,
   generateChallenge,
@@ -98,11 +99,7 @@ describe('GET /challenges/:challengeId/members', () => {
     const challenge = await generateChallenge(user, group);
     await user.post(`/challenges/${challenge._id}/join`);
 
-    const usersToGenerate = [];
-    for (let i = 0; i < 31; i += 1) {
-      usersToGenerate.push(generateUser({ challenges: [challenge._id] }));
-    }
-    await Promise.all(usersToGenerate);
+    await generateUsers(31, { challenges: [challenge._id] });
 
     const res = await user.get(`/challenges/${challenge._id}/members`);
     expect(res.length).to.equal(30);
@@ -153,11 +150,7 @@ describe('GET /challenges/:challengeId/members', () => {
     const challenge = await generateChallenge(user, group);
     await user.post(`/challenges/${challenge._id}/join`);
 
-    const usersToGenerate = [];
-    for (let i = 0; i < 62; i += 1) {
-      usersToGenerate.push(generateUser({ challenges: [challenge._id] }));
-    }
-    await Promise.all(usersToGenerate);
+    await generateUsers(62, { challenges: [challenge._id] });
 
     let res = await user.get(`/challenges/${challenge._id}/members?limit=57`);
     expect(res.length).to.equal(57);
@@ -180,12 +173,8 @@ describe('GET /challenges/:challengeId/members', () => {
     const challenge = await generateChallenge(user, group);
     await user.post(`/challenges/${challenge._id}/join`);
 
-    const usersToGenerate = [];
-    for (let i = 0; i < 57; i += 1) {
-      usersToGenerate.push(generateUser({ challenges: [challenge._id] }));
-    }
-    // Group has 59 members (1 is the leader)
-    const generatedUsers = await Promise.all(usersToGenerate);
+    // Challenge has 58 members (1 is the leader)
+    const generatedUsers = await generateUsers(57, { challenges: [challenge._id] });
     const expectedIds = [user._id].concat(generatedUsers.map(generatedUser => generatedUser._id));
 
     const res = await user.get(`/challenges/${challenge._id}/members`);

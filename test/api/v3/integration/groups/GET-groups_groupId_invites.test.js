@@ -1,6 +1,7 @@
 import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
+  generateUsers,
   generateGroup,
   translate as t,
   createAndPopulateGroup,
@@ -8,6 +9,16 @@ import {
 
 describe('GET /groups/:groupId/invites', () => {
   let user;
+
+  // Creates users that are invited to the group, writing the invitation
+  // directly instead of going through the invite route
+  function generateInvitedUsers (count, group, inviter) {
+    return generateUsers(count, {
+      'invitations.guilds': [{
+        id: group._id, name: group.name, inviter: inviter._id, publicGuild: false,
+      }],
+    });
+  }
 
   beforeEach(async () => {
     user = await generateUser();
@@ -79,9 +90,9 @@ describe('GET /groups/:groupId/invites', () => {
         name: generateUUID(),
       },
       leaderDetails: { balance: 4 },
-      invites: 31,
       upgradeToGroupPlan: true,
     });
+    await generateInvitedUsers(31, group, leader);
 
     const res = await leader.get(`/groups/${group._id}/invites`);
     expect(res.length).to.equal(30);
@@ -156,9 +167,9 @@ describe('GET /groups/:groupId/invites', () => {
         name: generateUUID(),
       },
       leaderDetails: { balance: 4 },
-      invites: 31,
       upgradeToGroupPlan: true,
     });
+    await generateInvitedUsers(31, group, leader);
 
     let res = await leader.get(`/groups/${group._id}/invites?limit=14`);
     expect(res.length).to.equal(14);
@@ -176,18 +187,18 @@ describe('GET /groups/:groupId/invites', () => {
   }).timeout(30000);
 
   it('supports using req.query.lastId to get more invites', async function test () {
-    let group; let invitees;
+    let group;
     this.timeout(30000); // @TODO: times out after 8 seconds
-    ({ group, groupLeader: user, invitees } = await createAndPopulateGroup({
+    ({ group, groupLeader: user } = await createAndPopulateGroup({
       groupDetails: {
         type: 'guild',
         privacy: 'private',
         name: generateUUID(),
       },
       leaderDetails: { balance: 4 },
-      invites: 32,
       upgradeToGroupPlan: true,
     }));
+    const invitees = await generateInvitedUsers(32, group, user);
 
     const expectedIds = invitees.map(generatedInvite => generatedInvite._id);
 

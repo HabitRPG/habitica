@@ -16,6 +16,7 @@ afterEach(() => {
 });
 
 export { sleep } from './sleep';
+export { waitFor } from './wait-for';
 
 export function generateUser (options = {}) {
   return new User(options);
