@@ -54,8 +54,8 @@
             </td>
             <td class="type-col">
               <div
-                class="d-inline badge badge-pill mr-1"
-                :class="getTypeBadgeClass(config.type)"
+                class="d-inline badge badge-pill badge-default mr-1"
+                :class="'badge-' + config.type"
               >
                 {{ getTypeText(config.type) }}
               </div>
@@ -248,6 +248,42 @@ td {
 .btn-cell {
   padding: 0.4rem;
 }
+
+.badge-email {
+    background-color: $blue-100;
+    color: $blue-1
+}
+
+.badge-url {
+    background-color: $green-100;
+    color: $green-1;
+}
+
+.badge-number {
+    background-color: $yellow-100;
+    color: $yellow-1;
+}
+
+.badge-text {
+    background-color: $purple-300;
+    color: $purple-600;
+}
+
+.badge-boolean {
+    background-color: $orange-100;
+    color: $orange-1;
+}
+
+.badge-json {
+    background-color: $red-100;
+    color: $red-1;
+}
+
+.badge-date {
+    background-color: $teal-100;
+    color: $teal-1;
+}
+
 </style>
 
 <script>
@@ -359,27 +395,6 @@ export default {
           return 'Date';
         default:
           return type;
-      }
-    },
-
-    getTypeBadgeClass (type) {
-      switch (type) {
-        case 'number':
-          return 'badge-default bg-primary text-light';
-        case 'text':
-          return 'badge-default bg-secondary text-light';
-        case 'boolean':
-          return 'badge-default bg-success text-light';
-        case 'json':
-          return 'badge-default bg-info text-light';
-        case 'email':
-          return 'badge-default bg-warning text-default';
-        case 'url':
-          return 'badge-default bg-danger text-light';
-        case 'date':
-          return 'badge-default bg-default';
-        default:
-          return 'badge-default bg-dark text-light';
       }
     },
   },
