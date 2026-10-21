@@ -469,7 +469,14 @@ api.updateHero = {
     }
 
     if (updateData.contributor) _.assign(hero.contributor, updateData.contributor);
-    if (updateData.permissions && res.locals.user.hasPermission('userSupport')) _.assign(hero.permissions, updateData.permissions);
+    if (updateData.permissions) {
+      if (res.locals.user.permissions.fullAccess) {
+        _.assign(hero.permissions, updateData.permissions);
+      } else if (res.locals.user.hasPermission('userSupport')) {
+        const strippedPermissions = _.omit(updateData.permissions, ['fullAccess', 'userSupport']);
+        _.assign(hero.permissions, strippedPermissions);
+      }
+    }
     if (updateData.purchased && updateData.purchased.ads) {
       hero.purchased.ads = updateData.purchased.ads;
     }
