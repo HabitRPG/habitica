@@ -7,7 +7,7 @@ export default {
       if (import.meta.env.TRUSTED_DOMAINS.split(',').includes(redirect)) {
         return redirect;
       }
-      if (redirect.slice(0, 1) !== '/' || redirect.slice(1, 1) === '/') {
+      if (redirect.slice(0, 1) !== '/' || redirect.slice(1, 2) === '/') {
         return '/';
       }
       return redirect;
