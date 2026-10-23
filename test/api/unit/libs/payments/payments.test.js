@@ -8,6 +8,7 @@ import { model as User } from '../../../../../website/server/models/user';
 import { translate as t } from '../../../../helpers/api-integration/v3';
 import {
   generateGroup,
+  useFakeDate,
 } from '../../../../helpers/api-unit.helper';
 import * as worldState from '../../../../../website/server/libs/worldState';
 import { TransactionModel } from '../../../../../website/server/models/transaction';
@@ -813,7 +814,7 @@ describe('payments/index', () => {
         context('Using refundAndRepay logic', () => {
           let clock;
           beforeEach(async () => {
-            clock = sinon.useFakeTimers(new Date('2022-01-01'));
+            clock = useFakeDate(new Date('2022-01-01'));
             data.updatedFrom = { logic: 'refundAndRepay' };
           });
           context('Upgrades within first half of subscription', () => {
@@ -828,7 +829,7 @@ describe('payments/index', () => {
               data.sub.key = 'basic_12mo';
               data.updatedFrom.key = 'basic_3mo';
               clock.restore();
-              clock = sinon.useFakeTimers(new Date('2022-02-05'));
+              clock = useFakeDate(new Date('2022-02-05'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_12mo');
               expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(26);
@@ -845,7 +846,7 @@ describe('payments/index', () => {
               data.sub.key = 'basic_12mo';
               data.updatedFrom.key = 'basic_3mo';
               clock.restore();
-              clock = sinon.useFakeTimers(new Date('2022-01-31'));
+              clock = useFakeDate(new Date('2022-01-31'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_12mo');
               expect(user.purchased.plan.consecutive.trinkets).to.eql(13);
@@ -863,7 +864,7 @@ describe('payments/index', () => {
               data.sub.key = 'basic_12mo';
               data.updatedFrom.key = 'basic_6mo';
               clock.restore();
-              clock = sinon.useFakeTimers(new Date('2022-01-28'));
+              clock = useFakeDate(new Date('2022-01-28'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_12mo');
               expect(user.purchased.plan.consecutive.trinkets).to.eql(13);
@@ -881,7 +882,7 @@ describe('payments/index', () => {
               data.sub.key = 'basic_12mo';
               data.updatedFrom.key = 'basic_6mo';
               clock.restore();
-              clock = sinon.useFakeTimers(new Date('2022-08-28'));
+              clock = useFakeDate(new Date('2022-08-28'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_12mo');
               expect(user.purchased.plan.consecutive.trinkets).to.eql(13);
@@ -898,7 +899,7 @@ describe('payments/index', () => {
               data.sub.key = 'basic_12mo';
               data.updatedFrom.key = 'basic_3mo';
               clock.restore();
-              clock = sinon.useFakeTimers(new Date('2022-07-31'));
+              clock = useFakeDate(new Date('2022-07-31'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_12mo');
               expect(user.purchased.plan.consecutive.trinkets).to.eql(13);
@@ -917,7 +918,7 @@ describe('payments/index', () => {
               data.sub.key = 'basic_6mo';
               data.updatedFrom.key = 'basic_earned';
               clock.restore();
-              clock = sinon.useFakeTimers(new Date('2022-01-20'));
+              clock = useFakeDate(new Date('2022-01-20'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_6mo');
               expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(0);
@@ -934,7 +935,7 @@ describe('payments/index', () => {
               data.sub.key = 'basic_12mo';
               data.updatedFrom.key = 'basic_3mo';
               clock.restore();
-              clock = sinon.useFakeTimers(new Date('2022-02-24'));
+              clock = useFakeDate(new Date('2022-02-24'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_12mo');
               expect(user.purchased.plan.consecutive.gemCapExtra).to.eql(26);
@@ -952,7 +953,7 @@ describe('payments/index', () => {
               data.sub.key = 'basic_6mo';
               data.updatedFrom.key = 'basic_earned';
               clock.restore();
-              clock = sinon.useFakeTimers(new Date('2022-01-28'));
+              clock = useFakeDate(new Date('2022-01-28'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_6mo');
               expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
@@ -970,7 +971,7 @@ describe('payments/index', () => {
               data.sub.key = 'basic_12mo';
               data.updatedFrom.key = 'basic_6mo';
               clock.restore();
-              clock = sinon.useFakeTimers(new Date('2022-05-28'));
+              clock = useFakeDate(new Date('2022-05-28'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_12mo');
               expect(user.purchased.plan.consecutive.trinkets).to.eql(13);
@@ -987,7 +988,7 @@ describe('payments/index', () => {
               data.sub.key = 'basic_12mo';
               data.updatedFrom.key = 'basic_3mo';
               clock.restore();
-              clock = sinon.useFakeTimers(new Date('2022-03-03'));
+              clock = useFakeDate(new Date('2022-03-03'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_12mo');
               expect(user.purchased.plan.consecutive.trinkets).to.eql(13);
@@ -1005,7 +1006,7 @@ describe('payments/index', () => {
               data.sub.key = 'basic_6mo';
               data.updatedFrom.key = 'basic_earned';
               clock.restore();
-              clock = sinon.useFakeTimers(new Date('2022-05-28'));
+              clock = useFakeDate(new Date('2022-05-28'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_6mo');
               expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
@@ -1023,7 +1024,7 @@ describe('payments/index', () => {
               data.sub.key = 'basic_12mo';
               data.updatedFrom.key = 'basic_6mo';
               clock.restore();
-              clock = sinon.useFakeTimers(new Date('2023-05-28'));
+              clock = useFakeDate(new Date('2023-05-28'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_12mo');
               expect(user.purchased.plan.consecutive.trinkets).to.eql(13);
@@ -1040,7 +1041,7 @@ describe('payments/index', () => {
               data.sub.key = 'basic_12mo';
               data.updatedFrom.key = 'basic_3mo';
               clock.restore();
-              clock = sinon.useFakeTimers(new Date('2023-09-03'));
+              clock = useFakeDate(new Date('2023-09-03'));
               await api.createSubscription(data);
               expect(user.purchased.plan.planId).to.eql('basic_12mo');
               expect(user.purchased.plan.consecutive.trinkets).to.eql(13);

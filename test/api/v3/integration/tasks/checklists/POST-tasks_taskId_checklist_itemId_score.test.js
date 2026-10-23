@@ -3,7 +3,6 @@ import {
   generateUser,
   translate as t,
   server,
-  sleep,
 } from '../../../../../helpers/api-integration/v3';
 
 describe('POST /tasks/:taskId/checklist/:itemId/score', () => {
@@ -132,7 +131,7 @@ describe('POST /tasks/:taskId/checklist/:itemId/score', () => {
 
       const scoredItemTask = await user.post(`/tasks/${task.id}/checklist/${checklistItem.id}/score`);
 
-      await sleep();
+      await server.waitForWebhookData(uuid);
 
       const body = server.getWebhookData(uuid);
 

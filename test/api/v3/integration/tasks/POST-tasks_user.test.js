@@ -1,7 +1,6 @@
 import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
-  sleep,
   translate as t,
   server,
 } from '../../../../helpers/api-integration/v3';
@@ -263,7 +262,7 @@ describe('POST /tasks/user', () => {
         type: 'habit',
       });
 
-      await sleep();
+      await server.waitForWebhookData(uuid);
 
       const body = server.getWebhookData(uuid);
 
@@ -290,7 +289,7 @@ describe('POST /tasks/user', () => {
         type: 'todo',
       }]);
 
-      await sleep();
+      await server.waitForWebhookData(uuid, { count: 2 });
 
       const taskBodies = [
         server.getWebhookData(uuid),

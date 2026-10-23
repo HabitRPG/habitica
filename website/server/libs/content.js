@@ -114,6 +114,12 @@ export function buildFilterObject (filter) {
   return filterObj;
 }
 
+// Forget which content has been cached, used in tests
+export function clearCachedHashes () {
+  CACHED_HASHES = [];
+  CACHED_DATE = null;
+}
+
 export function serveContent (res, language, filter, isProd) {
   // Build usable filter object
   const filterObj = buildFilterObject(filter);

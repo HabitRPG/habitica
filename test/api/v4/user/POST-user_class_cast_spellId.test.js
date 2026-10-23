@@ -6,7 +6,7 @@ import {
   createAndPopulateGroup,
   generateGroup,
   generateChallenge,
-  sleep,
+  waitFor,
 } from '../../../helpers/api-integration/v4';
 import { apiError } from '../../../../website/server/libs/apiError';
 
@@ -113,8 +113,11 @@ describe('POST /user/class/cast/:spellId', () => {
       { type: 'habit', text: 'task text' },
     ]);
     await groupLeader.updateOne({ 'stats.class': 'rogue', 'stats.lvl': 11 });
-    await sleep(0.5);
-    await groupLeader.sync();
+    // the challenge task is copied to the user in the background
+    await waitFor(async () => {
+      await groupLeader.sync();
+      expect(groupLeader.tasksOrder.habits).to.not.be.empty;
+    });
     await expect(groupLeader.post(`/user/class/cast/pickPocket?targetId=${groupLeader.tasksOrder.habits[0]}`))
       .to.eventually.be.rejected.and.eql({
         code: 400,
@@ -132,7 +135,6 @@ describe('POST /user/class/cast/:spellId', () => {
     });
     await groupLeader.post(`/tasks/${groupTask._id}/assign`, [groupLeader._id]);
     await groupLeader.updateOne({ 'stats.class': 'rogue', 'stats.lvl': 11 });
-    await sleep(0.5);
     await groupLeader.sync();
 
     await expect(groupLeader.post(`/user/class/cast/pickPocket?targetId=${groupTask._id}`))
@@ -178,11 +180,12 @@ describe('POST /user/class/cast/:spellId', () => {
     await groupLeader.updateOne({ 'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 13 });
 
     await groupLeader.post('/user/class/cast/earth');
-    await sleep(1);
-    const groupMessages = await groupLeader.get(`/groups/${group._id}/chat`);
 
-    expect(groupMessages[0]).to.exist;
-    expect(groupMessages[0].uuid).to.equal('system');
+    await waitFor(async () => {
+      const groupMessages = await groupLeader.get(`/groups/${group._id}/chat`);
+      expect(groupMessages[0]).to.exist;
+      expect(groupMessages[0].uuid).to.equal('system');
+    });
   });
 
   it('Ethereal Surge does not recover mp of other mages', async () => {
@@ -291,11 +294,11 @@ describe('POST /user/class/cast/:spellId', () => {
     await groupLeader.updateOne({ 'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 13 });
     await groupLeader.post('/user/class/cast/earth', { quantity: 2 });
 
-    await sleep(1);
-    group = await groupLeader.get(`/groups/${group._id}`);
-
-    expect(group.chat[0]).to.exist;
-    expect(group.chat[0].uuid).to.equal('system');
+    await waitFor(async () => {
+      group = await groupLeader.get(`/groups/${group._id}`);
+      expect(group.chat[0]).to.exist;
+      expect(group.chat[0].uuid).to.equal('system');
+    });
   });
 
   it('searing brightness does not affect challenge or group tasks', async () => {

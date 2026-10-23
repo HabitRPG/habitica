@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -26,12 +26,11 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo apt update
-    - run: sudo apt -y install libkrb5-dev
+        cache: 'npm'
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm i
+        npm ci
       env:
         CI: true
         NODE_ENV: test
@@ -41,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -50,12 +49,11 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo apt update
-    - run: sudo apt -y install libkrb5-dev
+        cache: 'npm'
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm i
+        npm ci
       env:
         CI: true
         NODE_ENV: test
@@ -65,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -74,12 +72,11 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo apt update
-    - run: sudo apt -y install libkrb5-dev
+        cache: 'npm'
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm i
+        npm ci
       env:
         CI: true
         NODE_ENV: test
@@ -89,7 +86,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -98,12 +95,11 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo apt update
-    - run: sudo apt -y install libkrb5-dev
+        cache: 'npm'
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm i
+        npm ci
       env:
         CI: true
         NODE_ENV: test
@@ -113,32 +109,40 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]
         mongodb-version: [7.0]
     steps:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 1
+    - name: Start MongoDB ${{ matrix.mongodb-version }}
+      # Runs in the background so pulling the image overlaps with npm ci,
+      # the replica set is initiated right before the tests
+      run: nohup docker run --name mongodb --publish 27017:27017 --detach mongo:${{ matrix.mongodb-version }} --replSet rs > /tmp/mongodb-start.log 2>&1 &
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'npm'
 
-    - name: Start MongoDB ${{ matrix.mongodb-version }} Replica Set
-      uses: supercharge/mongodb-github-action@1.11.0
-      with:
-        mongodb-version: ${{ matrix.mongodb-version }}
-        mongodb-replica-set: rs
-
-    - run: sudo apt update
-    - run: sudo apt -y install libkrb5-dev
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm i
+        npm ci
       env:
         CI: true
         NODE_ENV: test
+
+    - name: Initiate MongoDB replica set
+      timeout-minutes: 3
+      run: |
+        for i in $(seq 1 120); do
+          docker exec mongodb mongosh --quiet --eval 'db.runCommand({ ping: 1 })' > /dev/null 2>&1 && break
+          if [ "$i" = 120 ]; then cat /tmp/mongodb-start.log; exit 1; fi
+          sleep 1
+        done
+        docker exec mongodb mongosh --quiet --eval 'rs.initiate({ _id: "rs", members: [{ _id: 0, host: "localhost:27017" }] })'
+        until docker exec mongodb mongosh --quiet --eval 'db.hello().isWritablePrimary' | grep -q true; do sleep 1; done
 
     - run: npm run test:api:unit
       env:
@@ -148,31 +152,39 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]
         mongodb-version: [7.0]
     steps:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 1
+    - name: Start MongoDB ${{ matrix.mongodb-version }}
+      # Runs in the background so pulling the image overlaps with npm ci,
+      # the replica set is initiated right before the tests
+      run: nohup docker run --name mongodb --publish 27017:27017 --detach mongo:${{ matrix.mongodb-version }} --replSet rs > /tmp/mongodb-start.log 2>&1 &
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Start MongoDB ${{ matrix.mongodb-version }} Replica Set
-      uses: supercharge/mongodb-github-action@1.11.0
-      with:
-        mongodb-version: ${{ matrix.mongodb-version }}
-        mongodb-replica-set: rs
-
-    - run: sudo apt update
-    - run: sudo apt -y install libkrb5-dev
+        cache: 'npm'
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm i
+        npm ci
       env:
         CI: true
         NODE_ENV: test
+
+    - name: Initiate MongoDB replica set
+      timeout-minutes: 3
+      run: |
+        for i in $(seq 1 120); do
+          docker exec mongodb mongosh --quiet --eval 'db.runCommand({ ping: 1 })' > /dev/null 2>&1 && break
+          if [ "$i" = 120 ]; then cat /tmp/mongodb-start.log; exit 1; fi
+          sleep 1
+        done
+        docker exec mongodb mongosh --quiet --eval 'rs.initiate({ _id: "rs", members: [{ _id: 0, host: "localhost:27017" }] })'
+        until docker exec mongodb mongosh --quiet --eval 'db.hello().isWritablePrimary' | grep -q true; do sleep 1; done
 
     - run: npm run test:api-v3:integration
       env:
@@ -182,32 +194,40 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]
         mongodb-version: [7.0]
 
     steps:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 1
+    - name: Start MongoDB ${{ matrix.mongodb-version }}
+      # Runs in the background so pulling the image overlaps with npm ci,
+      # the replica set is initiated right before the tests
+      run: nohup docker run --name mongodb --publish 27017:27017 --detach mongo:${{ matrix.mongodb-version }} --replSet rs > /tmp/mongodb-start.log 2>&1 &
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Start MongoDB ${{ matrix.mongodb-version }} Replica Set
-      uses: supercharge/mongodb-github-action@1.11.0
-      with:
-        mongodb-version: ${{ matrix.mongodb-version }}
-        mongodb-replica-set: rs
-
-    - run: sudo apt update
-    - run: sudo apt -y install libkrb5-dev
+        cache: 'npm'
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm i
+        npm ci
       env:
         CI: true
         NODE_ENV: test
+
+    - name: Initiate MongoDB replica set
+      timeout-minutes: 3
+      run: |
+        for i in $(seq 1 120); do
+          docker exec mongodb mongosh --quiet --eval 'db.runCommand({ ping: 1 })' > /dev/null 2>&1 && break
+          if [ "$i" = 120 ]; then cat /tmp/mongodb-start.log; exit 1; fi
+          sleep 1
+        done
+        docker exec mongodb mongosh --quiet --eval 'rs.initiate({ _id: "rs", members: [{ _id: 0, host: "localhost:27017" }] })'
+        until docker exec mongodb mongosh --quiet --eval 'db.hello().isWritablePrimary' | grep -q true; do sleep 1; done
 
     - run: npm run test:api-v4:integration
       env:
@@ -217,7 +237,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -226,12 +246,11 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo apt update
-    - run: sudo apt -y install libkrb5-dev
+        cache: 'npm'
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm i
+        npm ci
       env:
         CI: true
         NODE_ENV: test
@@ -242,7 +261,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -251,12 +270,11 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo apt update
-    - run: sudo apt -y install libkrb5-dev
+        cache: 'npm'
     - run: cp config.json.example config.json
     - name: npm install
       run: |
-        npm install
+        npm ci
       env:
         CI: true
         NODE_ENV: production

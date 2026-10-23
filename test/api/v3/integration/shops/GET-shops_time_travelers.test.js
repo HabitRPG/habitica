@@ -9,7 +9,7 @@ describe('GET /shops/time-travelers', () => {
 
   beforeEach(async () => {
     user = await generateUser();
-    clock = sinon.useFakeTimers(new Date('2024-06-08'));
+    clock = sinon.useFakeTimers({ now: new Date('2024-06-08'), toFake: ['Date'] });
   });
 
   afterEach(() => {

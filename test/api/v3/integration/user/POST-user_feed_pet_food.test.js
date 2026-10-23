@@ -5,7 +5,6 @@ import {
   generateUser,
   translate as t,
   server,
-  sleep,
 } from '../../../../helpers/api-integration/v3';
 import content from '../../../../../website/common/script/content';
 
@@ -91,7 +90,7 @@ describe('POST /user/feed/:pet/:food', () => {
       });
       const res = await user.post('/user/feed/Wolf-Base/Milk');
 
-      await sleep();
+      await server.waitForWebhookData(uuid);
 
       const body = server.getWebhookData(uuid);
 
@@ -119,7 +118,7 @@ describe('POST /user/feed/:pet/:food', () => {
       });
       const res = await user.post('/user/feed/Wolf-Base/Milk?amount=2');
 
-      await sleep();
+      await server.waitForWebhookData(uuid);
 
       const body = server.getWebhookData(uuid);
 
