@@ -376,15 +376,13 @@
               >
                 {{ $t("siteBlockers") }}
               </router-link>
-              <a
+              <router-link
                 v-if="hasPermission(user, 'news')"
                 class="topbar-dropdown-item dropdown-item"
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://panel.habitica.com"
+                :to="{name: 'newsAdmin'}"
               >
                 {{ $t('newsroom') }}
-              </a>
+              </router-link>
             </div>
           </li>
         </b-navbar-nav>
@@ -790,6 +788,7 @@ body.modal-open #habitica-menu {
 <script>
 import { mapState, mapGetters } from '@/libs/store';
 import { goToModForm } from '@/libs/modform';
+import { ADMIN_PANEL_ENABLED } from '@/libs/consts';
 
 import gemIcon from '@/assets/svg/gem.svg?raw';
 import goldIcon from '@/assets/svg/gold.svg?raw';
@@ -855,6 +854,7 @@ export default {
       };
     },
     hasElevatedPrivileges () {
+      if (!ADMIN_PANEL_ENABLED) return false;
       return this.user.permissions.fullAccess
         || this.user.permissions.userSupport
         || this.user.permissions.accessControl

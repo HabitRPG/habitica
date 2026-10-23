@@ -22,6 +22,13 @@
       >
         {{ $t('siteBlockers') }}
       </router-link>
+      <router-link
+        v-if="hasPermission(user, 'news')"
+        class="nav-link"
+        :to="{name: 'newsAdmin'}"
+      >
+        {{ $t('newsroom') }}
+      </router-link>
     </secondary-menu><div class="col-12">
       <router-view />
     </div>
