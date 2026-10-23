@@ -18,7 +18,7 @@
     "body-parser": "^1.20.3",
     "bootstrap": "^4.6.2",
     "bullmq": "^5.71.1",
-    "compression": "^1.8.1",
+    "compression": "^1.8.2",
     "cookie-session": "^2.1.1",
     "coupon-code": "^0.4.5",
     "csv-stringify": "^5.6.5",
