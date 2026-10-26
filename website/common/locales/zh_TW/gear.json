@@ -2812,7 +2812,7 @@
     "weaponSpecialWinter2025HealerNotes": "",
     "weaponSpecialWinter2025MageText": "",
     "weaponSpecialWinter2025MageNotes": "",
-    "weaponSpecialFall2024WarriorText": "",
+    "weaponSpecialFall2024WarriorText": "烈焰之劍",
     "weaponSpecialFall2024WarriorNotes": "",
     "weaponSpecialFall2024RogueText": "",
     "weaponSpecialFall2024RogueNotes": "",
@@ -2839,9 +2839,9 @@
     "weaponSpecialSummer2024RogueNotes": "",
     "weaponSpecialSummer2024WarriorText": "",
     "weaponSpecialSummer2024WarriorNotes": "",
-    "weaponSpecialSummer2024MageText": "",
+    "weaponSpecialSummer2024MageText": "海葵魔杖",
     "weaponSpecialSummer2024MageNotes": "",
-    "weaponSpecialSummer2024HealerText": "",
+    "weaponSpecialSummer2024HealerText": "海螺法杖",
     "weaponSpecialSummer2024HealerNotes": "",
     "headAccessoryMystery202102Notes": "",
     "weaponSpecialSpring2024MageNotes": "",
@@ -3635,5 +3635,6 @@
     "shieldSpecialFall2026WarriorText": "幽靈南瓜",
     "shieldSpecialFall2026WarriorNotes": "不論是節省時間的小妙招，還是毛骨悚然的謎語，這位小夥伴都有你需要的東西。體質增加 <%= con %>。2026 年秋季限定版裝備。",
     "shieldSpecialFall2026HealerText": "秘法燭火",
-    "shieldSpecialFall2026HealerNotes": "不論是多一點溫暖，還是一股舒適愜意的氛圍，這正是你所需要的。體質增加 <%= con %>。2026 年秋季限定版裝備。"
+    "shieldSpecialFall2026HealerNotes": "不論是多一點溫暖，還是一股舒適愜意的氛圍，這正是你所需要的。體質增加 <%= con %>。2026 年秋季限定版裝備。",
+    "classLockedItemShort": "此物品僅限特定職業使用"
 }

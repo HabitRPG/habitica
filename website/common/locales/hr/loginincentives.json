@@ -1,11 +1,11 @@
 {
-    "unlockedReward": "Dobili ste <%= reward %>",
-    "earnedRewardForDevotion": "Zaradili ste <%= reward %> jer ste se posvetili poboljšavanju svog života.",
+    "unlockedReward": "Dobio/la si <%= reward %>",
+    "earnedRewardForDevotion": "Zaradio/la si <%= reward %> jer si se posvetio/la poboljšavanju svog života.",
     "nextRewardUnlocksIn": "Broj prijava do tvoje sljedeće nagrade: <%= numberOfCheckinsLeft %>",
     "awesome": "Bravo!",
     "incentivesDescription": "Kad je u pitanje izgradnja navika, dosljednost je ključna. Svakog dana kojeg se prijavite, bliže ste jednoj nagradi.",
-    "checkinEarned": "Vaš broj prijava se povećao!",
-    "unlockedCheckInReward": "Otključali ste jednu Nagradu za prijave!",
+    "checkinEarned": "Tvoj broj prijava se povećao!",
+    "unlockedCheckInReward": "Otključao/la si Nagradu za prijavu!",
     "checkinProgressTitle": "Napredak do sljedeće",
     "incentiveBackgroundsUnlockedWithCheckins": "Više standardnih pozadina otključat će se s dnevnim prijavama.",
     "oneOfAllPetEggs": "jedno od svakog standardnog Jaja za Ljubimce",
@@ -20,5 +20,5 @@
     "royallyLoyal": "Kraljevska Vjernost",
     "royallyLoyalText": "Ovaj korisnik se prijavio/la preko 500 puta i zaradili su sve Nagrade za prijavu!",
     "checkInRewards": "Nagrade za prijavu",
-    "backloggedCheckInRewards": "Dobili ste Nagrade za prijavu! Posjetite vaš Inventar i Opremu kako bi vidjeli što ima novog."
+    "backloggedCheckInRewards": "Dobio/la si Nagrade za prijavu! Posjeti tvoj Inventar i Opremu da vidiš što ima novog."
 }

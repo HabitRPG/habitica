@@ -165,5 +165,19 @@
     "achievementDuneBuddyModalText": "Je hebt alle woestijnhuisdieren verzameld!",
     "achievementRoughRiderModalText": "Je hebt alle basiskleuren van de ongemakkelijke huisdieren en rijdieren verzameld!",
     "achievementCatsText": "Heeft alle standaardkleuren van kathuisdieren uitgebroed: Cheetah, Leeuw, Sabeltand en Tijger!",
-    "achievementCats": "Kattenhoeder"
+    "achievementCats": "Kattenhoeder",
+    "achievementCreatedTaskNotifText": "Goed bezig! Als je hulp nodig hebt om taken in te plannen, probeer dan te bedenken wat je op een specifiek moment van de dag wil doen.",
+    "achievementCompletedTaskNotifText": "Een taak kan een Gewoonte, Dagelijkse Taak, of To Do zijn. Blijf ze voltooien om allerlei beloningen te verdienen!",
+    "achievementFedPetNotifText": "Voor elke Huisdier is er één soort voedsel dat hij lekker vindt! Experimenteer om erachter te komen met welke jouw Huisdier het snelste groeit.",
+    "achievementPurchasedEquipmentNotifText": "Uitrusting kan praktisch zijn, of gewoon modieus. Verbeter je stats om allerlei voordelen voor je personage te krijgen!",
+    "achievementQuestCount0": "Avonturier",
+    "achievementQuestCount1": "IJzeren Avonturier",
+    "achievementQuestCount5": "Bronzen Avonturier",
+    "achievementQuestCount10": "Zilveren Avonturier",
+    "achievementQuestCount25": "Gouden Avonturier",
+    "achievementQuestCount50": "Platinum Avonturier",
+    "achievementQuestCount100": "Ultieme Avonturier",
+    "achievementQuestCountSingleText": "1 Queeste voltooid. Voortgang naar de volgende prestatie: <%= progress %>/<%= target %> Queesten voltooid",
+    "achievementQuestCountMultipleText": "<%= count %> Queesten voltooid. Voortgang naar de volgende prestatie: <%= progress %>/<%= target %> Queesten voltooid",
+    "achievementQuestCountMaximumText": "Deze speler heeft <%= count %> Queesten voltooid om de Ultieme Avonturier te worden, geweldig!"
 }

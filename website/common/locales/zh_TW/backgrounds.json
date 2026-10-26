@@ -213,7 +213,7 @@
     "backgroundStormyRooftopsNotes": "爬上陰雲密布的屋頂。",
     "backgroundWindyAutumnText": "風之秋",
     "backgroundWindyAutumnNotes": "在風之秋中追逐落葉。",
-    "incentiveBackgrounds": "標準背景",
+    "incentiveBackgrounds": "基礎的的背景套組",
     "backgroundVioletText": "紫色",
     "backgroundVioletNotes": "一個鮮豔的紫色背景。",
     "backgroundBlueText": "藍色",
@@ -776,7 +776,7 @@
     "backgroundUnderWisteriaText": "紫藤花下",
     "backgroundUnderWisteriaNotes": "在紫藤花下休息。",
     "backgroundSpringtimeShowerNotes": "欣賞花香四溢的春日沐浴。",
-    "backgrounds052023": "第108組：2023年5月發佈",
+    "backgrounds052023": "套裝108:2023年5月發行",
     "backgroundInAPaintingText": "在畫中",
     "backgroundInAPaintingNotes": "在繪畫中享受創意追求。",
     "backgroundFlyingOverHedgeMazeText": "飛越樹籬迷宮",
@@ -950,5 +950,9 @@
     "backgroundRidingACometText": "",
     "backgroundRidingACometNotes": "",
     "backgroundOnAStrangePlanetText": "",
-    "backgroundOnAStrangePlanetNotes": ""
+    "backgroundOnAStrangePlanetNotes": "",
+    "backgrounds102026": "套裝 149：2026 年 10 月發佈",
+    "backgrounds112026": "套裝 150：2026 年 11 月發佈",
+    "backgroundSunsetWithJoshuaTreesText": "約書亞樹日落",
+    "backgrounds092026": "套裝 148：2026 年 9 月發佈"
 }

@@ -165,5 +165,20 @@
     "achievementBonelessBossText": "Has hatched all standard colours of invertebrate pets: Beetle, Butterfly, Cuttlefish, Nudibranch, Octopus, Snail, and Spider!",
     "achievementBonelessBossModalText": "You collected all the invertebrate pets!",
     "achievementDuneBuddy": "Dune Buddy",
-    "achievementDuneBuddyText": "Has hatched all standard colours of desert dwelling pets: Armadillo, Cactus, Fox, Frog, Snake, and Spider!"
+    "achievementDuneBuddyText": "Has hatched all standard colours of desert dwelling pets: Armadillo, Cactus, Fox, Frog, Snake, and Spider!",
+    "achievementCreatedTaskNotifText": "Keep it up! If you need help planning tasks, try thinking about what you’d like to do during a specific time of day.",
+    "achievementCompletedTaskNotifText": "A task can be a Habit, Daily, or To Do. Continue completing them to receive all sorts of rewards!",
+    "achievementHatchedPetNotifText": "There are so many Pets to collect, you’re bound to have a favourite. If you feed them, they may just grow…",
+    "achievementFedPetNotifText": "Every Pet has a specific food they enjoy! Experiment to find out which will grow your Pet the fastest.",
+    "achievementPurchasedEquipmentNotifText": "Equipment can be practical or just fashionable. Raise your stats to get all sorts of benefits to your avatar!",
+    "achievementQuestCount0": "Quester",
+    "achievementQuestCount1": "Iron Quester",
+    "achievementQuestCount5": "Bronze Quester",
+    "achievementQuestCount10": "Silver Quester",
+    "achievementQuestCount25": "Gold Quester",
+    "achievementQuestCount50": "Platinum Quester",
+    "achievementQuestCount100": "Ultimate Quester",
+    "achievementQuestCountSingleText": "Completed 1 Quest. Progress towards next achievement: <%= progress %>/<%= target %> Quests completed",
+    "achievementQuestCountMultipleText": "Completed <%= count %> Quests. Progress towards next achievement: <%= progress %>/<%= target %> Quests completed",
+    "achievementQuestCountMaximumText": "This player has completed <%= count %> Quests to become the Ultimate Quester, truly amazing!"
 }

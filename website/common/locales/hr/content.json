@@ -1,10 +1,10 @@
 {
-    "potionText": "Ljekoviti Napitak",
+    "potionText": "Napitak zdravlja",
     "potionNotes": "Obnavlja 15 zdravlja (trenutačna upotreba)",
     "armoireText": "Začarani Ormar",
-    "armoireNotesFull": "Otvorite Ormar kako biste nasumično dobili posebnu Opremu, Iskustvo ili hranu! Preostalih dijelova opreme:",
+    "armoireNotesFull": "Otvori Ormar da nasumično dobiješ posebnu Opremu, Iskustvo ili hranu! Preostalih dijelova opreme:",
     "armoireLastItem": "Pronašli ste posljednji dio rijetke Opreme u Začaranom ormaru.",
-    "armoireNotesEmpty": "Ormar će imati novu Opremu prvog tjedna svakog mjeseca. Dotad, nastavite klikati za Iskustvo i Hranu za ljubimce!",
+    "armoireNotesEmpty": "Ormar će imati novu Opremu prvog tjedna svakog mjeseca. Dotad, nastavi klikati za Iskustvo i Hranu za ljubimce!",
     "dropEggWolfText": "Vuk",
     "dropEggWolfMountText": "Vuk",
     "dropEggWolfAdjective": "odani",
@@ -182,7 +182,7 @@
     "questEggVelociraptorText": "Velociraptor",
     "questEggVelociraptorMountText": "Velociraptor",
     "questEggVelociraptorAdjective": "oštroumni",
-    "eggNotes": "Pronađite napitak za izlijeganje koji ćete izliti na ovo jaje, i ono će se izleći u <%= eggAdjective %> <%= eggText %>.",
+    "eggNotes": "Pronađi napitak za izlijeganje koji ćeš izliti na ovo jaje i ono će se izleći u <%= eggAdjective %> <%= eggText %>.",
     "hatchingPotionBase": "Osnovni",
     "hatchingPotionWhite": "Bijeli",
     "hatchingPotionDesert": "Pustinjski",
@@ -211,7 +211,7 @@
     "hatchingPotionGlow": "Svijetleći",
     "hatchingPotionFrost": "Mrzli",
     "hatchingPotionIcySnow": "Ledeni snijeg",
-    "hatchingPotionNotes": "Izlijte ovo na jaje, i ono će se izleći kao <%= potText %> Ljubimac.",
+    "hatchingPotionNotes": "Izlijte ovo na jaje i ono će se izleći kao <%= potText %> Ljubimac.",
     "foodMeat": "Meso",
     "foodMeatThe": "Meso",
     "foodMeatA": "Meso",
@@ -373,7 +373,7 @@
     "hatchingPotionFungi": "Gljivičasti",
     "hatchingPotionCryptid": "Kriptidni",
     "hatchingPotionOpal": "Sedefast",
-    "wackyPotionNotes": "Izlijte ovo na jaje, i ono će se izleći kao Otkačeni <%= potText %> Ljubimac.",
+    "wackyPotionNotes": "Izlijte ovo na jaje i ono će se izleći kao Otkačeni <%= potText %> Ljubimac.",
     "wackyPotionAddlNotes": "Ne može se pretvoriti u Jahaću životinju niti koristiti na jajima ljubimaca za pustolovine.",
     "premiumPotionUnlimitedNotes": "Nije upotrebljivo na jajima ljubimaca pustolovine.",
     "hatchingPotionOnyx": "Oniksov",
@@ -411,5 +411,5 @@
     "foodPieSkeletonA": "Kriška pite s Koštanom Srži",
     "foodPieZombieA": "Kriška Trule Pite",
     "foodPieDesert": "Pustinjska Desertna Pita",
-    "hatchingPotionAlien": ""
+    "hatchingPotionAlien": "Vanzemaljski"
 }

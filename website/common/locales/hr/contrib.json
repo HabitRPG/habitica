@@ -1,5 +1,5 @@
 {
-    "playerTiersDesc": "Obojena korisnička imena koja vidite u razgovorima predstavljaju razinu doprinositelja te osobe. Što je razina viša, to je osoba više doprinijela Habitici kroz umjetnost, kôd, zajednicu ili nešto drugo!",
+    "playerTiersDesc": "Obojena korisnička imena koja vidiš u razgovorima predstavljaju razinu doprinositelja te osobe. Što je razina viša, to je osoba više doprinijela Habitici kroz umjetnost, kôd, zajednicu ili nešto drugo!",
     "tier1": "Razina 1 (Prijatelj)",
     "tier2": "Razina 2 (Prijatelj)",
     "tier3": "Razina 3 (Elita)",
@@ -20,7 +20,7 @@
     "heroic": "Herojski",
     "modalContribAchievement": "Postignuće Doprinositelja!",
     "contribModal": "<%= name %>, sjajna osobo! Sada si doprinositelj razine <%= level %> jer pomažeš Habitici.",
-    "contribLink": "Pogledaj koje ste nagrade zaslužili za svoj doprinos!",
+    "contribLink": "Pogledaj koje si nagrade zaslužio/la za svoj doprinos!",
     "contribName": "Doprinositelj",
     "contribText": "Doprinosili su Habitici, bilo putem kôda, umjetnosti, glazbe, pisanja ili drugim metodama.",
     "kickstartName": "Pomoćnik na Kickstarteru - $<%= key %> Razina",
@@ -40,9 +40,9 @@
     "backerTier": "Razina Podržatelja",
     "playerTiers": "Razine Igrača",
     "tier": "Razina",
-    "surveysSingle": "Pomogli ste Habitici da raste, ispunjavanjem ankete ili pomaganjem u velikom testiranju. Hvala Vam!",
-    "surveysMultiple": "Pomogli su Habitici da raste u <%= count %> navrata, ispunjavanjem ankete ili pomaganjem u velikom testiranju. Hvala Vam!",
+    "surveysSingle": "Pomogao/la si Habitici da raste, ispunjavanjem ankete ili pomaganjem u velikom testiranju. Hvala ti!",
+    "surveysMultiple": "Pomogao/la si Habitici da raste u <%= count %> navrata, ispunjavanjem ankete ili pomaganjem u velikom testiranju. Hvala ti!",
     "blurbHallPatrons": "Ovo je Dvorana pokrovitelja, gdje odajemo počast plemenitim pustolovima koji su podržali originalni Kickstarter projekt Habitice. Zahvaljujemo im što su nam pomogli oživjeti Habiticu!",
-    "blurbHallContributors": "Ovo je Dvorana doprinositelja, gdje se odaje počast open-source doprinositeljima Habitici. Bilo putem kôda, umjetnosti, glazbe, pisanja ili čak samo pomaganja, zaslužili su <%= linkRewards %> Dragulje, ekskluzivnu Opremu<%= linkClose %> i <%= linkTiers %>prestižne naslove<%= linkClose %>. I Vi možete doprinositi Habitici!<%= linkContributing %> Saznajte više ovdje.<%= linkClose %>",
+    "blurbHallContributors": "Ovo je Dvorana doprinositelja, gdje se odaje počast open-source doprinositeljima Habitici. Bilo putem kôda, umjetnosti, glazbe, pisanja ili čak samo pomaganja, zaslužili su <%= linkRewards %> Dragulje, ekskluzivnu Opremu<%= linkClose %> i <%= linkTiers %>prestižne naslove<%= linkClose %>. I ti možeš doprinositi Habitici!<%= linkContributing %> Saznaj više ovdje<%= linkClose %>.",
     "noPrivAccess": "Nemate potrebne ovlasti."
 }

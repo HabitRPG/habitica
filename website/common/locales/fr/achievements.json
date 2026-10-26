@@ -165,5 +165,20 @@
     "achievementRodentRulerText": "A fait éclore toutes les couleurs standards des familiers rongeurs : Cochon d'Inde, Rat et Écureuil !",
     "achievementCatsText": "A fait éclore toutes les couleurs standards des familiers félins : Guépard, Lion, Tigre à dents de sabre et Tigre !",
     "achievementCats": "Éleveu·r·se de Félins",
-    "achievementCatsModalText": "Vous avez collecté tous les familiers félins !"
+    "achievementCatsModalText": "Vous avez collecté tous les familiers félins !",
+    "achievementCreatedTaskNotifText": "Continuez comme ça ! Si vous avez besoin d'aide pour planifier des tâches, essayez d'imaginer ce que vous souhaiteriez faire à un moment spécifique de la journée.",
+    "achievementCompletedTaskNotifText": "Une tâche peut être une Habitude, une Quotidienne, ou une \"À faire\". Continuez à toutes les accomplir pour recevoir toutes sortes de récompenses !",
+    "achievementHatchedPetNotifText": "Il y a tellement de Familiers à collectionner, vous trouverez sûrement un·e favori·s·te. Si vous les nourrissez, petit Familier pourra peut-être devenir grand·e…",
+    "achievementFedPetNotifText": "Chaque Familier a une nourriture spécifique qu’il adore ! Expérimentez pour trouver laquelle fera grandir votre Familier le plus rapidement.",
+    "achievementPurchasedEquipmentNotifText": "L’Équipement peut être pratique ou juste élégant. Augmentez vos caractéristiques pour donner toute sorte d’avantages à votre avatar !",
+    "achievementQuestCount0": "Quêt·eur·rice",
+    "achievementQuestCount1": "Quêt·eur·rice de Fer",
+    "achievementQuestCount5": "Quêt·eur·rice de Bronze",
+    "achievementQuestCount10": "Quêt·eur·rice d'Argent",
+    "achievementQuestCount25": "Quêt·eur·rice d'Or",
+    "achievementQuestCount50": "Quêt·eur·rice de Platine",
+    "achievementQuestCount100": "Quêt·eur·rice Ultime",
+    "achievementQuestCountSingleText": "1 Quête accomplie. Avancée vers le prochain succès : <%= progress %>/<%= target %> Quêtes complétées",
+    "achievementQuestCountMultipleText": "<%= count %> Quêtes accomplies. Avancée vers le prochain succès : <%= progress %>/<%= target %> Quêtes complétées",
+    "achievementQuestCountMaximumText": "Ce·tte Joueu·r·se a accompli <%= count %> Quêtes et est devenu·e Quêt·eur·rice Ultime, sensationnel !"
 }
