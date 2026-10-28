@@ -1,134 +1,74 @@
 <template>
   <div class="row standard-page col-12 d-flex justify-content-center">
     <div class="config-content">
-      <h1>
-        Client Configs
-        <button
-          class="btn btn-primary float-right"
-          @click="showCreateForm = true"
-        >
+      <h2>
+        Config Options
+        <button class="btn btn-primary float-right" @click="showCreateForm = true">
           Create
         </button>
-      </h1>
+      </h2>
       <table class="table table-bordered bg-white">
         <thead>
           <tr>
             <th class="name-col">
               Name
             </th>
-            <th >Type</th>
-            <th class="values-col">
-              Values
-            </th>
+            <th>Type</th>
             <th>
               Enabled
+            </th>
+            <th class="values-col">
+              Values
             </th>
             <th class="btncol"></th>
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="config in clientConfigs"
-            :key="config._id"
-            :class="{ 'disabled-row': !config.enabled }"
-          >
-            <ConfigForm
-              v-if="config._id === editedConfigId"
-              :config="config"
-              @save="saveConfig"
-              @hide="editedConfigId = null"
-            />
+          <tr v-for="config in clientConfigs" :key="config._id" :class="{ 'disabled-row': !config.enabled }">
+            <ConfigForm v-if="config._id === editedConfigId" :config="config" :segments="segments" @save="saveConfig"
+              @hide="editedConfigId = null" />
             <td class="name-col">
               {{ config.name }}
               <template v-if="config.description">
-                <span
-                  :id="`description_tooltip_${config._id}`"
-                  class="info-icon"
-                >?</span>
-                <b-tooltip
-                  :target="`description_tooltip_${config._id}`"
-                >
+                <span :id="`description_tooltip_${config._id}`" class="info-icon">?</span>
+                <b-tooltip :target="`description_tooltip_${config._id}`">
                   {{ config.description }}
                 </b-tooltip>
               </template>
             </td>
             <td class="type-col">
-              <div
-                class="d-inline badge badge-pill badge-default mr-1"
-                :class="'badge-' + config.type"
-              >
+              <div class="d-inline badge badge-pill badge-sm" :class="getTypeColor(config.type)">
                 {{ getTypeText(config.type) }}
               </div>
             </td>
-            <td class="values-col">
-              <ValuesDisplay
-                :default-value="config.defaultValue"
-                :values="config.values"
-              />
-            </td>
             <td class="enabled-col">
-              <span
-                v-if="config.enabled"
-                class="svg-icon icon-16 color enabled-icon"
-                v-html="icons.checkIcon"
-              ></span>
-              <span
-                v-else
-                class="svg-icon icon-16 color disabled-icon"
-                v-html="icons.closeIcon"
-              ></span>
+              <span v-if="config.enabled" class="svg-icon icon-16 color enabled-icon" v-html="icons.checkIcon"></span>
+              <span v-else class="svg-icon icon-16 color disabled-icon" v-html="icons.closeIcon"></span>
+            </td>
+            <td class="values-col">
+              <ValuesDisplay :default-value="config.defaultValue" :values="config.values" :segments="segments" />
             </td>
             <td class="btn-cell">
-              <button
-                class="edit-btn btn btn-flat"
-                @click="editConfig(config._id)"
-              >
-                <span
-                  v-once
-                  class="svg-icon icon-16 color"
-                  v-html="icons.editIcon"
-                ></span>
+              <button class="edit-btn btn btn-flat" @click="editConfig(config._id)">
+                <span v-once class="svg-icon icon-16 color" v-html="icons.editIcon"></span>
               </button>
-              <b-dropdown
-                right="right"
-                variant="flat"
-                toggle-class="with-icon"
-                class="row-menu no-min-width"
-                :no-caret="true"
-              >
+              <b-dropdown right="right" variant="flat" toggle-class="with-icon" class="row-menu no-min-width"
+                :no-caret="true">
                 <template #button-content>
-                  <span
-                    v-once
-                    class="svg-icon inline menuIcon color"
-                    v-html="icons.menuIcon"
-                  >
+                  <span v-once class="svg-icon inline menuIcon color" v-html="icons.menuIcon">
                   </span>
                 </template>
-                <b-dropdown-item
-                  class="selectListItem"
-                  @click="duplicateConfig(config._id)"
-                >
+                <b-dropdown-item class="selectListItem" @click="duplicateConfig(config._id)">
                   <span class="with-icon">
-                    <span
-                      v-once
-                      class="svg-icon icon-16 color"
-                      v-html="icons.copyIcon"
-                    ></span>
+                    <span v-once class="svg-icon icon-16 color" v-html="icons.copyIcon"></span>
                     <span v-once>
                       Duplicate
                     </span>
                   </span>
                 </b-dropdown-item>
-                <b-dropdown-item
-                  class="selectListItem custom-hover--red"
-                  @click="deleteConfig(config._id)"
-                >
+                <b-dropdown-item class="selectListItem custom-hover--red" @click="deleteConfig(config._id)">
                   <span class="with-icon">
-                    <span
-                      v-once
-                      class="svg-icon icon-16 color"
-                      v-html="icons.deleteIcon"
-                    ></span>
+                    <span v-once class="svg-icon icon-16 color" v-html="icons.deleteIcon"></span>
                     <span v-once>
                       {{ $t('delete') }}
                     </span>
@@ -139,24 +79,20 @@
           </tr>
         </tbody>
       </table>
+      <Segments :segments="segments" @changed="loadSegments" />
     </div>
-    <ConfigForm
-      v-if="showCreateForm"
-      :is-new="true"
-      :config="newClientConfig"
-      @save="createConfig"
-      @hide="showCreateForm = false"
-    />
+    <ConfigForm v-if="showCreateForm" :is-new="true" :config="newClientConfig" :segments="segments" @save="createConfig"
+      @hide="showCreateForm = false" />
   </div>
 </template>
 
 <style lang="scss" scoped>
 @import '@/assets/scss/colors.scss';
 
-  .config-content {
-    flex: 0 0 100%;
-    max-width: 1800px;
-  }
+.config-content {
+  flex: 0 0 100%;
+  max-width: 1800px;
+}
 
 .btncol {
   width: 75px;
@@ -248,42 +184,6 @@ td {
 .btn-cell {
   padding: 0.4rem;
 }
-
-.badge-email {
-    background-color: $blue-100;
-    color: $blue-1
-}
-
-.badge-url {
-    background-color: $green-100;
-    color: $green-1;
-}
-
-.badge-number {
-    background-color: $yellow-100;
-    color: $yellow-1;
-}
-
-.badge-text {
-    background-color: $purple-300;
-    color: $purple-600;
-}
-
-.badge-boolean {
-    background-color: $orange-100;
-    color: $orange-1;
-}
-
-.badge-json {
-    background-color: $red-100;
-    color: $red-1;
-}
-
-.badge-date {
-    background-color: $teal-100;
-    color: $teal-1;
-}
-
 </style>
 
 <script>
@@ -294,6 +194,7 @@ import copyIcon from '@/assets/svg/copy.svg?raw';
 import deleteIcon from '@/assets/svg/delete.svg?raw';
 import ConfigForm from './configForm.vue';
 import ValuesDisplay from './valuesDisplay.vue';
+import Segments from './segments.vue';
 import menuIcon from '@/assets/svg/menu.svg?raw';
 import checkIcon from '@/assets/svg/check.svg?raw';
 import closeIcon from '@/assets/svg/close.svg?raw';
@@ -302,8 +203,9 @@ export default {
   components: {
     ConfigForm,
     ValuesDisplay,
+    Segments,
   },
-  data () {
+  data() {
     return {
       showCreateForm: false,
       newClientConfig: {
@@ -316,6 +218,7 @@ export default {
         values: [],
       },
       clientConfigs: [],
+      segments: [],
       editedConfigId: null,
       icons: Object.freeze({
         editIcon,
@@ -330,39 +233,43 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
   },
-  mounted () {
+  mounted() {
     this.$store.dispatch('common:setTitle', {
       section: this.$t('clientConfigs'),
     });
     this.loadConfigs();
+    this.loadSegments();
   },
   methods: {
-    async loadConfigs () {
+    async loadConfigs() {
       this.clientConfigs = await this.$store.dispatch('clientConfig:getClientConfigs');
     },
-    editConfig (id) {
+    async loadSegments() {
+      this.segments = await this.$store.dispatch('clientConfig:getClientConfigSegments');
+    },
+    editConfig(id) {
       this.editedConfigId = id;
     },
-    duplicateConfig (id) {
+    duplicateConfig(id) {
       const configToDuplicate = this.clientConfigs.find(config => config._id === id);
       if (configToDuplicate) {
         this.newClientConfig = { ...configToDuplicate, name: `${configToDuplicate.name} (Copy)` };
         this.showCreateForm = true;
       }
     },
-    async saveConfig (clientConfig) {
+    async saveConfig(clientConfig) {
       await this.$store.dispatch('clientConfig:updateClientConfig', { clientConfig });
       this.editedConfigId = null;
       this.loadConfigs();
     },
-    async deleteConfig (clientConfigId) {
+    async deleteConfig(clientConfigId) {
       if (!window.confirm('Are you sure you want to delete this config option?')) {
         return;
       }
       await this.$store.dispatch('clientConfig:deleteClientConfig', { clientConfigId });
       this.loadConfigs();
     },
-    async createConfig (clientConfig) {
+    async createConfig(clientConfig) {
       await this.$store.dispatch('clientConfig:createClientConfig', { clientConfig });
       this.showCreateForm = false;
       this.newClientConfig = {
@@ -377,7 +284,7 @@ export default {
       this.loadConfigs();
     },
 
-    getTypeText (type) {
+    getTypeText(type) {
       switch (type) {
         case 'number':
           return 'Number';
@@ -397,6 +304,27 @@ export default {
           return type;
       }
     },
+
+    getTypeColor(type) {
+      switch (type) {
+        case 'number':
+          return 'badge-yellow';
+        case 'text':
+          return 'badge-purple';
+        case 'boolean':
+          return 'badge-orange';
+        case 'json':
+          return 'badge-red';
+        case 'email':
+          return 'badge-blue';
+        case 'url':
+          return 'badge-green';
+        case 'date':
+          return 'badge-teal';
+        default:
+          return 'badge-default';
+      }
+    }
   },
 };
 </script>

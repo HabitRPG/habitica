@@ -17,7 +17,7 @@
       </h2>
       <div
         v-if="badgeCount > 0"
-        class="badge badge-pill badge-purple column-badge mx-1"
+        class="badge badge-pill badge-purple badge-sm mx-1"
       >
         {{ badgeCount }}
       </div>
@@ -258,10 +258,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-
-  .column-badge {
-    position: static;
   }
 
   .filters {

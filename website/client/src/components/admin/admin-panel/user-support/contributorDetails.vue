@@ -190,7 +190,7 @@ const permissionList = [
   },
   {
     key: 'clientConfig',
-    name: 'Client Config',
+    name: 'IcePeak Access',
     description: 'Can manage client configurations',
   },
   {

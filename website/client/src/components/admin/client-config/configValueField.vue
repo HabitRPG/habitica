@@ -125,14 +125,13 @@ export default {
     },
     validateValueAsUrl (value) {
       try {
-        new URL(value);
-        this.isValid = true;
+        this.isValid = Boolean(new URL(value));
       } catch (e) {
         this.isValid = false;
       }
     },
     validateValueAsDate (value) {
-      this.isValid = !isNaN(Date.parse(value));
+      this.isValid = !Number.isNaN(Date.parse(value));
     },
   },
 };

@@ -9,6 +9,10 @@
   box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
 }
 
+.badge-sm {
+  font-size: 10px;
+}
+
 .badge-pill {
   border-radius: 12px;
 }
@@ -47,10 +51,37 @@
   top: -12px;
 }
 
+.badge-blue {
+  background: $blue-100;
+  color: $blue-1
+}
+
+.badge-green {
+  background: $green-100;
+  color: $green-1;
+}
+
+.badge-yellow {
+  background: $yellow-100;
+  color: $yellow-1;
+}
+
 .badge-purple {
-  position: absolute;
-  color: $white;
   background: $purple-400;
-  line-height: 1.2;
-  font-size: 10px;
+  color: $white;
+}
+
+.badge-orange {
+  background: $orange-100;
+  color: $orange-1;
+}
+
+.badge-red {
+  background: $red-100;
+  color: $red-1;
+}
+
+.badge-teal {
+  background: $teal-100;
+  color: $teal-1;
 }
