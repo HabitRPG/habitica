@@ -40,6 +40,32 @@ export async function generateUser (update = {}, overrides = {}) {
   return apiUser;
 }
 
+export async function generateUsers (count, update = {}) {
+  const users = times(count, index => {
+    const username = (Date.now() + generateUUID()).substring(0, 20);
+    const user = new User({
+      auth: {
+        local: {
+          username,
+          lowerCaseUsername: username.toLowerCase(),
+          email: `${username}@example.com`,
+        },
+      },
+      profile: { name: username },
+      flags: { verifiedUsername: true },
+    });
+
+    const userUpdate = typeof update === 'function' ? update(index) : update;
+    Object.keys(userUpdate).forEach(path => user.set(path, userUpdate[path]));
+
+    return user;
+  });
+
+  await User.insertMany(users);
+
+  return users.map(user => new ApiUser(user.toObject()));
+}
+
 export async function generateHabit (update = {}) {
   const type = 'habit';
   const task = new Tasks[type](update);

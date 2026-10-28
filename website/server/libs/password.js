@@ -2,10 +2,11 @@
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
 import moment from 'moment';
+import nconf from 'nconf';
 import { decrypt } from './encryption';
 import { model as User } from '../models/user';
 
-const BCRYPT_SALT_ROUNDS = 10;
+const BCRYPT_SALT_ROUNDS = nconf.get('IS_TEST') ? 4 : 10;
 
 // Hash a plain text password
 export function bcryptHash (passwordToHash) {

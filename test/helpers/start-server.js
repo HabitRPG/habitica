@@ -1,12 +1,13 @@
 /* eslint-disable no-process-env */
 /* eslint-disable import/no-commonjs */
 
+// fix further imports of require/import syntaxes,
+// must come first because mocha loads --require files before the ones in .mocharc
+require('@babel/register');
+
 const nconf = require('nconf');
 const mongoose = require('mongoose');
 const setupNconf = require('../../website/server/libs/setupNconf').default;
-
-// fix further imports of require/import syntaxes
-require('@babel/register');
 
 if (process.env.LOAD_SERVER === '0') { // when the server is in a different process we simply connect to mongoose
   setupNconf('./config.json');
