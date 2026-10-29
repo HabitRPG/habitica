@@ -1,6 +1,6 @@
 import nconf from 'nconf';
 import uniq from 'lodash/uniq';
-import { model as ClientConfigOption } from '../models/clientConfigOption';
+import { model as ClientConfigOption, minifyJsonValue } from '../models/clientConfigOption';
 import { model as ClientConfigSegment } from '../models/clientConfigSegment';
 import { registerReloader, reload, invalidate } from './cacheInvalidation';
 import { compileSegment, getSegmentUserFields } from './clientConfigTargeting';
@@ -54,12 +54,21 @@ export function buildClientConfig (options, platform, matchedSegments = new Set(
   return config;
 }
 
+function compileOption (option) {
+  if (option.type !== 'json') return option;
+  return {
+    ...option,
+    defaultValue: minifyJsonValue(option.defaultValue),
+    values: (option.values || []).map(v => ({ ...v, value: minifyJsonValue(v.value) })),
+  };
+}
+
 async function reloadClientConfig () {
-  const options = await ClientConfigOption
+  const options = (await ClientConfigOption
     .find({ enabled: true })
-    .select('key defaultValue values')
+    .select('key type defaultValue values')
     .lean()
-    .exec();
+    .exec()).map(compileOption);
 
   const segmentIds = uniq(options
     .flatMap(option => (option.values || []).map(v => v.segment))

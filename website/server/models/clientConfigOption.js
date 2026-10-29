@@ -21,6 +21,25 @@ export const configTypes = [
   'date',
 ];
 
+function sanitizeJsonValue (value) {
+  if (typeof value !== 'string') return value === undefined ? null : JSON.stringify(value, null, 2);
+  try {
+    JSON.parse(value);
+    return value;
+  } catch (e) {
+    return null;
+  }
+}
+
+export function minifyJsonValue (value) {
+  if (typeof value !== 'string') return JSON.stringify(value);
+  try {
+    return JSON.stringify(JSON.parse(value));
+  } catch (e) {
+    return value;
+  }
+}
+
 export const schema = new mongoose.Schema({
   enabled: {
     $type: Boolean, default: true,
@@ -98,19 +117,10 @@ schema.plugin(baseModel, {
         });
       }
     } else if (type === 'json') {
-      try {
-        option.defaultValue = JSON.parse(option.defaultValue);
-      } catch (e) {
-        option.defaultValue = null;
-      }
+      // Stored as the raw string so formatting is preserved for editing
+      option.defaultValue = sanitizeJsonValue(option.defaultValue);
       if (Array.isArray(option.values)) {
-        option.values = option.values.map(v => {
-          try {
-            return { ...v, value: JSON.parse(v.value) };
-          } catch (e) {
-            return { ...v, value: null };
-          }
-        });
+        option.values = option.values.map(v => ({ ...v, value: sanitizeJsonValue(v.value) }));
       }
     }
     return option;
