@@ -284,15 +284,15 @@ export default {
   methods: {
     moveValueUp (index) {
       if (index > 0) {
-        this.editedConfig.values[index].itemIndex--;
-        this.editedConfig.values[index - 1].itemIndex++;
+        this.editedConfig.values[index].itemIndex -= 1;
+        this.editedConfig.values[index - 1].itemIndex += 1;
         this.editedConfig.values.sort((a, b) => a.itemIndex - b.itemIndex);
       }
     },
     moveValueDown (index) {
       if (index < this.editedConfig.values.length - 1) {
-        this.editedConfig.values[index].itemIndex++;
-        this.editedConfig.values[index + 1].itemIndex--;
+        this.editedConfig.values[index].itemIndex += 1;
+        this.editedConfig.values[index + 1].itemIndex -= 1;
         this.editedConfig.values.sort((a, b) => a.itemIndex - b.itemIndex);
       }
     },

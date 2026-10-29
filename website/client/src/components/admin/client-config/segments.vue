@@ -43,7 +43,8 @@
               v-for="(condition, index) in segment.conditions"
               :key="index"
             >
-              {{ describeCondition(condition) }}<span v-if="index < segment.conditions.length - 1"> and </span>
+              {{ describeCondition(condition) }}<span
+                v-if="index < segment.conditions.length - 1"> and </span>
             </span>
           </td>
           <td class="btn-cell">
@@ -172,7 +173,8 @@ export default {
     describeCondition (condition) {
       const attribute = this.attributes.find(a => a.key === condition.attribute);
       const value = Array.isArray(condition.value) ? condition.value.join(', ') : condition.value;
-      return `${attribute ? attribute.name : condition.attribute} ${OPERATOR_NAMES[condition.operator] || condition.operator} ${value}`;
+      const attrName = attribute ? attribute.name : condition.attribute;
+      return `${attrName} ${OPERATOR_NAMES[condition.operator] || condition.operator} ${value}`;
     },
     async saveSegment (segment) {
       await this.$store.dispatch('clientConfig:updateClientConfigSegment', { segment });
