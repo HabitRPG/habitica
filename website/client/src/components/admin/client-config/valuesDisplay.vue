@@ -1,6 +1,9 @@
 <template>
   <div>
-    <template v-if="values.length == 0" class="text-error">
+    <template
+      v-if="values.length == 0"
+      class="text-error"
+    >
       {{ defaultValue }}
     </template>
     <template v-else>
@@ -10,7 +13,10 @@
           v-for="(value, index) in values"
           :key="index"
         >
-          <span class="badge badge-pill badge-sm badge-default mb-1" :class="'badge-' + getSegmentForValue(value).color">
+          <span
+            class="badge badge-pill badge-sm badge-default mb-1"
+            :class="'badge-' + getSegmentForValue(value).color"
+          >
             {{ getTargetName(value) }}
           </span> {{ value.value }}
         </li>

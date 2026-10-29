@@ -10,12 +10,23 @@
     <div class="row">
       <div class="form-group col">
         <label class="form-label">Name</label>
-        <input v-model="editedSegment.name" class="form-control" type="text">
+        <input
+          v-model="editedSegment.name"
+          class="form-control"
+          type="text"
+        >
       </div>
       <div class="form-group col-auto">
         <label class="form-label">Color</label>
-        <select v-model="editedSegment.color" class="form-control">
-          <option v-for="color in colors" :key="color" :value="color">
+        <select
+          v-model="editedSegment.color"
+          class="form-control"
+        >
+          <option
+            v-for="color in colors"
+            :key="color"
+            :value="color"
+          >
             {{ color }}
           </option>
         </select>
@@ -23,14 +34,22 @@
     </div>
     <div class="form-group">
       <label class="form-label">Description</label>
-      <input v-model="editedSegment.description" class="form-control" type="text">
+      <input
+        v-model="editedSegment.description"
+        class="form-control"
+        type="text"
+      >
     </div>
     <hr>
     <h3>Conditions</h3>
     <p class="text-muted small">
       Users must match all conditions. Logged out users are never part of a segment.
     </p>
-    <div v-for="(condition, index) in editedSegment.conditions" :key="index" class="row">
+    <div
+      v-for="(condition, index) in editedSegment.conditions"
+      :key="index"
+      class="row"
+    >
       <div class="form-group col">
         <label class="form-label">Attribute</label>
         <select
@@ -38,40 +57,71 @@
           class="custom-select"
           @change="resetCondition(condition)"
         >
-          <option v-for="attribute in attributes" :key="attribute.key" :value="attribute.key">
+          <option
+            v-for="attribute in attributes"
+            :key="attribute.key"
+            :value="attribute.key"
+          >
             {{ attribute.name }}
           </option>
         </select>
       </div>
       <div class="form-group col-auto">
         <label class="form-label">Operator</label>
-        <select v-model="condition.operator" class="custom-select">
-          <option v-for="operator in getOperators(condition)" :key="operator" :value="operator">
+        <select
+          v-model="condition.operator"
+          class="custom-select"
+        >
+          <option
+            v-for="operator in getOperators(condition)"
+            :key="operator"
+            :value="operator"
+          >
             {{ operatorNames[operator] }}
           </option>
         </select>
       </div>
       <div class="form-group col">
         <label class="form-label">Value</label>
-        <input v-if="getType(condition) === 'boolean'" v-model="condition.value" type="checkbox"
-          class="d-block boolean-input">
-        <input v-else-if="getType(condition) === 'number'" v-model.number="condition.value"
-          type="number" class="form-control">
-        <input v-else v-model="condition.value" type="text" class="form-control"
-          :placeholder="isList(condition) ? 'Comma separated values' : ''">
+        <input
+          v-if="getType(condition) === 'boolean'"
+          v-model="condition.value"
+          type="checkbox"
+          class="d-block boolean-input"
+        >
+        <input
+          v-else-if="getType(condition) === 'number'"
+          v-model.number="condition.value"
+          type="number"
+          class="form-control"
+        >
+        <input
+          v-else
+          v-model="condition.value"
+          type="text"
+          class="form-control"
+          :placeholder="isList(condition) ? 'Comma separated values' : ''"
+        >
       </div>
       <div class="col-auto">
         <span
           class="cursor-pointer delete-button"
           @click="editedSegment.conditions.splice(index, 1)"
         >
-          <div v-once class="svg-icon icon-16" v-html="icons.destroy">
+          <div
+            v-once
+            class="svg-icon icon-16"
+            v-html="icons.destroy"
+          >
           </div>
         </span>
       </div>
     </div>
 
-    <button class="btn btn-secondary" @click="addCondition">
+    <button
+      class="btn btn-secondary"
+      @click="addCondition"
+    >
       Add Condition
     </button>
   </b-modal>

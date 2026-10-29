@@ -6,7 +6,9 @@
         <button
           class="btn btn-primary float-right"
           @click="showCreateForm = true"
-        >Create</button>
+        >
+          Create
+        </button>
       </h2>
       <table class="table table-bordered bg-white">
         <thead>
@@ -69,7 +71,9 @@
               @cancel="editedBlockerId = null"
             />
             <template v-else>
-              <td class="type-col">{{ getTypeName(blocker.type) }}</td>
+              <td class="type-col">
+                {{ getTypeName(blocker.type) }}
+              </td>
               <td>{{ getAreaName(blocker.area) }}</td>
               <td>{{ blocker.value }}</td>
               <td>{{ blocker.reason || "--" }}</td>
@@ -120,7 +124,6 @@
 .type-col {
   white-space: nowrap;
 }
-
 
   td {
     font-size: 1rem;

@@ -162,24 +162,29 @@
         />
       </div>
       <div class="col-auto col-buttons">
-        <button class="btn btn-flat btn-primary" @click="moveValueUp(index)"
-        v-if="editedConfig.values.length > 1"
-        :disabled="index == 0">
+        <button
+          v-if="editedConfig.values.length > 1"
+          class="btn btn-flat btn-primary"
+          :disabled="index == 0"
+          @click="moveValueUp(index)"
+        >
           <div
             v-once
             class="svg-icon icon-16 color-stroke mt-2"
             v-html="icons.arrowup"
-          />
+          ></div>
         </button>
-        <button class="btn btn-flat btn-primary" 
-        v-if="editedConfig.values.length > 1"
+        <button
+          v-if="editedConfig.values.length > 1"
+          class="btn btn-flat btn-primary"
           :disabled="index >= editedConfig.values.length - 1"
-        @click="moveValueDown(index)">
+          @click="moveValueDown(index)"
+        >
           <div
             v-once
             class="svg-icon icon-16 color-stroke mt-2"
             v-html="icons.arrowdown"
-          />
+          ></div>
         </button>
         <button
           class="btn btn-flat btn-danger"
@@ -195,7 +200,10 @@
       </div>
     </div>
 
-    <p class="text-muted small" v-if="editedConfig.values.length > 0">
+    <p
+      v-if="editedConfig.values.length > 0"
+      class="text-muted small"
+    >
       Segment values take precedence over platform-only values,
       and specific platforms over Mobile. Otherwise the first matching value wins.
     </p>
@@ -210,7 +218,7 @@
 
 <style scoped lang="scss">
 @import '@/assets/scss/colors.scss';
-  
+
 .col-buttons {
   margin-top: 34px;
 }
@@ -268,18 +276,20 @@ export default {
   mounted () {
     this.editedConfig = {
       ...this.config,
-      values: (this.config.values || []).map((v, i) => ({ itemIndex: i, platform: '', segment: '', ...v })),
+      values: (this.config.values || []).map((v, i) => ({
+        itemIndex: i, platform: '', segment: '', ...v,
+      })),
     };
   },
   methods: {
-    moveValueUp(index) {
+    moveValueUp (index) {
       if (index > 0) {
         this.editedConfig.values[index].itemIndex--;
         this.editedConfig.values[index - 1].itemIndex++;
         this.editedConfig.values.sort((a, b) => a.itemIndex - b.itemIndex);
       }
     },
-    moveValueDown(index) {
+    moveValueDown (index) {
       if (index < this.editedConfig.values.length - 1) {
         this.editedConfig.values[index].itemIndex++;
         this.editedConfig.values[index + 1].itemIndex--;

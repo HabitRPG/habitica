@@ -25,18 +25,26 @@
           :key="segment._id"
         >
           <td class="name-col">
-            <span class="badge badge-pill badge-default"
-              :class="'badge-' + segment.color">
-            {{ segment.name }}
+            <span
+              class="badge badge-pill badge-default"
+              :class="'badge-' + segment.color"
+            >
+              {{ segment.name }}
             </span>
-            <div v-if="segment.description" class="text-muted small">
+            <div
+              v-if="segment.description"
+              class="text-muted small"
+            >
               {{ segment.description }}
             </div>
           </td>
           <td>
-              <span v-for="(condition, index) in segment.conditions" :key="index">
-                {{ describeCondition(condition) }}<span v-if="index < segment.conditions.length - 1"> and </span>
-              </span>
+            <span
+              v-for="(condition, index) in segment.conditions"
+              :key="index"
+            >
+              {{ describeCondition(condition) }}<span v-if="index < segment.conditions.length - 1"> and </span>
+            </span>
           </td>
           <td class="btn-cell">
             <button
