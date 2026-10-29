@@ -18,6 +18,7 @@
   "APPLE_TEAM_ID": "",
   "BASE_URL": "http://localhost:3000",
   "BLOCKED_IPS": "",
+  "CACHE_INVALIDATION_ENABLED": "false",
   "CONTENT_SWITCHOVER_TIME_OFFSET": 8,
   "CRON_SAFE_MODE": "false",
   "CRON_SEMI_SAFE_MODE": "false",

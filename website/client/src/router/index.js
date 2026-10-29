@@ -26,6 +26,7 @@ const AdminPanelSearchPage = () => import('@/components/admin/admin-panel/search
 const GroupAdminPage = () => import('@/components/admin/groups');
 const GroupAdminGroupPage = () => import('@/components/admin/groups/group-support');
 const BlockerPage = () => import('@/components/admin/blocker');
+const ClientConfigPage = () => import('@/components/admin/client-config');
 
 // Tasks
 const UserTasks = () => import('@/components/tasks/user');
@@ -184,7 +185,7 @@ const router = new VueRouter({
       path: '/admin',
       component: AdminContainerPage,
       meta: {
-        privilegeNeeded: [ // any one of these is enough to give access
+        privilegeNeeded: [
           'userSupport',
           'accessControl',
         ],
@@ -195,7 +196,7 @@ const router = new VueRouter({
           path: 'panel',
           component: AdminPanelPage,
           meta: {
-            privilegeNeeded: [ // any one of these is enough to give access
+            privilegeNeeded: [
               'userSupport',
             ],
           },
@@ -227,7 +228,7 @@ const router = new VueRouter({
           path: 'groups',
           component: GroupAdminPage,
           meta: {
-            privilegeNeeded: [ // any one of these is enough to give access
+            privilegeNeeded: [
               'groupSupport',
             ],
           },
@@ -249,8 +250,18 @@ const router = new VueRouter({
           path: 'blockers',
           component: BlockerPage,
           meta: {
-            privilegeNeeded: [ // any one of these is enough to give access
+            privilegeNeeded: [
               'accessControl',
+            ],
+          },
+        },
+        {
+          name: 'clientConfigs',
+          path: 'client-config',
+          component: ClientConfigPage,
+          meta: {
+            privilegeNeeded: [
+              'clientConfig',
             ],
           },
         },

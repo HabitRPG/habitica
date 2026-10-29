@@ -8,6 +8,7 @@ import { model as User } from '../../models/user';
 import { model as UserHistory } from '../../models/userHistory';
 import { model as Group } from '../../models/group';
 import { model as Blocker } from '../../models/blocker';
+import { invalidateBlockers } from '../../libs/blockers';
 import {
   NotFound,
 } from '../../libs/errors';
@@ -151,6 +152,7 @@ api.createBlocker = {
       _id: id,
       ...Blocker.sanitize(req.body),
     }).save();
+    await invalidateBlockers();
 
     res.respond(200, blocker);
   },
@@ -171,6 +173,7 @@ api.updateBlocker = {
 
     merge(blocker, Blocker.sanitize(req.body));
     const savedBlocker = await blocker.save();
+    await invalidateBlockers();
 
     res.respond(200, savedBlocker);
   },
@@ -191,6 +194,7 @@ api.deleteBlocker = {
 
     blocker.disabled = true;
     const savedBlocker = await blocker.save();
+    await invalidateBlockers();
 
     res.respond(200, savedBlocker);
   },

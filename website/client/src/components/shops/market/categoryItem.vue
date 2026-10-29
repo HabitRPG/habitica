@@ -7,7 +7,7 @@
     />
     <div
       v-if="item.key === 'gem'"
-      class="badge badge-pill badge-purple gems-left"
+      class="badge badge-pill badge-purple badge-sm gems-left"
     >
       {{ gemsLeft }}
     </div>

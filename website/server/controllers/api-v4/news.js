@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { authWithHeaders } from '../../middlewares/auth';
 import { apiError } from '../../libs/apiError';
-import { model as NewsPost } from '../../models/newsPost';
+import { model as NewsPost, invalidateLastNewsPost } from '../../models/newsPost';
 import { ensurePermission } from '../../middlewares/ensureAccessRight';
 import {
   NotFound,
@@ -75,10 +75,9 @@ api.createNews = {
     const newsPost = new NewsPost(NewsPost.sanitize(req.body));
     newsPost.author = res.locals.user._id;
     await newsPost.save();
+    await invalidateLastNewsPost();
 
     res.respond(201, newsPost);
-
-    NewsPost.updateLastNewsPost(newsPost);
   },
 };
 
@@ -157,10 +156,9 @@ api.updateNews = {
 
     _.merge(newsPost, NewsPost.sanitize(req.body));
     const savedPost = await newsPost.save();
+    await invalidateLastNewsPost();
 
     res.respond(200, savedPost);
-
-    NewsPost.updateLastNewsPost(newsPost);
   },
 };
 
@@ -191,6 +189,7 @@ api.deleteNews = {
     if (!newsPost) throw new NotFound(res.t('newsPostNotFound'));
 
     await NewsPost.deleteOne({ _id: req.params.postId }).exec();
+    await invalidateLastNewsPost();
 
     res.respond(200, {});
   },

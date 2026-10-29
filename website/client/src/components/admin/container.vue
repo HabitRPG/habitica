@@ -22,6 +22,13 @@
       >
         {{ $t('siteBlockers') }}
       </router-link>
+      <router-link
+        v-if="hasPermission(user, 'clientConfig')"
+        class="nav-link"
+        :to="{name: 'clientConfigs'}"
+      >
+        {{ $t('clientConfigs') }}
+      </router-link>
     </secondary-menu><div class="col-12">
       <router-view />
     </div>
