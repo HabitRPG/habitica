@@ -1,15 +1,13 @@
 <template>
   <div class="row standard-page col-12 d-flex justify-content-center">
     <div class="blocker-content">
-      <h1>
+      <h2>
         Blockers
         <button
           class="btn btn-primary float-right"
           @click="showCreateForm = true"
-        >
-          Create
-        </button>
-      </h1>
+        >Create</button>
+      </h2>
       <table class="table table-bordered bg-white">
         <thead>
           <tr>
@@ -71,7 +69,7 @@
               @cancel="editedBlockerId = null"
             />
             <template v-else>
-              <td>{{ getTypeName(blocker.type) }}</td>
+              <td class="type-col">{{ getTypeName(blocker.type) }}</td>
               <td>{{ getAreaName(blocker.area) }}</td>
               <td>{{ blocker.value }}</td>
               <td>{{ blocker.reason || "--" }}</td>
@@ -79,7 +77,7 @@
               <td>{{ blocker.createdAt }}</td>
               <td>
                 <button
-                  class="btn btn-primary mr-2"
+                  class="btn btn-flat btn-secondary"
                   @click="editBlocker(blocker._id)"
                 >
                   <span
@@ -89,7 +87,7 @@
                   ></span>
                 </button>
                 <button
-                  class="btn btn-danger"
+                  class="btn btn-flat btn-danger"
                   @click="deleteBlocker(blocker._id)"
                 >
                   <span
@@ -112,19 +110,24 @@
 
   .blocker-content {
     flex: 0 0 100%;
-    max-width: 1200px;
-  }
-
-  .btn {
-    padding: 0.4rem 0.75rem;
+    max-width: 1800px;
   }
 
   .btncol {
-    width: 123px;
+    width: 120px;
   }
+
+.type-col {
+  white-space: nowrap;
+}
+
 
   td {
     font-size: 1rem;
+
+    .btn {
+    display: inline-block;
+    }
   }
 
   .info-icon {

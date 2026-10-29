@@ -40,7 +40,7 @@
           </td>
           <td class="btn-cell">
             <button
-              class="btn btn-flat"
+              class="btn btn-flat btn-secondary mr-2"
               @click="editedSegment = segment"
             >
               <span
@@ -50,7 +50,7 @@
               ></span>
             </button>
             <button
-              class="btn btn-flat"
+              class="btn btn-flat btn-danger"
               @click="deleteSegment(segment._id)"
             >
               <span
@@ -97,20 +97,13 @@ td {
 }
 
 .btncol {
-  width: 100px;
+  width: 110px;
 }
 
 .btn-cell {
   padding: 0.4rem;
-  white-space: nowrap;
-
   .btn {
-    color: $gray-200;
-    padding: 0.4rem;
-
-    &:hover {
-      color: $purple-300;
-    }
+    display: inline-block;
   }
 }
 

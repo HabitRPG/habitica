@@ -49,7 +49,7 @@
               <ValuesDisplay :default-value="config.defaultValue" :values="config.values" :segments="segments" />
             </td>
             <td class="btn-cell">
-              <button class="edit-btn btn btn-flat" @click="editConfig(config._id)">
+              <button class="btn btn-flat btn-secondary" @click="editConfig(config._id)">
                 <span v-once class="svg-icon icon-16 color" v-html="icons.editIcon"></span>
               </button>
               <b-dropdown right="right" variant="flat" toggle-class="with-icon" class="row-menu no-min-width"
@@ -95,7 +95,7 @@
 }
 
 .btncol {
-  width: 75px;
+  width: 90px;
 }
 
 .values-col {
@@ -133,16 +133,6 @@ td {
 
 .disabled-row td {
   color: $gray-200;
-}
-
-.edit-btn {
-  color: $gray-200;
-  display: inline-block;
-  padding: 0.4rem;
-
-  &:hover {
-    color: $purple-300;
-  }
 }
 
 .info-icon {

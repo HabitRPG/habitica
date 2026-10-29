@@ -1,6 +1,6 @@
 <template>
   <b-modal
-    size="lg"
+    size="xl"
     :visible="true"
     title="Edit Config"
     :ok-disabled="!canSave()"
@@ -110,7 +110,7 @@
     <hr>
     <div
       v-for="(value, index) in editedConfig.values"
-      :key="index"
+      :key="value.itemIndex"
       class="row"
     >
       <div class="form-group col-auto">
@@ -120,7 +120,7 @@
           class="custom-select"
         >
           <option value="">
-            All platforms
+            All
           </option>
           <option value="web">
             Web
@@ -161,9 +161,28 @@
           :type="editedConfig.type"
         />
       </div>
-      <div class="col-auto align-middle">
-        <span
-          class="cursor-pointer delete-button"
+      <div class="col-auto col-buttons">
+        <button class="btn btn-flat btn-primary" @click="moveValueUp(index)"
+        v-if="editedConfig.values.length > 1"
+        :disabled="index == 0">
+          <div
+            v-once
+            class="svg-icon icon-16 color-stroke mt-2"
+            v-html="icons.arrowup"
+          />
+        </button>
+        <button class="btn btn-flat btn-primary" 
+        v-if="editedConfig.values.length > 1"
+          :disabled="index >= editedConfig.values.length - 1"
+        @click="moveValueDown(index)">
+          <div
+            v-once
+            class="svg-icon icon-16 color-stroke mt-2"
+            v-html="icons.arrowdown"
+          />
+        </button>
+        <button
+          class="btn btn-flat btn-danger"
           @click="editedConfig.values.splice(index, 1)"
         >
           <div
@@ -172,11 +191,11 @@
             v-html="icons.destroy"
           >
           </div>
-        </span>
+        </button>
       </div>
     </div>
 
-    <p class="text-muted small">
+    <p class="text-muted small" v-if="editedConfig.values.length > 0">
       Segment values take precedence over platform-only values,
       and specific platforms over Mobile. Otherwise the first matching value wins.
     </p>
@@ -191,15 +210,9 @@
 
 <style scoped lang="scss">
 @import '@/assets/scss/colors.scss';
-
-.delete-button {
-  display: inline-flex;
-  margin-top: 38px;
-
-  &:hover {
-    cursor: pointer;
-    color: $maroon-50;
-  }
+  
+.col-buttons {
+  margin-top: 34px;
 }
 
 .enable-switch {
@@ -210,6 +223,8 @@
 <script>
 import valueField from './configValueField.vue';
 import deleteIcon from '@/assets/svg/delete.svg?raw';
+import arrowUpIcon from '@/assets/svg/up.svg?raw';
+import arrowDownIcon from '@/assets/svg/down.svg?raw';
 
 export default {
   name: 'ConfigForm',
@@ -245,16 +260,32 @@ export default {
       },
       icons: Object.freeze({
         destroy: deleteIcon,
+        arrowup: arrowUpIcon,
+        arrowdown: arrowDownIcon,
       }),
     };
   },
   mounted () {
     this.editedConfig = {
       ...this.config,
-      values: (this.config.values || []).map(v => ({ platform: '', segment: '', ...v })),
+      values: (this.config.values || []).map((v, i) => ({ itemIndex: i, platform: '', segment: '', ...v })),
     };
   },
   methods: {
+    moveValueUp(index) {
+      if (index > 0) {
+        this.editedConfig.values[index].itemIndex--;
+        this.editedConfig.values[index - 1].itemIndex++;
+        this.editedConfig.values.sort((a, b) => a.itemIndex - b.itemIndex);
+      }
+    },
+    moveValueDown(index) {
+      if (index < this.editedConfig.values.length - 1) {
+        this.editedConfig.values[index].itemIndex++;
+        this.editedConfig.values[index + 1].itemIndex--;
+        this.editedConfig.values.sort((a, b) => a.itemIndex - b.itemIndex);
+      }
+    },
     validateKey () {
       this.isKeyValid = this.editedConfig.key.length === 0 || /^[a-zA-Z0-9_]+$/.test(this.editedConfig.key);
     },
@@ -263,6 +294,7 @@ export default {
     },
     addValue () {
       this.editedConfig.values.push({
+        itemIndex: this.editedConfig.values.length,
         platform: '',
         segment: '',
         value: '',
