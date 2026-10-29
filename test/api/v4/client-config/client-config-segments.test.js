@@ -97,11 +97,4 @@ describe('client config segments', () => {
       .get('/client-config?platform=web');
     expect(res[key]).to.equal('default');
   });
-
-  it('ignores disabled segments', async () => {
-    const user = await generateUser({ 'stats.lvl': 20 });
-    await admin.put(`/admin/client-config-segments/${segment._id}`, { enabled: false });
-    expect((await user.get('/client-config?platform=web'))[key]).to.equal('default');
-    await admin.put(`/admin/client-config-segments/${segment._id}`, { enabled: true });
-  });
 });

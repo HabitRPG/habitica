@@ -8,7 +8,8 @@ import {
 describe('clientConfigTargeting', () => {
   const user = {
     _id: 'user-id',
-    auth: { timestamps: { created: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000) } },
+    auth: { local: { username: 'tester' } },
+    loginIncentives: 3,
     stats: { lvl: 15 },
     preferences: { language: 'de' },
     purchased: { plan: { customerId: 'customer' } },
@@ -41,7 +42,8 @@ describe('clientConfigTargeting', () => {
         _id: 'segment',
         conditions: [
           { attribute: 'level', operator: 'gte', value: 10 },
-          { attribute: 'accountAgeDays', operator: 'lt', value: 7 },
+          { attribute: 'loginIncentives', operator: 'lt', value: 7 },
+          { attribute: 'username', operator: 'contains', value: 'test' },
           { attribute: 'language', operator: 'in', value: ['de', 'fr'] },
           { attribute: 'subscriber', operator: 'eq', value: true },
           { attribute: 'inParty', operator: 'eq', value: false },
@@ -55,7 +57,7 @@ describe('clientConfigTargeting', () => {
         _id: 'segment',
         conditions: [
           { attribute: 'level', operator: 'gte', value: 10 },
-          { attribute: 'staff', operator: 'eq', value: true },
+          { attribute: 'inParty', operator: 'eq', value: true },
         ],
       });
       expect(test(user)).to.be.false;
