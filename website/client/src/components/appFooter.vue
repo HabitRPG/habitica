@@ -444,8 +444,8 @@
               >+ Boss Rage 😡</a>
               <a
                 class="btn btn-secondary"
-                @click="makeAdmin()"
-              >Make Admin</a>
+                @click="giveUserSupport()"
+              >Give User support permission</a>
               <div class="d-flex align-items-center mt-2">
                 <input
                   v-model.number="partyChatCount"
@@ -960,11 +960,8 @@ export default {
     async bossRage () {
       await axios.post('/api/v4/debug/boss-rage');
     },
-    async makeAdmin () {
-      await axios.post('/api/v4/debug/make-admin');
-      // @TODO: Notification.text('You are now an admin!
-      // Reload the website then go to Help > Admin Panel to set contributor level, etc.');
-      // @TODO: sync()
+    async giveUserSupport () {
+      await axios.post('/api/v4/debug/give-user-support');
     },
     async seedPartyChat () {
       try {
