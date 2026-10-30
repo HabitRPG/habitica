@@ -1,6 +1,8 @@
 import { v4 as generateUUID } from 'uuid';
+import nconf from 'nconf';
 import { model as User } from '../../../../../website/server/models/user';
 import {
+  createAndPopulateGroup,
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
@@ -16,6 +18,17 @@ describe('PUT /heroes/:heroId', () => {
 
   before(async () => {
     user = await generateUser({ 'permissions.userSupport': true });
+  });
+
+  let nconfStub;
+
+  beforeEach(() => {
+    nconfStub = sandbox.stub(nconf, 'get').callThrough();
+    nconfStub.withArgs('ENABLE_ADMIN_PANEL').returns('true');
+  });
+
+  afterEach(() => {
+    nconfStub.restore();
   });
 
   it('requires the caller to be an admin', async () => {
@@ -406,5 +419,126 @@ describe('PUT /heroes/:heroId', () => {
     // test hero values
     await hero.sync();
     expect(hero.achievements.streak).to.equal(0);
+  });
+
+  it('clears subscription plan fields when sent empty values', async () => {
+    const hero = await generateUser({
+      'purchased.plan.dateCreated': new Date('2026-01-01'),
+      'purchased.plan.dateCurrentTypeCreated': new Date('2026-02-01'),
+      'purchased.plan.hourglassPromoReceived': new Date('2026-03-01'),
+      'purchased.plan.extraMonths': 3,
+    });
+    const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+      purchased: {
+        plan: {
+          dateCreated: '',
+          dateCurrentTypeCreated: '',
+          hourglassPromoReceived: '',
+          extraMonths: '',
+        },
+      },
+    });
+
+    expect(heroRes.purchased.plan.dateCreated).to.not.exist;
+    expect(heroRes.purchased.plan.dateCurrentTypeCreated).to.not.exist;
+    expect(heroRes.purchased.plan.hourglassPromoReceived).to.not.exist;
+    expect(heroRes.purchased.plan.extraMonths).to.equal(0);
+
+    await hero.sync();
+    expect(hero.purchased.plan.dateCreated).to.not.exist;
+    expect(hero.purchased.plan.dateCurrentTypeCreated).to.not.exist;
+    expect(hero.purchased.plan.hourglassPromoReceived).to.not.exist;
+    expect(hero.purchased.plan.extraMonths).to.equal(0);
+  });
+
+  it('keeps subscription plan fields that are not sent', async () => {
+    const hourglassPromoReceived = new Date('2026-03-01');
+    const hero = await generateUser({
+      'purchased.plan.hourglassPromoReceived': hourglassPromoReceived,
+      'purchased.plan.extraMonths': 3,
+    });
+    await user.put(`/hall/heroes/${hero._id}`, {
+      purchased: { plan: { customerId: 'customer' } },
+    });
+
+    await hero.sync();
+    expect(new Date(hero.purchased.plan.hourglassPromoReceived))
+      .to.eql(hourglassPromoReceived);
+    expect(hero.purchased.plan.extraMonths).to.equal(3);
+  });
+
+  it('makes a user the leader of their party', async () => {
+    const { group, groupLeader, members } = await createAndPopulateGroup({
+      groupDetails: { type: 'party', privacy: 'private' },
+      members: 1,
+    });
+    const member = members[0];
+
+    await user.put(`/hall/heroes/${member._id}`, { makePartyLeader: true });
+
+    await group.sync();
+    expect(group.leader).to.equal(member._id);
+    expect(group.leader).to.not.equal(groupLeader._id);
+  });
+
+  it('does not make a user without a party a party leader', async () => {
+    const hero = await generateUser();
+
+    await expect(user.put(`/hall/heroes/${hero._id}`, { makePartyLeader: true }))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('partyNotFound'),
+      });
+  });
+
+  context('admin panel disabled', () => {
+    beforeEach(() => {
+      nconfStub.withArgs('ENABLE_ADMIN_PANEL').returns('false');
+    });
+
+    it('allows banning, shadow muting and revoking chat', async () => {
+      const hero = await generateUser();
+      const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+        auth: { blocked: true },
+        flags: { chatRevoked: true, chatShadowMuted: true },
+      });
+
+      expect(heroRes).to.have.all.keys(['_id', 'auth', 'flags']);
+      expect(heroRes.auth).to.have.all.keys(['blocked']);
+      expect(heroRes.auth.blocked).to.equal(true);
+      expect(heroRes.flags.chatRevoked).to.equal(true);
+      expect(heroRes.flags.chatShadowMuted).to.equal(true);
+
+      await hero.sync();
+      expect(hero.auth.blocked).to.equal(true);
+      expect(hero.preferences.sleep).to.equal(true);
+      expect(hero.flags.chatRevoked).to.equal(true);
+      expect(hero.flags.chatShadowMuted).to.equal(true);
+    });
+
+    it('ignores all other changes', async () => {
+      const hero = await generateUser();
+      await user.put(`/hall/heroes/${hero._id}`, {
+        balance: 3,
+        contributor: { level: 1 },
+        permissions: { fullAccess: true },
+        purchased: { ads: true, plan: { extraMonths: 5 } },
+        auth: { local: { email: 'changed@example.com' } },
+        profile: { name: 'changed' },
+        itemPath: 'items.pets.Wolf-Skeleton',
+        itemVal: 5,
+      });
+
+      await hero.sync();
+      expect(hero.balance).to.equal(0);
+      expect(hero.contributor.level).to.not.exist;
+      expect(hero.permissions.fullAccess).to.not.equal(true);
+      expect(hero.purchased.ads).to.equal(false);
+      expect(hero.purchased.plan.extraMonths).to.equal(0);
+      expect(hero.auth.local.email).to.not.equal('changed@example.com');
+      expect(hero.profile.name).to.not.equal('changed');
+      expect(hero.items.pets['Wolf-Skeleton']).to.not.exist;
+    });
   });
 });

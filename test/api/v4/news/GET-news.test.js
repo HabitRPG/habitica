@@ -1,3 +1,4 @@
+import nconf from 'nconf';
 import {
   requester, generateUser,
 } from '../../../helpers/api-integration/v4';
@@ -18,6 +19,8 @@ describe('GET /news', () => {
       'permissions.news': true,
     });
 
+    const nconfStub = sandbox.stub(nconf, 'get').callThrough();
+    nconfStub.withArgs('ENABLE_ADMIN_PANEL').returns('true');
     await Promise.all([
       user.post('/news', newsPost),
       user.post('/news', newsPost),
@@ -32,6 +35,7 @@ describe('GET /news', () => {
       user.post('/news', newsPost),
       user.post('/news', newsPost),
     ]);
+    nconfStub.restore();
   });
 
   it('returns the latest news in json format, does not require authentication, 10 per page', async () => {

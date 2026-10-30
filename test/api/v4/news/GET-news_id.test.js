@@ -1,4 +1,5 @@
 import { v4 } from 'uuid';
+import nconf from 'nconf';
 import {
   generateUser,
   translate as t,
@@ -17,6 +18,17 @@ describe('GET /news/:newsID', () => {
     user = await generateUser({
       'permissions.news': true,
     });
+  });
+
+  let nconfStub;
+
+  beforeEach(() => {
+    nconfStub = sandbox.stub(nconf, 'get').callThrough();
+    nconfStub.withArgs('ENABLE_ADMIN_PANEL').returns('true');
+  });
+
+  afterEach(() => {
+    nconfStub.restore();
   });
 
   it('returns an error if the post does not exist', async () => {
