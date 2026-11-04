@@ -8,23 +8,26 @@
       <h1 v-once>
         {{ $t('newStuff') }}
       </h1>
-      <div class="ml-auto" v-if="hasPermission(user, 'news')">
-      <label class="mr-3">
-        <input
-          type="checkbox"
-          :checked="showDrafts"
-          @change="toggleShowDrafts"
-        />
-        {{ $t('showDrafts') }}
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          :checked="showScheduled"
-          @change="toggleShowScheduled"
-        />
-        {{ $t('showScheduled') }}
-      </label>
+      <div
+        v-if="hasPermission(user, 'news')"
+        class="ml-auto"
+      >
+        <label class="mr-3">
+          <input
+            type="checkbox"
+            :checked="showDrafts"
+            @change="toggleShowDrafts"
+          ></input>
+          {{ $t('showDrafts') }}
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            :checked="showScheduled"
+            @change="toggleShowScheduled"
+          ></input>
+          {{ $t('showScheduled') }}
+        </label>
       </div>
     </div>
     <news-post
@@ -85,7 +88,8 @@ export default {
       // If the user is authorized, show any draft
       if (this.user && (this.hasPermission(this.user, 'news'))) {
         this.posts = postsFromServer
-            .filter(p => (this.showDrafts || p.published) && (this.showScheduled || (moment().isAfter(p.publishDate))));
+          .filter(p => (this.showDrafts || p.published)
+            && (this.showScheduled || (moment().isAfter(p.publishDate))));
       } else {
         // Show the last published post + any draft for the authorized users
         this.posts = [];
