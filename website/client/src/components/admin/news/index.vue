@@ -39,7 +39,7 @@
             </td>
             <td>
               <span
-                class="badge"
+                class="badge badge-pill"
                 :class="getStatus(post).badgeClass"
               >{{ getStatus(post).label }}</span>
             </td>
@@ -97,7 +97,7 @@ import moment from 'moment';
 import { mapState } from '@/libs/store';
 
 // Matches POSTS_PER_PAGE on the server
-const POSTS_PER_PAGE = 10;
+const POSTS_PER_PAGE = 30;
 
 export default {
   data () {
@@ -133,7 +133,7 @@ export default {
       this.$router.push({ name: 'newsPostEdit', params: { postId } });
     },
     getStatus (post) {
-      if (!post.published) return { label: 'Draft', badgeClass: 'badge-secondary' };
+      if (!post.published) return { label: 'Draft', badgeClass: 'badge-secondary text-white' };
       if (moment().isBefore(post.publishDate)) return { label: 'Scheduled', badgeClass: 'badge-warning' };
       return { label: 'Published', badgeClass: 'badge-success text-white' };
     },
