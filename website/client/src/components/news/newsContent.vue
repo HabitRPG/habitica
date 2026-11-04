@@ -17,7 +17,7 @@
             type="checkbox"
             :checked="showDrafts"
             @change="toggleShowDrafts"
-          ></input>
+          >
           {{ $t('showDrafts') }}
         </label>
         <label>
@@ -25,7 +25,7 @@
             type="checkbox"
             :checked="showScheduled"
             @change="toggleShowScheduled"
-          ></input>
+          >
           {{ $t('showScheduled') }}
         </label>
       </div>
