@@ -8,6 +8,24 @@
       <h1 v-once>
         {{ $t('newStuff') }}
       </h1>
+      <div class="ml-auto" v-if="hasPermission(user, 'news')">
+      <label class="mr-3">
+        <input
+          type="checkbox"
+          :checked="showDrafts"
+          @change="toggleShowDrafts"
+        />
+        {{ $t('showDrafts') }}
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          :checked="showScheduled"
+          @change="toggleShowScheduled"
+        />
+        {{ $t('showScheduled') }}
+      </label>
+      </div>
     </div>
     <news-post
       v-for="(post, index) in posts"
@@ -51,6 +69,8 @@ export default {
   data () {
     return {
       posts: [],
+      showDrafts: false,
+      showScheduled: false,
     };
   },
   computed: {
@@ -62,21 +82,27 @@ export default {
     async getPosts () {
       const postsFromServer = await this.$store.dispatch('news:fetch');
 
-      // Show the last published post + any draft for the authorized users
-      this.posts = [];
-
-      const lastPublishedPost = postsFromServer
-        .find(p => p.published && moment().isAfter(p.publishDate));
-
-      if (lastPublishedPost) this.posts.push(lastPublishedPost);
-
       // If the user is authorized, show any draft
       if (this.user && (this.hasPermission(this.user, 'news'))) {
-        this.posts.unshift(
-          ...postsFromServer
-            .filter(p => !p.published || moment().isBefore(p.publishDate)),
-        );
+        this.posts = postsFromServer
+            .filter(p => (this.showDrafts || p.published) && (this.showScheduled || (moment().isAfter(p.publishDate))));
+      } else {
+        // Show the last published post + any draft for the authorized users
+        this.posts = [];
+
+        const lastPublishedPost = postsFromServer
+          .find(p => p.published && moment().isAfter(p.publishDate));
+
+        if (lastPublishedPost) this.posts.push(lastPublishedPost);
       }
+    },
+    toggleShowDrafts () {
+      this.showDrafts = !this.showDrafts;
+      this.getPosts();
+    },
+    toggleShowScheduled () {
+      this.showScheduled = !this.showScheduled;
+      this.getPosts();
     },
   },
 };
