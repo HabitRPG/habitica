@@ -2857,8 +2857,8 @@ const shield = {
   },
   winter2027Rogue: {
     set: 'winter2027JingleBellRogueSet',
-    text: t('shieldSpecialSpring2026RogueText'),
-    notes: t('shieldSpecialSpring2026RogueNotes', { str: 8 }),
+    text: t('shieldSpecialWinter2027RogueText'),
+    notes: t('shieldSpecialWinter2027RogueNotes', { str: 8 }),
   },
   winter2027Healer: {
     set: 'winter2027HollyBerryHealerSet',
