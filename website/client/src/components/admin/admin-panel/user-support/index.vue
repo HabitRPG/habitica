@@ -92,6 +92,10 @@
           :reset-counter="resetCounter"
         />
 
+        <user-data-export
+          :user-id="hero._id"
+        />
+
         <contributor-details
           :hero="hero"
           :has-unsaved-changes="hasUnsavedChanges(
@@ -196,6 +200,7 @@ import AvatarAndDrops from './avatarAndDrops';
 import PrivilegesAndGems from './privilegesAndGems';
 import ContributorDetails from './contributorDetails';
 import Transactions from './transactions';
+import UserDataExport from './userDataExport';
 import SubscriptionAndPerks from './subscriptionAndPerks';
 import CustomizationsOwned from './customizationsOwned.vue';
 import Achievements from './achievements.vue';
@@ -218,6 +223,7 @@ export default {
     UserHistory,
     Stats,
     SubscriptionAndPerks,
+    UserDataExport,
     UserProfile,
     Achievements,
   },

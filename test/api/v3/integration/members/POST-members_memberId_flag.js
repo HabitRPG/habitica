@@ -59,6 +59,8 @@ describe('POST /members/:memberId/flag', () => {
     beforeEach(async () => {
       admin = await generateUser({ 'permissions.userSupport': true });
       sandbox.stub(IncomingWebhook.prototype, 'send').returns(Promise.resolve());
+      sandbox.stub(nconf, 'get').callThrough()
+        .withArgs('ENABLE_ADMIN_PANEL').returns('true');
     });
 
     afterEach(() => {
