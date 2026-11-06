@@ -245,12 +245,13 @@ export default {
     ...mapState({ user: 'user.data' }),
     statPointsIncorrect () {
       if (this.hero.stats.lvl >= 10) {
-        return (parseInt(this.hero.stats.points, 10)
+        const sum = (parseInt(this.hero.stats.points, 10)
           + parseInt(this.hero.stats.str, 10)
           + parseInt(this.hero.stats.int, 10)
           + parseInt(this.hero.stats.per, 10)
           + parseInt(this.hero.stats.con, 10)
-        ) !== this.hero.stats.lvl;
+        );
+        return sum !== this.hero.stats.lvl && sum !== this.maxStatPoints;
       }
       return false;
     },
