@@ -82,8 +82,8 @@
   },
   "private": true,
   "engines": {
-    "node": "20",
-    "npm": "^10"
+    "node": "26",
+    "npm": "^12"
   },
   "scripts": {
     "lint": "eslint --ext .js --fix . && cd website/client && npm run lint",
@@ -128,5 +128,18 @@
     "require-again": "^2.0.0",
     "sinon-chai": "^3.7.0",
     "sinon-stub-promise": "^4.0.0"
+  },
+  "allowScripts": {
+    "bcrypt@5.1.1": true,
+    "core-js@2.6.12": true,
+    "es5-ext@0.10.62": true,
+    "farmhash@3.3.1": true,
+    "gifsicle@5.3.0": true,
+    "protobufjs@7.2.6": true,
+    "protobufjs@7.3.0": true,
+    "heapdump@0.3.15": true,
+    "mozjpeg@6.0.1": true,
+    "msgpackr-extract@3.0.3": true,
+    "optipng-bin@6.0.0": true
   }
 }

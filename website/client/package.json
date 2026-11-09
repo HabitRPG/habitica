@@ -59,5 +59,10 @@
     "mocha": "^11.1.0",
     "playwright": "^1.50.1",
     "vitest": "^3.0.5"
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.5.1": true,
+    "bootstrap-vue@2.23.1": true,
+    "esbuild@0.25.12": true
   }
 }
