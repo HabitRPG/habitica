@@ -83,7 +83,7 @@
   "private": true,
   "engines": {
     "node": "26",
-    "npm": "^12"
+    "npm": "^11"
   },
   "scripts": {
     "lint": "eslint --ext .js --fix . && cd website/client && npm run lint",
@@ -137,7 +137,6 @@
     "gifsicle@5.3.0": true,
     "protobufjs@7.2.6": true,
     "protobufjs@7.3.0": true,
-    "heapdump@0.3.15": true,
     "mozjpeg@6.0.1": true,
     "msgpackr-extract@3.0.3": true,
     "optipng-bin@6.0.0": true
