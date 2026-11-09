@@ -7,6 +7,9 @@ export default defineConfig(configEnv => mergeConfig(
     test: {
       include: ['tests/**'],
       environment: 'jsdom',
+      env: {
+        NODE_OPTIONS: '--no-webstorage',
+      },
     },
     browser: {
       enabled: true,
