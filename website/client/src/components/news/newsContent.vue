@@ -85,18 +85,21 @@ export default {
     async getPosts () {
       const postsFromServer = await this.$store.dispatch('news:fetch');
 
-      // If the user is authorized, show any draft
+      const lastPublishedPost = postsFromServer
+        .find(p => p.published && moment().isAfter(p.publishDate));
+
+      this.posts = [];
       if (this.user && (this.hasPermission(this.user, 'news'))) {
-        this.posts = postsFromServer
-          .filter(p => (this.showDrafts || p.published)
-            && (this.showScheduled || (moment().isAfter(p.publishDate))));
+          for (const post of postsFromServer) {
+            if ((this.showDrafts || post.published)
+              && (this.showScheduled || (moment().isAfter(post.publishDate)))) {
+              this.posts.push(post);
+            }
+            if (post === lastPublishedPost) {
+              break;
+            }
+          }
       } else {
-        // Show the last published post + any draft for the authorized users
-        this.posts = [];
-
-        const lastPublishedPost = postsFromServer
-          .find(p => p.published && moment().isAfter(p.publishDate));
-
         if (lastPublishedPost) this.posts.push(lastPublishedPost);
       }
     },
