@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const cluster = require('cluster');
-const heapdump = require('heapdump');
+const { writeHeapSnapshot } = require('node:v8');
 
 const setupNconf = require('./libs/setupNconf').default;
 
@@ -19,8 +19,8 @@ setupNconf();
 require('./libs/gcpTraceAgent');
 
 process.on('SIGUSR2', () => {
-  const filename = `/tmp/heapdump-${Date.now()}.heapsnapshot`;
-  heapdump.writeSnapshot(filename);
+  const filePath = `/tmp/heap-${Date.now()}`;
+  const filename = writeHeapSnapshot(filePath);
   // eslint-disable-next-line no-console
   console.log('Heap snapshot written to', filename);
 });
