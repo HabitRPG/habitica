@@ -4,8 +4,8 @@ import {
   map,
   omit,
 } from 'lodash';
-import logger from '../libs/logger';
 import nconf from 'nconf';
+import logger from '../libs/logger';
 import {
   CustomError,
   BadRequest,
@@ -69,7 +69,7 @@ export default function errorHandler (err, req, res, next) { // eslint-disable-l
     responseErr = new InternalServerError();
   }
 
-  if (!err.skipLogging && (responseErr.httpCode !== 404 || LOG_ERROR_404)) { // 404s are noisy, disregard them
+  if (!err.skipLogging &&(responseErr.httpCode !== 404 || LOG_ERROR_404)) { // disregard noisy 404
     // log the error
     logger.error(err, {
       method: req.method,
