@@ -90,18 +90,16 @@ export default {
 
       this.posts = [];
       if (this.user && (this.hasPermission(this.user, 'news'))) {
-          for (const post of postsFromServer) {
-            if ((this.showDrafts || post.published)
+        for (const post of postsFromServer) {
+          if ((this.showDrafts || post.published)
               && (this.showScheduled || (moment().isAfter(post.publishDate)))) {
-              this.posts.push(post);
-            }
-            if (post === lastPublishedPost) {
-              break;
-            }
+            this.posts.push(post);
           }
-      } else {
-        if (lastPublishedPost) this.posts.push(lastPublishedPost);
-      }
+          if (post === lastPublishedPost) {
+            break;
+          }
+        }
+      } else if (lastPublishedPost) this.posts.push(lastPublishedPost);
     },
     toggleShowDrafts () {
       this.showDrafts = !this.showDrafts;
