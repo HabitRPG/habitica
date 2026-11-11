@@ -4,6 +4,7 @@ import {
   map,
   omit,
 } from 'lodash';
+import nconf from 'nconf';
 import logger from '../libs/logger';
 import {
   CustomError,
@@ -11,6 +12,8 @@ import {
   InternalServerError,
   RequestTimeout,
 } from '../libs/errors';
+
+const LOG_ERROR_404 = nconf.get('LOG_ERROR_404') === 'true';
 
 export default function errorHandler (err, req, res, next) { // eslint-disable-line no-unused-vars
   // In case of a CustomError class, use it's data
@@ -66,7 +69,7 @@ export default function errorHandler (err, req, res, next) { // eslint-disable-l
     responseErr = new InternalServerError();
   }
 
-  if (!err.skipLogging) {
+  if (!err.skipLogging && (responseErr.httpCode !== 404 || LOG_ERROR_404)) { // disregard noisy 404
     // log the error
     logger.error(err, {
       method: req.method,
