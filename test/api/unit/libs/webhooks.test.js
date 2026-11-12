@@ -14,7 +14,7 @@ import {
 import {
   generateUser,
   defer,
-  sleep,
+  waitFor,
 } from '../../../helpers/api-unit.helper';
 import logger from '../../../../website/server/libs/logger';
 
@@ -348,7 +348,8 @@ describe('webhooks', () => {
           json: body,
         });
 
-        await sleep(0.1);
+        // failures are only recorded when the request fails, so there is nothing else to wait for
+        await got.post.firstCall.returnValue;
         user = await User.findById(user._id).exec();
 
         expect(user.webhooks[0].failures).to.equal(0);
@@ -365,10 +366,10 @@ describe('webhooks', () => {
           json: body,
         });
 
-        await sleep(0.1);
-        user = await User.findById(user._id).exec();
-
-        expect(user.webhooks[0].failures).to.equal(1);
+        await waitFor(async () => {
+          user = await User.findById(user._id).exec();
+          expect(user.webhooks[0].failures).to.equal(1);
+        });
         expect((Date.now() - user.webhooks[0].lastFailureAt.getTime()) < 10000).to.be.true;
 
         expect(logger.error).to.be.calledOnce;
@@ -377,17 +378,21 @@ describe('webhooks', () => {
 
       it('disables a webhook after 10 failures', async () => {
         const times = 10;
-        for (let i = 0; i < times; i += 1) {
+        for (let i = 1; i <= times; i += 1) {
           sendWebhook.send(user, {});
-          await sleep(0.1); // eslint-disable-line no-await-in-loop
-          user = await User.findById(user._id).exec(); // eslint-disable-line no-await-in-loop
+          // wait for each failure to be recorded before sending the next request
+          await waitFor(async () => { // eslint-disable-line no-await-in-loop, no-loop-func
+            user = await User.findById(user._id).exec();
+            if (i < times) {
+              expect(user.webhooks[0].failures).to.equal(i);
+            } else {
+              expect(user.webhooks[0].enabled).to.equal(false);
+            }
+          });
         }
 
         expect(got.post).to.be.callCount(10);
         expect(got.post).to.be.calledWithMatch('http://custom-url.com');
-
-        await sleep(0.1);
-        user = await User.findById(user._id).exec();
 
         expect(user.webhooks[0].enabled).to.equal(false);
         expect(user.webhooks[0].failures).to.equal(0);
@@ -405,10 +410,10 @@ describe('webhooks', () => {
         expect(got.post).to.be.calledOnce;
         expect(got.post).to.be.calledWithMatch('http://custom-url.com');
 
-        await sleep(0.1);
-        user = await User.findById(user._id).exec();
-
-        expect(user.webhooks[0].failures).to.equal(1);
+        await waitFor(async () => {
+          user = await User.findById(user._id).exec();
+          expect(user.webhooks[0].failures).to.equal(1);
+        });
         // Check that the stored date is whitin 10s from now
         expect((Date.now() - user.webhooks[0].lastFailureAt.getTime()) < 10000).to.be.true;
       });

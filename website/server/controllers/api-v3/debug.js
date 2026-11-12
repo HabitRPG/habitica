@@ -255,6 +255,12 @@ function fakeClock () {
   clock = sinon.useFakeTimers({
     now: time,
     shouldAdvanceTime: true,
+    // sinon fakes nextTick and queueMicrotask by default,
+    // which would stop the server from processing anything
+    toFake: [
+      'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval',
+      'setImmediate', 'clearImmediate', 'Date', 'hrtime', 'performance',
+    ],
   });
 }
 

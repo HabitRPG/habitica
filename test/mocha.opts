@@ -1,7 +1,0 @@
---colors
---reporter spec
---timeout 8000
---check-leaks
---require @babel/register
---require ./test/helpers/globals.helper
---exit

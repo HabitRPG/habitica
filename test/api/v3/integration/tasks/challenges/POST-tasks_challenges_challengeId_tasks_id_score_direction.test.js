@@ -3,7 +3,7 @@ import {
   generateUser,
   generateGroup,
   generateChallenge,
-  sleep,
+  waitFor,
 } from '../../../../../helpers/api-integration/v3';
 
 describe('POST /tasks/:id/score/:direction', () => {
@@ -18,6 +18,17 @@ describe('POST /tasks/:id/score/:direction', () => {
     await user.post(`/challenges/${challenge._id}/join`);
   });
 
+  // Challenge tasks are copied to the members in the background,
+  // waits for the user's copy and returns it
+  function waitForUserCopy (challengeTask) {
+    return waitFor(async () => {
+      const userTasks = await user.get('/tasks/user');
+      const userTask = find(userTasks, task => task.challenge.taskId === challengeTask._id);
+      expect(userTask).to.exist;
+      return userTask;
+    });
+  }
+
   context('habits', () => {
     let habit;
     let usersChallengeTaskId;
@@ -28,9 +39,7 @@ describe('POST /tasks/:id/score/:direction', () => {
         text: 'test habit',
         type: 'habit',
       });
-      await sleep(1);
-      const updatedUser = await user.get('/user');
-      usersChallengeTaskId = updatedUser.tasksOrder.habits[0]; // eslint-disable-line prefer-destructuring, max-len
+      usersChallengeTaskId = (await waitForUserCopy(habit))._id;
     });
 
     it('scores and adds history', async () => {
@@ -66,9 +75,7 @@ describe('POST /tasks/:id/score/:direction', () => {
         text: 'test daily',
         type: 'daily',
       });
-      await sleep(1);
-      const updatedUser = await user.get('/user');
-      usersChallengeTaskId = updatedUser.tasksOrder.dailys[0]; // eslint-disable-line prefer-destructuring, max-len
+      usersChallengeTaskId = (await waitForUserCopy(daily))._id;
     });
 
     it('it scores and adds history', async () => {
@@ -110,9 +117,7 @@ describe('POST /tasks/:id/score/:direction', () => {
         text: 'test todo',
         type: 'todo',
       });
-      await sleep(1);
-      const updatedUser = await user.get('/user');
-      usersChallengeTaskId = updatedUser.tasksOrder.todos[0]; // eslint-disable-line prefer-destructuring, max-len
+      usersChallengeTaskId = (await waitForUserCopy(todo))._id;
     });
 
     it('scores but does not add history', async () => {
@@ -135,7 +140,7 @@ describe('POST /tasks/:id/score/:direction', () => {
         text: 'test reward',
         type: 'reward',
       });
-      await sleep(1);
+      await waitForUserCopy(reward);
       const updatedUser = await user.get('/user');
       usersChallengeTaskId = updatedUser.tasksOrder.todos[0]; // eslint-disable-line prefer-destructuring, max-len
     });

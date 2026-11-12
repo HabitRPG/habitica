@@ -75,7 +75,7 @@ describe('POST /user/buy/:key', () => {
   });
 
   it('buys a special spell', async () => {
-    clock = sinon.useFakeTimers(new Date('2024-10-31T00:00:00Z'));
+    clock = sinon.useFakeTimers({ now: new Date('2024-10-31T00:00:00Z'), toFake: ['Date'] });
     const key = 'spookySparkles';
     const item = content.special[key];
 

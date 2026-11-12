@@ -3,7 +3,6 @@ import {
   generateUser,
   translate as t,
   server,
-  sleep,
 } from '../../../../helpers/api-integration/v3';
 
 describe('POST /user/hatch/:egg/:hatchingPotion', () => {
@@ -60,7 +59,7 @@ describe('POST /user/hatch/:egg/:hatchingPotion', () => {
       });
       const res = await user.post('/user/hatch/Wolf/Base');
 
-      await sleep();
+      await server.waitForWebhookData(uuid);
 
       const body = server.getWebhookData(uuid);
 

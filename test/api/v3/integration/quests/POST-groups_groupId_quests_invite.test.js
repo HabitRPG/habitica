@@ -3,7 +3,6 @@ import {
   createAndPopulateGroup,
   translate as t,
   server,
-  sleep,
 } from '../../../../helpers/api-integration/v3';
 import { quests as questScrolls } from '../../../../../website/common/script/content/quests';
 import { chatModel as Chat } from '../../../../../website/server/models/message';
@@ -127,8 +126,6 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
     it('adds quest details to user objects', async () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
 
-      await sleep(0.1); // member updates happen in the background
-
       await Promise.all([
         leader.sync(),
         member.sync(),
@@ -230,7 +227,7 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
 
         await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
 
-        await sleep();
+        await server.waitForWebhookData(uuid);
 
         const body = server.getWebhookData(uuid);
 
@@ -254,7 +251,7 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
 
         await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
 
-        await sleep();
+        await server.waitForWebhookData(uuid);
 
         const body = server.getWebhookData(uuid);
 

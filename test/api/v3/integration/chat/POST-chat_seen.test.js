@@ -1,6 +1,6 @@
 import {
   createAndPopulateGroup,
-  sleep,
+  waitFor,
 } from '../../../../helpers/api-integration/v3';
 
 describe('POST /groups/:id/chat/seen', () => {
@@ -28,15 +28,17 @@ describe('POST /groups/:id/chat/seen', () => {
 
       guildMessage = await guildLeader.post(`/groups/${guild._id}/chat`, { message: 'Some guild message' });
       guildMessage = guildMessage.message;
+
+      // the new message notification is added in the background
+      await waitFor(async () => {
+        await guildMember.sync();
+        expect(guildMember.newMessages[guild._id]).to.exist;
+      });
     });
 
     it('clears new messages for a guild', async () => {
-      await sleep(1);
-      await guildMember.sync();
       const initialNotifications = guildMember.notifications.length;
       await guildMember.post(`/groups/${guild._id}/chat/seen`);
-
-      await sleep(1);
 
       const guildThatHasSeenChat = await guildMember.get('/user');
 
@@ -67,15 +69,17 @@ describe('POST /groups/:id/chat/seen', () => {
 
       partyMessage = await partyLeader.post(`/groups/${party._id}/chat`, { message: 'Some party message' });
       partyMessage = partyMessage.message;
+
+      // the new message notification is added in the background
+      await waitFor(async () => {
+        await partyMember.sync();
+        expect(partyMember.newMessages[party._id]).to.exist;
+      });
     });
 
     it('clears new messages for a party', async () => {
-      await sleep(1);
-      await partyMember.sync();
       const initialNotifications = partyMember.notifications.length;
       await partyMember.post(`/groups/${party._id}/chat/seen`);
-
-      await sleep(1);
 
       const partyMemberThatHasSeenChat = await partyMember.get('/user');
 

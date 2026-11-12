@@ -3,6 +3,7 @@ import {
   generateGroup,
   generateChallenge,
   translate as t,
+  waitFor,
 } from '../../../../helpers/api-integration/v3';
 
 describe('POST /tasks/unlink-all/:challengeId', () => {
@@ -59,7 +60,12 @@ describe('POST /tasks/unlink-all/:challengeId', () => {
   });
 
   it('fails on an unbroken challenge', async () => {
-    await user.post(`/tasks/challenge/${challenge._id}`, tasksToTest.daily);
+    const daily = await user.post(`/tasks/challenge/${challenge._id}`, tasksToTest.daily);
+    // the task is copied to the user in the background
+    await waitFor(async () => {
+      const userTasks = await user.get('/tasks/user');
+      expect(userTasks.some(task => task.challenge.taskId === daily._id)).to.be.true;
+    });
     await expect(user.post(`/tasks/unlink-all/${challenge._id}?keep=remove-all`))
       .to.eventually.be.rejected.and.eql({
         code: 400,

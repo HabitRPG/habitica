@@ -3,7 +3,7 @@ import {
   generateUser,
   generateChallenge,
   createAndPopulateGroup,
-  sleep,
+  waitFor,
   checkExistence,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
@@ -63,8 +63,6 @@ describe('DELETE /challenges/:challengeId', () => {
     it('deletes challenge', async () => {
       await groupLeader.del(`/challenges/${challenge._id}`);
 
-      await sleep(0.5);
-
       await expect(checkExistence('challenges', challenge._id)).to.eventually.equal(false);
     });
 
@@ -73,21 +71,19 @@ describe('DELETE /challenges/:challengeId', () => {
 
       await groupLeader.del(`/challenges/${challenge._id}`);
 
-      await sleep(0.5);
-
       await expect(groupLeader.sync()).to.eventually.have.property('balance', oldBalance + challenge.prize / 4);
     });
 
     it('sets broken and doesn\'t set winner flags for user\'s challenge tasks', async () => {
       await groupLeader.del(`/challenges/${challenge._id}`);
 
-      await sleep(0.5);
+      await waitFor(async () => {
+        const tasks = await groupLeader.get('/tasks/user');
+        const testTask = _.find(tasks, task => task.text === taskText);
 
-      const tasks = await groupLeader.get('/tasks/user');
-      const testTask = _.find(tasks, task => task.text === taskText);
-
-      expect(testTask.challenge.broken).to.eql('CHALLENGE_DELETED');
-      expect(testTask.challenge.winner).to.be.undefined;
+        expect(testTask.challenge.broken).to.eql('CHALLENGE_DELETED');
+        expect(testTask.challenge.winner).to.be.undefined;
+      });
     });
   });
 });
