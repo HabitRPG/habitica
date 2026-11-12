@@ -710,6 +710,15 @@ const backgrounds = {
   backgrounds112026: {
     path_in_late_autumn: { },
   },
+  backgrounds122026: {
+    snowy_meadow: { },
+  },
+  backgrounds012027: {
+    pastel_clouds_and_stars: { },
+  },
+  backgrounds022027: {
+    nighttime_cherry_blossoms: { },
+  },
   eventBackgrounds: {
     birthday_bash: {
       price: 0,

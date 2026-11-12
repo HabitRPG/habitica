@@ -67,6 +67,11 @@ const SEASONAL_SETS = {
     'winter2026SkiRogueSet',
     'winter2026PolarBearHealerSet',
     'winter2026MidwinterCandleMageSet',
+
+    'winter2027MintyStripeMageSet',
+    'winter2027WinterSolsticeWarriorSet',
+    'winter2027JingleBellRogueSet',
+    'winter2027HollyBerryHealerSet',
   ],
   spring: [
     // spring 2014

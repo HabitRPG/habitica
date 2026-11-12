@@ -875,6 +875,18 @@ const armor = {
   fall2026Mage: {
     set: 'fall2026PoisonMushroomMageSet',
   },
+  winter2027Warrior: {
+    set: 'winter2027WinterSolsticeWarriorSet',
+  },
+  winter2027Rogue: {
+    set: 'winter2027JingleBellRogueSet',
+  },
+  winter2027Healer: {
+    set: 'winter2027HollyBerryHealerSet',
+  },
+  winter2027Mage: {
+    set: 'winter2027MintyStripeMageSet',
+  },
 };
 
 const armorStats = {
@@ -2060,6 +2072,18 @@ const head = {
   fall2026Mage: {
     set: 'fall2026PoisonMushroomMageSet',
   },
+  winter2027Warrior: {
+    set: 'winter2027WinterSolsticeWarriorSet',
+  },
+  winter2027Rogue: {
+    set: 'winter2027JingleBellRogueSet',
+  },
+  winter2027Healer: {
+    set: 'winter2027HollyBerryHealerSet',
+  },
+  winter2027Mage: {
+    set: 'winter2027MintyStripeMageSet',
+  },
 };
 
 const headStats = {
@@ -2827,6 +2851,17 @@ const shield = {
   },
   fall2026Healer: {
     set: 'fall2026MysticCandleHealerSet',
+  },
+  winter2027Warrior: {
+    set: 'winter2027WinterSolsticeWarriorSet',
+  },
+  winter2027Rogue: {
+    set: 'winter2027JingleBellRogueSet',
+    text: t('shieldSpecialWinter2027RogueText'),
+    notes: t('shieldSpecialWinter2027RogueNotes', { str: 8 }),
+  },
+  winter2027Healer: {
+    set: 'winter2027HollyBerryHealerSet',
   },
 };
 
@@ -3602,6 +3637,18 @@ const weapon = {
   },
   fall2026Mage: {
     set: 'fall2026PoisonMushroomMageSet',
+  },
+  winter2027Warrior: {
+    set: 'winter2027WinterSolsticeWarriorSet',
+  },
+  winter2027Rogue: {
+    set: 'winter2027JingleBellRogueSet',
+  },
+  winter2027Healer: {
+    set: 'winter2027HollyBerryHealerSet',
+  },
+  winter2027Mage: {
+    set: 'winter2027MintyStripeMageSet',
   },
 };
 
