@@ -326,7 +326,6 @@ api.subscribe = async function subscribe (
   if (
     existingUser
     && existingUser._id !== user._id
-    && !existingUser.purchased.plan.dateTerminated
   ) {
     throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
   }
