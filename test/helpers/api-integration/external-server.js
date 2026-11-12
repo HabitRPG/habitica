@@ -1,6 +1,5 @@
 import express from 'express';
 import { v4 as uuid } from 'uuid';
-import bodyParser from 'body-parser';
 import http from 'http';
 
 const app = express();
@@ -10,11 +9,11 @@ const PORT = process.env.TEST_WEBHOOK_APP_PORT || 3099; // eslint-disable-line n
 
 const webhookData = {};
 
-app.use(bodyParser.urlencoded({
+app.use(express.urlencoded({
   extended: true,
   limit: '10mb',
 }));
-app.use(bodyParser.json({ limit: '10mb' }));
+app.use(express.json({ limit: '10mb' }));
 
 app.post('/webhooks/:id', (req, res) => {
   const { id } = req.params;
