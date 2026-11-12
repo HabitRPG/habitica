@@ -1,1 +1,11 @@
-{}
+{
+    "achievement": "成就",
+    "yourRewards": "你嘅奬勵",
+    "onboardingProgress": "<%= percentage %>%進度",
+    "yourProgress": "你嘅進度",
+    "foundNewItems": "你揾到新嘅物品！",
+    "reachedLevel": "你已經達到 Level <%= level %>",
+    "onboardingCompleteDescSmall": "如果你覺得唔夠喉，可以去望吓成就表，然後開始收集啦！",
+    "showAllAchievements": "顯示全部 <%= category %>",
+    "hideAchievements": "隱藏 <%= category %>"
+}

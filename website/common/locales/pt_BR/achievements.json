@@ -165,5 +165,20 @@
     "achievementRoughRiderModalText": "Você coletou todas as cores padrão dos Mascotes e Montarias desconfortáveis!",
     "achievementCats": "Saco de Gatos",
     "achievementCatsText": "Coletou todos os Mascotes de cores padrão que são felinos: Chita, Leão, Tigre e Tigre-Dente-de-Sabre!",
-    "achievementCatsModalText": "Você coletou todos os Mascotes Felinos!"
+    "achievementCatsModalText": "Você coletou todos os Mascotes Felinos!",
+    "achievementCreatedTaskNotifText": "Continue assim! Se você precisar de ajuda planejando tarefas, tente pensar sobre o que você gostaria de fazer durante um momento específico do dia.",
+    "achievementCompletedTaskNotifText": "Uma tarefa pode ser um Hábito, tarefa Diária ou tarefa A Fazer. Continue as completando para receber todo tipo de recompensa!",
+    "achievementHatchedPetNotifText": "Há vários Pets para coletar, você certamente terá um favorito. Se você alimentá-los, eles podem até crescer…",
+    "achievementFedPetNotifText": "Cada Pet tem um alimento específico que adora! Experimente para descobrir qual fará seu Pet crescer mais rápido.",
+    "achievementPurchasedEquipmentNotifText": "Os equipamentos podem ser práticos ou apenas estilosos. Melhore seus atributos para obter diversos benefícios para o seu avatar!",
+    "achievementQuestCount0": "Conquistador de Missões",
+    "achievementQuestCount1": "Conquistador de Missões de Ferro",
+    "achievementQuestCount5": "Conquistador de Missões de Bronze",
+    "achievementQuestCount10": "Conquistador de Missões de Prata",
+    "achievementQuestCount25": "Conquistador de Missões de Ouro",
+    "achievementQuestCount50": "Conquistador de Missões de Platina",
+    "achievementQuestCount100": "Conquistador de Missões Supremo",
+    "achievementQuestCountSingleText": "Concluída 1 Missão. Progresso para a próxima conquista: <%= progress %>/<%= target %> Missões concluídas",
+    "achievementQuestCountMultipleText": "Concluída <%= count %> Missões. Progresso para a próxima conquista: <%= progress %>/<%= target %> Missões concluídas",
+    "achievementQuestCountMaximumText": "Este jogador concluiu <&= count %> Missões para se tornar o Conquistador de Missões Supremo, incrível demais!"
 }

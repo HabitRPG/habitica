@@ -53,6 +53,6 @@
     "challengeTasksNoCast": "Upotreba vještina na zadatke izazova nije dozvoljeno.",
     "groupTasksNoCast": "Upotreba vještina na grupne zadatke nije dozvoljeno.",
     "spellNotOwned": "Ne posjedujete ovu vještinu.",
-    "spellLevelTooHigh": "Morate biti razina <%= level %> da bi koristili ovu vještinu.",
+    "spellLevelTooHigh": "Moraš biti razina <%= level %> da bi koristio/la ovu vještinu.",
     "spellAlreadyCast": "Korištenje ove vještine neće imati nikakav dodatni učinak."
 }

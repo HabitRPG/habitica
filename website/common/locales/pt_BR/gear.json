@@ -3563,5 +3563,13 @@
     "weaponSpecialFall2026WarriorText": "Lanterna da Abóbora Fantasma",
     "weaponSpecialFall2026WarriorNotes": "Não vá a lugar nenhum sem uma luz, especialmente quando você pode ter uma que também funciona como uma foice que corta tarefas. Aumenta Força em <%= str %>. Equipamento Edição Limitada Outono 2026.",
     "weaponSpecialFall2026RogueText": "Cajado Corvo Esquelético",
-    "weaponSpecialFall2026RogueNotes": "Não vá a lugar nenhum sem um cajado, especialmente um com um amigo emplumado empoleirado em cima. Aumenta Força em <%= str %>. Equipamento Edição Limitada Outono 2026."
+    "weaponSpecialFall2026RogueNotes": "Não vá a lugar nenhum sem um cajado, especialmente um com um amigo emplumado empoleirado em cima. Aumenta Força em <%= str %>. Equipamento Edição Limitada Outono 2026.",
+    "classLockedItemShort": "Este item está disponível apenas para uma classe específica",
+    "weaponSpecialFall2026HealerText": "Pavio de Vela Místico",
+    "weaponSpecialFall2026HealerNotes": "Não vá a lugar nenhum sem uma chama, especialmente quando a magia pode mantê-la acesa para sempre. Aumenta a Inteligência em <%= int %>. Equipamento de Edição Limitada – Outono de 2026.",
+    "weaponSpecialFall2026MageText": "Cajado de Cogumelo Venenoso",
+    "weaponSpecialFall2026MageNotes": "Não vá a lugar nenhum sem a magia dos cogumelos, especialmente quando o veneno deles pode transformar uma situação caótica em algo controlável. Aumenta a Inteligência em <%= int %> e a Percepção em <%= per %>. Equipamento de Edição Limitada – Outono de 2026.",
+    "weaponMystery202609Text": "Bastão Arlequim da Colheita",
+    "weaponMystery202609Notes": "Este bastão em formato de folha emite um tilintar alegre, enquanto fitas vibrantes tremulam na brisa fresca. Não confere nenhum benefício. Item para assinantes de setembro de 2026.",
+    "armorSpecialFall2026MageText": "Manto de Cogumelo Venenoso"
 }

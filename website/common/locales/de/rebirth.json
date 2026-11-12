@@ -2,7 +2,7 @@
     "rebirthNew": "Wiedergeburt: Ein neues Abenteuer erwartet Dich!",
     "rebirthUnlock": "Du hast die Wiedergeburt freigeschaltet! Dieser besondere Gegenstand gestattet es Dir ein neues Spiel mit Level 1 zu beginnen, jedoch behältst Du Deine Aufgaben, Erfolge, Haustiere und mehr. Verwende den Gegenstand um Habitica neues Leben einzuhauchen wenn Du glaubst alles erreicht zu haben, oder um neue Features aus dem Blickwinkel eines Anfängers zu erleben!",
     "rebirthAchievement": "Du hast die Sphäre der Wiedergeburt <strong><%+numer%<>/Strong> Mal genutzt und dein höchstes Level ist <strong><%=.",
-    "rebirthAchievement100": "Du hast die Sphäre der Wiedergeburt <strong><%+numer%<>/Strong> Mal genutzt und dein höchstes Level ist <strong><%= oder höher.",
+    "rebirthAchievement100": "Du hast die Sphäre der Wiedergeburt <strong><%= number %></strong> Mal genutzt und dein höchstes Level ist <strong>100</strong> oder höher.",
     "rebirthBegan": "Hat ein neues Abenteuer begonnen",
     "rebirthText": "Hat <%= rebirths %> neue Abenteuer begonnen",
     "rebirthOrb": "Hat eine Sphäre der Wiedergeburt verwendet um noch einmal von vorne zu beginnen, nachdem Level <%= level %> erreicht wurde.",
