@@ -15,7 +15,7 @@
     "achievementCreatedTaskModalText": "Dodaj zadanie, które chciałbyś wykonać w tym tygodniu",
     "achievementMonsterMagusModalText": "Oswoiłeś wszystkie Zwierzęta Zombie!",
     "achievementMonsterMagusText": "Oswoił wszystkie Zwierzęta Zombie.",
-    "achievementPartyOn": "Ilość osób w twojej drużynie wzrosła do 4!",
+    "achievementPartyOn": "Liczba osób w twojej drużynie wzrosła do 4!",
     "achievementKickstarter2019Text": "Wsparł projekt 2019 Pin na Kickstarterze",
     "achievementKickstarter2019": "Odznaka Sponsora w Kickstarterze",
     "achievementPartyUp": "Połączyłeś siły z członkiem drużyny!",
@@ -156,7 +156,7 @@
     "achievementBonelessBossModalText": "Zebrałeś wszystkie bezkręgowce!",
     "achievementRoughRider": "Ostry jeździec",
     "achievementRoughRiderText": "Wykluto wszystkie podstawowe kolory niewygodnych chowańców i wierzchowców: Kaktus, Jeż i Skała!",
-    "achievementDuneBuddy": "Kumpel Diuny",
+    "achievementDuneBuddy": "Kumpel z Wydmy",
     "achievementDuneBuddyText": "Wykluto wszystkie podstawowe kolory pustynnych chowańców: Pancernik, Kaktus, Lis, Żaba, Wąż i Pająk!",
     "achievementDuneBuddyModalText": "Zebrałeś wszystkie Pustynne Chowańce!",
     "achievementRodentRuler": "Władca gryzoni",
@@ -165,5 +165,10 @@
     "achievementRoughRiderModalText": "Zebrałeś wszystkie podstawowe kolory niewygodnych chowańców i wierzchowców!",
     "achievementCats": "Pasterz Kotów",
     "achievementCatsText": "Wykluto wszystkie podstawowe kolory kotów: Geparda, Lwa, Szablozębnego i Tygrysa!",
-    "achievementCatsModalText": "Zebrałeś wszystkie kotowate!"
+    "achievementCatsModalText": "Zebrałeś wszystkie kotowate!",
+    "achievementCreatedTaskNotifText": "Tak trzymaj! Jeśli potrzebujesz pomocy w planowaniu zadań, spróbuj pomyśleć o tym co chciałbyś zrobić o danej porze dnia.",
+    "achievementCompletedTaskNotifText": "Zadanie może być Nawykiem, Codziennym lub Do Zrobienia. Ukończ ich więcej by zdobywać różne nagrody!",
+    "achievementHatchedPetNotifText": "Jest tyle Zwierzaków do zdobycia, któryś na pewno zostanie twoim ulubionym. Jeśli będziesz je karmił, może urosną…",
+    "achievementFedPetNotifText": "Każdy Zwierzak ma swoje ulubione jedzenie! Eksperymentuj, by dowiedzieć się jakie sprawi, że twój Zwierzak będzie rósł najszybciej.",
+    "achievementPurchasedEquipmentNotifText": "Ekwipunek może być praktyczny lub po prostu wyglądać świetnie. Podnoś swoje statystyki by zyskać różne korzyści dla swojej postaci!"
 }

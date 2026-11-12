@@ -189,7 +189,7 @@
     "leaderCannotLeaveGroupWithActiveGroup": "Vođa ne može napustiti grupu dok grupa ima aktivni plan",
     "youHaveGroupPlan": "Imaš besplatnu pretplatu jer si član Grupnog Plana. Pretplata će ti završiti kad više ne budeš član Grupnog Plana.",
     "cancelGroupSub": "Otkaži grupni plan",
-    "confirmCancelGroupPlan": "Jesi li siguran/na da želiš otkazati grupni plan i ukloniti prednosti svih članova, uključujući i njihove besplatne pretplate?",
+    "confirmCancelGroupPlan": "Jesi li siguran/na da želiš otkazati svoj grupni plan? Svi članovi grupe izgubit će svoju pretplatu i pogodnosti.",
     "canceledGroupPlan": "Grupni plan je otkazan",
     "groupPlanCanceled": "Grupni plan će postati neaktivan",
     "purchasedGroupPlanPlanExtraMonths": "Imaš <%= months %> mjeseci dodatnih kredita za grupni plan.",

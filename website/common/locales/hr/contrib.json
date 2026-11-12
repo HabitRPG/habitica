@@ -43,6 +43,6 @@
     "surveysSingle": "Pomogao/la si Habitici da raste, ispunjavanjem ankete ili pomaganjem u velikom testiranju. Hvala ti!",
     "surveysMultiple": "Pomogao/la si Habitici da raste u <%= count %> navrata, ispunjavanjem ankete ili pomaganjem u velikom testiranju. Hvala ti!",
     "blurbHallPatrons": "Ovo je Dvorana pokrovitelja, gdje odajemo počast plemenitim pustolovima koji su podržali originalni Kickstarter projekt Habitice. Zahvaljujemo im što su nam pomogli oživjeti Habiticu!",
-    "blurbHallContributors": "Ovo je Dvorana doprinositelja, gdje se odaje počast open-source doprinositeljima Habitici. Bilo putem kôda, umjetnosti, glazbe, pisanja ili čak samo pomaganja, zaslužili su <%= linkRewards %> Dragulje, ekskluzivnu Opremu<%= linkClose %> i <%= linkTiers %>prestižne naslove<%= linkClose %>. I ti možeš doprinositi Habitici!<%= linkContributing %> Saznaj više ovdje<%= linkClose %>.",
+    "blurbHallContributors": "Ovo je Dvorana doprinositelja, gdje se odaje počast open-source doprinositeljima Habitici. Bilo putem kôda, umjetnosti, glazbe, pisanja ili čak samo pomaganja, zaslužili su <%= linkRewards %>Dragulje, ekskluzivnu Opremu<%= linkClose %> i <%= linkTiers %>prestižne naslove<%= linkClose %>. I ti možeš doprinositi Habitici! <%= linkContributing %>Saznaj više ovdje<%= linkClose %>.",
     "noPrivAccess": "Nemate potrebne ovlasti."
 }
