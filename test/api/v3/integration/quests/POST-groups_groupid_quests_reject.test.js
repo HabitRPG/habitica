@@ -3,7 +3,7 @@ import {
   createAndPopulateGroup,
   translate as t,
   generateUser,
-  sleep,
+  waitFor,
 } from '../../../../helpers/api-integration/v3';
 import { chatModel as Chat } from '../../../../../website/server/models/message';
 
@@ -187,17 +187,17 @@ describe('POST /groups/:groupId/quests/reject', () => {
       // quest will start after everyone has accepted or rejected
       await rejectingMember.post(`/groups/${questingGroup._id}/quests/reject`);
 
-      await sleep(0.5);
-
       await questingGroup.sync();
 
       expect(questingGroup.quest.active).to.be.true;
 
-      await rejectingMember.sync();
+      await waitFor(async () => {
+        await rejectingMember.sync();
 
-      expect(rejectingMember.party.quest.RSVPNeeded).to.eql(false);
-      expect(rejectingMember.party.quest.key).to.not.exist;
-      expect(rejectingMember.party.quest.completed).to.not.exist;
+        expect(rejectingMember.party.quest.RSVPNeeded).to.eql(false);
+        expect(rejectingMember.party.quest.key).to.not.exist;
+        expect(rejectingMember.party.quest.completed).to.not.exist;
+      });
     });
 
     it('starts the quest when the last user reject and verifies chat', async () => {

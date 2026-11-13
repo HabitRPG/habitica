@@ -162,8 +162,13 @@
     "achievementBoneToPickText": "Har udklækket alle klassiske og quest-skeletkæledyr!",
     "achievementBoneToPickModalText": "Du har samlet alle klassiske og quest-skeletkæledyr!",
     "achievementBonelessBoss": "",
-    "achievementBonelessBossText": "",
-    "achievementBonelessBossModalText": "",
+    "achievementBonelessBossText": "Har udklækket alle hvirvelløse kæledyr i alle standardfarver: Bille, Sommerfugl, Sepiablæksprutte, Nøgensnegl, Ottearmet blæksprutte, Snegl og Edderkop!",
+    "achievementBonelessBossModalText": "Du har samlet alle hvirvelløse kæledyr!",
     "achievementDuneBuddy": "",
-    "achievementDuneBuddyText": ""
+    "achievementDuneBuddyText": "",
+    "achievementCreatedTaskNotifText": "Bliv ved! Hvis du har brug for hjælp til planlægning, så tænk på hvad du gerne vil på et bestemt tidspunkt af dagen.",
+    "achievementCompletedTaskNotifText": "En opgave kan være en Vane, Daglig eller To Do. Fortsæt med at fuldføre dem for at få alle mulige belønninger!",
+    "achievementHatchedPetNotifText": "Der er så mange Kæledyr at samle på, at du sikkert har en favorit. Hvis du fodrer dem kan det måske være de vokser…",
+    "achievementFedPetNotifText": "Hvert Kæledyr kan lide en bestemt slags mad! Eksperimentér for at finde ud af hvilken der får dit Kæledyr til at vokse hurtigst.",
+    "achievementPurchasedEquipmentNotifText": "Udstyr kan være praktisk eller bare moderigtigt. Øg dine egenskaber for at få alle mulige fordele for din avatar!"
 }

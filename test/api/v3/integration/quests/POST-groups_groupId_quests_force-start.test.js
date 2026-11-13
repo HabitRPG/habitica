@@ -2,7 +2,7 @@ import {
   createAndPopulateGroup,
   translate as t,
   generateUser,
-  sleep,
+  waitFor,
 } from '../../../../helpers/api-integration/v3';
 import { chatModel as Chat } from '../../../../../website/server/models/message';
 
@@ -137,19 +137,19 @@ describe('POST /groups/:groupId/quests/force-start', () => {
 
       await leader.post(`/groups/${questingGroup._id}/quests/force-start`);
 
-      await sleep(0.5);
+      await waitFor(async () => {
+        await Promise.all([
+          partyMemberThatRejects.sync(),
+          partyMemberThatIgnores.sync(),
+        ]);
 
-      await Promise.all([
-        partyMemberThatRejects.sync(),
-        partyMemberThatIgnores.sync(),
-      ]);
-
-      expect(partyMemberThatRejects.party.quest.RSVPNeeded).to.eql(false);
-      expect(partyMemberThatRejects.party.quest.key).to.not.exist;
-      expect(partyMemberThatRejects.party.quest.completed).to.not.exist;
-      expect(partyMemberThatIgnores.party.quest.RSVPNeeded).to.eql(false);
-      expect(partyMemberThatIgnores.party.quest.key).to.not.exist;
-      expect(partyMemberThatIgnores.party.quest.completed).to.not.exist;
+        expect(partyMemberThatRejects.party.quest.RSVPNeeded).to.eql(false);
+        expect(partyMemberThatRejects.party.quest.key).to.not.exist;
+        expect(partyMemberThatRejects.party.quest.completed).to.not.exist;
+        expect(partyMemberThatIgnores.party.quest.RSVPNeeded).to.eql(false);
+        expect(partyMemberThatIgnores.party.quest.key).to.not.exist;
+        expect(partyMemberThatIgnores.party.quest.completed).to.not.exist;
+      });
     });
 
     it('removes users who have not accepted the quest from quest.members', async () => {
@@ -162,8 +162,6 @@ describe('POST /groups/:groupId/quests/force-start', () => {
       await partyMemberThatRejects.post(`/groups/${questingGroup._id}/quests/reject`);
 
       await leader.post(`/groups/${questingGroup._id}/quests/force-start`);
-
-      await sleep(0.5);
 
       await questingGroup.sync();
 
@@ -186,8 +184,6 @@ describe('POST /groups/:groupId/quests/force-start', () => {
 
       await leader.post(`/groups/${questingGroup._id}/quests/force-start`);
 
-      await sleep(0.5);
-
       await questingGroup.sync();
 
       expect(questingGroup.quest.members[notInPartyUser._id]).to.not.exist;
@@ -206,8 +202,6 @@ describe('POST /groups/:groupId/quests/force-start', () => {
       });
 
       await leader.post(`/groups/${questingGroup._id}/quests/force-start`);
-
-      await sleep(0.5);
 
       await questingGroup.sync();
 

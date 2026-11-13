@@ -4,8 +4,6 @@
     size="lg"
     :hide-header="true"
     :hide-footer="true"
-    no-close-on-esc
-    no-close-on-backdrop
     @shown="onShow()"
   >
     <div class="modal-body">

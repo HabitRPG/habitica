@@ -1,7 +1,6 @@
 import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
-  sleep,
   translate as t,
   server,
 } from '../../../helpers/api-integration/v4';
@@ -67,7 +66,7 @@ describe('POST /tasks/bulk-score', () => {
 
       await user.post('/tasks/bulk-score', [{ id: task.id, direction: 'up' }]);
 
-      await sleep();
+      await server.waitForWebhookData(uuid);
 
       await server.close();
 
@@ -113,7 +112,7 @@ describe('POST /tasks/bulk-score', () => {
 
         await user.post('/tasks/bulk-score', [{ id: task.id, direction: 'up' }]);
         await user.sync();
-        await sleep();
+        await server.waitForWebhookData(uuid);
 
         const body = server.getWebhookData(uuid);
 

@@ -243,6 +243,6 @@
     "confirmPurchase": "bevestig aankoop",
     "shadowMute": "Onzichtbare stomme",
     "unbanPlayer": "Verbanning speler opheffen",
-    "avoidSPI": "",
-    "avoidSPIDetails": ""
+    "avoidSPI": "Vermijd gevoelige persoonsgegevens",
+    "avoidSPIDetails": "Vermijd, voor je privacy, het gebruik van <%= firstLink %>gevoelige persoonsgegevens<%= linkClose %> als je Habitica gebruikt. Je accountgegevens, inclusief taken, worden opgeslagen op onze servers zodat je er vanaf elk apparaat toegang tot hebt.<br><br>Lees ons <%= secondLink %>Privacy Beleid<%= linkClose %> om meer te weten te komen."
 }

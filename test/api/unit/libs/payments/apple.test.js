@@ -20,7 +20,7 @@ describe('Apple Payments', () => {
   let paymentBuySkuStub;
   let iapGetPurchaseDataStub;
   let validateGiftMessageStub;
-  let paymentsCreateSubscritionStub;
+  let paymentsCreateSubscriptionStub;
 
   beforeEach(() => {
     iapSetupStub = sinon.stub(iap, 'setup').resolves();
@@ -253,7 +253,7 @@ describe('Apple Payments', () => {
           productId: sku,
           transactionId: token,
         }]);
-      paymentsCreateSubscritionStub = sinon.stub(payments, 'createSubscription').resolves({});
+      paymentsCreateSubscriptionStub = sinon.stub(payments, 'createSubscription').resolves({});
     });
 
     afterEach(() => {
@@ -336,8 +336,8 @@ describe('Apple Payments', () => {
         expect(iapIsValidatedStub).to.be.calledWith({});
         expect(iapGetPurchaseDataStub).to.be.calledOnce;
 
-        expect(paymentsCreateSubscritionStub).to.be.calledOnce;
-        expect(paymentsCreateSubscritionStub).to.be.calledWith({
+        expect(paymentsCreateSubscriptionStub).to.be.calledOnce;
+        expect(paymentsCreateSubscriptionStub).to.be.calledWith({
           user,
           customerId: token,
           paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
@@ -382,8 +382,8 @@ describe('Apple Payments', () => {
           expect(iapIsValidatedStub).to.be.calledWith({});
           expect(iapGetPurchaseDataStub).to.be.calledOnce;
 
-          expect(paymentsCreateSubscritionStub).to.be.calledOnce;
-          expect(paymentsCreateSubscritionStub).to.be.calledWith({
+          expect(paymentsCreateSubscriptionStub).to.be.calledOnce;
+          expect(paymentsCreateSubscriptionStub).to.be.calledWith({
             user,
             customerId: token,
             paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
@@ -429,8 +429,8 @@ describe('Apple Payments', () => {
           expect(iapIsValidatedStub).to.be.calledWith({});
           expect(iapGetPurchaseDataStub).to.be.calledOnce;
 
-          expect(paymentsCreateSubscritionStub).to.be.calledOnce;
-          expect(paymentsCreateSubscritionStub).to.be.calledWith({
+          expect(paymentsCreateSubscriptionStub).to.be.calledOnce;
+          expect(paymentsCreateSubscriptionStub).to.be.calledWith({
             user,
             customerId: token,
             paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
@@ -470,8 +470,8 @@ describe('Apple Payments', () => {
 
       await applePayments.subscribe(user, receipt, headers, nextPaymentProcessing);
 
-      expect(paymentsCreateSubscritionStub).to.be.calledOnce;
-      expect(paymentsCreateSubscritionStub).to.be.calledWith({
+      expect(paymentsCreateSubscriptionStub).to.be.calledOnce;
+      expect(paymentsCreateSubscriptionStub).to.be.calledWith({
         user,
         customerId: `${token}newest`,
         paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,

@@ -165,5 +165,11 @@
     "achievementBonelessBossText": "已孵化出所有標準顏色的無脊椎動物寵物：甲蟲、蝴蝶、墨魚、海蛞蝓、章魚、蝸牛，以及蜘蛛！",
     "achievementBonelessBossModalText": "你已收集到所有的無脊椎動物寵物！",
     "achievementDuneBuddy": "沙丘夥伴",
-    "achievementDuneBuddyText": "已孵化出所有標準顏色的沙漠棲息寵物：犰狳、仙人掌、狐狸、青蛙、蛇，以及蜘蛛！"
+    "achievementDuneBuddyText": "已孵化出所有標準顏色的沙漠棲息寵物：犰狳、仙人掌、狐狸、青蛙、蛇，以及蜘蛛！",
+    "achievementCreatedTaskNotifText": "繼續保持！若您需要協助規劃任務，試著想一想，在一天當中的特定時段，您喜歡做哪些事。",
+    "achievementCompletedTaskNotifText": "一項任務可以是習慣、每日任務或是待辦事項。持續完成它們即可獲得各式各樣的獎！",
+    "achievementHatchedPetNotifText": "這裡有許多寵物可以收集，你一定會找到最愛的寵物。如果你餵食牠們，牠們說不定就會長大喔……",
+    "achievementQuestCount0": "冒險者",
+    "achievementQuestCountSingleText": "已完成 1 個副本。距離下一個成就的進度：<%= progress %>/<%= target %> 個副本已完成",
+    "achievementQuestCountMultipleText": "已完成 <%= count %> 個副本。距離下一個成就的進度：<%= progress %>/<%= target %> 個副本已完成"
 }

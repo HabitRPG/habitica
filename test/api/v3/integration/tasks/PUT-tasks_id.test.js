@@ -3,7 +3,7 @@ import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   generateGroup,
-  sleep,
+  waitFor,
   generateChallenge,
   server,
 } from '../../../../helpers/api-integration/v3';
@@ -83,14 +83,15 @@ describe('PUT /tasks/:id', () => {
         ],
         collapseChecklist: false,
       });
-      await sleep(2);
 
-      await user.sync();
-
-      // Pick challenge task
-      const challengeUserTaskId = user.tasksOrder.dailys[user.tasksOrder.dailys.length - 1];
-
-      const challengeUserTask = await user.get(`/tasks/${challengeUserTaskId}`);
+      const challengeUserTask = await waitFor(async () => {
+        await user.sync();
+        const lastDailyId = user.tasksOrder.dailys[user.tasksOrder.dailys.length - 1];
+        const lastDaily = await user.get(`/tasks/${lastDailyId}`);
+        expect(lastDaily.challenge.taskId).to.equal(challengeTask._id);
+        return lastDaily;
+      });
+      const challengeUserTaskId = challengeUserTask._id;
 
       const savedChallengeUserTask = await user.put(`/tasks/${challengeUserTaskId}`, {
         _id: 123,
@@ -189,7 +190,7 @@ describe('PUT /tasks/:id', () => {
         text: 'updated text',
       });
 
-      await sleep();
+      await server.waitForWebhookData(uuid);
 
       const body = server.getWebhookData(uuid);
 
@@ -221,16 +222,23 @@ describe('PUT /tasks/:id', () => {
         text: 'test habit',
         type: 'habit',
       });
+      const userTask = await user.post('/tasks/user', {
+        text: 'test habit',
+        type: 'habit',
+      });
 
       await user.put(`/tasks/${task.id}`, {
         text: 'updated text',
       });
+      // Webhooks are sent in request order, so once the webhook for the
+      // user owned task has arrived, one for the challenge task would have too
+      await user.put(`/tasks/${userTask.id}`, {
+        text: 'updated text',
+      });
+      await server.waitForWebhookData(uuid);
 
-      await sleep();
-
-      const body = server.getWebhookData(uuid);
-
-      expect(body).to.not.exist;
+      expect(server.getWebhookData(uuid).task.id).to.eql(userTask.id);
+      expect(server.getWebhookData(uuid)).to.not.exist;
     });
   });
 

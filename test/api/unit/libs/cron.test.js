@@ -8,6 +8,7 @@ import {
   generateReq,
   generateTodo,
   generateDaily,
+  useFakeDate,
 } from '../../../helpers/api-unit.helper';
 import { cron, cronWrapper } from '../../../../website/server/libs/cron';
 import { model as User } from '../../../../website/server/models/user';
@@ -80,7 +81,7 @@ describe('cron', async () => {
 
     it('awards current mystery items to subscriber', async () => {
       user.purchased.plan.dateUpdated = new Date('2018-12-11');
-      clock = sinon.useFakeTimers(new Date('2019-01-29'));
+      clock = useFakeDate(new Date('2019-01-29'));
       await cron({
         user, tasksByType, daysMissed,
       });
@@ -91,7 +92,7 @@ describe('cron', async () => {
 
     it('awards multiple mystery item sets if user skipped months between logins', async () => {
       user.purchased.plan.dateUpdated = new Date('2018-11-11');
-      clock = sinon.useFakeTimers(new Date('2019-01-29'));
+      clock = useFakeDate(new Date('2019-01-29'));
       await cron({
         user, tasksByType, daysMissed,
       });
@@ -118,7 +119,7 @@ describe('cron', async () => {
     });
 
     it('does not reset plan.gemsBought within the month', async () => {
-      clock = sinon.useFakeTimers(moment().startOf('month').add(2, 'days').toDate());
+      clock = useFakeDate(moment().startOf('month').add(2, 'days').toDate());
       user.purchased.plan.dateUpdated = moment().startOf('month').toDate();
 
       user.purchased.plan.gemsBought = 10;
@@ -238,7 +239,7 @@ describe('cron', async () => {
       });
 
       it('increments consecutive benefits', async () => {
-        clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(1, 'months')
+        clock = useFakeDate(moment().utcOffset(0).startOf('month').add(1, 'months')
           .add(2, 'days')
           .toDate());
         // Add 1 month to simulate what happens a month after the subscription was created.
@@ -253,7 +254,7 @@ describe('cron', async () => {
       });
 
       it('increments consecutive benefits correctly if user has been absent with continuous subscription', async () => {
-        clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(10, 'months')
+        clock = useFakeDate(moment().utcOffset(0).startOf('month').add(10, 'months')
           .add(2, 'days')
           .toDate());
         await cron({
@@ -288,7 +289,7 @@ describe('cron', async () => {
       });
 
       it('increments consecutive benefits', async () => {
-        clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(1, 'months')
+        clock = useFakeDate(moment().utcOffset(0).startOf('month').add(1, 'months')
           .add(2, 'days')
           .toDate());
         await cron({
@@ -300,7 +301,7 @@ describe('cron', async () => {
       });
 
       it('increments consecutive benefits correctly if user has been absent with continuous subscription', async () => {
-        clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(10, 'months')
+        clock = useFakeDate(moment().utcOffset(0).startOf('month').add(10, 'months')
           .add(2, 'days')
           .toDate());
         await cron({
@@ -335,7 +336,7 @@ describe('cron', async () => {
       });
 
       it('increments benefits', async () => {
-        clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(1, 'months')
+        clock = useFakeDate(moment().utcOffset(0).startOf('month').add(1, 'months')
           .add(2, 'days')
           .toDate());
         await cron({
@@ -368,7 +369,7 @@ describe('cron', async () => {
       user12.purchased.plan.consecutive.gemCapExtra = 26;
 
       it('increments consecutive benefits the month after the second paid period has started', async () => {
-        clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(1, 'months')
+        clock = useFakeDate(moment().utcOffset(0).startOf('month').add(1, 'months')
           .add(2, 'days')
           .toDate());
         await cron({
@@ -380,7 +381,7 @@ describe('cron', async () => {
       });
 
       it('increments consecutive benefits correctly if user has been absent with continuous subscription', async () => {
-        clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(10, 'months')
+        clock = useFakeDate(moment().utcOffset(0).startOf('month').add(10, 'months')
           .add(2, 'days')
           .toDate());
         await cron({
@@ -416,7 +417,7 @@ describe('cron', async () => {
       user3g.purchased.plan.consecutive.gemCapExtra = 0;
 
       it('increments benefits', async () => {
-        clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(1, 'months')
+        clock = useFakeDate(moment().utcOffset(0).startOf('month').add(1, 'months')
           .add(2, 'days')
           .toDate());
         await cron({
@@ -429,7 +430,7 @@ describe('cron', async () => {
       });
 
       it('does not increment consecutive benefits in the month after the gift subscription has ended', async () => {
-        clock = sinon.useFakeTimers(moment().utcOffset(0).startOf('month').add(4, 'months')
+        clock = useFakeDate(moment().utcOffset(0).startOf('month').add(4, 'months')
           .add(2, 'days')
           .toDate());
         await cron({
@@ -458,7 +459,7 @@ describe('cron', async () => {
     });
 
     it('does not reset plan.gemsBought within the month', async () => {
-      clock = sinon.useFakeTimers(moment().startOf('month').add(2, 'days').unix());
+      clock = useFakeDate(moment().startOf('month').add(2, 'days').unix());
       user.purchased.plan.dateUpdated = moment().startOf('month').toDate();
 
       user.purchased.plan.gemsBought = 10;
@@ -901,7 +902,7 @@ describe('cron', async () => {
 
       beforeEach(async () => {
         // Replace system clocks so we can get predictable results
-        clock = sinon.useFakeTimers(notStartOfWeekOrMonth);
+        clock = useFakeDate(notStartOfWeekOrMonth);
       });
 
       it('should reset a daily habit counter each day', async () => {
@@ -957,7 +958,7 @@ describe('cron', async () => {
 
         // Server clock: Monday 12am UTC
         let monday = new Date('May 22, 2017 00:00:00 GMT').getTime();
-        clock = sinon.useFakeTimers(monday);
+        clock = useFakeDate(monday);
 
         // cron runs at 2am
         user.preferences.dayStart = 2;
@@ -979,7 +980,7 @@ describe('cron', async () => {
 
         // Server clock: Monday 3am UTC
         monday = new Date('May 22, 2017 03:00:00 GMT').getTime();
-        clock = sinon.useFakeTimers(monday);
+        clock = useFakeDate(monday);
 
         // should reset after user CDS
         await cron({
@@ -995,7 +996,7 @@ describe('cron', async () => {
 
         // Server clock: Monday 11pm UTC
         const monday = new Date('May 22, 2017 23:00:00 GMT').getTime();
-        clock = sinon.useFakeTimers(monday);
+        clock = useFakeDate(monday);
 
         // User clock: Tuesday 1am UTC + 2
         user.preferences.timezoneOffset = -120;
@@ -1029,7 +1030,7 @@ describe('cron', async () => {
 
         // Server clock: Sunday 11pm UTC
         const sunday = new Date('May 21, 2017 23:00:00 GMT').getTime();
-        clock = sinon.useFakeTimers(sunday);
+        clock = useFakeDate(sunday);
 
         // User clock: Monday 2am UTC + 3
         user.preferences.timezoneOffset = -180;
@@ -1053,7 +1054,7 @@ describe('cron', async () => {
 
         // Server clock: Monday 2am UTC
         const monday = new Date('May 22, 2017 02:00:00 GMT').getTime();
-        clock = sinon.useFakeTimers(monday);
+        clock = useFakeDate(monday);
 
         // User clock: Sunday 11pm UTC - 3
         user.preferences.timezoneOffset = 180;
@@ -1101,7 +1102,7 @@ describe('cron', async () => {
 
         // Server clock: 4/30/17 11pm UTC
         const monday = new Date('April 30, 2017 23:00:00 GMT').getTime();
-        clock = sinon.useFakeTimers(monday);
+        clock = useFakeDate(monday);
 
         // User clock: 5/1/17 2am UTC + 3
         user.preferences.timezoneOffset = -180;
@@ -1125,7 +1126,7 @@ describe('cron', async () => {
 
         // Server clock: 5/1/17 11pm UTC
         const monday = new Date('May 1, 2017 23:00:00 GMT').getTime();
-        clock = sinon.useFakeTimers(monday);
+        clock = useFakeDate(monday);
 
         // User clock: 5/2/17 2am UTC + 3
         user.preferences.timezoneOffset = -180;

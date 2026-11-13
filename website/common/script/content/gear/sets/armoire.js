@@ -579,6 +579,16 @@ const armor = {
     per: 5,
     set: 'secrets',
   },
+  pearlyWizardRobe: {
+    con: 5,
+    set: 'pearlyWizard',
+  },
+  pinkPartyDress: {
+    con: 7,
+    per: 7,
+    str: 7,
+    set: 'pinkPartyDress',
+  },
 };
 
 const back = {
@@ -674,6 +684,18 @@ const eyewear = {
     int: 5,
     per: 5,
     set: 'secrets',
+  },
+  blackWizardsBeard: {
+    int: 12,
+    set: 'wizardsBeard',
+  },
+  greyWizardsBeard: {
+    int: 12,
+    set: 'wizardsBeard',
+  },
+  whiteWizardsBeard: {
+    int: 12,
+    set: 'wizardsBeard',
   },
 };
 
@@ -1199,6 +1221,16 @@ const head = {
     int: 5,
     per: 5,
     set: 'secrets',
+  },
+  pearlyWizardHat: {
+    per: 5,
+    set: 'pearlyWizard',
+  },
+  pinkHairbow: {
+    con: 5,
+    per: 5,
+    str: 5,
+    set: 'pinkPartyDress',
   },
 };
 

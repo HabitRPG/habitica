@@ -204,7 +204,7 @@
     "groupPolicyCannotGetGems": "The policy of one group you're part of prevents its members from obtaining gems.",
     "viewParty": "Zobrazit družinu",
     "newGuildPlaceholder": "Enter your guild's name.",
-    "guildBank": "Guild Bank",
+    "guildBank": "Banka",
     "chatPlaceholder": "Type your message to Guild members here",
     "partyChatPlaceholder": "Type your message to Party members here",
     "fetchRecentMessages": "Fetch Recent Messages",

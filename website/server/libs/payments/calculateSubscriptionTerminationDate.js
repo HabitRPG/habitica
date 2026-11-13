@@ -11,14 +11,21 @@ export default function calculateSubscriptionTerminationDate (
   const defaultRemainingDays = purchasedPlan.customerId === groupPlanCustomerId
     ? DEFAULT_REMAINING_DAYS_FOR_GROUP_PLAN : DEFAULT_REMAINING_DAYS;
 
-  const remaining = nextBill
-    ? moment(nextBill).diff(new Date(), 'days', true)
+  const nextBillMoment = nextBill ? moment(nextBill) : null;
+
+  const remaining = nextBillMoment
+    ? nextBillMoment.diff(new Date(), 'days', true)
     : defaultRemainingDays;
 
   const extraMonths = Math.max(purchasedPlan.extraMonths, 0);
   const extraDays = Math.ceil(30.5 * extraMonths);
 
-  const calculatedTerminationDate = moment().startOf('day').add({ days: remaining + extraDays });
+  const calculatedTerminationDate = moment().startOf('day').add({
+    days: remaining + extraDays,
+    hours: nextBillMoment ? nextBillMoment.hour() : 0,
+    minutes: nextBillMoment ? nextBillMoment.minute() : 0,
+    seconds: nextBillMoment ? nextBillMoment.second() : 0,
+  });
 
   // If a termination date is already set, use the one further in the future
   if (purchasedPlan.dateTerminated) {

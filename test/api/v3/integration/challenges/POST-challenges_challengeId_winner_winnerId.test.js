@@ -3,7 +3,7 @@ import {
   generateUser,
   generateChallenge,
   createAndPopulateGroup,
-  sleep,
+  waitFor,
   checkExistence,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
@@ -90,15 +90,11 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
     it('deletes challenge after winner is selected', async () => {
       await groupLeader.post(`/challenges/${challenge._id}/selectWinner/${winningUser._id}`);
 
-      await sleep(0.5);
-
       await expect(checkExistence('challenges', challenge._id)).to.eventually.equal(false);
     });
 
     it('adds challenge to winner\'s achievements', async () => {
       await groupLeader.post(`/challenges/${challenge._id}/selectWinner/${winningUser._id}`);
-
-      await sleep(0.5);
 
       await expect(winningUser.sync()).to.eventually.have.nested.property('achievements.challenges').to.include(challenge.name);
       // 2 because winningUser just joined the challenge, which now awards an achievement
@@ -119,8 +115,6 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
 
       await groupLeader.post(`/challenges/${challenge._id}/selectWinner/${winningUser._id}`);
 
-      await sleep(0.5);
-
       await expect(winningUser.sync()).to.eventually.have.property('balance', oldBalance + challenge.prize / 4);
     });
 
@@ -138,8 +132,6 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
 
       await groupLeader.post(`/challenges/${challenge._id}/selectWinner/${winningUser._id}`);
 
-      await sleep(0.5);
-
       await expect(winningUser.sync()).to.eventually.have.property('balance', oldBalance);
       await expect(groupLeader.sync()).to.eventually.have.property('balance', oldLeaderBalance + challenge.prize / 4);
     });
@@ -149,25 +141,23 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
 
       await groupLeader.post(`/challenges/${challenge._id}/selectWinner/${winningUser._id}`);
 
-      await sleep(0.5);
-
       await expect(groupLeader.sync()).to.eventually.have.property('balance', oldBalance);
     });
 
     it('sets broken and winner flags for user\'s challenge tasks', async () => {
       await groupLeader.post(`/challenges/${challenge._id}/selectWinner/${winningUser._id}`);
 
-      await sleep(0.5);
+      await waitFor(async () => {
+        const tasks = await winningUser.get('/tasks/user');
+        const testTask = _.find(tasks, task => task.text === taskText);
 
-      const tasks = await winningUser.get('/tasks/user');
-      const testTask = _.find(tasks, task => task.text === taskText);
+        const updatedUser = await winningUser.sync();
+        const challengeTag = updatedUser.tags.find(tags => tags.id === challenge._id);
 
-      const updatedUser = await winningUser.sync();
-      const challengeTag = updatedUser.tags.find(tags => tags.id === challenge._id);
-
-      expect(testTask.challenge.broken).to.eql('CHALLENGE_CLOSED');
-      expect(testTask.challenge.winner).to.eql(winningUser.profile.name);
-      expect(challengeTag.challenge).to.eql(false);
+        expect(testTask.challenge.broken).to.eql('CHALLENGE_CLOSED');
+        expect(testTask.challenge.winner).to.eql(winningUser.profile.name);
+        expect(challengeTag.challenge).to.eql(false);
+      });
     });
   });
 });

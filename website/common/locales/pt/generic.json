@@ -25,7 +25,7 @@
     "market": "Mercado",
     "newSubscriberItem": "Tem <span class=\"notification-bold-blue\">Itens Mistério</span> novos",
     "subscriberItemText": "Todos os meses, os assinantes receberão um item misterioso. Este torna-se disponível no início do mês. Veja a página 'Item Mistérioso' do wiki para mais informações.",
-    "all": "Todos",
+    "all": "Tudo",
     "none": "Nenhum",
     "more": "<%= count %> mais",
     "and": "e",

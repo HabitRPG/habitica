@@ -165,5 +165,20 @@
     "achievementRodentRulerModalText": "¡Has conseguido todos las mascotas roedores!",
     "achievementCats": "Señora de los Gatos",
     "achievementCatsText": "¡Ha eclosionado todos los colores estándar de mascotas felinas: Guepardo, León, Tigre Dientes de Sable y Tigre!",
-    "achievementCatsModalText": "¡Has conseguido todas las mascotas felinas!"
+    "achievementCatsModalText": "¡Has conseguido todas las mascotas felinas!",
+    "achievementCreatedTaskNotifText": "¡Sigue así! Si necesitas ayuda al planificar tareas, intenta pensar en qué te gustaría hacer en determinado momento del día.",
+    "achievementCompletedTaskNotifText": "Una tarea puede ser un Hábito, una actividad Diaria o una Tarea Pendiente. ¡Continúa completándolas para recibir todo tipo de recompensas!",
+    "achievementHatchedPetNotifText": "Hay tantas Mascotas por coleccionar que, sin duda, acabarás teniendo una favorita. Si las alimentas, incluso podrían crecer…",
+    "achievementFedPetNotifText": "¡Cada Mascota tiene su comida favorita! Experimenta para encontrar aquella que hará que tu Mascota crezca más rápido.",
+    "achievementPurchasedEquipmentNotifText": "El Equipamiento puede ser tanto práctico como estético. ¡Mejora tus estadísticas para obtener todo tipo de beneficios para tu avatar!",
+    "achievementQuestCount0": "Aventurero",
+    "achievementQuestCount1": "Aventurero de Hierro",
+    "achievementQuestCount5": "Aventurero de Bronce",
+    "achievementQuestCount10": "Aventurero de Plata",
+    "achievementQuestCount25": "Aventurero de Oro",
+    "achievementQuestCount50": "Aventurero de Platino",
+    "achievementQuestCount100": "Aventurero Supremo",
+    "achievementQuestCountSingleText": "1 Misión completada. Progreso hasta el próximo logro: <%= progress %>/<%= target %> Misiones completadas",
+    "achievementQuestCountMultipleText": "<%= count %> Misiones completadas. Progreso hasta el próximo logo: <%= progress %>/<%= target %> Misiones completadas",
+    "achievementQuestCountMaximumText": "Este jugador ha completado <%= count %> Misiones y se ha convertido en Aventurero Supremo, ¡realmente impresionante!"
 }

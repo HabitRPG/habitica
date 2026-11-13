@@ -10,7 +10,7 @@ describe('paypal - checkout success', () => {
     paymentId;
   const gemsBlockKey = '21gems'; const gemsBlock = common.content.gems[gemsBlockKey];
   let paypalPaymentExecuteStub; let paymentBuyGemsStub; let
-    paymentsCreateSubscritionStub;
+    paymentsCreateSubscriptionStub;
 
   beforeEach(() => {
     user = new User();
@@ -19,7 +19,7 @@ describe('paypal - checkout success', () => {
 
     paypalPaymentExecuteStub = sinon.stub(paypalPayments, 'paypalPaymentExecute').resolves({});
     paymentBuyGemsStub = sinon.stub(payments, 'buyGems').resolves({});
-    paymentsCreateSubscritionStub = sinon.stub(payments, 'createSubscription').resolves({});
+    paymentsCreateSubscriptionStub = sinon.stub(payments, 'createSubscription').resolves({});
   });
 
   afterEach(() => {
@@ -87,8 +87,8 @@ describe('paypal - checkout success', () => {
 
     expect(paypalPaymentExecuteStub).to.be.calledOnce;
     expect(paypalPaymentExecuteStub).to.be.calledWith(paymentId, { payer_id: customerId });
-    expect(paymentsCreateSubscritionStub).to.be.calledOnce;
-    expect(paymentsCreateSubscritionStub).to.be.calledWith({
+    expect(paymentsCreateSubscriptionStub).to.be.calledOnce;
+    expect(paymentsCreateSubscriptionStub).to.be.calledWith({
       user,
       customerId,
       paymentMethod: 'PayPal (Gift)',

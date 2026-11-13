@@ -38,6 +38,9 @@ export const ARMOIRE_RELEASE_DATES = {
   knightOfHonor: { year: 2026, month: 9 },
   secrets: { year: 2026, month: 10 },
   leafPile: { year: 2026, month: 11 },
+  wizardsBeard: { year: 2026, month: 12 },
+  pearlyWizard: { year: 2027, month: 1 },
+  pinkPartyDress: { year: 2027, month: 2 },
 };
 
 export const EGGS_RELEASE_DATES = {

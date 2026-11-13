@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { v4 as generateUUID } from 'uuid';
 import validator from 'validator';
-import { sleep, translationCheck } from '../../../helpers/api-unit.helper';
+import { translationCheck, waitFor } from '../../../helpers/api-unit.helper';
 import {
   SPAM_MESSAGE_LIMIT,
   SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
@@ -1504,9 +1504,11 @@ describe('Group Model', () => {
       it('Deletes messages over the limit', async () => {
         sandbox.spy(Chat, 'find');
         sandbox.spy(Chat, 'deleteMany');
-        await Chat.insertOne({ groupId: party._id, timestamp: new Date() });
-        await Chat.insertOne({ groupId: party._id, timestamp: new Date() });
-        await Chat.insertOne({ groupId: party._id, timestamp: new Date() });
+        // distinct timestamps, messages older than the last kept one are deleted
+        const now = Date.now();
+        await Chat.insertOne({ groupId: party._id, timestamp: new Date(now - 2000) });
+        await Chat.insertOne({ groupId: party._id, timestamp: new Date(now - 1000) });
+        await Chat.insertOne({ groupId: party._id, timestamp: new Date(now) });
 
         await party.trimChat(1);
 
@@ -1669,8 +1671,6 @@ describe('Group Model', () => {
 
           await party.startQuest(nonParticipatingMember);
 
-          await sleep(0.5);
-
           expect(email.sendTxn).to.be.calledOnce;
 
           const memberIds = _.map(email.sendTxn.args[0][0], '_id');
@@ -1715,8 +1715,6 @@ describe('Group Model', () => {
 
           await party.startQuest(nonParticipatingMember);
 
-          await sleep(0.5);
-
           expect(questActivityWebhook.send).to.be.calledThrice; // for 3 participating members
 
           const args = questActivityWebhook.send.args[0];
@@ -1749,8 +1747,6 @@ describe('Group Model', () => {
 
           await party.startQuest(nonParticipatingMember);
 
-          await sleep(0.5);
-
           expect(email.sendTxn).to.be.calledOnce;
 
           const memberIds = _.map(email.sendTxn.args[0][0], '_id');
@@ -1772,8 +1768,6 @@ describe('Group Model', () => {
           ]);
 
           await party.startQuest(participatingMember);
-
-          await sleep(0.5);
 
           expect(email.sendTxn).to.be.calledOnce;
 
@@ -1980,7 +1974,10 @@ describe('Group Model', () => {
         await questLeader.save();
         await party.finishQuest(quest);
 
-        await sleep(0.5);
+        await waitFor(async () => {
+          const leader = await User.findById(questLeader._id).exec();
+          expect(leader.achievements.lostMasterclasser).to.eql(true);
+        });
 
         const [
           updatedLeader,
@@ -2202,7 +2199,7 @@ describe('Group Model', () => {
 
         await party.finishQuest(quest);
 
-        await sleep(0.5);
+        await waitFor(() => expect(questActivityWebhook.send).to.be.called);
 
         expect(questActivityWebhook.send).to.be.calledOnce;
 
@@ -2327,7 +2324,7 @@ describe('Group Model', () => {
 
         guild.sendGroupChatReceivedWebhooks(chat);
 
-        await sleep();
+        await waitFor(() => expect(groupChatReceivedWebhook.send).to.be.called);
 
         expect(groupChatReceivedWebhook.send).to.be.calledOnce;
 
@@ -2383,7 +2380,7 @@ describe('Group Model', () => {
         const groupMessage = await guild.sendChat({ message: 'Test message.' });
         await groupMessage.save();
 
-        await sleep();
+        await waitFor(() => expect(groupChatReceivedWebhook.send).to.be.called);
 
         expect(groupChatReceivedWebhook.send).to.be.calledOnce;
 
@@ -2447,7 +2444,7 @@ describe('Group Model', () => {
 
         guild.sendGroupChatReceivedWebhooks(chat);
 
-        await sleep();
+        await waitFor(() => expect(groupChatReceivedWebhook.send).to.have.callCount(3));
 
         expect(groupChatReceivedWebhook.send).to.be.calledThrice;
 

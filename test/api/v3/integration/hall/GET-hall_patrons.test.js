@@ -1,6 +1,6 @@
-import { times } from 'lodash';
 import {
   generateUser,
+  generateUsers,
   translate as t,
   resetHabiticaDB,
 } from '../../../../helpers/api-integration/v3';
@@ -45,7 +45,7 @@ describe('GET /hall/patrons', () => {
   });
 
   it('returns only first 50 patrons per request, more if req.query.page is passed', async () => {
-    await Promise.all(times(53, n => generateUser({ backer: { tier: n } })));
+    await generateUsers(53, n => ({ 'backer.tier': n }));
 
     const patrons = await user.get('/hall/patrons');
     expect(patrons.length).to.equal(50);

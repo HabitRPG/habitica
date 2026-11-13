@@ -3,7 +3,6 @@ import { v4 as generateUUID } from 'uuid';
 import {
   createAndPopulateGroup,
   translate as t,
-  sleep,
   server,
 } from '../../../../helpers/api-integration/v3';
 import {
@@ -380,7 +379,10 @@ describe('POST /chat', () => {
 
     const message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
 
-    await sleep();
+    await Promise.all([
+      server.waitForWebhookData(userUuid),
+      server.waitForWebhookData(memberUuid),
+    ]);
 
     await server.close();
 

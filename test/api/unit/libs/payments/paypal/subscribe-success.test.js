@@ -12,7 +12,7 @@ describe('paypal - subscribeSuccess', () => {
   let user; let group; let block; let groupId; let token; let headers; let
     customerId;
   let paypalBillingAgreementExecuteStub; let
-    paymentsCreateSubscritionStub;
+    paymentsCreateSubscriptionStub;
 
   beforeEach(async () => {
     user = new User();
@@ -33,7 +33,7 @@ describe('paypal - subscribeSuccess', () => {
       .resolves({
         id: customerId,
       });
-    paymentsCreateSubscritionStub = sinon.stub(payments, 'createSubscription').resolves({});
+    paymentsCreateSubscriptionStub = sinon.stub(payments, 'createSubscription').resolves({});
   });
 
   afterEach(() => {
@@ -49,8 +49,8 @@ describe('paypal - subscribeSuccess', () => {
     expect(paypalBillingAgreementExecuteStub).to.be.calledOnce;
     expect(paypalBillingAgreementExecuteStub).to.be.calledWith(token, {});
 
-    expect(paymentsCreateSubscritionStub).to.be.calledOnce;
-    expect(paymentsCreateSubscritionStub).to.be.calledWith({
+    expect(paymentsCreateSubscriptionStub).to.be.calledOnce;
+    expect(paymentsCreateSubscriptionStub).to.be.calledWith({
       user,
       groupId,
       customerId,
@@ -70,8 +70,8 @@ describe('paypal - subscribeSuccess', () => {
     expect(paypalBillingAgreementExecuteStub).to.be.calledOnce;
     expect(paypalBillingAgreementExecuteStub).to.be.calledWith(token, {});
 
-    expect(paymentsCreateSubscritionStub).to.be.calledOnce;
-    expect(paymentsCreateSubscritionStub).to.be.calledWith({
+    expect(paymentsCreateSubscriptionStub).to.be.calledOnce;
+    expect(paymentsCreateSubscriptionStub).to.be.calledWith({
       user,
       groupId,
       customerId,

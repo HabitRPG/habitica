@@ -165,5 +165,20 @@
     "achievementRoughRiderModalText": "你集齐了所有基础颜色的不舒适宠物和坐骑！",
     "achievementCats": "牧猫人",
     "achievementCatsText": "已孵化出所有基础颜色的猫科宠物： 猎豹、狮子、剑齿虎和老虎！",
-    "achievementCatsModalText": "你集齐了所有猫科宠物！"
+    "achievementCatsModalText": "你集齐了所有猫科宠物！",
+    "achievementCreatedTaskNotifText": "坚持下去！安排任务没头绪的话，试着想想一天里某个时段想做什么。",
+    "achievementCompletedTaskNotifText": "任务可以是习惯、每日任务或待办事项。坚持完成它们，就能获得各种奖励！",
+    "achievementHatchedPetNotifText": "这里可以收集很多宠物，其中肯定有你特别喜欢的。给它们喂点吃的，说不定就会长大……",
+    "achievementFedPetNotifText": "每种宠物爱吃的食物都不一样！多尝试几种，看看喂哪种它长得最快。",
+    "achievementPurchasedEquipmentNotifText": "装备可以实用至上，也可以只为好看。提升属性，你的角色将获得各种增益！",
+    "achievementQuestCount0": "冒险者",
+    "achievementQuestCount1": "黑铁冒险者",
+    "achievementQuestCount5": "青铜冒险者",
+    "achievementQuestCount10": "白银冒险者",
+    "achievementQuestCount25": "黄金冒险者",
+    "achievementQuestCount50": "白金冒险者",
+    "achievementQuestCount100": "至尊冒险者",
+    "achievementQuestCountSingleText": "已完成1个副本。下一成就进度：<%= progress %>/<%= target %>",
+    "achievementQuestCountMultipleText": "已完成<%= count %>个副本。下一成就进度：<%= progress %>/<%= target %>",
+    "achievementQuestCountMaximumText": "该玩家已完成<%= count %>个副本，成为至尊冒险者，令人叹服！"
 }
