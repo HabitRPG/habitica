@@ -1,5 +1,3 @@
-import nconf from 'nconf';
-import requireAgain from 'require-again';
 import {
   generateRes,
   generateReq,
@@ -8,6 +6,8 @@ import {
 import { Forbidden } from '../../../../website/server/libs/errors';
 import { apiError } from '../../../../website/server/libs/apiError';
 import { model as Blocker } from '../../../../website/server/models/blocker';
+import { reloadBlockersNow } from '../../../../website/server/libs/blockers';
+import ipBlocker from '../../../../website/server/middlewares/blocker';
 
 function checkIPBlockedErrorThrown (next) {
   expect(next).to.have.been.calledOnce;
@@ -29,9 +29,15 @@ function checkErrorNotThrown (next) {
   expect(typeof calledWith[0] === 'undefined').to.equal(true);
 }
 
-describe('Blocker middleware', () => {
-  const pathToBlocker = '../../../../website/server/middlewares/blocker';
+async function setBlockers (blockers) {
+  const stub = sandbox.stub(Blocker, 'find').returns({
+    select: () => ({ lean: () => ({ exec: async () => blockers }) }),
+  });
+  await reloadBlockersNow();
+  stub.restore();
+}
 
+describe('Blocker middleware', () => {
   let res; let req; let next;
 
   beforeEach(() => {
@@ -40,80 +46,39 @@ describe('Blocker middleware', () => {
     next = generateNext();
   });
 
+  afterEach(async () => {
+    await setBlockers([]);
+  });
+
   describe('Blocking IPs', () => {
-    it('is disabled when the env var is not defined', () => {
-      sandbox.stub(nconf, 'get').withArgs('BLOCKED_IPS').returns(undefined);
-      const attachBlocker = requireAgain(pathToBlocker).default;
-      attachBlocker(req, res, next);
-
-      checkErrorNotThrown(next);
-    });
-
-    it('is disabled when the env var is an empty string', () => {
-      sandbox.stub(nconf, 'get').withArgs('BLOCKED_IPS').returns('');
-      const attachBlocker = requireAgain(pathToBlocker).default;
-      attachBlocker(req, res, next);
-
-      checkErrorNotThrown(next);
-    });
-
-    it('is disabled when the env var contains comma separated empty strings', () => {
-      sandbox.stub(nconf, 'get').withArgs('BLOCKED_IPS').returns(' , , ');
-      const attachBlocker = requireAgain(pathToBlocker).default;
-      attachBlocker(req, res, next);
-
-      checkErrorNotThrown(next);
-    });
-
-    it('does not throw when the ip does not match', () => {
+    beforeEach(() => {
       req.ip = '192.168.1.1';
-      sandbox.stub(nconf, 'get').withArgs('BLOCKED_IPS').returns('192.168.1.2');
-      const attachBlocker = requireAgain(pathToBlocker).default;
-      attachBlocker(req, res, next);
+    });
+
+    it('does not throw when nothing is blocked', async () => {
+      await setBlockers([]);
+      ipBlocker(req, res, next);
 
       checkErrorNotThrown(next);
     });
 
     it('does not throw when the blocker IP does not match', async () => {
-      req.ip = '192.168.1.1';
-      sandbox.stub(Blocker, 'watchBlockers').returns({
-        on: (event, callback) => {
-          if (event === 'change') {
-            callback({ operation: 'add', blocker: { type: 'ipaddress', area: 'full', value: '192.168.1.2' } });
-          }
-        },
-      });
-      const attachBlocker = requireAgain(pathToBlocker).default;
-      attachBlocker(req, res, next);
+      await setBlockers([{ type: 'ipaddress', value: '192.168.1.2' }]);
+      ipBlocker(req, res, next);
 
       checkErrorNotThrown(next);
     });
 
-    it('does not throw when a client is blocked', async () => {
-      sandbox.stub(Blocker, 'watchBlockers').returns({
-        on: (event, callback) => {
-          if (event === 'change') {
-            callback({ operation: 'add', blocker: { type: 'client', area: 'full', value: '192.168.1.1' } });
-          }
-        },
-      });
-      const attachBlocker = requireAgain(pathToBlocker).default;
-      attachBlocker(req, res, next);
+    it('does not throw when a client with the same value is blocked', async () => {
+      await setBlockers([{ type: 'client', value: '192.168.1.1' }]);
+      ipBlocker(req, res, next);
 
       checkErrorNotThrown(next);
     });
 
     it('throws when the blocker IP is blocked', async () => {
-      req.ip = '192.168.1.1';
-      sandbox.stub(Blocker, 'watchBlockers').returns({
-        on: (event, callback) => {
-          if (event === 'change') {
-            callback({ operation: 'add', blocker: { type: 'ipaddress', area: 'full', value: '192.168.1.1' } });
-          }
-        },
-      });
-      const attachBlocker = requireAgain(pathToBlocker).default;
-      attachBlocker(req, res, next);
+      await setBlockers([{ type: 'ipaddress', value: '192.168.1.1' }]);
+      ipBlocker(req, res, next);
 
       checkIPBlockedErrorThrown(next);
     });
@@ -121,77 +86,55 @@ describe('Blocker middleware', () => {
 
   describe('Blocking clients', () => {
     beforeEach(() => {
-      sandbox.stub(nconf, 'get').withArgs('BLOCKED_IPS').returns('');
       req.headers['x-client'] = 'test-client';
     });
-    it('is disabled when no clients are blocked', () => {
-      const attachBlocker = requireAgain(pathToBlocker).default;
-      attachBlocker(req, res, next);
+
+    it('does not throw when no clients are blocked', async () => {
+      await setBlockers([]);
+      ipBlocker(req, res, next);
 
       checkErrorNotThrown(next);
     });
 
     it('does not throw when the client does not match', async () => {
-      sandbox.stub(Blocker, 'watchBlockers').returns({
-        on: (event, callback) => {
-          if (event === 'change') {
-            callback({ operation: 'add', blocker: { type: 'client', area: 'full', value: 'another-client' } });
-          }
-        },
-      });
-      const attachBlocker = requireAgain(pathToBlocker).default;
-      attachBlocker(req, res, next);
+      await setBlockers([{ type: 'client', value: 'another-client' }]);
+      ipBlocker(req, res, next);
 
       checkErrorNotThrown(next);
     });
 
     it('throws when the client is blocked', async () => {
-      sandbox.stub(Blocker, 'watchBlockers').returns({
-        on: (event, callback) => {
-          if (event === 'change') {
-            callback({ operation: 'add', blocker: { type: 'client', area: 'full', value: 'test-client' } });
-          }
-        },
-      });
-      const attachBlocker = requireAgain(pathToBlocker).default;
-      attachBlocker(req, res, next);
+      await setBlockers([{ type: 'client', value: 'test-client' }]);
+      ipBlocker(req, res, next);
 
       checkClientBlockedErrorThrown(next);
     });
 
-    it('does not throw when an ip is blocked', async () => {
-      sandbox.stub(Blocker, 'watchBlockers').returns({
-        on: (event, callback) => {
-          if (event === 'change') {
-            callback({ operation: 'add', blocker: { type: 'ipaddress', area: 'full', value: 'test-client' } });
-          }
-        },
-      });
-      const attachBlocker = requireAgain(pathToBlocker).default;
-      attachBlocker(req, res, next);
+    it('does not throw when an ip with the same value is blocked', async () => {
+      await setBlockers([{ type: 'ipaddress', value: 'test-client' }]);
+      ipBlocker(req, res, next);
 
       checkErrorNotThrown(next);
     });
 
     it('updates the list when data changes', async () => {
-      let blockCallback;
-      sandbox.stub(Blocker, 'watchBlockers').returns({
-        on: (event, callback) => {
-          blockCallback = callback;
-          if (event === 'change') {
-            callback({ operation: 'add', blocker: { type: 'client', area: 'full', value: 'another-client' } });
-          }
-        },
-      });
-      const attachBlocker = requireAgain(pathToBlocker).default;
-      attachBlocker(req, res, next);
+      await setBlockers([{ type: 'client', value: 'another-client' }]);
+      ipBlocker(req, res, next);
       checkErrorNotThrown(next);
-      blockCallback({ operation: 'add', blocker: { type: 'client', area: 'full', value: 'test-client' } });
-      attachBlocker(req, res, next);
+
+      await setBlockers([{ type: 'client', value: 'test-client' }]);
+      ipBlocker(req, res, next);
       expect(next).to.have.been.calledTwice;
       const calledWith = next.getCall(1).args;
       expect(calledWith[0].message).to.equal(apiError('clientBlocked'));
-      expect(calledWith[0] instanceof Forbidden).to.equal(true);
+    });
+
+    it('unblocks a client when its blocker is removed', async () => {
+      await setBlockers([{ type: 'client', value: 'test-client' }]);
+      await setBlockers([]);
+      ipBlocker(req, res, next);
+
+      checkErrorNotThrown(next);
     });
   });
 });

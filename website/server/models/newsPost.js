@@ -1,6 +1,7 @@
+import nconf from 'nconf';
 import mongoose from 'mongoose';
 import baseModel from '../libs/baseModel';
-import logger from '../libs/logger';
+import { registerReloader, reload, invalidate } from '../libs/cacheInvalidation';
 
 const { Schema } = mongoose;
 const POSTS_PER_PAGE = 10;
@@ -47,7 +48,7 @@ schema.statics.getNews = async function getNews (isAdmin, options = { page: 0 })
     .exec();
 };
 
-const NEWS_CACHE_TIME = 5 * 60 * 1000;
+const NEWS_CACHE_TIME = nconf.get('NEWS_CACHE_RELOAD_INTERVAL') || 30 * 60 * 1000;
 
 let cachedLastNewsPost = null;
 
@@ -79,18 +80,20 @@ schema.statics.updateLastNewsPost = function updateLastNewsPost (newPost) {
 
 export const model = mongoose.model('NewsPost', schema);
 
-function getAndUpdateLastNewsPost () {
-  model.getLastPostFromDatabase().then(lastPost => {
-    if (lastPost) {
-      model.updateLastNewsPost(lastPost);
-    }
-  }).catch(err => logger.error(err));
+const NEWS_CACHE_TYPE = 'news';
+
+async function reloadLastNewsPost () {
+  cachedLastNewsPost = await model.getLastPostFromDatabase();
 }
 
-export function refreshNewsPost (interval) {
-  return setInterval(() => getAndUpdateLastNewsPost(), interval);
+registerReloader(NEWS_CACHE_TYPE, reloadLastNewsPost, { interval: NEWS_CACHE_TIME });
+
+export function reloadLastNewsPostNow () {
+  return reload(NEWS_CACHE_TYPE);
 }
 
-// Fetches the last news post and refresh it every 5 minutes
-getAndUpdateLastNewsPost();
-refreshNewsPost(NEWS_CACHE_TIME);
+export function invalidateLastNewsPost () {
+  return invalidate(NEWS_CACHE_TYPE);
+}
+
+reloadLastNewsPostNow();

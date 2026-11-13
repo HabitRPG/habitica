@@ -57,6 +57,17 @@ describe('response middleware', () => {
     });
   });
 
+  it('can be told not to include user data', () => {
+    responseMiddleware(req, res, next);
+    res.respond(200, { field: 1 }, undefined, { includeUserData: false });
+
+    expect(res.json).to.be.calledWith({
+      success: true,
+      data: { field: 1 },
+      appVersion: packageInfo.version,
+    });
+  });
+
   it('treats status >= 400 as failures', () => {
     responseMiddleware(req, res, next);
     res.respond(403, { field: 1 });

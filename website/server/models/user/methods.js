@@ -28,11 +28,15 @@ import { TransactionModel as Transaction } from '../transaction';
 
 const { daysSince } = common;
 
-schema.methods.isSubscribed = function isSubscribed () {
+schema.statics.isSubscribed = function isSubscribed (user) {
   const now = new Date();
-  const { plan } = this.purchased;
+  const { plan } = user.purchased;
   return plan && plan.customerId
     && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
+};
+
+schema.methods.isSubscribed = function isSubscribed () {
+  return schema.statics.isSubscribed(this);
 };
 
 schema.methods.hasNotCancelled = function hasNotCancelled () {

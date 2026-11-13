@@ -20,6 +20,7 @@ import * as worldState from './worldState';
 import * as news from './news';
 import * as faq from './faq';
 import * as blockers from './blockers';
+import * as clientConfig from './clientConfig';
 
 // Actions should be named as 'actionName' and can be accessed as 'namespace:actionName'
 // Example: fetch in user.js -> 'user:fetch'
@@ -45,6 +46,7 @@ const actions = flattenAndNamespace({
   news,
   faq,
   blockers,
+  clientConfig,
 });
 
 export default actions;
