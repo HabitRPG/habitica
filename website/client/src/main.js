@@ -5,7 +5,6 @@ import {
   DropdownPlugin,
   PopoverPlugin,
   TooltipPlugin,
-  NavbarPlugin,
   CollapsePlugin,
 } from 'bootstrap-vue';
 import AppComponent from './app';
@@ -35,7 +34,6 @@ Vue.use(ModalPlugin);
 Vue.use(DropdownPlugin);
 Vue.use(PopoverPlugin);
 Vue.use(TooltipPlugin);
-Vue.use(NavbarPlugin);
 Vue.use(CollapsePlugin);
 
 setUpLogging();

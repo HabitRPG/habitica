@@ -6,14 +6,12 @@
     <report-member-modal />
     <send-gift-modal />
     <select-user-modal />
-    <b-navbar
+    <nav
       id="habitica-menu"
-      class="topbar navbar-inverse static-top"
-      toggleable="lg"
-      type="dark"
+      class="navbar navbar-dark navbar-expand-lg topbar navbar-inverse static-top"
     >
-      <b-navbar-brand
-        class="brand"
+      <div
+        class="navbar-brand brand"
         aria-label="Habitica"
       >
         <router-link to="/">
@@ -24,11 +22,17 @@
           <div class="svg-icon"></div>
         </router-link>
         <div class="svg-icon"></div>
-      </b-navbar-brand>
-      <b-navbar-toggle
-        class="menu-toggle"
-        target="menu_collapse"
-      />
+      </div>
+      <button
+        type="button"
+        class="navbar-toggler menu-toggle"
+        :aria-label="$t('menu')"
+        aria-controls="menu_collapse"
+        :aria-expanded="menuIsOpen ? 'true' : 'false'"
+        @click="menuIsOpen = !menuIsOpen"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
       <div class="quick-menu mobile-only form-inline">
         <a
           v-b-tooltip.hover.bottom="$t('sync')"
@@ -49,16 +53,19 @@
         v-model="menuIsOpen"
         class="collapse navbar-collapse"
       >
-        <b-navbar-nav class="menu-list">
-          <b-nav-item
-            class="topbar-item"
+        <ul class="navbar-nav menu-list">
+          <li
+            class="nav-item topbar-item"
             :class="{'active': $route.path === '/'}"
-            tag="li"
-            :to="{name: 'tasks'}"
-            exact="exact"
           >
-            {{ $t('tasks') }}
-          </b-nav-item>
+            <router-link
+              class="nav-link"
+              :to="{name: 'tasks'}"
+              exact
+            >
+              {{ $t('tasks') }}
+            </router-link>
+          </li>
           <li
             class="topbar-item droppable"
             :class="{
@@ -157,15 +164,18 @@
               </router-link>
             </div>
           </li>
-          <b-nav-item
+          <li
             v-if="user.party._id && user._id !== partyLeaderId"
-            class="topbar-item"
+            class="nav-item topbar-item"
             :class="{'active': $route.path.startsWith('/party')}"
-            tag="li"
-            :to="{name: 'party'}"
           >
-            {{ $t('party') }}
-          </b-nav-item>
+            <router-link
+              class="nav-link"
+              :to="{name: 'party'}"
+            >
+              {{ $t('party') }}
+            </router-link>
+          </li>
           <li
             v-if="user.party._id && user._id === partyLeaderId"
             class="topbar-item droppable"
@@ -196,14 +206,19 @@
               </router-link>
             </div>
           </li>
-          <b-nav-item
+          <li
             v-if="!user.party._id"
-            class="topbar-item"
+            class="nav-item topbar-item"
             :class="{'active': $route.path.startsWith('/party')}"
-            @click="openPartyModal()"
           >
-            {{ $t('party') }}
-          </b-nav-item>
+            <a
+              class="nav-link"
+              href="#"
+              @click.prevent="openPartyModal()"
+            >
+              {{ $t('party') }}
+            </a>
+          </li>
           <li
             class="topbar-item droppable"
             :class="{
@@ -387,7 +402,7 @@
               </a>
             </div>
           </li>
-        </b-navbar-nav>
+        </ul>
         <div class="currency-tray form-inline">
           <div
             v-if="userHourglasses > 0"
@@ -442,7 +457,7 @@
           <user-dropdown class="item-with-icon" />
         </div>
       </b-collapse>
-    </b-navbar>
+    </nav>
   </div>
 </template>
 
@@ -469,6 +484,8 @@ body.modal-open #habitica-menu {
   .topbar {
     z-index: 1080;
     background: $purple-100 url(@/assets/svg/for-css/bits.svg) right top no-repeat;
+    // the svg has no intrinsic size, without this it scales with the menu height
+    background-size: 128px 56px;
     min-height: 56px;
     box-shadow: 0 1px 2px 0 rgba($black, 0.24);
 
@@ -707,6 +724,12 @@ body.modal-open #habitica-menu {
       margin: 0.6em -16px -8px;
       overflow: auto;
       flex-direction: column;
+
+      &.collapsing {
+        // no scrollbar while the open/close height transition runs
+        overflow: hidden;
+        display: flex !important;
+      }
       background-color: $purple-100;
 
       .menu-list {
