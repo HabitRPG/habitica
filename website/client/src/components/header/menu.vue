@@ -48,10 +48,10 @@
         <notification-menu class="item-with-icon" />
         <user-dropdown class="item-with-icon" />
       </div>
-      <b-collapse
+      <collapse
         id="menu_collapse"
-        v-model="menuIsOpen"
-        class="collapse navbar-collapse"
+        :visible="menuIsOpen"
+        class="navbar-collapse"
       >
         <ul class="navbar-nav menu-list">
           <li
@@ -456,7 +456,7 @@
           <notification-menu class="item-with-icon" />
           <user-dropdown class="item-with-icon" />
         </div>
-      </b-collapse>
+      </collapse>
     </nav>
   </div>
 </template>
@@ -728,7 +728,6 @@ body.modal-open #habitica-menu {
       &.collapsing {
         // no scrollbar while the open/close height transition runs
         overflow: hidden;
-        display: flex !important;
       }
       background-color: $purple-100;
 
@@ -813,6 +812,7 @@ body.modal-open #habitica-menu {
 <script>
 import { mapState, mapGetters } from '@/libs/store';
 import { goToModForm } from '@/libs/modform';
+import collapse from '@/components/ui/collapse';
 
 import gemIcon from '@/assets/svg/gem.svg?raw';
 import goldIcon from '@/assets/svg/gold.svg?raw';
@@ -835,6 +835,7 @@ import { userStateMixin } from '../../mixins/userState';
 
 export default {
   components: {
+    collapse,
     creatorIntro,
     notificationMenu,
     profileModal,

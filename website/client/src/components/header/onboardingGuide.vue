@@ -37,9 +37,9 @@
         :style="{width: `${progress}%`}"
       ></div>
     </div>
-    <b-collapse
+    <collapse
       id="onboardingPanelCollapse"
-      v-model="open"
+      :visible="open"
     >
       <div
         v-for="(achievement, key) in onboardingAchievements"
@@ -63,7 +63,7 @@
           >{{ getAchievementText(key) }}</span>
         </div>
       </div>
-    </b-collapse>
+    </collapse>
   </div>
 </template>
 
@@ -192,11 +192,15 @@
 <script>
 import achievs from '@/../../common/script/libs/achievements';
 import { mapState } from '@/libs/store';
+import collapse from '@/components/ui/collapse';
 
 import onboardingGuideBanner from '@/assets/svg/onboarding-guide-banner.svg?raw';
 import downIcon from '@/assets/svg/down.svg?raw';
 
 export default {
+  components: {
+    collapse,
+  },
   props: {
     neverSeen: { // whether it's ever been seen by the user
       type: Boolean,

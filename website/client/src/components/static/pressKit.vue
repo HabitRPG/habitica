@@ -53,18 +53,21 @@
         class="faq-question"
       >
         <h2
-          v-b-toggle="QA.question"
           tabindex="0"
           role="button"
+          :aria-expanded="openQuestion === QA.question ? 'true' : 'false'"
+          :aria-controls="QA.question"
+          @click="toggleQuestion(QA.question)"
+          @keydown.enter.space.prevent="toggleQuestion(QA.question)"
           v-html="$t(QA.question)"
         ></h2>
-        <b-collapse
+        <collapse
           :id="QA.question"
-          accordion="pkAccordian"
+          :visible="openQuestion === QA.question"
           role="tabpanel"
         >
           <p v-html="$t(QA.answer)"></p>
-        </b-collapse>
+        </collapse>
       </div>
     </div>
     <p>{{ $t('pkMoreQuestions') }}</p>
@@ -79,11 +82,17 @@
 
 <script>
 // @TODO: EMAILS.PRESS_ENQUIRY_EMAIL
+import collapse from '@/components/ui/collapse';
+
 const PRESS_ENQUIRY_EMAIL = 'admin@habitica.com';
 
 export default {
+  components: {
+    collapse,
+  },
   data () {
-    return Object.freeze({
+    return {
+      openQuestion: null,
       PRESS_ENQUIRY_EMAIL,
       imgs: {
         Promo: [
@@ -166,12 +175,17 @@ export default {
           answer: 'pkAnswer7',
         },
       ],
-    });
+    };
   },
   mounted () {
     this.$store.dispatch('common:setTitle', {
       section: this.$t('presskit'),
     });
+  },
+  methods: {
+    toggleQuestion (question) {
+      this.openQuestion = this.openQuestion === question ? null : question;
+    },
   },
 };
 </script>

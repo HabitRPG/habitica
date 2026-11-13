@@ -41,19 +41,19 @@
             </h2>
             <!-- entry header -->
             <h3
-              v-once
-              v-b-toggle="entry.heading"
               role="tab"
-              variant="info"
+              tabindex="0"
               class="headings"
-              @click="handleClick($event)"
+              :aria-expanded="openHeading === entry.heading ? 'true' : 'false'"
+              :aria-controls="entry.heading"
+              @click="toggle(entry.heading)"
+              @keydown.enter.space.prevent="toggle(entry.heading)"
             >
               {{ entry.question }}
             </h3>
-            <b-collapse
+            <collapse
               :id="entry.heading"
-              :visible="isVisible(entry.heading)"
-              accordion="faq"
+              :visible="openHeading === entry.heading"
               role="tabpanel"
             >
               <!-- questions -->
@@ -62,7 +62,7 @@
                 v-markdown="entry.web"
                 class="card-body p-0 pb-3"
               ></div>
-            </b-collapse>
+            </collapse>
           </div>
         </div>
       </div>
@@ -76,11 +76,13 @@
 </style>
 
 <script>
+import collapse from '@/components/ui/collapse';
 import FaqSidebar from '@/components/shared/faqSidebar';
 import markdownDirective from '@/directives/markdown';
 
 export default {
   components: {
+    collapse,
     FaqSidebar,
   },
   directives: {
@@ -89,7 +91,7 @@ export default {
   data () {
     return {
       faq: {},
-      headings: [],
+      openHeading: null,
       stillNeedHelp: '',
     };
   },
@@ -99,20 +101,14 @@ export default {
       subSection: this.$t('faq'),
     });
     this.faq = await this.$store.dispatch('faq:getFAQ');
-    for (const entry of this.faq.questions) {
-      this.headings.push(entry.heading);
-    }
+    const hash = window.location.hash.replace('#', '');
+    if (this.faq.questions.some(entry => entry.heading === hash)) this.openHeading = hash;
     this.stillNeedHelp = this.faq.stillNeedHelp.web;
     document.body.style.background = '#ffffff';
   },
   methods: {
-    isVisible (heading) {
-      const hash = window.location.hash.replace('#', '');
-      return hash && this.headings.includes(hash) && hash === heading;
-    },
-    handleClick (e) {
-      if (!e) return;
-      const heading = e.target.nextElementSibling.id;
+    toggle (heading) {
+      this.openHeading = this.openHeading === heading ? null : heading;
       window.history.pushState({}, heading, `#${heading}`);
     },
   },

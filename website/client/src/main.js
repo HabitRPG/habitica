@@ -5,7 +5,6 @@ import {
   DropdownPlugin,
   PopoverPlugin,
   TooltipPlugin,
-  CollapsePlugin,
 } from 'bootstrap-vue';
 import AppComponent from './app';
 import { setUpLogging } from '@/libs/logging';
@@ -34,7 +33,6 @@ Vue.use(ModalPlugin);
 Vue.use(DropdownPlugin);
 Vue.use(PopoverPlugin);
 Vue.use(TooltipPlugin);
-Vue.use(CollapsePlugin);
 
 setUpLogging();
 const store = getStore();

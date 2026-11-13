@@ -559,9 +559,9 @@
               ></div>
             </div>
           </div>
-          <b-collapse
+          <collapse
             id="advancedOptionsCollapse"
-            v-model="showAdvancedOptions"
+            :visible="showAdvancedOptions"
           >
             <div>
               <div
@@ -683,7 +683,7 @@
                 </div>
               </div>
             </div>
-          </b-collapse>
+          </collapse>
         </div>
         <div
           v-if="purpose !== 'create' && !challengeAccessRequired"
@@ -1284,6 +1284,7 @@ import get from 'lodash/get';
 import set from 'lodash/set';
 import Datepicker from '@/components/ui/datepicker';
 import toggleCheckbox from '@/components/ui/toggleCheckbox';
+import collapse from '@/components/ui/collapse';
 import markdownDirective from '@/directives/markdown';
 import { mapGetters, mapActions, mapState } from '@/libs/store';
 import checklist from './modal-controls/checklist';
@@ -1310,6 +1311,7 @@ import alertIcon from '@/assets/svg/for-css/alert-white.svg?raw';
 
 export default {
   components: {
+    collapse,
     InformationIcon,
     SelectMulti,
     Datepicker,

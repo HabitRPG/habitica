@@ -15,9 +15,9 @@
       >
       </div>
     </div>
-    <b-collapse
+    <collapse
       id="checklistCollapse"
-      v-model="showChecklist"
+      :visible="showChecklist"
     >
       <draggable
         v-model="checklist"
@@ -113,7 +113,7 @@
         :caret-position="mixinData.autoComplete.caretPosition"
         @select="selectedAutocomplete"
       />
-    </b-collapse>
+    </collapse>
   </div>
 </template>
 
@@ -127,6 +127,7 @@ import deleteIcon from '@/assets/svg/delete.svg?raw';
 import chevronIcon from '@/assets/svg/chevron.svg?raw';
 import gripIcon from '@/assets/svg/grip.svg?raw';
 import checkbox from '@/components/ui/checkbox';
+import collapse from '@/components/ui/collapse';
 import lockableLabel from './lockableLabel';
 import emojiAutoComplete from '@/components/chat/emojiAutoComplete';
 import { autoCompleteHelperMixin } from '@/mixins/autoCompleteHelper';
@@ -135,6 +136,7 @@ export default {
   name: 'Checklist',
   components: {
     checkbox,
+    collapse,
     draggable,
     lockableLabel,
     emojiAutoComplete,
