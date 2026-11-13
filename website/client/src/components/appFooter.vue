@@ -327,154 +327,8 @@
             ></div>
           </div>
         </div>
-        <div
-          v-if="TIME_TRAVEL_ENABLED && user?.permissions?.fullAccess"
-          :key="lastTimeJump"
-          class="time-travel"
-        >
-          <a
-            class="btn btn-secondary mr-1"
-            @click="jumpTime(-1)"
-          >-1 Day</a>
-          <a
-            class="btn btn-secondary mr-1"
-            @click="jumpTime(-7)"
-          >-7 Days</a>
-          <a
-            class="btn btn-secondary mr-1"
-            @click="jumpTime(-30)"
-          >-30 Days</a>
-          <div class="my-2">
-            Time Traveling! It is {{ new Date().toLocaleDateString() }}
-            <a
-              class="btn btn-small"
-              @click="resetTime()"
-            >
-              Reset
-            </a>
-          </div>
-          <a
-            class="btn btn-secondary mr-1"
-            @click="jumpTime(1)"
-          >+1 Day</a>
-          <a
-            class="btn btn-secondary mr-1"
-            @click="jumpTime(7)"
-          >+7 Days</a>
-          <a
-            class="btn btn-secondary mr-1"
-            @click="jumpTime(30)"
-          >+30 Days</a>
-        </div>
-        <div
-          v-if="DEBUG_ENABLED && isUserLoaded"
-          class="debug-toggle"
-        >
-          <button
-            class="debug btn-primary"
-            @click="debugMenuShown = !debugMenuShown"
-          >
-            Toggle Debug Menu
-          </button>
-          <div
-            v-if="debugMenuShown"
-            class="btn debug-toggle debug-group"
-          >
-            <div class="debug-pop">
-              <a
-                class="btn btn-secondary"
-                @click="setHealthLow()"
-              >Reduce Health to 1</a>
-              <a
-                class="btn btn-secondary"
-                @click="addMissedDay(1)"
-              >+1 Missed Day</a>
-              <a
-                class="btn btn-secondary"
-                @click="addMissedDay(2)"
-              >+2 Missed Days</a>
-              <a
-                class="btn btn-secondary"
-                @click="addMissedDay(8)"
-              >+8 Missed Days</a>
-              <a
-                class="btn btn-secondary"
-                @click="addMissedDay(32)"
-              >+32 Missed Days</a>
-              <a
-                class="btn btn-secondary"
-                @click="addTenGems()"
-              >+10 Gems</a>
-              <a
-                class="btn btn-secondary"
-                @click="addHourglass()"
-              >+1 Mystic Hourglass</a>
-              <a
-                class="btn btn-secondary"
-                @click="addGold()"
-              >+500GP</a>
-              <a
-                class="btn btn-secondary"
-                @click="plusTenHealth()"
-              >+ 10HP</a>
-              <a
-                class="btn btn-secondary"
-                @click="addMana()"
-              >+MP</a>
-              <a
-                class="btn btn-secondary"
-                @click="addLevelsAndGold()"
-              >+Exp +GP +MP</a>
-              <a
-                class="btn btn-secondary"
-                @click="addExp()"
-              >+Exp</a>
-              <a
-                class="btn btn-secondary"
-                @click="addOneLevel()"
-              >+1 Level</a>
-              <a
-                class="btn btn-secondary"
-                tooltip="+1000 to boss quests. 300 items to collection quests"
-                @click="addQuestProgress()"
-              >Quest Progress Up</a>
-              <a
-                class="btn btn-secondary"
-                @click="bossRage()"
-              >+ Boss Rage 😡</a>
-              <a
-                class="btn btn-secondary"
-                @click="makeAdmin()"
-              >Make Admin</a>
-              <div class="d-flex align-items-center mt-2">
-                <input
-                  v-model.number="partyChatCount"
-                  type="number"
-                  min="1"
-                  class="form-control form-control-sm mr-2"
-                  style="width: 80px;"
-                >
-                <a
-                  class="btn btn-secondary"
-                  @click="seedPartyChat()"
-                >Send Party Chat Messages</a>
-              </div>
-              <div class="d-flex align-items-center mt-2">
-                <input
-                  v-model.number="inboxCount"
-                  type="number"
-                  min="1"
-                  class="form-control form-control-sm mr-2"
-                  style="width: 80px;"
-                >
-                <a
-                  class="btn btn-secondary"
-                  @click="seedInbox()"
-                >Send Inbox Messages</a>
-              </div>
-            </div>
-          </div>
-        </div>
+        <time-travel v-if="TIME_TRAVEL_ENABLED" />
+        <debug-menu v-if="DEBUG_ENABLED" />
       </div>
     </footer>
   </div>
@@ -486,18 +340,6 @@
   margin: 0;
   flex: 0 1 auto;
   z-index: 10;
-}
-
-button {
-  border: none;
-  border-radius: 4px;
-  text-align: center;
-  line-height: 1.71;
-  font-weight: 700;
-  font-size: .875rem;
-  margin-bottom: 1rem;
-  padding: .5rem 1rem;
-  box-shadow: 0 1px 3px 0 rgb(26 24 29 / 12%), 0 1px 2px 0 rgb(26 24 29 / 24%);
 }
 
 ul {
@@ -564,20 +406,6 @@ li {
   display: none;
 }
 
-// row 5
-.debug-toggle { grid-area: debug-toggle;}
-.debog-pop {
-  grid-area: debug-pop;
-}
-
-.time-travel {
-  grid-area: time-travel;
-
-  a:hover {
-    text-decoration: none !important;
-  }
-}
-
 footer {
   background-color: $gray-500;
   color: $gray-50;
@@ -623,64 +451,6 @@ h3 {
 
 .desktop {
   display: none;
-}
-
-.debug {
-  border: 2px solid transparent;
-  box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
-  display: flex;
-  justify-content: center;
-  margin-top: 16px;
-  padding: 2px 12px;
-
-  &:hover {
-    box-shadow: 0 3px 6px 0 rgba($black, 0.12), 0 3px 6px 0 rgba($black, 0.24);
-  }
-  &:focus  {
-    border: 2px solid $purple-400 !important;
-    box-shadow: 0 3px 6px 0 rgba($black, 0.12), 0 3px 6px 0 rgba($black, 0.24);
-  }
-  :active {
-    border: 2px solid $purple-600 !important;
-    box-shadow: none;
-  }
-}
-
-.debug-group {
-  background-color: $gray-600;
-  border: 2px solid transparent;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
-  font-weight: 700;
-  padding: 8px 16px;
-
- .btn {
-    margin: 2px;
-  }
-
-  a:hover {
-    border: 2px solid transparent;
-    box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
-    text-decoration: none !important;
-  }
-}
-
-.btn-small {
-  background-color: $maroon-100;
-  border: 2px solid transparent;
-  color: $white !important;
-  line-height: 18px;
-  &:hover {
-    background-color: $maroon-100;
-    text-decoration: none !important;
-    border: 2px solid $maroon-100;
-  }
-}
-.btn-secondary {
-  padding: 2px 12px;
-}
-.btn-secondary a:hover {
-  text-decoration: none !important;
 }
 
 .btn-contribute {
@@ -750,12 +520,6 @@ h3 {
     justify-content: center;
   }
 
-  // row 12
-  .debug-toggle {
-    grid-area: debug-toggle;
-    width: 100%;
-  }
-
   footer {
     padding: 24px 16px;
 
@@ -775,9 +539,6 @@ h3 {
   .btn-contribute {
     width: 100%;
   }
-  .debug {
-    width: 100%;
-  }
 }
 
 // Medium devices (tablets, 768px and under)
@@ -794,9 +555,6 @@ h3 {
 
 <script>
 // modules
-import axios from 'axios';
-import moment from 'moment';
-import Vue from 'vue';
 
 // images
 import melior from '@/assets/svg/melior.svg?raw';
@@ -811,26 +569,20 @@ import { mapState } from '@/libs/store';
 import buyGemsModal from './payments/buyGemsModal.vue';
 import privacyModal from './settings/privacyModal.vue';
 import reportBug from '@/mixins/reportBug.js';
-import { worldStateMixin } from '@/mixins/worldState';
 
 const DEBUG_ENABLED = import.meta.env.DEBUG_ENABLED === 'true';
 const TIME_TRAVEL_ENABLED = import.meta.env.TIME_TRAVEL_ENABLED === 'true';
-
-let sinon;
-if (import.meta.env.TIME_TRAVEL_ENABLED === 'true') {
-  (async () => {
-    sinon = await import('sinon');
-  })();
-}
 
 export default {
   components: {
     buyGemsModal,
     privacyModal,
+    // only fetched when rendered, so prod builds never load them
+    timeTravel: () => import('./timeTravel.vue'),
+    debugMenu: () => import('./debugMenu.vue'),
   },
   mixins: [
     reportBug,
-    worldStateMixin,
   ],
   data () {
     return {
@@ -842,17 +594,12 @@ export default {
         tumblr,
         heart,
       }),
-      debugMenuShown: false,
       DEBUG_ENABLED,
       TIME_TRAVEL_ENABLED,
-      lastTimeJump: null,
-      partyChatCount: 450,
-      inboxCount: 450,
     };
   },
   computed: {
     ...mapState({ user: 'user.data' }),
-    ...mapState(['isUserLoaded']),
     getDataDisplayToolUrl () {
       const base = 'https://tools.habitica.com/';
       if (!this.user) return null;
@@ -864,134 +611,6 @@ export default {
     },
   },
   methods: {
-    plusTenHealth () {
-      this.$store.dispatch('user:set', {
-        'stats.hp': this.user.stats.hp += 10,
-      });
-    },
-    setHealthLow () {
-      this.$store.dispatch('user:set', {
-        'stats.hp': 1,
-      });
-    },
-    async addMissedDay (numberOfDays) {
-      if (!window.confirm(`Are you sure you want to reset the day by ${numberOfDays} day(s)?`)) return; // eslint-disable-line no-alert
-      const date = moment(this.user.lastCron).subtract(numberOfDays, 'days').toDate();
-      await axios.post('/api/v4/debug/set-cron', {
-        lastCron: date,
-      });
-      // @TODO: Notification.text('-' + numberOfDays + ' day(s), remember to refresh');
-      // @TODO: Sync user?
-    },
-    async addTenGems () {
-      await axios.post('/api/v4/debug/add-ten-gems');
-      // @TODO: Notification.text('+10 Gems!');
-      this.user.balance += 2.5;
-    },
-    async addHourglass () {
-      await axios.post('/api/v4/debug/add-hourglass');
-      // @TODO: Sync?
-    },
-    addGold () {
-      this.$store.dispatch('user:set', {
-        'stats.gp': this.user.stats.gp + 500,
-      });
-    },
-    addMana () {
-      this.$store.dispatch('user:set', {
-        'stats.mp': this.user.stats.mp + 500,
-      });
-    },
-    addLevelsAndGold () {
-      this.$store.dispatch('user:set', {
-        'stats.exp': this.user.stats.exp + 10000,
-        'stats.gp': this.user.stats.gp + 10000,
-        'stats.mp': this.user.stats.mp + 10000,
-      });
-    },
-    async jumpTime (amount) {
-      const response = await axios.post('/api/v4/debug/jump-time', { offsetDays: amount });
-      setTimeout(() => {
-        if (amount > 0) {
-          Vue.config.clock.jump(amount * 24 * 60 * 60 * 1000);
-        } else {
-          Vue.config.clock.setSystemTime(moment().add(amount, 'days').toDate());
-        }
-        this.lastTimeJump = response.data.data.time;
-        this.triggerGetWorldState(true);
-      }, 1000);
-    },
-    async resetTime () {
-      const response = await axios.post('/api/v4/debug/jump-time', { reset: true });
-      const time = new Date(response.data.data.time);
-      setTimeout(() => {
-        Vue.config.clock.restore();
-        Vue.config.clock = sinon.useFakeTimers({
-          now: time,
-          shouldAdvanceTime: true,
-        });
-        this.lastTimeJump = response.data.data.time;
-        this.triggerGetWorldState(true);
-      }, 1000);
-    },
-    addExp () {
-      // @TODO: Name these variables better
-      let exp = 0;
-      const five = 10 * this.user.stats.lvl;
-      const four = (this.user.stats.lvl ** 2) * 0.25;
-      const three = four + five + 139.75;
-      const two = three / 10;
-      const one = Math.round(two) * 10;
-      exp = this.user.stats.exp + one;
-      this.$store.dispatch('user:set', {
-        'stats.exp': exp,
-      });
-    },
-    addOneLevel () {
-      this.$store.dispatch('user:set', {
-        'stats.lvl': this.user.stats.lvl + 1,
-      });
-    },
-    async addQuestProgress () {
-      await axios.post('/api/v4/debug/quest-progress');
-      //  @TODO:  Notification.text('Quest progress increased');
-      //  @TODO:  User.sync();
-    },
-    async bossRage () {
-      await axios.post('/api/v4/debug/boss-rage');
-    },
-    async makeAdmin () {
-      await axios.post('/api/v4/debug/make-admin');
-      // @TODO: Notification.text('You are now an admin!
-      // Reload the website then go to Help > Admin Panel to set contributor level, etc.');
-      // @TODO: sync()
-    },
-    async seedPartyChat () {
-      try {
-        const count = this.partyChatCount;
-        if (!Number.isInteger(count) || count < 1) {
-          window.alert('Please enter a positive integer'); // eslint-disable-line no-alert
-          return;
-        }
-        await axios.post('/api/v4/debug/seed-party-chat', { messageCount: count });
-        window.alert(`Successfully sent ${count} messages to your party chat!`); // eslint-disable-line no-alert
-      } catch (e) {
-        window.alert(e.response?.data?.message || 'Error sending party chat messages'); // eslint-disable-line no-alert
-      }
-    },
-    async seedInbox () {
-      try {
-        const count = this.inboxCount;
-        if (!Number.isInteger(count) || count < 1) {
-          window.alert('Please enter a positive integer'); // eslint-disable-line no-alert
-          return;
-        }
-        await axios.post('/api/v4/debug/seed-inbox', { messageCount: count });
-        window.alert(`Successfully sent ${count} messages to your inbox!`); // eslint-disable-line no-alert
-      } catch (e) {
-        window.alert(e.response?.data?.message || 'Error sending inbox messages'); // eslint-disable-line no-alert
-      }
-    },
     donate () {
       this.$root.$emit('bv::show::modal', 'buy-gems', { alreadyTracked: true });
     },

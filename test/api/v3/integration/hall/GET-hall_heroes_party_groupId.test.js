@@ -1,4 +1,5 @@
 import { v4 as generateUUID } from 'uuid';
+import nconf from 'nconf';
 import {
   generateUser,
   generateGroup,
@@ -13,6 +14,17 @@ describe('GET /heroes/party/:groupId', () => {
     user = await generateUser({
       'permissions.userSupport': true,
     });
+  });
+
+  let nconfStub;
+
+  beforeEach(() => {
+    nconfStub = sandbox.stub(nconf, 'get').callThrough();
+    nconfStub.withArgs('ENABLE_ADMIN_PANEL').returns('true');
+  });
+
+  afterEach(() => {
+    nconfStub.restore();
   });
 
   it('requires the caller to be an admin', async () => {
@@ -57,5 +69,14 @@ describe('GET /heroes/party/:groupId', () => {
     // It must not be retrieved for privacy reasons.
     // However the group model automatically adds a summary for reasons given here:
     // https://github.com/HabitRPG/habitica/blob/8da36bf27c62ba0397a6af260c20d35a17f3d911/website/server/models/group.js#L161-L170
+  });
+
+  it('is not available when the admin panel is disabled', async () => {
+    nconfStub.withArgs('ENABLE_ADMIN_PANEL').returns('false');
+    const nonAdmin = await generateUser();
+    const party = await generateGroup(nonAdmin, { type: 'party', privacy: 'private' });
+
+    await expect(user.get(`/hall/heroes/party/${party._id}`))
+      .to.eventually.be.rejected.and.have.property('code', 404);
   });
 });

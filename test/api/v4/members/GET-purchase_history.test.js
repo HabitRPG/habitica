@@ -1,3 +1,4 @@
+import nconf from 'nconf';
 import {
   generateUser,
   translate as t,
@@ -10,6 +11,25 @@ describe('GET /members/:memberId/purchase-history', () => {
     user = await generateUser({
       permissions: { userSupport: true },
     });
+  });
+
+  let nconfStub;
+
+  beforeEach(() => {
+    nconfStub = sandbox.stub(nconf, 'get').callThrough();
+    nconfStub.withArgs('ENABLE_ADMIN_PANEL').returns('true');
+  });
+
+  afterEach(() => {
+    nconfStub.restore();
+  });
+
+  it('is not available when the admin panel is disabled', async () => {
+    nconfStub.withArgs('ENABLE_ADMIN_PANEL').returns('false');
+    const member = await generateUser();
+
+    await expect(user.get(`/members/${member._id}/purchase-history`))
+      .to.eventually.be.rejected.and.have.property('code', 404);
   });
 
   it('validates req.params.memberId', async () => {
