@@ -34,7 +34,7 @@
     "lodash": "^4.17.21",
     "markdown-it": "^14.0.0",
     "micromustache": "^8.0.3",
-    "moment": "^2.29.4",
+    "moment": "^2.31.0",
     "nconf": "^0.12.1",
     "sass": "^1.63.4",
     "sinon": "^17.0.1",
