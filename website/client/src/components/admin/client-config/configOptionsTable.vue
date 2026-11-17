@@ -26,116 +26,123 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="config in clientConfigs"
-          :key="config._id"
-          :class="{ 'disabled-row': !config.enabled }"
+        <template
+          v-for="entry in clientConfigs"
         >
-          <ConfigForm
-            v-if="config._id === editedConfigId"
-            :config="config"
-            :segments="segments"
-            @save="saveConfig"
-            @hide="editedConfigId = null"
-          />
-          <td class="text-nowrap">
-            {{ config.name }}
-            <template v-if="config.description">
-              <span
-                :id="`description_tooltip_${config._id}`"
-                class="info-icon"
-              >?</span>
-              <b-tooltip :target="`description_tooltip_${config._id}`">
-                {{ config.description }}
-              </b-tooltip>
-            </template>
-          </td>
-          <td class="text-center">
-            <div
-              class="d-inline badge badge-pill"
-              :class="getTypeColor(config.type)"
-            >
-              {{ getTypeText(config.type) }}
-            </div>
-          </td>
-          <td class="text-center">
-            <span
-              v-if="config.enabled"
-              class="svg-icon icon-16 color enabled-icon"
-              v-html="icons.checkIcon"
-            ></span>
-            <span
-              v-else
-              class="svg-icon icon-16 color disabled-icon"
-              v-html="icons.closeIcon"
-            ></span>
-          </td>
-          <td class="overflow-hidden">
-            <ValuesDisplay
-              :default-value="config.defaultValue"
-              :values="config.values"
+          <tr
+            v-if="entry.key"
+            :class="{ 'disabled-row': !entry.enabled }"
+          >
+            <ConfigForm
+              v-if="entry._id === editedConfigId"
+              :config="entry"
               :segments="segments"
+              @save="saveConfig"
+              @hide="editedConfigId = null"
             />
-          </td>
-          <td class="btn-cell">
-            <button
-              class="btn btn-flat btn-secondary"
-              @click="editConfig(config._id)"
-            >
-              <span
-                v-once
-                class="svg-icon icon-16 color"
-                v-html="icons.editIcon"
-              ></span>
-            </button>
-            <b-dropdown
-              right="right"
-              variant="flat"
-              toggle-class="with-icon"
-              class="row-menu no-min-width"
-              :no-caret="true"
-            >
-              <template #button-content>
+            <td class="text-nowrap">
+              {{ entry.name }}
+              <template v-if="entry.description">
                 <span
-                  v-once
-                  class="svg-icon inline menuIcon color"
-                  v-html="icons.menuIcon"
-                >
-                </span>
+                  :id="`description_tooltip_${entry._id}`"
+                  class="info-icon"
+                >?</span>
+                <b-tooltip :target="`description_tooltip_${entry._id}`">
+                  {{ entry.description }}
+                </b-tooltip>
               </template>
-              <b-dropdown-item
-                class="selectListItem"
-                @click="duplicateConfig(config._id)"
+            </td>
+            <td class="text-center">
+              <div
+                class="d-inline badge badge-pill"
+                :class="getTypeColor(entry.type)"
               >
-                <span class="with-icon">
-                  <span
-                    v-once
-                    class="svg-icon icon-16 color"
-                    v-html="icons.copyIcon"
-                  ></span>
-                  <span v-once>
-                    Duplicate
-                  </span>
-                </span>
-              </b-dropdown-item>
-              <b-dropdown-item
-                class="selectListItem custom-hover--red"
-                @click="deleteConfig(config._id)"
+                {{ getTypeText(entry.type) }}
+              </div>
+            </td>
+            <td class="text-center">
+              <span
+                v-if="entry.enabled"
+                class="svg-icon icon-16 color enabled-icon"
+                v-html="icons.checkIcon"
+              ></span>
+              <span
+                v-else
+                class="svg-icon icon-16 color disabled-icon"
+                v-html="icons.closeIcon"
+              ></span>
+            </td>
+            <td class="overflow-hidden">
+              <ValuesDisplay
+                :default-value="entry.defaultValue"
+                :values="entry.values"
+                :segments="segments"
+              />
+            </td>
+            <td class="btn-cell">
+              <button
+                class="btn btn-flat btn-secondary"
+                @click="editConfig(entry._id)"
               >
-                <span class="with-icon">
+                <span
+                  class="svg-icon icon-16 color"
+                  v-html="icons.editIcon"
+                ></span>
+              </button>
+              <b-dropdown
+                right="right"
+                variant="flat"
+                toggle-class="with-icon"
+                class="row-menu no-min-width"
+                :no-caret="true"
+              >
+                <template #button-content>
                   <span
-                    v-once
-                    class="svg-icon icon-16 color"
-                    v-html="icons.deleteIcon"
-                  ></span>
-                  <span v-once>
-                    {{ $t('delete') }}
+                    class="svg-icon inline menuIcon color"
+                    v-html="icons.menuIcon"
+                  >
                   </span>
-                </span>
-              </b-dropdown-item>
-            </b-dropdown>
-          </td>
-        </tr>
+                </template>
+                <b-dropdown-item
+                  class="selectListItem"
+                  @click="duplicateConfig(entry._id)"
+                >
+                  <span class="with-icon">
+                    <span
+                      class="svg-icon icon-16 color"
+                      v-html="icons.copyIcon"
+                    ></span>
+                    <span>
+                      Duplicate
+                    </span>
+                  </span>
+                </b-dropdown-item>
+                <b-dropdown-item
+                  class="selectListItem custom-hover--red"
+                  @click="deleteConfig(entry._id)"
+                >
+                  <span class="with-icon">
+                    <span
+                      class="svg-icon icon-16 color"
+                      v-html="icons.deleteIcon"
+                    ></span>
+                    <span>
+                      {{ $t('delete') }}
+                    </span>
+                  </span>
+                </b-dropdown-item>
+              </b-dropdown>
+            </td>
+          </tr>
+          <tr v-else>
+            <td
+              colspan="5"
+              class="text-center font-weight-bold"
+            >
+              {{ entry.name }}
+            </td>
+          </tr>
+        </template>
       </tbody>
     </table>
     <ConfigForm

@@ -68,7 +68,20 @@ export default {
   },
   methods: {
     async loadConfigs () {
-      this.clientConfigs = await this.$store.dispatch('clientConfig:getClientConfigs');
+      let configs = await this.$store.dispatch('clientConfig:getClientConfigs');
+      configs = configs.sort((a, b) => (a.group || '').localeCompare(b.group || ''));
+      let lastGroupName = null;
+      const groupedConfigs = [];
+      for (const config of configs) {
+        if (config.group !== lastGroupName) {
+          if (config.group) {
+            groupedConfigs.push({ isGroupHeader: true, name: config.group });
+          }
+          lastGroupName = config.group;
+        }
+        groupedConfigs.push(config);
+      }
+      this.clientConfigs = groupedConfigs;
     },
     async loadSegments () {
       this.segments = await this.$store.dispatch('clientConfig:getClientConfigSegments');

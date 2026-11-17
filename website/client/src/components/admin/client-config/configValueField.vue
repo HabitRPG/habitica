@@ -110,7 +110,7 @@ export default {
       this.validateValue(value);
       this.inputValue(value);
     },
-    
+
     validateValueAsNumber (value) {
       console.log(Number.isNaN(value), value);
       this.isValid = !Number.isNaN(value) && isFinite(value);
