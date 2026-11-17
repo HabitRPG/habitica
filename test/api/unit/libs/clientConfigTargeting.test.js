@@ -63,6 +63,14 @@ describe('clientConfigTargeting', () => {
       expect(test(user)).to.be.false;
     });
 
+    it('does not throw for contains on a missing value', () => {
+      const test = compileSegment({
+        _id: 'segment',
+        conditions: [{ attribute: 'language', operator: 'contains', value: 'de' }],
+      });
+      expect(test({ _id: 'user-id' })).to.be.false;
+    });
+
     it('never matches invalid conditions', () => {
       const test = compileSegment({
         _id: 'segment',

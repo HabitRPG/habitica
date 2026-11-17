@@ -31,6 +31,9 @@ function sanitizeJsonValue (value) {
   }
 }
 
+// Form values can arrive as strings, where Boolean("false") would be true
+const parseBoolean = value => value === true || value === 'true';
+
 export function minifyJsonValue (value) {
   if (typeof value !== 'string') return JSON.stringify(value);
   try {
@@ -110,10 +113,10 @@ schema.plugin(baseModel, {
         });
       }
     } else if (type === 'boolean') {
-      option.defaultValue = Boolean(option.defaultValue);
+      option.defaultValue = parseBoolean(option.defaultValue);
       if (Array.isArray(option.values)) {
         option.values.forEach(v => {
-          v.value = Boolean(v.value);
+          v.value = parseBoolean(v.value);
         });
       }
     } else if (type === 'json') {

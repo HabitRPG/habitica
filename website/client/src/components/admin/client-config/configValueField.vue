@@ -14,7 +14,7 @@
       :value="value"
       class="form-control"
       :class="{ 'is-invalid input-invalid': !isValid }"
-      @change="validateAndInput($event.target.value)"
+      @change="validateAndInput(parseBoolean($event.target.value))"
     >
       <option :selected="value === null" :value="null">---</option>
       <option :selected="value === true" :value="true">True</option>
@@ -115,6 +115,12 @@ export default {
     },
     inputValue (value) {
       this.$emit('input', value);
+    },
+    // <select> values are always strings
+    parseBoolean (value) {
+      if (value === 'true') return true;
+      if (value === 'false') return false;
+      return null;
     },
     validateAndInput (value) {
       this.validateValue(value);

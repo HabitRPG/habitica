@@ -57,7 +57,7 @@ const COMPARATORS = {
   gte: (a, b) => a >= b,
   in: (a, b) => b.includes(a),
   nin: (a, b) => !b.includes(a),
-  contains: (a, b) => a.includes(b),
+  contains: (a, b) => typeof a === 'string' && a.includes(b),
 };
 
 export const MAX_CONDITIONS = 10;

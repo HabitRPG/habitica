@@ -274,7 +274,9 @@ export default {
     duplicateConfig (id) {
       const configToDuplicate = this.clientConfigs.find(config => config._id === id);
       if (configToDuplicate) {
-        this.newClientConfig = { ...configToDuplicate, name: `${configToDuplicate.name} (Copy)` };
+        this.newClientConfig = { ...configToDuplicate,
+            name: `${configToDuplicate.name} (Copy)`,
+            key: `${configToDuplicate.key}_copy` };
         this.showCreateForm = true;
       }
     },

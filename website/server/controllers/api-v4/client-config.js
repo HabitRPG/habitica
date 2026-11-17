@@ -127,7 +127,7 @@ api.adminUpdateClientConfig = {
     const sanitized = AppConfigOption.sanitize(req.body);
     await validateSegmentReferences(sanitized.values);
     merge(clientConfig, sanitized);
-    clientConfig.values = sanitized.values;
+    if (sanitized.values) clientConfig.values = sanitized.values;
     const savedClientConfig = await clientConfig.save();
     await invalidateClientConfig();
 

@@ -47,6 +47,22 @@ describe('GET /client-config', () => {
     await admin.put(`/admin/client-config/${option._id}`, { defaultValue: 'updated' });
     const res = await requester().get('/client-config?platform=web');
     expect(res[key]).to.equal('updated');
+    // a partial update must keep the overrides
+    const iosRes = await requester().get('/client-config?platform=ios');
+    expect(iosRes[key]).to.equal('ios');
+  });
+
+  it('stores "false" for boolean options as false', async () => {
+    const boolKey = `testBool${Date.now()}`;
+    await admin.post('/admin/client-config', {
+      name: 'Test boolean option',
+      key: boolKey,
+      type: 'boolean',
+      defaultValue: 'false',
+      values: [{ platform: 'ios', value: 'true' }],
+    });
+    expect((await requester().get('/client-config?platform=web'))[boolKey]).to.equal(false);
+    expect((await requester().get('/client-config?platform=ios'))[boolKey]).to.equal(true);
   });
 
   it('stores json values as formatted strings and serves them minified', async () => {
