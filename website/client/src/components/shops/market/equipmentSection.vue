@@ -138,7 +138,7 @@ export default {
       userStats: 'user.data.stats',
     }),
     armoireCount () {
-      return remainingGearInSet(this.userItems.gear.owned, 'armoire');
+      return remainingGearInSet('armoire', this.userItems.gear.owned);
     },
     noItemsLabel () {
       if (this.armoireCount > 0) {

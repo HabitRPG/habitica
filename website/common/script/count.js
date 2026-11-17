@@ -47,7 +47,7 @@ export function mountMasterProgress (mounts = {}) {
   return count;
 }
 
-export function remainingGearInSet (userGear = {}, set) {
+export function remainingGearInSet (set, userGear = {}) {
   const gear = filter(content.gear.flat, item => {
     if (item.klass !== set) {
       return false;
@@ -63,7 +63,7 @@ export function remainingGearInSet (userGear = {}, set) {
   return count;
 }
 
-export function questsOfCategory (userQuests = {}, category) {
+export function questsOfCategory (category, userQuests = {}) {
   const quests = filter(content.quests, quest => {
     const categoryMatches = quest.category === category;
     const hasQuest = userQuests[quest.key];

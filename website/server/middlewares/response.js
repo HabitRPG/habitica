@@ -2,6 +2,7 @@ import packageInfo from '../../../package.json';
 
 export default function responseHandler (req, res, next) {
   // Only used for successful responses
+  // eslint-disable-next-line default-param-last
   res.respond = function respond (status = 200, data = {}, message) {
     const user = res.locals && res.locals.user;
 

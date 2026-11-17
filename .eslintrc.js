@@ -11,9 +11,15 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['migrations/**', 'gulp/**'], // Or *.test.js
+      files: ['migrations/**', 'gulp/**'],
       rules: {
         'require-await': 'off',
+      },
+    },
+    {
+      files: ['test/**', 'migrations/**', 'gulp/**'],
+      rules: {
+        'no-console': 'off',
       },
     },
   ],

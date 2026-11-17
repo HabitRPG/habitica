@@ -107,7 +107,7 @@ describe('shared.ops.buyArmoire', () => {
       await buyArmoire(user);
 
       expect(user.items.gear.owned).to.eql(getFullArmoire());
-      const armoireCount = count.remainingGearInSet(user.items.gear.owned, 'armoire');
+      const armoireCount = count.remainingGearInSet('armoire', user.items.gear.owned);
 
       expect(armoireCount).to.eql(0);
 
@@ -126,7 +126,7 @@ describe('shared.ops.buyArmoire', () => {
 
       expect(_.size(user.items.gear.owned)).to.equal(2);
 
-      const armoireCount = count.remainingGearInSet(user.items.gear.owned, 'armoire');
+      const armoireCount = count.remainingGearInSet('armoire', user.items.gear.owned);
 
       expect(armoireCount).to.eql(_.size(getFullArmoire()) - 1);
       expect(user.items.food).to.be.empty;
@@ -148,7 +148,7 @@ describe('shared.ops.buyArmoire', () => {
 
       expect(_.size(user.items.gear.owned)).to.equal(3);
 
-      const armoireCount = count.remainingGearInSet(user.items.gear.owned, 'armoire');
+      const armoireCount = count.remainingGearInSet('armoire', user.items.gear.owned);
 
       expect(armoireCount).to.eql(_.size(getFullArmoire()) - 2);
       expect(user.stats.gp).to.eql(100);

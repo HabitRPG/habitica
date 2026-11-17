@@ -123,7 +123,7 @@ describe('count', () => {
         weapon_armor_1: true,
       };
 
-      const armoireCount = count.remainingGearInSet(gear, 'warrior');
+      const armoireCount = count.remainingGearInSet('warrior', gear);
 
       expect(armoireCount).to.eql(20);
     });
@@ -136,7 +136,7 @@ describe('count', () => {
         weapon_armor_1: true,
       };
 
-      const armoireCount = count.remainingGearInSet(gear, 'warrior');
+      const armoireCount = count.remainingGearInSet('warrior', gear);
 
       expect(armoireCount).to.eql(20);
     });
@@ -197,9 +197,9 @@ describe('count', () => {
         sheep: 1,
         goldenknight2: 1,
       };
-      const petQuestCount = count.questsOfCategory(quests, 'pet');
-      const unlockableQuestCount = count.questsOfCategory(quests, 'unlockable');
-      const goldQuestCount = count.questsOfCategory(quests, 'gold');
+      const petQuestCount = count.questsOfCategory('pet', quests);
+      const unlockableQuestCount = count.questsOfCategory('unlockable', quests);
+      const goldQuestCount = count.questsOfCategory('gold', quests);
 
       expect(petQuestCount).to.eql(3);
       expect(unlockableQuestCount).to.eql(2);
