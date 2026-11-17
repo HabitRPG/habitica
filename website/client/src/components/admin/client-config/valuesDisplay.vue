@@ -5,15 +5,15 @@
     </template>
     <template v-else>
       <ul class="list-unstyled mb-0">
-        <li>
+        <li v-if="defaultValue !== '' && defaultValue !== null && defaultValue !== undefined">
           <span
-            class="badge badge-pill badge-sm badge-default mb-1">Default</span> {{ defaultValue }}
+            class="badge badge-pill badge-sm badge-default mb-1">Default</span> {{ getTruncatedValue(defaultValue) }}
         </li>
         <li v-for="(value, index) in values" :key="index">
           <span class="badge badge-pill badge-sm badge-default mb-1"
             :class="'badge-' + getSegmentForValue(value).color">
             {{ getTargetName(value) }}
-          </span> {{ value.value }}
+          </span> {{ getTruncatedValue(value.value) }}
         </li>
       </ul>
     </template>
@@ -63,6 +63,10 @@ export default {
           return platform;
       }
     },
+    getTruncatedValue (value, length = 200) {
+      if (typeof value !== 'string') return value;
+      return value.length > length ? value.slice(0, length) + '...' : value;
+    }
   },
 };
 </script>

@@ -24,7 +24,7 @@
           v-for="segment in segments"
           :key="segment._id"
         >
-          <td class="name-col">
+          <td class="text-nowrap">
             <span
               class="badge badge-pill badge-default"
               :class="'badge-' + segment.color"
@@ -99,10 +99,6 @@ h2 {
 td {
   font-size: 1rem;
   vertical-align: middle;
-}
-
-.name-col {
-  white-space: nowrap;
 }
 
 .btncol {

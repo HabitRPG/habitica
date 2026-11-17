@@ -85,28 +85,27 @@ export default {
   },
   methods: {
     validateValue (value) {
-      if (this.type === 'number') {
-        this.validateValueAsNumber(value);
-      } else if (this.type === 'text') {
-        this.validateValueAsText(value);
-      } else if (this.type === 'boolean') {
-        this.validateValueAsBoolean(value);
-      } else if (this.type === 'json') {
-        this.validateValueAsJson(value);
-      } else if (this.type === 'email') {
-        this.validateValueAsEmail(value);
-      } else if (this.type === 'url') {
-        this.validateValueAsUrl(value);
-      } else if (this.type === 'date') {
-        this.validateValueAsDate(value);
+      if (value === '' || value === null || value === undefined) {
+        this.isValid = true;
+      } else {
+        if (this.type === 'number') {
+          this.validateValueAsNumber(value);
+        } else if (this.type === 'boolean') {
+          this.validateValueAsBoolean(value);
+        } else if (this.type === 'json') {
+          this.validateValueAsJson(value);
+        } else if (this.type === 'email') {
+          this.validateValueAsEmail(value);
+        } else if (this.type === 'url') {
+          this.validateValueAsUrl(value);
+        } else if (this.type === 'date') {
+          this.validateValueAsDate(value);
+        }
       }
       this.$emit('input', value);
     },
     validateValueAsNumber (value) {
       this.isValid = !Number.isNaN(value);
-    },
-    validateValueAsText (value) {
-      this.isValid = value.length > 0;
     },
     validateValueAsBoolean (value) {
       this.isValid = typeof value === 'boolean';

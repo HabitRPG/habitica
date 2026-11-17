@@ -106,6 +106,12 @@
         v-model="editedConfig.defaultValue"
         :type="editedConfig.type"
       />
+        <div
+        v-if="editedConfig.defaultValue === ''"
+          class="form-text text-muted"
+        >
+          Blank values revert to the clients default value.
+        </div>
     </div>
     <hr>
     <div
