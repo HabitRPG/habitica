@@ -101,6 +101,8 @@ export default {
         this.validateValueAsUrl(value);
       } else if (this.type === 'date') {
         this.validateValueAsDate(value);
+      } else if (this.type === 'text') {
+        this.isValid = typeof value === 'string';
       }
     },
     inputValue (value) {
