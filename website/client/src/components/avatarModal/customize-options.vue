@@ -176,7 +176,7 @@ export default {
     },
     currentValue: {
       type: [String, Number],
-      required: true,
+      default: null,
     },
   },
   data () {

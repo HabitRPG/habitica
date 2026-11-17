@@ -35,7 +35,7 @@ export default {
     },
     value: {
       type: [String, Boolean],
-      required: true,
+      default: false,
     },
     inputType: {
       type: String,

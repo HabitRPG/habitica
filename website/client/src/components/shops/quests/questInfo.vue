@@ -153,7 +153,7 @@ export default {
     },
     abbreviated: {
       type: Boolean,
-      required: true,
+      default: false,
     },
     purchased: {
       type: Boolean,

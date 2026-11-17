@@ -207,7 +207,7 @@ export default {
     },
     priceType: {
       type: String,
-      required: true,
+      default: null,
     },
     costumeMode: {
       type: Boolean,

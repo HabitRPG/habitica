@@ -56,11 +56,11 @@ export default {
   props: {
     user: {
       type: Object,
-      required: true,
+      default: null,
     },
     name: {
       type: String,
-      required: true,
+      default: null,
     },
     backer: {
       type: Object,

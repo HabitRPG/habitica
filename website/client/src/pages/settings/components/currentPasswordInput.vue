@@ -47,7 +47,7 @@ export default {
   props: {
     customLabel: {
       type: String,
-      required: true,
+      default: null,
     },
     showForgetPassword: {
       type: Boolean,

@@ -198,7 +198,7 @@ export default {
     },
     labelClass: {
       type: String,
-      required: true,
+      default: null,
     },
   },
   data () {

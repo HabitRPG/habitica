@@ -72,7 +72,7 @@ export default {
     },
     label: {
       type: String,
-      required: true,
+      default: null,
     },
     emptyItem: {
       type: Boolean,

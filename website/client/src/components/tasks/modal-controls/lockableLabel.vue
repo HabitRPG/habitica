@@ -45,7 +45,7 @@ export default {
   props: {
     classOverride: {
       type: String,
-      required: true,
+      default: null,
     },
     locked: {
       type: Boolean,

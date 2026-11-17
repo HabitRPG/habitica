@@ -407,11 +407,11 @@ export default {
     },
     selectedTags: {
       type: Array,
-      required: true,
+      default: null,
     },
     taskListOverride: {
       type: Array,
-      required: true,
+      default: null,
     },
     group: {
       type: Object,

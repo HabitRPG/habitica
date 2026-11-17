@@ -96,7 +96,7 @@ export default {
     },
     disabled: {
       type: Boolean,
-      required: true,
+      default: false,
     },
     value: {
       type: [String, Number, Object],
@@ -104,11 +104,11 @@ export default {
     },
     keyProp: {
       type: String,
-      required: true,
+      default: null,
     },
     activeKeyProp: {
       type: String,
-      required: true,
+      default: null,
     },
     directSelect: {
       type: Boolean,
@@ -116,15 +116,15 @@ export default {
     },
     disabledProp: {
       type: String,
-      required: true,
+      default: null,
     },
     hideIcon: {
       type: Boolean,
-      required: true,
+      default: false,
     },
     right: {
       type: Boolean,
-      required: true,
+      default: false,
     },
     inlineDropdown: {
       type: Boolean,
@@ -132,7 +132,7 @@ export default {
     },
     placeholder: {
       type: String,
-      required: true,
+      default: null,
     },
   },
   data () {

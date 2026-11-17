@@ -947,15 +947,15 @@ export default {
     },
     group: {
       type: Object,
-      required: true,
+      default: null,
     },
     challenge: {
       type: Object,
-      required: true,
+      default: null,
     },
     dueDate: {
-      type: Date,
-      required: true,
+      type: Object, // moment
+      default: null,
     },
     isYesterdaily: {
       type: Boolean,

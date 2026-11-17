@@ -84,7 +84,7 @@ export default {
     },
     group: {
       type: Object,
-      required: true,
+      default: null,
     },
   },
   data () {

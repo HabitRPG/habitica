@@ -19,7 +19,7 @@ export default {
   props: {
     imageName: {
       type: String,
-      required: true,
+      default: null,
     },
     prefix: {
       type: String,

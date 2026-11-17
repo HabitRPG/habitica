@@ -217,19 +217,19 @@ export default {
   props: {
     title: {
       type: String,
-      required: true,
+      default: null,
     },
     errorMessage: {
       type: String,
-      required: true,
+      default: null,
     },
     openStatus: {
       type: Number,
-      required: true,
+      default: undefined,
     },
     noTitleBottomPadding: {
       type: Boolean,
-      required: true,
+      default: false,
     },
   },
   data () {

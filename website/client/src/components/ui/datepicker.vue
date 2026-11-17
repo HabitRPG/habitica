@@ -205,7 +205,7 @@ export default {
     },
     clearButton: {
       type: Boolean,
-      required: true,
+      default: false,
     },
   },
   data () {

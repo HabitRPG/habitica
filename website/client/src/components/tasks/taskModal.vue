@@ -1338,11 +1338,11 @@ export default {
     },
     challengeId: {
       type: String,
-      required: true,
+      default: null,
     },
     groupId: {
       type: String,
-      required: true,
+      default: null,
     },
   },
   data () {

@@ -58,11 +58,11 @@ export default {
   props: {
     iconColor: {
       type: String,
-      required: true,
+      default: null,
     },
     iconColorHover: {
       type: String,
-      required: true,
+      default: null,
     },
     purple: {
       type: Boolean,

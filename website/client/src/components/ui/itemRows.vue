@@ -86,11 +86,11 @@ export default {
     },
     maxItemsPerRow: {
       type: Number,
-      required: true,
+      default: null,
     },
     noItemsLabel: {
       type: String,
-      required: true,
+      default: null,
     },
     type: {
       type: String,

@@ -396,7 +396,7 @@ export default {
     },
     privateMessageMode: {
       type: Boolean,
-      required: true,
+      default: false,
     },
     userSentMessage: {
       type: Boolean,

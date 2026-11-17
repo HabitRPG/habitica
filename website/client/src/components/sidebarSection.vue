@@ -105,7 +105,7 @@ export default {
     },
     show: {
       type: Boolean,
-      required: true,
+      default: true,
     },
   },
   data () {

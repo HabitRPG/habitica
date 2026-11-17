@@ -68,7 +68,7 @@ export default {
     },
     itemName: {
       type: String,
-      required: true,
+      default: null,
     },
     active: {
       type: Boolean,

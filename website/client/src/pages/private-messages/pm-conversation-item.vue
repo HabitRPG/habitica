@@ -218,8 +218,8 @@ export default {
       required: true,
     },
     backer: {
-      type: Boolean,
-      required: false,
+      type: Object,
+      default: null,
     },
     displayName: {
       type: String,
@@ -230,8 +230,8 @@ export default {
       required: true,
     },
     contributor: {
-      type: Boolean,
-      required: false,
+      type: Object,
+      default: null,
     },
     lastMessageText: {
       type: String,

@@ -360,7 +360,7 @@ export default {
   props: {
     groupId: {
       type: String,
-      required: true,
+      default: null,
     },
   },
   data () {

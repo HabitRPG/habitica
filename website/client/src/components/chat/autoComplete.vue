@@ -90,7 +90,7 @@ export default {
   props: {
     selections: {
       type: Array,
-      required: true,
+      default: null,
     },
     text: {
       type: String,
