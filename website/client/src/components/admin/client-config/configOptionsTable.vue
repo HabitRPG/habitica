@@ -31,6 +31,7 @@
         >
           <tr
             v-if="entry.key"
+            v-key="entry._id"
             :class="{ 'disabled-row': !entry.enabled }"
           >
             <ConfigForm
@@ -136,6 +137,7 @@
           </tr>
           <tr v-else>
             <td
+              v-key="entry.name"
               colspan="5"
               class="text-center font-weight-bold"
             >

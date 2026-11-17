@@ -24,8 +24,6 @@
 <script>
 import { mapState } from '@/libs/store';
 
-import ConfigForm from './configForm.vue';
-import ValuesDisplay from './valuesDisplay.vue';
 import Segments from './segmentsTable.vue';
 import ConfigOptions from './configOptionsTable.vue';
 import menuIcon from '@/assets/svg/menu.svg?raw';
@@ -37,8 +35,6 @@ import deleteIcon from '@/assets/svg/delete.svg?raw';
 
 export default {
   components: {
-    ConfigForm,
-    ValuesDisplay,
     Segments,
     ConfigOptions,
   },

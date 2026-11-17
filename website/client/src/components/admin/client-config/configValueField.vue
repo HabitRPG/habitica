@@ -113,7 +113,7 @@ export default {
 
     validateValueAsNumber (value) {
       console.log(Number.isNaN(value), value);
-      this.isValid = !Number.isNaN(value) && isFinite(value);
+      this.isValid = !Number.isNaN(value) && Number.isFinite(value);
     },
     validateValueAsBoolean (value) {
       this.isValid = typeof value === 'boolean';
