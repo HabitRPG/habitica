@@ -31,7 +31,7 @@
         >
           <tr
             v-if="entry.key"
-            v-bind:key="entry._id"
+            :key="entry._id"
             :class="{ 'disabled-row': !entry.enabled }"
           >
             <ConfigForm
@@ -135,9 +135,11 @@
               </b-dropdown>
             </td>
           </tr>
-          <tr v-else>
+          <tr
+            v-else
+            :key="entry.name"
+          >
             <td
-              v-bind:key="entry.name"
               colspan="5"
               class="text-center font-weight-bold"
             >
