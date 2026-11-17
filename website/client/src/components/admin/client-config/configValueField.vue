@@ -95,7 +95,6 @@ export default {
   },
   methods: {
     validateValue (value) {
-      console.log('Validating value:', value);
       if (value === '' || value === null || value === undefined) {
         this.isValid = true;
       } else if (this.type === 'number') {
@@ -123,7 +122,6 @@ export default {
     },
 
     validateValueAsNumber (value) {
-      console.log(Number.isNaN(value), typeof value, value);
       this.isValid = !Number.isNaN(value) && Number.isFinite(value);
     },
     validateValueAsBoolean (value) {
