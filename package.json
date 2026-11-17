@@ -88,6 +88,10 @@
   "scripts": {
     "lint": "eslint --ext .js --fix . && cd website/client && npm run lint",
     "lint-no-fix": "eslint --ext .js . && cd website/client && npm run lint-no-fix",
+    "lint:server": "eslint --ext .js --fix .",
+    "lint:server:no-fix": "eslint --ext .js .",
+    "lint:client": "cd website/client && npm run lint",
+    "lint:client:no-fix": "cd website/client && npm run lint-no-fix",
     "test": "npm run lint && gulp test",
     "test:build": "gulp test:prepare:build",
     "test:api-v3": "gulp test:api-v3",
