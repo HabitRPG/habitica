@@ -141,7 +141,7 @@
           >
             <td
               colspan="5"
-              class="text-center font-weight-bold"
+              class="font-weight-bold"
             >
               {{ entry.name }}
             </td>
