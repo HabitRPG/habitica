@@ -11,11 +11,8 @@ export default {
   },
   data () {
     return {
-      editedHero: {},
+      editedHero: { ...this.hero },
     };
-  },
-  mounted () {
-    this.editedHero = { ...this.hero };
   },
   methods: {
     async saveHero ({
