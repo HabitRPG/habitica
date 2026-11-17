@@ -9,14 +9,17 @@
       @keypress="validateValue($event.target.value + $event.key)"
       @input="inputValue($event.target.value)"
     >
-    <input
+    <select
       v-else-if="type == 'boolean'"
-      type="checkbox"
-      :checked="value"
-      class="align-middle"
+      :value="value"
+      class="form-control"
       :class="{ 'is-invalid input-invalid': !isValid }"
-      @input="validateAndInput($event.target.checked)"
+      @change="validateAndInput($event.target.value)"
     >
+      <option :selected="value === null" :value="null">---</option>
+      <option :selected="value === true" :value="true">True</option>
+      <option :selected="value === false" :value="false">False</option>
+    </select>
     <textarea
       v-else-if="type == 'json'"
       :value="value"
