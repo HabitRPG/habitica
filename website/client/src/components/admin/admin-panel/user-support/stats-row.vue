@@ -64,8 +64,12 @@ export default {
       default: 'any',
     },
     min: {
+      type: Number,
+      default: 0,
     },
     max: {
+      type: Number,
+      default: 100,
     },
   },
 };

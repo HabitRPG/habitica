@@ -208,6 +208,14 @@ export default {
     toggleSwitch,
   },
   mixins: [sync],
+  beforeRouteUpdate (to, from, next) {
+    this.$set(this, 'searchId', to.params.groupId);
+    next();
+  },
+  async beforeRouteLeave (to, from, next) {
+    await this.sync();
+    next();
+  },
   props: ['groupId'],
   data () {
     return {
@@ -292,14 +300,6 @@ export default {
   watch: {
     // call again the method if the route changes (when this route is already active)
     $route: 'load',
-  },
-  beforeRouteUpdate (to, from, next) {
-    this.$set(this, 'searchId', to.params.groupId);
-    next();
-  },
-  async beforeRouteLeave (to, from, next) {
-    await this.sync();
-    next();
   },
   mounted () {
     if (!this.searchId) this.searchId = this.groupId;

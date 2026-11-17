@@ -106,7 +106,8 @@
         offset="-128"
       >
         <div
-          v-html="$t('avoidSPIDetails', spiLinkData)">
+          v-html="$t('avoidSPIDetails', spiLinkData)"
+        >
         </div>
       </b-popover>
       <div

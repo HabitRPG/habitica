@@ -16,7 +16,10 @@
         class="col-12 col-md-3"
       >
         <div class="stats-card">
-          <div class="card-header" :class="stat">
+          <div
+            class="card-header"
+            :class="stat"
+          >
             <span
               class="hint"
               :popover-title="$t(statInfo.title)"
@@ -100,7 +103,10 @@
         >
           <div class="allocation-card">
             <div class="allocation-card-content">
-              <div class="allocation-card-title" :class="stat">
+              <div
+                class="allocation-card-title"
+                :class="stat"
+              >
                 {{ $t(stats[stat].title) }}
               </div>
               <div class="allocation-card-value">
@@ -158,7 +164,10 @@
                 <span class="option-text">
                   {{ $t(item.label) }}
                 </span>
-                <span v-if="!button && item.description" class="option-description">
+                <span
+                  v-if="!button && item.description"
+                  class="option-description"
+                >
                   {{ $t(item.description) }}
                 </span>
               </div>
@@ -248,7 +257,8 @@
             >
               <Sprite
                 v-if="user.preferences.background && user.preferences.background !== ''"
-                :image-name="'icon_background_' + user.preferences.background" />
+                :image-name="'icon_background_' + user.preferences.background"
+              />
             </div>
             <b-popover
               v-if="label !== 'skip'
@@ -351,194 +361,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import axios from 'axios';
-import size from 'lodash/size';
-import keys from 'lodash/keys';
-
-import Content from '@/../../common/script/content';
-import { beastMasterProgress, mountMasterProgress } from '@/../../common/script/count';
-import autoAllocate from '@/../../common/script/fns/autoAllocate';
-import statsComputed from '@/../../common/script/libs/statsComputed';
-import { mapState } from '@/libs/store';
-import attributesGrid from '@/components/inventory/equipment/attributesGrid';
-import toggleSwitch from '@/components/ui/toggleSwitch';
-import Sprite from '@/components/ui/sprite';
-import selectList from '@/components/ui/selectList';
-
-const DROP_ANIMALS = keys(Content.pets);
-const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
-export default {
-  components: {
-    toggleSwitch,
-    attributesGrid,
-    Sprite,
-    selectList,
-  },
-  props: ['user', 'showAllocation'],
-  data () {
-    return {
-      allocationModes: [
-        { key: 'flat', label: 'evenAllocation', description: 'evenAllocationPop' },
-        { key: 'classbased', label: 'classAllocation', description: 'classAllocationPop' },
-        { key: 'taskbased', label: 'taskAllocation', description: 'taskAllocationPop' },
-      ],
-      equipTypes: {
-        eyewear: this.$t('eyewear'),
-        head: this.$t('headgearCapitalized'),
-        headAccessory: this.$t('headAccess'),
-        back: this.$t('backAccess'),
-        armor: this.$t('armorCapitalized'),
-        body: this.$t('bodyAccess'),
-        weapon: this.$t('mainHand'),
-        _skip: 'skip',
-        shield: this.$t('offHandCapitalized'),
-      },
-      allocateStatsList: {
-        str: { title: 'allocateStr', popover: 'strengthText', allocatepop: 'allocateStrPop' },
-        int: { title: 'allocateInt', popover: 'intText', allocatepop: 'allocateIntPop' },
-        con: { title: 'allocateCon', popover: 'conText', allocatepop: 'allocateConPop' },
-        per: { title: 'allocatePer', popover: 'perText', allocatepop: 'allocatePerPop' },
-      },
-      stats: {
-        str: {
-          title: 'strength',
-          popover: 'strengthText',
-        },
-        int: {
-          title: 'intelligence',
-          popover: 'intText',
-        },
-        con: {
-          title: 'constitution',
-          popover: 'conText',
-        },
-        per: {
-          title: 'perception',
-          popover: 'perText',
-        },
-      },
-      content: Content,
-      allocateLinks: {
-        linkOpen: '<a href="/shops/market">',
-        linkClose: '</a>',
-      },
-    };
-  },
-  computed: {
-    ...mapState({
-      flatGear: 'content.gear.flat',
-    }),
-    equippedItems () {
-      return this.user.items.gear.equipped;
-    },
-    costumeItems () {
-      return this.user.items.gear.costume;
-    },
-    statsComputed () {
-      return statsComputed(this.user);
-    },
-    userLevel100Plus () {
-      return this.user.stats.lvl >= 100;
-    },
-    pointsRemaining () {
-      return this.user.stats.points;
-    },
-  },
-  methods: {
-    isUsed (items, key) {
-      return items[key] && items[key].indexOf('base_0') === -1;
-    },
-    getGearTitle (key) {
-      return this.flatGear[key].text();
-    },
-    totalAllocatedStats (stat) {
-      return this.user.stats[stat];
-    },
-    totalStatPoints (stat) {
-      return this.statsComputed[stat];
-    },
-    totalCount (objectToCount) {
-      const total = size(objectToCount);
-      return total;
-    },
-    formatAnimal (animalName, type) {
-      if (type === 'pet') {
-        if (Content.petInfo[animalName]) {
-          return Content.petInfo[animalName].text();
-        }
-        return this.$t('noActivePet');
-      } if (type === 'mount') {
-        if (Content.mountInfo[animalName]) {
-          return Content.mountInfo[animalName].text();
-        }
-        return this.$t('noActiveMount');
-      }
-
-      return null;
-    },
-    formatBackground (background) {
-      const bg = Content.appearances.background;
-
-      if (bg[background]) {
-        return `${bg[background].text()} (${this.$t(bg[background].set.text)})`;
-      }
-
-      return this.$t('noBackground');
-    },
-    beastMasterProgress (pets) {
-      const dropPetsFound = beastMasterProgress(pets);
-      const display = this.formatOutOfTotalDisplay(dropPetsFound, TOTAL_NUMBER_OF_DROP_ANIMALS);
-
-      return display;
-    },
-    mountMasterProgress (mounts) {
-      const dropMountsFound = mountMasterProgress(mounts);
-      const display = this.formatOutOfTotalDisplay(dropMountsFound, TOTAL_NUMBER_OF_DROP_ANIMALS);
-
-      return display;
-    },
-    formatOutOfTotalDisplay (stat, totalStat) {
-      const display = `${stat}/${totalStat}`;
-      return display;
-    },
-    async allocate (stat) {
-      if (this.user.stats.points === 0) return;
-
-      try {
-        const response = await axios.post(`/api/v4/user/allocate?stat=${stat}`);
-        if (response.data && response.data.data) {
-          this.$store.state.user.data.stats = response.data.data;
-        }
-      } catch (error) {
-        console.error('Error allocating stat point:', error);
-      }
-    },
-    allocateNow () {
-      autoAllocate(this.user);
-    },
-    setAutoAllocate () {
-      const settings = {
-        'preferences.automaticAllocation': Boolean(this.user.preferences.automaticAllocation),
-        'preferences.allocationMode': this.user.preferences.allocationMode || 'flat',
-      };
-
-      this.$store.dispatch('user:set', settings);
-    },
-    setAllocationMode (mode) {
-      const settings = {
-        'preferences.allocationMode': mode,
-      };
-      this.$store.dispatch('user:set', settings);
-    },
-    getAllocationModeLabel (key) {
-      const mode = this.allocationModes.find(m => m.key === key);
-      return mode ? mode.label : 'evenAllocation';
-    },
-  },
-};
-</script>
 
 <style lang="scss" scoped>
   @import '@/assets/scss/colors.scss';
@@ -1282,3 +1104,191 @@ export default {
   }
 }
 </style>
+
+<script>
+import axios from 'axios';
+import size from 'lodash/size';
+import keys from 'lodash/keys';
+
+import Content from '@/../../common/script/content';
+import { beastMasterProgress, mountMasterProgress } from '@/../../common/script/count';
+import autoAllocate from '@/../../common/script/fns/autoAllocate';
+import statsComputed from '@/../../common/script/libs/statsComputed';
+import { mapState } from '@/libs/store';
+import attributesGrid from '@/components/inventory/equipment/attributesGrid';
+import toggleSwitch from '@/components/ui/toggleSwitch';
+import Sprite from '@/components/ui/sprite';
+import selectList from '@/components/ui/selectList';
+
+const DROP_ANIMALS = keys(Content.pets);
+const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
+export default {
+  components: {
+    toggleSwitch,
+    attributesGrid,
+    Sprite,
+    selectList,
+  },
+  props: ['user', 'showAllocation'],
+  data () {
+    return {
+      allocationModes: [
+        { key: 'flat', label: 'evenAllocation', description: 'evenAllocationPop' },
+        { key: 'classbased', label: 'classAllocation', description: 'classAllocationPop' },
+        { key: 'taskbased', label: 'taskAllocation', description: 'taskAllocationPop' },
+      ],
+      equipTypes: {
+        eyewear: this.$t('eyewear'),
+        head: this.$t('headgearCapitalized'),
+        headAccessory: this.$t('headAccess'),
+        back: this.$t('backAccess'),
+        armor: this.$t('armorCapitalized'),
+        body: this.$t('bodyAccess'),
+        weapon: this.$t('mainHand'),
+        _skip: 'skip',
+        shield: this.$t('offHandCapitalized'),
+      },
+      allocateStatsList: {
+        str: { title: 'allocateStr', popover: 'strengthText', allocatepop: 'allocateStrPop' },
+        int: { title: 'allocateInt', popover: 'intText', allocatepop: 'allocateIntPop' },
+        con: { title: 'allocateCon', popover: 'conText', allocatepop: 'allocateConPop' },
+        per: { title: 'allocatePer', popover: 'perText', allocatepop: 'allocatePerPop' },
+      },
+      stats: {
+        str: {
+          title: 'strength',
+          popover: 'strengthText',
+        },
+        int: {
+          title: 'intelligence',
+          popover: 'intText',
+        },
+        con: {
+          title: 'constitution',
+          popover: 'conText',
+        },
+        per: {
+          title: 'perception',
+          popover: 'perText',
+        },
+      },
+      content: Content,
+      allocateLinks: {
+        linkOpen: '<a href="/shops/market">',
+        linkClose: '</a>',
+      },
+    };
+  },
+  computed: {
+    ...mapState({
+      flatGear: 'content.gear.flat',
+    }),
+    equippedItems () {
+      return this.user.items.gear.equipped;
+    },
+    costumeItems () {
+      return this.user.items.gear.costume;
+    },
+    statsComputed () {
+      return statsComputed(this.user);
+    },
+    userLevel100Plus () {
+      return this.user.stats.lvl >= 100;
+    },
+    pointsRemaining () {
+      return this.user.stats.points;
+    },
+  },
+  methods: {
+    isUsed (items, key) {
+      return items[key] && items[key].indexOf('base_0') === -1;
+    },
+    getGearTitle (key) {
+      return this.flatGear[key].text();
+    },
+    totalAllocatedStats (stat) {
+      return this.user.stats[stat];
+    },
+    totalStatPoints (stat) {
+      return this.statsComputed[stat];
+    },
+    totalCount (objectToCount) {
+      const total = size(objectToCount);
+      return total;
+    },
+    formatAnimal (animalName, type) {
+      if (type === 'pet') {
+        if (Content.petInfo[animalName]) {
+          return Content.petInfo[animalName].text();
+        }
+        return this.$t('noActivePet');
+      } if (type === 'mount') {
+        if (Content.mountInfo[animalName]) {
+          return Content.mountInfo[animalName].text();
+        }
+        return this.$t('noActiveMount');
+      }
+
+      return null;
+    },
+    formatBackground (background) {
+      const bg = Content.appearances.background;
+
+      if (bg[background]) {
+        return `${bg[background].text()} (${this.$t(bg[background].set.text)})`;
+      }
+
+      return this.$t('noBackground');
+    },
+    beastMasterProgress (pets) {
+      const dropPetsFound = beastMasterProgress(pets);
+      const display = this.formatOutOfTotalDisplay(dropPetsFound, TOTAL_NUMBER_OF_DROP_ANIMALS);
+
+      return display;
+    },
+    mountMasterProgress (mounts) {
+      const dropMountsFound = mountMasterProgress(mounts);
+      const display = this.formatOutOfTotalDisplay(dropMountsFound, TOTAL_NUMBER_OF_DROP_ANIMALS);
+
+      return display;
+    },
+    formatOutOfTotalDisplay (stat, totalStat) {
+      const display = `${stat}/${totalStat}`;
+      return display;
+    },
+    async allocate (stat) {
+      if (this.user.stats.points === 0) return;
+
+      try {
+        const response = await axios.post(`/api/v4/user/allocate?stat=${stat}`);
+        if (response.data && response.data.data) {
+          this.$store.state.user.data.stats = response.data.data;
+        }
+      } catch (error) {
+        console.error('Error allocating stat point:', error);
+      }
+    },
+    allocateNow () {
+      autoAllocate(this.user);
+    },
+    setAutoAllocate () {
+      const settings = {
+        'preferences.automaticAllocation': Boolean(this.user.preferences.automaticAllocation),
+        'preferences.allocationMode': this.user.preferences.allocationMode || 'flat',
+      };
+
+      this.$store.dispatch('user:set', settings);
+    },
+    setAllocationMode (mode) {
+      const settings = {
+        'preferences.allocationMode': mode,
+      };
+      this.$store.dispatch('user:set', settings);
+    },
+    getAllocationModeLabel (key) {
+      const mode = this.allocationModes.find(m => m.key === key);
+      return mode ? mode.label : 'evenAllocation';
+    },
+  },
+};
+</script>

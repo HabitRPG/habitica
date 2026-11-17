@@ -105,6 +105,8 @@
   }
 </style>
 
+<style src="@/assets/scss/index.scss" lang="scss"></style>
+
 <script>
 import axios from 'axios';
 
@@ -328,5 +330,3 @@ export default {
   },
 };
 </script>
-
-<style src="@/assets/scss/index.scss" lang="scss"></style>

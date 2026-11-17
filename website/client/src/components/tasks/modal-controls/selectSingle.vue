@@ -12,8 +12,8 @@
       <b-dropdown-header>
         <div class="mb-2">
           <input
-            class="form-control"
             v-model="search"
+            class="form-control"
             type="text"
             :placeholder="searchPlaceholder"
             @keyup.enter="handleSubmit"

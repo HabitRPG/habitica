@@ -91,25 +91,25 @@
             >
               <template
                 slot="popoverContent"
-                slot-scope="context"
+                slot-scope="popoverContext"
               >
                 <h4 class="popover-content-title">
-                  {{ context.item.text }}
+                  {{ popoverContext.item.text }}
                 </h4>
                 <div
                   v-if="!currentDraggingPotion"
                   class="popover-content-text"
                 >
-                  {{ context.item.notes }}
+                  {{ popoverContext.item.notes }}
                 </div>
               </template>
               <template
                 slot="itemBadge"
-                slot-scope="context"
+                slot-scope="badgeContext"
               >
                 <countBadge
                   :show="true"
-                  :count="context.item.quantity"
+                  :count="badgeContext.item.quantity"
                 />
               </template>
             </item>
@@ -141,25 +141,25 @@
             >
               <template
                 slot="popoverContent"
-                slot-scope="context"
+                slot-scope="popoverContext"
               >
                 <h4 class="popover-content-title">
-                  {{ context.item.text }}
+                  {{ popoverContext.item.text }}
                 </h4>
                 <div
                   v-if="!currentDraggingEgg"
                   class="popover-content-text"
                 >
-                  {{ context.item.notes }}
+                  {{ popoverContext.item.notes }}
                 </div>
               </template>
               <template
                 slot="itemBadge"
-                slot-scope="context"
+                slot-scope="badgeContext"
               >
                 <countBadge
                   :show="true"
-                  :count="context.item.quantity"
+                  :count="badgeContext.item.quantity"
                 />
               </template>
             </item>
@@ -186,37 +186,37 @@
             >
               <template
                 slot="popoverContent"
-                slot-scope="context"
+                slot-scope="popoverContext"
               >
                 <div
                   v-if="group.key === 'quests'"
                   class="questPopover"
                 >
                   <h4 class="popover-content-title">
-                    {{ context.item.text }}
+                    {{ popoverContext.item.text }}
                   </h4>
                   <questInfo
-                    :quest="context.item"
+                    :quest="popoverContext.item"
                     :purchased="true"
                   />
                 </div>
                 <div v-else>
                   <h4 class="popover-content-title">
-                    {{ context.item.text }}
+                    {{ popoverContext.item.text }}
                   </h4>
                   <div
                     class="popover-content-text"
-                    v-html="context.item.notes"
+                    v-html="popoverContext.item.notes"
                   ></div>
                 </div>
               </template>
               <template
                 slot="itemBadge"
-                slot-scope="context"
+                slot-scope="badgeContext"
               >
                 <countBadge
                   :show="true"
-                  :count="context.item.quantity"
+                  :count="badgeContext.item.quantity"
                 />
               </template>
             </item>

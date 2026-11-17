@@ -128,9 +128,6 @@ export default {
       dayStartOptions,
     };
   },
-  mounted () {
-    this.newDayStart = this.user.preferences.dayStart;
-  },
   computed: {
     ...mapState({
       user: 'user.data',
@@ -142,6 +139,9 @@ export default {
     dayStart () {
       return this.user.preferences.dayStart;
     },
+  },
+  mounted () {
+    this.newDayStart = this.user.preferences.dayStart;
   },
   methods: {
     changeDayStart ($event) {

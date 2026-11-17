@@ -109,11 +109,6 @@ export default {
       dueDate: moment().subtract(1, 'days'),
     };
   },
-  updated () {
-    window.setTimeout(() => {
-      this.handleExternalLinks();
-    }, 500);
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
     tasksByType () {
@@ -123,6 +118,11 @@ export default {
         daily: this.yesterDailies,
       };
     },
+  },
+  updated () {
+    window.setTimeout(() => {
+      this.handleExternalLinks();
+    }, 500);
   },
   methods: {
     async processYesterdailies () {

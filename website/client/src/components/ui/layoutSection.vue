@@ -13,14 +13,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    title: String,
-  },
-};
-</script>
-
 <style scoped lang="scss">
 .clearfix {
   max-width: 920px;
@@ -35,3 +27,11 @@ export default {
   }
 }
 </style>
+
+<script>
+export default {
+  props: {
+    title: String,
+  },
+};
+</script>

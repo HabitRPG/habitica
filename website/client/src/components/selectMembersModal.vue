@@ -43,11 +43,11 @@
               right="right"
             >
               <b-dropdown-item
-                v-for="sortOption in sortOptions"
-                :key="sortOption.value"
-                @click="sort(sortOption.value)"
+                v-for="option in sortOptions"
+                :key="option.value"
+                @click="sort(option.value)"
               >
-                {{ sortOption.text }}
+                {{ option.text }}
               </b-dropdown-item>
             </b-dropdown>
           </div>

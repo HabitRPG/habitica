@@ -132,7 +132,12 @@ export default {
   components: {
     Avatar,
   },
-  props: ['data'],
+  props: {
+    data: {
+      type: Object,
+      required: true,
+    },
+  },
   data () {
     return {
       loginIncentives: content.loginIncentives,

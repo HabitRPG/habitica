@@ -16,23 +16,6 @@
   </div>
 </template>
 
-<script>
-import BalanceInfo from '@/components/shops/balanceInfo.vue';
-
-export default {
-  name: 'YourBalance',
-  components: { BalanceInfo },
-  props: {
-    currencyNeeded: {
-      type: String,
-    },
-    amountNeeded: {
-      type: Number,
-    },
-  },
-};
-</script>
-
 <style scoped lang="scss">
 @import '@/assets/scss/colors.scss';
 
@@ -55,3 +38,20 @@ export default {
   display: inline-block !important;
 }
 </style>
+
+<script>
+import BalanceInfo from '@/components/shops/balanceInfo.vue';
+
+export default {
+  name: 'YourBalance',
+  components: { BalanceInfo },
+  props: {
+    currencyNeeded: {
+      type: String,
+    },
+    amountNeeded: {
+      type: Number,
+    },
+  },
+};
+</script>

@@ -35,7 +35,9 @@
       </p>
       <p
         class="description"
-      > {{ data.modalText }}</p>
+      >
+        {{ data.modalText }}
+      </p>
       <button
         v-once
         class="btn btn-primary"
@@ -159,7 +161,12 @@ export default {
     closeX,
     Sprite,
   },
-  props: ['data'],
+  props: {
+    data: {
+      type: Object,
+      required: true,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({

@@ -12,8 +12,8 @@
         'link-exempt': !isChallengeTask && !isGroupTask,
       }, `type_${task.type}`
       ]"
-      @click="castEnd($event, task)"
       tabindex="0"
+      @click="castEnd($event, task)"
       @keypress.enter="$emit('editTask', task)"
     >
       <div

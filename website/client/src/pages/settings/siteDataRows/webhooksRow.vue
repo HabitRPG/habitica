@@ -239,15 +239,15 @@ export default {
       },
     };
   },
-  mounted () {
-    this.setWebhooksViewCopy();
-  },
   computed: {
     ...mapState({
       user: 'user.data',
       credentials: 'credentials',
     }),
 
+  },
+  mounted () {
+    this.setWebhooksViewCopy();
   },
   methods: {
     isValidUrl (url) {

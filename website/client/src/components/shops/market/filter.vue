@@ -38,6 +38,10 @@
   </filter-sidebar>
 </template>
 
+<style scoped>
+
+</style>
+
 <script>
 import Checkbox from '@/components/ui/checkbox';
 import toggleSwitch from '@/components/ui/toggleSwitch';
@@ -60,7 +64,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-
-</style>

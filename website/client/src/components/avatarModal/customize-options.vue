@@ -41,36 +41,6 @@
   </div>
 </template>
 
-<script>
-import gem from '@/assets/svg/gem.svg?raw';
-import gold from '@/assets/svg/gold.svg?raw';
-import { avatarEditorUtilities } from '../../mixins/avatarEditUtilities';
-import Sprite from '@/components/ui/sprite.vue';
-
-export default {
-  components: {
-    Sprite,
-  },
-  mixins: [
-    avatarEditorUtilities,
-  ],
-  props: ['items', 'currentValue'],
-  data () {
-    return {
-      icons: Object.freeze({
-        gem,
-        gold,
-      }),
-    };
-  },
-  methods: {
-    unlock () {
-      this.$emit('unlock');
-    },
-  },
-};
-</script>
-
 <style lang="scss" scoped>
   @import '@/assets/scss/colors.scss';
 
@@ -185,3 +155,42 @@ export default {
     }
   }
 </style>
+
+<script>
+import gem from '@/assets/svg/gem.svg?raw';
+import gold from '@/assets/svg/gold.svg?raw';
+import { avatarEditorUtilities } from '../../mixins/avatarEditUtilities';
+import Sprite from '@/components/ui/sprite.vue';
+
+export default {
+  components: {
+    Sprite,
+  },
+  mixins: [
+    avatarEditorUtilities,
+  ],
+  props: {
+    items: {
+      type: Array,
+      required: true,
+    },
+    currentValue: {
+      type: [String, Number],
+      required: true,
+    },
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        gem,
+        gold,
+      }),
+    };
+  },
+  methods: {
+    unlock () {
+      this.$emit('unlock');
+    },
+  },
+};
+</script>

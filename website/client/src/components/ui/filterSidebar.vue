@@ -14,12 +14,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'FilterSidebar',
-};
-</script>
-
 <style lang="scss" scoped>
 @import '@/assets/scss/colors.scss';
 
@@ -28,3 +22,9 @@ export default {
   margin-bottom: 0.25rem;
 }
 </style>
+
+<script>
+export default {
+  name: 'FilterSidebar',
+};
+</script>

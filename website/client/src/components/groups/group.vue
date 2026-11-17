@@ -353,6 +353,10 @@ export default {
     markdown: markdownDirective,
   },
   mixins: [groupUtilities, styleHelper, userStateMixin],
+  beforeRouteUpdate (to, from, next) {
+    this.$set(this, 'searchId', to.params.groupId);
+    next();
+  },
   props: ['groupId'],
   data () {
     return {
@@ -429,10 +433,6 @@ export default {
   },
   beforeDestroy () {
     this.$root.$off('updatedGroup', this.onGroupUpdate);
-  },
-  beforeRouteUpdate (to, from, next) {
-    this.$set(this, 'searchId', to.params.groupId);
-    next();
   },
   methods: {
     acceptCommunityGuidelines () {

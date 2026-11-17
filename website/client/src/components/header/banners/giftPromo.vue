@@ -73,6 +73,13 @@ export default {
   components: {
     BaseBanner,
   },
+  data () {
+    return {
+      icons: Object.freeze({
+        gifts,
+      }),
+    };
+  },
   computed: {
     ...mapState({
       currentEventList: 'worldState.data.currentEventList',
@@ -88,13 +95,6 @@ export default {
       if (!currEvt) return false;
       return currEvt && currEvt.promo === 'g1g1';
     },
-  },
-  data () {
-    return {
-      icons: Object.freeze({
-        gifts,
-      }),
-    };
   },
   methods: {
     showSelectUser () {

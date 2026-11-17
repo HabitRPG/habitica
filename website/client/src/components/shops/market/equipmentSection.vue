@@ -56,14 +56,14 @@
         >
           <template
             slot="itemBadge"
-            slot-scope="ctx"
+            slot-scope="badgeCtx"
           >
             <span
               class="badge-top"
-              @click.prevent.stop="togglePinned(ctx.item)"
+              @click.prevent.stop="togglePinned(badgeCtx.item)"
             >
               <pin-badge
-                :pinned="ctx.item.pinned"
+                :pinned="badgeCtx.item.pinned"
               />
             </span>
           </template>
@@ -72,6 +72,16 @@
     </itemRows>
   </layout-section>
 </template>
+
+<style lang="scss" scoped>
+  .badge-pin:not(.pinned) {
+      display: none;
+    }
+
+  .item:hover .badge-pin {
+    display: block;
+  }
+</style>
 
 <script>
 import _filter from 'lodash/filter';
@@ -204,13 +214,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-  .badge-pin:not(.pinned) {
-      display: none;
-    }
-
-  .item:hover .badge-pin {
-    display: block;
-  }
-</style>

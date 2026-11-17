@@ -207,8 +207,8 @@
               </button>
             </div>
             <div
-              v-once
               v-if="!hasGroupPlan"
+              v-once
               class="small text-center mb-4"
             >
               {{ $t('subscriptionBillingFYIShort') }}
@@ -416,8 +416,8 @@
       </div>
       <div class="d-flex flex-column align-items-center mt-3">
         <div
-          v-once
           v-if="!hasSubscription"
+          v-once
           class="small gray-100 w-50 text-center mb-5"
         >
           {{ $t('subscriptionBillingFYI') }}

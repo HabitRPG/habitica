@@ -117,144 +117,6 @@
   </div>
 </template>
 
-<script>
-// import clone from 'lodash/clone';
-import draggable from 'vuedraggable';
-import { v4 as uuid } from 'uuid';
-
-import positiveIcon from '@/assets/svg/positive.svg?raw';
-import deleteIcon from '@/assets/svg/delete.svg?raw';
-import chevronIcon from '@/assets/svg/chevron.svg?raw';
-import gripIcon from '@/assets/svg/grip.svg?raw';
-import checkbox from '@/components/ui/checkbox';
-import lockableLabel from './lockableLabel';
-import emojiAutoComplete from '@/components/chat/emojiAutoComplete';
-import { autoCompleteHelperMixin } from '@/mixins/autoCompleteHelper';
-
-export default {
-  name: 'Checklist',
-  components: {
-    checkbox,
-    draggable,
-    lockableLabel,
-    emojiAutoComplete,
-  },
-  mixins: [autoCompleteHelperMixin],
-  props: {
-    disabled: {
-      type: Boolean,
-    },
-    disableDrag: {
-      type: Boolean,
-    },
-    disableEdit: {
-      type: Boolean,
-    },
-    items: {
-      type: Array,
-    },
-  },
-  data () {
-    return {
-      checklist: this.items,
-      showChecklist: true,
-      hasPossibilityOfIMEConversion: true,
-      newChecklistItem: null,
-      textbox: null,
-      activeItemIndex: -1,
-      icons: Object.freeze({
-        positive: positiveIcon,
-        destroy: deleteIcon,
-        chevron: chevronIcon,
-        grip: gripIcon,
-      }),
-    };
-  },
-  computed: {
-    activeFieldText () {
-      if (this.activeItemIndex === -1) {
-        return this.newChecklistItem || '';
-      }
-      const item = this.checklist[this.activeItemIndex];
-      return item ? item.text || '' : '';
-    },
-  },
-  methods: {
-    summaryClass (item) {
-      if (!this.disableEdit) return '';
-      if (item.completed) return 'summary-completed';
-      return 'summary-incomplete';
-    },
-    updateChecklist () {
-      this.$emit('update:items', this.checklist);
-    },
-    setHasPossibilityOfIMEConversion (bool) {
-      this.hasPossibilityOfIMEConversion = bool;
-    },
-    addChecklistItem (e, checkIME) {
-      if (e) {
-        e.preventDefault();
-      }
-
-      const newChecklistItemText = (this.newChecklistItem || '').trim();
-
-      if ((checkIME && this.hasPossibilityOfIMEConversion)
-        || !newChecklistItemText) {
-        return;
-      }
-
-      const checkListItem = {
-        id: uuid(),
-        text: newChecklistItemText,
-        completed: false,
-      };
-      this.checklist.push(checkListItem);
-      this.newChecklistItem = null;
-      this.setHasPossibilityOfIMEConversion(true);
-      this.updateChecklist();
-    },
-    removeChecklistItem (i) {
-      this.checklist.splice(i, 1);
-      this.updateChecklist();
-    },
-    setActiveItem (index) {
-      this.activeItemIndex = index;
-      if (index === -1) {
-        this.textbox = this.$refs.newChecklistInput;
-      } else {
-        const refArr = this.$refs[`checklistItem-${index}`];
-        this.textbox = refArr ? refArr[0] || refArr : null;
-      }
-    },
-    newChecklistEnterHandler (e) {
-      const ac = this._getActiveAutocomplete();
-      if (ac && ac.selected !== null) {
-        e.preventDefault();
-        ac.makeSelection();
-      } else if (ac) {
-        ac.cancel();
-        this.setHasPossibilityOfIMEConversion(false);
-      } else {
-        this.setHasPossibilityOfIMEConversion(false);
-      }
-    },
-    selectedAutocomplete (newText, newCaret) {
-      if (this.activeItemIndex === -1) {
-        this.newChecklistItem = newText;
-      } else {
-        this.checklist[this.activeItemIndex].text = newText;
-      }
-      this.$nextTick(() => {
-        if (this.textbox) {
-          this.textbox.setSelectionRange(newCaret, newCaret);
-          this.textbox.focus();
-        }
-      });
-    },
-  },
-};
-</script>
-
 <style lang="scss">
   @import '@/assets/scss/colors.scss';
 
@@ -397,3 +259,141 @@ export default {
     }
   }
 </style>
+
+<script>
+// import clone from 'lodash/clone';
+import draggable from 'vuedraggable';
+import { v4 as uuid } from 'uuid';
+
+import positiveIcon from '@/assets/svg/positive.svg?raw';
+import deleteIcon from '@/assets/svg/delete.svg?raw';
+import chevronIcon from '@/assets/svg/chevron.svg?raw';
+import gripIcon from '@/assets/svg/grip.svg?raw';
+import checkbox from '@/components/ui/checkbox';
+import lockableLabel from './lockableLabel';
+import emojiAutoComplete from '@/components/chat/emojiAutoComplete';
+import { autoCompleteHelperMixin } from '@/mixins/autoCompleteHelper';
+
+export default {
+  name: 'Checklist',
+  components: {
+    checkbox,
+    draggable,
+    lockableLabel,
+    emojiAutoComplete,
+  },
+  mixins: [autoCompleteHelperMixin],
+  props: {
+    disabled: {
+      type: Boolean,
+    },
+    disableDrag: {
+      type: Boolean,
+    },
+    disableEdit: {
+      type: Boolean,
+    },
+    items: {
+      type: Array,
+    },
+  },
+  data () {
+    return {
+      checklist: this.items,
+      showChecklist: true,
+      hasPossibilityOfIMEConversion: true,
+      newChecklistItem: null,
+      textbox: null,
+      activeItemIndex: -1,
+      icons: Object.freeze({
+        positive: positiveIcon,
+        destroy: deleteIcon,
+        chevron: chevronIcon,
+        grip: gripIcon,
+      }),
+    };
+  },
+  computed: {
+    activeFieldText () {
+      if (this.activeItemIndex === -1) {
+        return this.newChecklistItem || '';
+      }
+      const item = this.checklist[this.activeItemIndex];
+      return item ? item.text || '' : '';
+    },
+  },
+  methods: {
+    summaryClass (item) {
+      if (!this.disableEdit) return '';
+      if (item.completed) return 'summary-completed';
+      return 'summary-incomplete';
+    },
+    updateChecklist () {
+      this.$emit('update:items', this.checklist);
+    },
+    setHasPossibilityOfIMEConversion (bool) {
+      this.hasPossibilityOfIMEConversion = bool;
+    },
+    addChecklistItem (e, checkIME) {
+      if (e) {
+        e.preventDefault();
+      }
+
+      const newChecklistItemText = (this.newChecklistItem || '').trim();
+
+      if ((checkIME && this.hasPossibilityOfIMEConversion)
+        || !newChecklistItemText) {
+        return;
+      }
+
+      const checkListItem = {
+        id: uuid(),
+        text: newChecklistItemText,
+        completed: false,
+      };
+      this.checklist.push(checkListItem);
+      this.newChecklistItem = null;
+      this.setHasPossibilityOfIMEConversion(true);
+      this.updateChecklist();
+    },
+    removeChecklistItem (i) {
+      this.checklist.splice(i, 1);
+      this.updateChecklist();
+    },
+    setActiveItem (index) {
+      this.activeItemIndex = index;
+      if (index === -1) {
+        this.textbox = this.$refs.newChecklistInput;
+      } else {
+        const refArr = this.$refs[`checklistItem-${index}`];
+        this.textbox = refArr ? refArr[0] || refArr : null;
+      }
+    },
+    newChecklistEnterHandler (e) {
+      const ac = this._getActiveAutocomplete();
+      if (ac && ac.selected !== null) {
+        e.preventDefault();
+        ac.makeSelection();
+      } else if (ac) {
+        ac.cancel();
+        this.setHasPossibilityOfIMEConversion(false);
+      } else {
+        this.setHasPossibilityOfIMEConversion(false);
+      }
+    },
+    selectedAutocomplete (newText, newCaret) {
+      if (this.activeItemIndex === -1) {
+        this.newChecklistItem = newText;
+      } else {
+        this.checklist[this.activeItemIndex].text = newText;
+      }
+      this.$nextTick(() => {
+        if (this.textbox) {
+          this.textbox.setSelectionRange(newCaret, newCaret);
+          this.textbox.focus();
+        }
+      });
+    },
+  },
+};
+</script>

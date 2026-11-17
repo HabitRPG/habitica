@@ -24,6 +24,19 @@
   </div>
 </template>
 
+<style lang="scss" scoped>
+
+.buttons {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  &:not(.no-padding) {
+    margin-top: 1.5rem;
+  }
+}
+</style>
+
 <script>
 export default {
   name: 'SaveCancelButtons',
@@ -49,16 +62,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-
-.buttons {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-
-  &:not(.no-padding) {
-    margin-top: 1.5rem;
-  }
-}
-</style>

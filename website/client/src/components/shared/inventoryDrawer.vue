@@ -65,6 +65,37 @@
   </drawer>
 </template>
 
+<style lang="scss">
+  .inventoryDrawer {
+    .drawer-slider {
+      height: 126px;
+    }
+
+    .drawer-tab-text {
+      display: inline-block;
+    }
+
+    .drawer-help-text {
+      display: flex;
+      margin-top: 0.65rem;
+
+      .svg-icon {
+        position: inherit;
+        top: 0;
+      }
+    }
+
+    .title-row-tabs {
+      display: flex;
+      justify-content: center;
+
+      .drawer-tab {
+        background: transparent;
+      }
+    }
+  }
+</style>
+
 <script>
 import _filter from 'lodash/filter';
 import { mapState } from '@/libs/store';
@@ -177,34 +208,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-  .inventoryDrawer {
-    .drawer-slider {
-      height: 126px;
-    }
-
-    .drawer-tab-text {
-      display: inline-block;
-    }
-
-    .drawer-help-text {
-      display: flex;
-      margin-top: 0.65rem;
-
-      .svg-icon {
-        position: inherit;
-        top: 0;
-      }
-    }
-
-    .title-row-tabs {
-      display: flex;
-      justify-content: center;
-
-      .drawer-tab {
-        background: transparent;
-      }
-    }
-  }
-</style>

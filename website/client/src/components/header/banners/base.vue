@@ -10,7 +10,8 @@
       v-if="canClose"
       @close="close()"
     />
-    <div v-else
+    <div
+      v-else
       class="right-spacer"
     >
     </div>

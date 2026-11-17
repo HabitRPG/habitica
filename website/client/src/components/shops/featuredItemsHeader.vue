@@ -60,33 +60,6 @@
   </div>
 </template>
 
-<script>
-import PinBadge from '@/components/ui/pinBadge';
-import ShopItem from './shopItem';
-
-import pinUtils from '@/mixins/pinUtils';
-
-export default {
-  components: {
-    PinBadge,
-    ShopItem,
-  },
-  mixins: [pinUtils],
-  props: {
-    npcName: String,
-    bgUrl: String,
-    npcUrl: String,
-    featuredText: String,
-    featuredItems: Array,
-  },
-  methods: {
-    featuredItemSelected (item) {
-      this.$emit('featuredItemSelected', item);
-    },
-  },
-};
-</script>
-
 <style lang="scss" scoped>
 .featuredItems {
   height: 192px;
@@ -138,3 +111,30 @@ export default {
     }
   }
 </style>
+
+<script>
+import PinBadge from '@/components/ui/pinBadge';
+import ShopItem from './shopItem';
+
+import pinUtils from '@/mixins/pinUtils';
+
+export default {
+  components: {
+    PinBadge,
+    ShopItem,
+  },
+  mixins: [pinUtils],
+  props: {
+    npcName: String,
+    bgUrl: String,
+    npcUrl: String,
+    featuredText: String,
+    featuredItems: Array,
+  },
+  methods: {
+    featuredItemSelected (item) {
+      this.$emit('featuredItemSelected', item);
+    },
+  },
+};
+</script>

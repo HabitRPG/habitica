@@ -241,20 +241,6 @@ export default {
     userStateMixin,
     saveHero,
   ],
-  computed: {
-    ...mapState({ user: 'user.data' }),
-    statPointsIncorrect () {
-      if (this.hero.stats.lvl >= 10) {
-        return (parseInt(this.hero.stats.points, 10)
-          + parseInt(this.hero.stats.str, 10)
-          + parseInt(this.hero.stats.int, 10)
-          + parseInt(this.hero.stats.per, 10)
-          + parseInt(this.hero.stats.con, 10)
-        ) !== this.hero.stats.lvl;
-      }
-      return false;
-    },
-  },
   props: {
     resetCounter: {
       type: Number,
@@ -277,6 +263,20 @@ export default {
       maxLevelHardCap: MAX_LEVEL_HARD_CAP,
       maxFieldHardCap: MAX_FIELD_HARD_CAP,
     };
+  },
+  computed: {
+    ...mapState({ user: 'user.data' }),
+    statPointsIncorrect () {
+      if (this.hero.stats.lvl >= 10) {
+        return (parseInt(this.hero.stats.points, 10)
+          + parseInt(this.hero.stats.str, 10)
+          + parseInt(this.hero.stats.int, 10)
+          + parseInt(this.hero.stats.per, 10)
+          + parseInt(this.hero.stats.con, 10)
+        ) !== this.hero.stats.lvl;
+      }
+      return false;
+    },
   },
   watch: {
     resetCounter () {

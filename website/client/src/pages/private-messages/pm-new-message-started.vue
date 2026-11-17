@@ -62,6 +62,9 @@ import Avatar from '@/components/avatar.vue';
 
 export default {
   components: { Avatar },
+  props: {
+    memberObj: null,
+  },
   data () {
     return {
       kindLinks: {
@@ -69,9 +72,6 @@ export default {
         linkClose: '</a>',
       },
     };
-  },
-  props: {
-    memberObj: null,
   },
 };
 </script>

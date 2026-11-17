@@ -34,25 +34,6 @@
   </div>
 </template>
 
-<script>
-
-import CopyToClipboard from '@/mixins/copyToClipboard';
-import svgLockSmall from '@/assets/svg/lock-small.svg?raw';
-
-export default {
-  name: 'LockedInput',
-  mixins: [CopyToClipboard],
-  props: ['label', 'value', 'notificationText'],
-  data () {
-    return {
-      icons: Object.freeze({
-        lock: svgLockSmall,
-      }),
-    };
-  },
-};
-</script>
-
 <style lang="scss" scoped>
 @import '@/assets/scss/colors.scss';
 
@@ -98,3 +79,22 @@ export default {
   background-color: $gray-600;
 }
 </style>
+
+<script>
+
+import CopyToClipboard from '@/mixins/copyToClipboard';
+import svgLockSmall from '@/assets/svg/lock-small.svg?raw';
+
+export default {
+  name: 'LockedInput',
+  mixins: [CopyToClipboard],
+  props: ['label', 'value', 'notificationText'],
+  data () {
+    return {
+      icons: Object.freeze({
+        lock: svgLockSmall,
+      }),
+    };
+  },
+};
+</script>

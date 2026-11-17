@@ -398,7 +398,10 @@
                 :placeholder="$t('imageUrl')"
               >
             </div>
-            <div class="form-group" style="position: relative;">
+            <div
+              class="form-group"
+              style="position: relative;"
+            >
               <label>{{ $t('about') }}</label>
               <textarea
                 ref="blurbTextarea"

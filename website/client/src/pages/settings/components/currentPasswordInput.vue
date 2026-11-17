@@ -28,6 +28,15 @@
   </div>
 </template>
 
+<style lang="scss" scoped>
+  .forgot-password {
+    a {
+      font-size: 12px;
+      line-height: 1.33;
+    }
+  }
+</style>
+
 <script>
 
 import ValidatedTextInput from '@/components/ui/validatedTextInput.vue';
@@ -43,12 +52,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-  .forgot-password {
-    a {
-      font-size: 12px;
-      line-height: 1.33;
-    }
-  }
-</style>

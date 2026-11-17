@@ -10,29 +10,6 @@
   </button>
 </template>
 
-<script>
-export default {
-  props: {
-    checked: Boolean,
-    disabled: Boolean,
-    text: String,
-  },
-  data () {
-    return {
-      isChecked: this.checked,
-    };
-  },
-  watch: {
-    checked (after) {
-      this.isChecked = after;
-    },
-    isChecked (after) {
-      this.$emit('update:checked', after);
-    },
-  },
-};
-</script>
-
 <style  lang="scss" scoped>
   @import '@/assets/scss/colors.scss';
 
@@ -116,3 +93,26 @@ export default {
     }
   }
 </style>
+
+<script>
+export default {
+  props: {
+    checked: Boolean,
+    disabled: Boolean,
+    text: String,
+  },
+  data () {
+    return {
+      isChecked: this.checked,
+    };
+  },
+  watch: {
+    checked (after) {
+      this.isChecked = after;
+    },
+    isChecked (after) {
+      this.$emit('update:checked', after);
+    },
+  },
+};
+</script>

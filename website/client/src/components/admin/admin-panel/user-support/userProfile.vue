@@ -106,9 +106,6 @@ export default {
     userStateMixin,
     saveHero,
   ],
-  computed: {
-    ...mapState({ user: 'user.data' }),
-  },
   props: {
     resetCounter: {
       type: Number,
@@ -127,6 +124,9 @@ export default {
     return {
       expand: false,
     };
+  },
+  computed: {
+    ...mapState({ user: 'user.data' }),
   },
   watch: {
     resetCounter () {

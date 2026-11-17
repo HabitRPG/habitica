@@ -31,15 +31,18 @@ export default {
   props: {
     label: {
       type: String,
+      required: true,
     },
     value: {
       type: [String, Boolean],
+      required: true,
     },
     inputType: {
       type: String,
       default: 'text',
     },
     rows: {
+      type: Number,
       default: 3,
     },
   },

@@ -58,7 +58,10 @@
         {{ $t('subUpdateCard') }}
       </div>
       <div v-if="!group.purchased.plan.dateTerminated">
-        <div class="small gray-50 mb-3" v-once>
+        <div
+          v-once
+          class="small gray-50 mb-3"
+        >
           {{ $t('groupPlanBillingFYIShort') }}
         </div>
         <div

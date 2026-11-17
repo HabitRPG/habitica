@@ -68,8 +68,8 @@
           :class="{ 'gray-100': item.locked }"
         >
           <div
-            class="lock-bubble mr-2 d-flex justify-content-center align-items-center"
             v-if="item.locked"
+            class="lock-bubble mr-2 d-flex justify-content-center align-items-center"
           >
             <div
               class="svg svg-icon icon-12 gray-50 color"

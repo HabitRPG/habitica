@@ -11,9 +11,9 @@
       <b-dropdown-header>
         <div class="mb-2 search-input-wrapper">
           <input
-            class="form-control"
             ref="searchInput"
             v-model="search"
+            class="form-control"
             type="text"
             :placeholder="searchPlaceholder"
             @focus="setTextbox"

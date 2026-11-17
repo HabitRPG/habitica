@@ -120,14 +120,14 @@ export default {
     UserNameSetting,
   },
   mixins: [notificationsMixin, GenericUserPreferencesMixin],
+  beforeRouteLeave (_, __, next) {
+    sharedInlineSettingStore.markAsClosed();
+    next();
+  },
   computed: {
     ...mapState({
       user: 'user.data',
     }),
-  },
-  beforeRouteLeave (_, __, next) {
-    sharedInlineSettingStore.markAsClosed();
-    next();
   },
   mounted () {
     this.$store.dispatch('common:setTitle', {
