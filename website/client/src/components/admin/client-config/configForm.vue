@@ -298,7 +298,7 @@ export default {
       }
     },
     validateKey () {
-      this.isKeyValid = this.editedConfig.key.length === 0 || /^[a-zA-Z0-9_]+$/.test(this.editedConfig.key);
+      this.isKeyValid = this.editedConfig.key.length === 0 || /^[a-zA-Z0-9]+$/.test(this.editedConfig.key);
     },
     canSave () {
       return this.isKeyValid && this.editedConfig.key.length > 0;

@@ -276,7 +276,7 @@ export default {
       if (configToDuplicate) {
         this.newClientConfig = { ...configToDuplicate,
             name: `${configToDuplicate.name} (Copy)`,
-            key: `${configToDuplicate.key}_copy` };
+            key: `${configToDuplicate.key}Copy` };
         this.showCreateForm = true;
       }
     },
