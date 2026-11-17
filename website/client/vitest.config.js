@@ -1,7 +1,7 @@
 import { defineConfig, mergeConfig } from 'vitest/config';
 import viteConfig from './vite.config.mjs';
 
-export default defineConfig(configEnv => mergeConfig(
+export default defineConfig(() => mergeConfig(
   viteConfig,
   defineConfig({
     test: {

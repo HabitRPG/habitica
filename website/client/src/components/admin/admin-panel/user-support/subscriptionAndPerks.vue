@@ -2,7 +2,7 @@
   <form
     @submit.prevent="saveHero({ hero: {
       _id: hero._id,
-      purchased: hero.purchased
+      purchased: editedHero.purchased
     }, msg: 'Subscription Perks' })"
   >
     <div class="card mt-2">
@@ -55,13 +55,13 @@
           <div class="col-sm-9">
             <input
               v-if="!isRegularPaymentMethod"
-              v-model="hero.purchased.plan.paymentMethod"
+              v-model="editedHero.purchased.plan.paymentMethod"
               class="form-control"
               type="text"
             >
             <select
               v-else
-              v-model="hero.purchased.plan.paymentMethod"
+              v-model="editedHero.purchased.plan.paymentMethod"
               class="form-control"
               type="text"
             >
@@ -101,13 +101,13 @@
           <div class="col-sm-9">
             <input
               v-if="!isRegularPlanId"
-              v-model="hero.purchased.plan.planId"
+              v-model="editedHero.purchased.plan.planId"
               class="form-control"
               type="text"
             >
             <select
               v-else
-              v-model="hero.purchased.plan.planId"
+              v-model="editedHero.purchased.plan.planId"
               class="form-control"
               type="text"
             >
@@ -143,14 +143,14 @@
           </label>
           <div class="col-sm-9">
             <input
-              v-model="hero.purchased.plan.customerId"
+              v-model="editedHero.purchased.plan.customerId"
               class="form-control"
               type="text"
             >
           </div>
         </div>
         <div
-          v-if="hero.purchased.plan.planId === 'group_plan_auto'"
+          v-if="editedHero.purchased.plan.planId === 'group_plan_auto'"
           class="form-group row"
         >
           <label class="col-sm-3 col-form-label">
@@ -183,7 +183,7 @@
                 <p class="card-text">
                   <strong>Leader: </strong>
                   <a
-                    v-if="group.leader !== hero._id"
+                    v-if="group.leader !== editedHero._id"
                     @click="switchUser(group.leader)"
                   >{{ group.leader }}</a>
                   <strong
@@ -207,13 +207,13 @@
           <div class="col-sm-9">
             <div class="input-group">
               <input
-                v-model="hero.purchased.plan.dateCreated"
+                v-model="editedHero.purchased.plan.dateCreated"
                 class="form-control"
                 type="text"
               >
               <div class="input-group-append">
                 <strong class="input-group-text">
-                  {{ dateFormat(hero.purchased.plan.dateCreated) }}
+                  {{ dateFormat(editedHero.purchased.plan.dateCreated) }}
                 </strong>
               </div>
             </div>
@@ -228,13 +228,13 @@
           <div class="col-sm-9">
             <div class="input-group">
               <input
-                v-model="hero.purchased.plan.dateCurrentTypeCreated"
+                v-model="editedHero.purchased.plan.dateCurrentTypeCreated"
                 class="form-control"
                 type="text"
               >
               <div class="input-group-append">
                 <strong class="input-group-text">
-                  {{ dateFormat(hero.purchased.plan.dateCurrentTypeCreated) }}
+                  {{ dateFormat(editedHero.purchased.plan.dateCurrentTypeCreated) }}
                 </strong>
               </div>
             </div>
@@ -247,16 +247,17 @@
           <div class="col-sm-9">
             <div class="input-group">
               <input
-                v-model="hero.purchased.plan.dateTerminated"
+                v-model="editedHero.purchased.plan.dateTerminated"
                 class="form-control"
                 type="text"
               >
               <div class="input-group-append">
                 <strong class="input-group-text">
-                  {{ dateFormat(hero.purchased.plan.dateTerminated) }}
+                  {{ dateFormat(editedHero.purchased.plan.dateTerminated) }}
                 </strong>
                 <a
-                  v-if="!hero.purchased.plan.dateTerminated && hero.purchased.plan.planId"
+                  v-if="!editedHero.purchased.plan.dateTerminated
+                    && editedHero.purchased.plan.planId"
                   v-b-modal.sub_termination_modal
                   class="btn btn-danger"
                   href="#"
@@ -280,13 +281,13 @@
           <div class="col-sm-9">
             <div class="input-group">
               <input
-                v-model="hero.purchased.plan.datePaymentExpired"
+                v-model="editedHero.purchased.plan.datePaymentExpired"
                 class="form-control"
                 type="text"
               >
               <div class="input-group-append">
                 <strong class="input-group-text">
-                  {{ dateFormat(hero.purchased.plan.datePaymentExpired) }}
+                  {{ dateFormat(editedHero.purchased.plan.datePaymentExpired) }}
                 </strong>
               </div>
             </div>
@@ -302,7 +303,7 @@
           </label>
           <div class="col-sm-9">
             <input
-              v-model="hero.purchased.plan.cumulativeCount"
+              v-model="editedHero.purchased.plan.cumulativeCount"
               class="form-control"
               type="number"
               min="0"
@@ -320,7 +321,7 @@
           <div class="col-sm-9">
             <div class="input-group">
               <input
-                v-model="hero.purchased.plan.extraMonths"
+                v-model="editedHero.purchased.plan.extraMonths"
                 class="form-control"
                 type="number"
                 min="0"
@@ -328,7 +329,8 @@
               >
               <div class="input-group-append">
                 <a
-                  v-if="hero.purchased.plan.dateTerminated && hero.purchased.plan.extraMonths > 0"
+                  v-if="editedHero.purchased.plan.dateTerminated
+                    && editedHero.purchased.plan.extraMonths > 0"
                   class="btn btn-warning"
                   @click="applyExtraMonths"
                 >
@@ -348,13 +350,13 @@
           <div class="col-sm-9">
             <div class="input-group">
               <input
-                v-model="hero.purchased.plan.hourglassPromoReceived"
+                v-model="editedHero.purchased.plan.hourglassPromoReceived"
                 class="form-control"
                 type="text"
               >
               <div class="input-group-append">
                 <strong class="input-group-text">
-                  {{ dateFormat(hero.purchased.plan.hourglassPromoReceived) }}
+                  {{ dateFormat(editedHero.purchased.plan.hourglassPromoReceived) }}
                 </strong>
               </div>
             </div>
@@ -366,7 +368,7 @@
           </label>
           <div class="col-sm-9">
             <input
-              v-model="hero.purchased.plan.consecutive.trinkets"
+              v-model="editedHero.purchased.plan.consecutive.trinkets"
               class="form-control"
               type="number"
               min="0"
@@ -380,7 +382,7 @@
           </label>
           <div class="col-sm-9">
             <input
-              v-model="hero.purchased.plan.consecutive.gemCapExtra"
+              v-model="editedHero.purchased.plan.consecutive.gemCapExtra"
               class="form-control"
               type="number"
               min="0"
@@ -394,7 +396,7 @@
             Total Gem cap:
           </label>
           <strong class="col-sm-9 col-form-label">
-            {{ Number(hero.purchased.plan.consecutive.gemCapExtra) + 24 }}
+            {{ Number(editedHero.purchased.plan.consecutive.gemCapExtra) + 24 }}
           </strong>
         </div>
         <div class="form-group row">
@@ -403,17 +405,17 @@
           </label>
           <div class="col-sm-9">
             <input
-              v-model="hero.purchased.plan.gemsBought"
+              v-model="editedHero.purchased.plan.gemsBought"
               class="form-control"
               type="number"
               min="0"
-              :max="hero.purchased.plan.consecutive.gemCapExtra + 24"
+              :max="editedHero.purchased.plan.consecutive.gemCapExtra + 24"
               step="1"
             >
           </div>
         </div>
         <div
-          v-if="hero.purchased.plan.deferred"
+          v-if="editedHero.purchased.plan.deferred"
           class="form-group row"
         >
           <label class="col-sm-3 col-form-label">
@@ -421,7 +423,7 @@
           </label>
           <div class="col-sm-9">
             <input
-              v-model="hero.purchased.plan.deferred.planId"
+              v-model="editedHero.purchased.plan.deferred.planId"
               class="form-control"
               type="text"
             >
@@ -432,7 +434,7 @@
           </small>
         </div>
         <div
-          v-if="hero.purchased.plan.deferred"
+          v-if="editedHero.purchased.plan.deferred"
           class="form-group row"
         >
           <label class="col-sm-3 col-form-label">
@@ -440,7 +442,7 @@
           </label>
           <div class="col-sm-9">
             <input
-              v-model="hero.purchased.plan.deferred.deferredUntil"
+              v-model="editedHero.purchased.plan.deferred.deferredUntil"
               class="form-control"
               type="text"
             >
@@ -454,12 +456,12 @@
             Mystery Items:
           </label>
           <div class="col-sm-9 col-form-label">
-            <span v-if="hero.purchased.plan.mysteryItems.length > 0">
+            <span v-if="editedHero.purchased.plan.mysteryItems.length > 0">
               <span
-                v-for="(item, index) in hero.purchased.plan.mysteryItems"
+                v-for="(item, index) in editedHero.purchased.plan.mysteryItems"
                 :key="index"
               >
-                <strong v-if="index < hero.purchased.plan.mysteryItems.length - 1">
+                <strong v-if="index < editedHero.purchased.plan.mysteryItems.length - 1">
                   {{ item }},
                 </strong>
                 <strong v-else> {{ item }} </strong>
@@ -471,7 +473,7 @@
           </div>
         </div>
         <div
-          v-if="!isConvertingToGroupPlan && hero.purchased.plan.planId !== 'group_plan_auto'"
+          v-if="!isConvertingToGroupPlan && editedHero.purchased.plan.planId !== 'group_plan_auto'"
           class="form-group row"
         >
           <div class="offset-sm-3 col-sm-9">
@@ -546,7 +548,7 @@
           <div class="form-group row">
             <div class="offset-sm-3 col-sm-9">
               <a
-                v-if="hero.purchased.plan.paymentMethod === 'Google'"
+                v-if="editedHero.purchased.plan.paymentMethod === 'Google'"
                 class="btn btn-primary btn-sm"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -555,7 +557,7 @@
                 Play Console
               </a>
               <a
-                v-else-if="hero.purchased.plan.paymentMethod === 'Paypal'"
+                v-else-if="editedHero.purchased.plan.paymentMethod === 'Paypal'"
                 class="btn btn-primary btn-sm"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -564,7 +566,7 @@
                 PayPal Dashboard
               </a>
               <a
-                v-else-if="hero.purchased.plan.paymentMethod === 'Stripe'"
+                v-else-if="editedHero.purchased.plan.paymentMethod === 'Stripe'"
                 class="btn btn-primary btn-sm"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -729,10 +731,6 @@ export default {
   },
   mixins: [saveHero],
   props: {
-    hero: {
-      type: Object,
-      required: true,
-    },
     hasUnsavedChanges: {
       type: Boolean,
       required: true,
@@ -759,7 +757,7 @@ export default {
       return currentPlanContext.nextHourglassDate.format('MMMM YYYY');
     },
     isRegularPlanId () {
-      return this.subscriptionBlocks[this.hero.purchased.plan.planId] !== undefined;
+      return this.subscriptionBlocks[this.editedHero.purchased.plan.planId] !== undefined;
     },
     isRegularPaymentMethod () {
       return [
@@ -771,12 +769,13 @@ export default {
         'Amazon Payments',
         'PayPal',
         'Gift',
-      ].includes(this.hero.purchased.plan.paymentMethod);
+      ].includes(this.editedHero.purchased.plan.paymentMethod);
     },
     todayWithRemainingCycle () {
       const now = moment();
-      const monthCount = subscriptionBlocks[this.hero.purchased.plan.planId].months;
-      const terminationDate = moment(this.hero.purchased.plan.dateCurrentTypeCreated || new Date());
+      const monthCount = subscriptionBlocks[this.editedHero.purchased.plan.planId].months;
+      const terminationDate = moment(this.editedHero.purchased.plan.dateCurrentTypeCreated
+          || new Date());
       while (terminationDate.isBefore(now)) {
         terminationDate.add(monthCount, 'months');
       }
@@ -795,25 +794,26 @@ export default {
     },
     terminateSubscription (terminationDate) {
       if (terminationDate) {
-        this.hero.purchased.plan.dateTerminated = terminationDate.utc().format();
+        this.editedHero.purchased.plan.dateTerminated = terminationDate.utc().format();
       } else {
-        this.hero.purchased.plan.dateTerminated = moment(new Date()).utc().format();
+        this.editedHero.purchased.plan.dateTerminated = moment(new Date()).utc().format();
       }
       this.applyExtraMonths();
-      this.saveHero({ hero: this.hero, msg: 'Subscription Termination', reloadData: true });
+      this.saveHero({ hero: this.editedHero, msg: 'Subscription Termination', reloadData: true });
     },
     applyExtraMonths () {
-      if (this.hero.purchased.plan.extraMonths > 0 || this.hero.purchased.plan.extraMonths !== '0') {
-        const date = moment(this.hero.purchased.plan.dateTerminated || new Date());
-        const extraMonths = Math.max(this.hero.purchased.plan.extraMonths, 0);
+      if (this.editedHero.purchased.plan.extraMonths > 0
+          || this.editedHero.purchased.plan.extraMonths !== '0') {
+        const date = moment(this.editedHero.purchased.plan.dateTerminated || new Date());
+        const extraMonths = Math.max(this.editedHero.purchased.plan.extraMonths, 0);
         const extraDays = Math.ceil(30.5 * extraMonths);
-        this.hero.purchased.plan.dateTerminated = date.add(extraDays, 'days').utc().format();
-        this.hero.purchased.plan.extraMonths = 0;
+        this.editedHero.purchased.plan.dateTerminated = date.add(extraDays, 'days').utc().format();
+        this.editedHero.purchased.plan.extraMonths = 0;
       }
     },
     beginGroupPlanConvert () {
       this.isConvertingToGroupPlan = true;
-      this.hero.purchased.plan.owner = '';
+      this.editedHero.purchased.plan.owner = '';
     },
     getSubscriptionPaymentDetails () {
       this.$store.dispatch('admin:getSubscriptionPaymentDetails', { userIdentifier: this.hero._id })
@@ -821,11 +821,13 @@ export default {
           if (details) {
             this.paymentDetails = details;
           } else {
+            // eslint-disable-next-line no-alert
             alert('No payment details found.');
           }
         })
         .catch(error => {
           console.error('Error fetching subscription payment details:', error);
+          // eslint-disable-next-line no-alert
           alert(`Failed to fetch payment details: ${error.message || 'Unknown error'}`);
         });
     },
@@ -833,16 +835,18 @@ export default {
       e.preventDefault();
       if (this.isConvertingToGroupPlan) {
         if (!isUUID(this.groupPlanID)) {
+          // eslint-disable-next-line no-alert
           alert('Invalid group ID');
           return;
         }
-        this.hero.purchased.plan.convertToGroupPlan = this.groupPlanID;
-        this.saveHero({ hero: this.hero, msg: 'Group Plan Subscription', reloadData: true });
+        this.editedHero.purchased.plan.convertToGroupPlan = this.groupPlanID;
+        this.saveHero({ hero: this.editedHero, msg: 'Group Plan Subscription', reloadData: true });
       } else {
-        this.saveHero({ hero: this.hero, msg: 'Subscription Perks', reloadData: true });
+        this.saveHero({ hero: this.editedHero, msg: 'Subscription Perks', reloadData: true });
       }
     },
     switchUser (id) {
+      // eslint-disable-next-line no-alert
       if (window.confirm('Switch to this user?')) {
         this.$emit('changeUserIdentifier', id);
       }
@@ -857,20 +861,19 @@ export default {
       return date ? moment(date).format('MM/DD/YYYY') : '---';
     },
     isSubscribed () {
-      console.log(this.hero.purchased.plan.customerId, this.hero.purchased.plan.dateTerminated);
-      return this.hero.purchased.plan
-        && this.hero.purchased.plan.customerId
-        && this.hero.purchased.plan.planId
-        && this.hero.purchased.plan.paymentMethod
+      return this.editedHero.purchased.plan
+        && this.editedHero.purchased.plan.customerId
+        && this.editedHero.purchased.plan.planId
+        && this.editedHero.purchased.plan.paymentMethod
         && (
-          !this.hero.purchased.plan.dateTerminated
-          || moment(this.hero.purchased.plan.dateTerminated).isAfter(moment())
+          !this.editedHero.purchased.plan.dateTerminated
+          || moment(this.editedHero.purchased.plan.dateTerminated).isAfter(moment())
         );
     },
     isCancelled () {
-      return this.hero.purchased.plan
-        && this.hero.purchased.plan.dateTerminated
-        && this.hero.purchased.plan.dateTerminated !== '';
+      return this.editedHero.purchased.plan
+        && this.editedHero.purchased.plan.dateTerminated
+        && this.editedHero.purchased.plan.dateTerminated !== '';
     },
   },
 };

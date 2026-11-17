@@ -135,11 +135,11 @@ export default {
   props: {
     group: {
       type: Object,
-      required: true,
+      default: () => ({}),
     },
     groupType: {
       type: String,
-      required: true,
+      default: '',
     },
   },
   data () {

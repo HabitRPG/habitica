@@ -173,7 +173,7 @@ export default {
   props: {
     hideBadge: {
       type: Boolean,
-      required: true,
+      default: true,
     },
     item: {
       type: Object,

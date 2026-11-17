@@ -76,7 +76,7 @@ export default {
     },
     openStatus: {
       type: Number,
-      required: true,
+      default: undefined,
     },
   },
   data () {

@@ -47,6 +47,7 @@
 
         <party-and-quest
           v-if="adminHasPrivForParty"
+          :hero="hero"
           :user-id="hero._id"
           :username="hero.auth.local.username"
           :user-has-party="hasParty"
@@ -306,6 +307,7 @@ export default {
     },
     confirmDeleteHero () {
       if (this.hero._id === this.user._id) {
+        // eslint-disable-next-line no-alert
         window.alert('You cannot delete your own account.');
         return;
       }
@@ -320,6 +322,7 @@ export default {
         this.$root.$emit('bv::hide::modal', 'delete-member-modal');
         this.$router.push({ name: 'adminPanel' });
       }).catch(err => {
+        // eslint-disable-next-line no-alert
         window.alert(err);
       });
     },

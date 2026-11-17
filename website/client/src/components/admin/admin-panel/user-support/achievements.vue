@@ -178,10 +178,6 @@ export default {
       type: Number,
       required: true,
     },
-    hero: {
-      type: Object,
-      required: true,
-    },
   },
   data () {
     return {
