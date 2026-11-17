@@ -7,7 +7,7 @@
     @ok="saveConfig"
     @hide="$emit('hide')"
   >
-    <h3>General Information</h3>
+    <h3>Admin Information</h3>
     <div class="row">
       <div class="form-group col">
         <label class="form-label">Name</label>
@@ -35,6 +35,7 @@
       >
     </div>
     <hr>
+    <h3>App Configuration</h3>
     <div class="row">
       <div class="form-group col">
         <label class="form-label">Key</label>

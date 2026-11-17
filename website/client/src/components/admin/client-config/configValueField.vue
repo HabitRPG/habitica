@@ -6,7 +6,8 @@
       :value="value"
       class="form-control"
       :class="{ 'is-invalid input-invalid': !isValid }"
-      @input="validateValue($event.target.value)"
+      @keypress="validateValue($event.target.value + $event.key)"
+      @input="inputValue($event.target.value)"
     >
     <input
       v-else-if="type == 'boolean'"
@@ -14,7 +15,7 @@
       :checked="value"
       class="align-middle"
       :class="{ 'is-invalid input-invalid': !isValid }"
-      @input="validateValue($event.target.checked)"
+      @input="validateAndInput($event.target.checked)"
     >
     <textarea
       v-else-if="type == 'json'"
@@ -22,7 +23,7 @@
       class="form-control"
       :class="{ 'is-invalid input-invalid': !isValid }"
       rows="8"
-      @input="validateValue($event.target.value)"
+      @input="validateAndInput($event.target.value)"
     ></textarea>
     <input
       v-else-if="type == 'email'"
@@ -30,7 +31,7 @@
       :value="value"
       class="form-control"
       :class="{ 'is-invalid input-invalid': !isValid }"
-      @input="validateValue($event.target.value)"
+      @input="validateAndInput($event.target.value)"
     >
     <input
       v-else-if="type == 'url'"
@@ -38,7 +39,7 @@
       :value="value"
       class="form-control"
       :class="{ 'is-invalid input-invalid': !isValid }"
-      @input="validateValue($event.target.value)"
+      @input="validateAndInput($event.target.value)"
     >
     <input
       v-else-if="type == 'date'"
@@ -46,7 +47,7 @@
       :value="value"
       class="form-control"
       :class="{ 'is-invalid input-invalid': !isValid }"
-      @input="validateValue($event.target.value)"
+      @input="validateAndInput($event.target.value)"
     >
     <textarea
       v-else
@@ -58,7 +59,7 @@
       spellcheck="false"
       :class="{ 'is-invalid input-invalid': !isValid }"
       rows="1"
-      @input="validateValue($event.target.value)"
+      @input="validateAndInput($event.target.value)"
     ></textarea>
   </div>
 </template>
@@ -85,6 +86,7 @@ export default {
   },
   methods: {
     validateValue (value) {
+      console.log('Validating value:', value);
       if (value === '' || value === null || value === undefined) {
         this.isValid = true;
       } else if (this.type === 'number') {
@@ -100,10 +102,18 @@ export default {
       } else if (this.type === 'date') {
         this.validateValueAsDate(value);
       }
+    },
+    inputValue (value) {
       this.$emit('input', value);
     },
+    validateAndInput (value) {
+      this.validateValue(value);
+      this.inputValue(value);
+    },
+    
     validateValueAsNumber (value) {
-      this.isValid = !Number.isNaN(value);
+      console.log(Number.isNaN(value), value);
+      this.isValid = !Number.isNaN(value) && isFinite(value);
     },
     validateValueAsBoolean (value) {
       this.isValid = typeof value === 'boolean';
