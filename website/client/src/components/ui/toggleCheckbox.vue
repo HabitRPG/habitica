@@ -97,9 +97,18 @@
 <script>
 export default {
   props: {
-    checked: Boolean,
-    disabled: Boolean,
-    text: String,
+    checked: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    text: {
+      type: String,
+      default: '',
+    },
   },
   data () {
     return {

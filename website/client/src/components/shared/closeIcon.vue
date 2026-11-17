@@ -55,7 +55,20 @@ import svgClose from '@/assets/svg/close.svg?raw';
 
 export default {
   name: 'CloseIcon',
-  props: ['iconColor', 'iconColorHover', 'purple'],
+  props: {
+    iconColor: {
+      type: String,
+      required: true,
+    },
+    iconColorHover: {
+      type: String,
+      required: true,
+    },
+    purple: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({

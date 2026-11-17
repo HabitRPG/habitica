@@ -238,7 +238,16 @@ export default {
     CloseIcon,
     Sprite,
   },
-  props: ['notification', 'visibleAmount'],
+  props: {
+    notification: {
+      type: Object,
+      required: true,
+    },
+    visibleAmount: {
+      type: Number,
+      required: true,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({

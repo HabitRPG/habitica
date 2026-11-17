@@ -53,7 +53,28 @@ import tierNPC from '@/assets/svg/tier-npc.svg?raw';
 
 export default {
   mixins: [styleHelper],
-  props: ['user', 'name', 'backer', 'contributor', 'hideTooltip'],
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    backer: {
+      type: Object,
+      default: null,
+    },
+    contributor: {
+      type: Object,
+      default: null,
+    },
+    hideTooltip: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({

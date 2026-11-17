@@ -95,7 +95,12 @@ export default {
     markdown: markdownDirective,
   },
   mixins: [externalLinks],
-  props: ['group'],
+  props: {
+    group: {
+      type: Object,
+      required: true,
+    },
+  },
   data () {
     return {
       challenges: [],

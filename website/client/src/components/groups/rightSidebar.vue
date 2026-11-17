@@ -213,7 +213,32 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  props: ['isParty', 'isLeader', 'isAdmin', 'isMember', 'searchId', 'group'],
+  props: {
+    isParty: {
+      type: Boolean,
+      default: false,
+    },
+    isLeader: {
+      type: Boolean,
+      default: false,
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    isMember: {
+      type: Boolean,
+      default: false,
+    },
+    searchId: {
+      type: String,
+      default: '',
+    },
+    group: {
+      type: Object,
+      required: true,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({

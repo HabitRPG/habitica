@@ -149,10 +149,11 @@ export default {
   props: {
     quest: {
       type: Object,
+      required: true,
     },
     abbreviated: {
       type: Boolean,
-      default: false,
+      required: true,
     },
     purchased: {
       type: Boolean,

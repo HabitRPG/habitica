@@ -481,7 +481,12 @@ export default {
     await this.loadChallenge();
     next();
   },
-  props: ['challengeId'],
+  props: {
+    challengeId: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     return {
       searchId: '',

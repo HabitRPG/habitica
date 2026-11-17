@@ -11,7 +11,12 @@
 import { TAVERN_ID } from '@/../../common/script/constants';
 
 export default {
-  props: ['group'],
+  props: {
+    group: {
+      type: Object,
+      required: true,
+    },
+  },
   computed: {
     toPath () {
       if (this.group._id === TAVERN_ID) {

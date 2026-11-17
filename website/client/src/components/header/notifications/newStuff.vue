@@ -28,7 +28,16 @@ export default {
     BaseNotification,
   },
   mixins: [seasonalNPC],
-  props: ['notification', 'canRemove'],
+  props: {
+    notification: {
+      type: Object,
+      required: true,
+    },
+    canRemove: {
+      type: Boolean,
+      default: false,
+    },
+  },
   methods: {
     action () {
       this.$root.$emit('bv::show::modal', 'new-stuff');

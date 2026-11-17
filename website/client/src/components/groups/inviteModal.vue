@@ -132,7 +132,16 @@ const INVITE_DEFAULTS = { text: '', error: null, valid: null };
 
 export default {
   mixins: [notifications],
-  props: ['group', 'groupType'],
+  props: {
+    group: {
+      type: Object,
+      required: true,
+    },
+    groupType: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     return {
       invites: [clone(INVITE_DEFAULTS), clone(INVITE_DEFAULTS)],

@@ -96,13 +96,16 @@ export default {
   components: { SectionButton },
   props: {
     title: {
+      type: String,
       required: true,
     },
     tooltip: {
+      type: String,
       default: null,
     },
     show: {
-      default: true,
+      type: Boolean,
+      required: true,
     },
   },
   data () {

@@ -357,7 +357,12 @@ export default {
     this.$set(this, 'searchId', to.params.groupId);
     next();
   },
-  props: ['groupId'],
+  props: {
+    groupId: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     return {
       searchId: '',

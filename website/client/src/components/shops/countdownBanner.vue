@@ -47,7 +47,8 @@ import clockWhite from '@/assets/svg/clock-white.svg?raw';
 export default {
   props: {
     endDate: {
-      type: Object, // moment
+      type: Object,
+      required: true,
     },
   },
   data () {

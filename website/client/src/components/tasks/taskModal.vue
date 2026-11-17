@@ -1327,7 +1327,24 @@ export default {
   },
   mixins: [syncTask, autoCompleteHelperMixin],
   // purpose is either create or edit, task is the task created or edited
-  props: ['task', 'purpose', 'challengeId', 'groupId'],
+  props: {
+    task: {
+      type: Object,
+      required: true,
+    },
+    purpose: {
+      type: String,
+      required: true,
+    },
+    challengeId: {
+      type: String,
+      required: true,
+    },
+    groupId: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     return {
       textbox: null,

@@ -167,13 +167,31 @@ export default {
   },
   mixins: [userStateMixin],
   props: {
-    chat: {},
-    groupType: {},
-    groupId: {},
-    groupName: {},
+    chat: {
+      type: Array,
+      required: true,
+    },
+    groupType: {
+      type: String,
+      required: true,
+    },
+    groupId: {
+      type: String,
+      required: true,
+    },
+    groupName: {
+      type: String,
+      required: true,
+    },
 
-    isLoading: Boolean,
-    canLoadMore: Boolean,
+    isLoading: {
+      type: Boolean,
+      required: false,
+    },
+    canLoadMore: {
+      type: Boolean,
+      required: false,
+    },
   },
   data () {
     return {

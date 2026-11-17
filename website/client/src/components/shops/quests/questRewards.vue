@@ -208,7 +208,12 @@ export default {
     Sprite,
   },
   mixins: [QuestHelperMixin],
-  props: ['quest'],
+  props: {
+    quest: {
+      type: Object,
+      required: true,
+    },
+  },
   data () {
     return {
       opened: true,

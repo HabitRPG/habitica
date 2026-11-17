@@ -95,6 +95,7 @@ export default {
   props: {
     hideText: {
       type: Boolean,
+      default: false,
     },
   },
   data () {

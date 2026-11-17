@@ -208,11 +208,40 @@ export default {
       return moment(value).fromNow();
     },
   },
-  props: [
-    'activeKey', 'uuid', 'backer', 'displayName',
-    'username', 'contributor', 'lastMessageText',
-    'lastMessageDate',
-  ],
+  props: {
+    activeKey: {
+      type: String,
+      required: true,
+    },
+    uuid: {
+      type: String,
+      required: true,
+    },
+    backer: {
+      type: Boolean,
+      required: false,
+    },
+    displayName: {
+      type: String,
+      required: true,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    contributor: {
+      type: Boolean,
+      required: false,
+    },
+    lastMessageText: {
+      type: String,
+      required: true,
+    },
+    lastMessageDate: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({

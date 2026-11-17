@@ -190,7 +190,24 @@ export default {
   components: {
     datepicker,
   },
-  props: ['date', 'disabled', 'highlighted', 'clearButton'],
+  props: {
+    date: {
+      type: Date,
+      required: true,
+    },
+    disabled: {
+      type: Boolean,
+      required: true,
+    },
+    highlighted: {
+      type: Array,
+      required: true,
+    },
+    clearButton: {
+      type: Boolean,
+      required: true,
+    },
+  },
   data () {
     return {
       value: this.date,

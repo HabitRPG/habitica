@@ -937,11 +937,26 @@ export default {
   mixins: [scoreTask, sync],
   // @TODO: maybe we should store the group on state?
   props: {
-    task: {},
-    isUser: {},
-    group: {},
-    challenge: {},
-    dueDate: {},
+    task: {
+      type: Object,
+      required: true,
+    },
+    isUser: {
+      type: Boolean,
+      required: true,
+    },
+    group: {
+      type: Object,
+      required: true,
+    },
+    challenge: {
+      type: Object,
+      required: true,
+    },
+    dueDate: {
+      type: Date,
+      required: true,
+    },
     isYesterdaily: {
       type: Boolean,
       default: false,

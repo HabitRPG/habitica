@@ -186,22 +186,23 @@
 </style>
 
 <script>
-// import moment from 'moment';
-// import axios from 'axios';
-// import each from 'lodash/each';
-// import cloneDeep from 'lodash/cloneDeep';
-// import closeX from '../ui/closeX';
-
 import achievementsLib from '@/../../common/script/libs/achievements';
 import Content from '@/../../common/script/content';
 import error404 from '../404';
-// import { userCustomStateMixin } from '../../mixins/userState';
 
 export default {
   components:
     error404,
-  // closeX,
-  props: ['userId', 'startingPage'],
+  props: {
+    userId: {
+      type: String,
+      required: true,
+    },
+    startingPage: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     return {
       selectedPage: 'achievements',

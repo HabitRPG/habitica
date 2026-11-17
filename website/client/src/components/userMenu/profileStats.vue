@@ -1129,7 +1129,16 @@ export default {
     Sprite,
     selectList,
   },
-  props: ['user', 'showAllocation'],
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+    showAllocation: {
+      type: Boolean,
+      required: true,
+    },
+  },
   data () {
     return {
       allocationModes: [

@@ -43,7 +43,7 @@ export default {
     editing: {
       type: Boolean,
       required: true,
-    }
+    },
   },
   data () {
     return {

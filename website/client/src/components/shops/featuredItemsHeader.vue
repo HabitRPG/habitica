@@ -125,11 +125,26 @@ export default {
   },
   mixins: [pinUtils],
   props: {
-    npcName: String,
-    bgUrl: String,
-    npcUrl: String,
-    featuredText: String,
-    featuredItems: Array,
+    npcName: {
+      type: String,
+      required: true,
+    },
+    bgUrl: {
+      type: String,
+      required: true,
+    },
+    npcUrl: {
+      type: String,
+      required: true,
+    },
+    featuredText: {
+      type: String,
+      required: true,
+    },
+    featuredItems: {
+      type: Array,
+      required: true,
+    },
   },
   methods: {
     featuredItemSelected (item) {

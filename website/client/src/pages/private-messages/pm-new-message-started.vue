@@ -63,7 +63,10 @@ import Avatar from '@/components/avatar.vue';
 export default {
   components: { Avatar },
   props: {
-    memberObj: null,
+    memberObj: {
+      type: Object,
+      default: null,
+    },
   },
   data () {
     return {

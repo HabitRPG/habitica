@@ -121,18 +121,23 @@ export default {
   props: {
     icon: {
       type: String,
+      required: true,
     },
     value: {
       type: Number,
+      required: true,
     },
     maxValue: {
       type: Number,
+      required: true,
     },
     tooltip: {
       type: String,
+      required: true,
     },
     progressClass: {
       type: String,
+      default: '',
     },
     condensed: {
       type: Boolean,

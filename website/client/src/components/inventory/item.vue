@@ -64,12 +64,15 @@ export default {
   props: {
     item: {
       type: Object,
+      required: true,
     },
     itemContentClass: {
       type: String,
+      required: true,
     },
     label: {
       type: String,
+      required: true,
     },
     emptyItem: {
       type: Boolean,
@@ -85,9 +88,11 @@ export default {
     },
     active: {
       type: Boolean,
+      default: false,
     },
     highlightBorder: {
       type: Boolean,
+      default: false,
     },
   },
   data () {

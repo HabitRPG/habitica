@@ -43,21 +43,27 @@ export default {
   props: {
     hideSave: {
       type: Boolean,
+      default: false,
     },
     hideCancel: {
       type: Boolean,
+      default: false,
     },
     disableSave: {
       type: Boolean,
+      default: false,
     },
     noPadding: {
       type: Boolean,
+      default: false,
     },
     primaryButtonLabel: {
       type: String,
+      default: 'save',
     },
     primaryButtonColor: {
       type: String,
+      default: 'btn-primary',
     },
   },
 };

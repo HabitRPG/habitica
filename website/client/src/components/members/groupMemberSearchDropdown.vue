@@ -40,6 +40,7 @@ export default {
     },
     groupId: {
       type: String,
+      required: true,
     },
   },
   data () {

@@ -31,6 +31,11 @@
 <script>
 export default {
   name: 'FilterGroup',
-  props: ['title'],
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+  },
 };
 </script>

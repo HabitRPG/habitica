@@ -126,7 +126,20 @@ export default {
     ShopItem,
   },
   mixins: [pinUtils],
-  props: ['hideLocked', 'hidePinned', 'searchBy'],
+  props: {
+    hideLocked: {
+      type: Boolean,
+      required: true,
+    },
+    hidePinned: {
+      type: Boolean,
+      required: true,
+    },
+    searchBy: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     return {
       sortGearBy: sortGearTypes,

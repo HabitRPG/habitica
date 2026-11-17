@@ -31,9 +31,18 @@ import SelectList from '@/components/ui/selectList';
 export default {
   components: { SelectList },
   props: {
-    label: String,
-    items: Array,
-    initialItem: Object,
+    label: {
+      type: String,
+      required: true,
+    },
+    items: {
+      type: Array,
+      required: true,
+    },
+    initialItem: {
+      type: Object,
+      required: true,
+    },
     withIcon: {
       type: Boolean,
       default: false,

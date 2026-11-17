@@ -25,7 +25,16 @@ import informationIcon from '@/assets/svg/information.svg?raw';
 
 export default {
   name: 'InformationIcon',
-  props: ['tooltipId', 'tooltip'],
+  props: {
+    tooltipId: {
+      type: String,
+      required: true,
+    },
+    tooltip: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({

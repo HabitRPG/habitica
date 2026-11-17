@@ -83,7 +83,12 @@ import { CONSTANTS, getLocalSetting, removeLocalSetting } from '@/libs/userlocal
 
 export default {
   mixins: [paymentsMixin],
-  props: ['groupId'],
+  props: {
+    groupId: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     return {
       group: {},

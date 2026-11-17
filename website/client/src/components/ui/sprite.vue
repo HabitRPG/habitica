@@ -19,9 +19,11 @@ export default {
   props: {
     imageName: {
       type: String,
+      required: true,
     },
     prefix: {
       type: String,
+      default: '',
     },
   },
   methods: {

@@ -1035,7 +1035,16 @@ export default {
     emojiAutoComplete,
   },
   mixins: [externalLinks, userCustomStateMixin('userLoggedIn'), autoCompleteHelperMixin],
-  props: ['userId', 'startingPage'],
+  props: {
+    userId: {
+      type: String,
+      required: true,
+    },
+    startingPage: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({

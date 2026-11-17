@@ -28,9 +28,11 @@ export default {
   props: {
     show: {
       type: Boolean,
+      required: true,
     },
     count: {
       type: Number,
+      required: true,
     },
   },
 };

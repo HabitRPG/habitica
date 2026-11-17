@@ -41,7 +41,7 @@ export default {
     },
     onSave: {
       type: Function,
-      default: null
+      default: null,
     },
   },
   data () {
@@ -54,6 +54,6 @@ export default {
       this.expand = !this.expand;
       if (this.onSave) this.onSave();
     },
-  }
+  },
 };
 </script>

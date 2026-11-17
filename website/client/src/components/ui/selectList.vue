@@ -92,16 +92,23 @@ export default {
   props: {
     items: {
       type: Array,
+      required: true,
     },
     disabled: {
       type: Boolean,
+      required: true,
     },
-    value: [String, Number, Object],
+    value: {
+      type: [String, Number, Object],
+      required: true,
+    },
     keyProp: {
       type: String,
+      required: true,
     },
     activeKeyProp: {
       type: String,
+      required: true,
     },
     directSelect: {
       type: Boolean,
@@ -109,12 +116,15 @@ export default {
     },
     disabledProp: {
       type: String,
+      required: true,
     },
     hideIcon: {
       type: Boolean,
+      required: true,
     },
     right: {
       type: Boolean,
+      required: true,
     },
     inlineDropdown: {
       type: Boolean,
@@ -122,6 +132,7 @@ export default {
     },
     placeholder: {
       type: String,
+      required: true,
     },
   },
   data () {

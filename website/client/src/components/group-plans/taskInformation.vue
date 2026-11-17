@@ -216,7 +216,12 @@ export default {
     await this.sync();
     next();
   },
-  props: ['groupId'],
+  props: {
+    groupId: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     return {
       openCreateBtn: false,

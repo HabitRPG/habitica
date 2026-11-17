@@ -77,9 +77,11 @@ export default {
   props: {
     show: {
       type: Boolean,
+      required: true,
     },
     equipped: {
       type: Boolean,
+      required: true,
     },
   },
   data () {

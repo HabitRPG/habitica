@@ -35,7 +35,28 @@ export default {
     ShopItem,
   },
   mixins: [pinUtils],
-  props: ['hideLocked', 'hidePinned', 'searchBy', 'sortBy', 'category'],
+  props: {
+    hideLocked: {
+      type: Boolean,
+      required: true,
+    },
+    hidePinned: {
+      type: Boolean,
+      required: true,
+    },
+    searchBy: {
+      type: String,
+      required: true,
+    },
+    sortBy: {
+      type: String,
+      required: true,
+    },
+    category: {
+      type: Object,
+      required: true,
+    },
+  },
   computed: {
     ...mapState({
       content: 'content',

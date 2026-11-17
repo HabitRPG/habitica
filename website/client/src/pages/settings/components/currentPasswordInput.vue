@@ -44,7 +44,24 @@ import ValidatedTextInput from '@/components/ui/validatedTextInput.vue';
 export default {
   name: 'CurrentPasswordInput',
   components: { ValidatedTextInput },
-  props: ['customLabel', 'showForgetPassword', 'isValid', 'invalidIssues'],
+  props: {
+    customLabel: {
+      type: String,
+      required: true,
+    },
+    showForgetPassword: {
+      type: Boolean,
+      default: false,
+    },
+    isValid: {
+      type: Boolean,
+      default: false,
+    },
+    invalidIssues: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data () {
     return {
       currentPassword: '',

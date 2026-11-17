@@ -35,7 +35,16 @@ export default {
     BaseNotification,
   },
   mixins: [sync],
-  props: ['notification', 'canRemove'],
+  props: {
+    notification: {
+      type: Object,
+      required: true,
+    },
+    canRemove: {
+      type: Boolean,
+      default: false,
+    },
+  },
   computed: {
     ...mapState({ user: 'user.data' }),
     // Check that the notification has all the necessary data (old ones are missing some fields)

@@ -55,7 +55,20 @@ export default {
     Checkbox,
     toggleSwitch,
   },
-  props: ['hidePinned', 'hideLocked', 'viewOptions'],
+  props: {
+    hideLocked: {
+      type: Boolean,
+      required: true,
+    },
+    hidePinned: {
+      type: Boolean,
+      required: true,
+    },
+    viewOptions: {
+      type: Object,
+      required: true,
+    },
+  },
   data () {
     return {
       lockedChecked: this.hideLocked,

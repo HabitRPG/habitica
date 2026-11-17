@@ -143,12 +143,15 @@ export default {
     },
     canRemove: {
       type: Boolean,
+      default: false,
     },
     hasIcon: {
       type: Boolean,
+      default: false,
     },
     readAfterClick: {
       type: Boolean,
+      default: false,
     },
     hasText: {
       type: Boolean,

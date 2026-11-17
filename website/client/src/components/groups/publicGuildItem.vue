@@ -231,7 +231,20 @@ export default {
     categoryTags,
   },
   mixins: [groupUtilities],
-  props: ['guild', 'displayLeave', 'displayGemBank'],
+  props: {
+    guild: {
+      type: Object,
+      required: true,
+    },
+    displayLeave: {
+      type: Boolean,
+      default: false,
+    },
+    displayGemBank: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data () {
     return {
       MAX_SUMMARY_SIZE_FOR_GUILDS,

@@ -37,7 +37,16 @@
 import { mapState } from '@/libs/store';
 
 export default {
-  props: ['task', 'group'],
+  props: {
+    task: {
+      type: Object,
+      required: true,
+    },
+    group: {
+      type: Object,
+      required: true,
+    },
+  },
   computed: {
     ...mapState({ user: 'user.data' }),
     message () {

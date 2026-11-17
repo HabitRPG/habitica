@@ -195,10 +195,22 @@ export default {
     messageCard,
   },
   props: {
-    chat: {},
-    isLoading: Boolean,
-    canLoadMore: Boolean,
-    conversationOpponentUser: {},
+    chat: {
+      type: Array,
+      required: true,
+    },
+    isLoading: {
+      type: Boolean,
+      required: true,
+    },
+    canLoadMore: {
+      type: Boolean,
+      required: true,
+    },
+    conversationOpponentUser: {
+      type: Object,
+      required: true,
+    },
   },
   data () {
     return {

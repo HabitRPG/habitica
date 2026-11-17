@@ -697,6 +697,7 @@ export default {
     // eslint-disable-next-line vue/require-default-prop
     item: {
       type: Object,
+      required: true,
     },
     priceType: {
       type: String,
@@ -704,6 +705,7 @@ export default {
     },
     withPin: {
       type: Boolean,
+      required: true,
     },
     genericPurchase: {
       type: Boolean,

@@ -109,9 +109,11 @@ export default {
     },
     settingsLabel: {
       type: String,
+      default: '',
     },
     placeholder: {
       type: String,
+      default: '',
     },
     invalidIssues: {
       type: Array,

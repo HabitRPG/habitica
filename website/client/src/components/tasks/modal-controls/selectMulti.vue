@@ -225,9 +225,11 @@ export default {
     },
     allItems: {
       type: Array,
+      required: true,
     },
     emptyMessage: {
       type: String,
+      default: '',
     },
     pillInvert: {
       type: Boolean,
@@ -235,9 +237,11 @@ export default {
     },
     searchPlaceholder: {
       type: String,
+      default: '',
     },
     selectedItems: {
       type: Array,
+      required: true,
     },
   },
   data () {

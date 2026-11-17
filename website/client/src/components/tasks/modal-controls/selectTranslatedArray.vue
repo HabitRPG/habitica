@@ -60,13 +60,19 @@ export default {
   props: {
     items: {
       type: Array,
+      required: true,
     },
     disabled: {
       type: Boolean,
+      default: false,
     },
-    value: [String, Number, Object],
+    value: {
+      type: [String, Number, Object],
+      required: true,
+    },
     right: {
       type: Boolean,
+      default: false,
     },
     inlineDropdown: {
       type: Boolean,
@@ -74,6 +80,7 @@ export default {
     },
     placeholder: {
       type: String,
+      required: true,
     },
   },
   data () {

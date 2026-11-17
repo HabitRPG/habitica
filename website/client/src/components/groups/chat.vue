@@ -201,7 +201,21 @@ export default {
 
     next();
   },
-  props: ['label', 'group', 'placeholder'],
+  props: {
+    label: {
+      type: String,
+      required: true,
+    },
+    group: {
+      type: Object,
+      required: true,
+    },
+    placeholder: {
+      type: String,
+      required: false,
+      default: '',
+    },
+  },
   data () {
     return {
       newMessage: '',

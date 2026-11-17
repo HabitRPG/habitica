@@ -394,7 +394,12 @@ export default {
     loadingGryphon,
   },
   mixins: [userStateMixin],
-  props: ['hideBadge'],
+  props: {
+    hideBadge: {
+      type: Boolean,
+      required: false,
+    },
+  },
   data () {
     return {
       sortOption: {

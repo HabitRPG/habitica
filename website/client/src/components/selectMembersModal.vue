@@ -170,7 +170,16 @@ export default {
   components: {
     MemberDetails,
   },
-  props: ['hideBadge', 'item'],
+  props: {
+    hideBadge: {
+      type: Boolean,
+      required: true,
+    },
+    item: {
+      type: Object,
+      required: true,
+    },
+  },
   data () {
     return {
       sortOption: '',

@@ -48,9 +48,11 @@ export default {
   props: {
     currencyNeeded: {
       type: String,
+      required: true,
     },
     amountNeeded: {
       type: Number,
+      required: true,
     },
   },
 };

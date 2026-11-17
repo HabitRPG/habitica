@@ -98,9 +98,11 @@ export default {
   props: {
     yesterDailies: {
       type: Array,
+      required: true,
     },
     cronAction: {
       type: Function,
+      required: true,
     },
   },
   data () {

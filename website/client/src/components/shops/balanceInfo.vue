@@ -51,12 +51,15 @@ export default {
   props: {
     currencyNeeded: {
       type: String,
+      required: true,
     },
     amountNeeded: {
       type: Number,
+      required: true,
     },
     neededCurrencyOnly: {
       type: Boolean,
+      required: true,
     },
   },
   data () {

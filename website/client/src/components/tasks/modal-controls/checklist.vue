@@ -286,15 +286,19 @@ export default {
   props: {
     disabled: {
       type: Boolean,
+      default: false,
     },
     disableDrag: {
       type: Boolean,
+      default: false,
     },
     disableEdit: {
       type: Boolean,
+      default: false,
     },
     items: {
       type: Array,
+      default: () => [],
     },
   },
   data () {

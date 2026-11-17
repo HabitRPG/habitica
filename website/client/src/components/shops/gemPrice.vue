@@ -42,7 +42,20 @@ import gemIcon from '@/assets/svg/gem.svg?raw';
 
 export default {
   name: 'GemPrice',
-  props: ['gemPrice', 'iconSize', 'withBackground'],
+  props: {
+    gemPrice: {
+      type: Number,
+      required: true,
+    },
+    iconSize: {
+      type: Number,
+      required: true,
+    },
+    withBackground: {
+      type: Boolean,
+      required: true,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({

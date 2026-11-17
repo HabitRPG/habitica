@@ -58,7 +58,7 @@ export default {
     activeSubPage: {
       type: String,
       required: true,
-    }
+    },
   },
 };
 </script>

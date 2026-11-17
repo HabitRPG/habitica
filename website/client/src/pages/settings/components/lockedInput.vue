@@ -88,7 +88,20 @@ import svgLockSmall from '@/assets/svg/lock-small.svg?raw';
 export default {
   name: 'LockedInput',
   mixins: [CopyToClipboard],
-  props: ['label', 'value', 'notificationText'],
+  props: {
+    label: {
+      type: String,
+      required: true,
+    },
+    value: {
+      type: String,
+      required: true,
+    },
+    notificationText: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({

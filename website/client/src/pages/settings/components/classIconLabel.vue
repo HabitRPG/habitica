@@ -74,7 +74,16 @@ import wizardIcon from '@/assets/svg/wizard.svg?raw';
 
 export default {
   name: 'ClassIconLabel',
-  props: ['selectedClass', 'classDisabled'],
+  props: {
+    selectedClass: {
+      type: String,
+      required: true,
+    },
+    classDisabled: {
+      type: Boolean,
+      required: true,
+    },
+  },
   data () {
     return {
       classIcons: Object.freeze({

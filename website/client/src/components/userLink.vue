@@ -96,16 +96,40 @@ import buffIcon from '@/assets/svg/buff.svg?raw';
 
 export default {
   mixins: [styleHelper],
-  props: [
-    'user',
-    'userId',
-    'name',
-    'backer',
-    'contributor',
-    'hideTooltip',
-    'showBuffed',
-    'context',
-  ],
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+    userId: {
+      type: String,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    backer: {
+      type: Object,
+      default: null,
+    },
+    contributor: {
+      type: Object,
+      default: null,
+    },
+    hideTooltip: {
+      type: Boolean,
+      default: false,
+    },
+    showBuffed: {
+      type: Boolean,
+      default: false,
+    },
+    context: {
+      type: String,
+      default: '',
+    },
+  },
   data () {
     return {
       icons: Object.freeze({

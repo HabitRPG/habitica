@@ -41,6 +41,11 @@
 
 <script>
 export default {
-  props: ['showAll'],
+  props: {
+    showAll: {
+      type: Boolean,
+      required: true,
+    },
+  },
 };
 </script>

@@ -190,15 +190,19 @@ export default {
     },
     allItems: {
       type: Array,
+      required: true,
     },
     emptyMessage: {
       type: String,
+      default: '',
     },
     searchPlaceholder: {
       type: String,
+      default: '',
     },
     selectedItem: {
       type: String,
+      required: true,
     },
   },
   data () {
