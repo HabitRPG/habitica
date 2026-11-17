@@ -118,7 +118,7 @@
     "gemBenefitLeadin": "O que você pode comprar com Gemas?",
     "gemBenefit1": "Trajes únicos e elegantes para o seu avatar.",
     "gemBenefit2": "Cenários para a imersão do seu avatar no mundo do Habitica!",
-    "gemBenefit3": "Sequências empolgantes de Missões que dão ovos de mascotes.",
+    "gemBenefit3": "Cadeias de Missões empolgantes que concedem Ovos de Mascote.",
     "gemBenefit4": "Redistribua os Pontos de Atributo do seu avatar e altere sua Classe.",
     "subscriptionBenefit1": "Adquira até 50 Gemas compráveis em Ouro no Mercado para comprar Missões, Personalizações, Mascotes, e mais!",
     "subscriptionBenefit3": "Ache o dobro dos Ovos, Poções de Eclosão, e Comida cada dia para aumentar sua coleção de Mascotes!",
@@ -275,8 +275,12 @@
     "mysterySet202602": "Conjunto Raposa de Sakura",
     "mysterySet202604": "Conjunto Astronauta Audacioso",
     "mysterySet202605": "Conjunto Nimbos do Anoitecer",
-    "mysterySet202606": "",
-    "mysterySet202607": "",
-    "mysterySet202608": "",
-    "mysterySet202603": ""
+    "mysterySet202606": "Conjunto da Rede de Férias",
+    "mysterySet202607": "Conjunto do Mago dos Oceanos",
+    "mysterySet202608": "Conjunto de Lâminas Reluzentes",
+    "mysterySet202603": "Conjunto do Mago da Glicínia",
+    "giftGems": "Quer presentear outra pessoa com uma bela bolada de Gemas?",
+    "mysterySet202609": "Conjunto do Arlequim da Colheita",
+    "mysterySet202610": "Conjunto do Ilusionista Óptico",
+    "mysterySet202611": "Conjunto do Dragão de Gelo"
 }

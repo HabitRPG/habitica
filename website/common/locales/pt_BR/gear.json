@@ -3571,5 +3571,9 @@
     "weaponSpecialFall2026MageNotes": "Não vá a lugar nenhum sem a magia dos cogumelos, especialmente quando o veneno deles pode transformar uma situação caótica em algo controlável. Aumenta a Inteligência em <%= int %> e a Percepção em <%= per %>. Equipamento de Edição Limitada – Outono de 2026.",
     "weaponMystery202609Text": "Bastão Arlequim da Colheita",
     "weaponMystery202609Notes": "Este bastão em formato de folha emite um tilintar alegre, enquanto fitas vibrantes tremulam na brisa fresca. Não confere nenhum benefício. Item para assinantes de setembro de 2026.",
-    "armorSpecialFall2026MageText": "Manto de Cogumelo Venenoso"
+    "armorSpecialFall2026MageText": "Manto de Cogumelo Venenoso",
+    "weaponMystery202610Text": "Orbe Óptico",
+    "weaponMystery202610Notes": "Espião, arma ou pequeno companheiro flutuante? Você decide. Não concede nenhum benefício. Item de Assinante de outubro de 2026.",
+    "weaponArmoireHammerOfHonorText": "Martelo da Honra",
+    "weaponArmoireHammerOfHonorNotes": "Salve, honrado cavaleiro! Tens um coração valente, um braço forte e um elevado caráter moral. Todos no reino sabem que empunharás este martelo com honra. Aumenta a Força em <%= str %>. Armário Encantado: Conjunto do Cavaleiro da Honra (Item 1 de 2)."
 }
