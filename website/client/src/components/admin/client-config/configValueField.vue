@@ -64,6 +64,12 @@
       rows="1"
       @input="validateAndInput($event.target.value)"
     ></textarea>
+      <div
+        v-if="value === '' && isValid"
+        class="form-text text-muted"
+      >
+        Blank values revert to the clients default value.
+      </div>
   </div>
 </template>
 
@@ -93,7 +99,7 @@ export default {
       if (value === '' || value === null || value === undefined) {
         this.isValid = true;
       } else if (this.type === 'number') {
-        this.validateValueAsNumber(value);
+        this.validateValueAsNumber(Number(value));
       } else if (this.type === 'boolean') {
         this.validateValueAsBoolean(value);
       } else if (this.type === 'json') {
@@ -117,7 +123,7 @@ export default {
     },
 
     validateValueAsNumber (value) {
-      console.log(Number.isNaN(value), value);
+      console.log(Number.isNaN(value), typeof value, value);
       this.isValid = !Number.isNaN(value) && Number.isFinite(value);
     },
     validateValueAsBoolean (value) {
