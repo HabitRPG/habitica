@@ -44,7 +44,8 @@
               :key="index"
             >
               {{ describeCondition(condition) }}<span
-                v-if="index < segment.conditions.length - 1"> and </span>
+                v-if="index < segment.conditions.length - 1"
+              > and </span>
             </span>
           </td>
           <td class="btn-cell">

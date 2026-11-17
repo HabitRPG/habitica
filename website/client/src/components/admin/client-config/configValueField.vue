@@ -87,20 +87,18 @@ export default {
     validateValue (value) {
       if (value === '' || value === null || value === undefined) {
         this.isValid = true;
-      } else {
-        if (this.type === 'number') {
-          this.validateValueAsNumber(value);
-        } else if (this.type === 'boolean') {
-          this.validateValueAsBoolean(value);
-        } else if (this.type === 'json') {
-          this.validateValueAsJson(value);
-        } else if (this.type === 'email') {
-          this.validateValueAsEmail(value);
-        } else if (this.type === 'url') {
-          this.validateValueAsUrl(value);
-        } else if (this.type === 'date') {
-          this.validateValueAsDate(value);
-        }
+      } else if (this.type === 'number') {
+        this.validateValueAsNumber(value);
+      } else if (this.type === 'boolean') {
+        this.validateValueAsBoolean(value);
+      } else if (this.type === 'json') {
+        this.validateValueAsJson(value);
+      } else if (this.type === 'email') {
+        this.validateValueAsEmail(value);
+      } else if (this.type === 'url') {
+        this.validateValueAsUrl(value);
+      } else if (this.type === 'date') {
+        this.validateValueAsDate(value);
       }
       this.$emit('input', value);
     },

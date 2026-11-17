@@ -2,7 +2,7 @@
   <div class="row standard-page col-12 d-flex justify-content-center">
     <div class="config-content">
       <ConfigOptions
-        :clientConfigs="clientConfigs"
+        :client-configs="clientConfigs"
         :segments="segments"
         @changed="loadConfigs"
       />
