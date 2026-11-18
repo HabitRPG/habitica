@@ -277,6 +277,7 @@ export default {
         this.newClientConfig = { ...configToDuplicate,
             name: `${configToDuplicate.name} (Copy)`,
             key: `${configToDuplicate.key}Copy` };
+        delete this.newClientConfig._id;
         this.showCreateForm = true;
       }
     },
