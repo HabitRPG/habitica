@@ -4,6 +4,7 @@ import uniqBy from 'lodash/uniqBy';
 import { v4 as uuid } from 'uuid';
 import { authWithHeaders } from '../../middlewares/auth';
 import { ensurePermission } from '../../middlewares/ensureAccessRight';
+import { ensureAdminPanelEnabled } from '../../middlewares/ensureAdminPanelEnabled';
 import { model as User } from '../../models/user';
 import { model as UserHistory } from '../../models/userHistory';
 import { model as Group } from '../../models/group';
@@ -39,7 +40,7 @@ const api = {};
 api.searchHero = {
   method: 'GET',
   url: '/admin/search/:userIdentifier',
-  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  middlewares: [ensureAdminPanelEnabled, authWithHeaders(), ensurePermission('userSupport')],
   async handler (req, res) {
     req.checkParams('userIdentifier', res.t('userIdentifierRequired')).notEmpty();
 
@@ -107,7 +108,7 @@ api.searchHero = {
 api.getUserHistory = {
   method: 'GET',
   url: '/admin/user/:userId/history',
-  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  middlewares: [ensureAdminPanelEnabled, authWithHeaders(), ensurePermission('userSupport')],
   async handler (req, res) {
     req.checkParams('userId', res.t('heroIdRequired')).notEmpty().isUUID();
 
@@ -130,7 +131,7 @@ api.getUserHistory = {
 api.getBlockers = {
   method: 'GET',
   url: '/admin/blockers',
-  middlewares: [authWithHeaders(), ensurePermission('accessControl')],
+  middlewares: [ensureAdminPanelEnabled, authWithHeaders(), ensurePermission('accessControl')],
   async handler (req, res) {
     const blockers = await Blocker
       .find({ disabled: false })
@@ -144,7 +145,7 @@ api.getBlockers = {
 api.createBlocker = {
   method: 'POST',
   url: '/admin/blockers',
-  middlewares: [authWithHeaders(), ensurePermission('accessControl')],
+  middlewares: [ensureAdminPanelEnabled, authWithHeaders(), ensurePermission('accessControl')],
   async handler (req, res) {
     const id = uuid();
     const blocker = await Blocker({
@@ -159,7 +160,7 @@ api.createBlocker = {
 api.updateBlocker = {
   method: 'PUT',
   url: '/admin/blockers/:blockerId',
-  middlewares: [authWithHeaders(), ensurePermission('accessControl')],
+  middlewares: [ensureAdminPanelEnabled, authWithHeaders(), ensurePermission('accessControl')],
   async handler (req, res) {
     req.checkParams('blockerId', res.t('blockerIdRequired')).notEmpty().isUUID();
 
@@ -179,7 +180,7 @@ api.updateBlocker = {
 api.deleteBlocker = {
   method: 'DELETE',
   url: '/admin/blockers/:blockerId',
-  middlewares: [authWithHeaders(), ensurePermission('accessControl')],
+  middlewares: [ensureAdminPanelEnabled, authWithHeaders(), ensurePermission('accessControl')],
   async handler (req, res) {
     req.checkParams('blockerId', res.t('blockerIdRequired')).notEmpty().isUUID();
 
@@ -199,7 +200,7 @@ api.deleteBlocker = {
 api.validateSubscriptionPaymentDetails = {
   method: 'GET',
   url: '/admin/user/:userId/subscription-payment-details',
-  middlewares: [authWithHeaders(), ensurePermission('userSupport')],
+  middlewares: [ensureAdminPanelEnabled, authWithHeaders(), ensurePermission('userSupport')],
   async handler (req, res) {
     req.checkParams('userId', res.t('heroIdRequired')).notEmpty().isUUID();
 
@@ -241,7 +242,7 @@ api.validateSubscriptionPaymentDetails = {
 api.getGroup = {
   method: 'GET',
   url: '/admin/groups/:groupId',
-  middlewares: [authWithHeaders(), ensurePermission('groupSupport')],
+  middlewares: [ensureAdminPanelEnabled, authWithHeaders(), ensurePermission('groupSupport')],
   async handler (req, res) {
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
 

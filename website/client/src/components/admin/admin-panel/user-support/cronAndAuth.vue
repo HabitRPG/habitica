@@ -44,6 +44,15 @@
             <strong v-else>No</strong>
           </div>
         </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Allowed analytics:</label>
+
+          <div class="col-sm-9 col-form-label">
+            <strong v-if="hero.preferences.analyticsConsent === true">Yes</strong>
+            <strong v-else-if="hero.preferences.analyticsConsent === false">No</strong>
+            <strong v-else>Not answered</strong>
+          </div>
+        </div>
         <div
           v-if="cronError"
           class="form-group row"

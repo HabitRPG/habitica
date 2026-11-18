@@ -101,21 +101,21 @@ api.setCron = {
 };
 
 /**
- * @api {post} /api/v3/debug/make-admin Sets admin privileges for current user
- * @apiName setCron
+ * @api {post} /api/v3/debug/give-user-support Gives user support permission to current user
+ * @apiName giveUserSupport
  * @apiGroup Development
  * @apiPermission Developers
  *
  * @apiSuccess {Object} data An empty Object
  */
-api.makeAdmin = {
+api.giveUserSupport = {
   method: 'POST',
-  url: '/debug/make-admin',
+  url: '/debug/give-user-support',
   middlewares: [ensureDevelopmentMode, authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
 
-    user.permissions.fullAccess = true;
+    user.permissions.userSupport = true;
 
     await user.save();
 

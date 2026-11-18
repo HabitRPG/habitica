@@ -73,6 +73,13 @@
         >
           Remove from Party
         </div>
+        <div
+          v-if="!userIsPartyLeader"
+          class="btn btn-primary ml-2"
+          @click="makePartyLeader()"
+        >
+          Make Party Leader
+        </div>
       </div>
       <strong v-else>User is not in a party.</strong>
       <div class="subsection-start">
@@ -353,6 +360,13 @@ export default {
       this.saveHero({
         hero: { _id: this.userId, removeFromParty: true },
         msg: 'Removed from party',
+        reloadData: true,
+      });
+    },
+    makePartyLeader () {
+      this.saveHero({
+        hero: { _id: this.userId, makePartyLeader: true },
+        msg: 'Party leader',
         reloadData: true,
       });
     },
