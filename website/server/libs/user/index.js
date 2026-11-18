@@ -253,9 +253,11 @@ export async function update (req, res, { isV3 = false }) {
           });
           allocatedStatPoints = 0;
         }
-        _.set(user, 'stats.points', Math.min(
-          adjustedVal - allocatedStatPoints, common.constants.MAX_STAT_POINTS,
-        ));
+        _.set(
+          user,
+          'stats.points',
+          Math.min(adjustedVal - allocatedStatPoints, common.constants.MAX_STAT_POINTS),
+        );
       }
       _.set(user, key, adjustedVal);
     } else {
