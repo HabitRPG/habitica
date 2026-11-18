@@ -3494,5 +3494,16 @@
     "weaponSpecialSummer2026WarriorNotes": "この豪華できらびやかな武器は沼風コーデにぴったりです。力が<%= str %>上がります。2026年夏の限定装備。",
     "weaponArmoireBrightRainbowKiteText": "虹色の凧",
     "weaponArmoirePastelRainbowKiteText": "パステルカラーの凧",
-    "classLockedItemShort": "このアイテムは特定のクラスのみ使用可能です。"
+    "classLockedItemShort": "このアイテムは特定のクラスのみ使用可能です。",
+    "headSpecialFall2026WarriorText": "おばけカボチャの頭",
+    "shieldSpecialFall2026WarriorText": "おばけカボチャ",
+    "armorSpecialFall2026WarriorText": "おばけカボチャの衣装",
+    "weaponSpecialFall2026WarriorText": "おばけカボチャのランタン",
+    "weaponSpecialFall2026MageText": "毒キノコの杖",
+    "armorSpecialFall2026MageText": "毒キノコのマント",
+    "headSpecialFall2026MageText": "毒キノコの帽子",
+    "shieldSpecialFall2026RogueText": "スケルトンカラスの杖",
+    "headSpecialFall2026RogueText": "スケルトンカラスの髑髏",
+    "armorSpecialFall2026RogueText": "スケルトンカラスの装束",
+    "weaponSpecialFall2026RogueText": "スケルトンカラスの杖"
 }
