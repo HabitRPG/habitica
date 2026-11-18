@@ -3,8 +3,6 @@
     size="xl"
     :visible="true"
     title="Edit Config"
-    :ok-disabled="!canSave()"
-    @ok="saveConfig"
     @hide="$emit('hide')"
   >
     <h3>Admin Information</h3>
@@ -214,6 +212,29 @@
     >
       Add Value
     </button>
+
+    <template #modal-footer>
+      <p v-if="formError" class="text-danger">{{ formError }}</p>
+      <button
+        class="btn btn-secondary"
+        @click="$emit('hide')"
+      >
+        {{ $t('cancel') }}
+      </button>
+      <button
+        v-if="!isSaving"
+        class="btn btn-primary"
+        :disabled="!canSave()"
+        @click="saveConfig"
+      >
+        {{ isNew ? $t('create') : $t('save') }}
+      </button>
+      <loading-spinner
+        v-else
+        class="mx-4"
+        :dark-color="true"
+      />
+    </template>
   </b-modal>
 </template>
 
@@ -234,11 +255,13 @@ import valueField from './configValueField.vue';
 import deleteIcon from '@/assets/svg/delete.svg?raw';
 import arrowUpIcon from '@/assets/svg/up.svg?raw';
 import arrowDownIcon from '@/assets/svg/down.svg?raw';
+import LoadingSpinner from '../../ui/loadingSpinner';
 
 export default {
   name: 'ConfigForm',
   components: {
     valueField,
+    LoadingSpinner,
   },
   props: {
     isNew: {
@@ -257,6 +280,8 @@ export default {
   data () {
     return {
       isKeyValid: true,
+      isSaving: false,
+      formError: null,
       editedConfig: {
         name: '',
         key: '',
@@ -311,13 +336,31 @@ export default {
         value: '',
       });
     },
-    saveConfig () {
+    async saveConfig (modalEvent) {
       if (!this.canSave()) {
         return;
       }
+      modalEvent.preventDefault();
+      this.isSaving = true;
+      this.formError = null;
       this.editedConfig.values = this.editedConfig.values
         .filter(v => (v.platform || v.segment) && v.value !== '' && v.value !== undefined);
-      this.$emit('save', this.editedConfig);
+
+      try {
+      if (this.isNew) {
+        await this.$store.dispatch('clientConfig:createClientConfig', { clientConfig: this.editedConfig });
+      } else {
+        await this.$store.dispatch('clientConfig:updateClientConfig', { clientConfig: this.editedConfig });
+      }
+
+      this.$nextTick(() => {
+          this.$emit('saved');
+          this.$bvModal.hide('modal-prevent-closing')
+        });
+      } catch (error) {
+        this.formError = error.message || 'An error occurred while saving the config.';
+      }
+      this.isSaving = false;
     },
   },
 };

@@ -38,7 +38,7 @@
               v-if="entry._id === editedConfigId"
               :config="entry"
               :segments="segments"
-              @save="saveConfig"
+              @saved="savedConfig"
               @hide="editedConfigId = null"
             />
             <td class="text-nowrap">
@@ -154,7 +154,7 @@
       :is-new="true"
       :config="newClientConfig"
       :segments="segments"
-      @save="createConfig"
+      @saved="createdConfig"
       @hide="showCreateForm = false"
     />
   </div>
@@ -281,8 +281,7 @@ export default {
         this.showCreateForm = true;
       }
     },
-    async saveConfig (clientConfig) {
-      await this.$store.dispatch('clientConfig:updateClientConfig', { clientConfig });
+    async savedConfig () {
       this.editedConfigId = null;
       this.$emit('changed');
     },
@@ -293,8 +292,7 @@ export default {
       await this.$store.dispatch('clientConfig:deleteClientConfig', { clientConfigId });
       this.$emit('changed');
     },
-    async createConfig (clientConfig) {
-      await this.$store.dispatch('clientConfig:createClientConfig', { clientConfig });
+    async createdConfig () {
       this.showCreateForm = false;
       this.newClientConfig = {
         name: '',
