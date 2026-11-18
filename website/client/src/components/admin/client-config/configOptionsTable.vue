@@ -241,8 +241,14 @@ export default {
     ValuesDisplay,
   },
   props: {
-    clientConfigs: Array,
-    segments: Array,
+    clientConfigs: {
+      type: Array,
+      default: () => [],
+    },
+    segments: {
+      type: Array,
+      default: () => [],
+    },
   },
   data () {
     return {
@@ -274,9 +280,11 @@ export default {
     duplicateConfig (id) {
       const configToDuplicate = this.clientConfigs.find(config => config._id === id);
       if (configToDuplicate) {
-        this.newClientConfig = { ...configToDuplicate,
-            name: `${configToDuplicate.name} (Copy)`,
-            key: `${configToDuplicate.key}Copy` };
+        this.newClientConfig = {
+          ...configToDuplicate,
+          name: `${configToDuplicate.name} (Copy)`,
+          key: `${configToDuplicate.key}Copy`,
+        };
         delete this.newClientConfig._id;
         this.showCreateForm = true;
       }

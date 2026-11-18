@@ -347,15 +347,15 @@ export default {
         .filter(v => (v.platform || v.segment) && v.value !== '' && v.value !== undefined);
 
       try {
-      if (this.isNew) {
-        await this.$store.dispatch('clientConfig:createClientConfig', { clientConfig: this.editedConfig });
-      } else {
-        await this.$store.dispatch('clientConfig:updateClientConfig', { clientConfig: this.editedConfig });
-      }
+        if (this.isNew) {
+          await this.$store.dispatch('clientConfig:createClientConfig', { clientConfig: this.editedConfig });
+        } else {
+          await this.$store.dispatch('clientConfig:updateClientConfig', { clientConfig: this.editedConfig });
+        }
 
-      this.$nextTick(() => {
+        this.$nextTick(() => {
           this.$emit('saved');
-          this.$bvModal.hide('modal-prevent-closing')
+          this.$bvModal.hide('modal-prevent-closing');
         });
       } catch (error) {
         this.formError = error.message || 'An error occurred while saving the config.';
