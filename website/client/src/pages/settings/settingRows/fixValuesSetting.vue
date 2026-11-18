@@ -224,7 +224,7 @@ export default {
       this.restoreValues[inputType.property] = keyupEvent.target.value;
       this.modalValuesChanged();
     },
-    save () {
+    async save () {
       if (!this.validateInputs()) {
         return;
       }
@@ -244,8 +244,8 @@ export default {
         'achievements.streak': Number(this.restoreValues.streak),
       };
 
-      this.$store.dispatch('user:set', settings);
-
+      await this.$store.dispatch('user:set', settings);
+      await this.sync();
       this.wasChanged = false;
       this.closeModal();
     },

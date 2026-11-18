@@ -73,6 +73,7 @@ const acceptablePUTPaths = _.reduce(UserSchema.paths, (accumulator, val, leaf) =
 
 const restrictedPUTSubPaths = [
   'stats.class',
+  'stats.points',
 
   'preferences.disableClasses',
   'preferences.sleep',
@@ -241,8 +242,20 @@ export async function update (req, res, { isV3 = false }) {
       user.preferences.tasks.mirrorGroupTasks = _.intersection(groupsToMirror, matchingGroupsArray);
     } else if (acceptablePUTPaths[key]) {
       let adjustedVal = val;
-      if (key === 'stats.lvl' && val > common.constants.MAX_LEVEL_HARD_CAP) {
-        adjustedVal = common.constants.MAX_LEVEL_HARD_CAP;
+      if (key === 'stats.lvl') {
+        if (val > common.constants.MAX_LEVEL_HARD_CAP) {
+          adjustedVal = common.constants.MAX_LEVEL_HARD_CAP;
+        }
+        let allocatedStatPoints = user.stats.con + user.stats.int + user.stats.per + user.stats.str;
+        if (adjustedVal < allocatedStatPoints + user.stats.points) {
+          ['con', 'int', 'per', 'str'].forEach(stat => {
+            _.set(user, `stats.${stat}`, 0);
+          });
+          allocatedStatPoints = 0;
+        }
+        _.set(user, 'stats.points', Math.min(
+          adjustedVal - allocatedStatPoints, common.constants.MAX_STAT_POINTS,
+        ));
       }
       _.set(user, key, adjustedVal);
     } else {

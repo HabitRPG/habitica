@@ -134,6 +134,7 @@ api.constants = {
   MAX_LEVEL_HARD_CAP,
   MAX_FIELD_HARD_CAP,
   MAX_WEBHOOKS,
+  MAX_STAT_POINTS,
 };
 // TODO Move these under api.constants
 api.maxLevel = MAX_LEVEL;
