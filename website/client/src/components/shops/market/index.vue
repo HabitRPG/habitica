@@ -146,6 +146,7 @@
   }
 
   .market .gems-left {
+    position: absolute;
     right: -.5em;
     top: -.5em;
   }

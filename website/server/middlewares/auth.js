@@ -21,7 +21,10 @@ const USER_FIELDS_ALWAYS_LOADED = ['_id', '_v', 'notifications', 'preferences', 
 
 function getUserFields (options, req) {
   const excluded = options.userFieldsToExclude || [];
-  const included = options.userFieldsToInclude || [];
+  // userFieldsToInclude can be a function for routes where the needed fields change at runtime
+  const included = typeof options.userFieldsToInclude === 'function'
+    ? options.userFieldsToInclude()
+    : options.userFieldsToInclude || [];
   const urlPath = url.parse(req.url || '').pathname;
   if (urlPath === '/user') {
     const { userFields } = req.query;
