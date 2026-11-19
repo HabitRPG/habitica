@@ -251,7 +251,12 @@ export default {
     ClassBadge,
     CloseIcon,
   },
-  props: ['group'],
+  props: {
+    group: {
+      type: Object,
+      required: true,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({

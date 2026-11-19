@@ -9,13 +9,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'FilterGroup',
-  props: ['title'],
-};
-</script>
-
 <style lang="scss" scoped>
   @import '@/assets/scss/colors.scss';
 
@@ -34,3 +27,15 @@ export default {
     }
   }
 </style>
+
+<script>
+export default {
+  name: 'FilterGroup',
+  props: {
+    title: {
+      type: String,
+      default: null,
+    },
+  },
+};
+</script>

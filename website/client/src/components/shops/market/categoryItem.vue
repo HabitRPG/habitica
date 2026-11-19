@@ -46,7 +46,12 @@ export default {
     PinBadge,
   },
   mixins: [pinUtils],
-  props: ['item'],
+  props: {
+    item: {
+      type: Object,
+      required: true,
+    },
+  },
   computed: {
     ...mapState({
       user: 'user.data',

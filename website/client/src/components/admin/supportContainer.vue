@@ -23,7 +23,7 @@
     >
       <button
         class="btn btn-primary mt-1"
-        @click="onSave"
+        @click="save"
       >
         {{ $t('save') }}
       </button>
@@ -37,17 +37,23 @@ export default {
   props: {
     title: {
       type: String,
-      required: false,
+      required: true,
     },
     onSave: {
       type: Function,
-      required: false,
+      default: null,
     },
   },
   data () {
     return {
       expand: false,
     };
+  },
+  methods: {
+    save () {
+      this.expand = !this.expand;
+      if (this.onSave) this.onSave();
+    },
   },
 };
 </script>

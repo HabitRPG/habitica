@@ -45,7 +45,12 @@ export default {
   components: {
     TaskColumn: Column,
   },
-  props: ['challengeId'],
+  props: {
+    challengeId: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     return {
       columns: ['habit', 'daily', 'todo', 'reward'],

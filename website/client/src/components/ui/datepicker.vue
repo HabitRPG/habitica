@@ -41,50 +41,6 @@
   </datepicker>
 </template>
 
-<script>
-import moment from 'moment';
-import datepicker from 'vuejs-datepicker';
-import calendarIcon from '@/assets/svg/calendar.svg?raw';
-import closeIcon from '@/assets/svg/close.svg?raw';
-
-export default {
-  components: {
-    datepicker,
-  },
-  props: ['date', 'disabled', 'highlighted', 'clearButton'],
-  data () {
-    return {
-      value: this.date,
-      icons: Object.freeze({
-        calendar: calendarIcon,
-        close: closeIcon,
-      }),
-    };
-  },
-  watch: {
-    date () {
-      this.value = this.date;
-    },
-  },
-  methods: {
-    upDate (after) {
-      // zero out the time so the server doesn't shift the day across a DST boundary on save
-      const normalized = after
-        ? new Date(after.getFullYear(), after.getMonth(), after.getDate())
-        : null;
-      this.value = normalized;
-      this.$emit('update:date', normalized);
-    },
-    setToday () {
-      this.upDate(moment().toDate());
-    },
-    setTomorrow () {
-      this.upDate(moment().add(1, 'day').toDate());
-    },
-  },
-};
-</script>
-
 <style lang="scss">
   @import '@/assets/scss/colors.scss';
 
@@ -223,3 +179,64 @@ export default {
     }
   }
 </style>
+
+<script>
+import moment from 'moment';
+import datepicker from 'vuejs-datepicker';
+import calendarIcon from '@/assets/svg/calendar.svg?raw';
+import closeIcon from '@/assets/svg/close.svg?raw';
+
+export default {
+  components: {
+    datepicker,
+  },
+  props: {
+    date: {
+      type: Date,
+      required: true,
+    },
+    disabled: {
+      type: Boolean,
+      required: true,
+    },
+    highlighted: {
+      type: Array,
+      required: true,
+    },
+    clearButton: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data () {
+    return {
+      value: this.date,
+      icons: Object.freeze({
+        calendar: calendarIcon,
+        close: closeIcon,
+      }),
+    };
+  },
+  watch: {
+    date () {
+      this.value = this.date;
+    },
+  },
+  methods: {
+    upDate (after) {
+      // zero out the time so the server doesn't shift the day across a DST boundary on save
+      const normalized = after
+        ? new Date(after.getFullYear(), after.getMonth(), after.getDate())
+        : null;
+      this.value = normalized;
+      this.$emit('update:date', normalized);
+    },
+    setToday () {
+      this.upDate(moment().toDate());
+    },
+    setTomorrow () {
+      this.upDate(moment().add(1, 'day').toDate());
+    },
+  },
+};
+</script>

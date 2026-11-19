@@ -203,15 +203,19 @@ export default {
   props: {
     item: {
       type: Object,
+      required: true,
     },
     priceType: {
       type: String,
+      default: null,
     },
     costumeMode: {
       type: Boolean,
+      required: true,
     },
     isEquipped: {
       type: Boolean,
+      required: true,
     },
   },
   data () {

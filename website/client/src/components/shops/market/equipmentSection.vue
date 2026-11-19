@@ -56,14 +56,14 @@
         >
           <template
             slot="itemBadge"
-            slot-scope="ctx"
+            slot-scope="badgeCtx"
           >
             <span
               class="badge-top"
-              @click.prevent.stop="togglePinned(ctx.item)"
+              @click.prevent.stop="togglePinned(badgeCtx.item)"
             >
               <pin-badge
-                :pinned="ctx.item.pinned"
+                :pinned="badgeCtx.item.pinned"
               />
             </span>
           </template>
@@ -72,6 +72,16 @@
     </itemRows>
   </layout-section>
 </template>
+
+<style lang="scss" scoped>
+  .badge-pin:not(.pinned) {
+      display: none;
+    }
+
+  .item:hover .badge-pin {
+    display: block;
+  }
+</style>
 
 <script>
 import _filter from 'lodash/filter';
@@ -116,7 +126,20 @@ export default {
     ShopItem,
   },
   mixins: [pinUtils],
-  props: ['hideLocked', 'hidePinned', 'searchBy'],
+  props: {
+    hideLocked: {
+      type: Boolean,
+      required: true,
+    },
+    hidePinned: {
+      type: Boolean,
+      required: true,
+    },
+    searchBy: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     return {
       sortGearBy: sortGearTypes,
@@ -138,7 +161,7 @@ export default {
       userStats: 'user.data.stats',
     }),
     armoireCount () {
-      return remainingGearInSet(this.userItems.gear.owned, 'armoire');
+      return remainingGearInSet('armoire', this.userItems.gear.owned);
     },
     noItemsLabel () {
       if (this.armoireCount > 0) {
@@ -204,13 +227,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-  .badge-pin:not(.pinned) {
-      display: none;
-    }
-
-  .item:hover .badge-pin {
-    display: block;
-  }
-</style>

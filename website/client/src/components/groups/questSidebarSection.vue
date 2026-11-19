@@ -657,7 +657,12 @@ export default {
     Sprite,
   },
   mixins: [questActionsMixin],
-  props: ['group'],
+  props: {
+    group: {
+      type: Object,
+      required: true,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({

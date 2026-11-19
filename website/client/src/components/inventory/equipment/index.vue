@@ -189,19 +189,19 @@
             >
               <template
                 slot="itemBadge"
-                slot-scope="context"
+                slot-scope="badgeContext"
               >
                 <equip-badge
-                  :equipped="activeItems[context.item.type] === context.item.key"
+                  :equipped="activeItems[badgeContext.item.type] === badgeContext.item.key"
                   :show="!costumeMode || user.preferences.costume"
-                  @click="equipItem(context.item)"
+                  @click="equipItem(badgeContext.item)"
                 />
               </template>
               <template
                 slot="popoverContent"
-                slot-scope="context"
+                slot-scope="popoverContext"
               >
-                <equipmentAttributesPopover :item="context.item" />
+                <equipmentAttributesPopover :item="popoverContext.item" />
               </template>
             </item>
           </template>

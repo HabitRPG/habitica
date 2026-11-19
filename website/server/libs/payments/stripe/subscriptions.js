@@ -18,7 +18,7 @@ import {
   NotFound,
 } from '../../errors';
 
-export async function checkSubData (sub, isGroup = false, coupon) {
+export async function checkSubData (sub, isGroup, coupon) {
   if (!sub || !sub.canSubscribe) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
   if (
     (sub.target === 'group' && !isGroup)

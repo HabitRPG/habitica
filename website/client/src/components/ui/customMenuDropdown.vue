@@ -70,8 +70,14 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
 <script>
 export default {
   props: {
-    right: Boolean,
-    openStatus: Number,
+    right: {
+      type: Boolean,
+      default: true,
+    },
+    openStatus: {
+      type: Number,
+      default: undefined,
+    },
   },
   data () {
     return {

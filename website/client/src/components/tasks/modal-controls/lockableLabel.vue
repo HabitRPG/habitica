@@ -45,12 +45,15 @@ export default {
   props: {
     classOverride: {
       type: String,
+      default: null,
     },
     locked: {
       type: Boolean,
+      default: false,
     },
     text: {
       type: String,
+      required: true,
     },
   },
   data () {

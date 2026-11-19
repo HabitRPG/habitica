@@ -98,12 +98,6 @@ export default {
   data () {
     return {};
   },
-  mounted () {
-    window.addEventListener('message', this.receiveMessage, false);
-  },
-  destroy () {
-    window.removeEventListener('message', this.receiveMessage);
-  },
   computed: {
     ...mapState({
       user: 'user.data',
@@ -114,6 +108,12 @@ export default {
     },
   },
 
+  mounted () {
+    window.addEventListener('message', this.receiveMessage, false);
+  },
+  beforeDestroy () {
+    window.removeEventListener('message', this.receiveMessage);
+  },
   methods: {
     receiveMessage (eventFrom) {
       if (eventFrom.origin !== 'https://www.spritely.app') {

@@ -49,7 +49,16 @@ export default {
     BaseNotification,
     questInfo,
   },
-  props: ['notification', 'canRemove'],
+  props: {
+    notification: {
+      type: Object,
+      required: true,
+    },
+    canRemove: {
+      type: Boolean,
+      default: false,
+    },
+  },
   computed: {
     ...mapState({ user: 'user.data' }),
     questData () {

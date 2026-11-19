@@ -454,6 +454,7 @@ export default {
   props: {
     item: {
       type: Object,
+      required: true,
     },
     priceType: {
       type: String,
@@ -461,6 +462,7 @@ export default {
     },
     withPin: {
       type: Boolean,
+      required: true,
     },
   },
   data () {

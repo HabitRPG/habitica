@@ -255,20 +255,20 @@
             </thead>
             <tbody>
               <tr
-                v-for="hero in heroes"
-                :key="hero._id"
+                v-for="heroItem in heroes"
+                :key="heroItem._id"
               >
                 <td>
                   <div
-                    v-if="hasPermission(hero, 'userSupport')"
+                    v-if="hasPermission(heroItem, 'userSupport')"
                     class="width-content"
                   >
                     <user-link
-                      :id="hero._id"
-                      :user="hero"
+                      :id="heroItem._id"
+                      :user="heroItem"
                     />
                     <b-popover
-                      :target="hero._id"
+                      :target="heroItem._id"
                       triggers="hover focus"
                       placement="right"
                       :prevent-overflow="false"
@@ -277,25 +277,25 @@
                   </div>
                   <user-link
                     v-else
-                    :user="hero"
+                    :user="heroItem"
                   />
                   <span v-if="hasPermission(user, 'userSupport')">
                     <br>
-                    {{ hero._id }}
+                    {{ heroItem._id }}
                     <br>
                     <router-link
                       :to="{ name: 'adminPanelUser',
-                             params: { userIdentifier: hero._id } }"
+                             params: { userIdentifier: heroItem._id } }"
                     >
                       {{ $t("adminPanel") }}
                     </router-link>
                   </span>
                 </td>
-                <td>{{ hero.contributor.level }}</td>
-                <td>{{ hero.contributor.text }}</td>
+                <td>{{ heroItem.contributor.level }}</td>
+                <td>{{ heroItem.contributor.text }}</td>
                 <td>
                   <div
-                    v-markdown="hero.contributor.contributions"
+                    v-markdown="heroItem.contributor.contributions"
                     target="_blank"
                     rel="noopener noreferrer"
                   ></div>

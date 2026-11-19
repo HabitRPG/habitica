@@ -27,7 +27,16 @@ export default {
     BaseNotification,
     Sprite,
   },
-  props: ['notification', 'canRemove'],
+  props: {
+    notification: {
+      type: Object,
+      required: true,
+    },
+    canRemove: {
+      type: Boolean,
+      default: false,
+    },
+  },
   computed: {
     mysteryClass () {
       return `notif_inventory_present_${moment().format('MM')}`;

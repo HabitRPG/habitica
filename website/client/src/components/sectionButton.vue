@@ -54,6 +54,7 @@ import downIcon from '@/assets/svg/down.svg?raw';
 export default {
   props: {
     visible: {
+      type: Boolean,
       required: true,
     },
   },

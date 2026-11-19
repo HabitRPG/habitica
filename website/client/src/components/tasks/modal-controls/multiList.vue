@@ -137,6 +137,7 @@ export default {
     },
     emptyMessage: {
       type: String,
+      default: '',
     },
     maxItems: {
       type: Number,
@@ -148,6 +149,7 @@ export default {
     },
     items: {
       type: Array,
+      default: () => [],
     },
   },
   data () {

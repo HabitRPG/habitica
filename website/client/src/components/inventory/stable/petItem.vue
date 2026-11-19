@@ -131,9 +131,11 @@ export default {
   props: {
     item: {
       type: Object,
+      required: true,
     },
     label: {
       type: String,
+      default: null,
     },
     highlightBorder: {
       type: Boolean,

@@ -68,7 +68,12 @@ export default {
   components: {
     BaseNotification,
   },
-  props: ['notification'],
+  props: {
+    notification: {
+      type: Object,
+      required: true,
+    },
+  },
   computed: {
     ...mapState({ user: 'user.data' }),
   },

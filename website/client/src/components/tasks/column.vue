@@ -389,7 +389,10 @@ export default {
   // allows for better control of props values
   // allows for better control of where this component is called
   props: {
-    type: {},
+    type: {
+      type: String,
+      required: true,
+    },
     isUser: {
       type: Boolean,
       default: false,
@@ -398,11 +401,26 @@ export default {
       type: Boolean,
       default: false,
     },
-    searchText: {},
-    selectedTags: {},
-    taskListOverride: {},
-    group: {},
-    challenge: {},
+    searchText: {
+      type: String,
+      default: '',
+    },
+    selectedTags: {
+      type: Array,
+      default: null,
+    },
+    taskListOverride: {
+      type: Array,
+      default: null,
+    },
+    group: {
+      type: Object,
+      default: null,
+    },
+    challenge: {
+      type: Object,
+      default: null,
+    },
   }, // @TODO: maybe we should store the group on state?
   data () {
     const icons = Object.freeze({

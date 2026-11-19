@@ -48,6 +48,43 @@
   </b-dropdown>
 </template>
 
+<style lang="scss" scoped>
+@import '@/assets/scss/colors.scss';
+
+.select-list {
+  ::v-deep {
+    .dropdown-menu {
+      min-width: 8rem; // instead of the normal 10
+    }
+  }
+}
+
+::v-deep {
+  .btn {
+    display: flex;
+    align-items: center;
+
+    &::after {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.svg-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.button-label {
+  width: 3.25rem;
+  height: 1.5rem;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.71;
+}
+
+</style>
+
 <script>
 import {
   UNEQUIP_ALL,
@@ -102,40 +139,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@import '@/assets/scss/colors.scss';
-
-.select-list {
-  ::v-deep {
-    .dropdown-menu {
-      min-width: 8rem; // instead of the normal 10
-    }
-  }
-}
-
-::v-deep {
-  .btn {
-    display: flex;
-    align-items: center;
-
-    &::after {
-      margin-bottom: 0;
-    }
-  }
-}
-
-.svg-icon {
-  width: 1rem;
-  height: 1rem;
-}
-
-.button-label {
-  width: 3.25rem;
-  height: 1.5rem;
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 1.71;
-}
-
-</style>

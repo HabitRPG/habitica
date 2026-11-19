@@ -80,9 +80,11 @@ export default {
   props: {
     item: {
       type: Object,
+      required: true,
     },
     group: {
       type: Object,
+      default: null,
     },
   },
   data () {

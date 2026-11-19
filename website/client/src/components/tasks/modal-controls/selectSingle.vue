@@ -12,8 +12,8 @@
       <b-dropdown-header>
         <div class="mb-2">
           <input
-            class="form-control"
             v-model="search"
+            class="form-control"
             type="text"
             :placeholder="searchPlaceholder"
             @keyup.enter="handleSubmit"
@@ -190,15 +190,19 @@ export default {
     },
     allItems: {
       type: Array,
+      required: true,
     },
     emptyMessage: {
       type: String,
+      default: '',
     },
     searchPlaceholder: {
       type: String,
+      default: '',
     },
     selectedItem: {
       type: String,
+      required: true,
     },
   },
   data () {

@@ -74,21 +74,27 @@ export default {
     },
     itemMargin: {
       type: Number,
+      required: true,
     },
     itemWidth: {
       type: Number,
+      required: true,
     },
     items: {
       type: Array,
+      required: true,
     },
     maxItemsPerRow: {
       type: Number,
+      default: null,
     },
     noItemsLabel: {
       type: String,
+      default: null,
     },
     type: {
       type: String,
+      required: true,
     },
   },
   data () {

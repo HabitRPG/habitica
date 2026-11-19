@@ -9,12 +9,6 @@
   </button>
 </template>
 
-<script>
-export default {
-  props: ['showAll'],
-};
-</script>
-
 <style scoped lang="scss">
   @import '@/assets/scss/colors.scss';
 
@@ -44,3 +38,14 @@ export default {
     }
   }
 </style>
+
+<script>
+export default {
+  props: {
+    showAll: {
+      type: Boolean,
+      required: true,
+    },
+  },
+};
+</script>

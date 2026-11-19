@@ -7,9 +7,9 @@
       {{ $t('jsDisabledHeadingFull') }}
       <br />
       <a
-        href="https://www.enable-javascript.com/"
-        target="_blank"
-        rel="noopener noreferrer"
+      href="https://www.enable-javascript.com/"
+      target="_blank"
+      rel="noopener noreferrer"
       >{{ $t('jsDisabledLink') }}</a>
     </noscript>
     <privacy-banner

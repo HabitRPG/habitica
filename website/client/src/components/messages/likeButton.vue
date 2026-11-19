@@ -82,9 +82,11 @@ export default {
   props: {
     likeCount: {
       type: Number,
+      required: true,
     },
     likedByCurrentUser: {
       type: Boolean,
+      required: true,
     },
   },
   data () {

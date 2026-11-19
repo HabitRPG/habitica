@@ -351,7 +351,6 @@ const LikeLogicMixin = {
     },
   },
   methods: {
-
     async like () {
       const message = cloneDeep(this.msg);
 
@@ -389,15 +388,19 @@ export default {
   props: {
     msg: {
       type: Object,
+      required: true,
     },
     groupId: {
       type: String,
+      required: true,
     },
     privateMessageMode: {
       type: Boolean,
+      default: false,
     },
     userSentMessage: {
       type: Boolean,
+      required: true,
     },
   },
   data () {

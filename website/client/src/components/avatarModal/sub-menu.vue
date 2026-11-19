@@ -12,12 +12,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: ['items', 'activeSubPage'],
-};
-</script>
-
 <style scoped lang="scss">
   @import '@/assets/scss/colors.scss';
 
@@ -53,3 +47,18 @@ export default {
     border-bottom: 2px solid $purple-200;
   }
 </style>
+
+<script>
+export default {
+  props: {
+    items: {
+      type: Array,
+      required: true,
+    },
+    activeSubPage: {
+      type: String,
+      required: true,
+    },
+  },
+};
+</script>

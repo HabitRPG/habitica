@@ -2,7 +2,7 @@
   <div style="display: contents">
     <td>
       <select
-        v-model="blocker.type"
+        v-model="editedBlocker.type"
         class="form-control"
         @change="onTypeChanged"
       >
@@ -19,7 +19,7 @@
     </td>
     <td>
       <select
-        v-model="blocker.area"
+        v-model="editedBlocker.area"
         class="form-control"
       >
         <option value="full">
@@ -29,7 +29,7 @@
     </td>
     <td>
       <input
-        v-model="blocker.value"
+        v-model="editedBlocker.value"
         class="form-control"
         autocorrect="off"
         autocapitalize="off"
@@ -39,7 +39,7 @@
     </td>
     <td>
       <input
-        v-model="blocker.reason"
+        v-model="editedBlocker.reason"
         class="form-control"
       >
     </td>
@@ -51,7 +51,7 @@
         class="btn btn-primary mr-2"
         :disabled="!isValid"
         :class="{ disabled: !isValid }"
-        @click="$emit('save', blocker)"
+        @click="$emit('save', editedBlocker)"
       >
         <span>Save</span>
       </button>
@@ -97,36 +97,39 @@ export default {
   data () {
     return {
       isValid: false,
+      editedBlocker: {},
     };
   },
   mounted () {
+    this.editedBlocker = { ...this.blocker };
     this.validateValue();
   },
   methods: {
     onTypeChanged () {
-      if (this.blocker.type === 'email') {
-        this.blocker.area = 'full';
+      if (this.editedBlocker.type === 'email') {
+        this.editedBlocker.area = 'full';
       }
       this.validateValue();
     },
     validateValue () {
-      if (this.blocker.type === 'ipaddress') {
+      if (this.editedBlocker.type === 'ipaddress') {
         this.validateValueAsIpAddress();
-      } else if (this.blocker.type === 'client') {
+      } else if (this.editedBlocker.type === 'client') {
         this.validateValueAsClient();
-      } else if (this.blocker.type === 'email') {
+      } else if (this.editedBlocker.type === 'email') {
         this.validateValueAsEmail();
       }
     },
     validateValueAsEmail () {
       const emailRegex = /^([a-zA-Z0-9._%+-]*)@(?:[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})?$/;
-      this.isValid = emailRegex.test(this.blocker.value) && this.blocker.value.length > 3;
+      this.isValid = emailRegex.test(this.editedBlocker.value)
+        && this.editedBlocker.value.length > 3;
     },
     validateValueAsIpAddress () {
-      this.isValid = isIP(this.blocker.value);
+      this.isValid = isIP(this.editedBlocker.value);
     },
     validateValueAsClient () {
-      this.isValid = this.blocker.value.length > 0;
+      this.isValid = this.editedBlocker.value.length > 0;
     },
   },
 };

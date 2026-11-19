@@ -44,7 +44,12 @@ export default {
     SecondaryMenu,
     groupFormModal,
   },
-  props: ['groupId'],
+  props: {
+    groupId: {
+      type: String,
+      required: true,
+    },
+  },
   computed: {
     ...mapState({
       user: 'user.data',

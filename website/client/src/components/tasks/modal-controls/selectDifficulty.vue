@@ -147,9 +147,11 @@ export default {
   props: {
     disabled: {
       type: Boolean,
+      default: false,
     },
     value: {
       type: Number,
+      required: true,
     },
   },
   data () {

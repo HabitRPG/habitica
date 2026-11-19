@@ -188,7 +188,12 @@ export default {
   components: {
     checklist,
   },
-  props: ['task'],
+  props: {
+    task: {
+      type: Object,
+      required: true,
+    },
+  },
   data () {
     return {
       expandDayString: {

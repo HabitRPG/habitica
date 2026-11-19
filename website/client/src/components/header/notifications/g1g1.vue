@@ -129,7 +129,16 @@
 import closeIcon from '@/assets/svg/close-white.svg?raw';
 
 export default {
-  props: ['notification', 'eventKey'],
+  props: {
+    notification: {
+      type: Object,
+      required: true,
+    },
+    eventKey: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({

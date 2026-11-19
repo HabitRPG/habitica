@@ -35,14 +35,14 @@
           Player has had privileges removed or has moderation notes.
         </p>
         <div
-          v-if="hero.flags"
+          v-if="editedHero.flags"
           class="form-group row"
         >
           <div class="col-sm-9 offset-sm-3">
             <div class="custom-control custom-checkbox">
               <input
                 id="chatShadowMuted"
-                v-model="hero.flags.chatShadowMuted"
+                v-model="editedHero.flags.chatShadowMuted"
                 class="custom-control-input"
                 type="checkbox"
               >
@@ -56,14 +56,14 @@
           </div>
         </div>
         <div
-          v-if="hero.flags"
+          v-if="editedHero.flags"
           class="form-group row"
         >
           <div class="col-sm-9 offset-sm-3">
             <div class="custom-control custom-checkbox">
               <input
                 id="chatRevoked"
-                v-model="hero.flags.chatRevoked"
+                v-model="editedHero.flags.chatRevoked"
                 class="custom-control-input"
                 type="checkbox"
               >
@@ -81,7 +81,7 @@
             <div class="custom-control custom-checkbox">
               <input
                 id="blocked"
-                v-model="hero.auth.blocked"
+                v-model="editedHero.auth.blocked"
                 class="custom-control-input"
                 type="checkbox"
               >
@@ -100,7 +100,7 @@
           </label>
           <div class="col-sm-9">
             <input
-              v-model="hero.balance"
+              v-model="editedHero.balance"
               class="form-control balanceField"
               type="number"
               step="0.25"
@@ -117,13 +117,13 @@
           <label class="col-sm-3 col-form-label">Moderation Notes</label>
           <div class="col-sm-9">
             <textarea
-              v-model="hero.secret.text"
+              v-model="editedHero.secret.text"
               class="form-control"
               cols="5"
               rows="5"
             ></textarea>
             <div
-              v-markdown="hero.secret.text"
+              v-markdown="editedHero.secret.text"
               class="markdownPreview"
             ></div>
           </div>
@@ -162,8 +162,10 @@ import saveHero from '../mixins/saveHero';
 function resetData (self) {
   self.errorsOrWarningsExist = false;
   self.expand = false;
-  if (self.hero.flags.chatRevoked || self.hero.flags.chatShadowMuted || self.hero.auth.blocked
-      || (self.hero.secret.text && !self.hero.contributor.level)) {
+  if (self.editedHero.flags.chatRevoked
+      || self.editedHero.flags.chatShadowMuted
+      || self.editedHero.auth.blocked
+      || (self.editedHero.secret.text && !self.editedHero.contributor.level)) {
     // We automatically expand this section if the user has had privileges removed.
     // We also expand if they have secret.text UNLESS they have a contributor tier because
     // in that case the notes are probably about their contributions and can be seen in the
@@ -183,10 +185,6 @@ export default {
   props: {
     resetCounter: {
       type: Number,
-      required: true,
-    },
-    hero: {
-      type: Object,
       required: true,
     },
     hasUnsavedChanges: {

@@ -2,8 +2,8 @@
   <form
     @submit.prevent="saveHero({ hero: {
       _id: hero._id,
-      auth: hero.auth,
-      preferences: hero.preferences,
+      auth: editedHero.auth,
+      preferences: editedHero.preferences,
     }, msg: 'Authentication' })"
   >
     <div class="card mt-2">
@@ -79,7 +79,7 @@
           <label class="col-sm-3 col-form-label">Custom Day Start time (CDS)</label>
           <div class="col-sm-9">
             <input
-              v-model="hero.preferences.dayStart"
+              v-model="editedHero.preferences.dayStart"
               class="form-control levelField"
               type="number"
             >
@@ -148,7 +148,7 @@
           <label class="col-sm-3 col-form-label">Local Authentication E-Mail</label>
           <div class="col-sm-9">
             <input
-              v-model="hero.auth.local.email"
+              v-model="editedHero.auth.local.email"
               class="form-control"
               type="text"
             >
@@ -247,10 +247,6 @@ export default {
   props: {
     resetCounter: {
       type: Number,
-      required: true,
-    },
-    hero: {
-      type: Object,
       required: true,
     },
   },

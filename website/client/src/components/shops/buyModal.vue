@@ -68,8 +68,8 @@
           :class="{ 'gray-100': item.locked }"
         >
           <div
-            class="lock-bubble mr-2 d-flex justify-content-center align-items-center"
             v-if="item.locked"
+            class="lock-bubble mr-2 d-flex justify-content-center align-items-center"
           >
             <div
               class="svg svg-icon icon-12 gray-50 color"
@@ -697,6 +697,7 @@ export default {
     // eslint-disable-next-line vue/require-default-prop
     item: {
       type: Object,
+      required: true,
     },
     priceType: {
       type: String,
@@ -704,6 +705,7 @@ export default {
     },
     withPin: {
       type: Boolean,
+      required: true,
     },
     genericPurchase: {
       type: Boolean,

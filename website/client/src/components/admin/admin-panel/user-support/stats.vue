@@ -21,34 +21,34 @@
         class="card-body"
       >
         <stats-row
-          v-model="hero.stats.hp"
+          v-model="editedHero.stats.hp"
           label="Health"
           color="red-label"
           :max="maxHealth"
         />
         <stats-row
-          v-model="hero.stats.exp"
+          v-model="editedHero.stats.exp"
           label="Experience"
           color="yellow-label"
           min="0"
           :max="maxFieldHardCap"
         />
         <stats-row
-          v-model="hero.stats.mp"
+          v-model="editedHero.stats.mp"
           label="Mana"
           color="blue-label"
           min="0"
           :max="maxFieldHardCap"
         />
         <stats-row
-          v-model="hero.stats.lvl"
+          v-model="editedHero.stats.lvl"
           label="Level"
           step="1"
           min="0"
           :max="maxLevelHardCap"
         />
         <stats-row
-          v-model="hero.stats.gp"
+          v-model="editedHero.stats.gp"
           label="Gold"
           min="0"
           :max="maxFieldHardCap"
@@ -58,9 +58,9 @@
           <div class="col-sm-9">
             <select
               id="selectedClass"
-              v-model="hero.stats.class"
+              v-model="editedHero.stats.class"
               class="form-control"
-              :disabled="hero.stats.lvl < 10"
+              :disabled="editedHero.stats.lvl < 10"
             >
               <option value="warrior">
                 Warrior
@@ -83,14 +83,14 @@
 
         <h3>Stat Points</h3>
         <stats-row
-          v-model="hero.stats.points"
+          v-model="editedHero.stats.points"
           label="Unallocated"
           min="0"
           step="1"
           :max="maxStatPoints"
         />
         <stats-row
-          v-model="hero.stats.str"
+          v-model="editedHero.stats.str"
           label="Strength"
           color="red-label"
           min="0"
@@ -98,7 +98,7 @@
           step="1"
         />
         <stats-row
-          v-model="hero.stats.int"
+          v-model="editedHero.stats.int"
           label="Intelligence"
           color="blue-label"
           min="0"
@@ -106,7 +106,7 @@
           step="1"
         />
         <stats-row
-          v-model="hero.stats.per"
+          v-model="editedHero.stats.per"
           label="Perception"
           color="purple-label"
           min="0"
@@ -114,7 +114,7 @@
           step="1"
         />
         <stats-row
-          v-model="hero.stats.con"
+          v-model="editedHero.stats.con"
           label="Constitution"
           color="yellow-label"
           min="0"
@@ -143,28 +143,28 @@
 
         <h3>Buffs</h3>
         <stats-row
-          v-model="hero.stats.buffs.str"
+          v-model="editedHero.stats.buffs.str"
           label="Strength"
           color="red-label"
           min="0"
           step="1"
         />
         <stats-row
-          v-model="hero.stats.buffs.int"
+          v-model="editedHero.stats.buffs.int"
           label="Intelligence"
           color="blue-label"
           min="0"
           step="1"
         />
         <stats-row
-          v-model="hero.stats.buffs.per"
+          v-model="editedHero.stats.buffs.per"
           label="Perception"
           color="purple-label"
           min="0"
           step="1"
         />
         <stats-row
-          v-model="hero.stats.buffs.con"
+          v-model="editedHero.stats.buffs.con"
           label="Constitution"
           color="yellow-label"
           min="0"
@@ -241,27 +241,9 @@ export default {
     userStateMixin,
     saveHero,
   ],
-  computed: {
-    ...mapState({ user: 'user.data' }),
-    statPointsIncorrect () {
-      if (this.hero.stats.lvl >= 10) {
-        return (parseInt(this.hero.stats.points, 10)
-          + parseInt(this.hero.stats.str, 10)
-          + parseInt(this.hero.stats.int, 10)
-          + parseInt(this.hero.stats.per, 10)
-          + parseInt(this.hero.stats.con, 10)
-        ) !== this.hero.stats.lvl;
-      }
-      return false;
-    },
-  },
   props: {
     resetCounter: {
       type: Number,
-      required: true,
-    },
-    hero: {
-      type: Object,
       required: true,
     },
     hasUnsavedChanges: {
@@ -277,6 +259,20 @@ export default {
       maxLevelHardCap: MAX_LEVEL_HARD_CAP,
       maxFieldHardCap: MAX_FIELD_HARD_CAP,
     };
+  },
+  computed: {
+    ...mapState({ user: 'user.data' }),
+    statPointsIncorrect () {
+      if (this.editedHero.stats.lvl >= 10) {
+        return (parseInt(this.editedHero.stats.points, 10)
+          + parseInt(this.editedHero.stats.str, 10)
+          + parseInt(this.editedHero.stats.int, 10)
+          + parseInt(this.editedHero.stats.per, 10)
+          + parseInt(this.editedHero.stats.con, 10)
+        ) !== this.editedHero.stats.lvl;
+      }
+      return false;
+    },
   },
   watch: {
     resetCounter () {
@@ -294,13 +290,13 @@ export default {
       this.saveHero({
         hero: {
           _id: this.hero._id,
-          stats: this.hero.stats,
+          stats: this.editedHero.stats,
         },
         msg: 'Stats',
       });
     },
     resetBuffs () {
-      this.hero.stats.buffs = {
+      this.editedHero.stats.buffs = {
         str: 0,
         int: 0,
         per: 0,
@@ -308,11 +304,11 @@ export default {
       };
     },
     deallocateStatPoints () {
-      this.hero.stats.points = this.hero.stats.lvl;
-      this.hero.stats.str = 0;
-      this.hero.stats.int = 0;
-      this.hero.stats.per = 0;
-      this.hero.stats.con = 0;
+      this.editedHero.stats.points = this.hero.stats.lvl;
+      this.editedHero.stats.str = 0;
+      this.editedHero.stats.int = 0;
+      this.editedHero.stats.per = 0;
+      this.editedHero.stats.con = 0;
     },
   },
 };

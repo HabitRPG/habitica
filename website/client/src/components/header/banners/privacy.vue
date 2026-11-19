@@ -78,14 +78,6 @@ import { mapState } from '@/libs/store';
 
 export default {
   mixins: [GenericUserPreferencesMixin],
-  computed: {
-    isStaticPage () {
-      return this.$route.meta.requiresLogin === false;
-    },
-    ...mapState({
-      user: 'user.data',
-    }),
-  },
   data () {
     return {
       hidden: false,
@@ -94,6 +86,14 @@ export default {
         linkClose: '</a>',
       },
     };
+  },
+  computed: {
+    isStaticPage () {
+      return this.$route.meta.requiresLogin === false;
+    },
+    ...mapState({
+      user: 'user.data',
+    }),
   },
   mounted () {
     if (localStorage.getItem('analyticsConsent') !== null

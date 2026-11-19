@@ -32,4 +32,13 @@ module.exports = {
       order: ['template', 'style', 'script'],
     }],
   },
+  overrides: [
+    {
+      files: ['tests/**'],
+      rules: {
+        'no-console': 'off',
+        'no-unused-expressions': 'off',
+      },
+    },
+  ],
 };

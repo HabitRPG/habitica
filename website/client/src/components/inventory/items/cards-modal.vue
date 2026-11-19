@@ -43,7 +43,12 @@ export default {
   directives: {
     markdown,
   },
-  props: ['cardOptions'],
+  props: {
+    cardOptions: {
+      type: Object,
+      required: true,
+    },
+  },
   computed: {
     ...mapState({
       user: 'user.data',

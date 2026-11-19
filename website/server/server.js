@@ -28,7 +28,6 @@ const server = http.createServer();
 const app = express();
 
 process.on('SIGTERM', async () => {
-  console.log('SIGTERM signal received: closing HTTP server');
   server.close(async () => {
     await mongoose.disconnect();
     if (redis.quit) {

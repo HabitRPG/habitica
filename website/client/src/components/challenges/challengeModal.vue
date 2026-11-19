@@ -324,7 +324,12 @@ export default {
     markdown: markdownDirective,
   },
   mixins: [userStateMixin, autoCompleteHelperMixin],
-  props: ['groupId'],
+  props: {
+    groupId: {
+      type: String,
+      default: null,
+    },
+  },
   data () {
     const categoryOptions = CategoryOptions;
     const hashedCategories = {};

@@ -97,9 +97,11 @@ export default {
     },
     stripeFn: {
       type: Function,
+      required: true,
     },
     paypalFn: {
       type: Function,
+      required: true,
     },
   },
   data () {

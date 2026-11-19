@@ -87,7 +87,32 @@ import tierNPC from '@/assets/svg/tier-npc.svg?raw';
 
 export default {
   mixins: [styleHelper],
-  props: ['selections', 'text', 'caretPosition', 'coords', 'chat', 'textbox'],
+  props: {
+    selections: {
+      type: Array,
+      default: null,
+    },
+    text: {
+      type: String,
+      required: true,
+    },
+    caretPosition: {
+      type: Number,
+      required: true,
+    },
+    coords: {
+      type: Object,
+      required: true,
+    },
+    chat: {
+      type: Object,
+      required: true,
+    },
+    textbox: {
+      type: Object,
+      required: true,
+    },
+  },
   data () {
     return {
       atRegex: /(?!\b)@([\w-]*)$/,

@@ -137,49 +137,6 @@
   </div>
 </template>
 
-<script>
-import groupChallenges from '@/components/challenges/groupChallenges';
-import questSidebarSection from '@/components/groups/questSidebarSection';
-import sidebarSection from '@/components/sidebarSection';
-import markdownDirective from '@/directives/markdown';
-
-import menuIcon from '@/assets/svg/menu.svg?raw';
-import sparklesIcon from '@/assets/svg/sparklesIcon.svg?raw';
-import leaveIcon from '@/assets/svg/leave.svg?raw';
-import editIcon from '@/assets/svg/edit.svg?raw';
-import messageIcon from '@/assets/svg/message.svg?raw';
-import usersIcon from '@/assets/svg/users.svg?raw';
-
-export default {
-  components: {
-    groupChallenges,
-    questSidebarSection,
-    sidebarSection,
-  },
-  directives: {
-    markdown: markdownDirective,
-  },
-  props: ['isParty', 'isLeader', 'isAdmin', 'isMember', 'searchId', 'group'],
-  data () {
-    return {
-      icons: Object.freeze({
-        menuIcon,
-        sparklesIcon,
-        leaveIcon,
-        editIcon,
-        messageIcon,
-        usersIcon,
-      }),
-    };
-  },
-  computed: {
-    isGroup () {
-      return Boolean(this.group.purchased?.plan?.customerId);
-    },
-  },
-};
-</script>
-
 <style lang="scss" scoped>
   @import '@/assets/scss/colors.scss';
 
@@ -233,3 +190,71 @@ export default {
     --hover-background: #77f4c73F;
   }
 </style>
+
+<script>
+import groupChallenges from '@/components/challenges/groupChallenges';
+import questSidebarSection from '@/components/groups/questSidebarSection';
+import sidebarSection from '@/components/sidebarSection';
+import markdownDirective from '@/directives/markdown';
+
+import menuIcon from '@/assets/svg/menu.svg?raw';
+import sparklesIcon from '@/assets/svg/sparklesIcon.svg?raw';
+import leaveIcon from '@/assets/svg/leave.svg?raw';
+import editIcon from '@/assets/svg/edit.svg?raw';
+import messageIcon from '@/assets/svg/message.svg?raw';
+import usersIcon from '@/assets/svg/users.svg?raw';
+
+export default {
+  components: {
+    groupChallenges,
+    questSidebarSection,
+    sidebarSection,
+  },
+  directives: {
+    markdown: markdownDirective,
+  },
+  props: {
+    isParty: {
+      type: Boolean,
+      default: false,
+    },
+    isLeader: {
+      type: Boolean,
+      default: false,
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    isMember: {
+      type: Boolean,
+      default: false,
+    },
+    searchId: {
+      type: String,
+      default: '',
+    },
+    group: {
+      type: Object,
+      required: true,
+    },
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        menuIcon,
+        sparklesIcon,
+        leaveIcon,
+        editIcon,
+        messageIcon,
+        usersIcon,
+      }),
+    };
+  },
+  computed: {
+    isGroup () {
+      return Boolean(this.group.purchased?.plan?.customerId);
+    },
+  },
+};
+</script>

@@ -2,7 +2,7 @@
   <form
     @submit.prevent="saveHero({hero: {
       _id: hero._id,
-      profile: hero.profile
+      profile: editedHero.profile
     }, msg: 'Users Profile'})"
   >
     <div class="card mt-2">
@@ -29,7 +29,7 @@
           <label class="col-sm-3 col-form-label">Display name</label>
           <div class="col-sm-9">
             <input
-              v-model="hero.profile.name"
+              v-model="editedHero.profile.name"
               class="form-control"
               type="text"
             >
@@ -39,7 +39,7 @@
           <label class="col-sm-3 col-form-label">Photo URL</label>
           <div class="col-sm-9">
             <input
-              v-model="hero.profile.imageUrl"
+              v-model="editedHero.profile.imageUrl"
               class="form-control"
               type="text"
             >
@@ -49,12 +49,12 @@
           <label class="col-sm-3 col-form-label">About</label>
           <div class="col-sm-9">
             <textarea
-              v-model="hero.profile.blurb"
+              v-model="editedHero.profile.blurb"
               class="form-control"
               rows="10"
             ></textarea>
             <div
-              v-markdown="hero.profile.blurb"
+              v-markdown="editedHero.profile.blurb"
               class="markdownPreview"
             ></div>
           </div>
@@ -106,16 +106,9 @@ export default {
     userStateMixin,
     saveHero,
   ],
-  computed: {
-    ...mapState({ user: 'user.data' }),
-  },
   props: {
     resetCounter: {
       type: Number,
-      required: true,
-    },
-    hero: {
-      type: Object,
       required: true,
     },
     hasUnsavedChanges: {
@@ -127,6 +120,9 @@ export default {
     return {
       expand: false,
     };
+  },
+  computed: {
+    ...mapState({ user: 'user.data' }),
   },
   watch: {
     resetCounter () {

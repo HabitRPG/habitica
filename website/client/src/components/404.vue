@@ -34,6 +34,27 @@
   </div>
 </template>
 
+<style lang="scss" scoped>
+@import '@/assets/scss/colors.scss';
+
+h1, .static-wrapper h1 {
+  color: $purple-200;
+  line-height: 1.33;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.image-404 {
+  margin-top: 104px;
+}
+
+</style>
+
 <script>
 import { mapState } from '@/libs/store';
 
@@ -55,24 +76,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@import '@/assets/scss/colors.scss';
-
-h1, .static-wrapper h1 {
-  color: $purple-200;
-  line-height: 1.33;
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-}
-
-p {
-  font-size: 16px;
-  line-height: 1.75;
-}
-
-.image-404 {
-  margin-top: 104px;
-}
-
-</style>

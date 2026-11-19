@@ -51,6 +51,33 @@
   </div>
 </template>
 
+<style lang="scss" scoped>
+.label-line {
+  display: flex;
+}
+
+.settings-label {
+  flex: 1;
+}
+
+.input-error {
+  margin-top: 0.5rem;
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+/* this removes safari "save username" UI, we only search for one, we dont want to save it */
+input::-webkit-contacts-auto-fill-button,
+input::-webkit-credentials-auto-fill-button {
+  visibility: hidden;
+  position: absolute;
+  right: 0;
+}
+
+</style>
+
 <script>
 
 export default {
@@ -82,9 +109,11 @@ export default {
     },
     settingsLabel: {
       type: String,
+      default: '',
     },
     placeholder: {
       type: String,
+      default: '',
     },
     invalidIssues: {
       type: Array,
@@ -122,30 +151,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.label-line {
-  display: flex;
-}
-
-.settings-label {
-  flex: 1;
-}
-
-.input-error {
-  margin-top: 0.5rem;
-}
-
-.form-group {
-  margin-bottom: 0;
-}
-
-/* this removes safari "save username" UI, we only search for one, we dont want to save it */
-input::-webkit-contacts-auto-fill-button,
-input::-webkit-credentials-auto-fill-button {
-  visibility: hidden;
-  position: absolute;
-  right: 0;
-}
-
-</style>

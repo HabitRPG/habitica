@@ -3,6 +3,17 @@ import VueRouter from 'vue-router';
 const { isNavigationFailure, NavigationFailureType } = VueRouter;
 
 export default {
+  props: {
+    hero: {
+      type: Object,
+      required: true,
+    },
+  },
+  data () {
+    return {
+      editedHero: { ...this.hero },
+    };
+  },
   methods: {
     async saveHero ({
       hero,

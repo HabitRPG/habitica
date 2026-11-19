@@ -356,7 +356,12 @@ export default {
     Item,
   },
   mixins: [questActionsMixin],
-  props: ['group'],
+  props: {
+    group: {
+      type: Object,
+      required: true,
+    },
+  },
   data () {
     return {
       loading: false,

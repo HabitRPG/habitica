@@ -24,28 +24,6 @@
   </div>
 </template>
 
-<script>
-import warriorIcon from '@/assets/svg/warrior.svg?raw';
-import rogueIcon from '@/assets/svg/rogue.svg?raw';
-import healerIcon from '@/assets/svg/healer.svg?raw';
-import wizardIcon from '@/assets/svg/wizard.svg?raw';
-
-export default {
-  name: 'ClassIconLabel',
-  props: ['selectedClass', 'classDisabled'],
-  data () {
-    return {
-      classIcons: Object.freeze({
-        warrior: warriorIcon,
-        rogue: rogueIcon,
-        healer: healerIcon,
-        wizard: wizardIcon,
-      }),
-    };
-  },
-};
-</script>
-
 <style lang="scss" scoped>
 @import '@/assets/scss/colors.scss';
 
@@ -87,3 +65,34 @@ export default {
   text-align: center;
 }
 </style>
+
+<script>
+import warriorIcon from '@/assets/svg/warrior.svg?raw';
+import rogueIcon from '@/assets/svg/rogue.svg?raw';
+import healerIcon from '@/assets/svg/healer.svg?raw';
+import wizardIcon from '@/assets/svg/wizard.svg?raw';
+
+export default {
+  name: 'ClassIconLabel',
+  props: {
+    selectedClass: {
+      type: String,
+      required: true,
+    },
+    classDisabled: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  data () {
+    return {
+      classIcons: Object.freeze({
+        warrior: warriorIcon,
+        rogue: rogueIcon,
+        healer: healerIcon,
+        wizard: wizardIcon,
+      }),
+    };
+  },
+};
+</script>

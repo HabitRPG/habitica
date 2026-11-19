@@ -98,9 +98,11 @@ export default {
   props: {
     yesterDailies: {
       type: Array,
+      required: true,
     },
     cronAction: {
       type: Function,
+      required: true,
     },
   },
   data () {
@@ -108,11 +110,6 @@ export default {
       isLoading: false,
       dueDate: moment().subtract(1, 'days'),
     };
-  },
-  updated () {
-    window.setTimeout(() => {
-      this.handleExternalLinks();
-    }, 500);
   },
   computed: {
     ...mapState({ user: 'user.data' }),
@@ -123,6 +120,11 @@ export default {
         daily: this.yesterDailies,
       };
     },
+  },
+  updated () {
+    window.setTimeout(() => {
+      this.handleExternalLinks();
+    }, 500);
   },
   methods: {
     async processYesterdailies () {

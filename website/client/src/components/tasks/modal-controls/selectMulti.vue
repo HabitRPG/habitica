@@ -11,9 +11,9 @@
       <b-dropdown-header>
         <div class="mb-2 search-input-wrapper">
           <input
-            class="form-control"
             ref="searchInput"
             v-model="search"
+            class="form-control"
             type="text"
             :placeholder="searchPlaceholder"
             @focus="setTextbox"
@@ -225,9 +225,11 @@ export default {
     },
     allItems: {
       type: Array,
+      required: true,
     },
     emptyMessage: {
       type: String,
+      default: '',
     },
     pillInvert: {
       type: Boolean,
@@ -235,9 +237,11 @@ export default {
     },
     searchPlaceholder: {
       type: String,
+      default: '',
     },
     selectedItems: {
       type: Array,
+      required: true,
     },
   },
   data () {

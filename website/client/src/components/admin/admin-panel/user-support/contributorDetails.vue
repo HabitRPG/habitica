@@ -1,10 +1,10 @@
 <template>
   <form
     @submit.prevent="saveHero({ hero: {
-      _id: hero._id,
-      contributor: hero.contributor,
-      secret: hero.secret,
-      permissions: hero.permissions,
+      _id: editedHero._id,
+      contributor: editedHero.contributor,
+      secret: editedHero.secret,
+      permissions: editedHero.permissions,
     }, msg: 'Contributor details', clearData: true })"
   >
     <div class="card mt-2">
@@ -39,9 +39,9 @@
             <div class="custom-control custom-checkbox">
               <input
                 :id="permission.key"
-                v-model="hero.permissions[permission.key]"
+                v-model="editedHero.permissions[permission.key]"
                 :disabled="!hasPermission(user, permission.key)
-                  || (hero.permissions.fullAccess && permission.key !== 'fullAccess')"
+                  || (editedHero.permissions.fullAccess && permission.key !== 'fullAccess')"
                 class="custom-control-input"
                 type="checkbox"
               >
@@ -59,7 +59,7 @@
           <label class="col-sm-3 col-form-label">Title</label>
           <div class="col-sm-9">
             <input
-              v-model="hero.contributor.text"
+              v-model="editedHero.contributor.text"
               class="form-control textField"
               type="text"
             >
@@ -78,7 +78,7 @@
           <label class="col-sm-3 col-form-label">Tier</label>
           <div class="col-sm-9">
             <input
-              v-model="hero.contributor.level"
+              v-model="editedHero.contributor.level"
               class="form-control levelField"
               type="number"
             >
@@ -92,14 +92,14 @@
           <label class="col-sm-3 col-form-label">Contributions</label>
           <div class="col-sm-9">
             <textarea
-              v-model="hero.contributor.contributions"
+              v-model="editedHero.contributor.contributions"
               class="form-control"
               cols="5"
               rows="5"
             >
               </textarea>
             <div
-              v-markdown="hero.contributor.contributions"
+              v-markdown="editedHero.contributor.contributions"
               class="markdownPreview"
             ></div>
           </div>
@@ -108,13 +108,13 @@
           <label class="col-sm-3 col-form-label">Moderation Notes</label>
           <div class="col-sm-9">
             <textarea
-              v-model="hero.secret.text"
+              v-model="editedHero.secret.text"
               class="form-control"
               cols="5"
               rows="3"
             ></textarea>
             <div
-              v-markdown="hero.secret.text"
+              v-markdown="editedHero.secret.text"
               class="markdownPreview"
             ></div>
           </div>
@@ -196,7 +196,7 @@ const permissionList = [
 ];
 
 function resetData (self) {
-  self.expand = self.hero.contributor.level;
+  self.expand = self.editedHero.contributor.level;
 }
 
 export default {
@@ -207,16 +207,9 @@ export default {
     userStateMixin,
     saveHero,
   ],
-  computed: {
-    ...mapState({ user: 'user.data' }),
-  },
   props: {
     resetCounter: {
       type: Number,
-      required: true,
-    },
-    hero: {
-      type: Object,
       required: true,
     },
     hasUnsavedChanges: {
@@ -229,6 +222,9 @@ export default {
       expand: false,
       permissionList,
     };
+  },
+  computed: {
+    ...mapState({ user: 'user.data' }),
   },
   watch: {
     resetCounter () {

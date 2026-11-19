@@ -42,7 +42,12 @@ import notifications from '@/mixins/notifications';
 
 export default {
   mixins: [notifications],
-  props: ['challengeId'],
+  props: {
+    challengeId: {
+      type: String,
+      required: true,
+    },
+  },
   computed: {
     ...mapState({ user: 'user.data' }),
   },

@@ -12,6 +12,13 @@
   </div>
 </template>
 
+<style scoped lang="scss">
+
+    .standard-page {
+      position: relative;
+    }
+</style>
+
 <script>
 export default {
   props: {
@@ -22,10 +29,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss">
-
-    .standard-page {
-      position: relative;
-    }
-</style>

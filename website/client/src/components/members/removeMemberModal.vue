@@ -51,7 +51,16 @@
 
 <script>
 export default {
-  props: ['memberToRemove', 'groupId'],
+  props: {
+    memberToRemove: {
+      type: Object,
+      required: true,
+    },
+    groupId: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     return {
       removeMessage: '',

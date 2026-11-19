@@ -42,6 +42,41 @@
   </div>
 </template>
 
+<style lang="scss" scoped>
+@import '@/assets/scss/colors.scss';
+
+.icon-16 ::v-deep svg {
+  height: 16px;
+  width: 16px;
+}
+
+.network-icon-with-label {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+
+  span:not(.svg-icon) {
+    flex: 1;
+  }
+}
+
+.connected-pill {
+  display: inline-block;
+
+  padding: 4px 12px;
+  border-radius: 100px;
+  background-color: $green-50;
+
+  font-size: 12px;
+  line-height: 1.33;
+  color: $white;
+}
+
+.social-icon.apple {
+  margin-bottom: -2px !important;
+}
+</style>
+
 <script>
 import axios from 'axios';
 import hello from 'hellojs';
@@ -148,38 +183,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@import '@/assets/scss/colors.scss';
-
-.icon-16 ::v-deep svg {
-  height: 16px;
-  width: 16px;
-}
-
-.network-icon-with-label {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-
-  span:not(.svg-icon) {
-    flex: 1;
-  }
-}
-
-.connected-pill {
-  display: inline-block;
-
-  padding: 4px 12px;
-  border-radius: 100px;
-  background-color: $green-50;
-
-  font-size: 12px;
-  line-height: 1.33;
-  color: $white;
-}
-
-.social-icon.apple {
-  margin-bottom: -2px !important;
-}
-</style>

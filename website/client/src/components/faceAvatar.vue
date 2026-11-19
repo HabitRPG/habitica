@@ -86,6 +86,7 @@ export default {
     },
     overrideAvatarGear: {
       type: Object,
+      default: () => ({}),
     },
     width: {
       type: Number,

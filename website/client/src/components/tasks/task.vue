@@ -12,8 +12,8 @@
         'link-exempt': !isChallengeTask && !isGroupTask,
       }, `type_${task.type}`
       ]"
-      @click="castEnd($event, task)"
       tabindex="0"
+      @click="castEnd($event, task)"
       @keypress.enter="$emit('editTask', task)"
     >
       <div
@@ -937,11 +937,26 @@ export default {
   mixins: [scoreTask, sync],
   // @TODO: maybe we should store the group on state?
   props: {
-    task: {},
-    isUser: {},
-    group: {},
-    challenge: {},
-    dueDate: {},
+    task: {
+      type: Object,
+      required: true,
+    },
+    isUser: {
+      type: Boolean,
+      required: true,
+    },
+    group: {
+      type: Object,
+      default: null,
+    },
+    challenge: {
+      type: Object,
+      default: null,
+    },
+    dueDate: {
+      type: Object, // moment
+      default: null,
+    },
     isYesterdaily: {
       type: Boolean,
       default: false,

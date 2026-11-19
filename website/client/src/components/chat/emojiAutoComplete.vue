@@ -71,7 +71,24 @@
 import habiticaMarkdown from 'habitica-markdown';
 
 export default {
-  props: ['text', 'caretPosition', 'coords', 'textbox'],
+  props: {
+    text: {
+      type: String,
+      required: true,
+    },
+    caretPosition: {
+      type: Number,
+      required: true,
+    },
+    coords: {
+      type: Object,
+      required: true,
+    },
+    textbox: {
+      type: Object,
+      required: true,
+    },
+  },
   data () {
     return {
       colonRegex: /:([a-zA-Z0-9_+]*)$/,

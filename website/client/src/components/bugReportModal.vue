@@ -184,32 +184,6 @@ export default {
       modalId: MODALS.BUG_REPORT,
     };
   },
-  methods: {
-    async sendBugReport () {
-      this.messageInvalid = false;
-
-      if (this.message.length === 0) {
-        this.messageInvalid = true;
-
-        return;
-      }
-
-      await axios.post('/api/v4/bug-report', {
-        message: this.message,
-        email: this.email,
-        question: this.question,
-      });
-
-      this.message = '';
-
-      this.close();
-
-      this.$root.$emit('bv::show::modal', MODALS.BUG_REPORT_SUCCESS);
-    },
-    close () {
-      this.$root.$emit('bv::hide::modal', MODALS.BUG_REPORT);
-    },
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
     emailValid () {
@@ -242,6 +216,32 @@ export default {
     }
 
     this.email = email;
+  },
+  methods: {
+    async sendBugReport () {
+      this.messageInvalid = false;
+
+      if (this.message.length === 0) {
+        this.messageInvalid = true;
+
+        return;
+      }
+
+      await axios.post('/api/v4/bug-report', {
+        message: this.message,
+        email: this.email,
+        question: this.question,
+      });
+
+      this.message = '';
+
+      this.close();
+
+      this.$root.$emit('bv::show::modal', MODALS.BUG_REPORT_SUCCESS);
+    },
+    close () {
+      this.$root.$emit('bv::hide::modal', MODALS.BUG_REPORT);
+    },
   },
 };
 </script>

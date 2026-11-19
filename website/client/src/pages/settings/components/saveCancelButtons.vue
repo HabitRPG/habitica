@@ -24,32 +24,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'SaveCancelButtons',
-  props: {
-    hideSave: {
-      type: Boolean,
-    },
-    hideCancel: {
-      type: Boolean,
-    },
-    disableSave: {
-      type: Boolean,
-    },
-    noPadding: {
-      type: Boolean,
-    },
-    primaryButtonLabel: {
-      type: String,
-    },
-    primaryButtonColor: {
-      type: String,
-    },
-  },
-};
-</script>
-
 <style lang="scss" scoped>
 
 .buttons {
@@ -62,3 +36,35 @@ export default {
   }
 }
 </style>
+
+<script>
+export default {
+  name: 'SaveCancelButtons',
+  props: {
+    hideSave: {
+      type: Boolean,
+      default: false,
+    },
+    hideCancel: {
+      type: Boolean,
+      default: false,
+    },
+    disableSave: {
+      type: Boolean,
+      default: false,
+    },
+    noPadding: {
+      type: Boolean,
+      default: false,
+    },
+    primaryButtonLabel: {
+      type: String,
+      default: 'save',
+    },
+    primaryButtonColor: {
+      type: String,
+      default: 'btn-primary',
+    },
+  },
+};
+</script>

@@ -136,7 +136,6 @@ export function serveContent (res, language, filter, isProd) {
       // Content is already cached, so just send it.
       res.sendFile(`${CONTENT_CACHE_PATH}${cachedName}.json`);
     } else {
-      console.log(`Caching content for language ${language} with filter ${filter}`);
       // Content is not cached, so cache it and send it.
       res.set({
         'Content-Type': 'application/json',

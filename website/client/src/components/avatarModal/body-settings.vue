@@ -46,9 +46,12 @@ export default {
     userStateMixin,
     avatarEditorUtilities,
   ],
-  props: [
-    'editing',
-  ],
+  props: {
+    editing: {
+      type: Boolean,
+      required: true,
+    },
+  },
   data () {
     return {
       items: [

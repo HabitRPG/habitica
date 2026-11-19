@@ -11,8 +11,8 @@
           <strong v-once>{{ $t('name') }} *</strong>
         </label>
         <input
-          class="form-control"
           v-model="workingGroup.name"
+          class="form-control"
           type="text"
           :placeholder="isParty ? $t('newPartyPlaceholder') : $t('newGuildPlaceholder')"
         >

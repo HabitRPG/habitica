@@ -60,62 +60,6 @@
   </div>
 </template>
 
-<script>
-import moment from 'moment';
-import userLabel from '../../components/userLabel.vue';
-
-import dots from '@/assets/svg/dots.svg?raw';
-import block from '@/assets/svg/block.svg?raw';
-
-import { mapState } from '@/libs/store';
-
-export default {
-  components: {
-    userLabel,
-  },
-  filters: {
-    timeAgo (value) {
-      return moment(value).fromNow();
-    },
-  },
-  props: [
-    'activeKey', 'uuid', 'backer', 'displayName',
-    'username', 'contributor', 'lastMessageText',
-    'lastMessageDate',
-  ],
-  data () {
-    return {
-      icons: Object.freeze({
-        dots,
-        block,
-      }),
-    };
-  },
-  computed: {
-    ...mapState({
-      userLoggedIn: 'user.data',
-    }),
-    isBlocked () {
-      return this.userLoggedIn.inbox.blocks.includes(this.uuid);
-    },
-  },
-  methods: {
-    hideDropDown () {
-      const { dropdown } = this.$refs;
-
-      if (dropdown) {
-        dropdown.hide();
-      }
-    },
-    toggleBlock () {
-      this.$store.dispatch(this.isBlocked ? 'user:unblock' : 'user:block', {
-        uuid: this.uuid,
-      });
-    },
-  },
-};
-</script>
-
 <style lang="scss">
   @import '@/assets/scss/colors.scss';
 
@@ -245,3 +189,88 @@ export default {
     }
   }
 </style>
+
+<script>
+import moment from 'moment';
+import userLabel from '../../components/userLabel.vue';
+
+import dots from '@/assets/svg/dots.svg?raw';
+import block from '@/assets/svg/block.svg?raw';
+
+import { mapState } from '@/libs/store';
+
+export default {
+  components: {
+    userLabel,
+  },
+  filters: {
+    timeAgo (value) {
+      return moment(value).fromNow();
+    },
+  },
+  props: {
+    activeKey: {
+      type: String,
+      required: true,
+    },
+    uuid: {
+      type: String,
+      required: true,
+    },
+    backer: {
+      type: Object,
+      default: null,
+    },
+    displayName: {
+      type: String,
+      required: true,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    contributor: {
+      type: Object,
+      default: null,
+    },
+    lastMessageText: {
+      type: String,
+      required: true,
+    },
+    lastMessageDate: {
+      type: String,
+      required: true,
+    },
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        dots,
+        block,
+      }),
+    };
+  },
+  computed: {
+    ...mapState({
+      userLoggedIn: 'user.data',
+    }),
+    isBlocked () {
+      return this.userLoggedIn.inbox.blocks.includes(this.uuid);
+    },
+  },
+  methods: {
+    hideDropDown () {
+      const { dropdown } = this.$refs;
+
+      if (dropdown) {
+        dropdown.hide();
+      }
+    },
+    toggleBlock () {
+      this.$store.dispatch(this.isBlocked ? 'user:unblock' : 'user:block', {
+        uuid: this.uuid,
+      });
+    },
+  },
+};
+</script>

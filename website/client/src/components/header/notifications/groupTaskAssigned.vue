@@ -20,7 +20,16 @@ export default {
   components: {
     BaseNotification,
   },
-  props: ['notification', 'canRemove'],
+  props: {
+    notification: {
+      type: Object,
+      required: true,
+    },
+    canRemove: {
+      type: Boolean,
+      default: false,
+    },
+  },
   methods: {
     action () {
       if (this.notification.data.groupId) {

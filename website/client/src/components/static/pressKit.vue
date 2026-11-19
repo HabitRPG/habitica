@@ -26,12 +26,12 @@
       </div>
       <div v-else>
         <div
-          v-for="(images, secondaryCategory) in images"
+          v-for="(subImages, secondaryCategory) in images"
           :key="secondaryCategory"
         >
           <h3>{{ $t(`pk${secondaryCategory}`) }}</h3>
           <div
-            v-for="img in images"
+            v-for="img in subImages"
             :key="img"
           >
             <img

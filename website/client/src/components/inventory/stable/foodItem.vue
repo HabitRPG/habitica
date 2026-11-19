@@ -56,18 +56,23 @@ export default {
   props: {
     item: {
       type: Object,
+      required: true,
     },
     itemCount: {
       type: Number,
+      required: true,
     },
     itemContentClass: {
       type: String,
+      required: true,
     },
     itemName: {
       type: String,
+      default: null,
     },
     active: {
       type: Boolean,
+      required: true,
     },
   },
   data () {

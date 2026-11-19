@@ -1,27 +1,27 @@
 <template>
   <form>
     <form-row
-      v-model="group.name"
+      v-model="editedGroup.name"
       :label="$t('groupName')"
     />
     <form-row
-      v-model="group.summary"
+      v-model="editedGroup.summary"
       :label="$t('guildSummary')"
       input-type="textarea"
     />
     <form-row
-      v-model="group.description"
+      v-model="editedGroup.description"
       :label="$t('groupDescription')"
       input-type="textarea"
       rows="6"
     />
     <form-row
-      v-model="group.bannedWordsAllowed"
+      v-model="editedGroup.bannedWordsAllowed"
       :label="$t('bannedWordsAllowed')"
       input-type="checkbox"
     />
     <form-row
-      v-model="group.leaderOnly.challenges"
+      v-model="editedGroup.leaderOnly.challenges"
       :label="$t('leaderOnlyChallenges')"
       input-type="checkbox"
     />
@@ -40,6 +40,11 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  data () {
+    return {
+      editedGroup: { ...this.group },
+    };
   },
 };
 </script>

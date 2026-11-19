@@ -33,7 +33,16 @@ export default {
   components: {
     BaseNotification,
   },
-  props: ['notification', 'canRemove'],
+  props: {
+    notification: {
+      type: Object,
+      required: true,
+    },
+    canRemove: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({

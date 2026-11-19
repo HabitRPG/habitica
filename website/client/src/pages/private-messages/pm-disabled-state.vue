@@ -32,6 +32,11 @@
 
 <script>
 export default {
-  props: ['disabledTexts'],
+  props: {
+    disabledTexts: {
+      type: Object,
+      required: true,
+    },
+  },
 };
 </script>

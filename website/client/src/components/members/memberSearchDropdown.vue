@@ -61,6 +61,7 @@ export default {
     },
     challengeId: {
       type: String,
+      required: true,
     },
   },
   data () {

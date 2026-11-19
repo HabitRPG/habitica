@@ -1,5 +1,8 @@
 <template>
-  <div class="d-content" v-if="allowedToChangeClass">
+  <div
+    v-if="allowedToChangeClass"
+    class="d-content"
+  >
     <tr
       v-if="!mixinData.inlineSettingMixin.modalVisible"
     >

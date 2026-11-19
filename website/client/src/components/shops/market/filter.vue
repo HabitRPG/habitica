@@ -38,6 +38,10 @@
   </filter-sidebar>
 </template>
 
+<style scoped>
+
+</style>
+
 <script>
 import Checkbox from '@/components/ui/checkbox';
 import toggleSwitch from '@/components/ui/toggleSwitch';
@@ -51,7 +55,20 @@ export default {
     Checkbox,
     toggleSwitch,
   },
-  props: ['hidePinned', 'hideLocked', 'viewOptions'],
+  props: {
+    hideLocked: {
+      type: Boolean,
+      required: true,
+    },
+    hidePinned: {
+      type: Boolean,
+      required: true,
+    },
+    viewOptions: {
+      type: Object,
+      required: true,
+    },
+  },
   data () {
     return {
       lockedChecked: this.hideLocked,
@@ -60,7 +77,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-
-</style>

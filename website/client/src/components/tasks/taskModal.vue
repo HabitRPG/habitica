@@ -82,7 +82,7 @@
         </div>
         <input
           ref="inputToFocus"
-          v-model="task.text"
+          v-model="editedTask.text"
           class="form-control input-title"
           :class="cssClass('input')"
           type="text"
@@ -106,7 +106,8 @@
         offset="-128"
       >
         <div
-          v-html="$t('avoidSPIDetails', spiLinkData)">
+          v-html="$t('avoidSPIDetails', spiLinkData)"
+        >
         </div>
       </b-popover>
       <div
@@ -130,7 +131,7 @@
         </div>
         <textarea
           ref="notesTextarea"
-          v-model="task.notes"
+          v-model="editedTask.notes"
           class="form-control input-notes"
           :class="cssClass('input')"
           :placeholder="$t('addNotes')"
@@ -177,7 +178,7 @@
                 ></div>
               </div>
               <input
-                v-model="taskValue"
+                v-model="editedTask.value"
                 class="form-control"
                 type="number"
                 required="required"
@@ -194,35 +195,35 @@
           class="option mt-3"
         >
           <checklist
-            :items.sync="task.checklist"
+            :items.sync="editedTask.checklist"
           />
         </div>
         <div
-          v-if="task.type === 'habit'"
+          v-if="editedTask.type === 'habit'"
           class="d-flex justify-content-center mt-3"
         >
           <button
             type="button"
             class="habit-option-container no-transition
             d-flex flex-column justify-content-center align-items-center"
-            :class="!task.up ? cssClass('habit-control-disabled') : ''"
+            :class="!editedTask.up ? cssClass('habit-control-disabled') : ''"
             :disabled="challengeAccessRequired"
             @click="toggleUpDirection()"
           >
             <div
               class="habit-option-button no-transition
               d-flex justify-content-center align-items-center mb-2"
-              :class="task.up ? cssClass('bg') : ''"
+              :class="editedTask.up ? cssClass('bg') : ''"
             >
               <div
                 class="habit-option-icon svg-icon no-transition"
-                :class="task.up ? '' : 'icon-disabled'"
+                :class="editedTask.up ? '' : 'icon-disabled'"
                 v-html="icons.positive"
               ></div>
             </div>
             <div
               class="habit-option-label no-transition"
-              :class="task.up ? cssClass('icon') : 'label-disabled'"
+              :class="editedTask.up ? cssClass('icon') : 'label-disabled'"
             >
               {{ $t('positive') }}
             </div>
@@ -231,31 +232,31 @@
             type="button"
             class="habit-option-container no-transition
             d-flex flex-column justify-content-center align-items-center"
-            :class="!task.down ? cssClass('habit-control-disabled') : ''"
+            :class="!editedTask.down ? cssClass('habit-control-disabled') : ''"
             :disabled="challengeAccessRequired"
             @click="toggleDownDirection()"
           >
             <div
               class="habit-option-button no-transition
               d-flex justify-content-center align-items-center mb-2"
-              :class="task.down ? cssClass('bg') : ''"
+              :class="editedTask.down ? cssClass('bg') : ''"
             >
               <div
                 class="habit-option-icon no-transition svg-icon negative mx-auto"
-                :class="task.down ? '' : 'icon-disabled'"
+                :class="editedTask.down ? '' : 'icon-disabled'"
                 v-html="icons.negative"
               ></div>
             </div>
             <div
               class="habit-option-label no-transition"
-              :class="task.down ? cssClass('icon') : 'label-disabled'"
+              :class="editedTask.down ? cssClass('icon') : 'label-disabled'"
             >
               {{ $t('negative') }}
             </div>
           </button>
         </div>
         <template
-          v-if="task.type !== 'reward'"
+          v-if="editedTask.type !== 'reward'"
         >
           <div class="d-flex mt-3 align-items-center">
             <lockable-label
@@ -268,13 +269,13 @@
             />
           </div>
           <select-difficulty
-            :value="task.priority"
+            :value="editedTask.priority"
             :disabled="challengeAccessRequired"
             @select="setDifficulty($event)"
           />
         </template>
         <div
-          v-if="task.type === 'todo' && (!challengeAccessRequired || task.date)"
+          v-if="editedTask.type === 'todo' && (!challengeAccessRequired || editedTask.date)"
           class="option mt-3"
         >
           <div class="form-group">
@@ -283,7 +284,7 @@
               :text="$t('dueDate')"
             />
             <datepicker
-              :date.sync="task.date"
+              :date.sync="editedTask.date"
               :disabled="challengeAccessRequired"
               :highlighted="calendarHighlights"
               :clear-button="true"
@@ -291,7 +292,7 @@
           </div>
         </div>
         <div
-          v-if="task.type === 'daily'"
+          v-if="editedTask.type === 'daily'"
           class="option mt-3"
         >
           <div class="form-group">
@@ -300,14 +301,14 @@
               :text="$t('startDate')"
             />
             <datepicker
-              :date.sync="task.startDate"
+              :date.sync="editedTask.startDate"
               :disabled="challengeAccessRequired"
               :highlighted="calendarHighlights"
             />
           </div>
         </div>
         <div
-          v-if="task.type === 'daily'"
+          v-if="editedTask.type === 'daily'"
           class="option mt-3"
         >
           <div class="form-group">
@@ -318,13 +319,13 @@
             <select-translated-array
               :disabled="challengeAccessRequired"
               :items="['daily', 'weekly', 'monthly', 'yearly']"
-              :value="task.frequency"
-              @select="task.frequency = $event"
+              :value="editedTask.frequency"
+              @select="editedTask.frequency = $event"
             />
           </div>
         </div>
         <div
-          v-if="task.type === 'daily'"
+          v-if="editedTask.type === 'daily'"
           class="option mt-3"
         >
           <div class="form-group">
@@ -338,7 +339,7 @@
             >
               <div class="input-group">
                 <input
-                  v-model="task.everyX"
+                  v-model="editedTask.everyX"
                   class="form-control"
                   type="number"
                   min="0"
@@ -346,7 +347,7 @@
                   step="1"
                   required="required"
                   :disabled="challengeAccessRequired"
-                  @blur="validateValue('task.everyX')"
+                  @blur="validateValue('editedTask.everyX')"
                 >
               </div>
               <div class="input-group-spaced input-group-text">
@@ -356,7 +357,7 @@
           </div>
         </div>
         <div
-          v-if="task.type === 'daily' && task.frequency === 'weekly'"
+          v-if="editedTask.type === 'daily' && editedTask.frequency === 'weekly'"
           class="option mt-3"
         >
           <div class="form-group">
@@ -369,7 +370,7 @@
                 v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']"
                 :key="dayNumber"
                 :tab-index="dayNumber"
-                :checked.sync="task.repeat[day]"
+                :checked.sync="editedTask.repeat[day]"
                 :disabled="challengeAccessRequired"
                 :text="weekdaysMin(dayNumber)"
               />
@@ -377,7 +378,7 @@
           </div>
         </div>
         <div
-          v-if="task.type === 'daily' && task.frequency === 'monthly'"
+          v-if="editedTask.type === 'daily' && editedTask.frequency === 'monthly'"
           class="option mt-3"
         >
           <label
@@ -416,13 +417,13 @@
           </div>
         </div>
         <p
-          v-if="task.type === 'daily' && schedulingSummary"
+          v-if="editedTask.type === 'daily' && schedulingSummary"
           class="scheduling-summary mt-2 mb-0"
         >
           {{ schedulingSummary }}
         </p>
         <div
-          v-if="task.type === 'daily' && schedulingWarning"
+          v-if="editedTask.type === 'daily' && schedulingWarning"
           class="scheduling-warning mt-2"
         >
           <span
@@ -446,12 +447,12 @@
             <div class="col-12">
               <select-multi
                 ref="selectTag"
-                :selected-items="task.tags"
+                :selected-items="editedTask.tags"
                 :all-items="user.tags"
                 :add-new="true"
                 :empty-message="$t('addTags')"
                 :search-placeholder="$t('enterTag')"
-                @changed="task.tags = $event"
+                @changed="editedTask.tags = $event"
                 @addNew="addTag"
               />
             </div>
@@ -470,10 +471,10 @@
               <div class="stat-dropdown-container">
                 <select-list
                   :items="statOptions"
-                  :value="task.attribute"
+                  :value="editedTask.attribute"
                   key-prop="key"
                   active-key-prop="key"
-                  @select="task.attribute = $event.key"
+                  @select="editedTask.attribute = $event.key"
                 >
                   <template #item="{ item, button }">
                     <div class="stat-option-content">
@@ -497,7 +498,7 @@
           </div>
         </div>
         <div
-          v-if="task.type === 'habit' && !groupId"
+          v-if="editedTask.type === 'habit' && !groupId"
           class="option mt-3"
         >
           <div class="form-group">
@@ -508,8 +509,8 @@
             <select-translated-array
               :disabled="challengeAccessRequired"
               :items="['daily', 'weekly', 'monthly']"
-              :value="task.frequency"
-              @select="task.frequency = $event"
+              :value="editedTask.frequency"
+              @select="editedTask.frequency = $event"
             />
           </div>
         </div>
@@ -582,13 +583,13 @@
                       ></div>
                     </div>
                     <input
-                      v-model="task.streak"
+                      v-model="editedTask.streak"
                       class="form-control"
                       type="number"
                       min="0"
                       step="1"
                       required="required"
-                      @blur="validateValue('task.streak')"
+                      @blur="validateValue('editedTask.streak')"
                     >
                   </div>
                 </div>
@@ -604,12 +605,12 @@
                   >{{ $t('adjustCounter') }}</label>
                   <div
                     class="row streak-inputs"
-                    :class="{'both': task.up && task.down}"
+                    :class="{'both': editedTask.up && editedTask.down}"
                   >
                     <div
-                      v-if="task.up"
+                      v-if="editedTask.up"
                       class="positive"
-                      :class="{'col-6': task.down, 'col-12': !task.down}"
+                      :class="{'col-6': editedTask.down, 'col-12': !editedTask.down}"
                     >
                       <div class="input-group">
                         <div class="input-group-prepend positive-addon input-group-icon">
@@ -620,20 +621,20 @@
                           ></div>
                         </div>
                         <input
-                          v-model="task.counterUp"
+                          v-model="editedTask.counterUp"
                           class="form-control"
                           type="number"
                           min="0"
                           step="1"
                           required="required"
-                          @blur="validateValue('task.counterUp')"
+                          @blur="validateValue('editedTask.counterUp')"
                         >
                       </div>
                     </div>
                     <div
-                      v-if="task.down"
+                      v-if="editedTask.down"
                       class="negative"
-                      :class="{'col-6': task.up, 'col-12': !task.up}"
+                      :class="{'col-6': editedTask.up, 'col-12': !editedTask.up}"
                     >
                       <div class="input-group">
                         <div class="input-group-prepend negative-addon input-group-icon">
@@ -644,13 +645,13 @@
                           ></div>
                         </div>
                         <input
-                          v-model="task.counterDown"
+                          v-model="editedTask.counterDown"
                           class="form-control"
                           type="number"
                           min="0"
                           step="1"
                           required="required"
-                          @blur="validateValue('task.counterDown')"
+                          @blur="validateValue('editedTask.counterDown')"
                         >
                       </div>
                     </div>
@@ -674,7 +675,7 @@
                   </label>
                   <div class="input-group">
                     <input
-                      v-model="task.alias"
+                      v-model="editedTask.alias"
                       class="form-control"
                       :placeholder="$t('taskAliasPlaceholder')"
                       type="text"
@@ -700,7 +701,7 @@
               v-html="icons.destroy"
             ></div>
             <span class="delete-text mt-1">
-              {{ $t('deleteTaskType', { type: $t(task.type) }) }}
+              {{ $t('deleteTaskType', { type: $t(editedTask.type) }) }}
             </span>
           </button>
         </div>
@@ -1326,7 +1327,24 @@ export default {
   },
   mixins: [syncTask, autoCompleteHelperMixin],
   // purpose is either create or edit, task is the task created or edited
-  props: ['task', 'purpose', 'challengeId', 'groupId'],
+  props: {
+    task: {
+      type: Object,
+      required: true,
+    },
+    purpose: {
+      type: String,
+      required: true,
+    },
+    challengeId: {
+      type: String,
+      default: null,
+    },
+    groupId: {
+      type: String,
+      default: null,
+    },
+  },
   data () {
     return {
       textbox: null,
@@ -1369,6 +1387,7 @@ export default {
         linkClose: '</a>',
       },
       taskValue: 0,
+      editedTask: { ...this.task },
     };
   },
   computed: {
@@ -1383,12 +1402,12 @@ export default {
     }),
     // region advanced settings
     advancedSettingsShowAdjustCounter () {
-      return this.task.type === 'habit'
+      return this.editedTask.type === 'habit'
         && this.isUserTask && this.purpose === 'edit'
-        && (this.task.up || this.task.down);
+        && (this.editedTask.up || this.editedTask.down);
     },
     advancedSettingsShowRestoreStreak () {
-      return this.task.type === 'daily' && this.isUserTask
+      return this.editedTask.type === 'daily' && this.isUserTask
         && this.purpose === 'edit';
     },
     advancedSettingsShowTaskAlias () {
@@ -1401,10 +1420,10 @@ export default {
     },
     // endregion advanced settings
     checklistEnabled () {
-      return ['daily', 'todo'].indexOf(this.task.type) > -1 && !this.isOriginalChallengeTask;
+      return ['daily', 'todo'].indexOf(this.editedTask.type) > -1 && !this.isOriginalChallengeTask;
     },
     isChallengeTask () {
-      return Boolean(this.task.challenge && this.task.challenge.id);
+      return Boolean(this.editedTask.challenge && this.editedTask.challenge.id);
     },
     isUserTask () {
       return !this.challengeId && !this.groupId;
@@ -1413,57 +1432,57 @@ export default {
       return this.isUserTask && this.isChallengeTask;
     },
     isOriginalChallengeTask () {
-      const isUserChallenge = Boolean(this.task.userId);
+      const isUserChallenge = Boolean(this.editedTask.userId);
       return !isUserChallenge
-        && (this.challengeId || (this.task.challenge && this.task.challenge.id));
+        && (this.challengeId || (this.editedTask.challenge && this.editedTask.challenge.id));
     },
     canDelete () {
-      return this.purpose !== 'create' && this.canDeleteTask(this.task);
+      return this.purpose !== 'create' && this.canDeleteTask(this.editedTask);
     },
     canSave () {
-      return this.task && this.task.text && this.task.text.length > 0;
+      return this.editedTask && this.editedTask.text && this.editedTask.text.length > 0;
     },
     title () {
-      const type = this.$t(this.task.type);
+      const type = this.$t(this.editedTask.type);
       return this.$t(this.purpose === 'edit' ? 'editATask' : 'createTask', { type });
     },
     repeatSuffix () {
-      const { task } = this;
+      const { editedTask } = this;
 
       // once changed it is a string
-      const everyXValue = +task.everyX;
+      const everyXValue = +editedTask.everyX;
 
-      if (task.frequency === 'daily') {
+      if (editedTask.frequency === 'daily') {
         return everyXValue === 1 ? this.$t('day') : this.$t('days');
-      } if (task.frequency === 'weekly') {
+      } if (editedTask.frequency === 'weekly') {
         return everyXValue === 1 ? this.$t('week') : this.$t('weeks');
-      } if (task.frequency === 'monthly') {
+      } if (editedTask.frequency === 'monthly') {
         return everyXValue === 1 ? this.$t('month') : this.$t('months');
-      } if (task.frequency === 'yearly') {
+      } if (editedTask.frequency === 'yearly') {
         return everyXValue === 1 ? this.$t('year') : this.$t('years');
       }
       return null;
     },
     schedulingSummary () {
-      if (!this.task || this.task.type !== 'daily') return '';
-      const { task } = this;
-      const everyXValue = +task.everyX;
+      if (!this.editedTask || this.editedTask.type !== 'daily') return '';
+      const { editedTask } = this;
+      const everyXValue = +editedTask.everyX;
 
       let interval;
-      if (task.frequency === 'daily') {
+      if (editedTask.frequency === 'daily') {
         interval = everyXValue === 1 ? this.$t('everyDay') : this.$t('everyXDays', { count: everyXValue });
-      } else if (task.frequency === 'weekly') {
+      } else if (editedTask.frequency === 'weekly') {
         interval = everyXValue === 1 ? this.$t('everyWeek') : this.$t('everyXWeeks', { count: everyXValue });
-      } else if (task.frequency === 'monthly') {
+      } else if (editedTask.frequency === 'monthly') {
         interval = everyXValue === 1 ? this.$t('everyMonth') : this.$t('everyXMonths', { count: everyXValue });
-      } else if (task.frequency === 'yearly') {
+      } else if (editedTask.frequency === 'yearly') {
         interval = everyXValue === 1 ? this.$t('everyYear') : this.$t('everyXYears', { count: everyXValue });
       } else {
         return '';
       }
 
       let details = '';
-      if (task.frequency === 'weekly') {
+      if (editedTask.frequency === 'weekly') {
         const dayNames = {
           su: 'Sunday',
           m: 'Monday',
@@ -1473,24 +1492,24 @@ export default {
           f: 'Friday',
           s: 'Saturday',
         };
-        const activeDays = Object.keys(task.repeat || {}).filter(d => task.repeat[d]);
+        const activeDays = Object.keys(editedTask.repeat || {}).filter(d => editedTask.repeat[d]);
         if (activeDays.length > 0) {
           details = ` on ${activeDays.map(d => dayNames[d]).join(', ')}`;
         }
-      } else if (task.frequency === 'monthly' && task.startDate) {
-        const dayOfMonth = moment(task.startDate).date();
-        if (task.weeksOfMonth && task.weeksOfMonth.length > 0) {
-          const weekNum = task.weeksOfMonth[0] + 1;
+      } else if (editedTask.frequency === 'monthly' && editedTask.startDate) {
+        const dayOfMonth = moment(editedTask.startDate).date();
+        if (editedTask.weeksOfMonth && editedTask.weeksOfMonth.length > 0) {
+          const weekNum = editedTask.weeksOfMonth[0] + 1;
           const weekStr = String(weekNum);
           const lastDigit = weekStr.slice(-1);
           let suffix = 'th';
           if (lastDigit === '1' && weekStr !== '11') suffix = 'st';
           if (lastDigit === '2' && weekStr !== '12') suffix = 'nd';
           if (lastDigit === '3' && weekStr !== '13') suffix = 'rd';
-          const dayName = moment(task.startDate).format('dddd');
+          const dayName = moment(editedTask.startDate).format('dddd');
           details = ` on the ${weekNum}${suffix} ${dayName} of the month`;
-        } else if (task.daysOfMonth && task.daysOfMonth.length > 0) {
-          const dom = task.daysOfMonth[0];
+        } else if (editedTask.daysOfMonth && editedTask.daysOfMonth.length > 0) {
+          const dom = editedTask.daysOfMonth[0];
           const domStr = String(dom);
           const lastDigit = domStr.slice(-1);
           let suffix = 'th';
@@ -1507,20 +1526,20 @@ export default {
           if (lastDigit === '3' && domStr !== '13') suffix = 'rd';
           details = ` on the ${dayOfMonth}${suffix}`;
         }
-      } else if (task.frequency === 'yearly' && task.startDate) {
-        details = ` on ${moment(task.startDate).format('MMMM Do')}`;
+      } else if (editedTask.frequency === 'yearly' && editedTask.startDate) {
+        details = ` on ${moment(editedTask.startDate).format('MMMM Do')}`;
       }
 
       return `${this.$t('repeats')} ${interval}${details}`;
     },
     schedulingWarning () {
       if (!this.task || this.task.type !== 'daily') return '';
-      const { task } = this;
-      if (task.frequency === 'monthly'
-        && task.weeksOfMonth && task.weeksOfMonth.length > 0
-        && task.weeksOfMonth[0] === 4
-        && task.startDate) {
-        const dayName = moment(task.startDate).format('dddd');
+      const { editedTask } = this;
+      if (editedTask.frequency === 'monthly'
+        && editedTask.weeksOfMonth && editedTask.weeksOfMonth.length > 0
+        && editedTask.weeksOfMonth[0] === 4
+        && editedTask.startDate) {
+        const dayName = moment(editedTask.startDate).format('dddd');
         return this.$t('fifthWeekWarning', { day: dayName });
       }
       return '';
@@ -1529,7 +1548,7 @@ export default {
       get () {
         let repeatsOn = 'dayOfMonth';
 
-        if (this.task.type === 'daily' && this.task.weeksOfMonth && this.task.weeksOfMonth.length > 0) {
+        if (this.editedTask.type === 'daily' && this.editedTask.weeksOfMonth && this.editedTask.weeksOfMonth.length > 0) {
           repeatsOn = 'dayOfWeek';
         }
 
@@ -1540,14 +1559,14 @@ export default {
       },
     },
     selectedTags () {
-      return this.getTagsFor(this.task);
+      return this.getTagsFor(this.editedTask);
     },
     activeFieldText () {
-      if (!this.task) return '';
-      return this.activeField === 'title' ? (this.task.text || '') : (this.task.notes || '');
+      if (!this.editedTask) return '';
+      return this.activeField === 'title' ? (this.editedTask.text || '') : (this.editedTask.notes || '');
     },
     showStatAssignment () {
-      return this.task.type !== 'reward'
+      return this.editedTask.type !== 'reward'
         && !this.groupId
         && this.user.preferences.automaticAllocation === true
         && this.user.preferences.allocationMode === 'taskbased';
@@ -1579,23 +1598,23 @@ export default {
       createTag: 'tags:createTag',
     }),
     cssClass (suffix) {
-      if (!this.task) {
+      if (!this.editedTask) {
         return '';
       }
 
-      return this.getTaskClasses(this.task, `${this.purpose === 'edit' ? 'edit' : 'create'}-modal-${suffix}`);
+      return this.getTaskClasses(this.editedTask, `${this.purpose === 'edit' ? 'edit' : 'create'}-modal-${suffix}`);
     },
     setDifficulty (level) {
       if (this.challengeAccessRequired) return;
-      this.task.priority = level;
+      this.editedTask.priority = level;
     },
     toggleUpDirection () {
       if (this.challengeAccessRequired) return;
-      this.task.up = !this.task.up;
+      this.editedTask.up = !this.editedTask.up;
     },
     toggleDownDirection () {
       if (this.challengeAccessRequired) return;
-      this.task.down = !this.task.down;
+      this.editedTask.down = !this.editedTask.down;
     },
     weekdaysMin (dayNumber) {
       return this.$t(`weekdaysMin${dayNumber}`);
@@ -1604,25 +1623,25 @@ export default {
       return moment(date).format('MM/DD/YYYY');
     },
     calculateMonthlyRepeatDays (newRepeatsOn) {
-      if (!this.task) return;
-      const { task } = this;
+      if (!this.editedTask) return;
+      const { editedTask } = this;
       const repeatsOn = newRepeatsOn || this.repeatsOn;
 
-      if (task.frequency === 'monthly') {
+      if (editedTask.frequency === 'monthly') {
         if (repeatsOn === 'dayOfMonth') {
-          const date = moment(task.startDate).date();
-          task.weeksOfMonth = [];
-          task.daysOfMonth = [date];
+          const date = moment(editedTask.startDate).date();
+          editedTask.weeksOfMonth = [];
+          editedTask.daysOfMonth = [date];
         } else if (repeatsOn === 'dayOfWeek') {
-          const week = Math.ceil(moment(task.startDate).date() / 7) - 1;
-          const dayOfWeek = moment(task.startDate).day();
+          const week = Math.ceil(moment(editedTask.startDate).date() / 7) - 1;
+          const dayOfWeek = moment(editedTask.startDate).day();
           const shortDay = this.dayMapping[dayOfWeek];
-          task.daysOfMonth = [];
-          task.weeksOfMonth = [week];
-          for (const key of Object.keys(task.repeat)) {
-            task.repeat[key] = false;
+          editedTask.daysOfMonth = [];
+          editedTask.weeksOfMonth = [week];
+          for (const key of Object.keys(editedTask.repeat)) {
+            editedTask.repeat[key] = false;
           }
-          task.repeat[shortDay] = true;
+          editedTask.repeat[shortDay] = true;
         }
       }
     },
@@ -1630,49 +1649,49 @@ export default {
       if (!this.canSave) return;
       if (this.newChecklistItem) this.addChecklistItem();
 
-      if (this.task.type === 'reward') {
+      if (this.editedTask.type === 'reward') {
         this.validateValue('taskValue');
-        this.task.value = this.taskValue;
+        this.editedTask.value = this.taskValue;
       }
 
       if (this.purpose === 'create') {
         if (this.challengeId) {
           const response = await this.$store.dispatch('tasks:createChallengeTasks', {
             challengeId: this.challengeId,
-            tasks: [this.task],
+            tasks: [this.editedTask],
           });
-          Object.assign(this.task, response);
-          this.$emit('taskCreated', this.task);
+          Object.assign(this.editedTask, response);
+          this.$emit('taskCreated', this.editedTask);
         } else if (this.groupId) {
           const response = await this.$store.dispatch('tasks:createGroupTasks', {
             groupId: this.groupId,
-            tasks: [this.task],
+            tasks: [this.editedTask],
           });
-          Object.assign(this.task, response);
+          Object.assign(this.editedTask, response);
           await this.$store.dispatch('tasks:assignTask', {
-            taskId: this.task._id,
+            taskId: this.editedTask._id,
             assignedUserIds: this.assignedMembers,
           });
           this.assignedMembers.forEach(memberId => {
-            if (!this.task.assignedUsersDetail) this.task.assignedUsersDetail = {};
-            this.task.assignedUsersDetail[memberId] = {
+            if (!this.editedTask.assignedUsersDetail) this.editedTask.assignedUsersDetail = {};
+            this.editedTask.assignedUsersDetail[memberId] = {
               assignedDate: new Date(),
               assigningUsername: this.user.auth.local.username,
               completed: false,
             };
           });
-          this.$emit('taskCreated', this.task);
+          this.$emit('taskCreated', this.editedTask);
         } else {
           this.createTask(this.task);
         }
       } else {
-        await this.saveTask(this.task);
-        this.$emit('taskEdited', this.task);
+        await this.saveTask(this.editedTask);
+        this.$emit('taskEdited', this.editedTask);
       }
       this.$root.$emit('bv::hide::modal', 'task-modal');
     },
     async destroy () {
-      const type = this.$t(this.task.type);
+      const type = this.$t(this.editedTask.type);
       const confirmed = await new Promise(resolve => {
         this.$root.$emit('habitica:delete-task-confirm', {
           message: this.$t('sureDeleteType', { type }),
@@ -1681,8 +1700,8 @@ export default {
         });
       });
       if (!confirmed) return;
-      this.destroyTask(this.task);
-      this.$emit('taskDestroyed', this.task);
+      this.destroyTask(this.editedTask);
+      this.$emit('taskDestroyed', this.editedTask);
       this.$root.$emit('bv::hide::modal', 'task-modal');
     },
     cancel () {
@@ -1699,12 +1718,12 @@ export default {
       const assignedIndex = this.assignedMembers.indexOf(memberId);
       if (assignedIndex === -1) {
         await this.$store.dispatch('tasks:unassignTask', {
-          taskId: this.task._id,
+          taskId: this.editedTask._id,
           userId: memberId,
         });
       } else {
         await this.$store.dispatch('tasks:assignTask', {
-          taskId: this.task._id,
+          taskId: this.editedTask._id,
           assignedUserIds: [memberId],
         });
       }
@@ -1713,7 +1732,7 @@ export default {
       if (this.purpose === 'edit') {
         for (const assignedMember of this.assignedMembers) {
           await this.$store.dispatch('tasks:unassignTask', { // eslint-disable-line no-await-in-loop
-            taskId: this.task._id,
+            taskId: this.editedTask._id,
             userId: assignedMember,
           });
         }
@@ -1743,9 +1762,9 @@ export default {
     },
     selectedAutocomplete (newText, newCaret) {
       if (this.activeField === 'title') {
-        this.task.text = newText;
+        this.editedTask.text = newText;
       } else {
-        this.task.notes = newText;
+        this.editedTask.notes = newText;
       }
       this.$nextTick(() => {
         this.textbox.setSelectionRange(newCaret, newCaret);
@@ -1755,7 +1774,7 @@ export default {
     async addTag (name) {
       const tagResult = await this.createTag({ name });
 
-      this.task.tags.push(tagResult.id);
+      this.editedTask.tags.push(tagResult.id);
     },
     validateValue (path) {
       const value = get(this, path);

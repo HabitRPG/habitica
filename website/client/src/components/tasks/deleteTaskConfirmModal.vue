@@ -44,67 +44,6 @@
   </b-modal>
 </template>
 
-<script>
-import alertIcon from '@/assets/svg/for-css/alert.svg?raw';
-
-export default {
-  data () {
-    return {
-      confirmationMessage: '',
-      taskType: '',
-      description: '',
-      customTitle: '',
-      customButtonText: '',
-      resolveCallback: null,
-      icons: Object.freeze({
-        alertIcon,
-      }),
-    };
-  },
-  computed: {
-    displayTitle () {
-      if (this.customTitle) return this.customTitle;
-      return this.$t('deleteType', { type: this.taskType });
-    },
-    buttonText () {
-      if (this.customButtonText) return this.customButtonText;
-      return this.displayTitle;
-    },
-  },
-  mounted () {
-    this.$root.$on('habitica:delete-task-confirm', config => {
-      this.confirmationMessage = config.message;
-      this.taskType = config.taskType || '';
-      this.description = config.description || '';
-      this.customTitle = config.title || '';
-      this.customButtonText = config.buttonText || '';
-      this.resolveCallback = config.resolve;
-      this.$root.$emit('bv::show::modal', 'delete-task-confirm-modal');
-    });
-  },
-  beforeDestroy () {
-    this.$root.$off('habitica:delete-task-confirm');
-  },
-  methods: {
-    confirm () {
-      if (this.resolveCallback) {
-        this.resolveCallback(true);
-      }
-      this.close();
-    },
-    cancel () {
-      if (this.resolveCallback) {
-        this.resolveCallback(false);
-      }
-      this.close();
-    },
-    close () {
-      this.$root.$emit('bv::hide::modal', 'delete-task-confirm-modal');
-    },
-  },
-};
-</script>
-
 <style lang="scss" scoped>
 @import '@/assets/scss/colors.scss';
 
@@ -221,3 +160,64 @@ export default {
   }
 }
 </style>
+
+<script>
+import alertIcon from '@/assets/svg/for-css/alert.svg?raw';
+
+export default {
+  data () {
+    return {
+      confirmationMessage: '',
+      taskType: '',
+      description: '',
+      customTitle: '',
+      customButtonText: '',
+      resolveCallback: null,
+      icons: Object.freeze({
+        alertIcon,
+      }),
+    };
+  },
+  computed: {
+    displayTitle () {
+      if (this.customTitle) return this.customTitle;
+      return this.$t('deleteType', { type: this.taskType });
+    },
+    buttonText () {
+      if (this.customButtonText) return this.customButtonText;
+      return this.displayTitle;
+    },
+  },
+  mounted () {
+    this.$root.$on('habitica:delete-task-confirm', config => {
+      this.confirmationMessage = config.message;
+      this.taskType = config.taskType || '';
+      this.description = config.description || '';
+      this.customTitle = config.title || '';
+      this.customButtonText = config.buttonText || '';
+      this.resolveCallback = config.resolve;
+      this.$root.$emit('bv::show::modal', 'delete-task-confirm-modal');
+    });
+  },
+  beforeDestroy () {
+    this.$root.$off('habitica:delete-task-confirm');
+  },
+  methods: {
+    confirm () {
+      if (this.resolveCallback) {
+        this.resolveCallback(true);
+      }
+      this.close();
+    },
+    cancel () {
+      if (this.resolveCallback) {
+        this.resolveCallback(false);
+      }
+      this.close();
+    },
+    close () {
+      this.$root.$emit('bv::hide::modal', 'delete-task-confirm-modal');
+    },
+  },
+};
+</script>

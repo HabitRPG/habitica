@@ -38,10 +38,22 @@
 <script>
 export default {
   props: {
-    checked: Boolean,
-    disabled: Boolean,
-    id: String,
-    text: String,
+    checked: {
+      type: Boolean,
+      required: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    id: {
+      type: String,
+      required: true,
+    },
+    text: {
+      type: String,
+      default: null,
+    },
   },
   data () {
     return {

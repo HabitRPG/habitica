@@ -219,7 +219,16 @@ import usersIcon from '@/assets/svg/users.svg?raw';
 import lastComplete from '@/assets/svg/last-complete.svg?raw';
 
 export default {
-  props: ['task', 'group'],
+  props: {
+    task: {
+      type: Object,
+      required: true,
+    },
+    group: {
+      type: Object,
+      required: true,
+    },
+  },
   data () {
     return {
       showStatus: false,

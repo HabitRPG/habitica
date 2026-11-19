@@ -178,10 +178,12 @@ export default {
   },
   props: {
     value: {
+      type: Boolean,
       default: true,
     },
     label: {
       type: String,
+      default: '',
     },
     boldLabel: {
       type: Boolean,
@@ -193,6 +195,7 @@ export default {
     },
     hoverText: {
       type: String,
+      default: '',
     },
     disabled: {
       type: Boolean,

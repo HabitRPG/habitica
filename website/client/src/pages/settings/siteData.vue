@@ -43,6 +43,10 @@
   </div>
 </template>
 
+<style scoped>
+
+</style>
+
 <script>
 import UserIdRow from '@/pages/settings/siteDataRows/userIdRow.vue';
 import UserDataRow from '@/pages/settings/siteDataRows/userDataRow.vue';
@@ -68,7 +72,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-
-</style>

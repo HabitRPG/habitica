@@ -124,15 +124,19 @@ export default {
   props: {
     items: {
       type: Array,
+      required: true,
     },
     itemType: {
       type: Number,
+      required: true,
     },
     itemWidth: {
       type: Number,
+      required: true,
     },
     itemMargin: {
       type: Number,
+      required: true,
     },
   },
   data () {

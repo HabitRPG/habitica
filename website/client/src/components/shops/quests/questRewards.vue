@@ -123,58 +123,6 @@
   </div>
 </template>
 
-<script>
-import sparkles from '@/assets/svg/sparkles-left.svg?raw';
-import expIcon from '@/assets/svg/experience.svg?raw';
-import goldIcon from '@/assets/svg/gold.svg?raw';
-import SectionButton from '../../sectionButton';
-import ItemWithLabel from '../itemWithLabel';
-import { QuestHelperMixin } from './quest-helper.mixin';
-import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
-import QuestPopover from './questPopover';
-import CountBadge from '../../ui/countBadge';
-import Sprite from '../../ui/sprite';
-
-export default {
-  components: {
-    CountBadge,
-    QuestPopover,
-    ItemWithLabel,
-    SectionButton,
-    EquipmentAttributesPopover,
-    Sprite,
-  },
-  mixins: [QuestHelperMixin],
-  props: ['quest'],
-  data () {
-    return {
-      opened: true,
-      icons: Object.freeze({
-        sparkles,
-        expIcon,
-        goldIcon,
-      }),
-    };
-  },
-  computed: {
-    droppedItem () {
-      const item = this.quest.drop.items[0];
-
-      if (item) {
-        return item;
-      }
-
-      return null;
-    },
-  },
-  methods: {
-    toggle () {
-      this.opened = !this.opened;
-    },
-  },
-};
-</script>
-
 <style scoped lang="scss">
   @import '@/assets/scss/colors.scss';
 
@@ -237,3 +185,60 @@ export default {
     }
   }
 </style>
+
+<script>
+import sparkles from '@/assets/svg/sparkles-left.svg?raw';
+import expIcon from '@/assets/svg/experience.svg?raw';
+import goldIcon from '@/assets/svg/gold.svg?raw';
+import SectionButton from '../../sectionButton';
+import ItemWithLabel from '../itemWithLabel';
+import { QuestHelperMixin } from './quest-helper.mixin';
+import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
+import QuestPopover from './questPopover';
+import CountBadge from '../../ui/countBadge';
+import Sprite from '../../ui/sprite';
+
+export default {
+  components: {
+    CountBadge,
+    QuestPopover,
+    ItemWithLabel,
+    SectionButton,
+    EquipmentAttributesPopover,
+    Sprite,
+  },
+  mixins: [QuestHelperMixin],
+  props: {
+    quest: {
+      type: Object,
+      required: true,
+    },
+  },
+  data () {
+    return {
+      opened: true,
+      icons: Object.freeze({
+        sparkles,
+        expIcon,
+        goldIcon,
+      }),
+    };
+  },
+  computed: {
+    droppedItem () {
+      const item = this.quest.drop.items[0];
+
+      if (item) {
+        return item;
+      }
+
+      return null;
+    },
+  },
+  methods: {
+    toggle () {
+      this.opened = !this.opened;
+    },
+  },
+};
+</script>

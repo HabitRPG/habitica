@@ -397,9 +397,11 @@ export default {
   },
   props: {
     challenge: {
+      type: Object,
       required: true,
     },
     fullLayout: {
+      type: Boolean,
       default: true,
     },
   },

@@ -16,22 +16,6 @@
   </button>
 </template>
 
-<script>
-import svgClose from '@/assets/svg/close.svg?raw';
-
-export default {
-  name: 'CloseIcon',
-  props: ['iconColor', 'iconColorHover', 'purple'],
-  data () {
-    return {
-      icons: Object.freeze({
-        close: svgClose,
-      }),
-    };
-  },
-};
-</script>
-
 <style lang="scss" scoped>
   @import '@/assets/scss/colors.scss';
 
@@ -65,3 +49,32 @@ export default {
     }
   }
 </style>
+
+<script>
+import svgClose from '@/assets/svg/close.svg?raw';
+
+export default {
+  name: 'CloseIcon',
+  props: {
+    iconColor: {
+      type: String,
+      default: null,
+    },
+    iconColorHover: {
+      type: String,
+      default: null,
+    },
+    purple: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        close: svgClose,
+      }),
+    };
+  },
+};
+</script>

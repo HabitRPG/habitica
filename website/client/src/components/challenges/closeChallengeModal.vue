@@ -363,7 +363,20 @@ export default {
   components: {
     closeX,
   },
-  props: ['challengeId', 'prize', 'flagCount'],
+  props: {
+    challengeId: {
+      type: String,
+      required: true,
+    },
+    prize: {
+      type: Number,
+      required: true,
+    },
+    flagCount: {
+      type: Number,
+      required: true,
+    },
+  },
   data () {
     return {
       winner: {},

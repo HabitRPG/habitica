@@ -44,55 +44,6 @@
   </b-modal>
 </template>
 
-<script>
-import svgGem from '@/assets/svg/gem.svg?raw';
-import svgHourglass from '@/assets/svg/hourglass.svg?raw';
-
-export default {
-  data () {
-    return {
-      confirmationMessage: '',
-      currency: 'gems',
-      cost: 0,
-      resolveCallback: null,
-      icons: Object.freeze({
-        gems: svgGem,
-        hourglasses: svgHourglass,
-      }),
-    };
-  },
-  mounted () {
-    this.$root.$on('habitica:purchase-confirm', config => {
-      this.confirmationMessage = config.message;
-      this.currency = config.currency || 'gems';
-      this.cost = config.cost || 0;
-      this.resolveCallback = config.resolve;
-      this.$root.$emit('bv::show::modal', 'purchase-confirm-modal');
-    });
-  },
-  beforeDestroy () {
-    this.$root.$off('habitica:purchase-confirm');
-  },
-  methods: {
-    confirm () {
-      if (this.resolveCallback) {
-        this.resolveCallback(true);
-      }
-      this.close();
-    },
-    cancel () {
-      if (this.resolveCallback) {
-        this.resolveCallback(false);
-      }
-      this.close();
-    },
-    close () {
-      this.$root.$emit('bv::hide::modal', 'purchase-confirm-modal');
-    },
-  },
-};
-</script>
-
 <style lang="scss" scoped>
 @import '@/assets/scss/colors.scss';
 
@@ -205,3 +156,52 @@ export default {
   }
 }
 </style>
+
+<script>
+import svgGem from '@/assets/svg/gem.svg?raw';
+import svgHourglass from '@/assets/svg/hourglass.svg?raw';
+
+export default {
+  data () {
+    return {
+      confirmationMessage: '',
+      currency: 'gems',
+      cost: 0,
+      resolveCallback: null,
+      icons: Object.freeze({
+        gems: svgGem,
+        hourglasses: svgHourglass,
+      }),
+    };
+  },
+  mounted () {
+    this.$root.$on('habitica:purchase-confirm', config => {
+      this.confirmationMessage = config.message;
+      this.currency = config.currency || 'gems';
+      this.cost = config.cost || 0;
+      this.resolveCallback = config.resolve;
+      this.$root.$emit('bv::show::modal', 'purchase-confirm-modal');
+    });
+  },
+  beforeDestroy () {
+    this.$root.$off('habitica:purchase-confirm');
+  },
+  methods: {
+    confirm () {
+      if (this.resolveCallback) {
+        this.resolveCallback(true);
+      }
+      this.close();
+    },
+    cancel () {
+      if (this.resolveCallback) {
+        this.resolveCallback(false);
+      }
+      this.close();
+    },
+    close () {
+      this.$root.$emit('bv::hide::modal', 'purchase-confirm-modal');
+    },
+  },
+};
+</script>

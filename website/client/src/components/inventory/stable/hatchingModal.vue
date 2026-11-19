@@ -123,7 +123,12 @@ export default {
     Sprite,
   },
   mixins: [petMixin],
-  props: ['hatchablePet'],
+  props: {
+    hatchablePet: {
+      type: Object,
+      required: true,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({

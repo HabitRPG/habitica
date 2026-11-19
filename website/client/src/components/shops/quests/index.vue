@@ -170,28 +170,28 @@
             >
               <span
                 slot="popoverContent"
-                slot-scope="ctx"
+                slot-scope="popoverCtx"
               >
                 <div class="questPopover">
-                  <h4 class="popover-content-title">{{ ctx.item.text }}</h4>
-                  <questInfo :quest="ctx.item" />
+                  <h4 class="popover-content-title">{{ popoverCtx.item.text }}</h4>
+                  <questInfo :quest="popoverCtx.item" />
                 </div>
               </span>
               <template
                 slot="itemBadge"
-                slot-scope="ctx"
+                slot-scope="badgeCtx"
               >
                 <span
                   class="badge-top"
-                  @click.prevent.stop="togglePinned(ctx.item)"
+                  @click.prevent.stop="togglePinned(badgeCtx.item)"
                 >
                   <pin-badge
-                    :pinned="ctx.item.pinned"
+                    :pinned="badgeCtx.item.pinned"
                   />
                 </span>
                 <countBadge
-                  :show="userItems.quests[ctx.item.key] > 0"
-                  :count="userItems.quests[ctx.item.key] || 0"
+                  :show="userItems.quests[badgeCtx.item.key] > 0"
+                  :count="userItems.quests[badgeCtx.item.key] || 0"
                 />
               </template>
             </shopItem>

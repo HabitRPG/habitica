@@ -398,7 +398,10 @@
                 :placeholder="$t('imageUrl')"
               >
             </div>
-            <div class="form-group" style="position: relative;">
+            <div
+              class="form-group"
+              style="position: relative;"
+            >
               <label>{{ $t('about') }}</label>
               <textarea
                 ref="blurbTextarea"
@@ -1032,7 +1035,16 @@ export default {
     emojiAutoComplete,
   },
   mixins: [externalLinks, userCustomStateMixin('userLoggedIn'), autoCompleteHelperMixin],
-  props: ['userId', 'startingPage'],
+  props: {
+    userId: {
+      type: String,
+      required: true,
+    },
+    startingPage: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({

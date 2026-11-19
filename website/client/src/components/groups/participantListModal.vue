@@ -135,7 +135,12 @@ export default {
     CloseIcon,
     MemberDetailsNew,
   },
-  props: ['group'],
+  props: {
+    group: {
+      type: Object,
+      required: true,
+    },
+  },
   computed: {
     ...mapGetters({
       partyMembers: 'party:members',
