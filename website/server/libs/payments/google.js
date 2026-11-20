@@ -301,8 +301,8 @@ api.subscribe = async function subscribe (
       // The user cancelled and then resubscribed through the Play Store, which keeps the token.
       // Cancelling moved the extra months into dateTerminated
       const paidUntil = plan.datePaymentExpired || Number(purchase.expiryTimeMillis) || new Date();
-      const extraMonths = moment(plan.dateTerminated).diff(paidUntil, 'months', true);
-      plan.extraMonths = Number(plan.extraMonths || 0) + Math.max(0, extraMonths);
+      const extraDays = moment(plan.dateTerminated).diff(paidUntil, 'days', true);
+      plan.extraMonths = Number(plan.extraMonths || 0) + Math.max(0, extraDays / 30.5);
       plan.dateTerminated = null;
       plan.datePaymentExpired = null;
       if (purchase.expiryTimeMillis) {

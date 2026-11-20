@@ -70,6 +70,15 @@ describe('stripe - #calculateSubscriptionTerminationDate', () => {
     expect(expectedTerminationDate.diff(terminationDate, 'days')).to.eql(0);
   });
 
+  it('terminates exactly at nextBill regardless of the current time of day', () => {
+    const clock = sinon.useFakeTimers(new Date('2026-11-18T05:00:00Z'));
+    nextBill = new Date('2026-12-10T20:00:00Z');
+
+    const terminationDate = calculateSubscriptionTerminationDate(nextBill, plan, groupPlanId);
+    clock.restore();
+    expect(terminationDate.valueOf()).to.equal(nextBill.valueOf());
+  });
+
   it('returns current terminated date if it exists and is later than newly calculated date', () => {
     const expectedTerminationDate = moment().add({ months: 5 }).toDate();
     plan.dateTerminated = expectedTerminationDate;

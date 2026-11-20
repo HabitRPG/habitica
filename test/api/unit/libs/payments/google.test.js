@@ -7,6 +7,7 @@ import { model as User } from '../../../../../website/server/models/user';
 import { model as IapPurchaseReceipt } from '../../../../../website/server/models/iapPurchaseReceipt';
 import common from '../../../../../website/common';
 import * as gems from '../../../../../website/server/libs/payments/gems';
+import calculateSubscriptionTerminationDate from '../../../../../website/server/libs/payments/calculateSubscriptionTerminationDate';
 
 const { i18n } = common;
 
@@ -270,6 +271,38 @@ describe('Google Payments', () => {
         });
 
       expect(paymentsCreateSubscriptionStub).to.not.be.called;
+    });
+
+    it('keeps the termination date stable across repeated cancel/restore cycles', async () => {
+      iapGetPurchaseDataStub.restore();
+      iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
+        .returns([{
+          productId: sku,
+          purchaseToken: token,
+          paymentState: 1,
+          autoRenewing: true,
+          startTimeMillis: Date.now(),
+          expiryTimeMillis: expirationDate.valueOf(),
+        }]);
+      const { plan } = user.purchased;
+      plan.planId = 'basic_3mo';
+      plan.customerId = token;
+      plan.paymentMethod = googlePayments.constants.PAYMENT_METHOD_GOOGLE;
+      plan.extraMonths = 1;
+
+      let firstTermination;
+      for (let i = 0; i < 5; i += 1) {
+        // what payments.cancelSubscription does to the plan
+        plan.dateTerminated = calculateSubscriptionTerminationDate(expirationDate.toDate(), plan);
+        plan.datePaymentExpired = expirationDate.toDate();
+        plan.extraMonths = 0;
+        if (i === 0) firstTermination = plan.dateTerminated.valueOf();
+        expect(plan.dateTerminated.valueOf()).to.equal(firstTermination);
+
+        // eslint-disable-next-line no-await-in-loop
+        await googlePayments.subscribe(user, receipt, signature, headers);
+        expect(plan.dateTerminated).to.be.null;
+      }
     });
   });
 
