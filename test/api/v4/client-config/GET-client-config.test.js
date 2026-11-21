@@ -1,6 +1,15 @@
+import superagent from 'superagent';
+import nconf from 'nconf';
 import {
   requester, generateUser,
 } from '../../../helpers/api-integration/v4';
+
+// The requester only returns `data`, so fetch the full body
+async function getBody (route) {
+  const res = await superagent.get(`http://localhost:${nconf.get('PORT')}/api/v4${route}`)
+    .accept('application/json');
+  return res.body;
+}
 
 describe('GET /client-config', () => {
   let admin;
@@ -26,6 +35,13 @@ describe('GET /client-config', () => {
   it('does not require authentication and resolves the web value', async () => {
     const res = await requester().get('/client-config?platform=web');
     expect(res[key]).to.equal('default');
+  });
+
+  it('includes clientConfigV, matching other routes', async () => {
+    const configBody = await getBody('/client-config?platform=web');
+    expect(configBody.clientConfigV).to.match(/^[0-9a-f]{12}$/);
+    const statusBody = await getBody('/status');
+    expect(statusBody.clientConfigV).to.equal(configBody.clientConfigV);
   });
 
   it('prefers a platform specific override over mobile', async () => {

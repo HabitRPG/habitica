@@ -5,6 +5,7 @@ import {
 } from '../../../helpers/api-unit.helper';
 import responseMiddleware from '../../../../website/server/middlewares/response';
 import packageInfo from '../../../../package.json';
+import * as clientConfig from '../../../../website/server/libs/clientConfig';
 
 describe('response middleware', () => {
   let res; let req; let
@@ -65,6 +66,27 @@ describe('response middleware', () => {
       success: true,
       data: { field: 1 },
       appVersion: packageInfo.version,
+    });
+  });
+
+  it('omits clientConfigV while the client config is not loaded', () => {
+    sandbox.stub(clientConfig, 'getClientConfigVersion').returns(undefined);
+    responseMiddleware(req, res, next);
+    res.respond(200, { field: 1 });
+
+    expect(res.json.firstCall.args[0]).to.not.have.property('clientConfigV');
+  });
+
+  it('includes clientConfigV once the client config is loaded, even without user data', () => {
+    sandbox.stub(clientConfig, 'getClientConfigVersion').returns('abcdef123456');
+    responseMiddleware(req, res, next);
+    res.respond(200, { field: 1 }, undefined, { includeUserData: false });
+
+    expect(res.json).to.be.calledWith({
+      success: true,
+      data: { field: 1 },
+      appVersion: packageInfo.version,
+      clientConfigV: 'abcdef123456',
     });
   });
 

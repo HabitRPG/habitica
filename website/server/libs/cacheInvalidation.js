@@ -4,7 +4,7 @@ import setupRedis from './redis';
 
 const CHANNEL = 'cache:invalidate';
 const IS_TEST = nconf.get('IS_TEST');
-const ENABLED = nconf.get('CACHE_INVALIDATION_ENABLED') === 'true';
+const ENABLED = String(nconf.get('CACHE_INVALIDATION_ENABLED')) !== 'false';
 
 const reloaders = {};
 let publisher;

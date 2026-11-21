@@ -1,4 +1,5 @@
 import packageInfo from '../../../package.json';
+import { getClientConfigVersion } from '../libs/clientConfig';
 
 export default function responseHandler (req, res, next) {
   // Only used for successful responses
@@ -21,6 +22,9 @@ export default function responseHandler (req, res, next) {
     }
 
     response.appVersion = packageInfo.version;
+
+    const clientConfigV = getClientConfigVersion();
+    if (clientConfigV) response.clientConfigV = clientConfigV;
 
     res.status(status).json(response);
   };

@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import nconf from 'nconf';
 import uniq from 'lodash/uniq';
 import { model as ClientConfigOption, minifyJsonValue } from '../models/clientConfigOption';
@@ -63,6 +64,33 @@ function compileOption (option) {
   };
 }
 
+export function computeClientConfigVersion (options, segments) {
+  const byKey = (a, b) => (a.key < b.key ? -1 : Number(a.key > b.key));
+  const byId = (a, b) => (a.id < b.id ? -1 : Number(a.id > b.id));
+  const canonical = JSON.stringify({
+    options: options
+      .map(({
+        key, type, defaultValue, values,
+      }) => ({
+        key,
+        type,
+        defaultValue,
+        // override order is kept, it breaks ties
+        values: (values || [])
+          .map(({ platform, segment, value }) => ({ platform, segment, value })),
+      }))
+      .sort(byKey),
+    segments: segments
+      .map(({ _id, conditions }) => ({
+        id: _id,
+        conditions: (conditions || [])
+          .map(({ attribute, operator, value }) => ({ attribute, operator, value })),
+      }))
+      .sort(byId),
+  });
+  return crypto.createHash('sha1').update(canonical).digest('hex').slice(0, 12);
+}
+
 async function reloadClientConfig () {
   const options = (await ClientConfigOption
     .find({ enabled: true })
@@ -89,14 +117,20 @@ async function reloadClientConfig () {
     segments: segments.map(segment => ({ id: segment._id, test: compileSegment(segment) })),
     userFields: uniq(segments.flatMap(getSegmentUserFields)),
     resolved,
+    version: computeClientConfigVersion(options, segments),
   };
 }
 
 registerReloader(CACHE_TYPE, reloadClientConfig, { interval: RELOAD_INTERVAL });
+if (!nconf.get('IS_TEST')) reload(CACHE_TYPE);
 
 export async function loadClientConfig () {
   if (!cache) await reload(CACHE_TYPE);
   if (!cache) throw new Error('Client config could not be loaded');
+}
+
+export function getClientConfigVersion () {
+  return cache ? cache.version : undefined;
 }
 
 // Whether any enabled option is targeted at a segment, meaning the user has to be loaded
