@@ -8,8 +8,11 @@ import csvStringify from '../../libs/csvStringify';
 import { marshallUserData } from '../../libs/xmlMarshaller';
 import * as Tasks from '../../models/task';
 import * as inboxLib from '../../libs/inbox';
-// import { model as User } from '../../models/user';
+import { model as User } from '../../models/user';
 import { authWithSession } from '../../middlewares/auth';
+import { ensurePermission } from '../../middlewares/ensureAccessRight';
+import { ensureAdminPanelEnabled } from '../../middlewares/ensureAdminPanelEnabled';
+import { NotFound } from '../../libs/errors';
 
 const api = {};
 
@@ -20,6 +23,37 @@ const api = {};
  * **Note:** They are intended to be used on the website only and as such are part
  * of the private API and may change at any time.
  */
+
+async function _sendUserHistory (user, res) {
+  const tasks = await Tasks.Task.find({
+    userId: user._id,
+    type: { $in: ['habit', 'daily'] },
+  }).lean().exec();
+
+  const output = [
+    ['Task Name', 'Task ID', 'Task Type', 'Date', 'Value'],
+  ];
+
+  tasks.forEach(task => {
+    task.history.forEach(history => {
+      output.push([
+        task.text,
+        task._id,
+        task.type,
+        moment(history.date).format('YYYY-MM-DD HH:mm:ss'),
+        history.value,
+      ]);
+    });
+  });
+
+  res.set({
+    'Content-Type': 'text/csv',
+    'Content-disposition': 'attachment; filename=habitica-tasks-history.csv',
+  });
+
+  const csvRes = await csvStringify(output);
+  res.status(200).send(csvRes);
+}
 
 /**
  * @api {get} /export/history.csv Export user tasks history in CSV format
@@ -40,36 +74,7 @@ api.exportUserHistory = {
   url: '/export/history.csv',
   middlewares: [authWithSession],
   async handler (req, res) {
-    const { user } = res.locals;
-
-    const tasks = await Tasks.Task.find({
-      userId: user._id,
-      type: { $in: ['habit', 'daily'] },
-    }).lean().exec();
-
-    const output = [
-      ['Task Name', 'Task ID', 'Task Type', 'Date', 'Value'],
-    ];
-
-    tasks.forEach(task => {
-      task.history.forEach(history => {
-        output.push([
-          task.text,
-          task._id,
-          task.type,
-          moment(history.date).format('YYYY-MM-DD HH:mm:ss'),
-          history.value,
-        ]);
-      });
-    });
-
-    res.set({
-      'Content-Type': 'text/csv',
-      'Content-disposition': 'attachment; filename=habitica-tasks-history.csv',
-    });
-
-    const csvRes = await csvStringify(output);
-    res.status(200).send(csvRes);
+    await _sendUserHistory(res.locals.user, res);
   },
 };
 
@@ -100,6 +105,18 @@ async function _getUserDataForExport (user) {
   return userData;
 }
 
+async function _sendUserDataJson (user, res) {
+  const userData = await _getUserDataForExport(user);
+
+  res.set({
+    'Content-Type': 'application/json',
+    'Content-disposition': 'attachment; filename=habitica-user-data.json',
+  });
+  const jsonRes = JSON.stringify(userData);
+
+  res.status(200).send(jsonRes);
+}
+
 /**
  * @api {get} /export/userdata.json Export user data in JSON format
  * @apiName ExportUserDataJson
@@ -112,17 +129,20 @@ api.exportUserDataJson = {
   url: '/export/userdata.json',
   middlewares: [authWithSession],
   async handler (req, res) {
-    const userData = await _getUserDataForExport(res.locals.user);
-
-    res.set({
-      'Content-Type': 'application/json',
-      'Content-disposition': 'attachment; filename=habitica-user-data.json',
-    });
-    const jsonRes = JSON.stringify(userData);
-
-    res.status(200).send(jsonRes);
+    await _sendUserDataJson(res.locals.user, res);
   },
 };
+
+async function _sendUserDataXml (user, res) {
+  const userData = await _getUserDataForExport(user);
+  const xmlData = marshallUserData(userData);
+
+  res.set({
+    'Content-Type': 'text/xml',
+    'Content-disposition': 'attachment; filename=habitica-user-data.xml',
+  });
+  res.status(200).send(xmlData);
+}
 
 /**
  * @api {get} /export/userdata.xml Export user data in XML format
@@ -137,16 +157,45 @@ api.exportUserDataXml = {
   url: '/export/userdata.xml',
   middlewares: [authWithSession],
   async handler (req, res) {
-    const userData = await _getUserDataForExport(res.locals.user);
-    const xmlData = marshallUserData(userData);
-
-    res.set({
-      'Content-Type': 'text/xml',
-      'Content-disposition': 'attachment; filename=habitica-user-data.xml',
-    });
-    res.status(200).send(xmlData);
+    await _sendUserDataXml(res.locals.user, res);
   },
 };
+
+async function _sendUserPrivateMessages (user, res) {
+  const timezoneUtcOffset = user.getUtcOffset();
+  const dateFormat = user.preferences.dateFormat.toUpperCase();
+  const TO = res.t('to');
+  const FROM = res.t('from');
+
+  const inbox = await inboxLib.getUserInbox(user);
+
+  let messages = '<!DOCTYPE html><html><head></head><body>';
+
+  inbox.forEach((message, index) => {
+    const recipientLabel = message.sent ? TO : FROM;
+    const messageUser = message.user;
+    const timestamp = moment.utc(message.timestamp).utcOffset(timezoneUtcOffset).format(`${dateFormat} HH:mm:ss`);
+    const text = md.render(message.text);
+    const pageIndex = `(${index + 1}/${inbox.length})`;
+    messages += `
+    <p>
+      ${recipientLabel} <strong>${messageUser}</strong> ${timestamp}
+      ${pageIndex}
+      <br />
+      ${text}
+    </p>
+    <hr />`;
+  });
+
+  messages += '</body></html>';
+
+  res.set({
+    'Content-Type': 'text/html',
+    'Content-disposition': 'attachment; filename=inbox.html',
+  });
+
+  res.status(200).send(messages);
+}
 
 /**
  * @api {get} /export/inbox.html Export user private messages as HTML document
@@ -161,41 +210,85 @@ api.exportUserPrivateMessages = {
   url: '/export/inbox.html',
   middlewares: [authWithSession],
   async handler (req, res) {
-    const { user } = res.locals;
+    await _sendUserPrivateMessages(res.locals.user, res);
+  },
+};
 
-    const timezoneUtcOffset = user.getUtcOffset();
-    const dateFormat = user.preferences.dateFormat.toUpperCase();
-    const TO = res.t('to');
-    const FROM = res.t('from');
+// Admin versions of the exports above, so staff can send users their data
 
-    const inbox = await inboxLib.getUserInbox(user);
+const adminExportMiddlewares = [ensureAdminPanelEnabled, authWithSession, ensurePermission('userSupport')];
 
-    let messages = '<!DOCTYPE html><html><head></head><body>';
+async function _getUserForAdminExport (req, res) {
+  req.checkParams('userId', res.t('heroIdRequired')).notEmpty().isUUID();
+  const validationErrors = req.validationErrors();
+  if (validationErrors) throw validationErrors;
 
-    inbox.forEach((message, index) => {
-      const recipientLabel = message.sent ? TO : FROM;
-      const messageUser = message.user;
-      const timestamp = moment.utc(message.timestamp).utcOffset(timezoneUtcOffset).format(`${dateFormat} HH:mm:ss`);
-      const text = md.render(message.text);
-      const pageIndex = `(${index + 1}/${inbox.length})`;
-      messages += `
-      <p>
-        ${recipientLabel} <strong>${messageUser}</strong> ${timestamp}
-        ${pageIndex}
-        <br />
-        ${text}
-      </p>
-      <hr />`;
-    });
+  const user = await User.findById(req.params.userId).exec();
+  if (!user) throw new NotFound(res.t('userWithIDNotFound', { userId: req.params.userId }));
+  return user;
+}
 
-    messages += '</body></html>';
+/**
+ * @api {get} /export/admin/:userId/history.csv Export any user's tasks history in CSV format
+ * @apiName AdminExportUserHistory
+ * @apiGroup DataExport
+ * @apiPermission userSupport
+ */
+api.adminExportUserHistory = {
+  method: 'GET',
+  url: '/export/admin/:userId/history.csv',
+  middlewares: adminExportMiddlewares,
+  async handler (req, res) {
+    const user = await _getUserForAdminExport(req, res);
+    await _sendUserHistory(user, res);
+  },
+};
 
-    res.set({
-      'Content-Type': 'text/html',
-      'Content-disposition': 'attachment; filename=inbox.html',
-    });
+/**
+ * @api {get} /export/admin/:userId/userdata.json Export any user's data in JSON format
+ * @apiName AdminExportUserDataJson
+ * @apiGroup DataExport
+ * @apiPermission userSupport
+ */
+api.adminExportUserDataJson = {
+  method: 'GET',
+  url: '/export/admin/:userId/userdata.json',
+  middlewares: adminExportMiddlewares,
+  async handler (req, res) {
+    const user = await _getUserForAdminExport(req, res);
+    await _sendUserDataJson(user, res);
+  },
+};
 
-    res.status(200).send(messages);
+/**
+ * @api {get} /export/admin/:userId/userdata.xml Export any user's data in XML format
+ * @apiName AdminExportUserDataXml
+ * @apiGroup DataExport
+ * @apiPermission userSupport
+ */
+api.adminExportUserDataXml = {
+  method: 'GET',
+  url: '/export/admin/:userId/userdata.xml',
+  middlewares: adminExportMiddlewares,
+  async handler (req, res) {
+    const user = await _getUserForAdminExport(req, res);
+    await _sendUserDataXml(user, res);
+  },
+};
+
+/**
+ * @api {get} /export/admin/:userId/inbox.html Export any user's private messages as HTML
+ * @apiName AdminExportUserPrivateMessages
+ * @apiGroup DataExport
+ * @apiPermission userSupport
+ */
+api.adminExportUserPrivateMessages = {
+  method: 'GET',
+  url: '/export/admin/:userId/inbox.html',
+  middlewares: adminExportMiddlewares,
+  async handler (req, res) {
+    const user = await _getUserForAdminExport(req, res);
+    await _sendUserPrivateMessages(user, res);
   },
 };
 

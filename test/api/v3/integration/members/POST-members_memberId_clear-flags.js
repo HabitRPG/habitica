@@ -1,4 +1,5 @@
 import { v4 as generateUUID } from 'uuid';
+import nconf from 'nconf';
 import {
   generateUser,
   translate as t,
@@ -14,6 +15,17 @@ describe('POST /members/:memberId/clear-flags', () => {
     admin = await generateUser({ permissions: { userSupport: true } });
     moderator = await generateUser({ permissions: { moderator: true } });
     await reporter.post(`/members/${admin._id}/flag`);
+  });
+
+  let nconfStub;
+
+  beforeEach(() => {
+    nconfStub = sandbox.stub(nconf, 'get').callThrough();
+    nconfStub.withArgs('ENABLE_ADMIN_PANEL').returns('true');
+  });
+
+  afterEach(() => {
+    nconfStub.restore();
   });
 
   context('error cases', () => {

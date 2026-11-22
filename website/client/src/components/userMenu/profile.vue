@@ -231,7 +231,7 @@
 
                   <!-- ADMIN PANEL -->
                   <b-dropdown-item
-                    v-if="hasPermission(userLoggedIn, 'userSupport')"
+                    v-if="canViewAdminPanel"
                     class="selectListItem"
                     @click="openAdminPanel()"
                   >
@@ -995,6 +995,7 @@ import achievementsLib from '@/../../common/script/libs/achievements';
 import Content from '@/../../common/script/content';
 import toggleSwitch from '../ui/toggleSwitch';
 import { mapState } from '@/libs/store';
+import { ADMIN_PANEL_ENABLED } from '@/libs/consts';
 
 import MemberDetails from '../memberDetails';
 import markdown from '@/directives/markdown';
@@ -1124,6 +1125,9 @@ export default {
     // userBanned () {
     //   return this.userLoggedIn.auth.blocked.valueOf(this.user._id.auth.blocked);
     // },
+    canViewAdminPanel () {
+      return ADMIN_PANEL_ENABLED && this.hasPermission(this.userLoggedIn, 'userSupport');
+    },
     canReport () {
       if (!this.user || !this.user.profile || !this.user.profile.flags) {
         return true;

@@ -83,6 +83,8 @@
   "invalidQuantity": "Quantity to purchase must be a positive whole number.",
   "USD": "(USD)",
   "newStuff": "New Stuff by Bailey",
+  "showDrafts": "Show Drafts",
+  "showScheduled": "Show Scheduled",
   "newBaileyUpdate": "New Bailey Update!",
   "tellMeLater": "Tell Me Later",
   "dismissAlert": "Dismiss This Alert",

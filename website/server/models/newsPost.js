@@ -39,10 +39,12 @@ schema.statics.getNews = async function getNews (isAdmin, options = { page: 0 })
     page = options.page;
   }
 
+  const pageSize = isAdmin ? 30 : POSTS_PER_PAGE;
+
   return query
     .sort({ publishDate: -1 })
-    .limit(POSTS_PER_PAGE)
-    .skip(POSTS_PER_PAGE * Number(page))
+    .limit(pageSize)
+    .skip(pageSize * Number(page))
     .lean()
     .exec();
 };
