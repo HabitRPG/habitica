@@ -53,6 +53,15 @@ async function validateSegmentReferences (values) {
   if (count !== new Set(segmentIds).size) throw new BadRequest('Unknown client config segment');
 }
 
+async function saveOption (option, res) {
+  try {
+    return await option.save();
+  } catch (err) {
+    if (err.code === 11000) throw new BadRequest(res.t('clientConfigKeyInUse', { key: option.key }));
+    throw err;
+  }
+}
+
 api.retrieveClientConfig = {
   method: 'GET',
   url: '/client-config',
@@ -101,10 +110,10 @@ api.adminCreateClientConfig = {
     const id = uuid();
     const sanitized = AppConfigOption.sanitize(req.body);
     await validateSegmentReferences(sanitized.values);
-    const clientConfig = await AppConfigOption({
+    const clientConfig = await saveOption(AppConfigOption({
       ...sanitized,
       _id: id,
-    }).save();
+    }), res);
     await invalidateClientConfig();
 
     res.respond(200, clientConfig);
@@ -133,7 +142,7 @@ api.adminUpdateClientConfig = {
     await validateSegmentReferences(sanitized.values);
     merge(clientConfig, sanitized);
     if (sanitized.values) clientConfig.values = sanitized.values;
-    const savedClientConfig = await clientConfig.save();
+    const savedClientConfig = await saveOption(clientConfig, res);
     await invalidateClientConfig();
 
     res.respond(200, savedClientConfig);

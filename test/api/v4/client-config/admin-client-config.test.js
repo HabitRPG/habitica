@@ -2,7 +2,7 @@ import superagent from 'superagent';
 import nconf from 'nconf';
 import { v4 as generateUUID } from 'uuid';
 import {
-  requester, generateUser,
+  requester, generateUser, translate as t,
 } from '../../../helpers/api-integration/v4';
 
 // The requester only returns `data`, so fetch the full body
@@ -71,9 +71,14 @@ describe('client config admin edge cases', () => {
 
   it('rejects a duplicate key', async () => {
     const key = `dup${keySuffix}`;
+    const error = { code: 400, error: 'BadRequest', message: t('clientConfigKeyInUse', { key }) };
     await createOption({ key, type: 'text', defaultValue: 'x' });
     await expect(createOption({ key, type: 'text', defaultValue: 'y' }))
-      .to.eventually.be.rejected;
+      .to.eventually.be.rejected.and.eql(error);
+
+    const other = await createOption({ key: `dupOther${keySuffix}`, type: 'text', defaultValue: 'z' });
+    await expect(admin.put(`/admin/client-config/${other._id}`, { key }))
+      .to.eventually.be.rejected.and.eql(error);
   });
 
   it('coerces partial updates using the stored type', async () => {

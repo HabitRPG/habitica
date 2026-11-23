@@ -4,6 +4,7 @@
     "clientConfigs": "IcePeak",
     "clientConfigIdRequired": "\"clientConfigId\" must be a valid UUID.",
     "clientConfigNotFound": "Client config not found.",
+    "clientConfigKeyInUse": "The key \"<%= key %>\" is already used by another client config.",
     "segmentIdRequired": "\"segmentId\" must be a valid UUID.",
     "segmentNotFound": "Segment not found.",
     "segmentInUse": "This segment is still used by the client config \"<%= key %>\".",
