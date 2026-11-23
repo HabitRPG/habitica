@@ -73,8 +73,8 @@ api.retrieveClientConfig = {
       res.set('Cache-Control', 'private, no-cache');
     }
 
-    // Keep the body (and ETag) dependent only on the resolved config
-    res.respond(200, await getClientConfig(platform, user), undefined, { includeUserData: false });
+    const { config, version } = await getClientConfig(platform, user);
+    res.respond(200, config, undefined, { includeUserData: false, clientConfigV: version });
   },
 };
 
@@ -102,8 +102,8 @@ api.adminCreateClientConfig = {
     const sanitized = AppConfigOption.sanitize(req.body);
     await validateSegmentReferences(sanitized.values);
     const clientConfig = await AppConfigOption({
-      _id: id,
       ...sanitized,
+      _id: id,
     }).save();
     await invalidateClientConfig();
 
@@ -124,7 +124,12 @@ api.adminUpdateClientConfig = {
     const clientConfig = await AppConfigOption.findById(req.params.clientConfigId).exec();
     if (!clientConfig) throw new NotFound(res.t('clientConfigNotFound'));
 
-    const sanitized = AppConfigOption.sanitize(req.body);
+    const sanitized = AppConfigOption.sanitize({
+      type: clientConfig.type,
+      defaultValue: clientConfig.defaultValue,
+      values: clientConfig.toObject().values,
+      ...req.body,
+    });
     await validateSegmentReferences(sanitized.values);
     merge(clientConfig, sanitized);
     if (sanitized.values) clientConfig.values = sanitized.values;
@@ -184,8 +189,8 @@ api.adminCreateClientConfigSegment = {
   middlewares: [authWithHeaders(), ensurePermission('clientConfig')],
   async handler (req, res) {
     const segment = await ClientConfigSegment({
-      _id: uuid(),
       ...ClientConfigSegment.sanitize(req.body),
+      _id: uuid(),
     }).save();
     await invalidateClientConfig();
 

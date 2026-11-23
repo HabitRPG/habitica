@@ -145,7 +145,9 @@ export function getTargetingUserFields () {
 
 export async function getClientConfig (platform, user) {
   await loadClientConfig();
-  const { options, segments, resolved } = cache;
+  const {
+    options, segments, resolved, version,
+  } = cache;
 
   const matched = user ? segments.filter(segment => segment.test(user)).map(s => s.id) : [];
   const cacheKey = `${platform}|${matched.join(',')}`;
@@ -156,7 +158,7 @@ export async function getClientConfig (platform, user) {
     if (resolved.size >= MAX_RESOLVED_CONFIGS) resolved.clear();
     resolved.set(cacheKey, config);
   }
-  return config;
+  return { config, version };
 }
 
 export function invalidateClientConfig () {

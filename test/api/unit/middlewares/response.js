@@ -90,6 +90,14 @@ describe('response middleware', () => {
     });
   });
 
+  it('lets the caller pass the client config version to use', () => {
+    sandbox.stub(clientConfig, 'getClientConfigVersion').returns('current00000');
+    responseMiddleware(req, res, next);
+    res.respond(200, {}, undefined, { includeUserData: false, clientConfigV: 'snapshot0000' });
+
+    expect(res.json.firstCall.args[0].clientConfigV).to.equal('snapshot0000');
+  });
+
   it('treats status >= 400 as failures', () => {
     responseMiddleware(req, res, next);
     res.respond(403, { field: 1 });

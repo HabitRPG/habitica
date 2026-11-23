@@ -20,7 +20,7 @@ export const ATTRIBUTES = {
     name: 'Is subscriber',
     type: 'boolean',
     fields: ['purchased.plan'],
-    get: user => User.isSubscribed(user),
+    get: user => Boolean(User.isSubscribed(user)),
   },
   username: {
     name: 'Username',
@@ -73,6 +73,7 @@ export function coerceConditionValue (attribute, operator, value) {
     return list.map(v => String(v).trim()).filter(v => v.length > 0);
   }
   if (definition.type === 'number') {
+    if (value === '' || value === null || value === undefined) return undefined;
     const number = Number(value);
     return Number.isNaN(number) ? undefined : number;
   }

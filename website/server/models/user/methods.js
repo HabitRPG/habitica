@@ -30,7 +30,7 @@ const { daysSince } = common;
 
 schema.statics.isSubscribed = function isSubscribed (user) {
   const now = new Date();
-  const { plan } = user.purchased;
+  const plan = user.purchased && user.purchased.plan;
   return plan && plan.customerId
     && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
 };

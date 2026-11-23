@@ -33,6 +33,11 @@ function sanitizeJsonValue (value) {
 
 // Form values can arrive as strings, where Boolean("false") would be true
 const parseBoolean = value => value === true || value === 'true';
+const parseNumber = value => {
+  if (value === '' || value === null || value === undefined) return undefined;
+  const number = Number(value);
+  return Number.isFinite(number) ? number : undefined;
+};
 
 export function minifyJsonValue (value) {
   if (typeof value !== 'string') return JSON.stringify(value);
@@ -106,10 +111,10 @@ schema.plugin(baseModel, {
       });
     }
     if (type === 'number') {
-      option.defaultValue = Number(option.defaultValue);
+      option.defaultValue = parseNumber(option.defaultValue);
       if (Array.isArray(option.values)) {
         option.values.forEach(v => {
-          v.value = Number(v.value);
+          v.value = parseNumber(v.value);
         });
       }
     } else if (type === 'boolean') {

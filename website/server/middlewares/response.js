@@ -6,7 +6,7 @@ export default function responseHandler (req, res, next) {
   // Pass `{ includeUserData: false }` as options to omit the user's notifications and version,
   // e.g. for responses whose body should only depend on `data`
   res.respond = function respond (status = 200, data = {}, message, options = {}) {
-    const { includeUserData = true } = options;
+    const { includeUserData = true, clientConfigV = getClientConfigVersion() } = options;
     const user = res.locals && res.locals.user;
 
     const response = {
@@ -23,7 +23,6 @@ export default function responseHandler (req, res, next) {
 
     response.appVersion = packageInfo.version;
 
-    const clientConfigV = getClientConfigVersion();
     if (clientConfigV) response.clientConfigV = clientConfigV;
 
     res.status(status).json(response);
