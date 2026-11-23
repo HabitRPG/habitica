@@ -9,6 +9,10 @@ const APPLE_AUTH_CLIENT_ID = nconf.get('APPLE_AUTH_CLIENT_ID');
 const APPLE_TEAM_ID = nconf.get('APPLE_TEAM_ID');
 const APPLE_AUTH_KEY_ID = nconf.get('APPLE_AUTH_KEY_ID');
 const BASE_URL = nconf.get('BASE_URL');
+const APPLE_AUTH_AUDIENCES = [APPLE_AUTH_CLIENT_ID]
+  .concat((nconf.get('APPLE_AUTH_ADDITIONAL_AUDIENCES') || '').split(','))
+  .map(aud => aud && aud.trim())
+  .filter(Boolean);
 
 const appleAuth = new AppleAuth(JSON.stringify({
   client_id: APPLE_AUTH_CLIENT_ID, // eslint-disable-line camelcase
@@ -42,12 +46,15 @@ export async function appleProfile (req) {
   const signingKey = await getAppleSigningKey(decodedToken.header.kid);
   const applePublicKey = signingKey.getPublicKey();
 
-  const verifiedPayload = await jwt.verify(idToken, applePublicKey, { algorithms: 'RS256' });
+  const verifiedPayload = await jwt.verify(idToken, applePublicKey, {
+    algorithms: ['RS256'],
+    audience: APPLE_AUTH_AUDIENCES,
+    issuer: 'https://appleid.apple.com',
+  });
 
-  let { email } = verifiedPayload;
-  if ((!email || email === '') && req.body.email) {
-    email = req.body.email;
-  }
+  const email = verifiedPayload.email
+    && String(verifiedPayload.email_verified) === 'true'
+    ? verifiedPayload.email : undefined;
   return {
     id: verifiedPayload.sub,
     emails: [{ value: email }],
