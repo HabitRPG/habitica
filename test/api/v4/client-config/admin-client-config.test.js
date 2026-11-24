@@ -4,6 +4,7 @@ import { v4 as generateUUID } from 'uuid';
 import {
   requester, generateUser, translate as t,
 } from '../../../helpers/api-integration/v4';
+import { model as ClientConfigOption } from '../../../../website/server/models/clientConfigOption';
 
 // The requester only returns `data`, so fetch the full body
 async function getClientConfigV () {
@@ -27,6 +28,7 @@ describe('client config admin edge cases', () => {
   }
 
   before(async () => {
+    await ClientConfigOption.createIndexes();
     admin = await generateUser({ 'permissions.clientConfig': true });
   });
 
