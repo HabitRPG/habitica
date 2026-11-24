@@ -1,6 +1,5 @@
 import { v4 } from 'uuid';
-import { model as NewsPost, refreshNewsPost } from '../../../../website/server/models/newsPost';
-import { sleep, waitFor } from '../../../helpers/api-unit.helper';
+import { model as NewsPost, reloadLastNewsPostNow } from '../../../../website/server/models/newsPost';
 
 describe('NewsPost Model', () => {
   const publishDate = Number(new Date());
@@ -98,31 +97,9 @@ describe('NewsPost Model', () => {
     });
   });
 
-  context('refreshes NewsPost', () => {
-    let intervalId;
-
-    beforeEach(async () => {
-      // Delete all existing posts from the database
-      await NewsPost.deleteMany();
-    });
-
-    afterEach(() => {
-      if (intervalId) clearInterval(intervalId);
-    });
-
-    it('refreshes the last post at a specific interval', async () => {
-      // make sure all previous posts (up to publishDate + 300) are in the past
-      const msUntilPreviousPostsArePast = publishDate + 300 - Date.now();
-      if (msUntilPreviousPostsArePast > 0) await sleep(msUntilPreviousPostsArePast / 1000);
-
-      const previousPost = {
-        // in the past, so that the new post has a more recent publishDate
-        _id: v4(), publishDate: new Date(Date.now() - 10), published: true,
-      };
-      NewsPost.updateLastNewsPost(previousPost);
-      intervalId = refreshNewsPost(50); // refreshes every 50ms
-
-      const newPost = await NewsPost.create({
+  context('reloads the last post', () => {
+    function createPost (fields) {
+      return NewsPost.create({
         _id: v4(),
         publishDate: new Date(),
         author: v4(),
@@ -130,11 +107,35 @@ describe('NewsPost Model', () => {
         title: 'Title',
         credits: 'credits',
         text: 'text',
+        ...fields,
       });
+    }
 
+    beforeEach(async () => {
+      await NewsPost.deleteMany();
+    });
+
+    it('picks up a new post', async () => {
+      const newPost = await createPost();
+      await reloadLastNewsPostNow();
+      expect(NewsPost.lastNewsPost()._id).to.equal(newPost._id);
+    });
+
+    it('falls back to the previous post when the latest one is deleted', async () => {
+      const previousPost = await createPost({ publishDate: new Date(Date.now() - 1000) });
+      const latestPost = await createPost();
+      await reloadLastNewsPostNow();
+      expect(NewsPost.lastNewsPost()._id).to.equal(latestPost._id);
+
+      await NewsPost.deleteOne({ _id: latestPost._id });
+      await reloadLastNewsPostNow();
       expect(NewsPost.lastNewsPost()._id).to.equal(previousPost._id);
+    });
 
-      await waitFor(() => expect(NewsPost.lastNewsPost()._id).to.equal(newPost._id));
+    it('clears the post when none is published', async () => {
+      await createPost({ published: false });
+      await reloadLastNewsPostNow();
+      expect(NewsPost.lastNewsPost()).to.be.null;
     });
   });
 });

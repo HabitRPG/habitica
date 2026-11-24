@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import get from 'lodash/get';
 import sinon from 'sinon';
 import moment from 'moment';
@@ -13,7 +12,6 @@ import {
   // basicFields as basicGroupFields,
 } from '../../models/group';
 import { chatModel as Chat, inboxModel as Inbox } from '../../models/message';
-import connectToMongoDB from '../../libs/mongoose';
 
 const { content } = common;
 
@@ -255,12 +253,8 @@ function fakeClock () {
   clock = sinon.useFakeTimers({
     now: time,
     shouldAdvanceTime: true,
-    // sinon fakes nextTick and queueMicrotask by default,
-    // which would stop the server from processing anything
-    toFake: [
-      'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval',
-      'setImmediate', 'clearImmediate', 'Date', 'hrtime', 'performance',
-    ],
+    // Only fake Date: faking timers breaks the MongoDB driver's heartbeats
+    toFake: ['Date'],
   });
 }
 
@@ -307,10 +301,6 @@ api.timeTravelAdjust = {
       }
     } else {
       throw new BadRequest('Invalid command');
-    }
-
-    if (mongoose.connection.readyState === 0) {
-      await connectToMongoDB();
     }
 
     res.respond(200, {

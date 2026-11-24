@@ -12,6 +12,7 @@ const MAINTENANCE_MODE = nconf.get('MAINTENANCE_MODE');
 const MIN_POOL_SIZE = nconf.get('MONGODB_MIN_POOL_SIZE');
 const POOL_SIZE = nconf.get('MONGODB_POOL_SIZE');
 const SOCKET_TIMEOUT = nconf.get('MONGODB_SOCKET_TIMEOUT');
+const RealDate = Date; // captured before time travel can fake it
 
 const mongooseOptions = getDefaultConnectionOptions();
 
@@ -34,6 +35,11 @@ export default async function connectToMongoDB () {
 
     return mongoose.connect(connectionUrl, mongooseOptions).then(() => {
       logger.info('Connected with Mongoose.');
+      if (nconf.get('TIME_TRAVEL_ENABLED')) {
+        mongoose.connection.client.on('serverHeartbeatSucceeded', () => {
+          mongoose.connection._lastHeartbeatAt = RealDate.now();
+        });
+      }
     });
   }
   return null;

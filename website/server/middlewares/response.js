@@ -1,8 +1,12 @@
 import packageInfo from '../../../package.json';
+import { getClientConfigVersion } from '../libs/clientConfig';
 
 export default function responseHandler (req, res, next) {
   // Only used for successful responses
-  res.respond = function respond (status = 200, data = {}, message) {
+  // Pass `{ includeUserData: false }` as options to omit the user's notifications and version,
+  // e.g. for responses whose body should only depend on `data`
+  res.respond = function respond (status = 200, data = {}, message, options = {}) {
+    const { includeUserData = true, clientConfigV = getClientConfigVersion() } = options;
     const user = res.locals && res.locals.user;
 
     const response = {
@@ -12,12 +16,14 @@ export default function responseHandler (req, res, next) {
 
     if (message) response.message = message;
 
-    if (user) {
+    if (user && includeUserData) {
       response.notifications = user.notifications;
       response.userV = user._v;
     }
 
     response.appVersion = packageInfo.version;
+
+    if (clientConfigV) response.clientConfigV = clientConfigV;
 
     res.status(status).json(response);
   };

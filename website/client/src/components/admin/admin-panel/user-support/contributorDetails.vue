@@ -189,6 +189,11 @@ const permissionList = [
     description: 'Can manage IP-Address, Client and E-Mail blockers',
   },
   {
+    key: 'clientConfig',
+    name: 'IcePeak Access',
+    description: 'Can manage client configurations',
+  },
+  {
     key: 'coupons',
     name: 'Coupon Creator',
     description: 'Can manage coupon codes',
