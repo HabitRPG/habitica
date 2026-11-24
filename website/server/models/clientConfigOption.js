@@ -48,6 +48,39 @@ export function minifyJsonValue (value) {
   }
 }
 
+function isValidUrl (value) {
+  try {
+    return Boolean(new URL(value));
+  } catch (e) {
+    return false;
+  }
+}
+
+// Blank strings are allowed for string types, clients fall back to their own default
+const VALUE_CHECKS = {
+  text: v => typeof v === 'string',
+  number: v => typeof v === 'number' && Number.isFinite(v),
+  boolean: v => typeof v === 'boolean',
+  json: v => typeof v === 'string',
+  email: v => v === '' || (typeof v === 'string' && validator.isEmail(v)),
+  url: v => v === '' || (typeof v === 'string' && isValidUrl(v)),
+  date: v => v === '' || (typeof v === 'string' && validator.isISO8601(v)),
+};
+
+export function isValidConfigValue (type, value) {
+  const check = VALUE_CHECKS[type];
+  return !check || check(value); // unknown types are rejected by the `type` enum
+}
+
+const valueMatchesType = {
+  validator (value) {
+    const option = typeof this.ownerDocument === 'function' && this.ownerDocument() !== this
+      ? this.ownerDocument() : this;
+    return isValidConfigValue(option.type, value);
+  },
+  message: props => `Value "${props.value}" doesn't match the config type`,
+};
+
 export const schema = new mongoose.Schema({
   enabled: {
     $type: Boolean, default: true,
@@ -72,7 +105,7 @@ export const schema = new mongoose.Schema({
     $type: String, enum: configTypes, required: true,
   },
   defaultValue: {
-    $type: mongoose.Schema.Types.Mixed, required: true,
+    $type: mongoose.Schema.Types.Mixed, required: true, validate: valueMatchesType,
   },
   // Overrides of the default value. Each one targets a platform, a segment or both.
   values: {
@@ -85,7 +118,7 @@ export const schema = new mongoose.Schema({
           $type: String, ref: 'ClientConfigSegment', required: false,
         },
         value: {
-          $type: mongoose.Schema.Types.Mixed, required: true,
+          $type: mongoose.Schema.Types.Mixed, required: true, validate: valueMatchesType,
         },
       },
     ],
@@ -101,6 +134,7 @@ export const schema = new mongoose.Schema({
 });
 
 schema.plugin(baseModel, {
+  noSet: ['_id'],
   timestamps: true,
   sanitizeTransform (option) {
     const { type } = option;

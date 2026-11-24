@@ -44,6 +44,7 @@ export const schema = new mongoose.Schema({
 });
 
 schema.plugin(baseModel, {
+  noSet: ['_id'],
   timestamps: true,
   sanitizeTransform (segment) {
     if (Array.isArray(segment.conditions)) {

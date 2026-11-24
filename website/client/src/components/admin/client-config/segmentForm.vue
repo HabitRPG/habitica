@@ -227,7 +227,8 @@ export default {
       return name.length > 0
         && conditions.every(c => c.attribute && c.operator && c.value !== '');
     },
-    saveSegment () {
+    saveSegment (bvModalEvent) {
+      bvModalEvent.preventDefault();
       if (!this.canSave()) {
         return;
       }

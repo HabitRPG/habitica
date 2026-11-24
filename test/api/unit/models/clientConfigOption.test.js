@@ -46,8 +46,10 @@ describe('ClientConfigOption model', () => {
       }).values).to.eql([{ segment: 's', value: 'b' }]);
     });
 
-    it('strips timestamps', () => {
-      expect(ClientConfigOption.sanitize({ type: 'text', createdAt: 1, updatedAt: 1 }))
+    it('strips timestamps and _id', () => {
+      expect(ClientConfigOption.sanitize({
+        type: 'text', createdAt: 1, updatedAt: 1, _id: 'x',
+      }))
         .to.eql({ type: 'text' });
     });
   });
@@ -66,6 +68,21 @@ describe('ClientConfigOption model', () => {
     it('requires an alphanumeric key', () => {
       expect(validationErrors({ type: 'text', defaultValue: 'a', key: 'with-dash' })).to.include('key');
       expect(validationErrors({ type: 'text', defaultValue: 'a', key: 'with_underscore' })).to.include('key');
+    });
+
+    it('rejects values that do not match the type', () => {
+      expect(validationErrors({ type: 'text', defaultValue: { a: 1 } })).to.include('defaultValue');
+      expect(validationErrors({ type: 'email', defaultValue: 'nope', values: [{ platform: 'ios', value: 'a@b.co' }] }))
+        .to.eql(['defaultValue']);
+      expect(validationErrors({ type: 'url', defaultValue: 'https://habitica.com', values: [{ platform: 'ios', value: 'nope' }] }))
+        .to.eql(['values.0.value']);
+      expect(validationErrors({ type: 'date', defaultValue: '2026-13-45' })).to.include('defaultValue');
+    });
+
+    it('accepts valid and blank string values', () => {
+      expect(validationErrors({ type: 'email', defaultValue: '' })).to.eql([]);
+      expect(validationErrors({ type: 'url', defaultValue: 'habitica://tasks' })).to.eql([]);
+      expect(validationErrors({ type: 'date', defaultValue: '2026-11-24' })).to.eql([]);
     });
 
     it('rejects unknown types and platforms', () => {

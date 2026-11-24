@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: 'ConfigValueField',
+  name: 'ValuesDisplay',
   props: {
     type: {
       type: String,
@@ -54,7 +54,7 @@ export default {
       const parts = [];
       if (value.platform) parts.push(this.getPlatformName(value.platform));
       if (value.segment) {
-        const segment = this.getSegmentForValue(value);
+        const segment = this.segments.find(s => s._id === value.segment);
         parts.push(segment ? segment.name : 'Unknown segment');
       }
       return parts.join(' / ');

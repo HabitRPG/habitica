@@ -29,6 +29,7 @@ const CLIENT_HEADER_PLATFORMS = {
 const authForTargeting = authWithHeaders({
   optional: true,
   leanUser: true,
+  minimalUser: true,
   userFieldsToInclude: getTargetingUserFields,
 });
 

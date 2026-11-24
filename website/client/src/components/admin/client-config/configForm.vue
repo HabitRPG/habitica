@@ -48,7 +48,7 @@
           v-if="!isKeyValid"
           class="invalid-feedback"
         >
-          Keys can only contain letters, numbers, and underscores.
+          Keys can only contain letters and numbers.
         </div>
       </div>
       <div class="form-group col">
@@ -109,7 +109,7 @@
     <hr>
     <div
       v-for="(value, index) in editedConfig.values"
-      :key="value.itemIndex"
+      :key="value.rowKey"
       class="row"
     >
       <div class="form-group col-auto">
@@ -256,6 +256,9 @@ import deleteIcon from '@/assets/svg/delete.svg?raw';
 import arrowUpIcon from '@/assets/svg/up.svg?raw';
 import arrowDownIcon from '@/assets/svg/down.svg?raw';
 import LoadingSpinner from '../../ui/loadingSpinner';
+import isValidConfigValue from './isValidConfigValue';
+
+let nextRowKey = 0;
 
 export default {
   name: 'ConfigForm',
@@ -302,35 +305,34 @@ export default {
   mounted () {
     this.editedConfig = {
       ...this.config,
-      values: (this.config.values || []).map((v, i) => ({
-        itemIndex: i, platform: '', segment: '', ...v,
+      values: (this.config.values || []).map(v => ({
+        platform: '', segment: '', ...v, rowKey: nextRowKey++, // eslint-disable-line no-plusplus
       })),
     };
   },
   methods: {
     moveValueUp (index) {
-      if (index > 0) {
-        this.editedConfig.values[index].itemIndex -= 1;
-        this.editedConfig.values[index - 1].itemIndex += 1;
-        this.editedConfig.values.sort((a, b) => a.itemIndex - b.itemIndex);
-      }
+      if (index > 0) this.swapValues(index - 1);
     },
     moveValueDown (index) {
-      if (index < this.editedConfig.values.length - 1) {
-        this.editedConfig.values[index].itemIndex += 1;
-        this.editedConfig.values[index + 1].itemIndex -= 1;
-        this.editedConfig.values.sort((a, b) => a.itemIndex - b.itemIndex);
-      }
+      if (index < this.editedConfig.values.length - 1) this.swapValues(index);
+    },
+    swapValues (index) {
+      const [moved] = this.editedConfig.values.splice(index, 1);
+      this.editedConfig.values.splice(index + 1, 0, moved);
     },
     validateKey () {
       this.isKeyValid = this.editedConfig.key.length === 0 || /^[a-zA-Z0-9]+$/.test(this.editedConfig.key);
     },
     canSave () {
-      return this.isKeyValid && this.editedConfig.key.length > 0;
+      const { type, defaultValue, values } = this.editedConfig;
+      return this.isKeyValid && this.editedConfig.key.length > 0
+        && isValidConfigValue(type, defaultValue)
+        && values.every(v => isValidConfigValue(type, v.value));
     },
     addValue () {
       this.editedConfig.values.push({
-        itemIndex: this.editedConfig.values.length,
+        rowKey: nextRowKey++, // eslint-disable-line no-plusplus
         platform: '',
         segment: '',
         value: '',
@@ -353,12 +355,10 @@ export default {
           await this.$store.dispatch('clientConfig:updateClientConfig', { clientConfig: this.editedConfig });
         }
 
-        this.$nextTick(() => {
-          this.$emit('saved');
-          this.$bvModal.hide('modal-prevent-closing');
-        });
+        this.$emit('saved');
       } catch (error) {
-        this.formError = error.message || 'An error occurred while saving the config.';
+        this.formError = (error.response && error.response.data && error.response.data.message)
+          || error.message || 'An error occurred while saving the config.';
       }
       this.isSaving = false;
     },

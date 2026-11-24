@@ -18,6 +18,10 @@ const ENFORCE_CLIENT_HEADER = nconf.get('ENFORCE_CLIENT_HEADER') === 'true';
 const OFFICIAL_PLATFORMS = ['habitica-web', 'habitica-ios', 'habitica-android'];
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
 const USER_FIELDS_ALWAYS_LOADED = ['_id', '_v', 'notifications', 'preferences', 'auth', 'flags', 'permissions'];
+const USER_FIELDS_MINIMAL = [
+  '_id', 'preferences.analyticsConsent', 'preferences.language',
+  'auth.blocked', 'auth.local.username', 'auth.timestamps', 'flags.thirdPartyTools',
+];
 
 function getUserFields (options, req) {
   const excluded = options.userFieldsToExclude || [];
@@ -48,6 +52,10 @@ function getUserFields (options, req) {
         .find(fieldToInclude => field.startsWith(fieldToInclude)))
       .map(field => `-${field}`) // -${field} means exclude ${field} in mongodb
       .join(' ');
+  }
+
+  if (options.minimalUser) {
+    return included.concat(USER_FIELDS_MINIMAL).join(' ');
   }
 
   if (included.length > 0) {
